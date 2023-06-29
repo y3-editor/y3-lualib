@@ -1,0 +1,546 @@
+---@class Ability
+---@field handle py.Ability
+---@overload fun(py_ability: py.Ability): self
+local M = Class 'Ability'
+
+---所有技能实例
+M.map = {}
+
+---@param py_ability py.Ability
+---@return self
+function M:constructor(py_ability)
+    self.handle = py_ability
+    return self
+end
+
+---通过py层的技能实例获取lua层的技能实例
+---@param py_ability py.Ability # py层的技能实例
+---@return Ability ability # 返回在lua层初始化后的lua层技能实例
+function M.get_lua_ability_from_py(py_ability)
+    local ability = New 'Ability' (py_ability)
+    return ability
+end
+
+y3.py_converter.register_py_to_lua('py.Ability', M.get_lua_ability_from_py)
+y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
+    return lua_value.handle
+end)
+
+---是否受冷却缩减影响
+---@return boolean is_influenced 是否受冷却缩减影响
+function M:is_cd_reduce()
+    return self.handle:api_get_influenced_by_cd_reduce()
+end
+
+---消耗生命是否会死亡
+---@return boolean is_cost 消耗生命是否会死亡
+function M:is_cost_hp_can_die()
+    return self.handle:api_get_cost_hp_can_die()
+end
+
+---生命不足是否可以释放
+---@return boolean can_cast 生命不足是否可以释放
+function M:can_cast_when_hp_insufficient()
+    return self.handle:api_get_can_cast_when_hp_insufficient()
+end
+
+---是否具有标签
+---@param tag string 标签
+---@return boolean
+function M:has_tag(tag)
+    return GlobalAPI.has_tag(self.handle,tag)
+end
+
+---启用技能
+function M:enable()
+    self.handle:api_enable()
+end
+
+---禁用技能
+function M:disable()
+    self.handle:api_disable()
+end
+
+---进入冷却
+function M:restart_cd()
+    self.handle:api_restart_cd()
+end
+
+---完成冷却
+function M:complete_cd()
+    self.handle:api_immediately_clear_cd()
+end
+
+---移除技能
+function M:remove()
+    self.handle:api_remove()
+end
+
+---设置技能等级
+---@param level integer 等级
+function M:set_level(level)
+    self.handle:api_set_level(level)
+end
+
+---增加冷却时间
+---@param value number 冷却
+function M:add_cd(value)
+    self.handle:api_change_ability_cd_cold_down(Fix32(value))
+end
+
+---设置充能层数
+---@param value integer 层数
+function M:set_stack(value)
+    self.handle:api_set_ability_stack_count(value)
+end
+
+function M:get_name()
+    return self.handle:api_get_name()
+end
+
+---设置实数属性
+---@param key string 属性key
+---@param value number 属性值
+function M:set_float_attr(key, value)
+    self.handle:api_set_float_attr(key, Fix32(value))
+end
+
+---设置整数属性
+---@param key string 属性key
+---@param value integer 属性值
+function M:set_int_attr(key, value)
+    self.handle:api_set_int_attr(key, value)
+end
+
+---设置剩余冷却时间
+---@param value number 剩余冷却时间
+function M:set_cd(value)
+    self.handle:api_set_ability_cd(Fix32(value))
+end
+
+---增加技能等级
+---@param value integer 等级
+function M:add_level(value)
+    self.handle:api_add_level(value)
+end
+
+---增加技能充能层数
+---@param value integer 层数
+function M:add_stack(value)
+    self.handle:api_add_ability_stack_count(value)
+end
+
+---增加技能剩余冷却时间
+---@param value number 剩余冷却时间
+function M:add_remaining_cd(value)
+    self.handle:api_add_ability_cd(Fix32(value))
+end
+
+---增加实数属性
+---@param key string 属性key
+---@param value number 属性值
+function M:add_float_attr(key, value)
+    self.handle:api_add_float_attr(key, Fix32(value))
+end
+
+---增加整数属性
+---@param key string 属性key
+---@param value integer 属性值
+function M:add_int_attr(key, value)
+    self.handle:api_add_int_attr(key, value)
+end
+
+---设置技能名字
+---@param name string 技能名字
+function M:set_name(name)
+    self.handle:api_set_name(name)
+end
+
+---设置技能描述
+---@param des string 描述
+function M:set_description(des)
+    -- TODO 见问题1
+    ---@diagnostic disable-next-line: param-type-mismatch
+    self.handle:api_set_str_attr("desc", des)
+end
+
+---学习技能
+function M:learn()
+    self.handle:api_learn_ability()
+end
+
+---设置技能剩余充能时间
+---@param value number 剩余充能时间
+function M:set_charge_time(value)
+    self.handle:api_set_ability_cur_stack_cd(Fix32(value))
+end
+
+---设置技能施法范围
+---@param value number 施法范围
+function M:set_range(value)
+    self.handle:api_set_ability_cast_range(Fix32(value))
+end
+
+---设置技能施法范围
+---@return number # 施法范围
+function M:get_range()
+    return self.handle:api_get_ability_cast_range():float()
+end
+
+---设置技能玩家属性消耗
+---@param key string 属性key
+---@param value number 属性值
+function M:set_player_attr_cost(key, value)
+    self.handle:api_set_ability_player_attr_cost(key, Fix32(value))
+end
+
+---增加技能玩家属性消耗
+---@param key string 属性key
+---@param value number 属性值
+function M:add_player_attr_cost(key, value)
+    self.handle:api_add_ability_player_attr_cost(key, Fix32(value))
+end
+
+---设置技能是否受冷却缩减的影响
+---@param is_influenced boolean 属性key
+function M:set_cd_reduce(is_influenced)
+    self.handle:api_set_influenced_by_cd_reduce(is_influenced)
+end
+
+---设置消耗生命是否会死亡
+---@param can_die boolean 是否会死亡
+function M:set_is_cost_hp_can_die(can_die)
+    self.handle:api_set_cost_hp_can_die(can_die)
+end
+
+---设置生命不足时是否可以释放技能
+---@param can_cast boolean 是否可以释放
+function M:set_can_cast_when_hp_insufficient(can_cast)
+    self.handle:api_set_can_cast_when_hp_insufficient(can_cast)
+end
+
+---设置扇形指示器半径
+---@param value number 半径
+function M:set_sector_radius(value)
+    self.handle:api_set_ability_sector_radius(Fix32(value))
+end
+
+---设置扇形指示器夹角
+---@param value number 角度
+function M:set_sector_angle(value)
+    self.handle:api_set_ability_sector_angle(Fix32(value))
+end
+
+---设置箭头/多段指示器长度
+---@param value number 长度
+function M:set_arrow_length(value)
+    self.handle:api_set_ability_arrow_length(Fix32(value))
+end
+
+---设置箭头/多段指示器宽度
+---@param value number 宽度
+function M:set_arrow_width(value)
+    self.handle:api_set_ability_arrow_width(Fix32(value))
+end
+
+
+---设置箭圆形指示器半径
+---@param value number 半径
+function M:set_circle_radius(value)
+    self.handle:api_set_ability_circle_radius(Fix32(value))
+end
+
+---设置技能指示器类型
+---@param type y3.Const.AbilityPointerType 技能指示器类型
+function M:set_pointer_type(type)
+    self.handle:api_set_ability_pointer_type(type)
+end
+
+---获取技能当前剩余充能时间
+---@return number
+function M:get_charge_time()
+    return self.handle:api_get_stack_cd_left_time():float()
+end
+
+---获取技能种类
+---@return y3.Const.AbilityType type 技能种类
+function M:get_type()
+    return self.handle:api_get_type()
+end
+
+---获取技能类型id(物编id)
+---@return py.AbilityKey ability_key 技能类型id(物编id)
+function M:get_ability_key()
+    return self.handle:api_get_ability_id()
+end
+
+---获取技能所在技能位
+---@return y3.Const.AbilityIndex index 技能所在技能位
+function M:get_slot()
+    return self.handle:api_get_ability_index()
+end
+
+---获取技能消耗的玩家属性值
+---@param key string 属性key
+---@return number cost 玩家属性值
+function M:get_player_attr_cost(key)
+    return self.handle:api_get_ability_player_attr_cost(key):float()
+end
+
+---获取技能释放类型 AbilityCastType
+---@return py.AbilityCastType type 技能释放类型
+function M:get_cast_type()
+    return self.handle:api_get_ability_cast_type()
+end
+
+---获取技能公式类型的kv
+---@param key string 键值key
+---@return number value 值
+function M:get_formula_kv(key)
+    return self.handle:api_calc_ability_formula_kv(key):float()
+end
+
+---获取实数属性
+---@param key string 键值key
+---@return number value 值
+function M:get_float_attr(key)
+    return self.handle:api_get_float_attr(key):float()
+end
+
+---获取整数属性
+---@param key string 键值key
+---@return number value 值
+function M:get_int_attr(key)
+    return self.handle:api_get_int_attr(key)
+end
+
+---获取字符串属性
+---@param key py.AbilityStrAttr 键值key
+---@return string value 值
+function M:get_string_attr(key)
+    return self.handle:api_get_str_attr(key)
+end
+
+---获取技能的拥有者
+---@return Unit owner 技能拥有者
+function M:get_owner()
+    local py_unit = self.handle:api_get_owner()
+    return y3.unit.get_lua_unit_from_py(py_unit)
+end
+
+---获取当前冷却时间
+---@return number time 当前冷却时间
+function M:get_cd()
+    return self.handle:api_get_cd_left_time():float()
+end
+
+---是否存在
+---@return boolean is_exist 是否存在
+function M:is_destory()
+    return GameAPI.ability_is_exist(self.handle)
+end
+
+---@param cast integer 施法ID
+---@return Unit|Destructible|Item|Point|nil target 目标
+function M:get_target(cast)
+    local unit = GameAPI.get_target_unit_in_ability(self.handle,cast)
+    if unit then
+        return y3.unit.get_lua_unit_from_py(unit)
+    end
+
+    local dest = GameAPI.get_target_dest_in_ability(self.handle, cast)
+    if dest then
+        return y3.destructible.get_lua_destructible_from_py(dest)
+    end
+
+    local item = GameAPI.get_target_item_in_ability(self.handle,cast)
+    if item then
+        return y3.item.get_lua_item_from_py(item)
+    end
+
+    local point = self.handle:api_get_release_position(cast)
+    if point then
+        return y3.point.get_lua_point_from_py(point)
+    end
+
+    return nil
+end
+
+-- 获取施法朝向
+---@param cast integer 施法ID
+---@return number|nil
+function M:get_angle(cast)
+    local angle = self.handle:api_get_release_direction(cast)
+    if angle then
+        return angle:float()
+    end
+    return nil
+end
+
+---技能选取的目标物品
+---@param data table 触发器回调函数中的data
+---@return Item target_item 目标物品
+function M:ability_selected_target_item(data)
+    local py_item = GameAPI.get_target_item_in_ability(self.handle, data['__ability_runtime_id'])
+    return y3.item.get_lua_item_from_py(py_item)
+end
+
+---技能选取的目标单位
+---@param data table 触发器回调函数中的data
+---@return Unit target_unit 目标单位
+function M:ability_selected_target_unit(data)
+    local py_unit = GameAPI.get_target_unit_in_ability(self.handle, data['__ability_runtime_id'])
+    return y3.unit.get_lua_unit_from_py(py_unit)
+end
+
+---技能选取的目标可破坏物
+---@param data table 触发器回调函数中的data
+---@return Destructible destructible 目标可破坏物
+function M:ability_selected_destructible(data)
+    local py_destructible = GameAPI.get_target_dest_in_ability(self.handle, data['__ability_runtime_id'])
+    return y3.destructible.get_lua_destructible_from_py(py_destructible)
+end
+
+---技能选取到的点
+---@param data table 触发器回调函数中的data
+---@return Point point 选取到的点
+function M:selected_location_by_ability(data)
+    local py_point = self.handle:api_get_release_position(data['__ability_runtime_id'])
+    return y3.point.get_lua_point_from_py(py_point)
+end
+
+---获取技能释放方向 
+---@param context table 触发器回调函数中的上下文
+---@return number direction 释放方向 
+function M:get_ability_cast_direction(context)
+    return self.handle:api_get_release_direction(context['__ability_runtime_id']):float()
+end
+
+---显示技能指示器
+---@param player Player 玩家
+function M:show_indicator(player)
+    GameAPI.create_preview_skill_pointer(player.handle, self.handle)
+end
+
+--------------------------------------------------------类的方法--------------------------------------------------------
+
+
+
+---获取事件中的技能 
+---@param context table 触发器回调函数中的data
+---@return Ability ability 事件中的技能 
+function M.get_ability_by_unit_and_seq(context)
+    local py_ability = GameAPI.api_get_ability_by_unit_and_seq(context['__unit_id'], context['__ability_seq'])
+    return y3.ability.get_lua_ability_from_py(py_ability)
+end
+
+---检查技能类型前置条件
+---@param player Player 玩家
+---@param ability_key py.AbilityKey 技能类型id (物编id)
+---@return boolean is_meet 技能类型前置条件是否满足
+function M.check_precondition_by_key(player, ability_key)
+    return GameAPI.check_ability_key_precondition(player.handle, ability_key)
+end
+
+---技能类型是否受冷却缩减影响
+---@param ability_key py.AbilityKey 技能类型id (物编id)
+---@return boolean is_influenced 技能类型是否受冷却缩减影响
+function M.is_cd_reduce_by_key(ability_key)
+    return GameAPI.api_get_influenced_by_cd_reduce(ability_key)
+end
+
+---获取技能类型实数属性
+---@param ability_key py.AbilityKey 技能类型id (物编id)
+---@param key string 键值key
+---@return number value 值
+function M.get_float_attr_by_key(ability_key, key)
+    return GameAPI.get_ability_conf_float_attr(ability_key, key):float()
+end
+
+---获取技能类型整数属性
+---@param ability_key py.AbilityKey 技能类型id (物编id)
+---@param key string 键值key
+---@return integer value 值
+function M.get_int_attr_by_key(ability_key, key)
+    return GameAPI.get_ability_conf_int_attr(ability_key,key)
+end
+
+---设置玩家的普攻预览状态
+---@param player Player 玩家
+---@param state boolean 状态 开/关
+function M.set_normal_attack_preview_state(player, state)
+    GameAPI.set_preview_common_atk_range(player.handle, state)
+end
+
+---设置玩家的指示器在智能施法时是否显示
+---@param player Player 玩家
+---@param state boolean 状态 开/关
+function M.set_smart_cast_with_pointer(player, state)
+    GameAPI.set_smart_cast_with_pointer(player.handle, state)
+end
+
+---关闭技能指示器
+---@param player Player 玩家
+function M.hide_pointer(player)
+    GameAPI.clear_preview_skill_pointer(player.handle)
+end
+
+---获取技能类型的icon图标的图片ID
+---@param ability_key py.AbilityKey 技能类型id (物编id)
+---@return integer id 图片ID
+function M.get_icon_by_key(ability_key)
+    return GameAPI.get_icon_id_by_ability_type(ability_key)
+end
+
+---开关自动施法
+---@param enable boolean 开关
+function M:set_autocast(enable)
+    self.handle:api_set_autocast_enabled(enable)
+end
+
+---获取技能类型公式属性
+---@param ability_id py.AbilityKey 技能类型id(物编id)
+---@param attr_name string 属性名称
+---@param level integer 技能等级
+---@param stack_count integer 技能层数
+---@param unit_hp_max number 单位最大生命
+---@param unit_hp_cur number 单位当前生命
+---@return number value 值
+function M.get_formula_attr_by_key(ability_id, attr_name, level, stack_count, unit_hp_max, unit_hp_cur)
+    return GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, stack_count, Fix32(unit_hp_max), Fix32(unit_hp_cur)):float()
+end
+
+---获取技能类型字符串属性
+---@param ability_key py.AbilityKey 技能类型id (物编id)
+---@param key py.AbilityStrAttr 键值key
+---@return string str 值
+function M.get_str_attr_by_key(ability_key, key)
+    return GameAPI.get_ability_conf_str_attr(ability_key, key)
+end
+
+---设置技能图标
+---@param icon_id integer 图片id
+function M:set_icon(icon_id)
+    self.handle:api_set_ability_icon(icon_id)
+end
+
+---设置技能的建造朝向
+---@param angle number 角度
+function M:set_build_rotate(angle)
+    self.handle:api_set_ability_build_rotate(Fix32(angle))
+end
+
+---获取技能的指示器类型
+---@return y3.Const.AbilityPointerType
+function M:get_skill_pointer()
+    return self.handle:api_get_ability_skill_pointer()
+end
+
+---获取技能类型的指示器类型
+---@param name py.AbilityKey
+---@return y3.Const.AbilityPointerType
+function M.get_skill_type_pointer(name)
+    return GameAPI.get_ability_key_skill_pointer(name)
+end
+
+return M
