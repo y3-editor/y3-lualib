@@ -15,7 +15,7 @@ function M:constructor(object)
     return self
 end
 
----@param event_name Event.Name
+---@param event_name Event.Name # Lua框架使用的事件名
 ---@param callback Trigger.CallBack
 ---@return Trigger
 function M:event(event_name, callback)

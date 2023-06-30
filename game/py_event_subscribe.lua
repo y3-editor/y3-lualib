@@ -87,7 +87,7 @@ end
 M.event_mark_map = setmetatable({}, y3.util.MODE_K)
 
 ---@param object any
----@param event_name y3.Const.EventType
+---@param event_name y3.Const.EventType # 注册给引擎的事件名
 ---@return EventManager
 function M.event_register(object, event_name)
     local event_mark = M.event_mark_map[object]

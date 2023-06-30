@@ -1,3 +1,5 @@
+require 'y3.game.game_event'
+
 ---@class Game
 local M = Class 'Game'
 
