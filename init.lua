@@ -17,8 +17,10 @@ Super = y3.class.super
 ---@diagnostic disable-next-line: lowercase-global
 log      = require 'y3.tools.log'
 
+require 'y3.tools.linked_table'
+require 'y3.tools.pool'
+
 require 'y3.util.gc'
-require 'y3.util.linked_table'
 require 'y3.util.eca_function'
 require 'y3.util.trigger'
 require 'y3.util.event'
