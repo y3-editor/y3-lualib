@@ -93,7 +93,7 @@ function M.event_register(object, event_name)
     local event_mark = M.event_mark_map[object]
     if not event_mark then
         event_mark = {
-            _event_manager = New 'EventManager',
+            _event_manager = New 'EventManager' (),
         }
         M.event_mark_map[object] = event_mark
     end

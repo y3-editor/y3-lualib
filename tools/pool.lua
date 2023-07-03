@@ -16,7 +16,7 @@ function M:add(obj, w)
 end
 
 -- 移除对象
----@para obj any
+---@param obj any
 function M:del(obj)
     self.pool[obj] = nil
 end

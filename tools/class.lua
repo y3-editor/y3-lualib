@@ -18,22 +18,23 @@ function M.declare(name, super)
     class.__name  = name
 
     function class:__call(...)
-        if not self.constructor then
+        if not class.constructor then
             return self
         end
-        return self:constructor(...)
+        return class.constructor(self, ...)
     end
 
     M._classes[name] = class
 
-    local mt = setmetatable(class, {
+    local mt = {
         __call = function (self, ...)
             if not self.alloc then
                 return self
             end
             return self:alloc(...)
         end,
-    })
+    }
+    setmetatable(class, mt)
 
     local superClass = M._classes[super]
     if superClass then

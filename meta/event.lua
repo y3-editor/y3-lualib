@@ -4,39 +4,39 @@
 ---@class py.Event
 local event = {}
 
-event.LOGIC_UNIT_DESTROY = {}
+event.ET_LOGIC_UNIT_DESTROY = {}
 
 ---@class EventParam.LOGIC_UNIT_DESTROY
 
-event.TIMEOUT = {}
+event.ET_TIMEOUT = {}
 
 ---@class EventParam.TIMEOUT
 
-event.REPEAT_TIMEOUT = {}
+event.ET_REPEAT_TIMEOUT = {}
 
 ---@class EventParam.REPEAT_TIMEOUT
 
-event.TIMEOUT_BY_FRAME = {}
+event.ET_TIMEOUT_BY_FRAME = {}
 
 ---@class EventParam.TIMEOUT_BY_FRAME
 
-event.REPEAT_TIMEOUT_BY_FRAME = {}
+event.ET_REPEAT_TIMEOUT_BY_FRAME = {}
 
 ---@class EventParam.REPEAT_TIMEOUT_BY_FRAME
 
-event.GAME_INIT = {}
+event.ET_GAME_INIT = {}
 
 ---@class EventParam.GAME_INIT
 
-event.LOADING_END = {}
+event.ET_LOADING_END = {}
 
 ---@class EventParam.LOADING_END
 
-event.RELAUNCH_FRAME_CATCHING_FINISHED = {}
+event.ET_RELAUNCH_FRAME_CATCHING_FINISHED = {}
 
 ---@class EventParam.RELAUNCH_FRAME_CATCHING_FINISHED
 
-event.RECV_TRIGGER = {
+event.ET_RECV_TRIGGER = {
     [1] = {
         name = "__trigger_id",
         type = "py.TriggerID",
@@ -50,23 +50,23 @@ event.RECV_TRIGGER = {
 ---@class EventParam.RECV_TRIGGER
 ---@field trigger_id py.TriggerID # 触发器id
 
-event.GAME_END = {}
+event.ET_GAME_END = {}
 
 ---@class EventParam.GAME_END
 
-event.GAME_PAUSE = {}
+event.ET_GAME_PAUSE = {}
 
 ---@class EventParam.GAME_PAUSE
 
-event.GAME_RESUME = {}
+event.ET_GAME_RESUME = {}
 
 ---@class EventParam.GAME_RESUME
 
-event.EMPTY = {}
+event.ET_EMPTY = {}
 
 ---@class EventParam.EMPTY
 
-event.ER_TIMEOUT = {
+event.ET_ER_TIMEOUT = {
     [1] = {
         name = "__name",
         type = "string",
@@ -80,7 +80,7 @@ event.ER_TIMEOUT = {
 ---@class EventParam.ER_TIMEOUT
 ---@field name string # 计时器名称
 
-event.DAY_NIGHT_CHANGE = {
+event.ET_DAY_NIGHT_CHANGE = {
     [1] = {
         name = "__is_day_to_night",
         type = "boolean",
@@ -94,7 +94,7 @@ event.DAY_NIGHT_CHANGE = {
 ---@class EventParam.DAY_NIGHT_CHANGE
 ---@field is_day_to_night boolean # 是否是白天转到黑夜
 
-event.CONTAINER_ADDED = {
+event.ET_CONTAINER_ADDED = {
     [1] = {
         name = "__name",
         type = "string",
@@ -117,7 +117,7 @@ event.CONTAINER_ADDED = {
 ---@field name string # 容器名
 ---@field container py.ActorContainer # 容器
 
-event.CONTAINER_ACTOR_ADDED = {
+event.ET_CONTAINER_ACTOR_ADDED = {
     [1] = {
         name = "__owner",
         type = "py.Actor",
@@ -131,7 +131,7 @@ event.CONTAINER_ACTOR_ADDED = {
 ---@class EventParam.CONTAINER_ACTOR_ADDED
 ---@field owner py.Actor # 容器从属actor
 
-event.CONTAINER_ACTOR_REMOVED = {
+event.ET_CONTAINER_ACTOR_REMOVED = {
     [1] = {
         name = "__owner",
         type = "py.Actor",
@@ -145,7 +145,7 @@ event.CONTAINER_ACTOR_REMOVED = {
 ---@class EventParam.CONTAINER_ACTOR_REMOVED
 ---@field owner py.Actor # 原容器从属actor
 
-event.ACTOR_ATTR_UPDATED = {
+event.ET_ACTOR_ATTR_UPDATED = {
     [1] = {
         name = "__name",
         type = "string",
@@ -159,7 +159,7 @@ event.ACTOR_ATTR_UPDATED = {
 ---@class EventParam.ACTOR_ATTR_UPDATED
 ---@field name string # 属性名
 
-event.AREA_ENTER = {
+event.ET_AREA_ENTER = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -191,7 +191,7 @@ event.AREA_ENTER = {
 ---@field area Area # 区域
 ---@field trigger_id py.TriggerID # 触发器ID
 
-event.AREA_LEAVE = {
+event.ET_AREA_LEAVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -223,7 +223,7 @@ event.AREA_LEAVE = {
 ---@field area Area # 区域
 ---@field trigger_id py.TriggerID # 触发器ID
 
-event.ROLE_JOIN_BATTLE = {
+event.ET_ROLE_JOIN_BATTLE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -246,7 +246,7 @@ event.ROLE_JOIN_BATTLE = {
 ---@field role Player # 玩家
 ---@field is_middle_join boolean # 是否中途加入
 
-event.ROLE_ACTIVE_EXIT_GAME_EVENT = {
+event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -260,7 +260,7 @@ event.ROLE_ACTIVE_EXIT_GAME_EVENT = {
 ---@class EventParam.ROLE_ACTIVE_EXIT_GAME_EVENT
 ---@field role Player # 玩家
 
-event.ROLE_LOSE_CONNECT = {
+event.ET_ROLE_LOSE_CONNECT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -274,7 +274,7 @@ event.ROLE_LOSE_CONNECT = {
 ---@class EventParam.ROLE_LOSE_CONNECT
 ---@field role Player # 玩家
 
-event.AI_TAKE_CONTROL = {
+event.ET_AI_TAKE_CONTROL = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -288,7 +288,7 @@ event.AI_TAKE_CONTROL = {
 ---@class EventParam.AI_TAKE_CONTROL
 ---@field role Player # 玩家
 
-event.DOWNLOAD_MAP_ARCHIVE_CALLBACK = {
+event.ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -302,7 +302,7 @@ event.DOWNLOAD_MAP_ARCHIVE_CALLBACK = {
 ---@class EventParam.DOWNLOAD_MAP_ARCHIVE_CALLBACK
 ---@field role Player # 玩家
 
-event.ROLE_USE_STORE_ITEM_END = {
+event.ET_ROLE_USE_STORE_ITEM_END = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -334,7 +334,7 @@ event.ROLE_USE_STORE_ITEM_END = {
 ---@field store_key py.StoreKey # 收费道具编号
 ---@field use_cnt integer # 使用次数
 
-event.CONSUME_STORE_ITEM = {
+event.ET_CONSUME_STORE_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -357,7 +357,7 @@ event.CONSUME_STORE_ITEM = {
 ---@field role Player # 玩家
 ---@field store_key py.StoreKey # 收费道具编号
 
-event.ROLE_HOLD_STORE_ITEM = {
+event.ET_ROLE_HOLD_STORE_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -380,7 +380,7 @@ event.ROLE_HOLD_STORE_ITEM = {
 ---@field role Player # 玩家
 ---@field store_key py.StoreKey # 收费道具编号
 
-event.ROLE_RESOURCE_CHANGED = {
+event.ET_ROLE_RESOURCE_CHANGED = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -421,7 +421,7 @@ event.ROLE_RESOURCE_CHANGED = {
 ---@field res_value integer # 玩家资源值
 ---@field res_value_delta py.Fixed # 玩家资源变量值
 
-event.ROLE_INPUT_MSG = {
+event.ET_ROLE_INPUT_MSG = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -444,7 +444,7 @@ event.ROLE_INPUT_MSG = {
 ---@field role Player # 玩家
 ---@field msg string # 字符串
 
-event.ROLE_INPUT_ACTIVATION_CODE = {
+event.ET_ROLE_INPUT_ACTIVATION_CODE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -467,7 +467,7 @@ event.ROLE_INPUT_ACTIVATION_CODE = {
 ---@field role Player # 玩家
 ---@field activation_code_group string # 激活码组
 
-event.ROLE_TECH_UPGRADE = {
+event.ET_ROLE_TECH_UPGRADE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -499,7 +499,7 @@ event.ROLE_TECH_UPGRADE = {
 ---@field tech_no py.TechKey # 科技编号
 ---@field curr_lv integer # 当前科技等级
 
-event.ROLE_TECH_DOWNGRADE = {
+event.ET_ROLE_TECH_DOWNGRADE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -531,7 +531,7 @@ event.ROLE_TECH_DOWNGRADE = {
 ---@field tech_no py.TechKey # 科技编号
 ---@field curr_lv integer # 当前科技等级
 
-event.ROLE_TECH_CHANGED = {
+event.ET_ROLE_TECH_CHANGED = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -572,7 +572,7 @@ event.ROLE_TECH_CHANGED = {
 ---@field curr_lv integer # 当前科技等级
 ---@field delta_lv integer # 科技变化等级
 
-event.UNIT_UPGRADE_TECH = {
+event.ET_UNIT_UPGRADE_TECH = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -604,7 +604,7 @@ event.UNIT_UPGRADE_TECH = {
 ---@field role Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
-event.UNIT_ADD_TECH = {
+event.ET_UNIT_ADD_TECH = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -636,7 +636,7 @@ event.UNIT_ADD_TECH = {
 ---@field role Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
-event.UNIT_REMOVE_TECH = {
+event.ET_UNIT_REMOVE_TECH = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -668,7 +668,7 @@ event.UNIT_REMOVE_TECH = {
 ---@field role Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
-event.ROLE_CHANGE_RELATION = {
+event.ET_ROLE_CHANGE_RELATION = {
     [1] = {
         name = "__src_role_id",
         type = "py.RoleID",
@@ -700,7 +700,7 @@ event.ROLE_CHANGE_RELATION = {
 ---@field dst_role Player # 目标玩家
 ---@field relation py.RoleRelation # 关系
 
-event.ABILITY_BUILD_FINISH = {
+event.ET_ABILITY_BUILD_FINISH = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -759,7 +759,7 @@ event.ABILITY_BUILD_FINISH = {
 ---@field unit Unit # 主人
 ---@field build_unit Unit # 建造出来的单位
 
-event.ATTACK_HIT_TARGET = {
+event.ET_ATTACK_HIT_TARGET = {
     [1] = {
         name = "__ability_id",
         type = "integer",
@@ -773,7 +773,7 @@ event.ATTACK_HIT_TARGET = {
 ---@class EventParam.ATTACK_HIT_TARGET
 ---@field ability_id integer # 技能id
 
-event.ATTACK_HURT = {
+event.ET_ATTACK_HURT = {
     [1] = {
         name = "__ability_id",
         type = "integer",
@@ -796,7 +796,7 @@ event.ATTACK_HURT = {
 ---@field ability_id integer # 技能id
 ---@field other_unit Unit # 被伤害的单位
 
-event.ABILITY_CD_CHANGE = {
+event.ET_ABILITY_CD_CHANGE = {
     [1] = {
         name = "__ability_index",
         type = "py.AbilityIndex",
@@ -837,7 +837,7 @@ event.ABILITY_CD_CHANGE = {
 ---@field total py.Fixed # cd总时长
 ---@field ability_id py.AbilityKey # 技能id
 
-event.ACTIVE_ABILITY_CHANGED = {
+event.ET_ACTIVE_ABILITY_CHANGED = {
     [1] = {
         name = "__ability_index",
         type = "py.AbilityIndex",
@@ -851,7 +851,7 @@ event.ACTIVE_ABILITY_CHANGED = {
 ---@class EventParam.ACTIVE_ABILITY_CHANGED
 ---@field ability_index py.AbilityIndex # 技能坑位
 
-event.ABILITY_STACK_CHANGE = {
+event.ET_ABILITY_STACK_CHANGE = {
     [1] = {
         name = "__ability_index",
         type = "py.AbilityIndex",
@@ -874,7 +874,7 @@ event.ABILITY_STACK_CHANGE = {
 ---@field ability_index py.AbilityIndex # 技能坑位
 ---@field stack py.Fixed # 技能充能层数
 
-event.ABILITY_PLUS_POINT = {
+event.ET_ABILITY_PLUS_POINT = {
     [1] = {
         name = "__ability_index",
         type = "py.AbilityIndex",
@@ -906,7 +906,7 @@ event.ABILITY_PLUS_POINT = {
 ---@field ability Ability # 技能对象
 ---@field unit Unit # 单位
 
-event.ABILITY_STACK_CD_CHANGE = {
+event.ET_ABILITY_STACK_CD_CHANGE = {
     [1] = {
         name = "__ability_index",
         type = "py.AbilityIndex",
@@ -938,7 +938,7 @@ event.ABILITY_STACK_CD_CHANGE = {
 ---@field left py.Fixed # 充能cd剩余时间
 ---@field total py.Fixed # 充能cd总时长
 
-event.ABILITY_FORBIDDEN_CHANGED = {
+event.ET_ABILITY_FORBIDDEN_CHANGED = {
     [1] = {
         name = "__ability_index",
         type = "py.AbilityIndex",
@@ -961,7 +961,7 @@ event.ABILITY_FORBIDDEN_CHANGED = {
 ---@field ability_index py.AbilityIndex # 技能坑位
 ---@field is_forbidden boolean # 是否禁用
 
-event.ABILITY_SILENT_CHANGED = {
+event.ET_ABILITY_SILENT_CHANGED = {
     [1] = {
         name = "__is_silent",
         type = "boolean",
@@ -975,19 +975,19 @@ event.ABILITY_SILENT_CHANGED = {
 ---@class EventParam.ABILITY_SILENT_CHANGED
 ---@field is_silent boolean # 是否禁用
 
-event.ABILITY_ICON_CHANGED = {}
+event.ET_ABILITY_ICON_CHANGED = {}
 
 ---@class EventParam.ABILITY_ICON_CHANGED
 
-event.UNIT_NAME_CHANGE = {}
+event.ET_UNIT_NAME_CHANGE = {}
 
 ---@class EventParam.UNIT_NAME_CHANGE
 
-event.UNIT_CHANGE_MINI_MAP_ICON = {}
+event.ET_UNIT_CHANGE_MINI_MAP_ICON = {}
 
 ---@class EventParam.UNIT_CHANGE_MINI_MAP_ICON
 
-event.UNIT_ICON_CHANGE = {
+event.ET_UNIT_ICON_CHANGE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1001,7 +1001,7 @@ event.UNIT_ICON_CHANGE = {
 ---@class EventParam.UNIT_ICON_CHANGE
 ---@field unit Unit # 单位
 
-event.ROLE_UNIT_CHANGE = {
+event.ET_ROLE_UNIT_CHANGE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1015,7 +1015,7 @@ event.ROLE_UNIT_CHANGE = {
 ---@class EventParam.ROLE_UNIT_CHANGE
 ---@field unit Unit # 单位
 
-event.ROLE_UNIT_TAG_CHANGE = {
+event.ET_ROLE_UNIT_TAG_CHANGE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1029,7 +1029,7 @@ event.ROLE_UNIT_TAG_CHANGE = {
 ---@class EventParam.ROLE_UNIT_TAG_CHANGE
 ---@field unit Unit # 单位
 
-event.UNIT_ENTER_MOVER_STATE = {
+event.ET_UNIT_ENTER_MOVER_STATE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1043,7 +1043,7 @@ event.UNIT_ENTER_MOVER_STATE = {
 ---@class EventParam.UNIT_ENTER_MOVER_STATE
 ---@field unit Unit # 单位
 
-event.UNIT_START_MOVE = {
+event.ET_UNIT_START_MOVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1057,7 +1057,7 @@ event.UNIT_START_MOVE = {
 ---@class EventParam.UNIT_START_MOVE
 ---@field unit Unit # 单位
 
-event.UNIT_END_MOVE = {
+event.ET_UNIT_END_MOVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1071,7 +1071,7 @@ event.UNIT_END_MOVE = {
 ---@class EventParam.UNIT_END_MOVE
 ---@field unit Unit # 单位
 
-event.UNIT_REMOVE = {
+event.ET_UNIT_REMOVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1085,7 +1085,7 @@ event.UNIT_REMOVE = {
 ---@class EventParam.UNIT_REMOVE
 ---@field unit Unit # 单位
 
-event.UNIT_DELETE = {
+event.ET_UNIT_DELETE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1099,7 +1099,7 @@ event.UNIT_DELETE = {
 ---@class EventParam.UNIT_DELETE
 ---@field unit Unit # 单位
 
-event.UNIT_END_TRANSLATE = {
+event.ET_UNIT_END_TRANSLATE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1113,7 +1113,7 @@ event.UNIT_END_TRANSLATE = {
 ---@class EventParam.UNIT_END_TRANSLATE
 ---@field unit Unit # 单位
 
-event.UNIT_ATTR_CHANGE = {
+event.ET_UNIT_ATTR_CHANGE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1136,7 +1136,7 @@ event.UNIT_ATTR_CHANGE = {
 ---@field unit Unit # 单位
 ---@field attr string # 字符串
 
-event.BEFORE_UNIT_DIE = {
+event.ET_BEFORE_UNIT_DIE = {
     [1] = {
         name = "__damage",
         type = "py.Fixed",
@@ -1195,7 +1195,7 @@ event.BEFORE_UNIT_DIE = {
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_DIE = {
+event.ET_UNIT_DIE = {
     [1] = {
         name = "__damage",
         type = "py.Fixed",
@@ -1254,7 +1254,7 @@ event.UNIT_DIE = {
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_ON_UNBIND_ROLE = {
+event.ET_UNIT_ON_UNBIND_ROLE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1277,7 +1277,7 @@ event.UNIT_ON_UNBIND_ROLE = {
 ---@field unit Unit # 单位
 ---@field role Player # 玩家
 
-event.UNIT_ON_BIND_ROLE = {
+event.ET_UNIT_ON_BIND_ROLE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1300,7 +1300,7 @@ event.UNIT_ON_BIND_ROLE = {
 ---@field unit Unit # 单位
 ---@field role Player # 玩家
 
-event.UNIT_BE_HURT = {
+event.ET_UNIT_BE_HURT = {
     [1] = {
         name = "__damage",
         type = "py.Fixed",
@@ -1359,7 +1359,7 @@ event.UNIT_BE_HURT = {
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_HURT_OTHER = {
+event.ET_UNIT_HURT_OTHER = {
     [1] = {
         name = "__damage",
         type = "py.Fixed",
@@ -1418,7 +1418,7 @@ event.UNIT_HURT_OTHER = {
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_BE_HURT_BEFORE_APPLY = {
+event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
     [1] = {
         name = "__damage",
         type = "py.Fixed",
@@ -1477,7 +1477,7 @@ event.UNIT_BE_HURT_BEFORE_APPLY = {
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_HURT_OTHER_BEFORE_APPLY = {
+event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
     [1] = {
         name = "__damage",
         type = "py.Fixed",
@@ -1536,7 +1536,7 @@ event.UNIT_HURT_OTHER_BEFORE_APPLY = {
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_HURT_OTHER_FINISH = {
+event.ET_UNIT_HURT_OTHER_FINISH = {
     [1] = {
         name = "__is_critical_hit",
         type = "py.Fixed",
@@ -1613,7 +1613,7 @@ event.UNIT_HURT_OTHER_FINISH = {
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_BE_HURT_COMPLETE = {
+event.ET_UNIT_BE_HURT_COMPLETE = {
     [1] = {
         name = "__is_critical_hit",
         type = "py.Fixed",
@@ -1690,7 +1690,7 @@ event.UNIT_BE_HURT_COMPLETE = {
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_GET_CURE_BEFORE_APPLY = {
+event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
     [1] = {
         name = "__cured_value",
         type = "py.Fixed",
@@ -1713,7 +1713,7 @@ event.UNIT_GET_CURE_BEFORE_APPLY = {
 ---@field cured_value py.Fixed # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 
-event.UNIT_GET_CURE_FINISH = {
+event.ET_UNIT_GET_CURE_FINISH = {
     [1] = {
         name = "__cured_value",
         type = "py.Fixed",
@@ -1736,7 +1736,7 @@ event.UNIT_GET_CURE_FINISH = {
 ---@field cured_value py.Fixed # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 
-event.UNIT_GET_CURE = {
+event.ET_UNIT_GET_CURE = {
     [1] = {
         name = "__cured_value",
         type = "py.Fixed",
@@ -1759,7 +1759,7 @@ event.UNIT_GET_CURE = {
 ---@field cured_value py.Fixed # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 
-event.RES_ICON_CHANGED = {
+event.ET_RES_ICON_CHANGED = {
     [1] = {
         name = "__res_key",
         type = "py.RoleResKey",
@@ -1782,7 +1782,7 @@ event.RES_ICON_CHANGED = {
 ---@field res_key py.RoleResKey # 资源
 ---@field icon_id integer # ICON ID
 
-event.UNIT_RELEASE_ABILITY = {
+event.ET_UNIT_RELEASE_ABILITY = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -1814,7 +1814,7 @@ event.UNIT_RELEASE_ABILITY = {
 ---@field unit Unit # 触发事件的单位unit_
 ---@field ability_target_unit Unit # 技能的目标单位
 
-event.UNIT_RELEASE_ABILITY_START = {
+event.ET_UNIT_RELEASE_ABILITY_START = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -1837,7 +1837,7 @@ event.UNIT_RELEASE_ABILITY_START = {
 ---@field ability Ability # 施放的技能对象
 ---@field unit Unit # 触发事件的单位unit_
 
-event.UNIT_RELEASE_ABILITY_END = {
+event.ET_UNIT_RELEASE_ABILITY_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -1860,7 +1860,7 @@ event.UNIT_RELEASE_ABILITY_END = {
 ---@field ability Ability # 施放的技能对象
 ---@field unit Unit # 触发事件的单位unit_
 
-event.UNIT_RELEASE_MAGIC_BOOK = {
+event.ET_UNIT_RELEASE_MAGIC_BOOK = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -1883,15 +1883,15 @@ event.UNIT_RELEASE_MAGIC_BOOK = {
 ---@field ability Ability # 施放的技能对象
 ---@field unit Unit # 触发事件的单位unit_
 
-event.UNIT_LEVEL_CHANGE = {}
+event.ET_UNIT_LEVEL_CHANGE = {}
 
 ---@class EventParam.UNIT_LEVEL_CHANGE
 
-event.UNIT_EXP_CHANGE = {}
+event.ET_UNIT_EXP_CHANGE = {}
 
 ---@class EventParam.UNIT_EXP_CHANGE
 
-event.UNIT_PRE_ADD_EXP = {
+event.ET_UNIT_PRE_ADD_EXP = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1914,7 +1914,7 @@ event.UNIT_PRE_ADD_EXP = {
 ---@field unit Unit # 获得经验的单位
 ---@field add_exp number # 增加的经验
 
-event.UNIT_ON_ADD_EXP = {
+event.ET_UNIT_ON_ADD_EXP = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1937,7 +1937,7 @@ event.UNIT_ON_ADD_EXP = {
 ---@field unit Unit # 获得经验的单位
 ---@field add_exp number # 增加的经验
 
-event.UNIT_ON_COMMAND = {
+event.ET_UNIT_ON_COMMAND = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -1996,7 +1996,7 @@ event.UNIT_ON_COMMAND = {
 ---@field destructible Destructible # 目标可破坏物
 ---@field item Item # 目标物品
 
-event.KILL_UNIT = {
+event.ET_KILL_UNIT = {
     [1] = {
         name = "__damage",
         type = "py.Fixed",
@@ -2055,7 +2055,7 @@ event.KILL_UNIT = {
 ---@field damage_type integer # 致命伤害类型
 ---@field unit Unit # 单位
 
-event.UNIT_BORN = {
+event.ET_UNIT_BORN = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2069,7 +2069,7 @@ event.UNIT_BORN = {
 ---@class EventParam.UNIT_BORN
 ---@field unit Unit # 单位
 
-event.UNIT_ENTER_BATTLE = {
+event.ET_UNIT_ENTER_BATTLE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2083,7 +2083,7 @@ event.UNIT_ENTER_BATTLE = {
 ---@class EventParam.UNIT_ENTER_BATTLE
 ---@field unit Unit # 单位
 
-event.UNIT_EXIT_BATTLE = {
+event.ET_UNIT_EXIT_BATTLE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2097,7 +2097,7 @@ event.UNIT_EXIT_BATTLE = {
 ---@class EventParam.UNIT_EXIT_BATTLE
 ---@field unit Unit # 单位
 
-event.UNIT_CREATE_SLAVE = {
+event.ET_UNIT_CREATE_SLAVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2111,7 +2111,7 @@ event.UNIT_CREATE_SLAVE = {
 ---@class EventParam.UNIT_CREATE_SLAVE
 ---@field unit Unit # 仆从
 
-event.ITEM_ATTACHED_ATTR_CHANGED = {
+event.ET_ITEM_ATTACHED_ATTR_CHANGED = {
     [1] = {
         name = "__item_id",
         type = "py.ItemID",
@@ -2143,7 +2143,7 @@ event.ITEM_ATTACHED_ATTR_CHANGED = {
 ---@field attr_key string # 字符串
 ---@field delta py.Fixed # 定点数
 
-event.UNIT_SHOP_BUY_ITEM = {
+event.ET_UNIT_SHOP_BUY_ITEM = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2193,7 +2193,7 @@ event.UNIT_SHOP_BUY_ITEM = {
 ---@field cnt integer # 商品数量
 ---@field item Item # 商品物品
 
-event.UNIT_SHOP_BUY_UNIT = {
+event.ET_UNIT_SHOP_BUY_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2243,7 +2243,7 @@ event.UNIT_SHOP_BUY_UNIT = {
 ---@field cnt integer # 商品数量
 ---@field unit_stuff Unit # 商品单位
 
-event.UNIT_ITEM_SELL = {
+event.ET_UNIT_ITEM_SELL = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2275,7 +2275,7 @@ event.UNIT_ITEM_SELL = {
 ---@field shop_unit Unit # 商店单位
 ---@field item Item # 道具
 
-event.SHOP_ITEM_CHANGED = {
+event.ET_SHOP_ITEM_CHANGED = {
     [1] = {
         name = "__shop_unit_id",
         type = "py.UnitID",
@@ -2316,7 +2316,7 @@ event.SHOP_ITEM_CHANGED = {
 ---@field shop_key string # 商品id
 ---@field curr_stock integer # 当前库存
 
-event.SHOP_STOCK_CHANGED = {
+event.ET_SHOP_STOCK_CHANGED = {
     [1] = {
         name = "__shop_unit_id",
         type = "py.UnitID",
@@ -2357,7 +2357,7 @@ event.SHOP_STOCK_CHANGED = {
 ---@field shop_key string # 商品id
 ---@field curr_stock integer # 当前库存
 
-event.SHOP_RES_COST_CHANGED = {
+event.ET_SHOP_RES_COST_CHANGED = {
     [1] = {
         name = "__shop_unit_id",
         type = "py.UnitID",
@@ -2407,7 +2407,7 @@ event.SHOP_RES_COST_CHANGED = {
 ---@field res_type py.RoleResKey # 资源编号
 ---@field res_cost integer # 当前售价
 
-event.UNIT_ITEM_COMPOSE = {
+event.ET_UNIT_ITEM_COMPOSE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2439,7 +2439,7 @@ event.UNIT_ITEM_COMPOSE = {
 ---@field compose_id py.ItemKey # 道具编号
 ---@field item_prop Item # 道具
 
-event.UNIT_SHOP_BUY_WITH_COMPOSE = {
+event.ET_UNIT_SHOP_BUY_WITH_COMPOSE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2471,7 +2471,7 @@ event.UNIT_SHOP_BUY_WITH_COMPOSE = {
 ---@field shop_unit Unit # 商店单位
 ---@field item Item # 物品编号
 
-event.REVIVE_UNIT = {
+event.ET_REVIVE_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2485,7 +2485,7 @@ event.REVIVE_UNIT = {
 ---@class EventParam.REVIVE_UNIT
 ---@field unit Unit # 单位
 
-event.UPGRADE_UNIT = {
+event.ET_UPGRADE_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2499,7 +2499,7 @@ event.UPGRADE_UNIT = {
 ---@class EventParam.UPGRADE_UNIT
 ---@field unit Unit # 单位
 
-event.REACH_MOVE_TARGET_UNIT = {
+event.ET_REACH_MOVE_TARGET_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2513,7 +2513,7 @@ event.REACH_MOVE_TARGET_UNIT = {
 ---@class EventParam.REACH_MOVE_TARGET_UNIT
 ---@field unit Unit # 单位
 
-event.COLLIDE_OBSTACLE_UNIT = {
+event.ET_COLLIDE_OBSTACLE_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2527,7 +2527,7 @@ event.COLLIDE_OBSTACLE_UNIT = {
 ---@class EventParam.COLLIDE_OBSTACLE_UNIT
 ---@field unit Unit # 单位
 
-event.UNIT_ENTER_GRASS = {
+event.ET_UNIT_ENTER_GRASS = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2541,7 +2541,7 @@ event.UNIT_ENTER_GRASS = {
 ---@class EventParam.UNIT_ENTER_GRASS
 ---@field unit Unit # 单位
 
-event.UNIT_LEAVE_GRASS = {
+event.ET_UNIT_LEAVE_GRASS = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2555,11 +2555,11 @@ event.UNIT_LEAVE_GRASS = {
 ---@class EventParam.UNIT_LEAVE_GRASS
 ---@field unit Unit # 单位
 
-event.MAP_VISIBILITY_CHANGE = {}
+event.ET_MAP_VISIBILITY_CHANGE = {}
 
 ---@class EventParam.MAP_VISIBILITY_CHANGE
 
-event.UNIT_ROLE_CHANGED = {
+event.ET_UNIT_ROLE_CHANGED = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -2591,7 +2591,7 @@ event.UNIT_ROLE_CHANGED = {
 ---@field old_role Player # 单位原所属玩家
 ---@field new_role Player # 单位新所属玩家
 
-event.UNIT_PRECONDITION_SUCCEED = {
+event.ET_UNIT_PRECONDITION_SUCCEED = {
     [1] = {
         name = "unit_key",
         type = "py.UnitKey",
@@ -2614,7 +2614,7 @@ event.UNIT_PRECONDITION_SUCCEED = {
 ---@field unit_key py.UnitKey # 单位类型
 ---@field role Player # 玩家
 
-event.UNIT_PRECONDITION_FAILED = {
+event.ET_UNIT_PRECONDITION_FAILED = {
     [1] = {
         name = "unit_key",
         type = "py.UnitKey",
@@ -2637,7 +2637,7 @@ event.UNIT_PRECONDITION_FAILED = {
 ---@field unit_key py.UnitKey # 单位类型
 ---@field role Player # 玩家
 
-event.ITEM_PRECONDITION_SUCCEED = {
+event.ET_ITEM_PRECONDITION_SUCCEED = {
     [1] = {
         name = "__item_no",
         type = "py.ItemKey",
@@ -2660,7 +2660,7 @@ event.ITEM_PRECONDITION_SUCCEED = {
 ---@field item_no py.ItemKey # 物品类型
 ---@field role Player # 玩家
 
-event.ITEM_PRECONDITION_FAILED = {
+event.ET_ITEM_PRECONDITION_FAILED = {
     [1] = {
         name = "__item_no",
         type = "py.ItemKey",
@@ -2683,7 +2683,7 @@ event.ITEM_PRECONDITION_FAILED = {
 ---@field item_no py.ItemKey # 物品类型
 ---@field role Player # 玩家
 
-event.ABILITY_PRECONDITION_SUCCEED = {
+event.ET_ABILITY_PRECONDITION_SUCCEED = {
     [1] = {
         name = "__ability_id",
         type = "py.AbilityKey",
@@ -2706,7 +2706,7 @@ event.ABILITY_PRECONDITION_SUCCEED = {
 ---@field ability_id py.AbilityKey # 技能类型
 ---@field role Player # 玩家
 
-event.ABILITY_PRECONDITION_FAILED = {
+event.ET_ABILITY_PRECONDITION_FAILED = {
     [1] = {
         name = "__ability_id",
         type = "py.AbilityKey",
@@ -2729,7 +2729,7 @@ event.ABILITY_PRECONDITION_FAILED = {
 ---@field ability_id py.AbilityKey # 技能类型
 ---@field role Player # 玩家
 
-event.TECH_PRECONDITION_SUCCEED = {
+event.ET_TECH_PRECONDITION_SUCCEED = {
     [1] = {
         name = "__tech_no",
         type = "py.TechKey",
@@ -2752,7 +2752,7 @@ event.TECH_PRECONDITION_SUCCEED = {
 ---@field tech_no py.TechKey # 科技类型
 ---@field role Player # 玩家
 
-event.TECH_PRECONDITION_FAILED = {
+event.ET_TECH_PRECONDITION_FAILED = {
     [1] = {
         name = "__tech_no",
         type = "py.TechKey",
@@ -2775,7 +2775,7 @@ event.TECH_PRECONDITION_FAILED = {
 ---@field tech_no py.TechKey # 科技类型
 ---@field role Player # 玩家
 
-event.ABILITY_UPGRADE = {
+event.ET_ABILITY_UPGRADE = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2789,7 +2789,7 @@ event.ABILITY_UPGRADE = {
 ---@class EventParam.ABILITY_UPGRADE
 ---@field ability Ability # 技能对象
 
-event.ABILITY_CS_START = {
+event.ET_ABILITY_CS_START = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2812,7 +2812,7 @@ event.ABILITY_CS_START = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_CS_END = {
+event.ET_ABILITY_CS_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2835,7 +2835,7 @@ event.ABILITY_CS_END = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_PS_START = {
+event.ET_ABILITY_PS_START = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2858,7 +2858,7 @@ event.ABILITY_PS_START = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_PS_END = {
+event.ET_ABILITY_PS_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2881,7 +2881,7 @@ event.ABILITY_PS_END = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ITEM_ABILITY_PS_END = {
+event.ET_ITEM_ABILITY_PS_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2895,7 +2895,7 @@ event.ITEM_ABILITY_PS_END = {
 ---@class EventParam.ITEM_ABILITY_PS_END
 ---@field ability Ability # 技能对象
 
-event.ABILITY_SP_END = {
+event.ET_ABILITY_SP_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2918,7 +2918,7 @@ event.ABILITY_SP_END = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_CST_END = {
+event.ET_ABILITY_CST_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2941,7 +2941,7 @@ event.ABILITY_CST_END = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_BS_END = {
+event.ET_ABILITY_BS_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2964,7 +2964,7 @@ event.ABILITY_BS_END = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_CS_INTERRUPT = {
+event.ET_ABILITY_CS_INTERRUPT = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -2987,7 +2987,7 @@ event.ABILITY_CS_INTERRUPT = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_PS_INTERRUPT = {
+event.ET_ABILITY_PS_INTERRUPT = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3010,7 +3010,7 @@ event.ABILITY_PS_INTERRUPT = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_SP_INTERRUPT = {
+event.ET_ABILITY_SP_INTERRUPT = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3033,7 +3033,7 @@ event.ABILITY_SP_INTERRUPT = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_CST_INTERRUPT = {
+event.ET_ABILITY_CST_INTERRUPT = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3056,7 +3056,7 @@ event.ABILITY_CST_INTERRUPT = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_BS_INTERRUPT = {
+event.ET_ABILITY_BS_INTERRUPT = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3079,7 +3079,7 @@ event.ABILITY_BS_INTERRUPT = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_END = {
+event.ET_ABILITY_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3102,7 +3102,7 @@ event.ABILITY_END = {
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
 
-event.ABILITY_OBTAIN = {
+event.ET_ABILITY_OBTAIN = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3125,7 +3125,7 @@ event.ABILITY_OBTAIN = {
 ---@field ability Ability # 技能对象
 ---@field unit Unit # 单位
 
-event.ABILITY_LOSE = {
+event.ET_ABILITY_LOSE = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3148,7 +3148,7 @@ event.ABILITY_LOSE = {
 ---@field ability Ability # 技能对象
 ---@field unit Unit # 单位
 
-event.ABILITY_SWITCH = {
+event.ET_ABILITY_SWITCH = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3162,7 +3162,7 @@ event.ABILITY_SWITCH = {
 ---@class EventParam.ABILITY_SWITCH
 ---@field ability Ability # 技能对象
 
-event.ABILITY_DISABLE = {
+event.ET_ABILITY_DISABLE = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3176,7 +3176,7 @@ event.ABILITY_DISABLE = {
 ---@class EventParam.ABILITY_DISABLE
 ---@field ability Ability # 技能对象
 
-event.ABILITY_ENABLE = {
+event.ET_ABILITY_ENABLE = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3190,7 +3190,7 @@ event.ABILITY_ENABLE = {
 ---@class EventParam.ABILITY_ENABLE
 ---@field ability Ability # 技能对象
 
-event.ABILITY_ATTR_CHANGED = {
+event.ET_ABILITY_ATTR_CHANGED = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3204,7 +3204,7 @@ event.ABILITY_ATTR_CHANGED = {
 ---@class EventParam.ABILITY_ATTR_CHANGED
 ---@field ability Ability # 技能对象
 
-event.ABILITY_CD_END = {
+event.ET_ABILITY_CD_END = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3218,7 +3218,7 @@ event.ABILITY_CD_END = {
 ---@class EventParam.ABILITY_CD_END
 ---@field ability Ability # 技能对象
 
-event.ABILITY_AUTOCAST_CHANGED = {
+event.ET_ABILITY_AUTOCAST_CHANGED = {
     [1] = {
         name = "__ability",
         type = "py.Ability",
@@ -3232,7 +3232,7 @@ event.ABILITY_AUTOCAST_CHANGED = {
 ---@class EventParam.ABILITY_AUTOCAST_CHANGED
 ---@field ability Ability # 技能对象
 
-event.OBTAIN_MODIFIER = {
+event.ET_OBTAIN_MODIFIER = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
@@ -3264,7 +3264,7 @@ event.OBTAIN_MODIFIER = {
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
-event.LOSS_MODIFIER = {
+event.ET_LOSS_MODIFIER = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
@@ -3296,7 +3296,7 @@ event.LOSS_MODIFIER = {
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
-event.MODIFIER_CYCLE_TRIGGER = {
+event.ET_MODIFIER_CYCLE_TRIGGER = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
@@ -3328,11 +3328,11 @@ event.MODIFIER_CYCLE_TRIGGER = {
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
-event.MODIFIER_UPDATE_TIMER = {}
+event.ET_MODIFIER_UPDATE_TIMER = {}
 
 ---@class EventParam.MODIFIER_UPDATE_TIMER
 
-event.MODIFIER_ADDTION = {
+event.ET_MODIFIER_ADDTION = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
@@ -3364,7 +3364,7 @@ event.MODIFIER_ADDTION = {
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
-event.MODIFIER_LAYER_CHANGE = {
+event.ET_MODIFIER_LAYER_CHANGE = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
@@ -3405,7 +3405,7 @@ event.MODIFIER_LAYER_CHANGE = {
 ---@field layer_change_values integer # 层数变化值
 ---@field from_unit Unit # 效果施加者
 
-event.MODIFIER_GET_BEFORE_CREATE = {
+event.ET_MODIFIER_GET_BEFORE_CREATE = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
@@ -3437,7 +3437,7 @@ event.MODIFIER_GET_BEFORE_CREATE = {
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
-event.MODIFIER_BE_COVERED = {
+event.ET_MODIFIER_BE_COVERED = {
     [1] = {
         name = "__owner_unit",
         type = "py.Unit",
@@ -3469,7 +3469,7 @@ event.MODIFIER_BE_COVERED = {
 ---@field old_modifier Buff # 已有的魔法效果
 ---@field new_modifier Buff # 新增的魔法效果
 
-event.MODIFIER_ATTR_CHANGE = {
+event.ET_MODIFIER_ATTR_CHANGE = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
@@ -3483,19 +3483,19 @@ event.MODIFIER_ATTR_CHANGE = {
 ---@class EventParam.MODIFIER_ATTR_CHANGE
 ---@field modifier Buff # 魔法效果
 
-event.SOURCE_NUMS_CHANGE = {}
+event.ET_SOURCE_NUMS_CHANGE = {}
 
 ---@class EventParam.SOURCE_NUMS_CHANGE
 
-event.NAME_CHANGE = {}
+event.ET_NAME_CHANGE = {}
 
 ---@class EventParam.NAME_CHANGE
 
-event.SOURCE_NAME_CHANGE = {}
+event.ET_SOURCE_NAME_CHANGE = {}
 
 ---@class EventParam.SOURCE_NAME_CHANGE
 
-event.DEST_DIE = {
+event.ET_DEST_DIE = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3518,7 +3518,7 @@ event.DEST_DIE = {
 ---@field destructible Destructible # 死亡的可破坏物
 ---@field unit_for_dest Unit # 凶手单位
 
-event.DEST_SOURCE_DRY = {
+event.ET_DEST_SOURCE_DRY = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3541,7 +3541,7 @@ event.DEST_SOURCE_DRY = {
 ---@field destructible Destructible # 资源枯竭的可破坏物
 ---@field unit_for_dest Unit # 采集的单位
 
-event.DEST_ATTACKED = {
+event.ET_DEST_ATTACKED = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3564,7 +3564,7 @@ event.DEST_ATTACKED = {
 ---@field destructible Destructible # 被攻击的可破坏物
 ---@field unit_for_dest Unit # 攻击的单位
 
-event.DEST_COLLECTED = {
+event.ET_DEST_COLLECTED = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3587,7 +3587,7 @@ event.DEST_COLLECTED = {
 ---@field destructible Destructible # 被采集的可破坏物
 ---@field unit_for_dest Unit # 采集的单位
 
-event.DEST_AREA_DIE = {
+event.ET_DEST_AREA_DIE = {
     [1] = {
         name = "__area",
         type = "py.Area",
@@ -3619,7 +3619,7 @@ event.DEST_AREA_DIE = {
 ---@field destructible Destructible # 死亡的可破坏物
 ---@field unit_for_dest Unit # 杀手单位
 
-event.DEST_AREA_DRY = {
+event.ET_DEST_AREA_DRY = {
     [1] = {
         name = "__area",
         type = "py.Area",
@@ -3651,7 +3651,7 @@ event.DEST_AREA_DRY = {
 ---@field destructible Destructible # 资源枯竭的可破坏物
 ---@field unit_for_dest Unit # 采集单位
 
-event.DEST_AREA_ATTACKED = {
+event.ET_DEST_AREA_ATTACKED = {
     [1] = {
         name = "__area",
         type = "py.Area",
@@ -3683,7 +3683,7 @@ event.DEST_AREA_ATTACKED = {
 ---@field destructible Destructible # 被攻击的可破坏物
 ---@field unit_for_dest Unit # 攻击单位
 
-event.DEST_AREA_COLLECTED = {
+event.ET_DEST_AREA_COLLECTED = {
     [1] = {
         name = "__area",
         type = "py.Area",
@@ -3715,7 +3715,7 @@ event.DEST_AREA_COLLECTED = {
 ---@field destructible Destructible # 被采集的可破坏物
 ---@field unit_for_dest Unit # 采集单位
 
-event.DEST_CREATE_NEW = {
+event.ET_DEST_CREATE_NEW = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3729,7 +3729,7 @@ event.DEST_CREATE_NEW = {
 ---@class EventParam.DEST_CREATE_NEW
 ---@field destructible Destructible # 可破坏物
 
-event.DEST_DIE_NEW = {
+event.ET_DEST_DIE_NEW = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3752,7 +3752,7 @@ event.DEST_DIE_NEW = {
 ---@field destructible Destructible # 可破坏物
 ---@field unit_id_of_dest_killer Unit # 凶手单位ID
 
-event.DEST_REVIVE_NEW = {
+event.ET_DEST_REVIVE_NEW = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3766,7 +3766,7 @@ event.DEST_REVIVE_NEW = {
 ---@class EventParam.DEST_REVIVE_NEW
 ---@field destructible Destructible # 可破坏物
 
-event.DEST_RES_CNT_CHG_NEW = {
+event.ET_DEST_RES_CNT_CHG_NEW = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3789,7 +3789,7 @@ event.DEST_RES_CNT_CHG_NEW = {
 ---@field destructible Destructible # 可破坏物
 ---@field res_chg_cnt_in_dest_event integer # 可破坏物资源变化量
 
-event.DEST_COLLECTED_NEW = {
+event.ET_DEST_COLLECTED_NEW = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3830,7 +3830,7 @@ event.DEST_COLLECTED_NEW = {
 ---@field ability_in_dest_event Ability # 事件中的技能对象
 ---@field role_res_cnt_in_event integer # 采集的玩家属性个数
 
-event.GET_HURT_NEW = {
+event.ET_GET_HURT_NEW = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3862,7 +3862,7 @@ event.GET_HURT_NEW = {
 ---@field unit_id_of_hurt_dest Unit # 事件中的单位
 ---@field damage_value_of_hurt_dest py.Fixed # 受到的伤害
 
-event.SELECT_DEST = {
+event.ET_SELECT_DEST = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -3885,7 +3885,7 @@ event.SELECT_DEST = {
 ---@field role Player # 玩家
 ---@field destructible Destructible # 点击到可破坏物
 
-event.DEST_DELETE = {
+event.ET_DEST_DELETE = {
     [1] = {
         name = "__destructible_id",
         type = "py.DestructibleID",
@@ -3899,23 +3899,23 @@ event.DEST_DELETE = {
 ---@class EventParam.DEST_DELETE
 ---@field destructible Destructible # 触发事件的可破坏物
 
-event.PRODUCE_PROJECTILE = {}
+event.ET_PRODUCE_PROJECTILE = {}
 
 ---@class EventParam.PRODUCE_PROJECTILE
 
-event.DEATH_PROJECTILE = {}
+event.ET_DEATH_PROJECTILE = {}
 
 ---@class EventParam.DEATH_PROJECTILE
 
-event.START_MOVE_PROJECTILE = {}
+event.ET_START_MOVE_PROJECTILE = {}
 
 ---@class EventParam.START_MOVE_PROJECTILE
 
-event.REACH_MOVE_TARGET_PROJECTILE = {}
+event.ET_REACH_MOVE_TARGET_PROJECTILE = {}
 
 ---@class EventParam.REACH_MOVE_TARGET_PROJECTILE
 
-event.COLLIDE_OBSTACLE_PROJECTILE = {
+event.ET_COLLIDE_OBSTACLE_PROJECTILE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -3929,11 +3929,11 @@ event.COLLIDE_OBSTACLE_PROJECTILE = {
 ---@class EventParam.COLLIDE_OBSTACLE_PROJECTILE
 ---@field unit Unit # 单位
 
-event.UNIT_PRODUCE_PROJECTILE = {}
+event.ET_UNIT_PRODUCE_PROJECTILE = {}
 
 ---@class EventParam.UNIT_PRODUCE_PROJECTILE
 
-event.TRIGGER_COMPONENT_EVENT = {
+event.ET_TRIGGER_COMPONENT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -3983,7 +3983,7 @@ event.TRIGGER_COMPONENT_EVENT = {
 ---@field pos py.Vector2 # 触碰坐标
 ---@field touch_id integer # 触碰ID
 
-event.GLOBAL_EVENT_TO_UI_WITH_DICT = {
+event.ET_GLOBAL_EVENT_TO_UI_WITH_DICT = {
     [1] = {
         name = "__event_name",
         type = "string",
@@ -4006,7 +4006,7 @@ event.GLOBAL_EVENT_TO_UI_WITH_DICT = {
 ---@field event_name string # ui事件名
 ---@field args py.Dict # 参数
 
-event.KEYBOARD_KEY_DOWN_EVENT = {
+event.ET_KEYBOARD_KEY_DOWN_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4029,7 +4029,7 @@ event.KEYBOARD_KEY_DOWN_EVENT = {
 ---@field role Player # 触发按键的玩家
 ---@field current_key py.KeyboardKey # 当前键盘按键
 
-event.KEYBOARD_KEY_UP_EVENT = {
+event.ET_KEYBOARD_KEY_UP_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4052,7 +4052,7 @@ event.KEYBOARD_KEY_UP_EVENT = {
 ---@field role Player # 触发按键的玩家
 ---@field current_key py.KeyboardKey # 当前键盘按键
 
-event.MOUSE_KEY_DOWN_EVENT = {
+event.ET_MOUSE_KEY_DOWN_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4084,7 +4084,7 @@ event.MOUSE_KEY_DOWN_EVENT = {
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
-event.MOUSE_KEY_UP_EVENT = {
+event.ET_MOUSE_KEY_UP_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4116,7 +4116,7 @@ event.MOUSE_KEY_UP_EVENT = {
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
-event.SE_KEY_DB_CLICK_EVENT = {
+event.ET_SE_KEY_DB_CLICK_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4148,7 +4148,7 @@ event.SE_KEY_DB_CLICK_EVENT = {
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
-event.SE_KEY_DOWN_UNIT_EVENT = {
+event.ET_SE_KEY_DOWN_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4180,7 +4180,7 @@ event.SE_KEY_DOWN_UNIT_EVENT = {
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field unit Unit # 当前操作的单位
 
-event.SE_KEY_UP_UNIT_EVENT = {
+event.ET_SE_KEY_UP_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4212,7 +4212,7 @@ event.SE_KEY_UP_UNIT_EVENT = {
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field unit Unit # 当前操作的单位
 
-event.SE_KEY_DB_CLICK_UNIT_EVENT = {
+event.ET_SE_KEY_DB_CLICK_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4244,7 +4244,7 @@ event.SE_KEY_DB_CLICK_UNIT_EVENT = {
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field unit Unit # 当前操作的单位
 
-event.SE_MOVE_EVENT = {
+event.ET_SE_MOVE_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4285,7 +4285,7 @@ event.SE_MOVE_EVENT = {
 ---@field tar_x integer # 鼠标指向的屏幕坐标X
 ---@field tar_y integer # 鼠标指向的屏幕坐标Y
 
-event.MOUSE_WHEEL_EVENT = {
+event.ET_MOUSE_WHEEL_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4308,11 +4308,11 @@ event.MOUSE_WHEEL_EVENT = {
 ---@field role Player # 触发按键的玩家
 ---@field mouse_wheel py.MouseWheel # 当前鼠标滚轮
 
-event.AL_MOUSE_MOVE_EVENT = {}
+event.ET_AL_MOUSE_MOVE_EVENT = {}
 
 ---@class EventParam.AL_MOUSE_MOVE_EVENT
 
-event.UNIT_EVENT_TO_GLOBAL = {
+event.ET_UNIT_EVENT_TO_GLOBAL = {
     [1] = {
         name = "__event_name",
         type = "string",
@@ -4380,7 +4380,7 @@ event.UNIT_EVENT_TO_GLOBAL = {
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
 
-event.ABILITY_EVENT_TO_GLOBAL = {
+event.ET_ABILITY_EVENT_TO_GLOBAL = {
     [1] = {
         name = "__event_name",
         type = "string",
@@ -4448,7 +4448,7 @@ event.ABILITY_EVENT_TO_GLOBAL = {
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
 
-event.MODIFIER_EVENT_TO_GLOBAL = {
+event.ET_MODIFIER_EVENT_TO_GLOBAL = {
     [1] = {
         name = "__event_name",
         type = "string",
@@ -4516,7 +4516,7 @@ event.MODIFIER_EVENT_TO_GLOBAL = {
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
 
-event.PROJECTILE_EVENT_TO_GLOBAL = {
+event.ET_PROJECTILE_EVENT_TO_GLOBAL = {
     [1] = {
         name = "__event_name",
         type = "string",
@@ -4584,7 +4584,7 @@ event.PROJECTILE_EVENT_TO_GLOBAL = {
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
 
-event.ITEM_EVENT_TO_GLOBAL = {
+event.ET_ITEM_EVENT_TO_GLOBAL = {
     [1] = {
         name = "__event_name",
         type = "string",
@@ -4652,7 +4652,7 @@ event.ITEM_EVENT_TO_GLOBAL = {
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
 
-event.SELECT_UNIT = {
+event.ET_SELECT_UNIT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4675,7 +4675,7 @@ event.SELECT_UNIT = {
 ---@field role Player # 玩家
 ---@field unit Unit # 点击到单位
 
-event.HIGH_LIGHT_UNIT_CHANGE = {
+event.ET_HIGH_LIGHT_UNIT_CHANGE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4698,7 +4698,7 @@ event.HIGH_LIGHT_UNIT_CHANGE = {
 ---@field role Player # 玩家
 ---@field high_light_unit_id py.HighLightUnitID # 高亮单位id
 
-event.SELECT_ITEM = {
+event.ET_SELECT_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4721,7 +4721,7 @@ event.SELECT_ITEM = {
 ---@field role Player # 玩家
 ---@field item Item # 点击到物品
 
-event.DOUBLE_CLICK_ITEM = {
+event.ET_DOUBLE_CLICK_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4744,7 +4744,7 @@ event.DOUBLE_CLICK_ITEM = {
 ---@field role Player # 玩家
 ---@field item Item # 双击到物品
 
-event.OPEN_SHOP_PANEL = {
+event.ET_OPEN_SHOP_PANEL = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4767,7 +4767,7 @@ event.OPEN_SHOP_PANEL = {
 ---@field role Player # 玩家
 ---@field unit Unit # 商店单位
 
-event.DOUBLE_CLICK_DEST = {
+event.ET_DOUBLE_CLICK_DEST = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4790,7 +4790,7 @@ event.DOUBLE_CLICK_DEST = {
 ---@field role Player # 玩家
 ---@field destructible Destructible # 双击到可破坏物
 
-event.SELECT_UNIT_GROUP = {
+event.ET_SELECT_UNIT_GROUP = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4822,7 +4822,7 @@ event.SELECT_UNIT_GROUP = {
 ---@field unit_group_id_list UnitGroup # 框选到单位组id列表
 ---@field team_id integer # 队伍编号
 
-event.START_SKILL_POINTER = {
+event.ET_START_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4872,7 +4872,7 @@ event.START_SKILL_POINTER = {
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能Seq
 
-event.STOP_SKILL_POINTER = {
+event.ET_STOP_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4922,7 +4922,7 @@ event.STOP_SKILL_POINTER = {
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能Seq
 
-event.RESIZE_SKILL_POINTER = {
+event.ET_RESIZE_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -4972,7 +4972,7 @@ event.RESIZE_SKILL_POINTER = {
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能Seq
 
-event.SET_ABILITY_SECTOR_RADIUS = {
+event.ET_SET_ABILITY_SECTOR_RADIUS = {
     [1] = {
         name = "__ability_seq",
         type = "py.AbilitySeq",
@@ -4986,7 +4986,7 @@ event.SET_ABILITY_SECTOR_RADIUS = {
 ---@class EventParam.SET_ABILITY_SECTOR_RADIUS
 ---@field ability_seq py.AbilitySeq # 技能Seq
 
-event.SET_ABILITY_SECTOR_ANGLE = {
+event.ET_SET_ABILITY_SECTOR_ANGLE = {
     [1] = {
         name = "__ability_seq",
         type = "py.AbilitySeq",
@@ -5000,7 +5000,7 @@ event.SET_ABILITY_SECTOR_ANGLE = {
 ---@class EventParam.SET_ABILITY_SECTOR_ANGLE
 ---@field ability_seq py.AbilitySeq # 技能Seq
 
-event.SET_ABILITY_ARROW_LENGTH = {
+event.ET_SET_ABILITY_ARROW_LENGTH = {
     [1] = {
         name = "__ability_seq",
         type = "py.AbilitySeq",
@@ -5014,7 +5014,7 @@ event.SET_ABILITY_ARROW_LENGTH = {
 ---@class EventParam.SET_ABILITY_ARROW_LENGTH
 ---@field ability_seq py.AbilitySeq # 技能Seq
 
-event.SET_ABILITY_ARROW_WIDTH = {
+event.ET_SET_ABILITY_ARROW_WIDTH = {
     [1] = {
         name = "__ability_seq",
         type = "py.AbilitySeq",
@@ -5028,7 +5028,7 @@ event.SET_ABILITY_ARROW_WIDTH = {
 ---@class EventParam.SET_ABILITY_ARROW_WIDTH
 ---@field ability_seq py.AbilitySeq # 技能Seq
 
-event.SET_ABILITY_CIRCLE_RADIUS = {
+event.ET_SET_ABILITY_CIRCLE_RADIUS = {
     [1] = {
         name = "__ability_seq",
         type = "py.AbilitySeq",
@@ -5042,7 +5042,7 @@ event.SET_ABILITY_CIRCLE_RADIUS = {
 ---@class EventParam.SET_ABILITY_CIRCLE_RADIUS
 ---@field ability_seq py.AbilitySeq # 技能Seq
 
-event.SET_ABILITY_POINTER_TYPE = {
+event.ET_SET_ABILITY_POINTER_TYPE = {
     [1] = {
         name = "__ability_seq",
         type = "py.AbilitySeq",
@@ -5065,7 +5065,7 @@ event.SET_ABILITY_POINTER_TYPE = {
 ---@field ability_seq py.AbilitySeq # 技能Seq
 ---@field skill_pointer_type py.SkillPointerType # 技能指示器类型
 
-event.TOUCH_BEGIN = {
+event.ET_TOUCH_BEGIN = {
     [1] = {
         name = "__touch_id",
         type = "integer",
@@ -5088,7 +5088,7 @@ event.TOUCH_BEGIN = {
 ---@field touch_id integer # 触碰(鼠标)id
 ---@field pos py.Vector2 # 触碰(鼠标)坐标
 
-event.TOUCH_MOVE = {
+event.ET_TOUCH_MOVE = {
     [1] = {
         name = "__touch_id",
         type = "integer",
@@ -5111,7 +5111,7 @@ event.TOUCH_MOVE = {
 ---@field touch_id integer # 触碰(鼠标)id
 ---@field pos py.Vector2 # 触碰(鼠标)坐标
 
-event.TOUCH_END = {
+event.ET_TOUCH_END = {
     [1] = {
         name = "__touch_id",
         type = "integer",
@@ -5134,15 +5134,15 @@ event.TOUCH_END = {
 ---@field touch_id integer # 触碰(鼠标)id
 ---@field pos py.Vector2 # 触碰(鼠标)坐标
 
-event.TOP_TOUCH_END = {}
+event.ET_TOP_TOUCH_END = {}
 
 ---@class EventParam.TOP_TOUCH_END
 
-event.K_LIST_INFO_CHANGE = {}
+event.ET_K_LIST_INFO_CHANGE = {}
 
 ---@class EventParam.K_LIST_INFO_CHANGE
 
-event.UNIT_ADD_ITEM = {
+event.ET_UNIT_ADD_ITEM = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5174,7 +5174,7 @@ event.UNIT_ADD_ITEM = {
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_ADD_ITEM_FOR_COMPOSE = {
+event.ET_UNIT_ADD_ITEM_FOR_COMPOSE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5206,7 +5206,7 @@ event.UNIT_ADD_ITEM_FOR_COMPOSE = {
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_ADD_ITEM_TO_BAR = {
+event.ET_UNIT_ADD_ITEM_TO_BAR = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5238,7 +5238,7 @@ event.UNIT_ADD_ITEM_TO_BAR = {
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_ADD_ITEM_TO_PKG = {
+event.ET_UNIT_ADD_ITEM_TO_PKG = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5270,7 +5270,7 @@ event.UNIT_ADD_ITEM_TO_PKG = {
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_REMOVE_ITEM = {
+event.ET_UNIT_REMOVE_ITEM = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5302,7 +5302,7 @@ event.UNIT_REMOVE_ITEM = {
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_REMOVE_ITEM_FROM_BAR = {
+event.ET_UNIT_REMOVE_ITEM_FROM_BAR = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5334,7 +5334,7 @@ event.UNIT_REMOVE_ITEM_FROM_BAR = {
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_REMOVE_ITEM_FROM_PKG = {
+event.ET_UNIT_REMOVE_ITEM_FROM_PKG = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5366,7 +5366,7 @@ event.UNIT_REMOVE_ITEM_FROM_PKG = {
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_USE_ITEM = {
+event.ET_UNIT_USE_ITEM = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5398,7 +5398,7 @@ event.UNIT_USE_ITEM = {
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_USE_ITEM_END = {
+event.ET_UNIT_USE_ITEM_END = {
     [1] = {
         name = "__item_no",
         type = "py.ItemKey",
@@ -5412,7 +5412,7 @@ event.UNIT_USE_ITEM_END = {
 ---@class EventParam.UNIT_USE_ITEM_END
 ---@field item_no py.ItemKey # 物品编号
 
-event.UNIT_START_NAV_EVENT = {
+event.ET_UNIT_START_NAV_EVENT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5426,7 +5426,7 @@ event.UNIT_START_NAV_EVENT = {
 ---@class EventParam.UNIT_START_NAV_EVENT
 ---@field unit Unit # 单位
 
-event.UNIT_END_NAV_EVENT = {
+event.ET_UNIT_END_NAV_EVENT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -5440,11 +5440,11 @@ event.UNIT_END_NAV_EVENT = {
 ---@class EventParam.UNIT_END_NAV_EVENT
 ---@field unit Unit # 单位
 
-event.UNIT_BAG_REFRESH = {}
+event.ET_UNIT_BAG_REFRESH = {}
 
 ---@class EventParam.UNIT_BAG_REFRESH
 
-event.ITEM_STACK_CHANGED = {
+event.ET_ITEM_STACK_CHANGED = {
     [1] = {
         name = "__unit_id",
         type = "py.ItemID",
@@ -5485,7 +5485,7 @@ event.ITEM_STACK_CHANGED = {
 ---@field item_no py.ItemKey # 物品编号
 ---@field delta_cnt integer # 变化值
 
-event.ITEM_CHARGE_CHANGED = {
+event.ET_ITEM_CHARGE_CHANGED = {
     [1] = {
         name = "__unit_id",
         type = "py.ItemID",
@@ -5526,7 +5526,7 @@ event.ITEM_CHARGE_CHANGED = {
 ---@field item_no py.ItemKey # 物品编号
 ---@field delta_cnt integer # 变化值
 
-event.ITEM_ON_CREATE = {
+event.ET_ITEM_ON_CREATE = {
     [1] = {
         name = "__item",
         type = "py.Item",
@@ -5540,7 +5540,7 @@ event.ITEM_ON_CREATE = {
 ---@class EventParam.ITEM_ON_CREATE
 ---@field item Item # 被创建的物品
 
-event.ITEM_ON_DESTROY = {
+event.ET_ITEM_ON_DESTROY = {
     [1] = {
         name = "__item_id",
         type = "py.ItemKey",
@@ -5554,7 +5554,7 @@ event.ITEM_ON_DESTROY = {
 ---@class EventParam.ITEM_ON_DESTROY
 ---@field item_id py.ItemKey # 销毁的物品
 
-event.ITEM_ENTITY_ON_DESTROY = {
+event.ET_ITEM_ENTITY_ON_DESTROY = {
     [1] = {
         name = "__item_unit_id",
         type = "py.ItemID",
@@ -5577,7 +5577,7 @@ event.ITEM_ENTITY_ON_DESTROY = {
 ---@field item_unit Item # 物品实体
 ---@field item Item # 物品
 
-event.ITEM_SOLD = {
+event.ET_ITEM_SOLD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
@@ -5627,7 +5627,7 @@ event.ITEM_SOLD = {
 ---@field buy_unit Unit # 收购物品的单位
 ---@field shop_unit Unit # 出售物品的单位
 
-event.ITEM_BROKEN = {
+event.ET_ITEM_BROKEN = {
     [1] = {
         name = "__item",
         type = "py.Item",
@@ -5650,7 +5650,7 @@ event.ITEM_BROKEN = {
 ---@field item Item # 被破坏的物品
 ---@field unit Unit # 破坏物品的单位
 
-event.ITEM_NAME_CHANGED = {
+event.ET_ITEM_NAME_CHANGED = {
     [1] = {
         name = "__item",
         type = "py.Item",
@@ -5673,7 +5673,7 @@ event.ITEM_NAME_CHANGED = {
 ---@field item Item # 改变名称的物体
 ---@field name string # 改变后的名称
 
-event.ITEM_DESC_CHANGED = {
+event.ET_ITEM_DESC_CHANGED = {
     [1] = {
         name = "__item",
         type = "py.Item",
@@ -5696,7 +5696,7 @@ event.ITEM_DESC_CHANGED = {
 ---@field item Item # 改变描述的物体
 ---@field name string # 改变后的描述
 
-event.ITEM_CREATE_ON_DEST_COLLECTED = {
+event.ET_ITEM_CREATE_ON_DEST_COLLECTED = {
     [1] = {
         name = "__item_id",
         type = "py.Item",
@@ -5737,7 +5737,7 @@ event.ITEM_CREATE_ON_DEST_COLLECTED = {
 ---@field unit Unit # 采集可破坏物事件中的单位
 ---@field ability Ability # 采集可破坏物的捷能
 
-event.ATTACK_MOVE_CMD = {
+event.ET_ATTACK_MOVE_CMD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
@@ -5769,7 +5769,7 @@ event.ATTACK_MOVE_CMD = {
 ---@field tar_x py.Fixed # 点击位置X坐标
 ---@field tar_y py.Fixed # 点击位置Y坐标
 
-event.SELL_ITEM_CMD = {
+event.ET_SELL_ITEM_CMD = {
     [1] = {
         name = "__shop_unit_id",
         type = "py.UnitID",
@@ -5792,7 +5792,7 @@ event.SELL_ITEM_CMD = {
 ---@field shop_unit Unit # 商店单位
 ---@field item Item # 商品
 
-event.AI_RELEASE_SKILL_CMD = {
+event.ET_AI_RELEASE_SKILL_CMD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
@@ -5842,7 +5842,7 @@ event.AI_RELEASE_SKILL_CMD = {
 ---@field ability_seq py.AbilitySeq # 技能SEQ
 ---@field target_item py.Dict # 释放技能参数
 
-event.PATROL_CMD = {
+event.ET_PATROL_CMD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
@@ -5874,7 +5874,7 @@ event.PATROL_CMD = {
 ---@field tar_x py.Fixed # 点击位置X坐标
 ---@field tar_y py.Fixed # 点击位置Y坐标
 
-event.MOVE_UNIT_TO_TARGET_CMD = {
+event.ET_MOVE_UNIT_TO_TARGET_CMD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
@@ -5906,7 +5906,7 @@ event.MOVE_UNIT_TO_TARGET_CMD = {
 ---@field tar_x py.Fixed # 点击位置X坐标
 ---@field tar_y py.Fixed # 点击位置Y坐标
 
-event.MOUSE_HOVER_EVENT = {
+event.ET_MOUSE_HOVER_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -5947,11 +5947,11 @@ event.MOUSE_HOVER_EVENT = {
 ---@field item Item # 悬浮物品
 ---@field destructible Destructible # 悬浮可破坏物
 
-event.CATCH_FRAME_FINISHED = {}
+event.ET_CATCH_FRAME_FINISHED = {}
 
 ---@class EventParam.CATCH_FRAME_FINISHED
 
-event.MOVER_FINISH = {
+event.ET_MOVER_FINISH = {
     [1] = {
         name = "__mover_unit_id",
         type = "py.UnitID",
@@ -5965,7 +5965,7 @@ event.MOVER_FINISH = {
 ---@class EventParam.MOVER_FINISH
 ---@field mover_unit Unit # 运动器所属单位
 
-event.MOVER_INTERRUPT = {
+event.ET_MOVER_INTERRUPT = {
     [1] = {
         name = "__mover_unit_id",
         type = "py.UnitID",
@@ -5979,7 +5979,7 @@ event.MOVER_INTERRUPT = {
 ---@class EventParam.MOVER_INTERRUPT
 ---@field mover_unit Unit # 运动器所属单位
 
-event.MOVER_REMOVED = {
+event.ET_MOVER_REMOVED = {
     [1] = {
         name = "__mover_unit_id",
         type = "py.UnitID",
@@ -5993,7 +5993,7 @@ event.MOVER_REMOVED = {
 ---@class EventParam.MOVER_REMOVED
 ---@field mover_unit Unit # 运动器所属单位
 
-event.MOVER_UNIT_COLLISION = {
+event.ET_MOVER_UNIT_COLLISION = {
     [1] = {
         name = "__mover_unit_id",
         type = "py.UnitID",
@@ -6016,7 +6016,7 @@ event.MOVER_UNIT_COLLISION = {
 ---@field mover_unit Unit # 运动器所属单位
 ---@field collide_unit Unit # 碰撞单位
 
-event.MOVER_UNIT_COLLISION_ENTER = {
+event.ET_MOVER_UNIT_COLLISION_ENTER = {
     [1] = {
         name = "__mover_unit_id",
         type = "py.UnitID",
@@ -6039,7 +6039,7 @@ event.MOVER_UNIT_COLLISION_ENTER = {
 ---@field mover_unit Unit # 运动器所属单位
 ---@field collide_unit Unit # 碰撞单位
 
-event.MOVER_UNIT_COLLISION_LEAVE = {
+event.ET_MOVER_UNIT_COLLISION_LEAVE = {
     [1] = {
         name = "__mover_unit_id",
         type = "py.UnitID",
@@ -6062,7 +6062,7 @@ event.MOVER_UNIT_COLLISION_LEAVE = {
 ---@field mover_unit Unit # 运动器所属单位
 ---@field collide_unit Unit # 碰撞单位
 
-event.MOVER_TERRAIN_COLLISION = {
+event.ET_MOVER_TERRAIN_COLLISION = {
     [1] = {
         name = "__mover_unit_id",
         type = "py.UnitID",
@@ -6076,7 +6076,7 @@ event.MOVER_TERRAIN_COLLISION = {
 ---@class EventParam.MOVER_TERRAIN_COLLISION
 ---@field mover_unit Unit # 运动器所属单位
 
-event.CHAT_SEND_GM = {
+event.ET_CHAT_SEND_GM = {
     [1] = {
         name = "__str1",
         type = "string",
@@ -6099,7 +6099,7 @@ event.CHAT_SEND_GM = {
 ---@field str1 string # 指令字符串
 ---@field role Player # 玩家
 
-event.CUSTOM_EVENT = {
+event.ET_CUSTOM_EVENT = {
     [1] = {
         name = "__c_param_1",
         type = "integer",
@@ -6149,7 +6149,7 @@ event.CUSTOM_EVENT = {
 ---@field c_param_4 integer # 自定义参数4
 ---@field c_param_5 integer # 自定义参数5
 
-event.EVENT_CUSTOM = {
+event.ET_EVENT_CUSTOM = {
     [1] = {
         name = "__c_param_1",
         type = "integer",
@@ -6172,7 +6172,7 @@ event.EVENT_CUSTOM = {
 ---@field c_param_1 integer # 事件参数
 ---@field c_param_dict py.Dict # 自定义参数列表
 
-event.VX_EVENT = {
+event.ET_VX_EVENT = {
     [1] = {
         name = "__ui_vx_handler",
         type = "string",
@@ -6204,7 +6204,7 @@ event.VX_EVENT = {
 ---@field comp_name string # 控件uid
 ---@field int1 integer # 动效id
 
-event.UI_PREFAB_CREATE_EVENT = {
+event.ET_UI_PREFAB_CREATE_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -6236,7 +6236,7 @@ event.UI_PREFAB_CREATE_EVENT = {
 ---@field ui_prefab string # ui模块id
 ---@field ui_prefab_ins py.UIPrefabIns # 创建出的实例控件
 
-event.UI_PREFAB_DEL_EVENT = {
+event.ET_UI_PREFAB_DEL_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -6268,7 +6268,7 @@ event.UI_PREFAB_DEL_EVENT = {
 ---@field ui_prefab string # ui模块id
 ---@field ui_prefab_ins py.UIPrefabIns # 销毁的模块实例控件
 
-event.E_INPUT_FIELD_EDIT_MSG = {
+event.ET_E_INPUT_FIELD_EDIT_MSG = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -6291,7 +6291,7 @@ event.E_INPUT_FIELD_EDIT_MSG = {
 ---@field role Player # 玩家
 ---@field msg string # 字符串
 
-event.MICRO_SPEAK = {
+event.ET_MICRO_SPEAK = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -6323,7 +6323,7 @@ event.MICRO_SPEAK = {
 ---@field audio_channel integer # 频道
 ---@field audio_bool boolean # 是否发言
 
-event.UNIT_3D_ACTIVE = {
+event.ET_UNIT_3D_ACTIVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
