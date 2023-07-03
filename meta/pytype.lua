@@ -323,3 +323,5 @@
 ---@class py.Reaction: py.DynamicTypeMeta
 --物理Reaction Group
 ---@class py.ReactionGroup: py.DynamicTypeMeta
+--表排序顺序
+---@class py.TableOrder: integer

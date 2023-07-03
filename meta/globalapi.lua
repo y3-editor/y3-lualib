@@ -334,7 +334,7 @@ function GlobalAPI.root(base, num) end
 ---@param s1 string # 母字符串
 ---@param old string # 被替换的字符串
 ---@param new string # 替换目标字符串
----@param num? string # 最大替换次数
+---@param num? integer # 最大替换次数
 ---@return string # 字符串
 function GlobalAPI.replace_str(s1, old, new, num) end
 
