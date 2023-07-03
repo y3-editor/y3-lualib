@@ -26,6 +26,7 @@ function M.get_lua_player_group_from_py(py_role_group)
     return player_group
 end
 
+y3.py_converter.register_type_alias('py.RoleGroup', 'PlayerGroup')
 y3.py_converter.register_py_to_lua('py.RoleGroup', M.get_lua_player_group_from_py)
 y3.py_converter.register_lua_to_py('py.RoleGroup', function (lua_value)
     return lua_value.handle

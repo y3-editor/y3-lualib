@@ -9,6 +9,10 @@ M.py_to_lua_method = {}
 ---@type table<string, fun(lua_value:any):any>
 M.lua_to_py_method = {}
 
+---@private
+---@type table<string, string>
+M.type_alias_map = {}
+
 ---@param py_type string
 ---@param py_value any
 ---@return any
@@ -63,6 +67,30 @@ end
 ---@param converter fun(lua_value:any):any
 function M.register_lua_to_py(lua_type, converter)
     M.lua_to_py_method[lua_type] = converter
+end
+
+---@param type_name string
+---@return string
+function M.get_py_type(type_name)
+    if M.type_alias_map[type_name] then
+        return M.type_alias_map[type_name]
+    end
+    if y3.util.stringStartWith(type_name, 'py.') then
+        M.type_alias_map[type_name] = type_name
+        return type_name
+    end
+    if type_name:find '^%u' then
+        M.type_alias_map[type_name] = 'py.' .. type_name
+        return 'py.' .. type_name
+    end
+    M.type_alias_map[type_name] = type_name
+    return type_name
+end
+
+---@param py_type_name string
+---@param lua_type_name string
+function M.register_type_alias(py_type_name, lua_type_name)
+    M.type_alias_map[lua_type_name] = py_type_name
 end
 
 M.register_py_to_lua('number', function (py_number)

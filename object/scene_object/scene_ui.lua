@@ -23,6 +23,7 @@ function M.get_lua_scene_ui_from_py(py_scene_node)
     return scene_ui
 end
 
+y3.py_converter.register_type_alias('py.SceneNode', 'SceneUI')
 y3.py_converter.register_py_to_lua('py.SceneNode', M.get_lua_scene_ui_from_py)
 y3.py_converter.register_lua_to_py('py.SceneNode', function (lua_value)
     return lua_value.handle

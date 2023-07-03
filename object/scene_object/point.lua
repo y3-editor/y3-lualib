@@ -47,8 +47,9 @@ function M.get_lua_point_from_py(py_point)
     return point
 end
 
-y3.py_converter.register_py_to_lua('py.FPoint', M.get_lua_point_from_py)
-y3.py_converter.register_lua_to_py('py.FPoint', function (lua_value)
+y3.py_converter.register_type_alias('py.Point', 'Point')
+y3.py_converter.register_py_to_lua('py.Point', M.get_lua_point_from_py)
+y3.py_converter.register_lua_to_py('py.Point', function (lua_value)
     return lua_value.handle
 end)
 

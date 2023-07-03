@@ -59,7 +59,7 @@ end
 function M:with_param(key, type_name)
     table.insert(self.params, {
         key  = key,
-        type = type_name,
+        type = y3.py_converter.get_py_type(type_name),
     })
     return self
 end
@@ -71,7 +71,7 @@ end
 function M:with_return(key, type_name)
     table.insert(self.returns, {
         key  = key,
-        type = type_name,
+        type = y3.py_converter.get_py_type(type_name),
     })
     return self
 end
