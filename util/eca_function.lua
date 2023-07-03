@@ -22,7 +22,10 @@ function M:_unpack_params(...)
     local param_list = {...}
     for i, param in ipairs(self.params) do
         local py_value = param_list[i]
-        local lua_value = y3.py_converter.py_to_lua(param.type, py_value)
+        local ok, lua_value = xpcall(y3.py_converter.py_to_lua, log.error, param.type, py_value)
+        if not ok then
+            return
+        end
         param_list[i] = lua_value
     end
     return table.unpack(param_list, 1, #self.params)
@@ -39,7 +42,10 @@ function M:_pack_returns(ok, ...)
     if #self.returns == 0 then
         return nil
     end
-    local ret_value = y3.py_converter.lua_to_py(self.returns[1].type, ...)
+    local ok2, ret_value = xpcall(y3.py_converter.lua_to_py, log.error, self.returns[1].type, ...)
+    if not ok2 then
+        return nil
+    end
     return ret_value
 end
 
@@ -81,7 +87,7 @@ end
 function M:call(func)
     self.func = func
     Bind[self.call_name] = function (...)
-        return self:_pack_returns(xpcall(self.func, print, self:_unpack_params(...)))
+        return self:_pack_returns(xpcall(self.func, log.error, self:_unpack_params(...)))
     end
 end
 

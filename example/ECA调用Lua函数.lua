@@ -1,9 +1,9 @@
 -- 声明一个新的ECA函数，用于获取单位所有者
 New 'ECAFunction' '获取单位所有者'
     -- 声明第一个参数的ECA类型
-    : with_param('单位', 'py.Unit')
+    : with_param('单位', 'Unit')
     -- 声明返回值的ECA类型
-    : with_return('玩家', 'py.Role')
+    : with_return('玩家', 'Player')
     ---@param unit Unit
     ---@return Player
     : call(function (unit)
