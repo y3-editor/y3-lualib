@@ -18,11 +18,30 @@
 
 尽量不要直接调用。因为目前已经有计划修改CAPI，直接调用CAPI可能会在未来产生兼容性问题。
 
+### ECA与Lua协同开发时，ECA如何调用Lua函数？
+
+ECA可以直接执行Lua代码，你也可以参考[此代码](./example/ECA调用Lua函数.lua)注册一个绑定函数供ECA调用。
+
+# 使用VSCode进行附加调试
+
+1. VSCode在扩展市场中搜索安装插件 `actboy168.lua-debug`。
+2. 将 `y3/.vscode` 复制到你的项目中。
+3. 启动游戏后，点击 `F5` 开始调试。
+
+> 通常调试器附加成功时已经错过了游戏初始化时机，如果你想要追踪初始化相关的代码，可以在相关代码前面加一行 `LDBG:event 'wait'`。当游戏执行到此行代码时，游戏会“卡主”，直到调试器附加完成才会继续往下执行。
+
+### 已知问题
+
+* 无法调试 `main.lua` 文件，建议暂时在 `main.lua` 中直接 `require` 另一个文件。
+* 无法触发异常断点。
+* 无法追踪一些内部函数的执行。
+
 # 工程结构
 
 <pre>
 
 📦 y3/
+    ├── 📁 <span title="演示代码">example/</span>
     ├── 📁 <span title="游戏功能相关的实现">game/</span>
     │    ├── 📜 <span title="定义常量与枚举">const.lua</span>
     │    ├── 📜 <span title="实现游戏功能的接口">game.lua</span>

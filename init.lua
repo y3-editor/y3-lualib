@@ -1,5 +1,5 @@
 pcall(function ()
-    require "y3.debugger":start "127.0.0.1:12399"--:event 'wait'
+    LDBG = require "y3.debugger":start "127.0.0.1:12399"
 end)
 
 -- 全局方法类，提供各种全局方法
