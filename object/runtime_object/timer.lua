@@ -45,7 +45,7 @@ end
 function M.loop(timeout, on_timer)
     local timer
     local count = 0
-    local py_timer = GameAPI.run_lua_timer(timeout, -1, false, function()
+    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), -1, false, function()
         count = count + 1
         xpcall(on_timer, log.error, timer, count)
     end, {})

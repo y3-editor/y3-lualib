@@ -21314,7 +21314,7 @@ function GameAPI.start_timer(name, once, interval, context) end
 function GameAPI.stop_timer(name) end
 
 --开启计时器（新）
----@param time_delay number # 延迟时间
+---@param time_delay py.Fixed # 延迟时间
 ---@param repeat_count integer # 循环次数
 ---@param run_at_start boolean # 启动时立即运行
 ---@param timer_callback function # 回调函数
