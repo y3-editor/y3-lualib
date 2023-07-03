@@ -227,7 +227,7 @@ event.ET_ROLE_JOIN_BATTLE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -243,14 +243,14 @@ event.ET_ROLE_JOIN_BATTLE = {
 }
 
 ---@class EventParam.ROLE_JOIN_BATTLE
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field is_middle_join boolean # 是否中途加入
 
 event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -258,13 +258,13 @@ event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
 }
 
 ---@class EventParam.ROLE_ACTIVE_EXIT_GAME_EVENT
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_ROLE_LOSE_CONNECT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -272,13 +272,13 @@ event.ET_ROLE_LOSE_CONNECT = {
 }
 
 ---@class EventParam.ROLE_LOSE_CONNECT
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_AI_TAKE_CONTROL = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -286,13 +286,13 @@ event.ET_AI_TAKE_CONTROL = {
 }
 
 ---@class EventParam.AI_TAKE_CONTROL
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -300,13 +300,13 @@ event.ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK = {
 }
 
 ---@class EventParam.DOWNLOAD_MAP_ARCHIVE_CALLBACK
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_ROLE_USE_STORE_ITEM_END = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -330,7 +330,7 @@ event.ET_ROLE_USE_STORE_ITEM_END = {
 }
 
 ---@class EventParam.ROLE_USE_STORE_ITEM_END
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field store_key py.StoreKey # 收费道具编号
 ---@field use_cnt integer # 使用次数
 
@@ -338,7 +338,7 @@ event.ET_CONSUME_STORE_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -354,14 +354,14 @@ event.ET_CONSUME_STORE_ITEM = {
 }
 
 ---@class EventParam.CONSUME_STORE_ITEM
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field store_key py.StoreKey # 收费道具编号
 
 event.ET_ROLE_HOLD_STORE_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -377,14 +377,14 @@ event.ET_ROLE_HOLD_STORE_ITEM = {
 }
 
 ---@class EventParam.ROLE_HOLD_STORE_ITEM
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field store_key py.StoreKey # 收费道具编号
 
 event.ET_ROLE_RESOURCE_CHANGED = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -416,7 +416,7 @@ event.ET_ROLE_RESOURCE_CHANGED = {
 }
 
 ---@class EventParam.ROLE_RESOURCE_CHANGED
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field res_key py.RoleResKey # 玩家资源类型
 ---@field res_value integer # 玩家资源值
 ---@field res_value_delta py.Fixed # 玩家资源变量值
@@ -425,7 +425,7 @@ event.ET_ROLE_INPUT_MSG = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -441,14 +441,14 @@ event.ET_ROLE_INPUT_MSG = {
 }
 
 ---@class EventParam.ROLE_INPUT_MSG
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field msg string # 字符串
 
 event.ET_ROLE_INPUT_ACTIVATION_CODE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -464,14 +464,14 @@ event.ET_ROLE_INPUT_ACTIVATION_CODE = {
 }
 
 ---@class EventParam.ROLE_INPUT_ACTIVATION_CODE
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field activation_code_group string # 激活码组
 
 event.ET_ROLE_TECH_UPGRADE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -495,7 +495,7 @@ event.ET_ROLE_TECH_UPGRADE = {
 }
 
 ---@class EventParam.ROLE_TECH_UPGRADE
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field tech_no py.TechKey # 科技编号
 ---@field curr_lv integer # 当前科技等级
 
@@ -503,7 +503,7 @@ event.ET_ROLE_TECH_DOWNGRADE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -527,7 +527,7 @@ event.ET_ROLE_TECH_DOWNGRADE = {
 }
 
 ---@class EventParam.ROLE_TECH_DOWNGRADE
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field tech_no py.TechKey # 科技编号
 ---@field curr_lv integer # 当前科技等级
 
@@ -535,7 +535,7 @@ event.ET_ROLE_TECH_CHANGED = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -567,7 +567,7 @@ event.ET_ROLE_TECH_CHANGED = {
 }
 
 ---@class EventParam.ROLE_TECH_CHANGED
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field tech_no py.TechKey # 科技编号
 ---@field curr_lv integer # 当前科技等级
 ---@field delta_lv integer # 科技变化等级
@@ -584,7 +584,7 @@ event.ET_UNIT_UPGRADE_TECH = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "单位所属玩家ID",
         lua_desc = "单位所属玩家",
@@ -601,7 +601,7 @@ event.ET_UNIT_UPGRADE_TECH = {
 
 ---@class EventParam.UNIT_UPGRADE_TECH
 ---@field unit Unit # 单位
----@field role Player # 单位所属玩家
+---@field player Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
 event.ET_UNIT_ADD_TECH = {
@@ -616,7 +616,7 @@ event.ET_UNIT_ADD_TECH = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "单位所属玩家ID",
         lua_desc = "单位所属玩家",
@@ -633,7 +633,7 @@ event.ET_UNIT_ADD_TECH = {
 
 ---@class EventParam.UNIT_ADD_TECH
 ---@field unit Unit # 单位
----@field role Player # 单位所属玩家
+---@field player Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
 event.ET_UNIT_REMOVE_TECH = {
@@ -648,7 +648,7 @@ event.ET_UNIT_REMOVE_TECH = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "单位所属玩家ID",
         lua_desc = "单位所属玩家",
@@ -665,14 +665,14 @@ event.ET_UNIT_REMOVE_TECH = {
 
 ---@class EventParam.UNIT_REMOVE_TECH
 ---@field unit Unit # 单位
----@field role Player # 单位所属玩家
+---@field player Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
 event.ET_ROLE_CHANGE_RELATION = {
     [1] = {
         name = "__src_role_id",
         type = "py.RoleID",
-        lua_name = "src_role",
+        lua_name = "src_player",
         lua_type = "Player",
         desc = "源玩家ID",
         lua_desc = "源玩家",
@@ -680,7 +680,7 @@ event.ET_ROLE_CHANGE_RELATION = {
     [2] = {
         name = "__dst_role_id",
         type = "py.RoleID",
-        lua_name = "dst_role",
+        lua_name = "dst_player",
         lua_type = "Player",
         desc = "目标玩家ID",
         lua_desc = "目标玩家",
@@ -696,8 +696,8 @@ event.ET_ROLE_CHANGE_RELATION = {
 }
 
 ---@class EventParam.ROLE_CHANGE_RELATION
----@field src_role Player # 源玩家
----@field dst_role Player # 目标玩家
+---@field src_player Player # 源玩家
+---@field dst_player Player # 目标玩家
 ---@field relation py.RoleRelation # 关系
 
 event.ET_ABILITY_BUILD_FINISH = {
@@ -1266,7 +1266,7 @@ event.ET_UNIT_ON_UNBIND_ROLE = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -1275,7 +1275,7 @@ event.ET_UNIT_ON_UNBIND_ROLE = {
 
 ---@class EventParam.UNIT_ON_UNBIND_ROLE
 ---@field unit Unit # 单位
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_UNIT_ON_BIND_ROLE = {
     [1] = {
@@ -1289,7 +1289,7 @@ event.ET_UNIT_ON_BIND_ROLE = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -1298,7 +1298,7 @@ event.ET_UNIT_ON_BIND_ROLE = {
 
 ---@class EventParam.UNIT_ON_BIND_ROLE
 ---@field unit Unit # 单位
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_UNIT_BE_HURT = {
     [1] = {
@@ -2571,7 +2571,7 @@ event.ET_UNIT_ROLE_CHANGED = {
     [2] = {
         name = "__old_role_id",
         type = "py.RoleID",
-        lua_name = "old_role",
+        lua_name = "old_player",
         lua_type = "Player",
         desc = "单位原所属玩家",
         lua_desc = "单位原所属玩家",
@@ -2579,7 +2579,7 @@ event.ET_UNIT_ROLE_CHANGED = {
     [3] = {
         name = "__new_role_id",
         type = "py.RoleID",
-        lua_name = "new_role",
+        lua_name = "new_player",
         lua_type = "Player",
         desc = "单位新所属玩家",
         lua_desc = "单位新所属玩家",
@@ -2588,8 +2588,8 @@ event.ET_UNIT_ROLE_CHANGED = {
 
 ---@class EventParam.UNIT_ROLE_CHANGED
 ---@field unit Unit # 触发事件的单位
----@field old_role Player # 单位原所属玩家
----@field new_role Player # 单位新所属玩家
+---@field old_player Player # 单位原所属玩家
+---@field new_player Player # 单位新所属玩家
 
 event.ET_UNIT_PRECONDITION_SUCCEED = {
     [1] = {
@@ -2603,7 +2603,7 @@ event.ET_UNIT_PRECONDITION_SUCCEED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2612,7 +2612,7 @@ event.ET_UNIT_PRECONDITION_SUCCEED = {
 
 ---@class EventParam.UNIT_PRECONDITION_SUCCEED
 ---@field unit_key py.UnitKey # 单位类型
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_UNIT_PRECONDITION_FAILED = {
     [1] = {
@@ -2626,7 +2626,7 @@ event.ET_UNIT_PRECONDITION_FAILED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2635,7 +2635,7 @@ event.ET_UNIT_PRECONDITION_FAILED = {
 
 ---@class EventParam.UNIT_PRECONDITION_FAILED
 ---@field unit_key py.UnitKey # 单位类型
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_ITEM_PRECONDITION_SUCCEED = {
     [1] = {
@@ -2649,7 +2649,7 @@ event.ET_ITEM_PRECONDITION_SUCCEED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2658,7 +2658,7 @@ event.ET_ITEM_PRECONDITION_SUCCEED = {
 
 ---@class EventParam.ITEM_PRECONDITION_SUCCEED
 ---@field item_no py.ItemKey # 物品类型
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_ITEM_PRECONDITION_FAILED = {
     [1] = {
@@ -2672,7 +2672,7 @@ event.ET_ITEM_PRECONDITION_FAILED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2681,7 +2681,7 @@ event.ET_ITEM_PRECONDITION_FAILED = {
 
 ---@class EventParam.ITEM_PRECONDITION_FAILED
 ---@field item_no py.ItemKey # 物品类型
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_ABILITY_PRECONDITION_SUCCEED = {
     [1] = {
@@ -2695,7 +2695,7 @@ event.ET_ABILITY_PRECONDITION_SUCCEED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2704,7 +2704,7 @@ event.ET_ABILITY_PRECONDITION_SUCCEED = {
 
 ---@class EventParam.ABILITY_PRECONDITION_SUCCEED
 ---@field ability_id py.AbilityKey # 技能类型
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_ABILITY_PRECONDITION_FAILED = {
     [1] = {
@@ -2718,7 +2718,7 @@ event.ET_ABILITY_PRECONDITION_FAILED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2727,7 +2727,7 @@ event.ET_ABILITY_PRECONDITION_FAILED = {
 
 ---@class EventParam.ABILITY_PRECONDITION_FAILED
 ---@field ability_id py.AbilityKey # 技能类型
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_TECH_PRECONDITION_SUCCEED = {
     [1] = {
@@ -2741,7 +2741,7 @@ event.ET_TECH_PRECONDITION_SUCCEED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2750,7 +2750,7 @@ event.ET_TECH_PRECONDITION_SUCCEED = {
 
 ---@class EventParam.TECH_PRECONDITION_SUCCEED
 ---@field tech_no py.TechKey # 科技类型
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_TECH_PRECONDITION_FAILED = {
     [1] = {
@@ -2764,7 +2764,7 @@ event.ET_TECH_PRECONDITION_FAILED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2773,7 +2773,7 @@ event.ET_TECH_PRECONDITION_FAILED = {
 
 ---@class EventParam.TECH_PRECONDITION_FAILED
 ---@field tech_no py.TechKey # 科技类型
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_ABILITY_UPGRADE = {
     [1] = {
@@ -3817,7 +3817,7 @@ event.ET_DEST_COLLECTED_NEW = {
     [4] = {
         name = "__role_res_cnt_in_event",
         type = "integer",
-        lua_name = "role_res_cnt_in_event",
+        lua_name = "player_res_cnt_in_event",
         lua_type = "integer",
         desc = "采集的玩家属性个数",
         lua_desc = "采集的玩家属性个数",
@@ -3828,7 +3828,7 @@ event.ET_DEST_COLLECTED_NEW = {
 ---@field destructible Destructible # 可破坏物
 ---@field unit_id_in_dest_event Unit # 事件中的单位
 ---@field ability_in_dest_event Ability # 事件中的技能对象
----@field role_res_cnt_in_event integer # 采集的玩家属性个数
+---@field player_res_cnt_in_event integer # 采集的玩家属性个数
 
 event.ET_GET_HURT_NEW = {
     [1] = {
@@ -3866,7 +3866,7 @@ event.ET_SELECT_DEST = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -3882,7 +3882,7 @@ event.ET_SELECT_DEST = {
 }
 
 ---@class EventParam.SELECT_DEST
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field destructible Destructible # 点击到可破坏物
 
 event.ET_DEST_DELETE = {
@@ -3937,7 +3937,7 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -3977,7 +3977,7 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
 }
 
 ---@class EventParam.TRIGGER_COMPONENT_EVENT
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
 ---@field pos py.Vector2 # 触碰坐标
@@ -4010,7 +4010,7 @@ event.ET_KEYBOARD_KEY_DOWN_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4026,14 +4026,14 @@ event.ET_KEYBOARD_KEY_DOWN_EVENT = {
 }
 
 ---@class EventParam.KEYBOARD_KEY_DOWN_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field current_key py.KeyboardKey # 当前键盘按键
 
 event.ET_KEYBOARD_KEY_UP_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4049,14 +4049,14 @@ event.ET_KEYBOARD_KEY_UP_EVENT = {
 }
 
 ---@class EventParam.KEYBOARD_KEY_UP_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field current_key py.KeyboardKey # 当前键盘按键
 
 event.ET_MOUSE_KEY_DOWN_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4080,7 +4080,7 @@ event.ET_MOUSE_KEY_DOWN_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_DOWN_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
@@ -4088,7 +4088,7 @@ event.ET_MOUSE_KEY_UP_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4112,7 +4112,7 @@ event.ET_MOUSE_KEY_UP_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_UP_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
@@ -4120,7 +4120,7 @@ event.ET_SE_KEY_DB_CLICK_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4144,7 +4144,7 @@ event.ET_SE_KEY_DB_CLICK_EVENT = {
 }
 
 ---@class EventParam.SE_KEY_DB_CLICK_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
@@ -4152,7 +4152,7 @@ event.ET_SE_KEY_DOWN_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4176,7 +4176,7 @@ event.ET_SE_KEY_DOWN_UNIT_EVENT = {
 }
 
 ---@class EventParam.SE_KEY_DOWN_UNIT_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field unit Unit # 当前操作的单位
 
@@ -4184,7 +4184,7 @@ event.ET_SE_KEY_UP_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4208,7 +4208,7 @@ event.ET_SE_KEY_UP_UNIT_EVENT = {
 }
 
 ---@class EventParam.SE_KEY_UP_UNIT_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field unit Unit # 当前操作的单位
 
@@ -4216,7 +4216,7 @@ event.ET_SE_KEY_DB_CLICK_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4240,7 +4240,7 @@ event.ET_SE_KEY_DB_CLICK_UNIT_EVENT = {
 }
 
 ---@class EventParam.SE_KEY_DB_CLICK_UNIT_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field unit Unit # 当前操作的单位
 
@@ -4248,7 +4248,7 @@ event.ET_SE_MOVE_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4280,7 +4280,7 @@ event.ET_SE_MOVE_EVENT = {
 }
 
 ---@class EventParam.SE_MOVE_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 ---@field tar_x integer # 鼠标指向的屏幕坐标X
 ---@field tar_y integer # 鼠标指向的屏幕坐标Y
@@ -4289,7 +4289,7 @@ event.ET_MOUSE_WHEEL_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4305,7 +4305,7 @@ event.ET_MOUSE_WHEEL_EVENT = {
 }
 
 ---@class EventParam.MOUSE_WHEEL_EVENT
----@field role Player # 触发按键的玩家
+---@field player Player # 触发按键的玩家
 ---@field mouse_wheel py.MouseWheel # 当前鼠标滚轮
 
 event.ET_AL_MOUSE_MOVE_EVENT = {}
@@ -4656,7 +4656,7 @@ event.ET_SELECT_UNIT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4672,14 +4672,14 @@ event.ET_SELECT_UNIT = {
 }
 
 ---@class EventParam.SELECT_UNIT
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field unit Unit # 点击到单位
 
 event.ET_HIGH_LIGHT_UNIT_CHANGE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4695,14 +4695,14 @@ event.ET_HIGH_LIGHT_UNIT_CHANGE = {
 }
 
 ---@class EventParam.HIGH_LIGHT_UNIT_CHANGE
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field high_light_unit_id py.HighLightUnitID # 高亮单位id
 
 event.ET_SELECT_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4718,14 +4718,14 @@ event.ET_SELECT_ITEM = {
 }
 
 ---@class EventParam.SELECT_ITEM
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field item Item # 点击到物品
 
 event.ET_DOUBLE_CLICK_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4741,14 +4741,14 @@ event.ET_DOUBLE_CLICK_ITEM = {
 }
 
 ---@class EventParam.DOUBLE_CLICK_ITEM
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field item Item # 双击到物品
 
 event.ET_OPEN_SHOP_PANEL = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4764,14 +4764,14 @@ event.ET_OPEN_SHOP_PANEL = {
 }
 
 ---@class EventParam.OPEN_SHOP_PANEL
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field unit Unit # 商店单位
 
 event.ET_DOUBLE_CLICK_DEST = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4787,14 +4787,14 @@ event.ET_DOUBLE_CLICK_DEST = {
 }
 
 ---@class EventParam.DOUBLE_CLICK_DEST
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field destructible Destructible # 双击到可破坏物
 
 event.ET_SELECT_UNIT_GROUP = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4818,7 +4818,7 @@ event.ET_SELECT_UNIT_GROUP = {
 }
 
 ---@class EventParam.SELECT_UNIT_GROUP
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field unit_group_id_list UnitGroup # 框选到单位组id列表
 ---@field team_id integer # 队伍编号
 
@@ -4826,7 +4826,7 @@ event.ET_START_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4866,7 +4866,7 @@ event.ET_START_SKILL_POINTER = {
 }
 
 ---@class EventParam.START_SKILL_POINTER
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field unit Unit # 释放单位
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
@@ -4876,7 +4876,7 @@ event.ET_STOP_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4916,7 +4916,7 @@ event.ET_STOP_SKILL_POINTER = {
 }
 
 ---@class EventParam.STOP_SKILL_POINTER
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field unit Unit # 释放单位
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
@@ -4926,7 +4926,7 @@ event.ET_RESIZE_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4966,7 +4966,7 @@ event.ET_RESIZE_SKILL_POINTER = {
 }
 
 ---@class EventParam.RESIZE_SKILL_POINTER
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field unit Unit # 释放单位
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
@@ -5910,7 +5910,7 @@ event.ET_MOUSE_HOVER_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家id",
         lua_desc = "玩家",
@@ -5942,7 +5942,7 @@ event.ET_MOUSE_HOVER_EVENT = {
 }
 
 ---@class EventParam.MOUSE_HOVER_EVENT
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field unit Unit # 悬浮单位
 ---@field item Item # 悬浮物品
 ---@field destructible Destructible # 悬浮可破坏物
@@ -6088,7 +6088,7 @@ event.ET_CHAT_SEND_GM = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家id",
         lua_desc = "玩家",
@@ -6097,7 +6097,7 @@ event.ET_CHAT_SEND_GM = {
 
 ---@class EventParam.CHAT_SEND_GM
 ---@field str1 string # 指令字符串
----@field role Player # 玩家
+---@field player Player # 玩家
 
 event.ET_CUSTOM_EVENT = {
     [1] = {
@@ -6208,7 +6208,7 @@ event.ET_UI_PREFAB_CREATE_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -6232,7 +6232,7 @@ event.ET_UI_PREFAB_CREATE_EVENT = {
 }
 
 ---@class EventParam.UI_PREFAB_CREATE_EVENT
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field ui_prefab string # ui模块id
 ---@field ui_prefab_ins py.UIPrefabIns # 创建出的实例控件
 
@@ -6240,7 +6240,7 @@ event.ET_UI_PREFAB_DEL_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -6264,7 +6264,7 @@ event.ET_UI_PREFAB_DEL_EVENT = {
 }
 
 ---@class EventParam.UI_PREFAB_DEL_EVENT
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field ui_prefab string # ui模块id
 ---@field ui_prefab_ins py.UIPrefabIns # 销毁的模块实例控件
 
@@ -6272,7 +6272,7 @@ event.ET_E_INPUT_FIELD_EDIT_MSG = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -6288,14 +6288,14 @@ event.ET_E_INPUT_FIELD_EDIT_MSG = {
 }
 
 ---@class EventParam.E_INPUT_FIELD_EDIT_MSG
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field msg string # 字符串
 
 event.ET_MICRO_SPEAK = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "role",
+        lua_name = "player",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -6319,7 +6319,7 @@ event.ET_MICRO_SPEAK = {
 }
 
 ---@class EventParam.MICRO_SPEAK
----@field role Player # 玩家
+---@field player Player # 玩家
 ---@field audio_channel integer # 频道
 ---@field audio_bool boolean # 是否发言
 
