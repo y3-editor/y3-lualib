@@ -29,6 +29,9 @@ event.ET_GAME_PAUSE = {}
 event.ET_GAME_RESUME = {}
 
 ---@class EventParam.ET_AREA_ENTER
+---@field unit Unit # 单位
+---@field area Area # 区域
+---@field trigger_id py.TriggerID # 触发器ID
 
 event.ET_AREA_ENTER = {
     [1] = {
@@ -58,6 +61,9 @@ event.ET_AREA_ENTER = {
 }
 
 ---@class EventParam.ET_AREA_LEAVE
+---@field unit Unit # 单位
+---@field area Area # 区域
+---@field trigger_id py.TriggerID # 触发器ID
 
 event.ET_AREA_LEAVE = {
     [1] = {
@@ -87,6 +93,8 @@ event.ET_AREA_LEAVE = {
 }
 
 ---@class EventParam.ET_ROLE_JOIN_BATTLE
+---@field player Player # 玩家
+---@field is_middle_join boolean # 是否中途加入
 
 event.ET_ROLE_JOIN_BATTLE = {
     [1] = {
@@ -108,6 +116,7 @@ event.ET_ROLE_JOIN_BATTLE = {
 }
 
 ---@class EventParam.ET_ROLE_ACTIVE_EXIT_GAME_EVENT
+---@field player Player # 玩家
 
 event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
     [1] = {
@@ -121,6 +130,7 @@ event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
 }
 
 ---@class EventParam.ET_ROLE_LOSE_CONNECT
+---@field player Player # 玩家
 
 event.ET_ROLE_LOSE_CONNECT = {
     [1] = {
@@ -134,6 +144,9 @@ event.ET_ROLE_LOSE_CONNECT = {
 }
 
 ---@class EventParam.ET_ROLE_USE_STORE_ITEM_END
+---@field player Player # 玩家
+---@field store_key py.StoreKey # 收费道具编号
+---@field use_cnt integer # 使用次数
 
 event.ET_ROLE_USE_STORE_ITEM_END = {
     [1] = {
@@ -163,6 +176,8 @@ event.ET_ROLE_USE_STORE_ITEM_END = {
 }
 
 ---@class EventParam.ET_ROLE_HOLD_STORE_ITEM
+---@field player Player # 玩家
+---@field store_key py.StoreKey # 收费道具编号
 
 event.ET_ROLE_HOLD_STORE_ITEM = {
     [1] = {
@@ -184,6 +199,10 @@ event.ET_ROLE_HOLD_STORE_ITEM = {
 }
 
 ---@class EventParam.ET_ROLE_RESOURCE_CHANGED
+---@field player Player # 玩家
+---@field res_key py.RoleResKey # 玩家资源类型
+---@field res_value integer # 玩家资源值
+---@field res_value_delta py.Fixed # 玩家资源变量值
 
 event.ET_ROLE_RESOURCE_CHANGED = {
     [1] = {
@@ -221,6 +240,8 @@ event.ET_ROLE_RESOURCE_CHANGED = {
 }
 
 ---@class EventParam.ET_ROLE_INPUT_MSG
+---@field player Player # 玩家
+---@field msg string # 字符串
 
 event.ET_ROLE_INPUT_MSG = {
     [1] = {
@@ -242,6 +263,9 @@ event.ET_ROLE_INPUT_MSG = {
 }
 
 ---@class EventParam.ET_ROLE_TECH_UPGRADE
+---@field player Player # 玩家
+---@field tech_no py.TechKey # 科技编号
+---@field curr_lv integer # 当前科技等级
 
 event.ET_ROLE_TECH_UPGRADE = {
     [1] = {
@@ -271,6 +295,9 @@ event.ET_ROLE_TECH_UPGRADE = {
 }
 
 ---@class EventParam.ET_ROLE_TECH_DOWNGRADE
+---@field player Player # 玩家
+---@field tech_no py.TechKey # 科技编号
+---@field curr_lv integer # 当前科技等级
 
 event.ET_ROLE_TECH_DOWNGRADE = {
     [1] = {
@@ -300,6 +327,10 @@ event.ET_ROLE_TECH_DOWNGRADE = {
 }
 
 ---@class EventParam.ET_ROLE_TECH_CHANGED
+---@field player Player # 玩家
+---@field tech_no py.TechKey # 科技编号
+---@field curr_lv integer # 当前科技等级
+---@field delta_lv integer # 科技变化等级
 
 event.ET_ROLE_TECH_CHANGED = {
     [1] = {
@@ -337,6 +368,9 @@ event.ET_ROLE_TECH_CHANGED = {
 }
 
 ---@class EventParam.ET_UNIT_UPGRADE_TECH
+---@field unit Unit # 单位
+---@field player Player # 单位所属玩家
+---@field tech_no py.TechKey # 科技编号
 
 event.ET_UNIT_UPGRADE_TECH = {
     [1] = {
@@ -366,6 +400,9 @@ event.ET_UNIT_UPGRADE_TECH = {
 }
 
 ---@class EventParam.ET_UNIT_ADD_TECH
+---@field unit Unit # 单位
+---@field player Player # 单位所属玩家
+---@field tech_no py.TechKey # 科技编号
 
 event.ET_UNIT_ADD_TECH = {
     [1] = {
@@ -395,6 +432,9 @@ event.ET_UNIT_ADD_TECH = {
 }
 
 ---@class EventParam.ET_UNIT_REMOVE_TECH
+---@field unit Unit # 单位
+---@field player Player # 单位所属玩家
+---@field tech_no py.TechKey # 科技编号
 
 event.ET_UNIT_REMOVE_TECH = {
     [1] = {
@@ -424,6 +464,12 @@ event.ET_UNIT_REMOVE_TECH = {
 }
 
 ---@class EventParam.ET_ABILITY_BUILD_FINISH
+---@field ability Ability # 技能
+---@field ability_type py.AbilityType # 技能类型
+---@field ability_index py.AbilityIndex # 技能ID
+---@field ability_seq py.AbilitySeq # 技能Seq
+---@field unit Unit # 主人
+---@field build_unit Unit # 建造出来的单位
 
 event.ET_ABILITY_BUILD_FINISH = {
     [1] = {
@@ -477,6 +523,9 @@ event.ET_ABILITY_BUILD_FINISH = {
 }
 
 ---@class EventParam.ET_ABILITY_PLUS_POINT
+---@field ability_index py.AbilityIndex # 技能坑位
+---@field ability Ability # 技能对象
+---@field unit Unit # 单位
 
 event.ET_ABILITY_PLUS_POINT = {
     [1] = {
@@ -506,6 +555,7 @@ event.ET_ABILITY_PLUS_POINT = {
 }
 
 ---@class EventParam.ET_UNIT_START_MOVE
+---@field unit Unit # 单位
 
 event.ET_UNIT_START_MOVE = {
     [1] = {
@@ -519,6 +569,7 @@ event.ET_UNIT_START_MOVE = {
 }
 
 ---@class EventParam.ET_UNIT_REMOVE
+---@field unit Unit # 单位
 
 event.ET_UNIT_REMOVE = {
     [1] = {
@@ -532,6 +583,8 @@ event.ET_UNIT_REMOVE = {
 }
 
 ---@class EventParam.ET_UNIT_ATTR_CHANGE
+---@field unit Unit # 单位
+---@field attr string # 字符串
 
 event.ET_UNIT_ATTR_CHANGE = {
     [1] = {
@@ -553,6 +606,12 @@ event.ET_UNIT_ATTR_CHANGE = {
 }
 
 ---@class EventParam.ET_BEFORE_UNIT_DIE
+---@field damage py.Fixed # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 单位
 
 event.ET_BEFORE_UNIT_DIE = {
     [1] = {
@@ -606,6 +665,12 @@ event.ET_BEFORE_UNIT_DIE = {
 }
 
 ---@class EventParam.ET_UNIT_DIE
+---@field damage py.Fixed # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 单位
 
 event.ET_UNIT_DIE = {
     [1] = {
@@ -659,6 +724,12 @@ event.ET_UNIT_DIE = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT
+---@field damage py.Fixed # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 单位
 
 event.ET_UNIT_BE_HURT = {
     [1] = {
@@ -712,6 +783,12 @@ event.ET_UNIT_BE_HURT = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER
+---@field damage py.Fixed # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 单位
 
 event.ET_UNIT_HURT_OTHER = {
     [1] = {
@@ -765,6 +842,12 @@ event.ET_UNIT_HURT_OTHER = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_BEFORE_APPLY
+---@field damage py.Fixed # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 单位
 
 event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
     [1] = {
@@ -818,6 +901,12 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_BEFORE_APPLY
+---@field damage py.Fixed # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 单位
 
 event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
     [1] = {
@@ -871,6 +960,14 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_FINISH
+---@field is_critical_hit py.Fixed # 是否是暴击
+---@field is_normal_hit boolean # 是否是普通攻击
+---@field damage py.Fixed # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 单位
 
 event.ET_UNIT_HURT_OTHER_FINISH = {
     [1] = {
@@ -940,6 +1037,14 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_COMPLETE
+---@field is_critical_hit py.Fixed # 是否是暴击
+---@field is_normal_hit boolean # 是否是普通攻击
+---@field damage py.Fixed # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 单位
 
 event.ET_UNIT_BE_HURT_COMPLETE = {
     [1] = {
@@ -1009,6 +1114,8 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE_BEFORE_APPLY
+---@field cured_value py.Fixed # 受到的治疗值
+---@field ability Ability # 当前治疗所属技能
 
 event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
     [1] = {
@@ -1030,6 +1137,8 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE_FINISH
+---@field cured_value py.Fixed # 受到的治疗值
+---@field ability Ability # 当前治疗所属技能
 
 event.ET_UNIT_GET_CURE_FINISH = {
     [1] = {
@@ -1051,6 +1160,8 @@ event.ET_UNIT_GET_CURE_FINISH = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE
+---@field cured_value py.Fixed # 受到的治疗值
+---@field ability Ability # 当前治疗所属技能
 
 event.ET_UNIT_GET_CURE = {
     [1] = {
@@ -1072,6 +1183,9 @@ event.ET_UNIT_GET_CURE = {
 }
 
 ---@class EventParam.ET_UNIT_RELEASE_ABILITY
+---@field ability Ability # 施放的技能对象
+---@field unit Unit # 触发事件的单位unit_
+---@field ability_target_unit Unit # 技能的目标单位
 
 event.ET_UNIT_RELEASE_ABILITY = {
     [1] = {
@@ -1101,6 +1215,8 @@ event.ET_UNIT_RELEASE_ABILITY = {
 }
 
 ---@class EventParam.ET_UNIT_PRE_ADD_EXP
+---@field unit Unit # 获得经验的单位
+---@field add_exp number # 增加的经验
 
 event.ET_UNIT_PRE_ADD_EXP = {
     [1] = {
@@ -1122,6 +1238,8 @@ event.ET_UNIT_PRE_ADD_EXP = {
 }
 
 ---@class EventParam.ET_UNIT_ON_ADD_EXP
+---@field unit Unit # 获得经验的单位
+---@field add_exp number # 增加的经验
 
 event.ET_UNIT_ON_ADD_EXP = {
     [1] = {
@@ -1143,6 +1261,12 @@ event.ET_UNIT_ON_ADD_EXP = {
 }
 
 ---@class EventParam.ET_UNIT_ON_COMMAND
+---@field unit Unit # 单位
+---@field cmd_type py.UnitCommand # 接收的命令
+---@field target_unit Unit # 目标单位
+---@field point Point # 目标点
+---@field destructible Destructible # 目标可破坏物
+---@field item Item # 目标物品
 
 event.ET_UNIT_ON_COMMAND = {
     [1] = {
@@ -1196,6 +1320,12 @@ event.ET_UNIT_ON_COMMAND = {
 }
 
 ---@class EventParam.ET_KILL_UNIT
+---@field damage py.Fixed # 伤害值
+---@field source_unit Unit # 杀手单位
+---@field target_unit Unit # 死亡单位
+---@field ability Ability # 致命伤害所属技能
+---@field damage_type integer # 致命伤害类型
+---@field unit Unit # 单位
 
 event.ET_KILL_UNIT = {
     [1] = {
@@ -1249,6 +1379,7 @@ event.ET_KILL_UNIT = {
 }
 
 ---@class EventParam.ET_UNIT_BORN
+---@field unit Unit # 单位
 
 event.ET_UNIT_BORN = {
     [1] = {
@@ -1262,6 +1393,7 @@ event.ET_UNIT_BORN = {
 }
 
 ---@class EventParam.ET_UNIT_ENTER_BATTLE
+---@field unit Unit # 单位
 
 event.ET_UNIT_ENTER_BATTLE = {
     [1] = {
@@ -1275,6 +1407,7 @@ event.ET_UNIT_ENTER_BATTLE = {
 }
 
 ---@class EventParam.ET_UNIT_EXIT_BATTLE
+---@field unit Unit # 单位
 
 event.ET_UNIT_EXIT_BATTLE = {
     [1] = {
@@ -1288,6 +1421,11 @@ event.ET_UNIT_EXIT_BATTLE = {
 }
 
 ---@class EventParam.ET_UNIT_SHOP_BUY_ITEM
+---@field unit Unit # 购买物品单位
+---@field shop_unit Unit # 商店单位
+---@field tab_idx integer # 商店分页
+---@field cnt integer # 商品数量
+---@field item Item # 商品物品
 
 event.ET_UNIT_SHOP_BUY_ITEM = {
     [1] = {
@@ -1333,6 +1471,11 @@ event.ET_UNIT_SHOP_BUY_ITEM = {
 }
 
 ---@class EventParam.ET_UNIT_SHOP_BUY_UNIT
+---@field unit Unit # 购买物品单位
+---@field shop_unit Unit # 商店单位
+---@field tab_idx integer # 商店分页
+---@field cnt integer # 商品数量
+---@field unit_stuff Unit # 商品单位
 
 event.ET_UNIT_SHOP_BUY_UNIT = {
     [1] = {
@@ -1378,6 +1521,9 @@ event.ET_UNIT_SHOP_BUY_UNIT = {
 }
 
 ---@class EventParam.ET_UNIT_ITEM_SELL
+---@field unit Unit # 购买物品单位
+---@field shop_unit Unit # 商店单位
+---@field item Item # 道具
 
 event.ET_UNIT_ITEM_SELL = {
     [1] = {
@@ -1407,6 +1553,9 @@ event.ET_UNIT_ITEM_SELL = {
 }
 
 ---@class EventParam.ET_UNIT_ITEM_COMPOSE
+---@field unit Unit # 单位
+---@field compose_id py.ItemKey # 道具编号
+---@field item_prop Item # 道具
 
 event.ET_UNIT_ITEM_COMPOSE = {
     [1] = {
@@ -1436,6 +1585,9 @@ event.ET_UNIT_ITEM_COMPOSE = {
 }
 
 ---@class EventParam.ET_UNIT_SHOP_BUY_WITH_COMPOSE
+---@field unit Unit # 购买物品单位
+---@field shop_unit Unit # 商店单位
+---@field item Item # 物品编号
 
 event.ET_UNIT_SHOP_BUY_WITH_COMPOSE = {
     [1] = {
@@ -1465,6 +1617,7 @@ event.ET_UNIT_SHOP_BUY_WITH_COMPOSE = {
 }
 
 ---@class EventParam.ET_REVIVE_UNIT
+---@field unit Unit # 单位
 
 event.ET_REVIVE_UNIT = {
     [1] = {
@@ -1478,6 +1631,7 @@ event.ET_REVIVE_UNIT = {
 }
 
 ---@class EventParam.ET_UPGRADE_UNIT
+---@field unit Unit # 单位
 
 event.ET_UPGRADE_UNIT = {
     [1] = {
@@ -1491,6 +1645,7 @@ event.ET_UPGRADE_UNIT = {
 }
 
 ---@class EventParam.ET_UNIT_ENTER_GRASS
+---@field unit Unit # 单位
 
 event.ET_UNIT_ENTER_GRASS = {
     [1] = {
@@ -1504,6 +1659,7 @@ event.ET_UNIT_ENTER_GRASS = {
 }
 
 ---@class EventParam.ET_UNIT_LEAVE_GRASS
+---@field unit Unit # 单位
 
 event.ET_UNIT_LEAVE_GRASS = {
     [1] = {
@@ -1517,6 +1673,9 @@ event.ET_UNIT_LEAVE_GRASS = {
 }
 
 ---@class EventParam.ET_UNIT_ROLE_CHANGED
+---@field unit Unit # 触发事件的单位
+---@field old_player Player # 单位原所属玩家
+---@field new_player Player # 单位新所属玩家
 
 event.ET_UNIT_ROLE_CHANGED = {
     [1] = {
@@ -1546,6 +1705,8 @@ event.ET_UNIT_ROLE_CHANGED = {
 }
 
 ---@class EventParam.ET_UNIT_PRECONDITION_SUCCEED
+---@field unit_key py.UnitKey # 单位类型
+---@field player Player # 玩家
 
 event.ET_UNIT_PRECONDITION_SUCCEED = {
     [1] = {
@@ -1567,6 +1728,8 @@ event.ET_UNIT_PRECONDITION_SUCCEED = {
 }
 
 ---@class EventParam.ET_UNIT_PRECONDITION_FAILED
+---@field unit_key py.UnitKey # 单位类型
+---@field player Player # 玩家
 
 event.ET_UNIT_PRECONDITION_FAILED = {
     [1] = {
@@ -1588,6 +1751,8 @@ event.ET_UNIT_PRECONDITION_FAILED = {
 }
 
 ---@class EventParam.ET_ITEM_PRECONDITION_SUCCEED
+---@field item_no py.ItemKey # 物品类型
+---@field player Player # 玩家
 
 event.ET_ITEM_PRECONDITION_SUCCEED = {
     [1] = {
@@ -1609,6 +1774,8 @@ event.ET_ITEM_PRECONDITION_SUCCEED = {
 }
 
 ---@class EventParam.ET_ITEM_PRECONDITION_FAILED
+---@field item_no py.ItemKey # 物品类型
+---@field player Player # 玩家
 
 event.ET_ITEM_PRECONDITION_FAILED = {
     [1] = {
@@ -1630,6 +1797,8 @@ event.ET_ITEM_PRECONDITION_FAILED = {
 }
 
 ---@class EventParam.ET_ABILITY_PRECONDITION_SUCCEED
+---@field ability_id py.AbilityKey # 技能类型
+---@field player Player # 玩家
 
 event.ET_ABILITY_PRECONDITION_SUCCEED = {
     [1] = {
@@ -1651,6 +1820,8 @@ event.ET_ABILITY_PRECONDITION_SUCCEED = {
 }
 
 ---@class EventParam.ET_ABILITY_PRECONDITION_FAILED
+---@field ability_id py.AbilityKey # 技能类型
+---@field player Player # 玩家
 
 event.ET_ABILITY_PRECONDITION_FAILED = {
     [1] = {
@@ -1672,6 +1843,8 @@ event.ET_ABILITY_PRECONDITION_FAILED = {
 }
 
 ---@class EventParam.ET_TECH_PRECONDITION_SUCCEED
+---@field tech_no py.TechKey # 科技类型
+---@field player Player # 玩家
 
 event.ET_TECH_PRECONDITION_SUCCEED = {
     [1] = {
@@ -1693,6 +1866,8 @@ event.ET_TECH_PRECONDITION_SUCCEED = {
 }
 
 ---@class EventParam.ET_TECH_PRECONDITION_FAILED
+---@field tech_no py.TechKey # 科技类型
+---@field player Player # 玩家
 
 event.ET_TECH_PRECONDITION_FAILED = {
     [1] = {
@@ -1714,6 +1889,7 @@ event.ET_TECH_PRECONDITION_FAILED = {
 }
 
 ---@class EventParam.ET_ABILITY_UPGRADE
+---@field ability Ability # 技能对象
 
 event.ET_ABILITY_UPGRADE = {
     [1] = {
@@ -1727,6 +1903,8 @@ event.ET_ABILITY_UPGRADE = {
 }
 
 ---@class EventParam.ET_ABILITY_CS_START
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_CS_START = {
     [1] = {
@@ -1748,6 +1926,8 @@ event.ET_ABILITY_CS_START = {
 }
 
 ---@class EventParam.ET_ABILITY_PS_START
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_PS_START = {
     [1] = {
@@ -1769,6 +1949,8 @@ event.ET_ABILITY_PS_START = {
 }
 
 ---@class EventParam.ET_ABILITY_PS_END
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_PS_END = {
     [1] = {
@@ -1790,6 +1972,8 @@ event.ET_ABILITY_PS_END = {
 }
 
 ---@class EventParam.ET_ABILITY_SP_END
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_SP_END = {
     [1] = {
@@ -1811,6 +1995,8 @@ event.ET_ABILITY_SP_END = {
 }
 
 ---@class EventParam.ET_ABILITY_CST_END
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_CST_END = {
     [1] = {
@@ -1832,6 +2018,8 @@ event.ET_ABILITY_CST_END = {
 }
 
 ---@class EventParam.ET_ABILITY_BS_END
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_BS_END = {
     [1] = {
@@ -1853,6 +2041,8 @@ event.ET_ABILITY_BS_END = {
 }
 
 ---@class EventParam.ET_ABILITY_PS_INTERRUPT
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_PS_INTERRUPT = {
     [1] = {
@@ -1874,6 +2064,8 @@ event.ET_ABILITY_PS_INTERRUPT = {
 }
 
 ---@class EventParam.ET_ABILITY_SP_INTERRUPT
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_SP_INTERRUPT = {
     [1] = {
@@ -1895,6 +2087,8 @@ event.ET_ABILITY_SP_INTERRUPT = {
 }
 
 ---@class EventParam.ET_ABILITY_CST_INTERRUPT
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_CST_INTERRUPT = {
     [1] = {
@@ -1916,6 +2110,8 @@ event.ET_ABILITY_CST_INTERRUPT = {
 }
 
 ---@class EventParam.ET_ABILITY_END
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能目标单位
 
 event.ET_ABILITY_END = {
     [1] = {
@@ -1937,6 +2133,8 @@ event.ET_ABILITY_END = {
 }
 
 ---@class EventParam.ET_ABILITY_OBTAIN
+---@field ability Ability # 技能对象
+---@field unit Unit # 单位
 
 event.ET_ABILITY_OBTAIN = {
     [1] = {
@@ -1958,6 +2156,8 @@ event.ET_ABILITY_OBTAIN = {
 }
 
 ---@class EventParam.ET_ABILITY_LOSE
+---@field ability Ability # 技能对象
+---@field unit Unit # 单位
 
 event.ET_ABILITY_LOSE = {
     [1] = {
@@ -1979,6 +2179,7 @@ event.ET_ABILITY_LOSE = {
 }
 
 ---@class EventParam.ET_ABILITY_SWITCH
+---@field ability Ability # 技能对象
 
 event.ET_ABILITY_SWITCH = {
     [1] = {
@@ -1992,6 +2193,7 @@ event.ET_ABILITY_SWITCH = {
 }
 
 ---@class EventParam.ET_ABILITY_CD_END
+---@field ability Ability # 技能对象
 
 event.ET_ABILITY_CD_END = {
     [1] = {
@@ -2005,6 +2207,9 @@ event.ET_ABILITY_CD_END = {
 }
 
 ---@class EventParam.ET_OBTAIN_MODIFIER
+---@field modifier Buff # 触发的魔法效果
+---@field owner_unit Unit # 效果携带者
+---@field from_unit Unit # 效果施加者
 
 event.ET_OBTAIN_MODIFIER = {
     [1] = {
@@ -2034,6 +2239,9 @@ event.ET_OBTAIN_MODIFIER = {
 }
 
 ---@class EventParam.ET_LOSS_MODIFIER
+---@field modifier Buff # 触发的魔法效果
+---@field owner_unit Unit # 效果携带者
+---@field from_unit Unit # 效果施加者
 
 event.ET_LOSS_MODIFIER = {
     [1] = {
@@ -2063,6 +2271,9 @@ event.ET_LOSS_MODIFIER = {
 }
 
 ---@class EventParam.ET_MODIFIER_CYCLE_TRIGGER
+---@field modifier Buff # 触发的魔法效果
+---@field owner_unit Unit # 效果携带者
+---@field from_unit Unit # 效果施加者
 
 event.ET_MODIFIER_CYCLE_TRIGGER = {
     [1] = {
@@ -2092,6 +2303,9 @@ event.ET_MODIFIER_CYCLE_TRIGGER = {
 }
 
 ---@class EventParam.ET_MODIFIER_ADDTION
+---@field modifier Buff # 触发的魔法效果
+---@field owner_unit Unit # 效果携带者
+---@field from_unit Unit # 效果施加者
 
 event.ET_MODIFIER_ADDTION = {
     [1] = {
@@ -2121,6 +2335,10 @@ event.ET_MODIFIER_ADDTION = {
 }
 
 ---@class EventParam.ET_MODIFIER_LAYER_CHANGE
+---@field modifier Buff # 触发的魔法效果
+---@field owner_unit Unit # 效果携带者
+---@field layer_change_values integer # 层数变化值
+---@field from_unit Unit # 效果施加者
 
 event.ET_MODIFIER_LAYER_CHANGE = {
     [1] = {
@@ -2158,6 +2376,9 @@ event.ET_MODIFIER_LAYER_CHANGE = {
 }
 
 ---@class EventParam.ET_MODIFIER_GET_BEFORE_CREATE
+---@field modifier Buff # 触发的魔法效果
+---@field owner_unit Unit # 效果携带者
+---@field from_unit Unit # 效果施加者
 
 event.ET_MODIFIER_GET_BEFORE_CREATE = {
     [1] = {
@@ -2187,6 +2408,9 @@ event.ET_MODIFIER_GET_BEFORE_CREATE = {
 }
 
 ---@class EventParam.ET_MODIFIER_BE_COVERED
+---@field owner_unit Unit # 效果携带者
+---@field old_modifier Buff # 已有的魔法效果
+---@field new_modifier Buff # 新增的魔法效果
 
 event.ET_MODIFIER_BE_COVERED = {
     [1] = {
@@ -2216,6 +2440,7 @@ event.ET_MODIFIER_BE_COVERED = {
 }
 
 ---@class EventParam.ET_DEST_CREATE_NEW
+---@field destructible Destructible # 可破坏物
 
 event.ET_DEST_CREATE_NEW = {
     [1] = {
@@ -2229,6 +2454,8 @@ event.ET_DEST_CREATE_NEW = {
 }
 
 ---@class EventParam.ET_DEST_DIE_NEW
+---@field destructible Destructible # 可破坏物
+---@field unit_id_of_dest_killer Unit # 凶手单位ID
 
 event.ET_DEST_DIE_NEW = {
     [1] = {
@@ -2250,6 +2477,7 @@ event.ET_DEST_DIE_NEW = {
 }
 
 ---@class EventParam.ET_DEST_REVIVE_NEW
+---@field destructible Destructible # 可破坏物
 
 event.ET_DEST_REVIVE_NEW = {
     [1] = {
@@ -2263,6 +2491,8 @@ event.ET_DEST_REVIVE_NEW = {
 }
 
 ---@class EventParam.ET_DEST_RES_CNT_CHG_NEW
+---@field destructible Destructible # 可破坏物
+---@field res_chg_cnt_in_dest_event integer # 可破坏物资源变化量
 
 event.ET_DEST_RES_CNT_CHG_NEW = {
     [1] = {
@@ -2284,6 +2514,10 @@ event.ET_DEST_RES_CNT_CHG_NEW = {
 }
 
 ---@class EventParam.ET_DEST_COLLECTED_NEW
+---@field destructible Destructible # 可破坏物
+---@field unit_id_in_dest_event Unit # 事件中的单位
+---@field ability_in_dest_event Ability # 事件中的技能对象
+---@field player_res_cnt_in_event integer # 采集的玩家属性个数
 
 event.ET_DEST_COLLECTED_NEW = {
     [1] = {
@@ -2321,6 +2555,9 @@ event.ET_DEST_COLLECTED_NEW = {
 }
 
 ---@class EventParam.ET_GET_HURT_NEW
+---@field destructible Destructible # 可破坏物
+---@field unit_id_of_hurt_dest Unit # 事件中的单位
+---@field damage_value_of_hurt_dest py.Fixed # 受到的伤害
 
 event.ET_GET_HURT_NEW = {
     [1] = {
@@ -2350,6 +2587,8 @@ event.ET_GET_HURT_NEW = {
 }
 
 ---@class EventParam.ET_SELECT_DEST
+---@field player Player # 玩家
+---@field destructible Destructible # 点击到可破坏物
 
 event.ET_SELECT_DEST = {
     [1] = {
@@ -2371,6 +2610,7 @@ event.ET_SELECT_DEST = {
 }
 
 ---@class EventParam.ET_DEST_DELETE
+---@field destructible Destructible # 触发事件的可破坏物
 
 event.ET_DEST_DELETE = {
     [1] = {
@@ -2392,6 +2632,11 @@ event.ET_PRODUCE_PROJECTILE = {}
 event.ET_DEATH_PROJECTILE = {}
 
 ---@class EventParam.ET_TRIGGER_COMPONENT_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field pos py.Vector2 # 触碰坐标
+---@field touch_id integer # 触碰ID
 
 event.ET_TRIGGER_COMPONENT_EVENT = {
     [1] = {
@@ -2437,6 +2682,8 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
 }
 
 ---@class EventParam.ET_KEYBOARD_KEY_DOWN_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.KeyboardKey # 当前键盘按键
 
 event.ET_KEYBOARD_KEY_DOWN_EVENT = {
     [1] = {
@@ -2458,6 +2705,8 @@ event.ET_KEYBOARD_KEY_DOWN_EVENT = {
 }
 
 ---@class EventParam.ET_KEYBOARD_KEY_UP_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.KeyboardKey # 当前键盘按键
 
 event.ET_KEYBOARD_KEY_UP_EVENT = {
     [1] = {
@@ -2479,6 +2728,9 @@ event.ET_KEYBOARD_KEY_UP_EVENT = {
 }
 
 ---@class EventParam.ET_MOUSE_KEY_DOWN_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
 event.ET_MOUSE_KEY_DOWN_EVENT = {
     [1] = {
@@ -2508,6 +2760,9 @@ event.ET_MOUSE_KEY_DOWN_EVENT = {
 }
 
 ---@class EventParam.ET_MOUSE_KEY_UP_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
 event.ET_MOUSE_KEY_UP_EVENT = {
     [1] = {
@@ -2537,6 +2792,9 @@ event.ET_MOUSE_KEY_UP_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_DB_CLICK_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
 event.MOUSE_KEY_DB_CLICK_EVENT = {
     [1] = {
@@ -2566,6 +2824,9 @@ event.MOUSE_KEY_DB_CLICK_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_DOWN_UNIT_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field unit Unit # 当前操作的单位
 
 event.MOUSE_KEY_DOWN_UNIT_EVENT = {
     [1] = {
@@ -2595,6 +2856,9 @@ event.MOUSE_KEY_DOWN_UNIT_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_UP_UNIT_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field unit Unit # 当前操作的单位
 
 event.MOUSE_KEY_UP_UNIT_EVENT = {
     [1] = {
@@ -2624,6 +2888,9 @@ event.MOUSE_KEY_UP_UNIT_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_DB_CLICK_UNIT_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field unit Unit # 当前操作的单位
 
 event.MOUSE_KEY_DB_CLICK_UNIT_EVENT = {
     [1] = {
@@ -2653,6 +2920,10 @@ event.MOUSE_KEY_DB_CLICK_UNIT_EVENT = {
 }
 
 ---@class EventParam.MOUSE_MOVE_EVENT
+---@field player Player # 触发按键的玩家
+---@field pointing_world_pos Point # 鼠标指向的世界坐标
+---@field tar_x integer # 鼠标指向的屏幕坐标X
+---@field tar_y integer # 鼠标指向的屏幕坐标Y
 
 event.MOUSE_MOVE_EVENT = {
     [1] = {
@@ -2690,6 +2961,8 @@ event.MOUSE_MOVE_EVENT = {
 }
 
 ---@class EventParam.ET_MOUSE_WHEEL_EVENT
+---@field player Player # 触发按键的玩家
+---@field mouse_wheel py.MouseWheel # 当前鼠标滚轮
 
 event.ET_MOUSE_WHEEL_EVENT = {
     [1] = {
@@ -2711,6 +2984,8 @@ event.ET_MOUSE_WHEEL_EVENT = {
 }
 
 ---@class EventParam.ET_SELECT_UNIT
+---@field player Player # 玩家
+---@field unit Unit # 点击到单位
 
 event.ET_SELECT_UNIT = {
     [1] = {
@@ -2732,6 +3007,8 @@ event.ET_SELECT_UNIT = {
 }
 
 ---@class EventParam.ET_SELECT_ITEM
+---@field player Player # 玩家
+---@field item Item # 点击到物品
 
 event.ET_SELECT_ITEM = {
     [1] = {
@@ -2753,6 +3030,8 @@ event.ET_SELECT_ITEM = {
 }
 
 ---@class EventParam.ET_DOUBLE_CLICK_ITEM
+---@field player Player # 玩家
+---@field item Item # 双击到物品
 
 event.ET_DOUBLE_CLICK_ITEM = {
     [1] = {
@@ -2774,6 +3053,8 @@ event.ET_DOUBLE_CLICK_ITEM = {
 }
 
 ---@class EventParam.ET_DOUBLE_CLICK_DEST
+---@field player Player # 玩家
+---@field destructible Destructible # 双击到可破坏物
 
 event.ET_DOUBLE_CLICK_DEST = {
     [1] = {
@@ -2795,6 +3076,9 @@ event.ET_DOUBLE_CLICK_DEST = {
 }
 
 ---@class EventParam.ET_SELECT_UNIT_GROUP
+---@field player Player # 玩家
+---@field unit_group_id_list UnitGroup # 框选到单位组id列表
+---@field team_id integer # 队伍编号
 
 event.ET_SELECT_UNIT_GROUP = {
     [1] = {
@@ -2824,6 +3108,11 @@ event.ET_SELECT_UNIT_GROUP = {
 }
 
 ---@class EventParam.ET_START_SKILL_POINTER
+---@field player Player # 玩家
+---@field unit Unit # 释放单位
+---@field ability_type py.AbilityType # 技能类型
+---@field ability_index py.AbilityIndex # 技能Index
+---@field ability_seq py.AbilitySeq # 技能Seq
 
 event.ET_START_SKILL_POINTER = {
     [1] = {
@@ -2869,6 +3158,11 @@ event.ET_START_SKILL_POINTER = {
 }
 
 ---@class EventParam.ET_STOP_SKILL_POINTER
+---@field player Player # 玩家
+---@field unit Unit # 释放单位
+---@field ability_type py.AbilityType # 技能类型
+---@field ability_index py.AbilityIndex # 技能Index
+---@field ability_seq py.AbilitySeq # 技能Seq
 
 event.ET_STOP_SKILL_POINTER = {
     [1] = {
@@ -2914,6 +3208,9 @@ event.ET_STOP_SKILL_POINTER = {
 }
 
 ---@class EventParam.ET_UNIT_ADD_ITEM
+---@field unit Unit # 获得该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
 
 event.ET_UNIT_ADD_ITEM = {
     [1] = {
@@ -2943,6 +3240,9 @@ event.ET_UNIT_ADD_ITEM = {
 }
 
 ---@class EventParam.ET_UNIT_ADD_ITEM_TO_PKG
+---@field unit Unit # 获得该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
 
 event.ET_UNIT_ADD_ITEM_TO_PKG = {
     [1] = {
@@ -2972,6 +3272,7 @@ event.ET_UNIT_ADD_ITEM_TO_PKG = {
 }
 
 ---@class EventParam.ET_UNIT_START_NAV_EVENT
+---@field unit Unit # 单位
 
 event.ET_UNIT_START_NAV_EVENT = {
     [1] = {
@@ -2985,6 +3286,7 @@ event.ET_UNIT_START_NAV_EVENT = {
 }
 
 ---@class EventParam.ET_UNIT_END_NAV_EVENT
+---@field unit Unit # 单位
 
 event.ET_UNIT_END_NAV_EVENT = {
     [1] = {
@@ -2998,6 +3300,10 @@ event.ET_UNIT_END_NAV_EVENT = {
 }
 
 ---@class EventParam.ET_ITEM_STACK_CHANGED
+---@field unit Item # 单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+---@field delta_cnt integer # 变化值
 
 event.ET_ITEM_STACK_CHANGED = {
     [1] = {
@@ -3035,6 +3341,10 @@ event.ET_ITEM_STACK_CHANGED = {
 }
 
 ---@class EventParam.ET_ITEM_CHARGE_CHANGED
+---@field unit Item # 单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+---@field delta_cnt integer # 变化值
 
 event.ET_ITEM_CHARGE_CHANGED = {
     [1] = {
@@ -3071,20 +3381,8 @@ event.ET_ITEM_CHARGE_CHANGED = {
     },
 }
 
----@class EventParam.ET_ITEM_ON_CREATE
-
-event.ET_ITEM_ON_CREATE = {
-    [1] = {
-        name = "__item",
-        type = "py.Item",
-        lua_name = "item",
-        lua_type = "Item",
-        desc = "被创建的物品",
-        lua_desc = "被创建的物品",
-    },
-}
-
 ---@class EventParam.ET_ITEM_ON_DESTROY
+---@field item_id py.ItemKey # 销毁的物品
 
 event.ET_ITEM_ON_DESTROY = {
     [1] = {
@@ -3097,73 +3395,11 @@ event.ET_ITEM_ON_DESTROY = {
     },
 }
 
----@class EventParam.ET_ITEM_SOLD
-
-event.ET_ITEM_SOLD = {
-    [1] = {
-        name = "__unit",
-        type = "py.Unit",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "购买者",
-        lua_desc = "购买者",
-    },
-    [2] = {
-        name = "__unit2",
-        type = "py.Unit",
-        lua_name = "unit2",
-        lua_type = "Unit",
-        desc = "贩卖者",
-        lua_desc = "贩卖者",
-    },
-    [3] = {
-        name = "__item",
-        type = "py.Item",
-        lua_name = "item",
-        lua_type = "Item",
-        desc = "被售出的物品",
-        lua_desc = "被售出的物品",
-    },
-    [4] = {
-        name = "__buy_unit_id",
-        type = "py.UnitID",
-        lua_name = "buy_unit",
-        lua_type = "Unit",
-        desc = "收购物品的单位id",
-        lua_desc = "收购物品的单位",
-    },
-    [5] = {
-        name = "__shop_unit_id",
-        type = "py.UnitID",
-        lua_name = "shop_unit",
-        lua_type = "Unit",
-        desc = "出售物品的单位id",
-        lua_desc = "出售物品的单位",
-    },
-}
-
----@class EventParam.ET_ITEM_BROKEN
-
-event.ET_ITEM_BROKEN = {
-    [1] = {
-        name = "__item",
-        type = "py.Item",
-        lua_name = "item",
-        lua_type = "Item",
-        desc = "被破坏的物品",
-        lua_desc = "被破坏的物品",
-    },
-    [2] = {
-        name = "__unit",
-        type = "py.Unit",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "破坏物品的单位",
-        lua_desc = "破坏物品的单位",
-    },
-}
-
 ---@class EventParam.ET_ITEM_CREATE_ON_DEST_COLLECTED
+---@field item Item # 事件中的物品
+---@field destructible Destructible # 事件中的可破坏物
+---@field unit Unit # 采集可破坏物事件中的单位
+---@field ability Ability # 采集可破坏物的捷能
 
 event.ET_ITEM_CREATE_ON_DEST_COLLECTED = {
     [1] = {
@@ -3201,6 +3437,8 @@ event.ET_ITEM_CREATE_ON_DEST_COLLECTED = {
 }
 
 ---@class EventParam.ET_CHAT_SEND_GM
+---@field str1 string # 指令字符串
+---@field player Player # 玩家
 
 event.ET_CHAT_SEND_GM = {
     [1] = {
@@ -3222,6 +3460,8 @@ event.ET_CHAT_SEND_GM = {
 }
 
 ---@class EventParam.ET_EVENT_CUSTOM
+---@field c_param_1 integer # 事件参数
+---@field c_param_dict py.Dict # 自定义参数列表
 
 event.ET_EVENT_CUSTOM = {
     [1] = {
@@ -3243,6 +3483,9 @@ event.ET_EVENT_CUSTOM = {
 }
 
 ---@class EventParam.ET_UI_PREFAB_CREATE_EVENT
+---@field player Player # 玩家
+---@field ui_prefab string # ui模块id
+---@field ui_prefab_ins py.UIPrefabIns # 创建出的实例控件
 
 event.ET_UI_PREFAB_CREATE_EVENT = {
     [1] = {
@@ -3272,6 +3515,9 @@ event.ET_UI_PREFAB_CREATE_EVENT = {
 }
 
 ---@class EventParam.ET_UI_PREFAB_DEL_EVENT
+---@field player Player # 玩家
+---@field ui_prefab string # ui模块id
+---@field ui_prefab_ins py.UIPrefabIns # 销毁的模块实例控件
 
 event.ET_UI_PREFAB_DEL_EVENT = {
     [1] = {
@@ -3301,6 +3547,9 @@ event.ET_UI_PREFAB_DEL_EVENT = {
 }
 
 ---@class EventParam.ET_MICRO_SPEAK
+---@field player Player # 玩家
+---@field audio_channel integer # 频道
+---@field audio_bool boolean # 是否发言
 
 event.ET_MICRO_SPEAK = {
     [1] = {
@@ -3330,6 +3579,8 @@ event.ET_MICRO_SPEAK = {
 }
 
 ---@class EventParam.ET_UNIT_3D_ACTIVE
+---@field unit Unit # 单位
+---@field is_active boolean # 是否开启
 
 event.ET_UNIT_3D_ACTIVE = {
     [1] = {
