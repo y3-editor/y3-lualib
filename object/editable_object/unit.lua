@@ -57,6 +57,12 @@ function M:is_exist()
     return  GameAPI.unit_is_exist(self.handle)
 end
 
+-- 获取唯一ID
+---@return integer
+function M:get_id()
+    return self.id
+end
+
 ---移除技能(指定类型)
 ---@param type y3.Const.AbilityType 技能类型
 ---@param ability_key py.AbilityKey 物编id

@@ -1,6 +1,7 @@
 local event_data = require 'y3.meta.event'
 
 ---@class PYEventRegister
+---@field package need_enable_trigger_manualy boolean
 local M = Class 'PYEventRegister'
 
 ---@private
@@ -111,7 +112,16 @@ function M.event_register(object, event_name)
         event_manager:notify(event_name, lua_params)
     end
 
+    -- 在初始化时注册的事件会自动启用，但之后注册的事件需要手动启用
+    if M.need_enable_trigger_manualy then
+        GameAPI.enable_global_lua_trigger(py_trigger)
+    end
+
     return event_manager
+end
+
+new_global_trigger(M.trigger_id_counter(), 'GAME_INIT', 'ET_GAME_INIT', true).on_event = function ()
+    M.need_enable_trigger_manualy = true
 end
 
 return M
