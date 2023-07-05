@@ -63,7 +63,9 @@ function M.new(name)
     local class = M._classes[name]
     assert(class, ('class %q not found'):format(name))
 
-    local instance = setmetatable({}, class)
+    local instance = setmetatable({
+        __class__ = name,
+    }, class)
 
     return instance
 end
