@@ -20,7 +20,7 @@ function Fix32(luaNumber) end
 
 ---@param id integer
 ---@param name string
----@param event y3.Const.EventType | { [1]: y3.Const.EventType, [2]: integer }
+---@param event y3.Const.EventType | { [1]: y3.Const.EventType, [integer]: any }
 ---@param init_enabled boolean
 ---@param addition any
 ---@return {on_event: fun(trigger: table, event: y3.Const.EventType, actor, data)}

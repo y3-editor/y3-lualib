@@ -89,8 +89,9 @@ M.event_mark_map = setmetatable({}, y3.util.MODE_K)
 
 ---@param object any
 ---@param event_name y3.Const.EventType # 注册给引擎的事件名
+---@param extra_args? any[] # 额外参数
 ---@return EventManager
-function M.event_register(object, event_name)
+function M.event_register(object, event_name, extra_args)
     local event_mark = M.event_mark_map[object]
     if not event_mark then
         event_mark = {
@@ -98,13 +99,18 @@ function M.event_register(object, event_name)
         }
         M.event_mark_map[object] = event_mark
     end
-    if event_mark[event_name] then
+    if event_mark[event_name] and not extra_args then
         return event_mark._event_manager
     end
     event_mark[event_name] = true
+    ---@type y3.Const.EventType | { [1]: y3.Const.EventType, [integer]: any }
+    local py_event = event_name
+    if extra_args then
+        py_event = { event_name, table.unpack(extra_args)}
+    end
 
     local trigger_id = M.trigger_id_counter()
-    local py_trigger = new_global_trigger(trigger_id, event_name, event_name, true)
+    local py_trigger = new_global_trigger(trigger_id, event_name, py_event, true)
     local event_manager = event_mark._event_manager
 
     py_trigger.on_event = function (trigger, event, actor, data)
