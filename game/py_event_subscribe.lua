@@ -1,4 +1,5 @@
 local event_data = require 'y3.meta.event'
+local game_event = require 'y3.meta.gameevent'
 
 ---@class PYEventRegister
 ---@field package need_enable_trigger_manualy boolean
@@ -92,6 +93,7 @@ M.event_mark_map = setmetatable({}, y3.util.MODE_K)
 ---@param extra_args? any[] # 额外参数
 ---@return EventManager
 function M.event_register(object, event_name, extra_args)
+    local py_event_name = game_event.alias_map[event_name] or event_name
     local event_mark = M.event_mark_map[object]
     if not event_mark then
         event_mark = {
@@ -99,14 +101,14 @@ function M.event_register(object, event_name, extra_args)
         }
         M.event_mark_map[object] = event_mark
     end
-    if event_mark[event_name] and not extra_args then
+    if event_mark[py_event_name] and not extra_args then
         return event_mark._event_manager
     end
-    event_mark[event_name] = true
+    event_mark[py_event_name] = true
     ---@type y3.Const.EventType | { [1]: y3.Const.EventType, [integer]: any }
-    local py_event = event_name
+    local py_event = py_event_name
     if extra_args then
-        py_event = { event_name, table.unpack(extra_args)}
+        py_event = { py_event_name, table.unpack(extra_args)}
     end
 
     local trigger_id = M.trigger_id_counter()
@@ -114,7 +116,7 @@ function M.event_register(object, event_name, extra_args)
     local event_manager = event_mark._event_manager
 
     py_trigger.on_event = function (trigger, event, actor, data)
-        local lua_params = M.convert_py_params(event_name, data)
+        local lua_params = M.convert_py_params(py_event_name, data)
         event_manager:notify(event_name, lua_params)
     end
 
