@@ -88,12 +88,22 @@ end
 ---@type table<any, PYEventRegister.Mark>
 M.event_mark_map = setmetatable({}, y3.util.MODE_K)
 
+---@param event_name string
+---@return string
+local function get_py_event_name(event_name)
+    local alias = game_event.alias_map[event_name]
+    if not alias then
+        return event_name
+    end
+    return alias.key
+end
+
 ---@param object any
 ---@param event_name y3.Const.EventType # 注册给引擎的事件名
 ---@param extra_args? any[] # 额外参数
 ---@return EventManager
 function M.event_register(object, event_name, extra_args)
-    local py_event_name = game_event.alias_map[event_name] or event_name
+    local py_event_name = get_py_event_name(event_name)
     local event_mark = M.event_mark_map[object]
     if not event_mark then
         event_mark = {
