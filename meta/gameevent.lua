@@ -245,11 +245,11 @@ M.alias_map["技能-建造完成"] = {
     },
 }
 
----@alias EventParam.技能-升级 EventParam.ET_ABILITY_PLUS_POINT
-M.alias_map["技能-升级"] = {
-    desc = "技能升级后触发",
+---@alias EventParam.技能-学习 EventParam.ET_ABILITY_PLUS_POINT
+M.alias_map["技能-学习"] = {
+    desc = "学习技能后触发",
     key = "ET_ABILITY_PLUS_POINT",
-    name = "技能-升级",
+    name = "技能-学习",
     params = {
     },
 }
@@ -272,22 +272,417 @@ M.alias_map["单位-移除"] = {
     },
 }
 
----@alias EventParam.单位-属性变化 EventParam.ET_UNIT_ATTR_CHANGE
-M.alias_map["单位-属性变化"] = {
-    desc = "指定单位的指定属性变化后触发",
+---@alias EventParam.单位-即将死亡 EventParam.ET_UNIT_ATTR_CHANGE
+M.alias_map["单位-即将死亡"] = {
+    desc = "单位死亡前触发",
     key = "ET_UNIT_ATTR_CHANGE",
-    name = "单位-属性变化",
+    name = "单位-即将死亡",
     params = {
-        [1] = {
-            desc = "单位",
-            name = "unit",
-            type = "Unit",
-        },
-        [2] = {
-            desc = "属性名",
-            name = "attr",
-            type = "string",
-        },
+    },
+}
+
+---@alias EventParam.单位-死亡 EventParam.ET_UNIT_DIE
+M.alias_map["单位-死亡"] = {
+    desc = "单位死亡后触发",
+    key = "ET_UNIT_DIE",
+    name = "单位-死亡",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-受到伤害前 EventParam.ET_UNIT_BE_HURT
+M.alias_map["单位-受到伤害前"] = {
+    desc = "在其他计算前触发，可以修改闪避和暴击",
+    key = "ET_UNIT_BE_HURT",
+    name = "单位-受到伤害前",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-造成伤害前 EventParam.ET_UNIT_HURT_OTHER
+M.alias_map["单位-造成伤害前"] = {
+    desc = "在其他计算前触发，可以修改闪避和暴击",
+    key = "ET_UNIT_HURT_OTHER",
+    name = "单位-造成伤害前",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-受到伤害时 EventParam.ET_UNIT_BE_HURT_BEFORE_APPLY
+M.alias_map["单位-受到伤害时"] = {
+    desc = "可以修改伤害值",
+    key = "ET_UNIT_BE_HURT_BEFORE_APPLY",
+    name = "单位-受到伤害时",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-造成伤害时 EventParam.ET_UNIT_HURT_OTHER_BEFORE_APPLY
+M.alias_map["单位-造成伤害时"] = {
+    desc = "可以修改伤害值",
+    key = "ET_UNIT_HURT_OTHER_BEFORE_APPLY",
+    name = "单位-造成伤害时",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-造成伤害后 EventParam.ET_UNIT_HURT_OTHER_FINISH
+M.alias_map["单位-造成伤害后"] = {
+    desc = "伤害已结算，只能获取伤害值",
+    key = "ET_UNIT_HURT_OTHER_FINISH",
+    name = "单位-造成伤害后",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-受到伤害后 EventParam.ET_UNIT_BE_HURT_COMPLETE
+M.alias_map["单位-受到伤害后"] = {
+    desc = "伤害已结算，只能获取伤害值",
+    key = "ET_UNIT_BE_HURT_COMPLETE",
+    name = "单位-受到伤害后",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-受到治疗前 EventParam.ET_UNIT_GET_CURE_BEFORE_APPLY
+M.alias_map["单位-受到治疗前"] = {
+    desc = "可在其他计算前触发，可以修改有效性",
+    key = "ET_UNIT_GET_CURE_BEFORE_APPLY",
+    name = "单位-受到治疗前",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-受到治疗后 EventParam.ET_UNIT_GET_CURE_FINISH
+M.alias_map["单位-受到治疗后"] = {
+    desc = "治疗已结算，只能获取治疗值",
+    key = "ET_UNIT_GET_CURE_FINISH",
+    name = "单位-受到治疗后",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-受到治疗时 EventParam.ET_UNIT_GET_CURE
+M.alias_map["单位-受到治疗时"] = {
+    desc = "可以修改治疗值",
+    key = "ET_UNIT_GET_CURE",
+    name = "单位-受到治疗时",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-施放技能 EventParam.ET_UNIT_RELEASE_ABILITY
+M.alias_map["单位-施放技能"] = {
+    desc = "单位施放技能时触发",
+    key = "ET_UNIT_RELEASE_ABILITY",
+    name = "单位-施放技能",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-获得经验前 EventParam.ET_UNIT_PRE_ADD_EXP
+M.alias_map["单位-获得经验前"] = {
+    desc = "单位获得经验前触发",
+    key = "ET_UNIT_PRE_ADD_EXP",
+    name = "单位-获得经验前",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-获得经验后 EventParam.ET_UNIT_ON_ADD_EXP
+M.alias_map["单位-获得经验后"] = {
+    desc = "单位获得经验后触发",
+    key = "ET_UNIT_ON_ADD_EXP",
+    name = "单位-获得经验后",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-接收命令 EventParam.ET_UNIT_ON_COMMAND
+M.alias_map["单位-接收命令"] = {
+    desc = "接收到命令时触发，如果命令有目标会根据目标类型存到不同的字段里",
+    key = "ET_UNIT_ON_COMMAND",
+    name = "单位-接收命令",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-击杀 EventParam.ET_KILL_UNIT
+M.alias_map["单位-击杀"] = {
+    desc = "单位击杀其他单位时触发",
+    key = "ET_KILL_UNIT",
+    name = "单位-击杀",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-创建 EventParam.ET_UNIT_BORN
+M.alias_map["单位-创建"] = {
+    desc = "单位被创建后触发",
+    key = "ET_UNIT_BORN",
+    name = "单位-创建",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-进入战斗 EventParam.ET_UNIT_ENTER_BATTLE
+M.alias_map["单位-进入战斗"] = {
+    desc = "单位进入战斗时触发",
+    key = "ET_UNIT_ENTER_BATTLE",
+    name = "单位-进入战斗",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-脱离战斗 EventParam.ET_UNIT_EXIT_BATTLE
+M.alias_map["单位-脱离战斗"] = {
+    desc = "单位离开战斗时触发",
+    key = "ET_UNIT_EXIT_BATTLE",
+    name = "单位-脱离战斗",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-购买物品 EventParam.ET_UNIT_SHOP_BUY_ITEM
+M.alias_map["单位-购买物品"] = {
+    desc = "购买物品时触发",
+    key = "ET_UNIT_SHOP_BUY_ITEM",
+    name = "单位-购买物品",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-购买单位 EventParam.ET_UNIT_SHOP_BUY_UNIT
+M.alias_map["单位-购买单位"] = {
+    desc = "购买单位时触发",
+    key = "ET_UNIT_SHOP_BUY_UNIT",
+    name = "单位-购买单位",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-出售物品 EventParam.ET_UNIT_ITEM_SELL
+M.alias_map["单位-出售物品"] = {
+    desc = "出售物品时触发",
+    key = "ET_UNIT_ITEM_SELL",
+    name = "单位-出售物品",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-物品合成 EventParam.ET_UNIT_ITEM_COMPOSE
+M.alias_map["单位-物品合成"] = {
+    desc = "物品合成时触发",
+    key = "ET_UNIT_ITEM_COMPOSE",
+    name = "单位-物品合成",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-购买物品合成 EventParam.ET_UNIT_SHOP_BUY_WITH_COMPOSE
+M.alias_map["单位-购买物品合成"] = {
+    desc = "购买物品合成时触发",
+    key = "ET_UNIT_SHOP_BUY_WITH_COMPOSE",
+    name = "单位-购买物品合成",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-复活 EventParam.ET_REVIVE_UNIT
+M.alias_map["单位-复活"] = {
+    desc = "单位复活后触发",
+    key = "ET_REVIVE_UNIT",
+    name = "单位-复活",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-升级 EventParam.ET_UPGRADE_UNIT
+M.alias_map["单位-升级"] = {
+    desc = "单位升级后触发",
+    key = "ET_UPGRADE_UNIT",
+    name = "单位-升级",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-进入草丛 EventParam.ET_UNIT_ENTER_GRASS
+M.alias_map["单位-进入草丛"] = {
+    desc = "单位进入草丛时触发",
+    key = "ET_UNIT_ENTER_GRASS",
+    name = "单位-进入草丛",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-离开草丛 EventParam.ET_UNIT_LEAVE_GRASS
+M.alias_map["单位-离开草丛"] = {
+    desc = "单位离开草丛时触发",
+    key = "ET_UNIT_LEAVE_GRASS",
+    name = "单位-离开草丛",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-改变所属 EventParam.ET_UNIT_ROLE_CHANGED
+M.alias_map["单位-改变所属"] = {
+    desc = "单位的所有者玩家发生变化时触发",
+    key = "ET_UNIT_ROLE_CHANGED",
+    name = "单位-改变所属",
+    params = {
+    },
+}
+
+---@alias EventParam.单位类型-前置条件成立 EventParam.ET_UNIT_PRECONDITION_SUCCEED
+M.alias_map["单位类型-前置条件成立"] = {
+    desc = "前置条件由不成立变为成立时触发",
+    key = "ET_UNIT_PRECONDITION_SUCCEED",
+    name = "单位类型-前置条件成立",
+    params = {
+    },
+}
+
+---@alias EventParam.单位类型-前置条件不成立 EventParam.ET_UNIT_PRECONDITION_FAILED
+M.alias_map["单位类型-前置条件不成立"] = {
+    desc = "前置条件由成立变为不成立时触发",
+    key = "ET_UNIT_PRECONDITION_FAILED",
+    name = "单位类型-前置条件不成立",
+    params = {
+    },
+}
+
+---@alias EventParam.物品类型-前置条件成立 EventParam.ET_ITEM_PRECONDITION_SUCCEED
+M.alias_map["物品类型-前置条件成立"] = {
+    desc = "前置条件由不成立变为成立时触发",
+    key = "ET_ITEM_PRECONDITION_SUCCEED",
+    name = "物品类型-前置条件成立",
+    params = {
+    },
+}
+
+---@alias EventParam.物品类型-前置条件不成立 EventParam.ET_ITEM_PRECONDITION_FAILED
+M.alias_map["物品类型-前置条件不成立"] = {
+    desc = "前置条件由成立变为不成立时触发",
+    key = "ET_ITEM_PRECONDITION_FAILED",
+    name = "物品类型-前置条件不成立",
+    params = {
+    },
+}
+
+---@alias EventParam.技能类型-前置条件成立 EventParam.ET_ABILITY_PRECONDITION_SUCCEED
+M.alias_map["技能类型-前置条件成立"] = {
+    desc = "前置条件由不成立变为成立时触发",
+    key = "ET_ABILITY_PRECONDITION_SUCCEED",
+    name = "技能类型-前置条件成立",
+    params = {
+    },
+}
+
+---@alias EventParam.技能类型-前置条件不成立 EventParam.ET_ABILITY_PRECONDITION_FAILED
+M.alias_map["技能类型-前置条件不成立"] = {
+    desc = "前置条件由成立变为不成立时触发",
+    key = "ET_ABILITY_PRECONDITION_FAILED",
+    name = "技能类型-前置条件不成立",
+    params = {
+    },
+}
+
+---@alias EventParam.科技类型-前置条件成立 EventParam.ET_TECH_PRECONDITION_SUCCEED
+M.alias_map["科技类型-前置条件成立"] = {
+    desc = "前置条件由不成立变为成立时触发",
+    key = "ET_TECH_PRECONDITION_SUCCEED",
+    name = "科技类型-前置条件成立",
+    params = {
+    },
+}
+
+---@alias EventParam.科技类型-前置条件不成立 EventParam.ET_TECH_PRECONDITION_FAILED
+M.alias_map["科技类型-前置条件不成立"] = {
+    desc = "前置条件由成立变为不成立时触发",
+    key = "ET_TECH_PRECONDITION_FAILED",
+    name = "科技类型-前置条件不成立",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-升级 EventParam.ET_ABILITY_UPGRADE
+M.alias_map["技能-升级"] = {
+    desc = "技能升级后触发",
+    key = "ET_ABILITY_UPGRADE",
+    name = "技能-升级",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-即将开始 EventParam.ET_ABILITY_CS_START
+M.alias_map["施法-即将开始"] = {
+    desc = "即将施法时触发",
+    key = "ET_ABILITY_CS_START",
+    name = "施法-即将开始",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-开始 EventParam.ET_ABILITY_PS_START
+M.alias_map["施法-开始"] = {
+    desc = "施法开始后，前摇开始前触发",
+    key = "ET_ABILITY_PS_START",
+    name = "施法-开始",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-引导 EventParam.ET_ABILITY_PS_END
+M.alias_map["施法-引导"] = {
+    desc = "前摇完成后，持续引导前触发",
+    key = "ET_ABILITY_PS_END",
+    name = "施法-引导",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-出手 EventParam.ET_ABILITY_SP_END
+M.alias_map["施法-出手"] = {
+    desc = "持续引导后，后摇开始前触发",
+    key = "ET_ABILITY_SP_END",
+    name = "施法-出手",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-完成 EventParam.ET_ABILITY_CST_END
+M.alias_map["施法-完成"] = {
+    desc = "后摇结束后触发。只有施法正常完成才会触发。",
+    key = "ET_ABILITY_CST_END",
+    name = "施法-完成",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-结束 EventParam.ET_ABILITY_BS_END
+M.alias_map["施法-结束"] = {
+    desc = "整个施法的表现结束后触发",
+    key = "ET_ABILITY_BS_END",
+    name = "施法-结束",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-打断开始 EventParam.ET_ABILITY_PS_INTERRUPT
+M.alias_map["施法-打断开始"] = {
+    desc = "在“开始”到“引导”之间被打断",
+    key = "ET_ABILITY_PS_INTERRUPT",
+    name = "施法-打断开始",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-打断引导 EventParam.ET_ABILITY_SP_INTERRUPT
+M.alias_map["施法-打断引导"] = {
+    desc = "在“引导”到“出手”之间被打断",
+    key = "ET_ABILITY_SP_INTERRUPT",
+    name = "施法-打断引导",
+    params = {
     },
 }
 
@@ -322,10 +717,55 @@ M.alias_map["玩家-发送消息"] = {
 ---@field event fun(self: self, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
 ---@field event fun(self: self, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
 ---@field event fun(self: self, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
----@field event fun(self: self, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
+---@field event fun(self: self, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
 ---@field event fun(self: self, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
 ---@field event fun(self: self, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
----@field event fun(self: self, event: "单位-属性变化", unit: Unit, attr: string, callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
+---@field event fun(self: self, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
+---@field event fun(self: self, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
+---@field event fun(self: self, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
+---@field event fun(self: self, event: "单位-造成伤害前", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害前)): Trigger
+---@field event fun(self: self, event: "单位-受到伤害时", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害时)): Trigger
+---@field event fun(self: self, event: "单位-造成伤害时", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害时)): Trigger
+---@field event fun(self: self, event: "单位-造成伤害后", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害后)): Trigger
+---@field event fun(self: self, event: "单位-受到伤害后", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害后)): Trigger
+---@field event fun(self: self, event: "单位-受到治疗前", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗前)): Trigger
+---@field event fun(self: self, event: "单位-受到治疗后", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗后)): Trigger
+---@field event fun(self: self, event: "单位-受到治疗时", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗时)): Trigger
+---@field event fun(self: self, event: "单位-施放技能", callback: fun(trg: Trigger, data: EventParam.单位-施放技能)): Trigger
+---@field event fun(self: self, event: "单位-获得经验前", callback: fun(trg: Trigger, data: EventParam.单位-获得经验前)): Trigger
+---@field event fun(self: self, event: "单位-获得经验后", callback: fun(trg: Trigger, data: EventParam.单位-获得经验后)): Trigger
+---@field event fun(self: self, event: "单位-接收命令", callback: fun(trg: Trigger, data: EventParam.单位-接收命令)): Trigger
+---@field event fun(self: self, event: "单位-击杀", callback: fun(trg: Trigger, data: EventParam.单位-击杀)): Trigger
+---@field event fun(self: self, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
+---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
+---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: self, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
+---@field event fun(self: self, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
+---@field event fun(self: self, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
+---@field event fun(self: self, event: "单位-物品合成", callback: fun(trg: Trigger, data: EventParam.单位-物品合成)): Trigger
+---@field event fun(self: self, event: "单位-购买物品合成", callback: fun(trg: Trigger, data: EventParam.单位-购买物品合成)): Trigger
+---@field event fun(self: self, event: "单位-复活", callback: fun(trg: Trigger, data: EventParam.单位-复活)): Trigger
+---@field event fun(self: self, event: "单位-升级", callback: fun(trg: Trigger, data: EventParam.单位-升级)): Trigger
+---@field event fun(self: self, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
+---@field event fun(self: self, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
+---@field event fun(self: self, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
+---@field event fun(self: self, event: "单位类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件成立)): Trigger
+---@field event fun(self: self, event: "单位类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件不成立)): Trigger
+---@field event fun(self: self, event: "物品类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.物品类型-前置条件成立)): Trigger
+---@field event fun(self: self, event: "物品类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.物品类型-前置条件不成立)): Trigger
+---@field event fun(self: self, event: "技能类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件成立)): Trigger
+---@field event fun(self: self, event: "技能类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件不成立)): Trigger
+---@field event fun(self: self, event: "科技类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件成立)): Trigger
+---@field event fun(self: self, event: "科技类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件不成立)): Trigger
+---@field event fun(self: self, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
+---@field event fun(self: self, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
+---@field event fun(self: self, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
+---@field event fun(self: self, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
+---@field event fun(self: self, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
+---@field event fun(self: self, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
+---@field event fun(self: self, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
+---@field event fun(self: self, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
+---@field event fun(self: self, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 
 return M
