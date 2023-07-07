@@ -3,7 +3,7 @@ Bind = {}
 
 ---@class ECAFunction
 ---@field call_name string
----@field params {key: string, type: string}[]
+---@field params {key: string, type: string, optional?: boolean}[]
 ---@field returns {key: string, type: string}[]
 ---@field func function
 ---@overload fun(name: string): self
@@ -22,6 +22,9 @@ function M:_unpack_params(...)
     local param_list = {...}
     for i, param in ipairs(self.params) do
         local py_value = param_list[i]
+        if py_value == nil and not param.optional then
+            error(('第 %d 个参数 %s 为空！'):format(i, param.key))
+        end
         local ok, lua_value = xpcall(y3.py_converter.py_to_lua, log.error, param.type, py_value)
         if not ok then
             return
@@ -63,9 +66,15 @@ end
 ---@param type_name string
 ---@return self
 function M:with_param(key, type_name)
+    local optional
+    if type_name:sub(-1) == '?' then
+        optional = true
+        type_name = type_name:sub(1, -2)
+    end
     table.insert(self.params, {
         key  = key,
         type = y3.py_converter.get_py_type(type_name),
+        optional = optional,
     })
     return self
 end
