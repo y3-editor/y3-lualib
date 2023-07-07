@@ -85,6 +85,7 @@ end
 --执行的函数
 ---@param func function
 function M:call(func)
+    assert(Bind[self.call_name] == nil, ('不能重复定义绑定函数: %s'):format(self.call_name))
     self.func = func
     Bind[self.call_name] = function (...)
         return self:_pack_returns(xpcall(self.func, log.error, self:_unpack_params(...)))

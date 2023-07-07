@@ -114,6 +114,7 @@ function M:random_n(num, filter)
 end
 
 -- 显示池的内容，仅用于调试
+---@return string
 function M:dump()
     local keys = {}
     for k in pairs(self.pool) do
