@@ -112,3 +112,19 @@ function M:random_n(num, filter)
     end
     return results
 end
+
+-- 显示池的内容，仅用于调试
+function M:dump()
+    local keys = {}
+    for k in pairs(self.pool) do
+        keys[#keys+1] = k
+    end
+    table.sort(keys, function (a, b)
+        return tostring(a) < tostring(b)
+    end)
+    local buf = {}
+    for i, k in ipairs(keys) do
+        buf[i] = ('%s: %d'):format(tostring(k), self.pool[k])
+    end
+    return table.concat(buf, '\n')
+end
