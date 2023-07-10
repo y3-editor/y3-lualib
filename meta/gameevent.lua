@@ -686,6 +686,96 @@ M.alias_map["施法-打断引导"] = {
     },
 }
 
+---@alias EventParam.施法-打断出手 EventParam.ET_ABILITY_CST_INTERRUPT
+M.alias_map["施法-打断出手"] = {
+    desc = "在“出手”到“完成”之间被打断",
+    key = "ET_ABILITY_CST_INTERRUPT",
+    name = "施法-打断出手",
+    params = {
+    },
+}
+
+---@alias EventParam.施法-停止 EventParam.ET_ABILITY_END
+M.alias_map["施法-停止"] = {
+    desc = "施法停止后触发，是施法流程的最后一个事件。",
+    key = "ET_ABILITY_END",
+    name = "施法-停止",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-获得 EventParam.ET_ABILITY_OBTAIN
+M.alias_map["技能-获得"] = {
+    desc = "获得技能后触发",
+    key = "ET_ABILITY_OBTAIN",
+    name = "技能-获得",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-失去 EventParam.ET_ABILITY_LOSE
+M.alias_map["技能-失去"] = {
+    desc = "失去技能后触发",
+    key = "ET_ABILITY_LOSE",
+    name = "技能-失去",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-交换 EventParam.ET_ABILITY_SWITCH
+M.alias_map["技能-交换"] = {
+    desc = "技能交换后触发",
+    key = "ET_ABILITY_SWITCH",
+    name = "技能-交换",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-冷却结束 EventParam.ET_ABILITY_CD_END
+M.alias_map["技能-冷却结束"] = {
+    desc = "技能冷却结束后触发",
+    key = "ET_ABILITY_CD_END",
+    name = "技能-冷却结束",
+    params = {
+    },
+}
+
+---@alias EventParam.效果-获得 EventParam.ET_OBTAIN_MODIFIER
+M.alias_map["效果-获得"] = {
+    desc = "获得魔法效果后触发",
+    key = "ET_OBTAIN_MODIFIER",
+    name = "效果-获得",
+    params = {
+    },
+}
+
+---@alias EventParam.效果-失去 EventParam.ET_LOSS_MODIFIER
+M.alias_map["效果-失去"] = {
+    desc = "失去魔法效果后触发",
+    key = "ET_LOSS_MODIFIER",
+    name = "效果-失去",
+    params = {
+    },
+}
+
+---@alias EventParam.效果-心跳 EventParam.ET_MODIFIER_CYCLE_TRIGGER
+M.alias_map["效果-心跳"] = {
+    desc = "魔法效果的周期性触发",
+    key = "ET_MODIFIER_CYCLE_TRIGGER",
+    name = "效果-心跳",
+    params = {
+    },
+}
+
+---@alias EventParam.效果-叠加 EventParam.ET_MODIFIER_ADDTION
+M.alias_map["效果-叠加"] = {
+    desc = "魔法效果叠加时触发",
+    key = "ET_MODIFIER_ADDTION",
+    name = "效果-叠加",
+    params = {
+    },
+}
+
 ---@alias EventParam.玩家-发送消息 EventParam.ET_CHAT_SEND_GM
 M.alias_map["玩家-发送消息"] = {
     desc = "玩家发送任意消息时触发",
@@ -766,6 +856,16 @@ M.alias_map["玩家-发送消息"] = {
 ---@field event fun(self: self, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
 ---@field event fun(self: self, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: self, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
+---@field event fun(self: self, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: self, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
+---@field event fun(self: self, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
+---@field event fun(self: self, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
+---@field event fun(self: self, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
+---@field event fun(self: self, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: self, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
+---@field event fun(self: self, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
+---@field event fun(self: self, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
+---@field event fun(self: self, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 
 return M

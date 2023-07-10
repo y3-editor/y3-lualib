@@ -12,6 +12,10 @@ event.ET_TIMEOUT = {}
 
 event.ET_REPEAT_TIMEOUT = {}
 
+---@class EventParam.ET_TIMEOUT_BY_FRAME
+
+event.ET_TIMEOUT_BY_FRAME = {}
+
 ---@class EventParam.ET_REPEAT_TIMEOUT_BY_FRAME
 
 event.ET_REPEAT_TIMEOUT_BY_FRAME = {}
@@ -3239,6 +3243,38 @@ event.ET_UNIT_ADD_ITEM = {
     },
 }
 
+---@class EventParam.ET_UNIT_ADD_ITEM_TO_BAR
+---@field unit Unit # 获得该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+
+event.ET_UNIT_ADD_ITEM_TO_BAR = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "获得该物品的单位id",
+        lua_desc = "获得该物品的单位",
+    },
+    [2] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "物品id",
+        lua_desc = "物品",
+    },
+    [3] = {
+        name = "__item_no",
+        type = "py.ItemKey",
+        lua_name = "item_no",
+        lua_type = "py.ItemKey",
+        desc = "物品编号",
+        lua_desc = "物品编号",
+    },
+}
+
 ---@class EventParam.ET_UNIT_ADD_ITEM_TO_PKG
 ---@field unit Unit # 获得该物品的单位
 ---@field item Item # 物品
@@ -3252,6 +3288,134 @@ event.ET_UNIT_ADD_ITEM_TO_PKG = {
         lua_type = "Unit",
         desc = "获得该物品的单位id",
         lua_desc = "获得该物品的单位",
+    },
+    [2] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "物品id",
+        lua_desc = "物品",
+    },
+    [3] = {
+        name = "__item_no",
+        type = "py.ItemKey",
+        lua_name = "item_no",
+        lua_type = "py.ItemKey",
+        desc = "物品编号",
+        lua_desc = "物品编号",
+    },
+}
+
+---@class EventParam.ET_UNIT_REMOVE_ITEM
+---@field unit Unit # 失去该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+
+event.ET_UNIT_REMOVE_ITEM = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "失去该物品的单位id",
+        lua_desc = "失去该物品的单位",
+    },
+    [2] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "物品id",
+        lua_desc = "物品",
+    },
+    [3] = {
+        name = "__item_no",
+        type = "py.ItemKey",
+        lua_name = "item_no",
+        lua_type = "py.ItemKey",
+        desc = "物品编号",
+        lua_desc = "物品编号",
+    },
+}
+
+---@class EventParam.ET_UNIT_REMOVE_ITEM_FROM_BAR
+---@field unit Unit # 失去该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+
+event.ET_UNIT_REMOVE_ITEM_FROM_BAR = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "失去该物品的单位id",
+        lua_desc = "失去该物品的单位",
+    },
+    [2] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "物品id",
+        lua_desc = "物品",
+    },
+    [3] = {
+        name = "__item_no",
+        type = "py.ItemKey",
+        lua_name = "item_no",
+        lua_type = "py.ItemKey",
+        desc = "物品编号",
+        lua_desc = "物品编号",
+    },
+}
+
+---@class EventParam.ET_UNIT_REMOVE_ITEM_FROM_PKG
+---@field unit Unit # 失去该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+
+event.ET_UNIT_REMOVE_ITEM_FROM_PKG = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "失去该物品的单位id",
+        lua_desc = "失去该物品的单位",
+    },
+    [2] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "物品id",
+        lua_desc = "物品",
+    },
+    [3] = {
+        name = "__item_no",
+        type = "py.ItemKey",
+        lua_name = "item_no",
+        lua_type = "py.ItemKey",
+        desc = "物品编号",
+        lua_desc = "物品编号",
+    },
+}
+
+---@class EventParam.ET_UNIT_USE_ITEM
+---@field unit Unit # 使用该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+
+event.ET_UNIT_USE_ITEM = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "使用该物品的单位id",
+        lua_desc = "使用该物品的单位",
     },
     [2] = {
         name = "__item_id",
@@ -3381,6 +3545,20 @@ event.ET_ITEM_CHARGE_CHANGED = {
     },
 }
 
+---@class EventParam.ET_ITEM_ON_CREATE
+---@field item Item # 被创建的物品
+
+event.ET_ITEM_ON_CREATE = {
+    [1] = {
+        name = "__item",
+        type = "py.Item",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "被创建的物品",
+        lua_desc = "被创建的物品",
+    },
+}
+
 ---@class EventParam.ET_ITEM_ON_DESTROY
 ---@field item_id py.ItemKey # 销毁的物品
 
@@ -3392,6 +3570,79 @@ event.ET_ITEM_ON_DESTROY = {
         lua_type = "py.ItemKey",
         desc = "销毁的物品",
         lua_desc = "销毁的物品",
+    },
+}
+
+---@class EventParam.ET_ITEM_SOLD
+---@field unit Unit # 购买者
+---@field unit2 Unit # 贩卖者
+---@field item Item # 被售出的物品
+---@field buy_unit Unit # 收购物品的单位
+---@field shop_unit Unit # 出售物品的单位
+
+event.ET_ITEM_SOLD = {
+    [1] = {
+        name = "__unit",
+        type = "py.Unit",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "购买者",
+        lua_desc = "购买者",
+    },
+    [2] = {
+        name = "__unit2",
+        type = "py.Unit",
+        lua_name = "unit2",
+        lua_type = "Unit",
+        desc = "贩卖者",
+        lua_desc = "贩卖者",
+    },
+    [3] = {
+        name = "__item",
+        type = "py.Item",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "被售出的物品",
+        lua_desc = "被售出的物品",
+    },
+    [4] = {
+        name = "__buy_unit_id",
+        type = "py.UnitID",
+        lua_name = "buy_unit",
+        lua_type = "Unit",
+        desc = "收购物品的单位id",
+        lua_desc = "收购物品的单位",
+    },
+    [5] = {
+        name = "__shop_unit_id",
+        type = "py.UnitID",
+        lua_name = "shop_unit",
+        lua_type = "Unit",
+        desc = "出售物品的单位id",
+        lua_desc = "出售物品的单位",
+    },
+}
+
+---@class EventParam.ET_ITEM_BROKEN
+---@field item Item # 被破坏的物品
+---@field unit Unit # 破坏物品的单位
+
+event.ET_ITEM_BROKEN = {
+    [1] = {
+        name = "__item",
+        type = "py.Item",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "被破坏的物品",
+        lua_desc = "被破坏的物品",
+    },
+    [2] = {
+        name = "__unit",
+        type = "py.Unit",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "破坏物品的单位",
+        lua_desc = "破坏物品的单位",
     },
 }
 
