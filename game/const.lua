@@ -154,6 +154,7 @@ M.MovementObstacleProcessType = {
    ['POINT_MIDDLE'] = 16,
 }
 
+---@enum y3.Const.MouseKey
 M.MouseKey = {
    ['LEFT'] = 0xF0,
    ['RIGHT'] = 0xF1,
@@ -162,6 +163,7 @@ M.MouseKey = {
    ['WHEEL_DOWN'] = 0xF4,
 }
 
+---@enum y3.Const.KeyboardKey
 M.KeyboardKey = {
    ['NONE'] = 0x00,
    ['ESCAPE'] = 0x01,

@@ -2211,7 +2211,7 @@ event.ET_ABILITY_CD_END = {
 }
 
 ---@class EventParam.ET_OBTAIN_MODIFIER
----@field modifier Buff # 触发的魔法效果
+---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
@@ -2219,7 +2219,7 @@ event.ET_OBTAIN_MODIFIER = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
-        lua_name = "modifier",
+        lua_name = "buff",
         lua_type = "Buff",
         desc = "触发的魔法效果",
         lua_desc = "触发的魔法效果",
@@ -2243,7 +2243,7 @@ event.ET_OBTAIN_MODIFIER = {
 }
 
 ---@class EventParam.ET_LOSS_MODIFIER
----@field modifier Buff # 触发的魔法效果
+---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
@@ -2251,7 +2251,7 @@ event.ET_LOSS_MODIFIER = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
-        lua_name = "modifier",
+        lua_name = "buff",
         lua_type = "Buff",
         desc = "触发的魔法效果",
         lua_desc = "触发的魔法效果",
@@ -2275,7 +2275,7 @@ event.ET_LOSS_MODIFIER = {
 }
 
 ---@class EventParam.ET_MODIFIER_CYCLE_TRIGGER
----@field modifier Buff # 触发的魔法效果
+---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
@@ -2283,7 +2283,7 @@ event.ET_MODIFIER_CYCLE_TRIGGER = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
-        lua_name = "modifier",
+        lua_name = "buff",
         lua_type = "Buff",
         desc = "触发的魔法效果",
         lua_desc = "触发的魔法效果",
@@ -2307,7 +2307,7 @@ event.ET_MODIFIER_CYCLE_TRIGGER = {
 }
 
 ---@class EventParam.ET_MODIFIER_ADDTION
----@field modifier Buff # 触发的魔法效果
+---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
@@ -2315,7 +2315,7 @@ event.ET_MODIFIER_ADDTION = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
-        lua_name = "modifier",
+        lua_name = "buff",
         lua_type = "Buff",
         desc = "触发的魔法效果",
         lua_desc = "触发的魔法效果",
@@ -2339,7 +2339,7 @@ event.ET_MODIFIER_ADDTION = {
 }
 
 ---@class EventParam.ET_MODIFIER_LAYER_CHANGE
----@field modifier Buff # 触发的魔法效果
+---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
 ---@field layer_change_values integer # 层数变化值
 ---@field from_unit Unit # 效果施加者
@@ -2348,7 +2348,7 @@ event.ET_MODIFIER_LAYER_CHANGE = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
-        lua_name = "modifier",
+        lua_name = "buff",
         lua_type = "Buff",
         desc = "触发的魔法效果",
         lua_desc = "触发的魔法效果",
@@ -2380,7 +2380,7 @@ event.ET_MODIFIER_LAYER_CHANGE = {
 }
 
 ---@class EventParam.ET_MODIFIER_GET_BEFORE_CREATE
----@field modifier Buff # 触发的魔法效果
+---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
 
@@ -2388,7 +2388,7 @@ event.ET_MODIFIER_GET_BEFORE_CREATE = {
     [1] = {
         name = "__modifier",
         type = "py.ModifierEntity",
-        lua_name = "modifier",
+        lua_name = "buff",
         lua_type = "Buff",
         desc = "触发的魔法效果",
         lua_desc = "触发的魔法效果",
@@ -2413,8 +2413,8 @@ event.ET_MODIFIER_GET_BEFORE_CREATE = {
 
 ---@class EventParam.ET_MODIFIER_BE_COVERED
 ---@field owner_unit Unit # 效果携带者
----@field old_modifier Buff # 已有的魔法效果
----@field new_modifier Buff # 新增的魔法效果
+---@field old_buff Buff # 已有的魔法效果
+---@field new_buff Buff # 新增的魔法效果
 
 event.ET_MODIFIER_BE_COVERED = {
     [1] = {
@@ -2428,7 +2428,7 @@ event.ET_MODIFIER_BE_COVERED = {
     [2] = {
         name = "__old_modifier",
         type = "py.ModifierEntity",
-        lua_name = "old_modifier",
+        lua_name = "old_buff",
         lua_type = "Buff",
         desc = "已有的魔法效果",
         lua_desc = "已有的魔法效果",
@@ -2436,7 +2436,7 @@ event.ET_MODIFIER_BE_COVERED = {
     [3] = {
         name = "__new_modifier",
         type = "py.ModifierEntity",
-        lua_name = "new_modifier",
+        lua_name = "new_buff",
         lua_type = "Buff",
         desc = "新增的魔法效果",
         lua_desc = "新增的魔法效果",

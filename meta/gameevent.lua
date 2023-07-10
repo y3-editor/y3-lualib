@@ -776,6 +776,334 @@ M.alias_map["效果-叠加"] = {
     },
 }
 
+---@alias EventParam.效果-层数变化 EventParam.ET_MODIFIER_LAYER_CHANGE
+M.alias_map["效果-层数变化"] = {
+    desc = "魔法效果层数变化时触发",
+    key = "ET_MODIFIER_LAYER_CHANGE",
+    name = "效果-层数变化",
+    params = {
+    },
+}
+
+---@alias EventParam.效果-即将获得 EventParam.ET_MODIFIER_GET_BEFORE_CREATE
+M.alias_map["效果-即将获得"] = {
+    desc = "魔法效果获得前触发",
+    key = "ET_MODIFIER_GET_BEFORE_CREATE",
+    name = "效果-即将获得",
+    params = {
+    },
+}
+
+---@alias EventParam.效果-覆盖 EventParam.ET_MODIFIER_BE_COVERED
+M.alias_map["效果-覆盖"] = {
+    desc = "魔法效果覆盖时触发",
+    key = "ET_MODIFIER_BE_COVERED",
+    name = "效果-覆盖",
+    params = {
+    },
+}
+
+---@alias EventParam.可破坏物-创建 EventParam.ET_DEST_CREATE_NEW
+M.alias_map["可破坏物-创建"] = {
+    desc = "可破坏物创建后触发",
+    key = "ET_DEST_CREATE_NEW",
+    name = "可破坏物-创建",
+    params = {
+    },
+}
+
+---@alias EventParam.可破坏物-死亡 EventParam.ET_DEST_DIE_NEW
+M.alias_map["可破坏物-死亡"] = {
+    desc = "可破坏物死亡后触发",
+    key = "ET_DEST_DIE_NEW",
+    name = "可破坏物-死亡",
+    params = {
+    },
+}
+
+---@alias EventParam.可破坏物-复活 EventParam.ET_DEST_REVIVE_NEW
+M.alias_map["可破坏物-复活"] = {
+    desc = "可破坏物复活后触发",
+    key = "ET_DEST_REVIVE_NEW",
+    name = "可破坏物-复活",
+    params = {
+    },
+}
+
+---@alias EventParam.可破坏物-资源变化 EventParam.ET_DEST_RES_CNT_CHG_NEW
+M.alias_map["可破坏物-资源变化"] = {
+    desc = "可破坏物存储的资源变化后触发",
+    key = "ET_DEST_RES_CNT_CHG_NEW",
+    name = "可破坏物-资源变化",
+    params = {
+    },
+}
+
+---@alias EventParam.可破坏物-采集 EventParam.ET_DEST_COLLECTED_NEW
+M.alias_map["可破坏物-采集"] = {
+    desc = "可破坏物被采集后触发",
+    key = "ET_DEST_COLLECTED_NEW",
+    name = "可破坏物-采集",
+    params = {
+    },
+}
+
+---@alias EventParam.可破坏物-受到伤害 EventParam.ET_GET_HURT_NEW
+M.alias_map["可破坏物-受到伤害"] = {
+    desc = "可破坏物受到伤害后触发",
+    key = "ET_GET_HURT_NEW",
+    name = "可破坏物-受到伤害",
+    params = {
+    },
+}
+
+---@alias EventParam.选中-可破坏物 EventParam.ET_SELECT_DEST
+M.alias_map["选中-可破坏物"] = {
+    desc = "玩家选中可破坏物被后触发",
+    key = "ET_SELECT_DEST",
+    name = "选中-可破坏物",
+    params = {
+    },
+}
+
+---@alias EventParam.可破坏物-移除 EventParam.ET_DEST_DELETE
+M.alias_map["可破坏物-移除"] = {
+    desc = "可破坏物被移除后触发",
+    key = "ET_DEST_DELETE",
+    name = "可破坏物-移除",
+    params = {
+    },
+}
+
+---@alias EventParam.投射物-创建 EventParam.ET_PRODUCE_PROJECTILE
+M.alias_map["投射物-创建"] = {
+    desc = "投射物创建后触发",
+    key = "ET_PRODUCE_PROJECTILE",
+    name = "投射物-创建",
+    params = {
+    },
+}
+
+---@alias EventParam.投射物-死亡 EventParam.ET_DEATH_PROJECTILE
+M.alias_map["投射物-死亡"] = {
+    desc = "投射物死亡后触发",
+    key = "ET_DEATH_PROJECTILE",
+    name = "投射物-死亡",
+    params = {
+    },
+}
+
+---@alias EventParam.界面-消息 EventParam.ET_TRIGGER_COMPONENT_EVENT
+M.alias_map["界面-消息"] = {
+    desc = "触发界面上标记的自定义事件后触发",
+    key = "ET_TRIGGER_COMPONENT_EVENT",
+    name = "界面-消息",
+    params = {
+        [1] = {
+            desc = "自定义事件名称",
+            name = "event_name",
+            type = "string",
+        },
+    },
+}
+
+---@alias EventParam.键盘-按下 EventParam.ET_KEYBOARD_KEY_DOWN_EVENT
+M.alias_map["键盘-按下"] = {
+    desc = "键盘上的某个键按下时触发",
+    key = "ET_KEYBOARD_KEY_DOWN_EVENT",
+    name = "键盘-按下",
+    params = {
+        [1] = {
+            desc = "按下的键",
+            name = "key",
+            type = "y3.Const.KeyboardKey",
+        },
+    },
+}
+
+---@alias EventParam.键盘-抬起 EventParam.ET_KEYBOARD_KEY_UP_EVENT
+M.alias_map["键盘-抬起"] = {
+    desc = "键盘上的某个键抬起时触发",
+    key = "ET_KEYBOARD_KEY_UP_EVENT",
+    name = "键盘-抬起",
+    params = {
+        [1] = {
+            desc = "抬起的键",
+            name = "key",
+            type = "y3.Const.KeyboardKey",
+        },
+    },
+}
+
+---@alias EventParam.鼠标-按下 EventParam.ET_MOUSE_KEY_DOWN_EVENT
+M.alias_map["鼠标-按下"] = {
+    desc = "鼠标上的某个键按下时触发",
+    key = "ET_MOUSE_KEY_DOWN_EVENT",
+    name = "鼠标-按下",
+    params = {
+        [1] = {
+            desc = "按下的键",
+            name = "key",
+            type = "y3.Const.MouseKey",
+        },
+    },
+}
+
+---@alias EventParam.鼠标-抬起 EventParam.ET_MOUSE_KEY_UP_EVENT
+M.alias_map["鼠标-抬起"] = {
+    desc = "鼠标上的某个键抬起时触发",
+    key = "ET_MOUSE_KEY_UP_EVENT",
+    name = "鼠标-抬起",
+    params = {
+        [1] = {
+            desc = "抬起的键",
+            name = "key",
+            type = "y3.Const.MouseKey",
+        },
+    },
+}
+
+---@alias EventParam.鼠标-双击 EventParam.MOUSE_KEY_DB_CLICK_EVENT
+M.alias_map["鼠标-双击"] = {
+    desc = "鼠标上的某个键双击时触发",
+    key = "MOUSE_KEY_DB_CLICK_EVENT",
+    name = "鼠标-双击",
+    params = {
+        [1] = {
+            desc = "双击的键",
+            name = "key",
+            type = "y3.Const.MouseKey",
+        },
+    },
+}
+
+---@alias EventParam.鼠标-按下单位 EventParam.MOUSE_KEY_DOWN_UNIT_EVENT
+M.alias_map["鼠标-按下单位"] = {
+    desc = "鼠标上的某个键对着单位按下时触发",
+    key = "MOUSE_KEY_DOWN_UNIT_EVENT",
+    name = "鼠标-按下单位",
+    params = {
+        [1] = {
+            desc = "按下的键",
+            name = "key",
+            type = "y3.Const.MouseKey",
+        },
+    },
+}
+
+---@alias EventParam.鼠标-抬起单位 EventParam.MOUSE_KEY_UP_UNIT_EVENT
+M.alias_map["鼠标-抬起单位"] = {
+    desc = "鼠标上的某个键对着单位抬起时触发",
+    key = "MOUSE_KEY_UP_UNIT_EVENT",
+    name = "鼠标-抬起单位",
+    params = {
+        [1] = {
+            desc = "抬起的键",
+            name = "key",
+            type = "y3.Const.MouseKey",
+        },
+    },
+}
+
+---@alias EventParam.鼠标-双击单位 EventParam.MOUSE_KEY_DB_CLICK_UNIT_EVENT
+M.alias_map["鼠标-双击单位"] = {
+    desc = "鼠标上的某个键对着单位双击时触发",
+    key = "MOUSE_KEY_DB_CLICK_UNIT_EVENT",
+    name = "鼠标-双击单位",
+    params = {
+        [1] = {
+            desc = "双击的键",
+            name = "key",
+            type = "y3.Const.MouseKey",
+        },
+    },
+}
+
+---@alias EventParam.鼠标-移动 EventParam.MOUSE_MOVE_EVENT
+M.alias_map["鼠标-移动"] = {
+    desc = "鼠标移动时触发",
+    key = "MOUSE_MOVE_EVENT",
+    name = "鼠标-移动",
+    params = {
+    },
+}
+
+---@alias EventParam.鼠标-滚轮 EventParam.ET_MOUSE_WHEEL_EVENT
+M.alias_map["鼠标-滚轮"] = {
+    desc = "鼠标滚轮滚动时触发",
+    key = "ET_MOUSE_WHEEL_EVENT",
+    name = "鼠标-滚轮",
+    params = {
+        [1] = {
+            name = "key",
+            type = "y3.Const.MouseKey",
+        },
+    },
+}
+
+---@alias EventParam.选中-单位 EventParam.ET_SELECT_UNIT
+M.alias_map["选中-单位"] = {
+    desc = "玩家选中单位时触发",
+    key = "ET_SELECT_UNIT",
+    name = "选中-单位",
+    params = {
+    },
+}
+
+---@alias EventParam.选中-物品 EventParam.ET_SELECT_ITEM
+M.alias_map["选中-物品"] = {
+    desc = "物品被选中时触发",
+    key = "ET_SELECT_ITEM",
+    name = "选中-物品",
+    params = {
+    },
+}
+
+---@alias EventParam.鼠标-双击物品 EventParam.ET_DOUBLE_CLICK_ITEM
+M.alias_map["鼠标-双击物品"] = {
+    desc = "鼠标上左键双击物品时触发",
+    key = "ET_DOUBLE_CLICK_ITEM",
+    name = "鼠标-双击物品",
+    params = {
+    },
+}
+
+---@alias EventParam.鼠标-双击可破坏物 EventParam.ET_DOUBLE_CLICK_DEST
+M.alias_map["鼠标-双击可破坏物"] = {
+    desc = "鼠标上左键双击可破坏物时触发",
+    key = "ET_DOUBLE_CLICK_DEST",
+    name = "鼠标-双击可破坏物",
+    params = {
+    },
+}
+
+---@alias EventParam.选中-单位组 EventParam.ET_SELECT_UNIT_GROUP
+M.alias_map["选中-单位组"] = {
+    desc = "玩家选中单位组时触发",
+    key = "ET_SELECT_UNIT_GROUP",
+    name = "选中-单位组",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-打开指示器 EventParam.ET_START_SKILL_POINTER
+M.alias_map["技能-打开指示器"] = {
+    desc = "技能的瞄准指示器显示时触发",
+    key = "ET_START_SKILL_POINTER",
+    name = "技能-打开指示器",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-关闭指示器 EventParam.ET_STOP_SKILL_POINTER
+M.alias_map["技能-关闭指示器"] = {
+    desc = "技能的瞄准指示器消失时触发",
+    key = "ET_STOP_SKILL_POINTER",
+    name = "技能-关闭指示器",
+    params = {
+    },
+}
+
 ---@alias EventParam.玩家-发送消息 EventParam.ET_CHAT_SEND_GM
 M.alias_map["玩家-发送消息"] = {
     desc = "玩家发送任意消息时触发",
@@ -866,6 +1194,37 @@ M.alias_map["玩家-发送消息"] = {
 ---@field event fun(self: self, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
 ---@field event fun(self: self, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
 ---@field event fun(self: self, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
+---@field event fun(self: self, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
+---@field event fun(self: self, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
+---@field event fun(self: self, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
+---@field event fun(self: self, event: "可破坏物-创建", callback: fun(trg: Trigger, data: EventParam.可破坏物-创建)): Trigger
+---@field event fun(self: self, event: "可破坏物-死亡", callback: fun(trg: Trigger, data: EventParam.可破坏物-死亡)): Trigger
+---@field event fun(self: self, event: "可破坏物-复活", callback: fun(trg: Trigger, data: EventParam.可破坏物-复活)): Trigger
+---@field event fun(self: self, event: "可破坏物-资源变化", callback: fun(trg: Trigger, data: EventParam.可破坏物-资源变化)): Trigger
+---@field event fun(self: self, event: "可破坏物-采集", callback: fun(trg: Trigger, data: EventParam.可破坏物-采集)): Trigger
+---@field event fun(self: self, event: "可破坏物-受到伤害", callback: fun(trg: Trigger, data: EventParam.可破坏物-受到伤害)): Trigger
+---@field event fun(self: self, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
+---@field event fun(self: self, event: "可破坏物-移除", callback: fun(trg: Trigger, data: EventParam.可破坏物-移除)): Trigger
+---@field event fun(self: self, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
+---@field event fun(self: self, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
+---@field event fun(self: self, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: self, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
+---@field event fun(self: self, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
+---@field event fun(self: self, event: "鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
+---@field event fun(self: self, event: "鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
+---@field event fun(self: self, event: "鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
+---@field event fun(self: self, event: "鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
+---@field event fun(self: self, event: "鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
+---@field event fun(self: self, event: "鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
+---@field event fun(self: self, event: "鼠标-移动", callback: fun(trg: Trigger, data: EventParam.鼠标-移动)): Trigger
+---@field event fun(self: self, event: "鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
+---@field event fun(self: self, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
+---@field event fun(self: self, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
+---@field event fun(self: self, event: "鼠标-双击物品", callback: fun(trg: Trigger, data: EventParam.鼠标-双击物品)): Trigger
+---@field event fun(self: self, event: "鼠标-双击可破坏物", callback: fun(trg: Trigger, data: EventParam.鼠标-双击可破坏物)): Trigger
+---@field event fun(self: self, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
+---@field event fun(self: self, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field event fun(self: self, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 
 return M
