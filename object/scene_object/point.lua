@@ -82,21 +82,21 @@ end
 ---点的x坐标
 ---@return number
 function M:get_x()
-    local x = GlobalAPI.get_vector3_x(self.handle):float()
+    local x = GlobalAPI.get_fixed_coord_index(self.handle, 0):float()
     return x
 end
 
 ---点的y坐标
 ---@return number
 function M:get_y()
-    local y = GlobalAPI.get_vector3_y(self.handle):float()
+    local y = GlobalAPI.get_fixed_coord_index(self.handle, 2):float()
     return y
 end
 
 ---点的z坐标
 ---@return number
 function M:get_z()
-    local z = GlobalAPI.get_vector3_z(self.handle):float()
+    local z = GlobalAPI.get_fixed_coord_index(self.handle, 1):float()
     return z
 end
 
