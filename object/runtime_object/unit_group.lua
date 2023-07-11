@@ -29,7 +29,7 @@ function M:pick()
     local lua_table ={}
     for i = 1, python_len(self.handle) do
         local iter_unit = python_index(self.handle,i-1)
-        table.insert(lua_table,y3.unit.get_lua_unit_from_py(iter_unit))
+        table.insert(lua_table,y3.unit.get_lua_unit_by_id(iter_unit))
     end
     return lua_table
 end

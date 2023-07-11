@@ -138,11 +138,11 @@ function M:get()
         self._not_in_unit_group and self._not_in_unit_group.handle or nil,
         self._with_tag,
         self._without_tag,
-        self._unit_key,
+        self._unit_key or 0,
         self._not_is and self._not_is.handle or nil,
         self._unit_type,
-        self._in_state,
-        self._not_in_state,
+        self._in_state or 0,
+        self._not_in_state or 0,
         self._include_dead,
         self._count
     )
