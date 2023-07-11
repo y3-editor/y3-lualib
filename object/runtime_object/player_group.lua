@@ -1,4 +1,4 @@
-﻿---@class PlayerGroup
+---@class PlayerGroup
 ---@field handle py.RoleGroup
 ---@field private _removed? boolean
 ---@overload fun(py_player_group?: py.RoleGroup): self
