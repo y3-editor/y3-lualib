@@ -57,15 +57,17 @@ end
 ---@field socket? string 特效挂节点，只有当 `target` 的类型为单位时有效
 ---@field follow_rotation? boolean 是否跟随单位旋转，只有当 `target` 的类型为单位时有效
 ---@field follow_scale? boolean 是否跟随单位缩放，只有当 `target` 的类型为单位时有效
+---@field immediate? boolean 销毁时，是否有过度
 
 --创建特效到单位或点
 ---@param data Particle.Param.Create
 ---@return Particle
 function M.create(data)
-    local target = data.target
-    local angle  = data.angle or 0.0
-    local scale  = data.scale or 1.0
-    local time   = data.time  or 1.0
+    local target    = data.target
+    local angle     = data.angle or 0.0
+    local scale     = data.scale or 1.0
+    local time      = data.time  or 1.0
+    local immediate = data.immediate
     if target.type == 'unit' then
         ---@cast target Unit
         local socket          = data.socket or 'origin'
@@ -79,7 +81,9 @@ function M.create(data)
             follow_scale,
             scale,
             time,
-            angle
+            angle,
+            immediate,
+            immediate == nil
         )
         local ptc = New 'Particle' (py_sfx)
         return ptc
@@ -94,7 +98,9 @@ function M.create(data)
             angle,
             scale,
             height,
-            time
+            time,
+            immediate,
+            immediate == nil
         )
         local ptc = New 'Particle' (py_sfx)
         return ptc
