@@ -129,13 +129,13 @@ end
 ---@param is_real_visibility boolean 是否开启真实视野
 function M:set_visible(player, is_visibility, is_real_visibility)
     local handle = self.handle
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         ---@cast handle py.CirArea
         GameAPI.set_circle_vision_visibility(handle, player.handle, is_visibility, is_real_visibility)
-    elseif self.type == M.SHAPE.RECTANGLE then
+    elseif self.shape == M.SHAPE.RECTANGLE then
         ---@cast handle py.RecArea
         GameAPI.set_rect_vision_visibility(handle, player.handle, is_visibility, is_real_visibility)
-    elseif self.type == M.SHAPE.POLYGON then
+    elseif self.shape == M.SHAPE.POLYGON then
         ---@cast handle py.PolyArea
         GameAPI.set_poly_vision_visibility(handle, player.handle, is_visibility, is_real_visibility)
     end
@@ -144,7 +144,7 @@ end
 ---设置圆形区域半径
 ---@param radius number 半径
 function M:set_radius(radius)
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         GameAPI.set_cir_area_radius(self.handle--[[@as py.CirArea]], Fix32(radius))
     end
 end
@@ -153,7 +153,7 @@ end
 ---@param horizontal_length number 长度
 ---@param vertical_length number 宽度
 function M:set_size(horizontal_length, vertical_length)
-    if self.type == M.SHAPE.RECTANGLE then
+    if self.shape == M.SHAPE.RECTANGLE then
         GameAPI.set_rect_area_radius(self.handle--[[@as py.RecArea]], Fix32(horizontal_length), Fix32(vertical_length))
     end
 end
@@ -161,7 +161,7 @@ end
 ---获得圆形区域半径
 ---@return number 半径
 function M:get_radius()
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         return GameAPI.get_circle_area_radius(self.handle--[[@as py.CirArea]]):float()
     end
     return 0
@@ -170,10 +170,10 @@ end
 ---获取区域内最小X坐标
 ---@return number X坐标
 function M:get_min_x()
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         return GameAPI.get_circle_area_min_x(self.handle--[[@as py.CirArea]]):float()
     end
-    if self.type == M.SHAPE.RECTANGLE then
+    if self.shape == M.SHAPE.RECTANGLE then
         return GameAPI.get_rect_area_min_x(self.handle--[[@as py.RecArea]]):float()
     end
     return 0
@@ -182,10 +182,10 @@ end
 ---获取区域内最小Y坐标
 ---@return number Y坐标
 function M:get_min_y()
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         return GameAPI.get_circle_area_min_y(self.handle--[[@as py.CirArea]]):float()
     end
-    if self.type == M.SHAPE.RECTANGLE then
+    if self.shape == M.SHAPE.RECTANGLE then
         return GameAPI.get_rect_area_min_y(self.handle--[[@as py.RecArea]]):float()
     end
     return 0
@@ -194,10 +194,10 @@ end
 ---获取区域内最大X坐标
 ---@return number X坐标
 function M:get_max_x()
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         return GameAPI.get_circle_area_max_x(self.handle--[[@as py.CirArea]]):float()
     end
-    if self.type == M.SHAPE.RECTANGLE then
+    if self.shape == M.SHAPE.RECTANGLE then
         return GameAPI.get_rect_area_max_x(self.handle--[[@as py.RecArea]]):float()
     end
     return 0
@@ -206,10 +206,10 @@ end
 ---获取区域内最大Y坐标
 ---@return number Y坐标
 function M:get_max_y()
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         return GameAPI.get_circle_area_max_y(self.handle--[[@as py.CirArea]]):float()
     end
-    if self.type == M.SHAPE.RECTANGLE then
+    if self.shape == M.SHAPE.RECTANGLE then
         return GameAPI.get_rect_area_max_y(self.handle--[[@as py.RecArea]]):float()
     end
     return 0
@@ -218,13 +218,13 @@ end
 -- 获取中心点
 ---@return Point 中心点
 function M:get_center_point()
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         local py_point = GameAPI.get_circle_center_point(self.handle--[[@as py.CirArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
         return y3.point.get_lua_point_from_py(py_point)
     end
-    if self.type == M.SHAPE.RECTANGLE then
+    if self.shape == M.SHAPE.RECTANGLE then
         local py_point = GameAPI.get_rec_center_point(self.handle--[[@as py.RecArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
@@ -236,19 +236,19 @@ end
 -- 获取随机点
 ---@return Point
 function M:random_point()
-    if self.type == M.SHAPE.CIRCLE then
+    if self.shape == M.SHAPE.CIRCLE then
         local py_point = GameAPI.get_random_point_in_circular_area(self.handle--[[@as py.CirArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
         return y3.point.get_lua_point_from_py(py_point)
     end
-    if self.type == M.SHAPE.POLYGON then
+    if self.shape == M.SHAPE.POLYGON then
         local py_point = GameAPI.get_random_point_in_poly_area(self.handle--[[@as py.PolyArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
         return y3.point.get_lua_point_from_py(py_point)
     end
-    if self.type == M.SHAPE.RECTANGLE then
+    if self.shape == M.SHAPE.RECTANGLE then
         local py_point = GameAPI.get_random_point_in_rec_area(self.handle--[[@as py.RecArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
@@ -396,7 +396,7 @@ end
 ---@param polygon Area 多边形区域
 ---@return table area 多边形顶点表
 function M.get_polygon_areas_point_list(polygon)
-    assert(polygon.type == M.SHAPE.POLYGON, '不是多边形区域')
+    assert(polygon.shape == M.SHAPE.POLYGON, '不是多边形区域')
     local handle = polygon.handle
     ---@cast handle py.PolyArea
     local py_list = GameAPI.get_poly_area_point_list(handle)
