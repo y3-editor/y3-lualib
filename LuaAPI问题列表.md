@@ -36,6 +36,8 @@
 
 9. 事件在生成文档时似乎是暴力剪裁掉了前3个字符，导致诸如 `MOUSE_MOVE_EVENT` 事件在文档中显示为 `SE_MOVE_EVENT`
 
+10. 事件 `MOUSE_KEY_DOWN_EVENT` 的参数文档中有字段 `__current_key`，但实际访问此字段会产生错误：`"error reading Python attribute/item"`
+
 # 备忘
 
 1. Lua的 `Number` 实现是 `double` ，可能会造成不同步，建议修改Lua代码将实现改为自定义的定点数。

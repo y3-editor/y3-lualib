@@ -15,8 +15,9 @@ M.trigger_id_counter = y3.util.counter()
 function M.convert_py_params(event_name, event_params)
     local event_config = event_data[event_name]
     assert(event_config, string.format('event %s not found', event_name))
-    local lua_params = M.convert_py_params_instant(event_name, event_config, event_params)
-    --local lua_params = M.convert_py_params_lazy(event_name, event_config, event_params)
+    -- TODO 见问题10，改为用户访问时才会实际访问py层的字段
+    --local lua_params = M.convert_py_params_instant(event_name, event_config, event_params)
+    local lua_params = M.convert_py_params_lazy(event_name, event_config, event_params)
     return lua_params
 end
 
@@ -45,9 +46,14 @@ M.params_metatable_cache = {}
 ---@param event_config table
 ---@return table
 function M.build_params_lazy_mt(event_config)
+    local config_map = {}
+    for _, param in ipairs(event_config) do
+        local lua_name  = param.lua_name
+        config_map[lua_name] = param
+    end
     local mt = {
         __index = function(t, k)
-            local param = event_config[k]
+            local param = config_map[k]
             if not param then
                 return nil
             end
@@ -69,6 +75,9 @@ end
 ---@param event_params py.Dict
 ---@return table
 function M.convert_py_params_lazy(event_name, event_config, event_params)
+    if #event_config == 0 then
+        return {}
+    end
     local mt = M.params_metatable_cache[event_name]
     if not mt then
         mt = M.build_params_lazy_mt(event_config)
