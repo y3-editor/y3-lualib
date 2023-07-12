@@ -109,11 +109,6 @@ M.alias_map["玩家-加入游戏"] = {
     key = "ET_ROLE_JOIN_BATTLE",
     name = "玩家-加入游戏",
     params = {
-        [1] = {
-            desc = "玩家",
-            name = "player",
-            type = "Player",
-        },
     },
 }
 
@@ -123,11 +118,6 @@ M.alias_map["玩家-掉线"] = {
     key = "ET_ROLE_LOSE_CONNECT",
     name = "玩家-掉线",
     params = {
-        [1] = {
-            desc = "玩家",
-            name = "player",
-            type = "Player",
-        },
     },
 }
 
@@ -1104,6 +1094,69 @@ M.alias_map["技能-关闭指示器"] = {
     },
 }
 
+---@alias EventParam.物品-获得 EventParam.ET_UNIT_ADD_ITEM
+M.alias_map["物品-获得"] = {
+    desc = "单位获得物品时触发",
+    key = "ET_UNIT_ADD_ITEM",
+    name = "物品-获得",
+    params = {
+    },
+}
+
+---@alias EventParam.物品-进入物品栏 EventParam.ET_UNIT_ADD_ITEM_TO_BAR
+M.alias_map["物品-进入物品栏"] = {
+    desc = "物品进入单位的物品栏时触发",
+    key = "ET_UNIT_ADD_ITEM_TO_BAR",
+    name = "物品-进入物品栏",
+    params = {
+    },
+}
+
+---@alias EventParam.物品-进入背包 EventParam.ET_UNIT_ADD_ITEM_TO_PKG
+M.alias_map["物品-进入背包"] = {
+    desc = "物品进入单位的背包时触发",
+    key = "ET_UNIT_ADD_ITEM_TO_PKG",
+    name = "物品-进入背包",
+    params = {
+    },
+}
+
+---@alias EventParam.物品-失去 EventParam.ET_UNIT_REMOVE_ITEM
+M.alias_map["物品-失去"] = {
+    desc = "单位失去物品时触发",
+    key = "ET_UNIT_REMOVE_ITEM",
+    name = "物品-失去",
+    params = {
+    },
+}
+
+---@alias EventParam.物品-离开物品栏 EventParam.ET_UNIT_REMOVE_ITEM_FROM_BAR
+M.alias_map["物品-离开物品栏"] = {
+    desc = "物品离开单位的物品栏时触发",
+    key = "ET_UNIT_REMOVE_ITEM_FROM_BAR",
+    name = "物品-离开物品栏",
+    params = {
+    },
+}
+
+---@alias EventParam.物品-离开背包 EventParam.ET_UNIT_REMOVE_ITEM_FROM_PKG
+M.alias_map["物品-离开背包"] = {
+    desc = "物品离开单位的背包时触发",
+    key = "ET_UNIT_REMOVE_ITEM_FROM_PKG",
+    name = "物品-离开背包",
+    params = {
+    },
+}
+
+---@alias EventParam.物品-使用 EventParam.ET_UNIT_USE_ITEM
+M.alias_map["物品-使用"] = {
+    desc = "单位使用物品时触发",
+    key = "ET_UNIT_USE_ITEM",
+    name = "物品-使用",
+    params = {
+    },
+}
+
 ---@alias EventParam.玩家-发送消息 EventParam.ET_CHAT_SEND_GM
 M.alias_map["玩家-发送消息"] = {
     desc = "玩家发送任意消息时触发",
@@ -1122,8 +1175,8 @@ M.alias_map["玩家-发送消息"] = {
 ---@field event fun(self: self, event: "游戏-恢复", callback: fun(trg: Trigger, data: EventParam.游戏-恢复)): Trigger
 ---@field event fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
 ---@field event fun(self: self, event: "区域-离开", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
----@field event fun(self: self, event: "玩家-加入游戏", player: Player, callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
----@field event fun(self: self, event: "玩家-掉线", player: Player, callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
+---@field event fun(self: self, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
+---@field event fun(self: self, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
 ---@field event fun(self: self, event: "玩家-使用平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-使用平台道具)): Trigger
 ---@field event fun(self: self, event: "玩家-持有平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-持有平台道具)): Trigger
 ---@field event fun(self: self, event: "玩家-属性变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性变化)): Trigger
@@ -1225,6 +1278,13 @@ M.alias_map["玩家-发送消息"] = {
 ---@field event fun(self: self, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
 ---@field event fun(self: self, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: self, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
+---@field event fun(self: self, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
+---@field event fun(self: self, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
+---@field event fun(self: self, event: "物品-进入背包", callback: fun(trg: Trigger, data: EventParam.物品-进入背包)): Trigger
+---@field event fun(self: self, event: "物品-失去", callback: fun(trg: Trigger, data: EventParam.物品-失去)): Trigger
+---@field event fun(self: self, event: "物品-离开物品栏", callback: fun(trg: Trigger, data: EventParam.物品-离开物品栏)): Trigger
+---@field event fun(self: self, event: "物品-离开背包", callback: fun(trg: Trigger, data: EventParam.物品-离开背包)): Trigger
+---@field event fun(self: self, event: "物品-使用", callback: fun(trg: Trigger, data: EventParam.物品-使用)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 
 return M
