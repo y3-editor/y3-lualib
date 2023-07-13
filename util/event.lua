@@ -3,6 +3,7 @@
 ---@field private triggers LinkedTable
 ---@field private wait_pushing Trigger[]
 ---@field private wait_poping  Trigger[]
+---@field private has_extra_args? boolean
 ---@overload fun(event_name: string): self
 local M = Class 'Event'
 
@@ -12,12 +13,14 @@ local M = Class 'Event'
 M.fire_lock = 0
 
 ---@param event_name Event.Name
+---@param has_extra_args? boolean
 ---@return self
-function M:constructor(event_name)
+function M:constructor(event_name, has_extra_args)
     self.event_name = event_name
     self.triggers = New 'LinkedTable' ()
     self.wait_pushing = {}
     self.wait_poping  = {}
+    self.has_extra_args = has_extra_args
     return self
 end
 
@@ -55,6 +58,17 @@ function M:check_waiting()
     end
 end
 
+---@param args any[]
+---@return boolean
+function M:has_matched_trigger(args)
+    for trigger in self.triggers:pairs() do
+        if trigger:is_match_args(args) then
+            return true
+        end
+    end
+    return false
+end
+
 ---@param ... any
 function M:notify(...)
     self.fire_lock = self.fire_lock + 1
@@ -63,6 +77,21 @@ function M:notify(...)
         trigger:execute(...)
     end
     self.fire_lock = self.fire_lock - 1
+    self:check_waiting()
+end
+
+---@param event_args any[]
+---@param ... any
+function M:notify_with_args(event_args, ...)
+    self.fire_lock = self.fire_lock + 1
+    ---@param trigger Trigger
+    for trigger in self.triggers:pairs() do
+        if trigger:is_match_args(event_args) then
+            trigger:execute(...)
+        end
+    end
+    self.fire_lock = self.fire_lock - 1
+    self:check_waiting()
 end
 
 ---@param ... any

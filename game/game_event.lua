@@ -22,6 +22,6 @@ function M:event(event_type, ...)
         error('缺少回调函数！')
     end
     local event_manager = y3.py_event_sub.event_register(M._event_object, event_type, extra_args)
-    local trg = event_manager:event(event_type, callback)
+    local trg = event_manager:event(event_type, extra_args, callback)
     return trg
 end

@@ -3,7 +3,8 @@ local counter = y3.util.counter()
 ---@class Trigger: GCObject
 ---@field private _event Event
 ---@field private _callback Trigger.CallBack
----@overload fun(event: Event, callback: Trigger.CallBack): self
+---@field private _event_args? any[]
+---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
 local M = Class('Trigger', 'GCObject')
 
 ---@alias Trigger.CallBack fun(...): ...
@@ -11,10 +12,11 @@ local M = Class('Trigger', 'GCObject')
 ---@param event Event
 ---@param callback Trigger.CallBack
 ---@return self
-function M:constructor(event, callback)
+function M:constructor(event, event_args, callback)
     self._event = event
     self._callback = callback
     self._id = counter()
+    self._event_args = event_args
     Super(self)(function ()
         self:remove()
     end)
@@ -41,8 +43,28 @@ function M:enable()
     self._enable = true
 end
 
-function M:isEnable()
+---@return boolean
+function M:is_enable()
     return self._enable
+end
+
+---@param args any[]
+---@return boolean
+function M:is_match_args(args)
+    if not args then
+        return true
+    end
+    if not self._event_args then
+        return false
+    end
+    for i = 1, #args do
+        local fire_arg = args[i]
+        local event_arg = self._event_args[i]
+        if fire_arg ~= event_arg then
+            return false
+        end
+    end
+    return true
 end
 
 -- 运行触发器，最多能返回4个返回值

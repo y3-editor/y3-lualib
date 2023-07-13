@@ -16,16 +16,31 @@ function M:constructor(object)
 end
 
 ---@param event_name Event.Name # Lua框架使用的事件名
+---@param event_args? any[]
 ---@param callback Trigger.CallBack
 ---@return Trigger
-function M:event(event_name, callback)
+function M:event(event_name, event_args, callback)
     local event = self.event_map[event_name]
     if not event then
         event = New 'Event' (event_name)
         self.event_map[event_name] = event
     end
-    local trigger = New 'Trigger' (event, callback)
+    local trigger = New 'Trigger' (event, event_args, callback)
     return trigger
+end
+
+---@param event_name Event.Name
+---@param event_args? any[]
+---@return boolean
+function M:has_event(event_name, event_args)
+    local event = self.event_map[event_name]
+    if not event then
+        return false
+    end
+    if event_args then
+        return event:has_matched_trigger(event_args)
+    end
+    return true
 end
 
 ---@param event_name Event.Name
@@ -51,6 +66,19 @@ function M:notify(event_name, ...)
     end
     self.fire_lock = self.fire_lock + 1
     event:notify(...)
+    self.fire_lock = self.fire_lock - 1
+end
+
+---@param event_name Event.Name
+---@param event_args any[]
+---@param ... any
+function M:notify_with_args(event_name, event_args, ...)
+    local event = self.event_map[event_name]
+    if not event then
+        return
+    end
+    self.fire_lock = self.fire_lock + 1
+    event:notify_with_args(event_args, ...)
     self.fire_lock = self.fire_lock - 1
 end
 

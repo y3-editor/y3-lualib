@@ -89,12 +89,8 @@ function M.convert_py_params_lazy(event_name, event_config, event_params)
     return lua_params
 end
 
----@class PYEventRegister.Mark
----@field _event_manager EventManager
----@field [string] true
-
 ---@private
----@type table<any, PYEventRegister.Mark>
+---@type table<any, EventManager>
 M.event_mark_map = setmetatable({}, y3.util.MODE_K)
 
 ---@param event_name string
@@ -113,17 +109,14 @@ end
 ---@return EventManager
 function M.event_register(object, event_name, extra_args)
     local py_event_name = get_py_event_name(event_name)
-    local event_mark = M.event_mark_map[object]
-    if not event_mark then
-        event_mark = {
-            _event_manager = New 'EventManager' (),
-        }
-        M.event_mark_map[object] = event_mark
+    local event_manager = M.event_mark_map[object]
+    if not event_manager then
+        event_manager = New 'EventManager' ()
+        M.event_mark_map[object] = event_manager
     end
-    if event_mark[py_event_name] and not extra_args then
-        return event_mark._event_manager
+    if event_manager:has_event(event_name, extra_args) then
+        return event_manager
     end
-    event_mark[py_event_name] = true
     ---@type y3.Const.EventType | { [1]: y3.Const.EventType, [integer]: any }
     local py_event = py_event_name
     if extra_args then
@@ -132,11 +125,14 @@ function M.event_register(object, event_name, extra_args)
 
     local trigger_id = M.trigger_id_counter()
     local py_trigger = new_global_trigger(trigger_id, event_name, py_event, true)
-    local event_manager = event_mark._event_manager
 
     py_trigger.on_event = function (trigger, event, actor, data)
         local lua_params = M.convert_py_params(py_event_name, data)
-        event_manager:notify(event_name, lua_params)
+        if extra_args then
+            event_manager:notify_with_args(event_name, extra_args, lua_params)
+        else
+            event_manager:notify(event_name, lua_params)
+        end
     end
 
     -- 在初始化时注册的事件会自动启用，但之后注册的事件需要手动启用
