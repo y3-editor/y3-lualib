@@ -55,7 +55,7 @@ end
 ---@field time number 持续时间
 ---@field height? number 高度，只有当 `target` 的类型为点时有效
 ---@field socket? string 特效挂节点，只有当 `target` 的类型为单位时有效
----@field follow_rotation? boolean 是否跟随单位旋转，只有当 `target` 的类型为单位时有效
+---@field follow_rotation? integer 跟随单位旋转的模式，只有当 `target` 的类型为单位时有效
 ---@field follow_scale? boolean 是否跟随单位缩放，只有当 `target` 的类型为单位时有效
 ---@field immediate? boolean 销毁时，是否有过度
 
@@ -71,13 +71,13 @@ function M.create(data)
     if target.type == 'unit' then
         ---@cast target Unit
         local socket          = data.socket or 'origin'
-        local follow_rotation = data.follow_rotation and 1 or 0
+        local follow_rotation = data.follow_rotation
         local follow_scale    = data.follow_scale    and true or false
         local py_sfx = GameAPI.create_sfx_on_unit_new(
             data.type,
             target.handle,
             socket,
-            follow_rotation,
+            follow_rotation or 0,
             follow_scale,
             scale,
             time,
