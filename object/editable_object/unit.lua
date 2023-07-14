@@ -42,11 +42,19 @@ y3.py_converter.register_lua_to_py('py.Unit', function (lua_value)
     return lua_value.handle
 end)
 
+-- 根据唯一ID获取单位。
 ---@param id py.UnitID
 ---@return Unit
 function M.get_lua_unit_by_id(id)
     local py_unit = GameAPI.get_unit_by_id(id)
     return M.get_lua_unit_from_py(py_unit)
+end
+
+-- 获取摆放在场景上的单位
+---@param res_id integer
+---@return Unit
+function M.get_lua_unit_by_res_id(res_id)
+    return M.get_lua_unit_by_id(res_id--[[@as py.UnitID]])
 end
 
 y3.py_converter.register_py_to_lua('py.UnitID', M.get_lua_unit_by_id)

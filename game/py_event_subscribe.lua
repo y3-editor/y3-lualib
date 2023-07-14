@@ -149,7 +149,8 @@ function M.event_register(object, event_name, extra_args)
     local py_event = py_event_name
     local py_addition = extract_addition(event_name, extra_args)
     if extra_args and #extra_args > 0 then
-        py_event = { py_event_name, table.unpack(extra_args)}
+        table.insert(extra_args, 1, py_event_name)
+        py_event = extra_args
     end
 
     local trigger_id = M.trigger_id_counter()
