@@ -10,6 +10,7 @@ local M = Class('Trigger', 'GCObject')
 ---@alias Trigger.CallBack fun(...): ...
 
 ---@param event Event
+---@param event_args? any[]
 ---@param callback Trigger.CallBack
 ---@return self
 function M:constructor(event, event_args, callback)
