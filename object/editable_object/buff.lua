@@ -29,6 +29,7 @@ function M.get_by_handle(py_modifier)
     return M.map[id]
 end
 
+y3.py_converter.register_type_alias('py.ModifierEntity', 'Buff')
 y3.py_converter.register_py_to_lua('py.ModifierEntity', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
     return lua_value.handle
