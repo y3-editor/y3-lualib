@@ -321,6 +321,7 @@ M.alias_map["单位-属性变化"] = {
     name = "单位-属性变化",
     params = {
         [1] = {
+            call = true,
             desc = "单位",
             name = "unit",
             type = "Unit",
