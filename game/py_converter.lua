@@ -63,10 +63,10 @@ function M.register_py_to_lua(py_type, converter)
     M.py_to_lua_method[py_type] = converter
 end
 
----@param lua_type string
+---@param py_type string
 ---@param converter fun(lua_value:any):any
-function M.register_lua_to_py(lua_type, converter)
-    M.lua_to_py_method[lua_type] = converter
+function M.register_lua_to_py(py_type, converter)
+    M.lua_to_py_method[py_type] = converter
 end
 
 ---@param type_name string

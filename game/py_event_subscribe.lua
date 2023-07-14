@@ -103,6 +103,34 @@ local function get_py_event_name(event_name)
     return alias.key
 end
 
+-- 很奇怪的设计，部分参数要包裹成函数返回值放到addition参数里。
+-- 如果提取出了需要的参数，会原地修改extra_args。
+---@param event_name string
+---@param extra_args? any[]
+---@return function?
+local function extract_addition(event_name, extra_args)
+    if not extra_args then
+        return nil
+    end
+    local alias = game_event.alias_map[event_name]
+    if not alias then
+        return nil
+    end
+    for i, param in ipairs(alias.params) do
+        if param.call then
+            local lua_value = extra_args[i]
+            table.remove(extra_args, i)
+            local lua_type  = param.type
+            local py_type   = y3.py_converter.get_py_type(lua_type)
+            local py_value  = y3.py_converter.lua_to_py(py_type, lua_value)
+            return function ()
+                return py_value
+            end
+        end
+    end
+    return nil
+end
+
 ---@param object any
 ---@param event_name y3.Const.EventType # 注册给引擎的事件名
 ---@param extra_args? any[] # 额外参数
@@ -119,12 +147,13 @@ function M.event_register(object, event_name, extra_args)
     end
     ---@type y3.Const.EventType | { [1]: y3.Const.EventType, [integer]: any }
     local py_event = py_event_name
-    if extra_args then
+    local py_addition = extract_addition(event_name, extra_args)
+    if extra_args and #extra_args > 0 then
         py_event = { py_event_name, table.unpack(extra_args)}
     end
 
     local trigger_id = M.trigger_id_counter()
-    local py_trigger = new_global_trigger(trigger_id, event_name, py_event, true)
+    local py_trigger = new_global_trigger(trigger_id, event_name, py_event, true, py_addition)
 
     py_trigger.on_event = function (trigger, event, actor, data)
         local lua_params = M.convert_py_params(py_event_name, data)
