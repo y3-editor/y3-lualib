@@ -57,6 +57,7 @@ function M.get_area_by_res_id(res_id, shape)
         else
             error('不支持的区域类型')
         end
+        assert(py_area, '找不到对应的区域:' .. tostring(res_id))
         local area = M.get_lua_area_from_py(py_area, shape)
         area.res_id = res_id
         M.map[res_id] = area
