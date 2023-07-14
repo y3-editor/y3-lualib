@@ -19,7 +19,7 @@ end
 ---@param  player Player 玩家
 ---@param  prefab_name string
 ---@return UIPrefab # 返回在lua层初始化后的lua层技能实例
-function M.get_lua_ui_prefab_from_py(player, prefab_name)
+function M.get_by_handle(player, prefab_name)
     local ui_prefab = New 'UIPrefab' (player, prefab_name)
     return ui_prefab
 end
@@ -31,7 +31,7 @@ end
 ---@return UIPrefab
 function M.create_ui_prefab_instance(player, prefab_name, ui_name)
     local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle,prefab_name,ui_name)
-    return M.get_lua_ui_prefab_from_py(player,py_ui_prefab)
+    return M.get_by_handle(player,py_ui_prefab)
 end
 
 --删除界面模块实例

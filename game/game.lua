@@ -648,7 +648,7 @@ end
 ---获取运动器绑定投射物 
 function M.get_mover_bound_projectiles()
     local py_projectile = GameAPI.get_projectile_by_id(data['mover_owner_projectile'])
-    return projectile.get_lua_projectile_from_py(py_projectile)
+    return projectile.get_by_handle(py_projectile)
 end
 
 ---@return number level 等级
@@ -662,7 +662,7 @@ end
 ---触发魔法效果
 function M.trigger_modifier(data)
     local py_modifier = data['__modifier']
-    return M.modifier.get_lua_item_from_py(py_modifier)
+    return M.modifier.get_by_handle(py_modifier)
 end
 
 ---@return number tech 科技
@@ -676,7 +676,7 @@ end
 ---获取事件中的单位  
 function M.get_unit_in_event(data)
     local py_unit = GameAPI.get_unit_by_id(data['__unit_id'])
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -684,7 +684,7 @@ end
 ---魔法效果携带者
 function M.modifier_receiver(data)
     local py_unit = data['__owner_unit']
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param ability Ability 技能
@@ -692,7 +692,7 @@ end
 ---获取技能的拥有者
 function M.get_ability_owner(ability)
     local py_unit = ability.handle.api_get_owner()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param modifier Buff 魔法效果
@@ -700,7 +700,7 @@ end
 ---魔法效果施加者
 function M.modifier_provider(modifier)
     local py_unit = modifier.handle.api_get_releaser()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param ability Ability 技能
@@ -709,14 +709,14 @@ end
 ---技能选取的目标物品
 function M.ability_selected_target_item(ability, data)
     local py_item = GameAPI.get_target_item_in_ability(ability.handle, data['__ability_runtime_id'])
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Buff modifier 魔法效果
 ---遍历到的魔法效果
 function M.picked_modifier()
     local py_modifier = data['modifier_iter']
-    return M.modifier.get_lua_item_from_py(py_modifier)
+    return M.modifier.get_by_handle(py_modifier)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -731,7 +731,7 @@ end
 ---触发当前事件的投射物
 function M.projectile_that_triggered_current_event(data)
     local py_projectile = data['projectile']
-    return M.projectile.get_lua_projectile_from_py(py_projectile)
+    return M.projectile.get_by_handle(py_projectile)
 end
 
 --单位失去科技  --未处理
@@ -747,7 +747,7 @@ end
 ---技能选取的目标单位  
 function M.ability_selected_target_unit(ability, data)
     local py_unit = GameAPI.get_target_unit_in_ability(ability.handle, data['__ability_runtime_id'])
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -792,7 +792,7 @@ end
 ---获取承受伤害（治疗）的单位
 function M.get_damage_or_healing_target_unit(data)
     local py_unit = data['__target_unit']
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
@@ -806,7 +806,7 @@ end
 ---获取凶手单位
 function M.get_killer_unit(data)
     local py_unit = data['__source_unit']
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Projectile projectile 投射物
@@ -820,7 +820,7 @@ end
 ---获取死亡单位
 function M.get_dead_unit(data)
     local py_unit = data['__target_unit']
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -828,35 +828,35 @@ end
 ---获取施加伤害（治疗）的单位
 function M.Get_Damage_or_Healing_Source_Unit(data)
     local py_unit = data['__source_unit']
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
 ---获得物品单位
 function M.unit_to_gain_item()
     local py_unit = GameAPI.get_last_add_item_unit()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
 ---失去物品单位
 function M.unit_to_lose_item()
     local py_unit = GameAPI.get_last_remove_item_unit()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
 ---使用物品单位
 function M.unit_to_use_item()
     local py_unit = GameAPI.get_last_use_item_unit()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
 ---堆叠层数变化物品的持有者
 function M.unit_to_change_stacks()
     local py_unit = GameAPI.get_last_change_item_stack_unit()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
@@ -869,21 +869,21 @@ end
 ---获取即将获得魔法效果单位
 function M.get_unit_about_to_gain_modifier(modifier)
     local py_unit = modifier.handle.api_get_will_modifier_unit()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
 ---最后进行购买操作的单位
 function M.last_unit_to_make_purchase()
     local py_unit = ''
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
 ---最后进行出售操作的单位
 function M.last_unit_to_make_sale()
     local py_unit = GameAPI.get_last_seller_unit()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Unit unit 单位
@@ -916,7 +916,7 @@ end
 ---触发当前事件的技能
 function M.ability_that_triggered_current_event(data)
     local py_ability = GameAPI.get_ability_by_id(data['__ability'])
-    return M.ability.get_lua_ability_from_py(py_ability)
+    return M.ability.get_by_handle(py_ability)
 end
 
 ---@return Ability ability 技能
@@ -931,7 +931,7 @@ end
 ---技能选取的目标可破坏物
 function M.ability_selected_destructible(ability, data)
     local py_destructible = GameAPI.get_target_dest_in_ability(ability.handle, data['__ability_runtime_id'])
-    return M.destructible.get_lua_destructible_from_py(py_destructible)
+    return M.destructible.get_by_handle(py_destructible)
 end
 
 ---@return Destructible destructible 可破坏物
@@ -945,7 +945,7 @@ end
 ---事件中的可破坏物  
 function M.destructible_in_event(data)
     local py_destructible = GameAPI.get_dest_by_id(data['__destructible_id'])
-    return M.destructible.get_lua_destructible_from_py(py_destructible)
+    return M.destructible.get_by_handle(py_destructible)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -960,56 +960,56 @@ end
 ---触发当前事件的物品
 function M.item_that_triggered_current_event(data)
     local py_item = GameAPI.get_item(data['__item_id'])
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Item item 物品
 ---单位获得物品
 function M.unit_gains_item()
     local py_item = GameAPI.get_last_add_item()
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Item item 物品
 ---单位失去物品
 function M.unit_loses_item()
     local py_item = GameAPI.get_last_remove_item()
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Item item 物品
 ---单位使用物品
 function M.unit_uses_item()
     local py_item = GameAPI.get_last_use_item()
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Item item 物品
 ---堆叠层数变化物品
 function M.item_whose_stack_changed()
     local py_item = GameAPI.get_last_stack_changed_item()
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Item item 物品
 ---充能变化物品
 function M.item_whose_charge_changed()
     local py_item = GameAPI.get_last_stack_changed_item()
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Item item 物品
 ---购买物品
 function M.item_purchased()
     local py_item = GameAPI.get_last_buy_shop_item()
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Item item 物品
 ---出售物品
 function M.item_sold()
     local py_item = GameAPI.get_last_sell_shop_item()
-    return M.item.get_lua_item_from_py(py_item)
+    return M.item.get_by_handle(py_item)
 end
 
 ---@return Buff modifier 魔法效果
@@ -1030,7 +1030,7 @@ end
 ---技能选取到的点
 function M.selected_location_by_ability(ability, data)
     local py_point = ability.handle:api_get_release_position(data['__ability_runtime_id'])
-    return M.get_lua_point_from_py(py_point)
+    return M.get_by_handle(py_point)
 end
 
 ---@return Area area 矩形区域
@@ -1056,7 +1056,7 @@ end
 ---运动器碰撞单位
 function M.mover_collision_unit()
     local py_unit = GameAPI.get_mover_collide_unit()
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -1064,7 +1064,7 @@ end
 ---获取可破坏物事件中的单位
 function M.get_unit_in_destructible_event(data)
     local py_unit = GameAPI.get_unit_by_id(data['__unit_id_of_hurt_dest'])
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@return Road path 路径  
@@ -1106,7 +1106,7 @@ end
 ---当前平台道具
 function M.current_purchasable(data)
     local py_purchase = data['__store_key']
-    return M.purchase.get_lua_purchase_from_py(py_purchase)
+    return M.purchase.get_by_handle(py_purchase)
 end
 
 ---@param value number 实数
@@ -1149,7 +1149,7 @@ end
 ---可破坏物死亡事件中的单位
 function M.unit_in_destroy_destructible_event(data)
     local py_unit = GameAPI.get_unit_by_id(data['__unit_id_of_dest_killer'])
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -1157,7 +1157,7 @@ end
 ---可破坏物受伤事件中的单位
 function M.unit_in_destructible_is_damaged_event(data)
     local py_unit = GameAPI.get_unit_by_id(data['__unit_id_of_hurt_dest'])
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -1165,7 +1165,7 @@ end
 ---可破坏物被采集事件中的单位
 function M.unit_in_destructible_is_gathered_event(data)
     local py_unit = GameAPI.get_unit_by_id(data['__unit_id_in_dest_event'])
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -1180,7 +1180,7 @@ end
 ---可破坏物事件中的技能对象
 function M.ability_in_destructible_event(data)
     local py_ability = GameAPI.get_ability_by_id(data['__ability_in_dest_event'])
-    return M.ability.get_lua_ability_from_py(py_ability)
+    return M.ability.get_by_handle(py_ability)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -1227,7 +1227,7 @@ end
 ---获取事件中的建造单位
 function M.get_build_unit(data)
     local py_unit = data['__build_unit_id']
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param data table 触发器回调函数中的data
@@ -1242,7 +1242,7 @@ end
 ---获取运动器绑定单位
 function M.get_mover_bound_units(data)
     local py_unit = GameAPI.get_unit_by_id(data['mover_owner_unit'])
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param player Player 玩家
@@ -1290,7 +1290,7 @@ end
 ---获取单位组内第一个单位
 function M.get_the_first_unit_in_a_unit_group(unit_group)
     local py_unit = GameAPI.get_first_unit_in_group(unit_group.handle)
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param unit_group unit_group 单位组
@@ -1298,7 +1298,7 @@ end
 ---获取单位组中随机一个单位
 function M.get_random_unit_from_unit_group(unit_group)
     local py_unit = GameAPI.get_random_unit_in_unit_group(unit_group.handle)
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---@param unit_group unit_group 单位组
@@ -1306,7 +1306,7 @@ end
 ---获取单位组内最后一个单位
 function M.get_last_unit_in_unit_group(unit_group)
     local py_unit = GameAPI.get_last_unit_in_group(unit_group.handle)
-    return M.unit.get_lua_unit_from_py(py_unit)
+    return M.unit.get_by_handle(py_unit)
 end
 
 ---单位组中某个状态的单位数量
@@ -1718,7 +1718,7 @@ end
 ---获取事件中的点
 function M.get_point_from_event(data)
     local py_point = data['__point']
-    return M.get_lua_point_from_py(py_point)
+    return M.get_by_handle(py_point)
 end
 
 ---@param data table 触发器回调函数中的data

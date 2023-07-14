@@ -14,12 +14,12 @@ end
 
 ---@param py_camera integer
 ---@return Camera camera
-function M.get_lua_camera_from_py(py_camera)
+function M.get_by_handle(py_camera)
     local camera = New 'Camera' (py_camera)
     return camera
 end
 
-y3.py_converter.register_py_to_lua('py.Camera', M.get_lua_camera_from_py)
+y3.py_converter.register_py_to_lua('py.Camera', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Camera', function (lua_value)
     return lua_value.handle
 end)
@@ -48,7 +48,7 @@ function M.create_camera(point, focal_length, focal_height, yaw, pitch, range_of
         pitch,
         range_of_visibility
     )
-    return M.get_lua_camera_from_py(id)
+    return M.get_by_handle(id)
 end
 
 ---允许玩家镜头移动
@@ -238,7 +238,7 @@ function M.get_player_camera_direction(player)
     local py_point GameAPI.get_player_camera_direction(player.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 
@@ -249,7 +249,7 @@ function M.get_camera_center_raycast(player)
     local py_point = GameAPI.get_camera_center_raycast(player.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 return M

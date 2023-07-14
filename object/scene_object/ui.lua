@@ -22,7 +22,7 @@ M.map = {}
 ---@param player Player
 ---@param  ui_name string 
 ---@return UI
-function M.get_lua_ui_from_py(player, ui_name)
+function M.get_by_handle(player, ui_name)
     local ui = New 'UI' (player, ui_name)
     return ui
 end
@@ -34,7 +34,7 @@ end
 --创建界面控件
 function M.create_ui(player, parent_ui,comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, comp_type)
-    return y3.ui.get_lua_ui_from_py(player ,py_ui)
+    return y3.ui.get_by_handle(player ,py_ui)
 end
 
 ---@param  player Player 玩家
@@ -42,7 +42,7 @@ end
 ---@return UI
 function M.get_ui(player,ui_path)
     local py_ui = GameAPI.get_comp_by_absolute_path(player.handle,ui_path)
-    return y3.ui.get_lua_ui_from_py(player,py_ui)
+    return y3.ui.get_by_handle(player,py_ui)
 end
 
 --创建界面事件
@@ -341,7 +341,7 @@ end
 function M:get_ui_comp_children()
     local py_list = GameAPI.get_ui_comp_children(self.player.handle, self.handle)
     local uis = y3.helper.wrap_list(py_list, function (py_object)
-        return y3.ui.get_lua_ui_from_py(self.player, py_object)
+        return y3.ui.get_by_handle(self.player, py_object)
     end)
     return uis
 end
@@ -595,7 +595,7 @@ function M:get_child_widget_of_specified_name(name)
     if not py_ui then
         return nil
     end
-    return y3.ui.get_lua_ui_from_py(self.player, py_ui)
+    return y3.ui.get_by_handle(self.player, py_ui)
 end
 
 --获得控件宽度
@@ -626,7 +626,7 @@ end
 ---@return UI ui_comp ui控件
 function M:get_parent_widget_of_ui_widget()
     local py_ui = GameAPI.get_ui_comp_parent(self.player.handle, self.handle)
-    return y3.ui.get_lua_ui_from_py(self.player, py_ui)
+    return y3.ui.get_by_handle(self.player, py_ui)
 end
 
 --获得玩家输入框文本内容

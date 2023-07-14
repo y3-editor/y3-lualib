@@ -29,7 +29,7 @@ M.map = setmetatable({}, { __mode = 'kv' })
 ---通过py层的单位实例获取lua层的单位实例
 ---@param py_unit py.Unit
 ---@return Unit
-function M.get_lua_unit_from_py(py_unit)
+function M.get_by_handle(py_unit)
     local id = py_unit:api_get_id()
     if not M.map[id] then
         M.map[id] = New 'Unit' (py_unit)
@@ -37,7 +37,7 @@ function M.get_lua_unit_from_py(py_unit)
     return M.map[id]
 end
 
-y3.py_converter.register_py_to_lua('py.Unit', M.get_lua_unit_from_py)
+y3.py_converter.register_py_to_lua('py.Unit', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Unit', function (lua_value)
     return lua_value.handle
 end)
@@ -45,19 +45,19 @@ end)
 -- 根据唯一ID获取单位。
 ---@param id py.UnitID
 ---@return Unit
-function M.get_lua_unit_by_id(id)
+function M.get_by_id(id)
     local py_unit = GameAPI.get_unit_by_id(id)
-    return M.get_lua_unit_from_py(py_unit)
+    return M.get_by_handle(py_unit)
 end
 
 -- 获取摆放在场景上的单位
 ---@param res_id integer
 ---@return Unit
-function M.get_lua_unit_by_res_id(res_id)
-    return M.get_lua_unit_by_id(res_id--[[@as py.UnitID]])
+function M.get_by_res_id(res_id)
+    return M.get_by_id(res_id--[[@as py.UnitID]])
 end
 
-y3.py_converter.register_py_to_lua('py.UnitID', M.get_lua_unit_by_id)
+y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)
 
 ---是否存在
 ---@return boolean is_exist 是否存在
@@ -83,7 +83,7 @@ end
 ---@return Item
 function M:add_item(item_id)
     local py_item = self.handle:api_add_item(item_id)
-    return y3.item.get_lua_item_from_py(py_item)
+    return y3.item.get_by_handle(py_item)
 end
 
 ---单位移除物品
@@ -110,7 +110,7 @@ function M:get_abilities_by_type(type)
     local abilities = {}
     local py_list = self.handle:api_get_abilities_by_type(type)
     for i = 0, python_len(py_list) - 1 do
-        local lua_ability = y3.ability.get_lua_ability_from_py(python_index(py_list, i))
+        local lua_ability = y3.ability.get_by_handle(python_index(py_list, i))
         abilities[#abilities+1] = lua_ability
     end
     return abilities
@@ -123,7 +123,7 @@ function M:get_buffs()
     local buffs = {}
     local py_list = self.handle:api_get_all_modifiers()
     for i = 0, python_len(py_list) - 1 do
-        local lua_buff = y3.buff.get_lua_buff_from_py(python_index(py_list, i))
+        local lua_buff = y3.buff.get_by_handle(python_index(py_list, i))
         buffs[#buffs+1] = lua_buff
     end
     return buffs
@@ -175,7 +175,7 @@ function M:find_ability(type, id)
     if not py_ability then
         return nil
     end
-    return y3.ability.get_lua_ability_from_py(py_ability)
+    return y3.ability.get_by_handle(py_ability)
 end
 
 ---获得某个技能位的的技能
@@ -187,7 +187,7 @@ function M:get_ability_by_slot(type, slot)
     if not py_ability then
         return nil
     end
-    return y3.ability.get_lua_ability_from_py(py_ability)
+    return y3.ability.get_by_handle(py_ability)
 end
 
 ---获取单位背包槽位上的物品
@@ -199,7 +199,7 @@ function M:get_item_by_slot(type, slot)
     if not py_item then
         return nil
     end
-    return y3.item.get_lua_item_from_py(py_item)
+    return y3.item.get_by_handle(py_item)
 end
 
 ---单位的所有物品
@@ -230,7 +230,7 @@ function M.create_unit(owner, unit_id, point, direction)
         ---@diagnostic disable-next-line: param-type-mismatch
         owner.handle
     )
-    return M.get_lua_unit_from_py(py_unit)
+    return M.get_by_handle(py_unit)
 end
 
 ---杀死单位
@@ -987,7 +987,7 @@ function M:find_buff(buff_key, index)
     if not py_modifier then
         return nil
     end
-    return y3.buff.get_lua_buff_from_py(py_modifier)
+    return y3.buff.get_by_handle(py_modifier)
 end
 
 ---获取商店商品的库存间隔
@@ -1128,7 +1128,7 @@ end
 ---@return Player player 单位所属玩家
 function M:get_owner()
     local py_player = self.handle:api_get_role()
-    return y3.player.get_lua_player_from_py(py_player)
+    return y3.player.get_by_handle(py_player)
 end
 
 ---获取建造此单位消耗的资源（玩家属性）
@@ -1317,7 +1317,7 @@ function M.get_last_created_unit()
     if not py_unit then
         return nil
     end
-    return y3.unit.get_lua_unit_from_py(py_unit)
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---获取单位的拥有者（单位）
@@ -1327,7 +1327,7 @@ function M:get_parent_unit()
     if not py_unit then
         return nil
     end
-    return y3.unit.get_lua_unit_from_py(py_unit)
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---获取幻象的召唤者
@@ -1337,7 +1337,7 @@ function M:get_illusion_owner()
     if not py_unit then
         return nil
     end
-    return y3.unit.get_lua_unit_from_py(py_unit)
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---获取单位的朝向
@@ -1384,7 +1384,7 @@ function M:get_point()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 ---获取单位最近的可通行点
@@ -1393,7 +1393,7 @@ function M:get_nearest_valid_point()
     local py_point = self.handle:api_find_nearest_valid_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 ---获取单位的队伍
@@ -1571,7 +1571,7 @@ end
 -- 获取所属玩家
 ---@return Player
 function M:get_owner_player()
-    return y3.player.get_lua_player_by_id(self.handle:api_get_role_id())
+    return y3.player.get_by_id(self.handle:api_get_role_id())
 end
 
 ---玩家是否可以购买商店的物品

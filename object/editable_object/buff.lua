@@ -21,7 +21,7 @@ M.map = setmetatable({}, { __mode = 'kv' })
 ---通过py层的魔法效果实例获取lua层的魔法效果实例
 ---@param  py_modifier py.ModifierEntity # py层的魔法效果实例
 ---@return Buff # 返回在lua层初始化后的lua层魔法效果实例
-function M.get_lua_buff_from_py(py_modifier)
+function M.get_by_handle(py_modifier)
     local id = py_modifier:api_get_modifier_unique_id()
     if not M.map[id] then
         M.map[id] = New 'Buff' (py_modifier)
@@ -29,7 +29,7 @@ function M.get_lua_buff_from_py(py_modifier)
     return M.map[id]
 end
 
-y3.py_converter.register_py_to_lua('py.ModifierEntity', M.get_lua_buff_from_py)
+y3.py_converter.register_py_to_lua('py.ModifierEntity', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
     return lua_value.handle
 end)
@@ -146,7 +146,7 @@ end
 ---@return Buff aura 所属光环
 function M:get_aura()
     local py_modifier = self.handle:api_get_halo_modifier_instance()
-    return M.get_lua_buff_from_py(py_modifier)
+    return M.get_by_handle(py_modifier)
 end
 
 ---获取魔法效果循环周期
@@ -177,14 +177,14 @@ end
 ---@return Unit provider 施加者
 function M:get_source()
     local py_unit = self.handle:api_get_releaser()
-    return y3.unit.get_lua_unit_from_py(py_unit)
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---获取魔法效果的携带者
 ---@return Unit owner 携带者
 function M:get_owner()
     local py_unit = self.handle:api_get_owner()
-    return y3.unit.get_lua_unit_from_py(py_unit)
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---获取魔法效果对象的名称
@@ -237,7 +237,7 @@ end
 function M:get_ability()
     local py_ability = GlobalAPI.get_related_ability(self.handle)
     if py_ability then
-        return y3.ability.get_lua_ability_from_py(py_ability)
+        return y3.ability.get_by_handle(py_ability)
     end
     return nil
 end

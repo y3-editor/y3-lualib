@@ -32,7 +32,7 @@ M.map = {}
 function M.get_point_by_res_id(res_id)
     if not M.map[res_id] then
         local py_point = GameAPI.get_point_by_res_id(res_id)
-        local point = M.get_lua_point_from_py(py_point)
+        local point = M.get_by_handle(py_point)
         point.res_id = res_id
         M.map[res_id] = point
     end
@@ -42,13 +42,13 @@ end
 ---根据py对象创建点
 ---@param py_point Point.HandleType
 ---@return Point
-function M.get_lua_point_from_py(py_point)
+function M.get_by_handle(py_point)
     local point = New 'Point' (py_point)
     return point
 end
 
 y3.py_converter.register_type_alias('py.Point', 'Point')
-y3.py_converter.register_py_to_lua('py.Point', M.get_lua_point_from_py)
+y3.py_converter.register_py_to_lua('py.Point', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Point', function (lua_value)
     return lua_value.handle
 end)
@@ -109,7 +109,7 @@ function M.create(x, y, z)
     local py_point = GlobalAPI.coord_to_point(Fix32(x), Fix32(y), Fix32(z or 0))
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return M.get_lua_point_from_py(py_point)
+    return M.get_by_handle(py_point)
 end
 
 ---点向方向偏移
@@ -121,7 +121,7 @@ function M.get_point_offset_vector(point, direction, offset)
     local py_point = GlobalAPI.get_point_offset_vector(point.handle, Fix32(direction), Fix32(offset))
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return M.get_lua_point_from_py(py_point)
+    return M.get_by_handle(py_point)
 end
 
 
@@ -131,7 +131,7 @@ end
 ---@return Point
 function M.get_point_in_path(path,index)
     local py_point = GlobalAPI.get_point_in_route(path.handle, index)
-    return M.get_lua_point_from_py(py_point)
+    return M.get_by_handle(py_point)
 end
 
 return M

@@ -16,12 +16,12 @@ end
 ---通过py层的技能实例获取lua层的技能实例
 ---@param py_ability py.Ability # py层的技能实例
 ---@return Ability ability # 返回在lua层初始化后的lua层技能实例
-function M.get_lua_ability_from_py(py_ability)
+function M.get_by_handle(py_ability)
     local ability = New 'Ability' (py_ability)
     return ability
 end
 
-y3.py_converter.register_py_to_lua('py.Ability', M.get_lua_ability_from_py)
+y3.py_converter.register_py_to_lua('py.Ability', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
     return lua_value.handle
 end)
@@ -325,7 +325,7 @@ end
 ---@return Unit owner 技能拥有者
 function M:get_owner()
     local py_unit = self.handle:api_get_owner()
-    return y3.unit.get_lua_unit_from_py(py_unit)
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---获取当前冷却时间
@@ -345,22 +345,22 @@ end
 function M:get_target(cast)
     local unit = GameAPI.get_target_unit_in_ability(self.handle,cast)
     if unit then
-        return y3.unit.get_lua_unit_from_py(unit)
+        return y3.unit.get_by_handle(unit)
     end
 
     local dest = GameAPI.get_target_dest_in_ability(self.handle, cast)
     if dest then
-        return y3.destructible.get_lua_destructible_from_py(dest)
+        return y3.destructible.get_by_handle(dest)
     end
 
     local item = GameAPI.get_target_item_in_ability(self.handle,cast)
     if item then
-        return y3.item.get_lua_item_from_py(item)
+        return y3.item.get_by_handle(item)
     end
 
     local point = self.handle:api_get_release_position(cast)
     if point then
-        return y3.point.get_lua_point_from_py(point)
+        return y3.point.get_by_handle(point)
     end
 
     return nil
@@ -382,7 +382,7 @@ end
 ---@return Item target_item 目标物品
 function M:ability_selected_target_item(data)
     local py_item = GameAPI.get_target_item_in_ability(self.handle, data['__ability_runtime_id'])
-    return y3.item.get_lua_item_from_py(py_item)
+    return y3.item.get_by_handle(py_item)
 end
 
 ---技能选取的目标单位
@@ -390,7 +390,7 @@ end
 ---@return Unit target_unit 目标单位
 function M:ability_selected_target_unit(data)
     local py_unit = GameAPI.get_target_unit_in_ability(self.handle, data['__ability_runtime_id'])
-    return y3.unit.get_lua_unit_from_py(py_unit)
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---技能选取的目标可破坏物
@@ -398,7 +398,7 @@ end
 ---@return Destructible destructible 目标可破坏物
 function M:ability_selected_destructible(data)
     local py_destructible = GameAPI.get_target_dest_in_ability(self.handle, data['__ability_runtime_id'])
-    return y3.destructible.get_lua_destructible_from_py(py_destructible)
+    return y3.destructible.get_by_handle(py_destructible)
 end
 
 ---技能选取到的点
@@ -406,7 +406,7 @@ end
 ---@return Point point 选取到的点
 function M:selected_location_by_ability(data)
     local py_point = self.handle:api_get_release_position(data['__ability_runtime_id'])
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 ---获取技能释放方向 
@@ -431,7 +431,7 @@ end
 ---@return Ability ability 事件中的技能 
 function M.get_ability_by_unit_and_seq(context)
     local py_ability = GameAPI.api_get_ability_by_unit_and_seq(context['__unit_id'], context['__ability_seq'])
-    return y3.ability.get_lua_ability_from_py(py_ability)
+    return y3.ability.get_by_handle(py_ability)
 end
 
 ---检查技能类型前置条件

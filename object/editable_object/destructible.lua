@@ -22,7 +22,7 @@ M.map = setmetatable({}, { __mode = 'kv' })
 ---通过py层的可破坏物实例获取lua层的可破坏物对象
 ---@param  py_destructible py.Destructible
 ---@return Destructible
-function M.get_lua_destructible_from_py(py_destructible)
+function M.get_by_handle(py_destructible)
     local id = py_destructible:api_get_id()
     if not M.map[id] then
         M.map[id] = New 'Destructible' (py_destructible)
@@ -30,7 +30,7 @@ function M.get_lua_destructible_from_py(py_destructible)
     return M.map[id]
 end
 
-y3.py_converter.register_py_to_lua('py.Destructible', M.get_lua_destructible_from_py)
+y3.py_converter.register_py_to_lua('py.Destructible', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Destructible', function (lua_value)
     return lua_value.handle
 end)
@@ -38,12 +38,12 @@ end)
 -- 通过可破坏物的唯一ID获取lua的可破坏物对象
 ---@param id py.DestructibleID
 ---@return Destructible
-function M.get_lua_destructible_by_id(id)
+function M.get_by_id(id)
     local py_destructible = GameAPI.get_dest_by_id(id)
-    return M.get_lua_destructible_from_py(py_destructible)
+    return M.get_by_handle(py_destructible)
 end
 
-y3.py_converter.register_py_to_lua('py.DestructibleID', M.get_lua_destructible_by_id)
+y3.py_converter.register_py_to_lua('py.DestructibleID', M.get_by_id)
 
 ---是否存在
 ---@return boolean is_exist 是否存在
@@ -351,7 +351,7 @@ function M:get_position()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 --------------------------------------------类的方法--------------------------------------------
@@ -372,7 +372,7 @@ function M.create_destructible(type_id, point, angle, scale_x, scale_y, scale_z,
     if not height then height = 0 end
     local py_destructible = GameAPI.create_destructible_new(type_id, point.handle, Fix32(angle), Fix32(scale_x), Fix32(scale_y), Fix32(scale_z), Fix32(height))
 
-    return y3.destructible.get_lua_destructible_from_py(py_destructible)
+    return y3.destructible.get_by_handle(py_destructible)
 end
 
 ---获取可破坏物类型的名称
@@ -405,7 +405,7 @@ function M.pick(area)
     local py_list = GameAPI.get_all_dest_in_area(area.handle)
     for i = 0, python_len(py_list) - 1 do
         local iter_destructible = python_index(py_list, i)
-        table.insert(destructibles,y3.destructible.get_lua_destructible_from_py(iter_destructible))
+        table.insert(destructibles,y3.destructible.get_by_handle(iter_destructible))
     end
     return destructibles
 end
@@ -421,7 +421,7 @@ function M.pick_in_shape(point, shape)
     local lua_table = {}
     for i = 0, python_len(py_list)-1 do
         local iter_destructible = python_index(py_list, i)
-        table.insert(lua_table,y3.destructible.get_lua_destructible_from_py(iter_destructible))
+        table.insert(lua_table,y3.destructible.get_by_handle(iter_destructible))
     end
     return lua_table
 end

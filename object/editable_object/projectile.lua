@@ -19,7 +19,7 @@ M.map = setmetatable({}, { __mode = 'kv' })
 
 ---@param py_projectile py.ProjectileEntity
 ---@return Projectile projectile
-function M.get_lua_projectile_from_py(py_projectile)
+function M.get_by_handle(py_projectile)
     -- TODO 不保证对象唯一性
     if not M.map[py_projectile] then
         M.map[py_projectile] = New 'Projectile' (py_projectile)
@@ -27,7 +27,7 @@ function M.get_lua_projectile_from_py(py_projectile)
     return M.map[py_projectile]
 end
 
-y3.py_converter.register_py_to_lua('py.Projectile', M.get_lua_projectile_from_py)
+y3.py_converter.register_py_to_lua('py.Projectile', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Projectile', function (lua_value)
     return lua_value.handle
 end)
@@ -60,7 +60,7 @@ end
 ---@return Unit unit 投射物的拥有者
 function M:get_owner()
     local py_unit = self.handle:api_get_owner()
-    return y3.unit.get_lua_unit_from_py(py_unit)
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---获取投射物朝向
@@ -75,7 +75,7 @@ function M:get_point()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 ---是否拥有标签
@@ -114,7 +114,7 @@ end
 ---@return Projectile
 function M.create(data)
     if not data.owner then
-        data.owner = y3.player.get_lua_player_by_id(31)
+        data.owner = y3.player.get_by_id(31)
     end
     local target = data.target
     if target.type == 'point' then
@@ -134,7 +134,7 @@ function M.create(data)
             data.remove_immediately,
             data.remove_immediately == nil and true or false
         )
-        return M.get_lua_projectile_from_py(py_obj)
+        return M.get_by_handle(py_obj)
     else
         ---@cast target Unit
         local py_obj = GameAPI.create_projectile_on_socket(
@@ -152,7 +152,7 @@ function M.create(data)
             data.remove_immediately,
             data.remove_immediately == nil and true or false
         )
-        return M.get_lua_projectile_from_py(py_obj)
+        return M.get_by_handle(py_obj)
     end
 end
 
@@ -232,7 +232,7 @@ end
 function M:get_ability()
     local py_ability = GlobalAPI.get_related_ability(self.handle)
     if py_ability then
-        return y3.ability.get_lua_ability_from_py(py_ability)
+        return y3.ability.get_by_handle(py_ability)
     end
     return nil
 end

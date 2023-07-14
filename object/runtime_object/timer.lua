@@ -14,13 +14,13 @@ end
 
 ---@param py_timer py.Timer
 ---@return Timer
-function M.get_lua_timer_from_py(py_timer)
+function M.get_by_handle(py_timer)
     local timer = New 'Timer' (py_timer)
     return timer
 end
 
 
-y3.py_converter.register_py_to_lua('py.Timer', M.get_lua_timer_from_py)
+y3.py_converter.register_py_to_lua('py.Timer', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Timer', function (lua_value)
     return lua_value.handle
 end)

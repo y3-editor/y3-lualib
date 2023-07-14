@@ -19,7 +19,7 @@ end
 function M.get_road_by_res_id(res_id)
     if not M.map[res_id] then
         local py_road = GameAPI.get_road_point_list_by_res_id(res_id)
-        local road = M.get_lua_road_from_py(py_road)
+        local road = M.get_by_handle(py_road)
         road.res_id = res_id
         M.map[res_id] = road
     end
@@ -28,12 +28,12 @@ end
 
 ---@param py_road py.Road
 ---@return Road
-function M.get_lua_road_from_py(py_road)
+function M.get_by_handle(py_road)
     local road = New 'Road' (py_road)
     return road
 end
 
-y3.py_converter.register_py_to_lua('py.Road', M.get_lua_road_from_py)
+y3.py_converter.register_py_to_lua('py.Road', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Road', function (lua_value)
     return lua_value.handle
 end)
@@ -100,7 +100,7 @@ function M.create_path(start_point)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     local py_path = GameAPI.create_road_point_list(start_point.handle)
-    return M.get_lua_road_from_py(py_path)
+    return M.get_by_handle(py_path)
 end
 
 ---按标签获取所有的路径
@@ -108,7 +108,7 @@ end
 ---@return Road[] 路径
 function M.get_path_areas_by_tag(tag)
     local py_list = GameAPI.get_roads_by_tag(tag)
-    local roads = y3.helper.wrap_list(py_list, M.get_lua_road_from_py)
+    local roads = y3.helper.wrap_list(py_list, M.get_by_handle)
     return roads
 end
 

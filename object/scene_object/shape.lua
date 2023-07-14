@@ -14,7 +14,7 @@ end
 
 ---@param py_shape py.Shape
 ---@return Shape
-function M.get_lua_shape_from_py(py_shape)
+function M.get_by_handle(py_shape)
     return New 'Shape' (py_shape)
 end
 
@@ -24,7 +24,7 @@ end
 ---@return Shape
 function M.create_annular_shape(in_radius, out_radius)
     local py_shape = GlobalAPI.create_annular_shape(Fix32(in_radius), Fix32(out_radius))
-    return M.get_lua_shape_from_py(py_shape)
+    return M.get_by_handle(py_shape)
 end
 
 ---创建圆形区域
@@ -32,7 +32,7 @@ end
 ---@return Shape
 function M.create_circular_shape(radius)
     local py_shape = GlobalAPI.create_circular_shape(Fix32(radius))
-    return M.get_lua_shape_from_py(py_shape)
+    return M.get_by_handle(py_shape)
 end
 
 ---创建矩形区域
@@ -42,7 +42,7 @@ end
 ---@return Shape
 function M.create_rectangle_shape(width, length, angle)
     local py_shape = GlobalAPI.create_rectangle_shape(Fix32(width), Fix32(length), angle)
-    return M.get_lua_shape_from_py(py_shape)
+    return M.get_by_handle(py_shape)
 end
 
 ---扇形
@@ -52,7 +52,7 @@ end
 ---@return Shape
 function M.create_sector_shape(radius, angle, direction)
     local py_shape = GlobalAPI.create_sector_shape(Fix32(radius), Fix32(angle), direction)
-    return M.get_lua_shape_from_py(py_shape)
+    return M.get_by_handle(py_shape)
 end
 
 return M

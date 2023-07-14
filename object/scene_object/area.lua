@@ -31,13 +31,13 @@ M.SHAPE = {
 ---@param py_area py.Area py层对象
 ---@param type Area.Shape 见area.enum
 ---@return Area
-function M.get_lua_area_from_py(py_area, type)
+function M.get_by_handle(py_area, type)
     local area = New 'Area' (py_area, type)
     return area
 end
 
 -- TODO 需要从区域上获取类型
-y3.py_converter.register_py_to_lua('py.Area', M.get_lua_area_from_py)
+y3.py_converter.register_py_to_lua('py.Area', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Area', function (lua_value)
     return lua_value.handle
 end)
@@ -45,7 +45,7 @@ end)
 ---@param res_id py.AreaID 编辑场景中的id
 ---@param shape Area.Shape 见area.enum
 ---@return Area
-function M.get_area_by_res_id(res_id, shape)
+function M.get_by_res_id(res_id, shape)
     if not M.map[res_id] then
         local py_area
         if shape == M.SHAPE.CIRCLE then
@@ -58,7 +58,7 @@ function M.get_area_by_res_id(res_id, shape)
             error('不支持的区域类型')
         end
         assert(py_area, '找不到对应的区域:' .. tostring(res_id))
-        local area = M.get_lua_area_from_py(py_area, shape)
+        local area = M.get_by_handle(py_area, shape)
         area.res_id = res_id
         M.map[res_id] = area
     end
@@ -69,22 +69,22 @@ end
 ---根据场景id获得圆形区域
 ---@param res_id py.AreaID 编辑场景中的id
 ---@return Area
-function M.get_circle_area_by_res_id(res_id)
-    return M.get_area_by_res_id(res_id, M.SHAPE.CIRCLE)
+function M.get_circle_by_res_id(res_id)
+    return M.get_by_res_id(res_id, M.SHAPE.CIRCLE)
 end
 
 ---根据场景id获得矩形区域
 ---@param res_id py.AreaID 编辑场景中的id
 ---@return Area
-function M.get_rectangle_area_by_res_id(res_id)
-    return M.get_area_by_res_id(res_id, M.SHAPE.RECTANGLE)
+function M.get_rectangle_by_res_id(res_id)
+    return M.get_by_res_id(res_id, M.SHAPE.RECTANGLE)
 end
 
 ---根据场景id获得多边形区域
 ---@param res_id py.AreaID 编辑场景中的id
 ---@return Area
-function M.get_polygon_area_by_res_id(res_id)
-    return M.get_area_by_res_id(res_id, M.SHAPE.POLYGON)
+function M.get_polygon_by_res_id(res_id)
+    return M.get_by_res_id(res_id, M.SHAPE.POLYGON)
 end
 
 ---删除区域
@@ -223,13 +223,13 @@ function M:get_center_point()
         local py_point = GameAPI.get_circle_center_point(self.handle--[[@as py.CirArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_lua_point_from_py(py_point)
+        return y3.point.get_by_handle(py_point)
     end
     if self.shape == M.SHAPE.RECTANGLE then
         local py_point = GameAPI.get_rec_center_point(self.handle--[[@as py.RecArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_lua_point_from_py(py_point)
+        return y3.point.get_by_handle(py_point)
     end
     error('不支持的区域类型')
 end
@@ -241,19 +241,19 @@ function M:random_point()
         local py_point = GameAPI.get_random_point_in_circular_area(self.handle--[[@as py.CirArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_lua_point_from_py(py_point)
+        return y3.point.get_by_handle(py_point)
     end
     if self.shape == M.SHAPE.POLYGON then
         local py_point = GameAPI.get_random_point_in_poly_area(self.handle--[[@as py.PolyArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_lua_point_from_py(py_point)
+        return y3.point.get_by_handle(py_point)
     end
     if self.shape == M.SHAPE.RECTANGLE then
         local py_point = GameAPI.get_random_point_in_rec_area(self.handle--[[@as py.RecArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_lua_point_from_py(py_point)
+        return y3.point.get_by_handle(py_point)
     end
     error('不支持的区域类型')
 end
@@ -269,7 +269,7 @@ end
 ---@return Unit[] 单位组
 function M:get_all_unit_in_area()
     local py_unit_list = GameAPI.get_unit_group_in_area(self.handle)
-    local units = y3.helper.wrap_list(py_unit_list, y3.unit.get_lua_unit_from_py)
+    local units = y3.helper.wrap_list(py_unit_list, y3.unit.get_by_handle)
     return units
 end
 
@@ -307,14 +307,14 @@ end
 ---@return Area
 function M.get_map_area()
     local py_area = GameAPI.get_usable_map_range()
-    return M.get_lua_area_from_py(py_area, M.SHAPE.RECTANGLE)
+    return M.get_by_handle(py_area, M.SHAPE.RECTANGLE)
 end
 
 ---获得最后创建的矩形区域
 ---@return Area
 function M.get_rectangle_area_last_created()
     local py_area = GameAPI.get_rec_area_last_created()
-    return M.get_lua_area_from_py(py_area, M.SHAPE.RECTANGLE)
+    return M.get_by_handle(py_area, M.SHAPE.RECTANGLE)
 end
 
 ---创建圆形区域
@@ -323,7 +323,7 @@ end
 ---@return Area 圆形区域
 function M.create_circle_area(point, radius)
     local py_area = GameAPI.create_new_cir_area(point.handle, Fix32(radius))
-    return M.get_lua_area_from_py(py_area, M.SHAPE.CIRCLE)
+    return M.get_by_handle(py_area, M.SHAPE.CIRCLE)
 end
 
 ---创建矩形区域
@@ -333,7 +333,7 @@ end
 ---@return Area area 矩形区域
 function M.create_rectangle_area(point, horizontal_length, vertical_length)
     local py_area = GameAPI.create_rect_area_by_center(point.handle, Fix32(horizontal_length), Fix32(vertical_length))
-    return M.get_lua_area_from_py(py_area, M.SHAPE.RECTANGLE)
+    return M.get_by_handle(py_area, M.SHAPE.RECTANGLE)
 end
 
 ---以起点终点创建矩形区域
@@ -344,7 +344,7 @@ function M.create_rectangle_area_from_two_points(point_one, point_two)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     local py_area = GameAPI.create_rec_area_from_two_points(point_one.handle, point_two.handle)
-    return M.get_lua_area_from_py(py_area, M.SHAPE.RECTANGLE)
+    return M.get_by_handle(py_area, M.SHAPE.RECTANGLE)
 end
 
 ---沿点创建多边形
@@ -357,7 +357,7 @@ function M.create_polygon_area_by_points(...)
         py_points[i] = p.handle
     end
     local py_area = GameAPI.create_polygon_area_new(table.unpack(py_points))
-    return M.get_lua_area_from_py(py_area, M.SHAPE.POLYGON)
+    return M.get_by_handle(py_area, M.SHAPE.POLYGON)
 end
 
 ---按标签获取所有的圆形区域
@@ -366,7 +366,7 @@ end
 function M.get_circle_areas_by_tag(tag)
     local py_list = GameAPI.get_cir_areas_by_tag(tag)
     local areas = y3.helper.wrap_list(py_list, function (py_object)
-        return M.get_lua_area_from_py(py_object, M.SHAPE.CIRCLE)
+        return M.get_by_handle(py_object, M.SHAPE.CIRCLE)
     end)
     return areas
 end
@@ -377,7 +377,7 @@ end
 function M.get_rect_areas_by_tag(tag)
     local py_list = GameAPI.get_rect_areas_by_tag(tag)
     local areas = y3.helper.wrap_list(py_list, function (py_object)
-        return M.get_lua_area_from_py(py_object, M.SHAPE.RECTANGLE)
+        return M.get_by_handle(py_object, M.SHAPE.RECTANGLE)
     end)
     return areas
 end
@@ -388,7 +388,7 @@ end
 function M.get_polygon_areas_by_tag(tag)
     local py_list = GameAPI.get_polygon_areas_by_tag(tag)
     local areas = y3.helper.wrap_list(py_list, function (py_object)
-        return M.get_lua_area_from_py(py_object, M.SHAPE.POLYGON)
+        return M.get_by_handle(py_object, M.SHAPE.POLYGON)
     end)
     return areas
 end
@@ -401,7 +401,7 @@ function M.get_polygon_areas_point_list(polygon)
     local handle = polygon.handle
     ---@cast handle py.PolyArea
     local py_list = GameAPI.get_poly_area_point_list(handle)
-    local points = y3.helper.wrap_list(py_list, y3.point.get_lua_point_from_py)
+    local points = y3.helper.wrap_list(py_list, y3.point.get_by_handle)
     return points
 end
 

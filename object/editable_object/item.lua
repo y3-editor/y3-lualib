@@ -24,7 +24,7 @@ M.map = setmetatable({}, { __mode = 'kv' })
 ---通过py层的技能实例获取lua层的道具实例
 ---@param  py_item py.Item py层的道具实例
 ---@return Item # 返回在lua层初始化后的lua层道具实例
-function M.get_lua_item_from_py(py_item)
+function M.get_by_handle(py_item)
     local id = py_item:api_get_id()
     if not M.map[id] then
         M.map[id] = New 'Item' (py_item)
@@ -32,7 +32,7 @@ function M.get_lua_item_from_py(py_item)
     return M.map[id]
 end
 
-y3.py_converter.register_py_to_lua('py.Item', M.get_lua_item_from_py)
+y3.py_converter.register_py_to_lua('py.Item', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Item', function (lua_value)
     return lua_value.handle
 end)
@@ -40,12 +40,12 @@ end)
 -- 通过id获取lua层的道具实例
 ---@param id py.ItemID
 ---@return Item # 返回在lua层初始化后的lua层道具实例
-function M.get_lua_item_by_id(id)
+function M.get_by_id(id)
     local py_item = GameAPI.get_item(id)
-    return M.get_lua_item_from_py(py_item)
+    return M.get_by_handle(py_item)
 end
 
-y3.py_converter.register_py_to_lua('py.ItemID', M.get_lua_item_by_id)
+y3.py_converter.register_py_to_lua('py.ItemID', M.get_by_id)
 
 ---是否存在
 ---@return boolean is_exist 是否存在
@@ -248,7 +248,7 @@ function M:get_owner()
     if not py_owner then
         return nil
     end
-    return y3.unit.get_lua_unit_from_py(py_owner)
+    return y3.unit.get_by_handle(py_owner)
 end
 
 ---物品所在点
@@ -257,7 +257,7 @@ function M:get_point()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 ---物品堆叠数
@@ -321,7 +321,7 @@ function M:get_ability()
     if not py_ability then
         return nil
     end
-    return y3.ability.get_lua_ability_from_py(py_ability)
+    return y3.ability.get_by_handle(py_ability)
 end
 
 ---获取物品的被动技能
@@ -332,7 +332,7 @@ function M:get_passive_ability(index)
     if not py_ability then
         return nil
     end
-    return y3.ability.get_lua_ability_from_py(py_ability)
+    return y3.ability.get_by_handle(py_ability)
 end
 
 ---获取物品在单位身上的格子位置
@@ -345,7 +345,7 @@ end
 ---@return Player player 玩家
 function M:get_owner_player()
     local py_player = self.handle:api_get_creator()
-    return y3.player.get_lua_player_from_py(py_player)
+    return y3.player.get_by_handle(py_player)
 end
 
 ---获取物品在单位身上的背包槽类型
@@ -371,7 +371,7 @@ end
 ---@return Item
 function M.create_item(point, item_key, player)
     local py_item = GameAPI.create_item_by_id(point.handle, item_key, player.handle)
-    return M.get_lua_item_from_py(py_item)
+    return M.get_by_handle(py_item)
 end
 
 ---获取物品购买售价

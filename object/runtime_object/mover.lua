@@ -12,11 +12,11 @@ end
 
 ---@param py_mover py.Mover
 ---@return Mover
-function M.get_lua_mover_from_py(py_mover)
+function M.get_by_handle(py_mover)
     return New 'Mover' (py_mover)
 end
 
-y3.py_converter.register_py_to_lua('py.Mover', M.get_lua_mover_from_py)
+y3.py_converter.register_py_to_lua('py.Mover', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Mover', function (lua_value)
     return lua_value.handle
 end)
@@ -103,7 +103,7 @@ function M.wrap_callbacks(mover_data)
     if mover_data.on_hit then
         ---@param py_unit py.Unit
         on_hit = function (_, py_unit)
-            local unit = y3.unit.get_lua_unit_from_py(py_unit)
+            local unit = y3.unit.get_by_handle(py_unit)
             xpcall(mover_data.on_hit, log.error, mover, unit)
         end
     end
@@ -192,7 +192,7 @@ function M.mover_line(mover_unit, mover_data)
         on_block,
         on_hit
     )
-    local mover = M.get_lua_mover_from_py(py_mover)
+    local mover = M.get_by_handle(py_mover)
     update_mover(mover)
     mover:init(mover_data)
     return mover
@@ -231,7 +231,7 @@ function M.mover_target(mover_unit, mover_data)
         on_block,
         on_hit
     )
-    local mover = M.get_lua_mover_from_py(py_mover)
+    local mover = M.get_by_handle(py_mover)
     update_mover(mover)
     mover:init(mover_data)
     return mover
@@ -270,7 +270,7 @@ function M.mover_curve(mover_unit, mover_data)
         on_block,
         on_hit
     )
-    local mover = M.get_lua_mover_from_py(py_mover)
+    local mover = M.get_by_handle(py_mover)
     update_mover(mover)
     mover:init(mover_data)
     return mover
@@ -312,7 +312,7 @@ function M.mover_round(mover_unit, mover_data)
         on_block,
         on_hit
     )
-    local mover = M.get_lua_mover_from_py(py_mover)
+    local mover = M.get_by_handle(py_mover)
     update_mover(mover)
     mover:init(mover_data)
     return mover

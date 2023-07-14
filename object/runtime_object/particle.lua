@@ -21,12 +21,12 @@ end
 
 ---@param py_sfx py.Sfx
 ---@return Particle
-function M.get_lua_particle_from_py(py_sfx)
+function M.get_by_handle(py_sfx)
     local particle = New 'Particle' (py_sfx)
     return particle
 end
 
-y3.py_converter.register_py_to_lua('py.Sfx', M.get_lua_particle_from_py)
+y3.py_converter.register_py_to_lua('py.Sfx', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Sfx', function (lua_value)
     return lua_value.handle
 end)

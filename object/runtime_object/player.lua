@@ -22,26 +22,26 @@ end
 ---@param id py.RoleID 玩家ID
 ---@return Player player 玩家
 function M:alloc(id)
-    return M.get_lua_player_by_id(id)
+    return M.get_by_id(id)
 end
 
 ---转换玩家ID为玩家
 ---@param id py.RoleID 玩家ID
 ---@return Player player 玩家
-function M.get_lua_player_by_id(id)
+function M.get_by_id(id)
     if M.map[id] == nil then
         local py_player = GameAPI.get_role_by_role_id(id)
-        return M.get_lua_player_from_py(py_player)
+        return M.get_by_handle(py_player)
     end
     return M.map[id]
 end
 
 y3.py_converter.register_type_alias('py.Role', 'Player')
-y3.py_converter.register_py_to_lua('py.RoleID', M.get_lua_player_by_id)
+y3.py_converter.register_py_to_lua('py.RoleID', M.get_by_id)
 
 ---@param py_player py.Role
 ---@return Player
-function M.get_lua_player_from_py(py_player)
+function M.get_by_handle(py_player)
     local id = py_player:get_role_id_num()
     if M.map[id] == nil then
         M.map[id] = New 'Player' (py_player)
@@ -49,7 +49,7 @@ function M.get_lua_player_from_py(py_player)
     return M.map[id]
 end
 
-y3.py_converter.register_py_to_lua('py.Role', M.get_lua_player_from_py)
+y3.py_converter.register_py_to_lua('py.Role', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Role', function (lua_value)
     return lua_value.handle
 end)
@@ -419,7 +419,7 @@ function M:get_mouse_pos()
     local py_point = GameAPI.get_player_pointing_pos(self.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_lua_point_from_py(py_point)
+    return y3.point.get_by_handle(py_point)
 end
 
 ---获取玩家鼠标屏幕坐标X的占比
