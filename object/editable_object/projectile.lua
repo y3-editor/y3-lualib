@@ -125,13 +125,13 @@ function M.create(data)
             -- TODO 见问题3
             ---@diagnostic disable-next-line: param-type-mismatch
             data.owner.handle,
-            data.angle and Fix32(data.angle) or nil,
+            Fix32(data.angle or 0.0),
             data.ability and data.ability.handle or nil,
-            data.time and Fix32(data.time) or nil,
+            Fix32(data.time or 60.0),
             data.time and true or false,
-            data.height and Fix32(data.height) or nil,
-            data.visible_rule,
-            data.remove_immediately,
+            Fix32(data.height or 0.0),
+            data.visible_rule or 1,
+            data.remove_immediately or false,
             data.remove_immediately == nil and true or false
         )
         return M.get_by_handle(py_obj)
@@ -146,10 +146,10 @@ function M.create(data)
             ---@diagnostic disable-next-line: param-type-mismatch
             data.owner.handle,
             data.ability and data.ability.handle or nil,
-            data.visible_rule,
-            data.time and Fix32(data.time) or nil,
+            data.visible_rule or 1,
+            Fix32(data.time or 60.0),
             data.time and true or false,
-            data.remove_immediately,
+            data.remove_immediately or false,
             data.remove_immediately == nil and true or false
         )
         return M.get_by_handle(py_obj)

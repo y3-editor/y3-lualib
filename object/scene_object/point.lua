@@ -9,6 +9,14 @@ local M = Class 'Point'
 
 M.type = 'point'
 
+function M:__tostring()
+    return string.format('{Point|%.3f,%.3f,%.3f}'
+        , self:get_x()
+        , self:get_y()
+        , self:get_z()
+    )
+end
+
 ---@param py_point Point.HandleType
 ---@return self
 function M:constructor(py_point)
@@ -100,6 +108,18 @@ function M:get_z()
     return z
 end
 
+-- 移动点
+---@param x number?
+---@param y number?
+---@param z number?
+---@return Point
+function M:move(x, y, z)
+    local nx = self:get_x() + (x or 0)
+    local ny = self:get_y() + (y or 0)
+    local nz = self:get_z() + (z or 0)
+    return M.create(nx, ny, nz)
+end
+
 ---坐标转化为点
 ---@param x number 点X坐标
 ---@param y number 点Y坐标
@@ -123,7 +143,6 @@ function M.get_point_offset_vector(point, direction, offset)
     ---@diagnostic disable-next-line: param-type-mismatch
     return M.get_by_handle(py_point)
 end
-
 
 ---路径中的点
 ---@param path table 目标路径

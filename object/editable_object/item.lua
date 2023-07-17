@@ -53,6 +53,12 @@ function M:is_exist()
     return  GameAPI.item_is_exist(self.handle)
 end
 
+-- 获取唯一ID
+---@return integer
+function M:get_id()
+    return self.id
+end
+
 ---存在标签
 ---@param tag string 删除标签
 ---@return boolean is_has_tag 是否有标签

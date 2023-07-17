@@ -51,6 +51,12 @@ function M:is_exist()
     return  GameAPI.destructible_is_exist(self.handle)
 end
 
+-- 获取唯一ID
+---@return integer
+function M:get_id()
+    return self.id
+end
+
 ---可破坏物能否被技能指示器选中
 ---@return boolean is_lockable 能否被选中
 function M:can_be_ability_target()
