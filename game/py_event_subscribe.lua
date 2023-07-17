@@ -108,27 +108,37 @@ end
 ---@param event_name string
 ---@param extra_args? any[]
 ---@return function?
+---@return any[]?
 local function extract_addition(event_name, extra_args)
     if not extra_args then
-        return nil
+        return nil, nil
     end
     local alias = game_event.alias_map[event_name]
     if not alias then
-        return nil
+        return nil, nil
     end
     for i, param in ipairs(alias.params) do
         if param.call then
             local lua_value = extra_args[i]
-            table.remove(extra_args, i)
             local lua_type  = param.type
             local py_type   = y3.py_converter.get_py_type(lua_type)
             local py_value  = y3.py_converter.lua_to_py(py_type, lua_value)
-            return function ()
+            local py_addition = function ()
                 return py_value
             end
+            local py_args
+            if #extra_args > 1 then
+                py_args = {}
+                for j = 1, #extra_args do
+                    if j ~= i then
+                        py_args[#py_args+1] = extra_args[j]
+                    end
+                end
+            end
+            return py_addition, py_args
         end
     end
-    return nil
+    return nil, nil
 end
 
 ---@param object any
@@ -147,10 +157,10 @@ function M.event_register(object, event_name, extra_args)
     end
     ---@type y3.Const.EventType | { [1]: y3.Const.EventType, [integer]: any }
     local py_event = py_event_name
-    local py_addition = extract_addition(event_name, extra_args)
-    if extra_args and #extra_args > 0 then
-        table.insert(extra_args, 1, py_event_name)
-        py_event = extra_args
+    local py_addition, py_args = extract_addition(event_name, extra_args)
+    if py_args and #py_args > 0 then
+        table.insert(py_args, 1, py_event_name)
+        py_event = py_args
     end
 
     local trigger_id = M.trigger_id_counter()
