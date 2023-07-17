@@ -21,7 +21,8 @@ function M.declare(name, super)
         if not class.constructor then
             return self
         end
-        return class.constructor(self, ...)
+        class.constructor(self, ...)
+        return self
     end
 
     M._classes[name] = class
@@ -41,7 +42,7 @@ function M.declare(name, super)
         assert(class ~= superClass, ('class %q can not inherit itself'):format(name))
         mt.__index = superClass
 
-        class.__superCall = superClass.__call
+        class.__super = superClass
     end
 
     return class
@@ -80,12 +81,24 @@ function M.type(obj)
     return obj.__name
 end
 
----@param obj table
----@return function superConstructor
-function M.super(obj)
-    return function (...)
-        return obj:__superCall(...)
+---@private
+M._superCache = {}
+
+---@param name string
+---@return fun(...)
+function M.super(name)
+    if not M._superCache[name] then
+        local class = M._classes[name]
+        assert(class, ('class %q not found'):format(name))
+        local super = class.__super
+        assert(super, ('class %q not inherit from any class'):format(name))
+        M._superCache[name] = function (...)
+            local k, self = debug.getlocal(2, 1)
+            assert(k == 'self', ('%s() must be called by the class'):format(name))
+            super.__call(self,...)
+        end
     end
+    return M._superCache[name]
 end
 
 return M
