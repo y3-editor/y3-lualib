@@ -201,6 +201,8 @@
 ---@class py.CcActionID: integer
 --主控角色
 ---@class py.CcHandID: integer
+--动画机状态
+---@class py.CcAnimationMachineStatus: string
 --技能对象
 ---@class py.Ability: py.Actor
 --效果对象

@@ -4,6 +4,79 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--向ui发送附带dict的事件
+---@param s string # 事件名称
+---@param args py.Dict # 参数
+function GameAPI.send_ui_global_event_with_info_dict(s, args) end
+
+--添加单位到单位组
+---@param unit py.Unit # 单位
+---@param unit_group py.UnitGroup # 单位组
+function GameAPI.add_unit_to_group(unit, unit_group) end
+
+--批量设置全局触发器数组变量
+---@param table py.List # 组合列表，格式为[[数组变量名称，类型（'INTEGER', 'BOOLEAN', 'FLOAT', 'STRING'），列表值（[值，值，......]）],[.....]]
+function GameAPI.set_trigger_table_list_variable(table) end
+
+--通过分割字符串设置字符串数组
+---@param key py.List # 字符串数组
+---@param actor py.Actor # 类型提示
+---@param content string # 分割内容
+---@param split string # 分割符
+function GameAPI.set_trigger_str_list_by_split(key, actor, content, split) end
+
+--创建全局触发器数组变量
+---@param key string # 数组变量名称
+---@param var_type string # 值类型
+---@param arr_val py.List # 列表型值
+function GameAPI.create_trigger_list_variable(key, var_type, arr_val) end
+
+--单位编号是否拥有tag
+---@param key py.UnitKey # 单位编号
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.unit_key_has_tag(key, tag) end
+
+--物品编号是否拥有tag
+---@param key py.ItemKey # 物品编号
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.item_key_has_tag(key, tag) end
+
+--技能编号是否拥有tag
+---@param key py.AbilityKey # 技能编号
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.ability_key_has_tag(key, tag) end
+
+--效果编号是否拥有tag
+---@param key py.AbilityKey # 技能编号
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.modifier_key_has_tag(key, tag) end
+
+--投射物编号是否拥有tag
+---@param key py.AbilityKey # 投射物编号
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.projectile_key_has_tag(key, tag) end
+
+--可破坏物编号是否拥有tag
+---@param key py.DestructibleKey # 可破坏物编号
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.dest_key_has_tag(key, tag) end
+
+--单位实体是否存在
+---@param unit? py.Unit # 单位实体
+---@return boolean # 布尔值
+function GameAPI.unit_is_exist(unit) end
+
+--效果实体是否存在
+---@param modifier? py.ModifierEntity # 效果实体
+---@return boolean # 布尔值
+function GameAPI.modifier_is_exist(modifier) end
+
 --投射物实体是否存在
 ---@param projectile? py.ProjectileEntity # 投射物
 ---@return boolean # 布尔值
