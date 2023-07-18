@@ -12,7 +12,16 @@ M.type = 'ui'
 function M:constructor(player, ui_name)
     self.player = player
     self.handle = ui_name
+    self.name   = GameAPI.get_ui_comp_name(player.handle, ui_name)
     return self
+end
+
+function M:__tostring()
+    return string.format('{UI|%s|%s} @ %s'
+        , self.name
+        , self.handle
+        , self.player
+    )
 end
 
 ---@private
@@ -32,24 +41,32 @@ end
 ---@param  comp_type integer ui控件
 ---@return table ui 返回在lua层初始化后的lua层技能实例
 --创建界面控件
-function M.create_ui(player, parent_ui,comp_type)
+function M.create_ui(player, parent_ui, comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, comp_type)
-    return y3.ui.get_by_handle(player ,py_ui)
+    return y3.ui.get_by_handle(player, py_ui)
 end
 
 ---@param  player Player 玩家
 ---@param  ui_path string ui对象路径，自画板一级开始，父节点与子节点使用“.”链接
 ---@return UI
-function M.get_ui(player,ui_path)
-    local py_ui = GameAPI.get_comp_by_absolute_path(player.handle,ui_path)
-    return y3.ui.get_by_handle(player,py_ui)
+function M.get_ui(player, ui_path)
+    local py_ui = GameAPI.get_comp_by_absolute_path(player.handle, ui_path)
+    assert(py_ui, string.format('UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。', ui_path))
+    return y3.ui.get_by_handle(player, py_ui)
 end
 
 --创建界面事件
----@param  event integer 界面事件类型
+---@param  event y3.Const.UIEvent 界面事件类型
 ---@param  name string 事件名
+---@return string
 function M:add_event(event, name)
-    GameAPI.create_ui_comp_event_ex_ex(self.handle, event, name)
+    return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEvent[event] or event, name)
+end
+
+-- 对玩家触发UI事件
+---@param event_name string
+function M:send_event(event_name)
+    GameAPI.trigger_ui_event(self.player.handle, self.handle, event_name)
 end
 
 --设置UI控件显隐

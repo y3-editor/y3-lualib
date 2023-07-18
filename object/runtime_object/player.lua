@@ -18,6 +18,12 @@ function M:constructor(py_player)
     return self
 end
 
+function M:__tostring()
+    return string.format('{Player|%d}'
+        , self.id
+    )
+end
+
 ---转换玩家ID为玩家
 ---@param id py.RoleID 玩家ID
 ---@return Player player 玩家
