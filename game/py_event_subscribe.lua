@@ -117,6 +117,12 @@ local function extract_addition(event_name, extra_args)
     if not alias then
         return nil, nil
     end
+
+    local py_args = {}
+    for i = 1, #extra_args do
+        py_args[i] = extra_args[i]
+    end
+
     for i, param in ipairs(alias.params) do
         if param.call then
             local lua_value = extra_args[i]
@@ -126,19 +132,11 @@ local function extract_addition(event_name, extra_args)
             local py_addition = function ()
                 return py_value
             end
-            local py_args
-            if #extra_args > 1 then
-                py_args = {}
-                for j = 1, #extra_args do
-                    if j ~= i then
-                        py_args[#py_args+1] = extra_args[j]
-                    end
-                end
-            end
+            table.remove(py_args, i)
             return py_addition, py_args
         end
     end
-    return nil, nil
+    return nil, py_args
 end
 
 ---@param object any
@@ -147,14 +145,17 @@ end
 ---@return EventManager
 function M.event_register(object, event_name, extra_args)
     local py_event_name = get_py_event_name(event_name)
+
     local event_manager = M.event_mark_map[object]
     if not event_manager then
         event_manager = New 'EventManager' ()
         M.event_mark_map[object] = event_manager
     end
+
     if event_manager:has_event(event_name, extra_args) then
         return event_manager
     end
+
     ---@type y3.Const.EventType | { [1]: y3.Const.EventType, [integer]: any }
     local py_event = py_event_name
     local py_addition, py_args = extract_addition(event_name, extra_args)
