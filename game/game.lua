@@ -1645,23 +1645,6 @@ function M.send_custom_event(id,table)
     GameAPI.send_event_custom(id,table)
 end
 
----@param target_unit number 伤害者
----@param ability Ability 来源关联技能
----@param from Unit|Item 来源单位或者物品
----@param type number 伤害类型
----@param damage number 伤害值
----@param is_bounce boolean 是否跳字
----@param is_normal boolean 视为普攻
----@param is_critical boolean 必定暴击
----@param is_cant_miss boolean 无视闪避
----@param particle particle 受击特效
----@param socket_name string 挂接点
----@param txt_enum string 跳字枚举
----造成伤害
-function M.apply_damage(from,ability,target_unit,type,damage,is_bounce,is_normal,is_critical,is_cant_miss,particle,socket_name,txt_enum)
-    GameAPI.apply_damage(from and from.handle or nil,ability and ability.handle or nil,target_unit and target_unit.handle or nil,type, Fix32(damage),is_bounce,nil,is_normal,is_critical,is_cant_miss,particle,socket_name,txt_enum)
-end
-
 ---@param point_or_unit Point|Unit 点或单位
 ---@param range number 范围
 ---@return boolean in_radius 在单位附近

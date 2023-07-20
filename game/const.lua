@@ -80,6 +80,18 @@ M.ModifyType = {
     ['SET'] = 2,
 }
 
+---@alias y3.Const.DamageType
+---| '物理'
+---| '法术'
+---| '真实'
+
+M.DamageTypeMap = {
+    ['物理'] = 0,
+    ['法术'] = 1,
+    ['真实'] = 2,
+}
+
+---@enum y3.Const.DMGType
 M.DMGType = {
     ['PHY'] = 0,
     ['MAG'] = 1,
@@ -558,7 +570,7 @@ M.DestructibleEventType = {
 ---| '鼠标-移出'
 ---| '鼠标-右击'
 
-M.UIEvent = {
+M.UIEventMap = {
     ['空']       = -1,
     ['点击-开始'] = 1,
     ['点击-结束'] = 2,
@@ -569,5 +581,12 @@ M.UIEvent = {
     ['鼠标-移出'] = 25,
     ['鼠标-右击'] = 26,
 }
+
+---@alias y3.Const.DamageTextType
+---| 'get_gold' # 获取金币
+---| 'heal'     # 治疗
+---| 'magic'    # 法术
+---| 'physics'  # 物理
+---| 'real'     # 真实
 
 return M

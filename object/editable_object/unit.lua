@@ -1595,4 +1595,37 @@ function M.get_type_by_id(unit_key)
     return GameAPI.api_get_unit_type_category(unit_key)
 end
 
+---@class Unit.DamageData
+---@field target Unit|Item|Destructible
+---@field type y3.Const.DamageType
+---@field damage number
+---@field ability? Ability # 关联技能
+---@field text_type? y3.Const.DamageTextType # 跳字类型
+---@field common_attack? boolean # 视为普攻
+---@field critical? boolean # 必定暴击
+---@field no_miss? boolean # 必定命中
+---@field particle? py.SfxKey # 特效
+---@field socket? string # 特效挂点
+
+---@param data Unit.DamageData
+function M:damage(data)
+    GameAPI.apply_damage(
+        self.handle,
+        data.ability and data.ability.handle or nil,
+        -- TODO 参考问题3
+        ---@diagnostic disable-next-line: param-type-mismatch
+        data.target.handle,
+        y3.const.DamageTypeMap[data.type] or data.type,
+        Fix32(data.damage),
+        data.text_type ~= nil,
+        nil,
+        data.common_attack or false,
+        data.critical or false,
+        data.no_miss or false,
+        data.particle or nil,
+        data.socket or '',
+        data.text_type or 'physics'
+    )
+end
+
 return M

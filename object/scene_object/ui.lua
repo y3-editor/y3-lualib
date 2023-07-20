@@ -60,7 +60,7 @@ end
 ---@param  name string 事件名
 ---@return string
 function M:add_event(event, name)
-    return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEvent[event] or event, name)
+    return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name)
 end
 
 -- 对玩家触发UI事件
