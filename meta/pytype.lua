@@ -327,3 +327,5 @@
 ---@class py.ReactionGroup: py.DynamicTypeMeta
 --表排序顺序
 ---@class py.TableOrder: integer
+--镜头模式
+---@class py.CameraMode: integer

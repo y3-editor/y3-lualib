@@ -69,9 +69,19 @@ M.alias_map["时间-周期帧"] = {
 ---@alias EventParam.游戏-初始化 EventParam.ET_GAME_INIT
 M.alias_map["游戏-初始化"] = {
     __class__ = "EventAlias",
-    desc = "游戏初始化时触发",
+    desc = "游戏初始化时触发。注意！此事件每个玩家是不同步的！",
     key = "ET_GAME_INIT",
     name = "游戏-初始化",
+    params = {
+    },
+}
+
+---@alias EventParam.游戏-开始 EventParam.ET_LOADING_END
+M.alias_map["游戏-开始"] = {
+    __class__ = "EventAlias",
+    desc = "所有玩家加载完毕，游戏正式开始时触发",
+    key = "ET_LOADING_END",
+    name = "游戏-开始",
     params = {
     },
 }
@@ -1481,6 +1491,7 @@ M.alias_map["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "时间-经过帧", count: integer, callback: fun(trg: Trigger, data: EventParam.时间-经过帧)): Trigger
 ---@field event fun(self: self, event: "时间-周期帧", count: integer, callback: fun(trg: Trigger, data: EventParam.时间-周期帧)): Trigger
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
+---@field event fun(self: self, event: "游戏-开始", callback: fun(trg: Trigger, data: EventParam.游戏-开始)): Trigger
 ---@field event fun(self: self, event: "游戏-暂停", callback: fun(trg: Trigger, data: EventParam.游戏-暂停)): Trigger
 ---@field event fun(self: self, event: "游戏-恢复", callback: fun(trg: Trigger, data: EventParam.游戏-恢复)): Trigger
 ---@field event fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
