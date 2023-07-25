@@ -36,13 +36,13 @@ function M.get_by_handle(player, ui_name)
     return ui
 end
 
+--创建界面控件
 ---@param  player Player 玩家
 ---@param  parent_ui UI ui控件
----@param  comp_type integer ui控件
----@return table ui 返回在lua层初始化后的lua层技能实例
---创建界面控件
+---@param  comp_type y3.Const.UIComponentType ui控件
+---@return UI 返回在lua层初始化后的lua层技能实例
 function M.create_ui(player, parent_ui, comp_type)
-    local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, comp_type)
+    local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 0)
     return y3.ui.get_by_handle(player, py_ui)
 end
 
@@ -53,6 +53,12 @@ function M.get_ui(player, ui_path)
     local py_ui = GameAPI.get_comp_by_absolute_path(player.handle, ui_path)
     assert(py_ui, string.format('UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。', ui_path))
     return y3.ui.get_by_handle(player, py_ui)
+end
+
+---@param  comp_type y3.Const.UIComponentType ui控件
+---@return UI 返回在lua层初始化后的lua层技能实例
+function M:create_child(comp_type)
+    return M.create_ui(self.player, self, comp_type)
 end
 
 --创建界面事件
@@ -450,8 +456,8 @@ function M.disable_drawing_unit_path(player, unit)
 end
 
 --删除界面控件
-function M:remove_ui_comp()
-    GameAPI.del_ui_comp(self.player.handle,self.handle)
+function M:remove()
+    GameAPI.del_ui_comp(self.player.handle, self.handle)
 end
 
 --绑定技能冷却时间到玩家界面控件的属性
@@ -607,7 +613,7 @@ end
 --获取指定命名的子控件
 ---@param name string
 ---@return UI? ui_comp ui控件
-function M:get_child_widget_of_specified_name(name)
+function M:get_child(name)
     local py_ui = GameAPI.get_comp_by_path(self.player.handle, self.handle, name)
     if not py_ui then
         return nil
@@ -641,7 +647,7 @@ end
 
 --获得界面控件的父控件
 ---@return UI ui_comp ui控件
-function M:get_parent_widget_of_ui_widget()
+function M:get_parent()
     local py_ui = GameAPI.get_ui_comp_parent(self.player.handle, self.handle)
     return y3.ui.get_by_handle(self.player, py_ui)
 end
