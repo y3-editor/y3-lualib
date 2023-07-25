@@ -1,6 +1,9 @@
 ---@class Log
 local M = Class 'Log'
 
+-- TODO 在py的错误处理中无法访问GameAPI的字段，所以需要先把它缓存下来
+local print_to_dialog = GameAPI.print_to_dialog
+
 ---@private
 ---@param level string
 ---@param stack boolean
@@ -17,11 +20,11 @@ function M.build(level, stack, ...)
     end
     str = ('[%s] %s'):format(level, str)
     if level == 'error' or level == 'fatal' then
-        GameAPI.print_to_dialog(1, str)
+        print_to_dialog(1, str)
     elseif level == 'warn' then
-        GameAPI.print_to_dialog(2, str)
+        print_to_dialog(2, str)
     else
-        GameAPI.print_to_dialog(3, str)
+        print_to_dialog(3, str)
     end
     return str
 end
