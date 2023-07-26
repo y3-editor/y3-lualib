@@ -1040,54 +1040,141 @@ event.ET_UNIT_NAME_CHANGE = {}
 event.ET_UNIT_CHANGE_MINI_MAP_ICON = {}
 
 ---@class EventParam.ET_UNIT_ICON_CHANGE
+---@field unit Unit # 无描述
 
 --单位头像图标发生变化
-event.ET_UNIT_ICON_CHANGE = {}
+event.ET_UNIT_ICON_CHANGE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_ROLE_UNIT_CHANGE
+---@field unit Unit # 无描述
 
 --阵营内单位变化
-event.ET_ROLE_UNIT_CHANGE = {}
+event.ET_ROLE_UNIT_CHANGE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_ROLE_UNIT_TAG_CHANGE
+---@field unit Unit # 无描述
 
 --阵营内单位标签变化
-event.ET_ROLE_UNIT_TAG_CHANGE = {}
+event.ET_ROLE_UNIT_TAG_CHANGE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_ENTER_MOVER_STATE
+---@field unit Unit # 无描述
 
 --单位进入运动器状态
-event.ET_UNIT_ENTER_MOVER_STATE = {}
+event.ET_UNIT_ENTER_MOVER_STATE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_START_MOVE
+---@field unit Unit # 无描述
 
 --单位开始移动
-event.ET_UNIT_START_MOVE = {}
+event.ET_UNIT_START_MOVE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_END_MOVE
+---@field unit Unit # 无描述
 
 --单位结束移动
-event.ET_UNIT_END_MOVE = {}
+event.ET_UNIT_END_MOVE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_REMOVE
+---@field unit Unit # 无描述
 
 --单位删除（ECA专用）
-event.ET_UNIT_REMOVE = {}
+event.ET_UNIT_REMOVE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_DELETE
+---@field unit Unit # 无描述
 
 --单位删除（对象真正销毁）
-event.ET_UNIT_DELETE = {}
+event.ET_UNIT_DELETE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_END_TRANSLATE
+---@field unit Unit # 无描述
 
 --单位传送结束
-event.ET_UNIT_END_TRANSLATE = {}
+event.ET_UNIT_END_TRANSLATE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_ATTR_CHANGE
+---@field unit Unit # 无描述
+---@field attr string # 无描述
 
 --单位属性变化
-event.ET_UNIT_ATTR_CHANGE = {}
+event.ET_UNIT_ATTR_CHANGE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+    [2] = {
+        name = "__attr",
+        type = "string",
+        lua_name = "attr",
+        lua_type = "string",
+    },
+}
 
 ---@class EventParam.ET_BEFORE_UNIT_DIE
 ---@field damage py.Fixed # 受到的伤害值
@@ -1095,6 +1182,7 @@ event.ET_UNIT_ATTR_CHANGE = {}
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
 
 --单位即将死亡
 event.ET_BEFORE_UNIT_DIE = {
@@ -1138,6 +1226,12 @@ event.ET_BEFORE_UNIT_DIE = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
 }
 
 ---@class EventParam.ET_UNIT_DIE
@@ -1146,6 +1240,7 @@ event.ET_BEFORE_UNIT_DIE = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
 
 --单位死亡
 event.ET_UNIT_DIE = {
@@ -1189,17 +1284,53 @@ event.ET_UNIT_DIE = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
 }
 
 ---@class EventParam.ET_UNIT_ON_UNBIND_ROLE
+---@field unit Unit # 无描述
+---@field player Player # 无描述
 
 --单位解绑玩家
-event.ET_UNIT_ON_UNBIND_ROLE = {}
+event.ET_UNIT_ON_UNBIND_ROLE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+    [2] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+    },
+}
 
 ---@class EventParam.ET_UNIT_ON_BIND_ROLE
+---@field unit Unit # 无描述
+---@field player Player # 无描述
 
 --单位绑定玩家
-event.ET_UNIT_ON_BIND_ROLE = {}
+event.ET_UNIT_ON_BIND_ROLE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+    [2] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+    },
+}
 
 ---@class EventParam.ET_UNIT_BE_HURT
 ---@field damage py.Fixed # 受到的伤害值
@@ -1207,6 +1338,7 @@ event.ET_UNIT_ON_BIND_ROLE = {}
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
 
 --单位即将受到攻击
 event.ET_UNIT_BE_HURT = {
@@ -1250,6 +1382,12 @@ event.ET_UNIT_BE_HURT = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER
@@ -1258,6 +1396,7 @@ event.ET_UNIT_BE_HURT = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
 
 --单位即将击中其他单位
 event.ET_UNIT_HURT_OTHER = {
@@ -1301,6 +1440,12 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_BEFORE_APPLY
@@ -1309,6 +1454,7 @@ event.ET_UNIT_HURT_OTHER = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
 
 --单位即将受到攻击（计算加成后）
 event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
@@ -1352,6 +1498,12 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_BEFORE_APPLY
@@ -1360,6 +1512,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
 
 --单位即将击中其他单位（计算加成后）
 event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
@@ -1403,6 +1556,12 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_FINISH
@@ -1413,6 +1572,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
 
 --单位实际对其他单位造成伤害
 event.ET_UNIT_HURT_OTHER_FINISH = {
@@ -1472,6 +1632,12 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
+    [8] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_COMPLETE
@@ -1482,6 +1648,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
 
 --单位实际受到伤害
 event.ET_UNIT_BE_HURT_COMPLETE = {
@@ -1540,6 +1707,12 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
         lua_type = "integer",
         desc = "伤害类型",
         lua_desc = "伤害类型",
+    },
+    [8] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
     },
 }
 
@@ -1868,6 +2041,7 @@ event.ET_UNIT_ON_COMMAND = {
 ---@field target_unit Unit # 死亡单位
 ---@field ability Ability # 致命伤害所属技能
 ---@field damage_type integer # 致命伤害类型
+---@field unit Unit # 无描述
 
 --单位击杀其他单位
 event.ET_KILL_UNIT = {
@@ -1911,12 +2085,26 @@ event.ET_KILL_UNIT = {
         desc = "致命伤害类型",
         lua_desc = "致命伤害类型",
     },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
 }
 
 ---@class EventParam.ET_UNIT_BORN
+---@field unit Unit # 无描述
 
 --单位出生
-event.ET_UNIT_BORN = {}
+event.ET_UNIT_BORN = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_ENTER_BATTLE
 ---@field unit Unit # 单位
@@ -1964,9 +2152,31 @@ event.ET_UNIT_CREATE_SLAVE = {
 }
 
 ---@class EventParam.ET_ITEM_ATTACHED_ATTR_CHANGED
+---@field item Item # 无描述
+---@field attr_key string # 无描述
+---@field delta py.Fixed # 无描述
 
 --物品附加属性变化
-event.ET_ITEM_ATTACHED_ATTR_CHANGED = {}
+event.ET_ITEM_ATTACHED_ATTR_CHANGED = {
+    [1] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+    },
+    [2] = {
+        name = "__attr_key",
+        type = "string",
+        lua_name = "attr_key",
+        lua_type = "string",
+    },
+    [3] = {
+        name = "__delta",
+        type = "py.Fixed",
+        lua_name = "delta",
+        lua_type = "py.Fixed",
+    },
+}
 
 ---@class EventParam.ET_UNIT_SHOP_BUY_ITEM
 ---@field unit Unit # 购买物品单位
@@ -2305,24 +2515,56 @@ event.ET_UNIT_SHOP_BUY_WITH_COMPOSE = {
 }
 
 ---@class EventParam.ET_REVIVE_UNIT
+---@field unit Unit # 无描述
 
 --单位重生
-event.ET_REVIVE_UNIT = {}
+event.ET_REVIVE_UNIT = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UPGRADE_UNIT
+---@field unit Unit # 无描述
 
 --单位升级
-event.ET_UPGRADE_UNIT = {}
+event.ET_UPGRADE_UNIT = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_REACH_MOVE_TARGET_UNIT
+---@field unit Unit # 无描述
 
 --单位运动目标达成
-event.ET_REACH_MOVE_TARGET_UNIT = {}
+event.ET_REACH_MOVE_TARGET_UNIT = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_COLLIDE_OBSTACLE_UNIT
+---@field unit Unit # 无描述
 
 --单位碰撞到障碍
-event.ET_COLLIDE_OBSTACLE_UNIT = {}
+event.ET_COLLIDE_OBSTACLE_UNIT = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_ENTER_GRASS
 ---@field unit Unit # 单位
@@ -3810,9 +4052,17 @@ event.ET_START_MOVE_PROJECTILE = {}
 event.ET_REACH_MOVE_TARGET_PROJECTILE = {}
 
 ---@class EventParam.ET_COLLIDE_OBSTACLE_PROJECTILE
+---@field unit Unit # 无描述
 
 --投射物碰撞到障碍
-event.ET_COLLIDE_OBSTACLE_PROJECTILE = {}
+event.ET_COLLIDE_OBSTACLE_PROJECTILE = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
 
 ---@class EventParam.ET_UNIT_PRODUCE_PROJECTILE
 

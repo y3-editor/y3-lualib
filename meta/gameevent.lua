@@ -6,6 +6,17 @@ local M = {}
 
 M.alias_map = {}
 
+---@alias EventParam.未知-ET_LOGIC_UNIT_DESTROY EventParam.ET_LOGIC_UNIT_DESTROY
+M.alias_map["未知-ET_LOGIC_UNIT_DESTROY"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_LOGIC_UNIT_DESTROY",
+    key = "ET_LOGIC_UNIT_DESTROY",
+    name = "未知-ET_LOGIC_UNIT_DESTROY",
+    params = {
+    },
+}
+
 ---@alias EventParam.时间-经过 EventParam.ET_TIMEOUT
 M.alias_map["时间-经过"] = {
     __class__ = "EventAlias",
@@ -86,6 +97,37 @@ M.alias_map["游戏-开始"] = {
     },
 }
 
+---@alias EventParam.游戏-追帧完成 EventParam.ET_RELAUNCH_FRAME_CATCHING_FINISHED
+M.alias_map["游戏-追帧完成"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_RELAUNCH_FRAME_CATCHING_FINISHED",
+    name = "游戏-追帧完成",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_RECV_TRIGGER EventParam.ET_RECV_TRIGGER
+M.alias_map["未知-ET_RECV_TRIGGER"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_RECV_TRIGGER",
+    key = "ET_RECV_TRIGGER",
+    name = "未知-ET_RECV_TRIGGER",
+    params = {
+    },
+}
+
+---@alias EventParam.游戏-结束 EventParam.ET_GAME_END
+M.alias_map["游戏-结束"] = {
+    __class__ = "EventAlias",
+    desc = "游戏结束时触发",
+    key = "ET_GAME_END",
+    name = "游戏-结束",
+    params = {
+    },
+}
+
 ---@alias EventParam.游戏-暂停 EventParam.ET_GAME_PAUSE
 M.alias_map["游戏-暂停"] = {
     __class__ = "EventAlias",
@@ -102,6 +144,82 @@ M.alias_map["游戏-恢复"] = {
     desc = "游戏恢复时触发",
     key = "ET_GAME_RESUME",
     name = "游戏-恢复",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_EMPTY EventParam.ET_EMPTY
+M.alias_map["未知-ET_EMPTY"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_EMPTY",
+    key = "ET_EMPTY",
+    name = "未知-ET_EMPTY",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-TIMER_TIMEOUT EventParam.TIMER_TIMEOUT
+M.alias_map["未知-TIMER_TIMEOUT"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "TIMER_TIMEOUT",
+    key = "TIMER_TIMEOUT",
+    name = "未知-TIMER_TIMEOUT",
+    params = {
+    },
+}
+
+---@alias EventParam.游戏-昼夜变化 EventParam.ET_DAY_NIGHT_CHANGE
+M.alias_map["游戏-昼夜变化"] = {
+    __class__ = "EventAlias",
+    desc = "通过参数判断进入白天还是进入夜晚",
+    key = "ET_DAY_NIGHT_CHANGE",
+    name = "游戏-昼夜变化",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_CONTAINER_ADDED EventParam.ET_CONTAINER_ADDED
+M.alias_map["未知-ET_CONTAINER_ADDED"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_CONTAINER_ADDED",
+    key = "ET_CONTAINER_ADDED",
+    name = "未知-ET_CONTAINER_ADDED",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_CONTAINER_ACTOR_ADDED EventParam.ET_CONTAINER_ACTOR_ADDED
+M.alias_map["未知-ET_CONTAINER_ACTOR_ADDED"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_CONTAINER_ACTOR_ADDED",
+    key = "ET_CONTAINER_ACTOR_ADDED",
+    name = "未知-ET_CONTAINER_ACTOR_ADDED",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_CONTAINER_ACTOR_REMOVED EventParam.ET_CONTAINER_ACTOR_REMOVED
+M.alias_map["未知-ET_CONTAINER_ACTOR_REMOVED"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_CONTAINER_ACTOR_REMOVED",
+    key = "ET_CONTAINER_ACTOR_REMOVED",
+    name = "未知-ET_CONTAINER_ACTOR_REMOVED",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_ACTOR_ATTR_UPDATED EventParam.ET_ACTOR_ATTR_UPDATED
+M.alias_map["未知-ET_ACTOR_ATTR_UPDATED"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ACTOR_ATTR_UPDATED",
+    key = "ET_ACTOR_ATTR_UPDATED",
+    name = "未知-ET_ACTOR_ATTR_UPDATED",
     params = {
     },
 }
@@ -168,6 +286,28 @@ M.alias_map["玩家-掉线"] = {
     },
 }
 
+---@alias EventParam.未知-ET_AI_TAKE_CONTROL EventParam.ET_AI_TAKE_CONTROL
+M.alias_map["未知-ET_AI_TAKE_CONTROL"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_AI_TAKE_CONTROL",
+    key = "ET_AI_TAKE_CONTROL",
+    name = "未知-ET_AI_TAKE_CONTROL",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK EventParam.ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK
+M.alias_map["未知-ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK",
+    key = "ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK",
+    name = "未知-ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK",
+    params = {
+    },
+}
+
 ---@alias EventParam.玩家-使用平台道具 EventParam.ET_ROLE_USE_STORE_ITEM_END
 M.alias_map["玩家-使用平台道具"] = {
     __class__ = "EventAlias",
@@ -180,6 +320,17 @@ M.alias_map["玩家-使用平台道具"] = {
             name = "store_key",
             type = "py.StoreKey",
         },
+    },
+}
+
+---@alias EventParam.未知-ET_CONSUME_STORE_ITEM EventParam.ET_CONSUME_STORE_ITEM
+M.alias_map["未知-ET_CONSUME_STORE_ITEM"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_CONSUME_STORE_ITEM",
+    key = "ET_CONSUME_STORE_ITEM",
+    name = "未知-ET_CONSUME_STORE_ITEM",
+    params = {
     },
 }
 
@@ -220,6 +371,17 @@ M.alias_map["玩家-发送指定消息"] = {
             name = "msg",
             type = "string",
         },
+    },
+}
+
+---@alias EventParam.未知-ET_ROLE_INPUT_ACTIVATION_CODE EventParam.ET_ROLE_INPUT_ACTIVATION_CODE
+M.alias_map["未知-ET_ROLE_INPUT_ACTIVATION_CODE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ROLE_INPUT_ACTIVATION_CODE",
+    key = "ET_ROLE_INPUT_ACTIVATION_CODE",
+    name = "未知-ET_ROLE_INPUT_ACTIVATION_CODE",
+    params = {
     },
 }
 
@@ -283,12 +445,73 @@ M.alias_map["单位-失去科技"] = {
     },
 }
 
+---@alias EventParam.玩家-关系变化 EventParam.ET_ROLE_CHANGE_RELATION
+M.alias_map["玩家-关系变化"] = {
+    __class__ = "EventAlias",
+    desc = "玩家之间的关系改变时触发",
+    key = "ET_ROLE_CHANGE_RELATION",
+    name = "玩家-关系变化",
+    params = {
+    },
+}
+
 ---@alias EventParam.技能-建造完成 EventParam.ET_ABILITY_BUILD_FINISH
 M.alias_map["技能-建造完成"] = {
     __class__ = "EventAlias",
     desc = "通过建造类技能建造完成时触发，可以获取到被建造出来的单位",
     key = "ET_ABILITY_BUILD_FINISH",
     name = "技能-建造完成",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-普攻命中 EventParam.ET_ATTACK_HIT_TARGET
+M.alias_map["单位-普攻命中"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ATTACK_HIT_TARGET",
+    name = "单位-普攻命中",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-普攻造成伤害 EventParam.ET_ATTACK_HURT
+M.alias_map["单位-普攻造成伤害"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ATTACK_HURT",
+    name = "单位-普攻造成伤害",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-冷却变化 EventParam.ET_ABILITY_CD_CHANGE
+M.alias_map["技能-冷却变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ABILITY_CD_CHANGE",
+    name = "技能-冷却变化",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_ACTIVE_ABILITY_CHANGED EventParam.ET_ACTIVE_ABILITY_CHANGED
+M.alias_map["未知-ET_ACTIVE_ABILITY_CHANGED"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ACTIVE_ABILITY_CHANGED",
+    key = "ET_ACTIVE_ABILITY_CHANGED",
+    name = "未知-ET_ACTIVE_ABILITY_CHANGED",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-层数变化 EventParam.ET_ABILITY_STACK_CHANGE
+M.alias_map["技能-层数变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ABILITY_STACK_CHANGE",
+    name = "技能-层数变化",
     params = {
     },
 }
@@ -303,6 +526,109 @@ M.alias_map["技能-学习"] = {
     },
 }
 
+---@alias EventParam.技能-充能进度变化 EventParam.ET_ABILITY_STACK_CD_CHANGE
+M.alias_map["技能-充能进度变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ABILITY_STACK_CD_CHANGE",
+    name = "技能-充能进度变化",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-可用状态变化 EventParam.ET_ABILITY_FORBIDDEN_CHANGED
+M.alias_map["技能-可用状态变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ABILITY_FORBIDDEN_CHANGED",
+    name = "技能-可用状态变化",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-沉默状态变化 EventParam.ET_ABILITY_SILENT_CHANGED
+M.alias_map["技能-沉默状态变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ABILITY_SILENT_CHANGED",
+    name = "技能-沉默状态变化",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-图标变化 EventParam.ET_ABILITY_ICON_CHANGED
+M.alias_map["技能-图标变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ABILITY_ICON_CHANGED",
+    name = "技能-图标变化",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-名称变化 EventParam.ET_UNIT_NAME_CHANGE
+M.alias_map["单位-名称变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_UNIT_NAME_CHANGE",
+    name = "单位-名称变化",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-小地图图标变化 EventParam.ET_UNIT_CHANGE_MINI_MAP_ICON
+M.alias_map["单位-小地图图标变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_UNIT_CHANGE_MINI_MAP_ICON",
+    name = "单位-小地图图标变化",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-头像变化 EventParam.ET_UNIT_ICON_CHANGE
+M.alias_map["单位-头像变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_UNIT_ICON_CHANGE",
+    name = "单位-头像变化",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_ROLE_UNIT_CHANGE EventParam.ET_ROLE_UNIT_CHANGE
+M.alias_map["未知-ET_ROLE_UNIT_CHANGE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ROLE_UNIT_CHANGE",
+    key = "ET_ROLE_UNIT_CHANGE",
+    name = "未知-ET_ROLE_UNIT_CHANGE",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_ROLE_UNIT_TAG_CHANGE EventParam.ET_ROLE_UNIT_TAG_CHANGE
+M.alias_map["未知-ET_ROLE_UNIT_TAG_CHANGE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ROLE_UNIT_TAG_CHANGE",
+    key = "ET_ROLE_UNIT_TAG_CHANGE",
+    name = "未知-ET_ROLE_UNIT_TAG_CHANGE",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_ENTER_MOVER_STATE EventParam.ET_UNIT_ENTER_MOVER_STATE
+M.alias_map["未知-ET_UNIT_ENTER_MOVER_STATE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_ENTER_MOVER_STATE",
+    key = "ET_UNIT_ENTER_MOVER_STATE",
+    name = "未知-ET_UNIT_ENTER_MOVER_STATE",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-开始移动 EventParam.ET_UNIT_START_MOVE
 M.alias_map["单位-开始移动"] = {
     __class__ = "EventAlias",
@@ -313,12 +639,42 @@ M.alias_map["单位-开始移动"] = {
     },
 }
 
+---@alias EventParam.单位-结束移动 EventParam.ET_UNIT_END_MOVE
+M.alias_map["单位-结束移动"] = {
+    __class__ = "EventAlias",
+    desc = "单位结束移动时触发",
+    key = "ET_UNIT_END_MOVE",
+    name = "单位-结束移动",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-移除 EventParam.ET_UNIT_REMOVE
 M.alias_map["单位-移除"] = {
     __class__ = "EventAlias",
     desc = "单位被移除后触发",
     key = "ET_UNIT_REMOVE",
     name = "单位-移除",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-移除后 EventParam.ET_UNIT_DELETE
+M.alias_map["单位-移除后"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_UNIT_DELETE",
+    name = "单位-移除后",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-传送结束 EventParam.ET_UNIT_END_TRANSLATE
+M.alias_map["单位-传送结束"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_UNIT_END_TRANSLATE",
+    name = "单位-传送结束",
     params = {
     },
 }
@@ -360,6 +716,28 @@ M.alias_map["单位-死亡"] = {
     desc = "单位死亡后触发",
     key = "ET_UNIT_DIE",
     name = "单位-死亡",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_ON_UNBIND_ROLE EventParam.ET_UNIT_ON_UNBIND_ROLE
+M.alias_map["未知-ET_UNIT_ON_UNBIND_ROLE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_ON_UNBIND_ROLE",
+    key = "ET_UNIT_ON_UNBIND_ROLE",
+    name = "未知-ET_UNIT_ON_UNBIND_ROLE",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_ON_BIND_ROLE EventParam.ET_UNIT_ON_BIND_ROLE
+M.alias_map["未知-ET_UNIT_ON_BIND_ROLE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_ON_BIND_ROLE",
+    key = "ET_UNIT_ON_BIND_ROLE",
+    name = "未知-ET_UNIT_ON_BIND_ROLE",
     params = {
     },
 }
@@ -454,12 +832,77 @@ M.alias_map["单位-受到治疗时"] = {
     },
 }
 
+---@alias EventParam.玩家-属性图标变化 EventParam.ET_RES_ICON_CHANGED
+M.alias_map["玩家-属性图标变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_RES_ICON_CHANGED",
+    name = "玩家-属性图标变化",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-施放技能 EventParam.ET_UNIT_RELEASE_ABILITY
 M.alias_map["单位-施放技能"] = {
     __class__ = "EventAlias",
     desc = "单位施放技能时触发",
     key = "ET_UNIT_RELEASE_ABILITY",
     name = "单位-施放技能",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_RELEASE_ABILITY_START EventParam.ET_UNIT_RELEASE_ABILITY_START
+M.alias_map["未知-ET_UNIT_RELEASE_ABILITY_START"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_RELEASE_ABILITY_START",
+    key = "ET_UNIT_RELEASE_ABILITY_START",
+    name = "未知-ET_UNIT_RELEASE_ABILITY_START",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_RELEASE_ABILITY_END EventParam.ET_UNIT_RELEASE_ABILITY_END
+M.alias_map["未知-ET_UNIT_RELEASE_ABILITY_END"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_RELEASE_ABILITY_END",
+    key = "ET_UNIT_RELEASE_ABILITY_END",
+    name = "未知-ET_UNIT_RELEASE_ABILITY_END",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_RELEASE_MAGIC_BOOK EventParam.ET_UNIT_RELEASE_MAGIC_BOOK
+M.alias_map["未知-ET_UNIT_RELEASE_MAGIC_BOOK"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_RELEASE_MAGIC_BOOK",
+    key = "ET_UNIT_RELEASE_MAGIC_BOOK",
+    name = "未知-ET_UNIT_RELEASE_MAGIC_BOOK",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_LEVEL_CHANGE EventParam.ET_UNIT_LEVEL_CHANGE
+M.alias_map["未知-ET_UNIT_LEVEL_CHANGE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_LEVEL_CHANGE",
+    key = "ET_UNIT_LEVEL_CHANGE",
+    name = "未知-ET_UNIT_LEVEL_CHANGE",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_EXP_CHANGE EventParam.ET_UNIT_EXP_CHANGE
+M.alias_map["未知-ET_UNIT_EXP_CHANGE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_EXP_CHANGE",
+    key = "ET_UNIT_EXP_CHANGE",
+    name = "未知-ET_UNIT_EXP_CHANGE",
     params = {
     },
 }
@@ -534,6 +977,28 @@ M.alias_map["单位-脱离战斗"] = {
     },
 }
 
+---@alias EventParam.未知-ET_UNIT_CREATE_SLAVE EventParam.ET_UNIT_CREATE_SLAVE
+M.alias_map["未知-ET_UNIT_CREATE_SLAVE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_CREATE_SLAVE",
+    key = "ET_UNIT_CREATE_SLAVE",
+    name = "未知-ET_UNIT_CREATE_SLAVE",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_ITEM_ATTACHED_ATTR_CHANGED EventParam.ET_ITEM_ATTACHED_ATTR_CHANGED
+M.alias_map["未知-ET_ITEM_ATTACHED_ATTR_CHANGED"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ITEM_ATTACHED_ATTR_CHANGED",
+    key = "ET_ITEM_ATTACHED_ATTR_CHANGED",
+    name = "未知-ET_ITEM_ATTACHED_ATTR_CHANGED",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-购买物品 EventParam.ET_UNIT_SHOP_BUY_ITEM
 M.alias_map["单位-购买物品"] = {
     __class__ = "EventAlias",
@@ -560,6 +1025,36 @@ M.alias_map["单位-出售物品"] = {
     desc = "出售物品时触发",
     key = "ET_UNIT_ITEM_SELL",
     name = "单位-出售物品",
+    params = {
+    },
+}
+
+---@alias EventParam.商店-商品变化 EventParam.ET_SHOP_ITEM_CHANGED
+M.alias_map["商店-商品变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_SHOP_ITEM_CHANGED",
+    name = "商店-商品变化",
+    params = {
+    },
+}
+
+---@alias EventParam.商店-库存变化 EventParam.ET_SHOP_STOCK_CHANGED
+M.alias_map["商店-库存变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_SHOP_STOCK_CHANGED",
+    name = "商店-库存变化",
+    params = {
+    },
+}
+
+---@alias EventParam.商店-售价变化 EventParam.ET_SHOP_RES_COST_CHANGED
+M.alias_map["商店-售价变化"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_SHOP_RES_COST_CHANGED",
+    name = "商店-售价变化",
     params = {
     },
 }
@@ -604,6 +1099,28 @@ M.alias_map["单位-升级"] = {
     },
 }
 
+---@alias EventParam.未知-ET_REACH_MOVE_TARGET_UNIT EventParam.ET_REACH_MOVE_TARGET_UNIT
+M.alias_map["未知-ET_REACH_MOVE_TARGET_UNIT"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_REACH_MOVE_TARGET_UNIT",
+    key = "ET_REACH_MOVE_TARGET_UNIT",
+    name = "未知-ET_REACH_MOVE_TARGET_UNIT",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_COLLIDE_OBSTACLE_UNIT EventParam.ET_COLLIDE_OBSTACLE_UNIT
+M.alias_map["未知-ET_COLLIDE_OBSTACLE_UNIT"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_COLLIDE_OBSTACLE_UNIT",
+    key = "ET_COLLIDE_OBSTACLE_UNIT",
+    name = "未知-ET_COLLIDE_OBSTACLE_UNIT",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-进入草丛 EventParam.ET_UNIT_ENTER_GRASS
 M.alias_map["单位-进入草丛"] = {
     __class__ = "EventAlias",
@@ -624,12 +1141,45 @@ M.alias_map["单位-离开草丛"] = {
     },
 }
 
+---@alias EventParam.未知-ET_MAP_VISIBILITY_CHANGE EventParam.ET_MAP_VISIBILITY_CHANGE
+M.alias_map["未知-ET_MAP_VISIBILITY_CHANGE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_MAP_VISIBILITY_CHANGE",
+    key = "ET_MAP_VISIBILITY_CHANGE",
+    name = "未知-ET_MAP_VISIBILITY_CHANGE",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-改变所属 EventParam.ET_UNIT_ROLE_CHANGED
 M.alias_map["单位-改变所属"] = {
     __class__ = "EventAlias",
     desc = "单位的所有者玩家发生变化时触发",
     key = "ET_UNIT_ROLE_CHANGED",
     name = "单位-改变所属",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_KV_CHANGE EventParam.ET_UNIT_KV_CHANGE
+M.alias_map["未知-ET_UNIT_KV_CHANGE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_KV_CHANGE",
+    key = "ET_UNIT_KV_CHANGE",
+    name = "未知-ET_UNIT_KV_CHANGE",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_UNIT_MUL_KV_CHANGE EventParam.ET_UNIT_MUL_KV_CHANGE
+M.alias_map["未知-ET_UNIT_MUL_KV_CHANGE"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_UNIT_MUL_KV_CHANGE",
+    key = "ET_UNIT_MUL_KV_CHANGE",
+    name = "未知-ET_UNIT_MUL_KV_CHANGE",
     params = {
     },
 }
@@ -734,6 +1284,17 @@ M.alias_map["施法-即将开始"] = {
     },
 }
 
+---@alias EventParam.未知-ET_ABILITY_CS_END EventParam.ET_ABILITY_CS_END
+M.alias_map["未知-ET_ABILITY_CS_END"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ABILITY_CS_END",
+    key = "ET_ABILITY_CS_END",
+    name = "未知-ET_ABILITY_CS_END",
+    params = {
+    },
+}
+
 ---@alias EventParam.施法-开始 EventParam.ET_ABILITY_PS_START
 M.alias_map["施法-开始"] = {
     __class__ = "EventAlias",
@@ -750,6 +1311,17 @@ M.alias_map["施法-引导"] = {
     desc = "前摇完成后，持续引导前触发",
     key = "ET_ABILITY_PS_END",
     name = "施法-引导",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_ITEM_ABILITY_PS_END EventParam.ET_ITEM_ABILITY_PS_END
+M.alias_map["未知-ET_ITEM_ABILITY_PS_END"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ITEM_ABILITY_PS_END",
+    key = "ET_ITEM_ABILITY_PS_END",
+    name = "未知-ET_ITEM_ABILITY_PS_END",
     params = {
     },
 }
@@ -784,6 +1356,17 @@ M.alias_map["施法-结束"] = {
     },
 }
 
+---@alias EventParam.未知-ET_ABILITY_CS_INTERRUPT EventParam.ET_ABILITY_CS_INTERRUPT
+M.alias_map["未知-ET_ABILITY_CS_INTERRUPT"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ABILITY_CS_INTERRUPT",
+    key = "ET_ABILITY_CS_INTERRUPT",
+    name = "未知-ET_ABILITY_CS_INTERRUPT",
+    params = {
+    },
+}
+
 ---@alias EventParam.施法-打断开始 EventParam.ET_ABILITY_PS_INTERRUPT
 M.alias_map["施法-打断开始"] = {
     __class__ = "EventAlias",
@@ -810,6 +1393,17 @@ M.alias_map["施法-打断出手"] = {
     desc = "在“出手”到“完成”之间被打断",
     key = "ET_ABILITY_CST_INTERRUPT",
     name = "施法-打断出手",
+    params = {
+    },
+}
+
+---@alias EventParam.未知-ET_ABILITY_BS_INTERRUPT EventParam.ET_ABILITY_BS_INTERRUPT
+M.alias_map["未知-ET_ABILITY_BS_INTERRUPT"] = {
+    __class__ = "EventAlias",
+    _deprecated = true,
+    desc = "ET_ABILITY_BS_INTERRUPT",
+    key = "ET_ABILITY_BS_INTERRUPT",
+    name = "未知-ET_ABILITY_BS_INTERRUPT",
     params = {
     },
 }
@@ -850,6 +1444,26 @@ M.alias_map["技能-交换"] = {
     desc = "技能交换后触发",
     key = "ET_ABILITY_SWITCH",
     name = "技能-交换",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-禁用 EventParam.ET_ABILITY_DISABLE
+M.alias_map["技能-禁用"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ABILITY_DISABLE",
+    name = "技能-禁用",
+    params = {
+    },
+}
+
+---@alias EventParam.技能-启用 EventParam.ET_ABILITY_ENABLE
+M.alias_map["技能-启用"] = {
+    __class__ = "EventAlias",
+    desc = "",
+    key = "ET_ABILITY_ENABLE",
+    name = "技能-启用",
     params = {
     },
 }
@@ -1486,36 +2100,72 @@ M.alias_map["未知-ET_UNIT_3D_ACTIVE"] = {
 }
 
 ---@class Game
+---@field event fun(self: self, event: "未知-ET_LOGIC_UNIT_DESTROY", callback: fun(trg: Trigger, data: EventParam.未知-ET_LOGIC_UNIT_DESTROY)): Trigger
 ---@field event fun(self: self, event: "时间-经过", time: number, callback: fun(trg: Trigger, data: EventParam.时间-经过)): Trigger
 ---@field event fun(self: self, event: "时间-周期", time: number, callback: fun(trg: Trigger, data: EventParam.时间-周期)): Trigger
 ---@field event fun(self: self, event: "时间-经过帧", count: integer, callback: fun(trg: Trigger, data: EventParam.时间-经过帧)): Trigger
 ---@field event fun(self: self, event: "时间-周期帧", count: integer, callback: fun(trg: Trigger, data: EventParam.时间-周期帧)): Trigger
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-开始", callback: fun(trg: Trigger, data: EventParam.游戏-开始)): Trigger
+---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
+---@field event fun(self: self, event: "未知-ET_RECV_TRIGGER", callback: fun(trg: Trigger, data: EventParam.未知-ET_RECV_TRIGGER)): Trigger
+---@field event fun(self: self, event: "游戏-结束", callback: fun(trg: Trigger, data: EventParam.游戏-结束)): Trigger
 ---@field event fun(self: self, event: "游戏-暂停", callback: fun(trg: Trigger, data: EventParam.游戏-暂停)): Trigger
 ---@field event fun(self: self, event: "游戏-恢复", callback: fun(trg: Trigger, data: EventParam.游戏-恢复)): Trigger
+---@field event fun(self: self, event: "未知-ET_EMPTY", callback: fun(trg: Trigger, data: EventParam.未知-ET_EMPTY)): Trigger
+---@field event fun(self: self, event: "未知-TIMER_TIMEOUT", callback: fun(trg: Trigger, data: EventParam.未知-TIMER_TIMEOUT)): Trigger
+---@field event fun(self: self, event: "游戏-昼夜变化", callback: fun(trg: Trigger, data: EventParam.游戏-昼夜变化)): Trigger
+---@field event fun(self: self, event: "未知-ET_CONTAINER_ADDED", callback: fun(trg: Trigger, data: EventParam.未知-ET_CONTAINER_ADDED)): Trigger
+---@field event fun(self: self, event: "未知-ET_CONTAINER_ACTOR_ADDED", callback: fun(trg: Trigger, data: EventParam.未知-ET_CONTAINER_ACTOR_ADDED)): Trigger
+---@field event fun(self: self, event: "未知-ET_CONTAINER_ACTOR_REMOVED", callback: fun(trg: Trigger, data: EventParam.未知-ET_CONTAINER_ACTOR_REMOVED)): Trigger
+---@field event fun(self: self, event: "未知-ET_ACTOR_ATTR_UPDATED", callback: fun(trg: Trigger, data: EventParam.未知-ET_ACTOR_ATTR_UPDATED)): Trigger
 ---@field event fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
 ---@field event fun(self: self, event: "区域-离开", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
 ---@field event fun(self: self, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
 ---@field event fun(self: self, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
 ---@field event fun(self: self, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
+---@field event fun(self: self, event: "未知-ET_AI_TAKE_CONTROL", callback: fun(trg: Trigger, data: EventParam.未知-ET_AI_TAKE_CONTROL)): Trigger
+---@field event fun(self: self, event: "未知-ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK", callback: fun(trg: Trigger, data: EventParam.未知-ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK)): Trigger
 ---@field event fun(self: self, event: "玩家-使用平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-使用平台道具)): Trigger
+---@field event fun(self: self, event: "未知-ET_CONSUME_STORE_ITEM", callback: fun(trg: Trigger, data: EventParam.未知-ET_CONSUME_STORE_ITEM)): Trigger
 ---@field event fun(self: self, event: "玩家-持有平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-持有平台道具)): Trigger
 ---@field event fun(self: self, event: "玩家-属性变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性变化)): Trigger
 ---@field event fun(self: self, event: "玩家-发送指定消息", msg: string, callback: fun(trg: Trigger, data: EventParam.玩家-发送指定消息)): Trigger
+---@field event fun(self: self, event: "未知-ET_ROLE_INPUT_ACTIVATION_CODE", callback: fun(trg: Trigger, data: EventParam.未知-ET_ROLE_INPUT_ACTIVATION_CODE)): Trigger
 ---@field event fun(self: self, event: "玩家-科技提升", callback: fun(trg: Trigger, data: EventParam.玩家-科技提升)): Trigger
 ---@field event fun(self: self, event: "玩家-科技降低", callback: fun(trg: Trigger, data: EventParam.玩家-科技降低)): Trigger
 ---@field event fun(self: self, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
 ---@field event fun(self: self, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
 ---@field event fun(self: self, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
 ---@field event fun(self: self, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
+---@field event fun(self: self, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
 ---@field event fun(self: self, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
+---@field event fun(self: self, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
+---@field event fun(self: self, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
+---@field event fun(self: self, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
+---@field event fun(self: self, event: "未知-ET_ACTIVE_ABILITY_CHANGED", callback: fun(trg: Trigger, data: EventParam.未知-ET_ACTIVE_ABILITY_CHANGED)): Trigger
+---@field event fun(self: self, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
 ---@field event fun(self: self, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
+---@field event fun(self: self, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
+---@field event fun(self: self, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
+---@field event fun(self: self, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
+---@field event fun(self: self, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
+---@field event fun(self: self, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
+---@field event fun(self: self, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
+---@field event fun(self: self, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
+---@field event fun(self: self, event: "未知-ET_ROLE_UNIT_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_ROLE_UNIT_CHANGE)): Trigger
+---@field event fun(self: self, event: "未知-ET_ROLE_UNIT_TAG_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_ROLE_UNIT_TAG_CHANGE)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_ENTER_MOVER_STATE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_ENTER_MOVER_STATE)): Trigger
 ---@field event fun(self: self, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
+---@field event fun(self: self, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
 ---@field event fun(self: self, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
+---@field event fun(self: self, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
+---@field event fun(self: self, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
 ---@field event fun(self: self, event: "单位-属性变化", unit: Unit, attr: string, callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
 ---@field event fun(self: self, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
 ---@field event fun(self: self, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_ON_UNBIND_ROLE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_ON_UNBIND_ROLE)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_ON_BIND_ROLE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_ON_BIND_ROLE)): Trigger
 ---@field event fun(self: self, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
 ---@field event fun(self: self, event: "单位-造成伤害前", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害前)): Trigger
 ---@field event fun(self: self, event: "单位-受到伤害时", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害时)): Trigger
@@ -1525,7 +2175,13 @@ M.alias_map["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "单位-受到治疗前", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗前)): Trigger
 ---@field event fun(self: self, event: "单位-受到治疗后", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗后)): Trigger
 ---@field event fun(self: self, event: "单位-受到治疗时", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗时)): Trigger
+---@field event fun(self: self, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
 ---@field event fun(self: self, event: "单位-施放技能", callback: fun(trg: Trigger, data: EventParam.单位-施放技能)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_RELEASE_ABILITY_START", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_RELEASE_ABILITY_START)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_RELEASE_ABILITY_END", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_RELEASE_ABILITY_END)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_RELEASE_MAGIC_BOOK", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_RELEASE_MAGIC_BOOK)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_LEVEL_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_LEVEL_CHANGE)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_EXP_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_EXP_CHANGE)): Trigger
 ---@field event fun(self: self, event: "单位-获得经验前", callback: fun(trg: Trigger, data: EventParam.单位-获得经验前)): Trigger
 ---@field event fun(self: self, event: "单位-获得经验后", callback: fun(trg: Trigger, data: EventParam.单位-获得经验后)): Trigger
 ---@field event fun(self: self, event: "单位-接收命令", callback: fun(trg: Trigger, data: EventParam.单位-接收命令)): Trigger
@@ -1533,16 +2189,26 @@ M.alias_map["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_CREATE_SLAVE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_CREATE_SLAVE)): Trigger
+---@field event fun(self: self, event: "未知-ET_ITEM_ATTACHED_ATTR_CHANGED", callback: fun(trg: Trigger, data: EventParam.未知-ET_ITEM_ATTACHED_ATTR_CHANGED)): Trigger
 ---@field event fun(self: self, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
 ---@field event fun(self: self, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
 ---@field event fun(self: self, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
+---@field event fun(self: self, event: "商店-商品变化", callback: fun(trg: Trigger, data: EventParam.商店-商品变化)): Trigger
+---@field event fun(self: self, event: "商店-库存变化", callback: fun(trg: Trigger, data: EventParam.商店-库存变化)): Trigger
+---@field event fun(self: self, event: "商店-售价变化", callback: fun(trg: Trigger, data: EventParam.商店-售价变化)): Trigger
 ---@field event fun(self: self, event: "单位-物品合成", callback: fun(trg: Trigger, data: EventParam.单位-物品合成)): Trigger
 ---@field event fun(self: self, event: "单位-购买物品合成", callback: fun(trg: Trigger, data: EventParam.单位-购买物品合成)): Trigger
 ---@field event fun(self: self, event: "单位-复活", callback: fun(trg: Trigger, data: EventParam.单位-复活)): Trigger
 ---@field event fun(self: self, event: "单位-升级", callback: fun(trg: Trigger, data: EventParam.单位-升级)): Trigger
+---@field event fun(self: self, event: "未知-ET_REACH_MOVE_TARGET_UNIT", callback: fun(trg: Trigger, data: EventParam.未知-ET_REACH_MOVE_TARGET_UNIT)): Trigger
+---@field event fun(self: self, event: "未知-ET_COLLIDE_OBSTACLE_UNIT", callback: fun(trg: Trigger, data: EventParam.未知-ET_COLLIDE_OBSTACLE_UNIT)): Trigger
 ---@field event fun(self: self, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
 ---@field event fun(self: self, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
+---@field event fun(self: self, event: "未知-ET_MAP_VISIBILITY_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_MAP_VISIBILITY_CHANGE)): Trigger
 ---@field event fun(self: self, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_KV_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_KV_CHANGE)): Trigger
+---@field event fun(self: self, event: "未知-ET_UNIT_MUL_KV_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_MUL_KV_CHANGE)): Trigger
 ---@field event fun(self: self, event: "单位类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件成立)): Trigger
 ---@field event fun(self: self, event: "单位类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件不成立)): Trigger
 ---@field event fun(self: self, event: "物品类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.物品类型-前置条件成立)): Trigger
@@ -1553,18 +2219,24 @@ M.alias_map["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "科技类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件不成立)): Trigger
 ---@field event fun(self: self, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
 ---@field event fun(self: self, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
+---@field event fun(self: self, event: "未知-ET_ABILITY_CS_END", callback: fun(trg: Trigger, data: EventParam.未知-ET_ABILITY_CS_END)): Trigger
 ---@field event fun(self: self, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
 ---@field event fun(self: self, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
+---@field event fun(self: self, event: "未知-ET_ITEM_ABILITY_PS_END", callback: fun(trg: Trigger, data: EventParam.未知-ET_ITEM_ABILITY_PS_END)): Trigger
 ---@field event fun(self: self, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
 ---@field event fun(self: self, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
 ---@field event fun(self: self, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
+---@field event fun(self: self, event: "未知-ET_ABILITY_CS_INTERRUPT", callback: fun(trg: Trigger, data: EventParam.未知-ET_ABILITY_CS_INTERRUPT)): Trigger
 ---@field event fun(self: self, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: self, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: self, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: self, event: "未知-ET_ABILITY_BS_INTERRUPT", callback: fun(trg: Trigger, data: EventParam.未知-ET_ABILITY_BS_INTERRUPT)): Trigger
 ---@field event fun(self: self, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: self, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: self, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
 ---@field event fun(self: self, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
+---@field event fun(self: self, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
+---@field event fun(self: self, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: self, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
 ---@field event fun(self: self, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
 ---@field event fun(self: self, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
