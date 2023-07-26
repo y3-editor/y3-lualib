@@ -435,10 +435,10 @@ function M:set_press_image_type(img)
     GameAPI.set_ui_comp_press_image(self.player.handle, self.handle, img)
 end
 
---设置界面组件的对齐方式
+--设置文本的对齐方式
 ---@param h? y3.Const.UIHAlignmentType # 横向对齐方式
 ---@param v? y3.Const.UIVAlignmentType # 纵向对齐方式
-function M:set_alignment(h, v)
+function M:set_text_alignment(h, v)
     if h then
         GameAPI.set_ui_comp_align(self.player.handle, self.handle, y3.const.UIHAlignmentType[h])
     end
@@ -618,12 +618,10 @@ end
 
 --获取指定命名的子控件
 ---@param name string
----@return UI? ui_comp ui控件
+---@return UI ui_comp ui控件
 function M:get_child(name)
     local py_ui = GameAPI.get_comp_by_path(self.player.handle, self.handle, name)
-    if not py_ui then
-        return nil
-    end
+    assert(py_ui, ('子控件[%s]不存在'):format(name))
     return y3.ui.get_by_handle(self.player, py_ui)
 end
 
