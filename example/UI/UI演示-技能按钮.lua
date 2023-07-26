@@ -25,5 +25,3 @@ end
 y3.game:event('游戏-初始化', function ()
     init_ui()
 end)
-
-print(collectgarbage 'count')

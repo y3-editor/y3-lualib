@@ -637,18 +637,6 @@ function M:get_height()
     return GameAPI.get_ui_comp_height(self.handle)
 end
 
---获取屏幕横向分辨率
----@return integer horizontal_res 横向分辨率
-function M:get_screen_horizontal_resolution()
-    return GameAPI.get_screen_x_resolution()
-end
-
---获取屏幕纵向分辨率
----@return integer vertical_res 纵向分辨率
-function M:get_screen_vertical_resolution()
-    return GameAPI.get_screen_y_resolution()
-end
-
 --获得界面控件的父控件
 ---@return UI ui_comp ui控件
 function M:get_parent()
@@ -687,5 +675,30 @@ end
 function M:set_nearby_micro_switch(switch)
     GameAPI.set_ui_comp_chat_channel(self.player.handle, self.handle, switch)
 end
+
+--获取屏幕横向分辨率
+---@return integer horizontal_res 横向分辨率
+function M.get_screen_width()
+    return GameAPI.get_screen_x_resolution()
+end
+
+--获取屏幕纵向分辨率
+---@return integer vertical_res 纵向分辨率
+function M.get_screen_height()
+    return GameAPI.get_screen_y_resolution()
+end
+
+-- 获取窗口宽度
+---@return integer
+function M:get_window_width()
+    return GameAPI.get_window_real_x_size()
+end
+
+-- 获取窗口高度
+---@return integer
+function M:get_window_height()
+    return GameAPI.get_window_real_y_size()
+end
+
 
 return M
