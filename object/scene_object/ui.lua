@@ -42,7 +42,7 @@ end
 ---@param  comp_type y3.Const.UIComponentType ui控件
 ---@return UI 返回在lua层初始化后的lua层技能实例
 function M.create_ui(player, parent_ui, comp_type)
-    local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 0)
+    local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 7)
     return y3.ui.get_by_handle(player, py_ui)
 end
 
@@ -436,9 +436,15 @@ function M:set_press_image_type(img)
 end
 
 --设置界面组件的对齐方式
----@param  type integer 对齐方式
-function M:set_alignment_type(type)
-    GameAPI.set_ui_comp_align(self.player.handle, self.handle, type)
+---@param h? y3.Const.UIHAlignmentType # 横向对齐方式
+---@param v? y3.Const.UIVAlignmentType # 纵向对齐方式
+function M:set_alignment(h, v)
+    if h then
+        GameAPI.set_ui_comp_align(self.player.handle, self.handle, y3.const.UIHAlignmentType[h])
+    end
+    if v then
+        GameAPI.set_ui_comp_align(self.player.handle, self.handle, y3.const.UIVAlignmentType[v])
+    end
 end
 
 --开启绘制单位路径线
@@ -534,67 +540,67 @@ end
 
 --获取本地控件相对坐标的X
 ---@return number x x相对坐标
-function M:get_widget_relative_x_coordinate()
+function M:get_relative_x()
     return GameAPI.get_ui_comp_pos_x(self.handle)
 end
 
 --获取本地控件相对坐标的Y
 ---@return number y y坐标
-function M:get_widget_relative_y_coordinate()
+function M:get_relative_y()
     return GameAPI.get_ui_comp_pos_y(self.handle)
 end
 
 --获取本地控件绝对坐标的X
 ---@return number x x绝对坐标
-function M:get_widget_absolute_x_coordinate()
+function M:get_absolute_x()
     return GameAPI.get_ui_comp_world_pos_x(self.handle)
 end
 
 --获取本地控件绝对坐标的Y
 ---@return number y y绝对坐标
-function M:get_widget_absolute_y_coordinate()
+function M:get_absolute_y()
     return GameAPI.get_ui_comp_world_pos_y(self.handle)
 end
 
 --获取本地控件相对旋转
 ---@return number rot 相对旋转
-function M:get_widget_relative_rotation()
+function M:get_relative_rotation()
     return GameAPI.get_ui_comp_rotation(self.handle)
 end
 
 --获取本地控件绝对旋转
 ---@return number rot 绝对旋转
-function M:get_widget_absolute_rotation()
+function M:get_absolute_rotation()
     return GameAPI.get_ui_comp_world_rotation(self.handle)
 end
 
 --获取本地控件相对缩放的X
 ---@return number x x相对缩放
-function M:get_widget_relative_scale_x_coordinate()
+function M:get_relative_scale_x()
     return GameAPI.get_ui_comp_scale_x(self.handle)
 end
 
 --获取本地控件相对缩放的Y
 ---@return number y y绝对缩放
-function M:get_widget_relative_scale_y_coordinate()
+function M:get_relative_scale_y()
     return GameAPI.get_ui_comp_scale_y(self.handle)
 end
 
 --获取本地控件绝对缩放的X
 ---@return number x x绝对缩放
-function M:get_widget_absolute_scale_x_coordinate()
+function M:get_absolute_scale_x()
     return GameAPI.get_ui_comp_world_scale_x(self.handle)
 end
 
 --获取本地控件绝对缩放的Y
 ---@return number y y绝对缩放
-function M:get_widget_absolute_scale_y_coordinate()
+function M:get_absolute_scale_y()
     return GameAPI.get_ui_comp_world_scale_y(self.handle)
 end
 
 --界面控件转化为字符串
 ---@return string str 字符串
-function M:convert_ui_widget_to_string()
+function M:to_string()
     return GlobalAPI.comp_to_str(self.handle)
 end
 
@@ -606,7 +612,7 @@ end
 
 --获得界面控件名
 ---@return string  uiname 控件名
-function M:get_ui_widget_name()
+function M:get_name()
     return GameAPI.get_ui_comp_name(self.player.handle, self.handle)
 end
 
@@ -623,13 +629,13 @@ end
 
 --获得控件宽度
 ---@return number width 控件宽度
-function M:get_widget_width()
+function M:get_width()
     return GameAPI.get_ui_comp_width(self.handle)
 end
 
 --获得控件高度
 ---@return number height 控件高度
-function M:get_widget_height()
+function M:get_height()
     return GameAPI.get_ui_comp_height(self.handle)
 end
 
@@ -660,7 +666,7 @@ end
 
 --获得控件可见性
 ---@return boolean ui_visible 控件可见性
-function M:get_ui_comp_visible()
+function M:is_visible()
     return GameAPI.get_ui_comp_visible(self.player.handle, self.handle)
 end
 
@@ -674,7 +680,7 @@ end
 ---设置界面控件的锚点
 ---@param  x number x轴
 ---@param  y number y轴
-function M:set_ui_anchor(x, y)
+function M:set_anchor(x, y)
     GameAPI.set_ui_comp_anchor(self.player.handle, self.handle, x, y)
 end
 

@@ -37,6 +37,7 @@ end
 function M.get_by_id(id)
     if M.map[id] == nil then
         local py_player = GameAPI.get_role_by_role_id(id)
+        assert(py_player ~= nil, string.format('找不到玩家(%d)', id))
         return M.get_by_handle(py_player)
     end
     return M.map[id]

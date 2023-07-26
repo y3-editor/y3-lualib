@@ -591,20 +591,29 @@ M.UIEventMap = {
 ---| 'real'     # 真实
 
 ---@alias y3.Const.UIComponentType
----| '空节点'
+---| '物品'
 ---| '按钮'
----| '图片'
----| '模型'
----| '文本'
----| '输入框'
----| '进度条'
----| '滑动条'
----| '列表'
 ---| '富文本'
+---| '文本'
+---| '图片'
+---| '进度条'
+---| '模型'
+---| '空节点'
+---| '标签页'
+---| '设置'
+---| '列表'
+---| '滑动条'
+---| '聊天'
+---| '轮播图'
+---| '语音开关'
+---| '输入框'
+---| '地图'
+---| '技能按钮'
+---| '魔法效果'
+---| '序列帧'
 
 M.UIComponentType = {
     Node = 0,
-    ['空节点'] = 0,
     Button = 1,
     ['按钮'] = 1,
     Layer = 2,
@@ -617,7 +626,9 @@ M.UIComponentType = {
     Model = 6,
     ['模型'] = 6,
     Layout = 7,
+    ['空节点'] = 7,
     TabWidget = 8,
+    ['标签页'] = 8,
     TabPage = 9,
     ScrollView = 10,
     ['列表'] = 10,
@@ -627,10 +638,14 @@ M.UIComponentType = {
     InputField = 15,
     ['输入框'] = 15,
     MiniMap = 16,
+    ['地图'] = 16,
     SkillBtn = 17,
+    ['技能按钮'] = 17,
     BuffList = 18,
+    ['魔法效果'] = 18,
     BuffItem = 19,
     EquipSlot = 20,
+    ['物品'] = 20,
     ShopPanel = 21,
     GoodsItem = 22,
     ComposePanel = 23,
@@ -639,6 +654,7 @@ M.UIComponentType = {
     RichText = 26,
     ['富文本'] = 26,
     SettingPanel = 27,
+    ['设置'] = 27,
     -- timeline工程动画
     AnimationEffect = 28,
     ComboBox = 29,
@@ -647,13 +663,22 @@ M.UIComponentType = {
     SequenceAnimation = 31,
     -- 新聊天
     NewChatBox = 32,
+    ['聊天'] = 32,
     PageView = 33,
+    ['轮播图'] = 33,
     AudioSwitch = 34,
+    ['语音开关'] = 34,
     -- spine骨骼动画
     Spine = 35,
     -- 新的序列帧动画组件
     NewSequenceAnimation = 38,
+    ['序列帧'] = 38,
 }
+
+---@alias y3.Const.UIVAlignmentType
+---| '上'
+---| '中'
+---| '下'
 
 M.UIVAlignmentType = {
     ['上'] = 0,
@@ -661,10 +686,15 @@ M.UIVAlignmentType = {
     ['下'] = 16,
 }
 
+---@alias y3.Const.UIHAlignmentType
+---| '左'
+---| '中'
+---| '右'
+
 M.UIHAlignmentType = {
     ['左'] = 1,
     ['中'] = 2,
-    ['右'] = 3,
+    ['右'] = 4,
 }
 
 return M
