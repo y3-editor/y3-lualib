@@ -278,7 +278,7 @@ end
 ---@return UnitGroup 单位组
 function M:get_unit_group_in_area(player)
     local py_unit_group = GameAPI.get_unit_group_belong_to_player_in_area(self.handle, player.handle)
-    return y3.unit_group.create_lua_unit_group_from_py(py_unit_group)
+    return y3.unit_group.get_by_handle(py_unit_group)
 end
 
 ---区域中单位的数量
@@ -299,6 +299,13 @@ end
 ---@param is_add boolean  添加/去除
 function M:edit_area_fov_block(fov_block_type, is_add)
     GameAPI.edit_area_fov_block(self.handle, fov_block_type, is_add)
+end
+
+-- 点是否在区域内
+---@param point Point 点
+---@return boolean
+function M:is_point_in_area(point)
+    return GameAPI.judge_point_in_area(point.handle, self.handle)
 end
 
 --------------------------------------------------------类的方法--------------------------------------------------------

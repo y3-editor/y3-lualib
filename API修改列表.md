@@ -1,6 +1,6 @@
 `2023-7-27`
 
-`修改`
+`重命名`
 
 * `y3.game.get_max_tech_level` -> `y3.game.get_tech_max_level`
 * `y3.game.get_tech_type_description` -> `y3.game.get_tech_description`
@@ -18,7 +18,7 @@
 * `y3.game.get_game_environment_of_current_round` -> `y3.game.get_start_mode`
 * `y3.game.if_pri_attr_state_open` -> `y3.game.is_compound_attributes_enabled`
 
-`移除`
+`废弃`
 
 * 所有和table相关的API，请改用Lua自己的API。
 * 所有用于事件响应获取参数的API，请在事件的回调参数中获得。
@@ -27,3 +27,13 @@
 * `y3.game.get_ability_owner`，改用 `Ability:get_owner()`
 * `y3.game.modifier_provider`，改用 `Buff:get_source()`
 * `y3.game.get_number_interval`，改用 `y3.math.isBetween`
+* `y3.game.all_units_belonging_to_specified_player`，改用 `Player:get_all_units()`
+* `y3.game.unit_of_a_specified_unit_type`，改用 `y3.unit_group.pick_by_key`
+* `y3.game.integer_random_units_from_unit_group`，改用 `UnitGroup:pick_random_n()`
+* `y3.game.number_of_units_in_unit_group`，改用 `UnitGroup:count()`
+* `y3.game.get_number_of_units_of_specified_type_in_unit_group`，改用 `UnitGroup:count_by_key()`
+* `y3.game.get_the_first_unit_in_a_unit_group`，改用 `UnitGroup:get_first()`
+* `y3.game.get_random_unit_from_unit_group`，改用 `UnitGroup:get_random()`
+* `y3.game.clear`
+* `y3.game.play_screen_particle_for_a_set_duration`，改用 `y3.particle.create_screen`
+* `y3.game.is_point_in_area`，改用 `Area:is_point_in_area()`

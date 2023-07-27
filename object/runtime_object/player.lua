@@ -382,14 +382,12 @@ function M:is_in_group(player_group)
     return GlobalAPI.judge_role_in_group(self.handle, player_group.handle)
 end
 
-
 ---属于某玩家的所有单位
 ---@return UnitGroup unit_group 单位组
 function M:get_all_units()
     local py_unit_group = self.handle:get_all_unit_id()
-    return New 'UnitGroup' (py_unit_group)
+    return y3.unit_group.get_by_handle(py_unit_group)
 end
-
 
 ---创建单位
 ---@param unit_id py.UnitKey 单位类型

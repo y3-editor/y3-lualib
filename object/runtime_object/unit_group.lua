@@ -13,12 +13,12 @@ end
 
 ---@param py_unit_group py.UnitGroup
 ---@return UnitGroup
-function M.create_lua_unit_group_from_py(py_unit_group)
+function M.get_by_handle(py_unit_group)
     local unit_group = New 'UnitGroup' (py_unit_group)
     return unit_group
 end
 
-y3.py_converter.register_py_to_lua('py.UnitGroup', M.create_lua_unit_group_from_py)
+y3.py_converter.register_py_to_lua('py.UnitGroup', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.UnitGroup', function (lua_value)
     return lua_value.handle
 end)
@@ -62,7 +62,7 @@ end
 ---@return UnitGroup unit_group  随机整数个单位
 function M:pick_random_n(count)
     local py_unit_group =GameAPI.get_random_n_unit_in_group(self.handle, count)
-    return New 'UnitGroup' (py_unit_group)
+    return M.get_by_handle(py_unit_group)
 end
 
 --挑选指定单位类型的单位
@@ -70,7 +70,7 @@ end
 ---@return UnitGroup unit_group 单位组
 function M.pick_by_key(unit_key)
     local py_unit_group = GameAPI.get_units_by_key(unit_key)
-    return New 'UnitGroup' (py_unit_group)
+    return M.get_by_handle(py_unit_group)
 end
 
 --获取单位组中单位数量
