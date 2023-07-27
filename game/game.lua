@@ -57,13 +57,6 @@ function M.set_cascaded_shadow_distance(dis)
     GameAPI.set_cascaded_shadow_distance(dis)
 end
 
----获取科技最大等级
----@param teck_key py.TechKey 科技id
----@return integer level 最大等级
-function M.get_tech_max_level(teck_key)
-    return GameAPI.get_tech_max_level(teck_key)
-end
-
 ---字符串转单位命令类型
 ---@param str string 字符串
 ---@return py.UnitCommandType # 单位命令类型
@@ -330,168 +323,69 @@ end
 ---@param concentration number 浓度
 ---@param speed number 流速
 function M.set_fog_attribute(fog, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue, concentration, speed)
-    GameAPI.set_fog_attr(fog, 4095, Fix32(direction), Fix32(pos_x), Fix32(pos_y), Fix32(pos_z), Fix32(scale_x), Fix32(scale_y), Fix32(scale_z), Fix32(red), Fix32(green), Fix32(blue), Fix32(concentration), Fix32(speed))
+    GameAPI.set_fog_attr(fog, 4095, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue, concentration, speed)
 end
 
+---设置雾效属性(新)
 ---@param fog table 局部雾
 ---@param attr string 朝向
 ---@param value number 位置x
----设置雾效属性(新)
 function M.set_fog_attr(fog,attr,value)
     GameAPI.set_fog_attr_new(fog,attr,value)
 end
 
----@param distance number 距离
 ---设置阴影距离
+---@param distance number 距离
 function M.set_cascaded_shadow_distanc(distance)
-    GameAPI.set_cascaded_shadow_distance(Fix32(distance))
+    GameAPI.set_cascaded_shadow_distance(distance)
 end
 
----@param is_enable boolean 开关
 ---开关级联阴影
+---@param is_enable boolean 开关
 function M.set_cascaded_shadow_enable(is_enable)
     GameAPI.set_cascaded_shadow_enable(is_enable)
 end
 
----@param player Player 玩家
----@param processing number 画风
 ---为玩家切换画风
+---@param player Player 玩家
+---@param processing py.PostEffect 画风
 function M.set_post_effect(player, processing)
     GameAPI.set_post_effect(player.handle, processing)
 end
 
----@param table table 表
----@param value string|number|boolean 值
----@param key string 键   
----设置一维表的值
-function M.set_table_value(table, value, key)
-    GameAPI.set_table_value(table, value, key, "", "", "", "", "")
-end
-
----@param table table 表
----@param value string|number|boolean 值
----@param key string 键   
----@param field string 键   
----设置多维表的值
-function M.set_table_value_multi(table, value, key, field)
-    GameAPI.set_table_value(table, value, key, field, "", "", "", "")
-end
-
----@param table table 表
----@param value string|number|boolean 值
----@param index number 位置
----向表中插入值
-function M.insert_table_value(table, value, index)
-    GameAPI.insert_table_value(table, value, "", index)
-end
-
----@param table table 表
----@param index number 位置
----删除一维表的第N个值
-function M.remove_nth_table_value(table, index)
-    GameAPI.remove_table_value_n(table, index)
-end
-
----@param table table 表
----遍历表
-function M.pick_table(table)
-    return GameAPI.table_iterator(table)
-end
-
----@param table table 表
----遍历表（保序）
-function M.pick_table_ordered(table)
-    GameAPI.ordered_table_iterator(table)
-end
-
----@param table table 表
----打印表
-function M.dump_table(table)
-    if type(table) == 'table'then
-        for key, value in pairs(table) do
-            if type(value) == 'table' then
-                M.dump_table(value)
-            else
-                print(key, value)
-            end
-        end
-    end
-end
-
----@return table table 空表
----创建空的表
-function M.new_empty_table()
-    return GameAPI.get_new_table()
-end
-
--- --当前表遍历到的字符串索引
--- ---@return 
--- function y3.string_index_picked_in_the_current_table()
-
--- end
-
-
----@param table table 表
----@return table table 表
----复制表
-function M.copy_table(table)
-    return GameAPI.get_copy_of_table(table)
-end
-
--- --当前表遍历到的整数索引
--- ---@return 
--- function y3.integer_index_picked_in_the_current_table()
---     y3.get_iter_table_key_int(data['__ITER_TABLE_ITEM'])
--- end
-
-
----@param table table 表
----@return number 长度
----表的长度
-function M.table_length(table)
-    return GameAPI.get_table_length(table)
-end
-
----@param tech_id number 科技id
----@return number level 最大等级
 ---获取科技最大等级
-function M.get_max_tech_level(tech_id)
+---@param tech_id py.TechKey 科技id
+---@return integer level 最大等级
+function M.get_tech_max_level(tech_id)
     return GameAPI.get_tech_max_level(tech_id)
 end
 
----@param tech_id number 科技
----@param index number 等级
----@return number texture 图标id
 ---获取科技图标
+---@param tech_id py.TechKey 科技
+---@param index integer 等级
+---@return py.Texture texture 图标id
 function M.get_tech_icon(tech_id, index)
     return GameAPI.api_get_tech_icon(tech_id, index)
 end
 
----@param tech number 科技
----@return number tech_key 科技类型
----获取事件中的科技类型
-function M.get_tech_type_from_event(tech)
-    return GameAPI.get_tech_name_by_type(tech)
-end
-
----@param tech_id number 科技类型
----@return string description 描述
 ---获取科技类型的描述
-function M.get_tech_type_description(tech_id)
+---@param tech_id py.TechKey 科技类型
+---@return string description 描述
+function M.get_tech_description(tech_id)
     return GameAPI.get_tech_desc_by_type(tech_id)
 end
 
----@param tech_id number 科技类型
----@return string name 名称
 ---获取科技类型的名称
-function M.get_tech_type_name(tech_id)
+---@param tech_id py.TechKey 科技类型
+---@return string name 名称
+function M.get_tech_name(tech_id)
     return GameAPI.get_tech_name_by_type(tech_id)
 end
 
----@param player Player 玩家
----@param result number 结果
----@param is_show boolean 是否展示界面
 ---结束玩家游戏
+---@param player Player 玩家
+---@param result string 结果
+---@param is_show boolean 是否展示界面
 function M.end_player_game(player, result, is_show)
     GameAPI.set_melee_result_by_role(player.handle, result, is_show, false, 0, false)
 end
@@ -501,10 +395,10 @@ function M.pause_game()
     GameAPI.pause_game()
 end
 
----@param is_quick_reset boolean 快速重置
 ---开始新一轮游戏
-function M.start_new_round_of_game(is_quick_reset)
-    GameAPI.request_new_round(is_quick_reset or true)
+---@param fast_restart boolean 快速重置
+function M.restart_game(fast_restart)
+    GameAPI.request_new_round(fast_restart)
 end
 
 ---开启软暂停
@@ -517,68 +411,63 @@ function M.resume_soft_pause()
     GameAPI.api_soft_resume_game()
 end
 
----@param attack_type number 攻击类型
----@param armor_type number 护甲类型
----@param ratio number 系数
 ---设置伤害系数
+---@param attack_type integer 攻击类型
+---@param armor_type integer 护甲类型
+---@param ratio number 系数
 function M.set_damage_factor(attack_type, armor_type, ratio)
     GameAPI.set_damage_ratio(attack_type, armor_type, Fix32(ratio))
 end
 
----@param primary_attribute number 一级属性
----@param secondary_attr number 二级属性
----@param value number 属性值
 ---设置复合属性
+---@param primary_attribute string 一级属性
+---@param secondary_attr string 二级属性
+---@param value number 属性值
 function M.set_compound_attributes(primary_attribute, secondary_attr, value)
     GameAPI.set_slave_coeff(primary_attribute, secondary_attr, Fix32(value))
 end
 
----@param speed number 速度
 ---设置游戏时间的流逝速度
-function M.set_game_time_elapsing_rate(speed)
-    GameAPI.set_day_and_night_time_speed(Fix32(speed))
+---@param speed number 速度
+function M.set_day_night_speed(speed)
+    GameAPI.set_day_and_night_time_speed(speed)
 end
 
----@param time number 时间
 ---设置游戏时间
-function M.set_game_time(time)
-    GameAPI.set_day_and_night_time(Fix32(time))
+---@param time number 时间
+function M.set_day_night_time(time)
+    GameAPI.set_day_and_night_time(time)
 end
 
+---创建人造时间
 ---@param time number 时间
 ---@param dur number 持续时间
----创建人造时间
-function M.create_artificial_time(time, dur)
-    GameAPI.create_day_and_night_human_time(Fix32(time), Fix32(dur))
+function M.create_day_night_human_time(time, dur)
+    GameAPI.create_day_and_night_human_time(time, dur)
 end
 
----@param seed number 随机种子
 ---设置随机数种子
+---@param seed integer 随机种子
 function M.set_random_seed(seed)
     GameAPI.set_random_seed(seed)
 end
 
----@param is_on boolean 开关
 ---开关时间流逝
-function M.toggle_time_elapsing_is_on(is_on)
+---@param is_on boolean 开关
+function M.toggle_day_night_time(is_on)
     GameAPI.open_or_close_time_speed(is_on)
 end
 
+---开关目标点的草丛
 ---@param is_on boolean 开关
 ---@param point Point 点
----开关目标点的草丛
-function M.toggle_target_point_grassland_is_on(is_on, point)
+function M.enable_grass_by_pos(is_on, point)
+    ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.set_grass_enable_by_pos(is_on, point.handle)
 end
 
--- --请求服务器时间
--- function y3.()
-
--- end
-
-
----@return number game_mode 游戏模式
 ---获取当前游戏模式
+---@return py.GameMode game_mode 游戏模式
 function M.get_current_game_mode()
     return GameAPI.get_game_mode()
 end
