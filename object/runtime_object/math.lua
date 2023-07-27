@@ -95,4 +95,13 @@ function M.includedAngle(r1, r2)
     end
 end
 
+-- 检查数字是否在[min, max]范围内
+---@param number number
+---@param min number
+---@param max number
+---@return boolean
+function M.isBetween(number, min, max)
+    return number >= min and number <= max
+end
+
 return M
