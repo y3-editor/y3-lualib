@@ -1,5 +1,5 @@
-local event_data = require 'y3.meta.event'
-local event_config = require 'y3.meta.eventconfig'
+local event_datas   = require 'y3.meta.event'
+local event_configs = require 'y3.meta.eventconfig'
 
 ---@class PYEventRegister
 ---@field package need_enable_trigger_manualy boolean
@@ -9,26 +9,26 @@ local M = Class 'PYEventRegister'
 M.trigger_id_counter = y3.util.counter()
 
 ---@private
----@param event_name y3.Const.EventType
+---@param event_key y3.Const.EventType
 ---@param event_params py.Dict
 ---@return table
-function M.convert_py_params(event_name, event_params)
-    local event_config = event_data[event_name]
-    assert(event_config, string.format('event %s not found', event_name))
+function M.convert_py_params(event_key, event_params)
+    local event_data = event_datas[event_key]
+    assert(event_data, string.format('event %s not found', event_key))
     -- TODO 见问题10，改为用户访问时才会实际访问py层的字段
     --local lua_params = M.convert_py_params_instant(event_name, event_config, event_params)
-    local lua_params = M.convert_py_params_lazy(event_name, event_config, event_params)
+    local lua_params = M.convert_py_params_lazy(event_key, event_data, event_params)
     return lua_params
 end
 
 ---@private
 ---@param event_name y3.Const.EventType
----@param event_config table
+---@param event_data table
 ---@param event_params py.Dict
 ---@return table
-function M.convert_py_params_instant(event_name, event_config, event_params)
+function M.convert_py_params_instant(event_name, event_data, event_params)
     local lua_params = {}
-    for _, param in ipairs(event_config) do
+    for _, param in ipairs(event_data) do
         local lua_name  = param.lua_name
         local py_name   = param.name
         local py_type   = param.type
@@ -43,26 +43,31 @@ end
 M.params_metatable_cache = {}
 
 ---@private
----@param event_config table
+---@param event_data table
 ---@return table
-function M.build_params_lazy_mt(event_config)
+function M.build_params_lazy_mt(event_data)
     local config_map = {}
-    for _, param in ipairs(event_config) do
-        local lua_name  = param.lua_name
+    for _, param in ipairs(event_data) do
+        local lua_name = param.lua_name
         config_map[lua_name] = param
     end
     local mt = {
-        __index = function(t, k)
+        __index = function(data, k)
             local param = config_map[k]
             if not param then
                 return nil
             end
-            local params   = t._py_params
-            local py_name  = param.name
-            local py_type  = param.type
-            local py_value = params[py_name]
-            local lua_value = y3.py_converter.py_to_lua(py_type, py_value)
-            t[k] = lua_value
+            local lua_value
+            if param.lua_code then
+                lua_value = param.lua_code(data)
+            else
+                local params   = data._py_params
+                local py_name  = param.name
+                local py_type  = param.type
+                local py_value = params[py_name]
+                lua_value = y3.py_converter.py_to_lua(py_type, py_value)
+            end
+            data[k] = lua_value
             return lua_value
         end,
     }
@@ -70,18 +75,18 @@ function M.build_params_lazy_mt(event_config)
 end
 
 ---@private
----@param event_name y3.Const.EventType
----@param event_config table
+---@param event_key y3.Const.EventType
+---@param event_data table
 ---@param event_params py.Dict
 ---@return table
-function M.convert_py_params_lazy(event_name, event_config, event_params)
-    if #event_config == 0 then
+function M.convert_py_params_lazy(event_key, event_data, event_params)
+    if #event_data == 0 then
         return {}
     end
-    local mt = M.params_metatable_cache[event_name]
+    local mt = M.params_metatable_cache[event_key]
     if not mt then
-        mt = M.build_params_lazy_mt(event_config)
-        M.params_metatable_cache[event_name] = mt
+        mt = M.build_params_lazy_mt(event_data)
+        M.params_metatable_cache[event_key] = mt
     end
     local lua_params = setmetatable({
         _py_params = event_params
@@ -96,11 +101,11 @@ M.event_mark_map = setmetatable({}, y3.util.MODE_K)
 ---@param event_name string
 ---@return string
 local function get_py_event_name(event_name)
-    local alias = event_config.config[event_name]
-    if not alias then
+    local config = event_configs.config[event_name]
+    if not config then
         return event_name
     end
-    return alias.key
+    return config.key
 end
 
 -- 很奇怪的设计，部分参数要包裹成函数返回值放到addition参数里。
@@ -113,8 +118,8 @@ local function extract_addition(event_name, extra_args)
     if not extra_args then
         return nil, nil
     end
-    local alias = event_config.config[event_name]
-    if not alias then
+    local config = event_configs.config[event_name]
+    if not config then
         return nil, nil
     end
 
@@ -123,7 +128,7 @@ local function extract_addition(event_name, extra_args)
         py_args[i] = extra_args[i]
     end
 
-    for i, param in ipairs(alias.params) do
+    for i, param in ipairs(config.params) do
         if param.call then
             local lua_value = extra_args[i]
             local lua_type  = param.type

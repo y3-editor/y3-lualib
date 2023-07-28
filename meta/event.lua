@@ -2874,6 +2874,7 @@ event.ET_ABILITY_UPGRADE = {
 ---@class EventParam.ET_ABILITY_CS_START
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能开始施法
 event.ET_ABILITY_CS_START = {
@@ -2892,6 +2893,19 @@ event.ET_ABILITY_CS_START = {
         lua_type = "Unit",
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
     },
 }
 
@@ -2922,6 +2936,7 @@ event.ET_ABILITY_CS_END = {
 ---@class EventParam.ET_ABILITY_PS_START
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能前摇开始
 event.ET_ABILITY_PS_START = {
@@ -2941,11 +2956,25 @@ event.ET_ABILITY_PS_START = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
+    },
 }
 
 ---@class EventParam.ET_ABILITY_PS_END
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能前摇结束
 event.ET_ABILITY_PS_END = {
@@ -2964,6 +2993,19 @@ event.ET_ABILITY_PS_END = {
         lua_type = "Unit",
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
     },
 }
 
@@ -2985,6 +3027,7 @@ event.ET_ITEM_ABILITY_PS_END = {
 ---@class EventParam.ET_ABILITY_SP_END
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能准备结束
 event.ET_ABILITY_SP_END = {
@@ -3004,11 +3047,25 @@ event.ET_ABILITY_SP_END = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
+    },
 }
 
 ---@class EventParam.ET_ABILITY_CST_END
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能持续施法结束
 event.ET_ABILITY_CST_END = {
@@ -3028,11 +3085,25 @@ event.ET_ABILITY_CST_END = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
+    },
 }
 
 ---@class EventParam.ET_ABILITY_BS_END
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能后摇结束
 event.ET_ABILITY_BS_END = {
@@ -3051,6 +3122,19 @@ event.ET_ABILITY_BS_END = {
         lua_type = "Unit",
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
     },
 }
 
@@ -3081,6 +3165,7 @@ event.ET_ABILITY_CS_INTERRUPT = {
 ---@class EventParam.ET_ABILITY_PS_INTERRUPT
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能前摇阶段被打断
 event.ET_ABILITY_PS_INTERRUPT = {
@@ -3100,11 +3185,25 @@ event.ET_ABILITY_PS_INTERRUPT = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
+    },
 }
 
 ---@class EventParam.ET_ABILITY_SP_INTERRUPT
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能准备阶段被打断
 event.ET_ABILITY_SP_INTERRUPT = {
@@ -3124,11 +3223,25 @@ event.ET_ABILITY_SP_INTERRUPT = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
+    },
 }
 
 ---@class EventParam.ET_ABILITY_CST_INTERRUPT
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能持续施法阶段被打断
 event.ET_ABILITY_CST_INTERRUPT = {
@@ -3147,6 +3260,19 @@ event.ET_ABILITY_CST_INTERRUPT = {
         lua_type = "Unit",
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
     },
 }
 
@@ -3177,6 +3303,7 @@ event.ET_ABILITY_BS_INTERRUPT = {
 ---@class EventParam.ET_ABILITY_END
 ---@field ability Ability # 技能对象
 ---@field ability_target_unit Unit # 技能目标单位
+---@field cast Cast # 施法
 
 --技能结束（无论何种方式）
 event.ET_ABILITY_END = {
@@ -3195,6 +3322,19 @@ event.ET_ABILITY_END = {
         lua_type = "Unit",
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "cast",
+        lua_type = "Cast",
+        lua_desc = "施法",
+        lua_code = function (data)
+            local ability = data.ability
+            local id = data._py_params['__ability_runtime_id']
+            local cast = New 'Cast' (ability, id)
+            return cast
+        end,
     },
 }
 

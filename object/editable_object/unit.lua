@@ -8,7 +8,6 @@ M.type = 'unit'
 
 function M:__tostring()
     return string.format('{unit|%s|%s}'
-        , 'unit'
         , self:get_name()
         , self.handle
     )
