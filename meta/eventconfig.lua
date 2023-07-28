@@ -2610,7 +2610,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 }
 
 ---@class Game
----@field event fun(self: self, event: "未知-ET_LOGIC_UNIT_DESTROY", callback: fun(trg: Trigger, data: EventParam.未知-ET_LOGIC_UNIT_DESTROY)): Trigger
 ---@field event fun(self: self, event: "时间-经过", time: number, callback: fun(trg: Trigger, data: EventParam.时间-经过)): Trigger
 ---@field event fun(self: self, event: "时间-周期", time: number, callback: fun(trg: Trigger, data: EventParam.时间-周期)): Trigger
 ---@field event fun(self: self, event: "时间-经过帧", count: integer, callback: fun(trg: Trigger, data: EventParam.时间-经过帧)): Trigger
@@ -2618,30 +2617,19 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-开始", callback: fun(trg: Trigger, data: EventParam.游戏-开始)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
----@field event fun(self: self, event: "未知-ET_RECV_TRIGGER", callback: fun(trg: Trigger, data: EventParam.未知-ET_RECV_TRIGGER)): Trigger
 ---@field event fun(self: self, event: "游戏-结束", callback: fun(trg: Trigger, data: EventParam.游戏-结束)): Trigger
 ---@field event fun(self: self, event: "游戏-暂停", callback: fun(trg: Trigger, data: EventParam.游戏-暂停)): Trigger
 ---@field event fun(self: self, event: "游戏-恢复", callback: fun(trg: Trigger, data: EventParam.游戏-恢复)): Trigger
----@field event fun(self: self, event: "未知-ET_EMPTY", callback: fun(trg: Trigger, data: EventParam.未知-ET_EMPTY)): Trigger
----@field event fun(self: self, event: "未知-TIMER_TIMEOUT", callback: fun(trg: Trigger, data: EventParam.未知-TIMER_TIMEOUT)): Trigger
 ---@field event fun(self: self, event: "游戏-昼夜变化", callback: fun(trg: Trigger, data: EventParam.游戏-昼夜变化)): Trigger
----@field event fun(self: self, event: "未知-ET_CONTAINER_ADDED", callback: fun(trg: Trigger, data: EventParam.未知-ET_CONTAINER_ADDED)): Trigger
----@field event fun(self: self, event: "未知-ET_CONTAINER_ACTOR_ADDED", callback: fun(trg: Trigger, data: EventParam.未知-ET_CONTAINER_ACTOR_ADDED)): Trigger
----@field event fun(self: self, event: "未知-ET_CONTAINER_ACTOR_REMOVED", callback: fun(trg: Trigger, data: EventParam.未知-ET_CONTAINER_ACTOR_REMOVED)): Trigger
----@field event fun(self: self, event: "未知-ET_ACTOR_ATTR_UPDATED", callback: fun(trg: Trigger, data: EventParam.未知-ET_ACTOR_ATTR_UPDATED)): Trigger
 ---@field event fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
 ---@field event fun(self: self, event: "区域-离开", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
 ---@field event fun(self: self, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
 ---@field event fun(self: self, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
 ---@field event fun(self: self, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
----@field event fun(self: self, event: "未知-ET_AI_TAKE_CONTROL", callback: fun(trg: Trigger, data: EventParam.未知-ET_AI_TAKE_CONTROL)): Trigger
----@field event fun(self: self, event: "未知-ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK", callback: fun(trg: Trigger, data: EventParam.未知-ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK)): Trigger
 ---@field event fun(self: self, event: "玩家-使用平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-使用平台道具)): Trigger
----@field event fun(self: self, event: "未知-ET_CONSUME_STORE_ITEM", callback: fun(trg: Trigger, data: EventParam.未知-ET_CONSUME_STORE_ITEM)): Trigger
 ---@field event fun(self: self, event: "玩家-持有平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-持有平台道具)): Trigger
 ---@field event fun(self: self, event: "玩家-属性变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性变化)): Trigger
 ---@field event fun(self: self, event: "玩家-发送指定消息", msg: string, callback: fun(trg: Trigger, data: EventParam.玩家-发送指定消息)): Trigger
----@field event fun(self: self, event: "未知-ET_ROLE_INPUT_ACTIVATION_CODE", callback: fun(trg: Trigger, data: EventParam.未知-ET_ROLE_INPUT_ACTIVATION_CODE)): Trigger
 ---@field event fun(self: self, event: "玩家-科技提升", callback: fun(trg: Trigger, data: EventParam.玩家-科技提升)): Trigger
 ---@field event fun(self: self, event: "玩家-科技降低", callback: fun(trg: Trigger, data: EventParam.玩家-科技降低)): Trigger
 ---@field event fun(self: self, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
@@ -2653,7 +2641,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
 ---@field event fun(self: self, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
 ---@field event fun(self: self, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
----@field event fun(self: self, event: "未知-ET_ACTIVE_ABILITY_CHANGED", callback: fun(trg: Trigger, data: EventParam.未知-ET_ACTIVE_ABILITY_CHANGED)): Trigger
 ---@field event fun(self: self, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
 ---@field event fun(self: self, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
 ---@field event fun(self: self, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
@@ -2663,9 +2650,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
 ---@field event fun(self: self, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
 ---@field event fun(self: self, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
----@field event fun(self: self, event: "未知-ET_ROLE_UNIT_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_ROLE_UNIT_CHANGE)): Trigger
----@field event fun(self: self, event: "未知-ET_ROLE_UNIT_TAG_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_ROLE_UNIT_TAG_CHANGE)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_ENTER_MOVER_STATE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_ENTER_MOVER_STATE)): Trigger
 ---@field event fun(self: self, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
 ---@field event fun(self: self, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
 ---@field event fun(self: self, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
@@ -2674,8 +2658,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "单位-属性变化", unit: Unit, attr: string, callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
 ---@field event fun(self: self, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
 ---@field event fun(self: self, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_ON_UNBIND_ROLE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_ON_UNBIND_ROLE)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_ON_BIND_ROLE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_ON_BIND_ROLE)): Trigger
 ---@field event fun(self: self, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
 ---@field event fun(self: self, event: "单位-造成伤害前", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害前)): Trigger
 ---@field event fun(self: self, event: "单位-受到伤害时", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害时)): Trigger
@@ -2687,11 +2669,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "单位-受到治疗时", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗时)): Trigger
 ---@field event fun(self: self, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
 ---@field event fun(self: self, event: "单位-施放技能", callback: fun(trg: Trigger, data: EventParam.单位-施放技能)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_RELEASE_ABILITY_START", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_RELEASE_ABILITY_START)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_RELEASE_ABILITY_END", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_RELEASE_ABILITY_END)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_RELEASE_MAGIC_BOOK", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_RELEASE_MAGIC_BOOK)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_LEVEL_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_LEVEL_CHANGE)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_EXP_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_EXP_CHANGE)): Trigger
 ---@field event fun(self: self, event: "单位-获得经验前", callback: fun(trg: Trigger, data: EventParam.单位-获得经验前)): Trigger
 ---@field event fun(self: self, event: "单位-获得经验后", callback: fun(trg: Trigger, data: EventParam.单位-获得经验后)): Trigger
 ---@field event fun(self: self, event: "单位-接收命令", callback: fun(trg: Trigger, data: EventParam.单位-接收命令)): Trigger
@@ -2699,8 +2676,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_CREATE_SLAVE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_CREATE_SLAVE)): Trigger
----@field event fun(self: self, event: "未知-ET_ITEM_ATTACHED_ATTR_CHANGED", callback: fun(trg: Trigger, data: EventParam.未知-ET_ITEM_ATTACHED_ATTR_CHANGED)): Trigger
 ---@field event fun(self: self, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
 ---@field event fun(self: self, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
 ---@field event fun(self: self, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
@@ -2711,14 +2686,9 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "单位-购买物品合成", callback: fun(trg: Trigger, data: EventParam.单位-购买物品合成)): Trigger
 ---@field event fun(self: self, event: "单位-复活", callback: fun(trg: Trigger, data: EventParam.单位-复活)): Trigger
 ---@field event fun(self: self, event: "单位-升级", callback: fun(trg: Trigger, data: EventParam.单位-升级)): Trigger
----@field event fun(self: self, event: "未知-ET_REACH_MOVE_TARGET_UNIT", callback: fun(trg: Trigger, data: EventParam.未知-ET_REACH_MOVE_TARGET_UNIT)): Trigger
----@field event fun(self: self, event: "未知-ET_COLLIDE_OBSTACLE_UNIT", callback: fun(trg: Trigger, data: EventParam.未知-ET_COLLIDE_OBSTACLE_UNIT)): Trigger
 ---@field event fun(self: self, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
 ---@field event fun(self: self, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
----@field event fun(self: self, event: "未知-ET_MAP_VISIBILITY_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_MAP_VISIBILITY_CHANGE)): Trigger
 ---@field event fun(self: self, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_KV_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_KV_CHANGE)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_MUL_KV_CHANGE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_MUL_KV_CHANGE)): Trigger
 ---@field event fun(self: self, event: "单位类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件成立)): Trigger
 ---@field event fun(self: self, event: "单位类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件不成立)): Trigger
 ---@field event fun(self: self, event: "物品类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.物品类型-前置条件成立)): Trigger
@@ -2729,18 +2699,14 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "科技类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件不成立)): Trigger
 ---@field event fun(self: self, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
 ---@field event fun(self: self, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
----@field event fun(self: self, event: "未知-ET_ABILITY_CS_END", callback: fun(trg: Trigger, data: EventParam.未知-ET_ABILITY_CS_END)): Trigger
 ---@field event fun(self: self, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
 ---@field event fun(self: self, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
----@field event fun(self: self, event: "未知-ET_ITEM_ABILITY_PS_END", callback: fun(trg: Trigger, data: EventParam.未知-ET_ITEM_ABILITY_PS_END)): Trigger
 ---@field event fun(self: self, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
 ---@field event fun(self: self, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
 ---@field event fun(self: self, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
----@field event fun(self: self, event: "未知-ET_ABILITY_CS_INTERRUPT", callback: fun(trg: Trigger, data: EventParam.未知-ET_ABILITY_CS_INTERRUPT)): Trigger
 ---@field event fun(self: self, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: self, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: self, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
----@field event fun(self: self, event: "未知-ET_ABILITY_BS_INTERRUPT", callback: fun(trg: Trigger, data: EventParam.未知-ET_ABILITY_BS_INTERRUPT)): Trigger
 ---@field event fun(self: self, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: self, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: self, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -2804,6 +2770,5 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "界面-创建", callback: fun(trg: Trigger, data: EventParam.界面-创建)): Trigger
 ---@field event fun(self: self, event: "界面-移除", callback: fun(trg: Trigger, data: EventParam.界面-移除)): Trigger
 ---@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
----@field event fun(self: self, event: "未知-ET_UNIT_3D_ACTIVE", callback: fun(trg: Trigger, data: EventParam.未知-ET_UNIT_3D_ACTIVE)): Trigger
 
 return M
