@@ -44,9 +44,12 @@ end)
 
 -- 根据唯一ID获取单位。
 ---@param id py.UnitID
----@return Unit
+---@return Unit?
 function M.get_by_id(id)
     local py_unit = GameAPI.get_unit_by_id(id)
+    if not py_unit then
+        return nil
+    end
     return M.get_by_handle(py_unit)
 end
 
@@ -167,11 +170,11 @@ function M:remove_ability(type, slot)
 end
 
 ---通过技能名寻找技能
----@param type y3.Const.AbilityType 技能类型
+---@param type y3.Const.AbilityType | y3.Const.AbilityTypeAlias 技能类型
 ---@param id py.AbilityKey 物编id
 ---@return Ability? ability 技能
 function M:find_ability(type, id)
-    local py_ability = self.handle:api_get_ability_by_type(type, id)
+    local py_ability = self.handle:api_get_ability_by_type(y3.const.AbilityType[type] or type, id)
     if not py_ability then
         return nil
     end

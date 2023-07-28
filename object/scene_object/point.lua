@@ -24,6 +24,7 @@ function M:constructor(py_point)
     return self
 end
 
+---@private
 ---@param x number
 ---@param y number
 ---@param z? number

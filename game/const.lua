@@ -105,12 +105,22 @@ M.AbilityCategory = {
     ['PASSIVE_ABILITY'] = 0,
 }
 
+---@alias y3.Const.AbilityTypeAlias
+---| '隐藏'
+---| '普通'
+---| '命令'
+---| '英雄'
+
 ---@enum y3.Const.AbilityType
 M.AbilityType = {
-   HIDE   = 0,
-   NORMAL = 1,
-   COMMON = 2,
-   HERO   = 3,
+   HIDE    = 0,
+   NORMAL  = 1,
+   COMMON  = 2,
+   HERO    = 3,
+   ['隐藏'] = 0,
+   ['普通'] = 1,
+   ['命令'] = 2,
+   ['英雄'] = 3,
 }
 
 M.AbilityCastType = {
