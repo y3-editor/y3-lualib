@@ -366,56 +366,6 @@ function M:get_target(cast)
     return nil
 end
 
--- 获取施法朝向
----@param cast integer 施法ID
----@return number|nil
-function M:get_angle(cast)
-    local angle = self.handle:api_get_release_direction(cast)
-    if angle then
-        return angle:float()
-    end
-    return nil
-end
-
----技能选取的目标物品
----@param data table 触发器回调函数中的data
----@return Item target_item 目标物品
-function M:ability_selected_target_item(data)
-    local py_item = GameAPI.get_target_item_in_ability(self.handle, data['__ability_runtime_id'])
-    return y3.item.get_by_handle(py_item)
-end
-
----技能选取的目标单位
----@param data table 触发器回调函数中的data
----@return Unit target_unit 目标单位
-function M:ability_selected_target_unit(data)
-    local py_unit = GameAPI.get_target_unit_in_ability(self.handle, data['__ability_runtime_id'])
-    return y3.unit.get_by_handle(py_unit)
-end
-
----技能选取的目标可破坏物
----@param data table 触发器回调函数中的data
----@return Destructible destructible 目标可破坏物
-function M:ability_selected_destructible(data)
-    local py_destructible = GameAPI.get_target_dest_in_ability(self.handle, data['__ability_runtime_id'])
-    return y3.destructible.get_by_handle(py_destructible)
-end
-
----技能选取到的点
----@param data table 触发器回调函数中的data
----@return Point point 选取到的点
-function M:selected_location_by_ability(data)
-    local py_point = self.handle:api_get_release_position(data['__ability_runtime_id'])
-    return y3.point.get_by_handle(py_point)
-end
-
----获取技能释放方向 
----@param context table 触发器回调函数中的上下文
----@return number direction 释放方向 
-function M:get_ability_cast_direction(context)
-    return self.handle:api_get_release_direction(context['__ability_runtime_id']):float()
-end
-
 ---显示技能指示器
 ---@param player Player 玩家
 function M:show_indicator(player)
@@ -423,16 +373,6 @@ function M:show_indicator(player)
 end
 
 --------------------------------------------------------类的方法--------------------------------------------------------
-
-
-
----获取事件中的技能 
----@param context table 触发器回调函数中的data
----@return Ability ability 事件中的技能 
-function M.get_ability_by_unit_and_seq(context)
-    local py_ability = GameAPI.api_get_ability_by_unit_and_seq(context['__unit_id'], context['__ability_seq'])
-    return y3.ability.get_by_handle(py_ability)
-end
 
 ---检查技能类型前置条件
 ---@param player Player 玩家

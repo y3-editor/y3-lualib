@@ -57,7 +57,9 @@ end
 ---@param res_id integer
 ---@return Unit
 function M.get_by_res_id(res_id)
-    return M.get_by_id(res_id--[[@as py.UnitID]])
+    local u = M.get_by_id(res_id--[[@as py.UnitID]])
+    assert(u, ('无法找到ID为%d的单位'):format(res_id))
+    return u
 end
 
 y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)

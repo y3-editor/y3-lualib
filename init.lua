@@ -60,6 +60,7 @@ y3.timer        = require 'y3.object.runtime_object.timer'
 y3.unit_group   = require 'y3.object.runtime_object.unit_group'
 y3.projectile_group = require 'y3.object.runtime_object.projectile_group'
 y3.selector     = require 'y3.object.runtime_object.selector'
+y3.cast         = require 'y3.object.runtime_object.cast'
 
 y3.area         = require 'y3.object.scene_object.area'
 y3.camera       = require 'y3.object.scene_object.camera'
