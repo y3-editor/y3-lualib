@@ -1,5 +1,5 @@
 local event_data = require 'y3.meta.event'
-local game_event = require 'y3.meta.gameevent'
+local event_config = require 'y3.meta.eventconfig'
 
 ---@class PYEventRegister
 ---@field package need_enable_trigger_manualy boolean
@@ -96,7 +96,7 @@ M.event_mark_map = setmetatable({}, y3.util.MODE_K)
 ---@param event_name string
 ---@return string
 local function get_py_event_name(event_name)
-    local alias = game_event.alias_map[event_name]
+    local alias = event_config.config[event_name]
     if not alias then
         return event_name
     end
@@ -113,7 +113,7 @@ local function extract_addition(event_name, extra_args)
     if not extra_args then
         return nil, nil
     end
-    local alias = game_event.alias_map[event_name]
+    local alias = event_config.config[event_name]
     if not alias then
         return nil, nil
     end
