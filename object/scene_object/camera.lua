@@ -235,7 +235,7 @@ end
 ---@param player Player 玩家
 ---@return Point 摄像机朝向
 function M.get_player_camera_direction(player)
-    local py_point GameAPI.get_player_camera_direction(player.handle)
+    local py_point = GameAPI.get_player_camera_direction(player.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     return y3.point.get_by_handle(py_point)
