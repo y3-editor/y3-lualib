@@ -154,4 +154,22 @@ function M.get_point_in_path(path,index)
     return M.get_by_handle(py_point)
 end
 
+-- 获取与另一个点的方向
+---@param other Point
+---@return number
+function M:get_angle_with(other)
+    -- TODO 见问题2
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return GameAPI.get_points_angle(self.handle, other.handle):float()
+end
+
+-- 获取与另一个点的距离
+---@param other Point
+---@return number
+function M:get_distance_with(other)
+    -- TODO 见问题2
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return GameAPI.get_points_dis(self.handle, other.handle):float()
+end
+
 return M

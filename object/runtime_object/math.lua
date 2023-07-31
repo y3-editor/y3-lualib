@@ -11,26 +11,6 @@ function M.get_random_angle()
     return GameAPI.get_random_angle():float()
 end
 
----获取点与点的角度
----@param point_1 Point 点1
----@param point_2 Point 点2
----@return number
-function M.get_points_angle(point_1, point_2)
-    -- TODO 见问题2
-    ---@diagnostic disable-next-line: param-type-mismatch
-    return GameAPI.get_points_angle(point_1.handle, point_2.handle):float()
-end
-
----计算两点间距离
----@param point_1 Point 点1
----@param point_2 Point 点2
----@return number dis 距离
-function M.get_two_points_distance(point_1, point_2)
-    -- TODO 见问题2
-    ---@diagnostic disable-next-line: param-type-mismatch
-    return GameAPI.get_points_dis(point_1.handle, point_2.handle):float()
-end
-
 ---范围内随机实数
 ---@param min number 范围内最小实数
 ---@param max number 范围内最大实数
@@ -64,21 +44,22 @@ end
 ---@param value number 实数
 ---@return number float 实数
 function M.asin(value)
-    return math.asin(value * deg)
+    return math.asin(value) * deg
 end
 
 ---反余弦（角度制）
 ---@param value number 实数
 ---@return number float 实数
 function M.acos(value)
-    return math.acos(value * deg)
+    return math.acos(value) * deg
 end
 
 ---反正切（角度制）
----@param value number 实数
+---@param y number
+---@param x number
 ---@return number float 实数
-function M.atan(value)
-    return math.atan(value * deg)
+function M.atan(y, x)
+    return math.atan(y, x) * deg
 end
 
 --计算2个角度之间的夹角（角度制）
