@@ -93,11 +93,11 @@ function M.register_type_alias(py_type_name, lua_type_name)
     M.type_alias_map[lua_type_name] = py_type_name
 end
 
-M.register_py_to_lua('number', function (py_number)
+M.register_py_to_lua('py.Fixed', function (py_number)
     return py_number:float()
 end)
 
-M.register_py_to_lua('number', function (number)
+M.register_lua_to_py('py.Fixed', function (number)
     return Fix32(number)
 end)
 

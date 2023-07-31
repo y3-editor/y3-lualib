@@ -413,7 +413,7 @@ event.ET_ROLE_HOLD_STORE_ITEM = {
 ---@field player Player # 玩家
 ---@field res_key py.RoleResKey # 玩家资源类型
 ---@field res_value integer # 玩家资源值
----@field res_value_delta py.Fixed # 玩家资源变量值
+---@field res_value_delta number # 玩家资源变量值
 
 --玩家资源变化
 event.ET_ROLE_RESOURCE_CHANGED = {
@@ -445,7 +445,7 @@ event.ET_ROLE_RESOURCE_CHANGED = {
         name = "__res_value_delta",
         type = "py.Fixed",
         lua_name = "res_value_delta",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "玩家资源变量值",
         lua_desc = "玩家资源变量值",
     },
@@ -840,8 +840,8 @@ event.ET_ATTACK_HURT = {
 
 ---@class EventParam.ET_ABILITY_CD_CHANGE
 ---@field ability_index py.AbilityIndex # 技能坑位
----@field left py.Fixed # cd剩余时间
----@field total py.Fixed # cd总时长
+---@field left number # cd剩余时间
+---@field total number # cd总时长
 ---@field ability_id py.AbilityKey # 技能id
 
 --技能CD变化
@@ -858,7 +858,7 @@ event.ET_ABILITY_CD_CHANGE = {
         name = "__left",
         type = "py.Fixed",
         lua_name = "left",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "cd剩余时间",
         lua_desc = "cd剩余时间",
     },
@@ -866,7 +866,7 @@ event.ET_ABILITY_CD_CHANGE = {
         name = "__total",
         type = "py.Fixed",
         lua_name = "total",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "cd总时长",
         lua_desc = "cd总时长",
     },
@@ -897,7 +897,7 @@ event.ET_ACTIVE_ABILITY_CHANGED = {
 
 ---@class EventParam.ET_ABILITY_STACK_CHANGE
 ---@field ability_index py.AbilityIndex # 技能坑位
----@field stack py.Fixed # 技能充能层数
+---@field stack number # 技能充能层数
 
 --技能充能层数变化
 event.ET_ABILITY_STACK_CHANGE = {
@@ -913,7 +913,7 @@ event.ET_ABILITY_STACK_CHANGE = {
         name = "__stack",
         type = "py.Fixed",
         lua_name = "stack",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "技能充能层数",
         lua_desc = "技能充能层数",
     },
@@ -954,8 +954,8 @@ event.ET_ABILITY_PLUS_POINT = {
 
 ---@class EventParam.ET_ABILITY_STACK_CD_CHANGE
 ---@field ability_index py.AbilityIndex # 技能坑位
----@field left py.Fixed # 充能cd剩余时间
----@field total py.Fixed # 充能cd总时长
+---@field left number # 充能cd剩余时间
+---@field total number # 充能cd总时长
 
 --充能CD变化
 event.ET_ABILITY_STACK_CD_CHANGE = {
@@ -971,7 +971,7 @@ event.ET_ABILITY_STACK_CD_CHANGE = {
         name = "__left",
         type = "py.Fixed",
         lua_name = "left",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "充能cd剩余时间",
         lua_desc = "充能cd剩余时间",
     },
@@ -979,7 +979,7 @@ event.ET_ABILITY_STACK_CD_CHANGE = {
         name = "__total",
         type = "py.Fixed",
         lua_name = "total",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "充能cd总时长",
         lua_desc = "充能cd总时长",
     },
@@ -1177,7 +1177,7 @@ event.ET_UNIT_ATTR_CHANGE = {
 }
 
 ---@class EventParam.ET_BEFORE_UNIT_DIE
----@field damage py.Fixed # 受到的伤害值
+---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
@@ -1190,7 +1190,7 @@ event.ET_BEFORE_UNIT_DIE = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
@@ -1235,7 +1235,7 @@ event.ET_BEFORE_UNIT_DIE = {
 }
 
 ---@class EventParam.ET_UNIT_DIE
----@field damage py.Fixed # 受到的伤害值
+---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
@@ -1248,7 +1248,7 @@ event.ET_UNIT_DIE = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
@@ -1333,7 +1333,7 @@ event.ET_UNIT_ON_BIND_ROLE = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT
----@field damage py.Fixed # 受到的伤害值
+---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
@@ -1347,7 +1347,7 @@ event.ET_UNIT_BE_HURT = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
@@ -1403,7 +1403,7 @@ event.ET_UNIT_BE_HURT = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER
----@field damage py.Fixed # 受到的伤害值
+---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
@@ -1417,7 +1417,7 @@ event.ET_UNIT_HURT_OTHER = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
@@ -1473,7 +1473,7 @@ event.ET_UNIT_HURT_OTHER = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_BEFORE_APPLY
----@field damage py.Fixed # 受到的伤害值
+---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
@@ -1487,7 +1487,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
@@ -1543,7 +1543,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_BEFORE_APPLY
----@field damage py.Fixed # 受到的伤害值
+---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
@@ -1557,7 +1557,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
@@ -1613,9 +1613,9 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_FINISH
----@field is_critical_hit py.Fixed # 是否是暴击
+---@field is_critical_hit number # 是否是暴击
 ---@field is_normal_hit boolean # 是否是普通攻击
----@field damage py.Fixed # 受到的伤害值
+---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
@@ -1629,7 +1629,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
         name = "__is_critical_hit",
         type = "py.Fixed",
         lua_name = "is_critical_hit",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "是否是暴击",
         lua_desc = "是否是暴击",
     },
@@ -1645,7 +1645,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
@@ -1701,9 +1701,9 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_COMPLETE
----@field is_critical_hit py.Fixed # 是否是暴击
+---@field is_critical_hit number # 是否是暴击
 ---@field is_normal_hit boolean # 是否是普通攻击
----@field damage py.Fixed # 受到的伤害值
+---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
@@ -1717,7 +1717,7 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
         name = "__is_critical_hit",
         type = "py.Fixed",
         lua_name = "is_critical_hit",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "是否是暴击",
         lua_desc = "是否是暴击",
     },
@@ -1733,7 +1733,7 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
@@ -1789,7 +1789,7 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE_BEFORE_APPLY
----@field cured_value py.Fixed # 受到的治疗值
+---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 
 --单位即将受到治疗
@@ -1798,7 +1798,7 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
         name = "__cured_value",
         type = "py.Fixed",
         lua_name = "cured_value",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的治疗值",
         lua_desc = "受到的治疗值",
     },
@@ -1813,7 +1813,7 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE_FINISH
----@field cured_value py.Fixed # 受到的治疗值
+---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 
 --单位受到治疗结束
@@ -1822,7 +1822,7 @@ event.ET_UNIT_GET_CURE_FINISH = {
         name = "__cured_value",
         type = "py.Fixed",
         lua_name = "cured_value",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的治疗值",
         lua_desc = "受到的治疗值",
     },
@@ -1837,7 +1837,7 @@ event.ET_UNIT_GET_CURE_FINISH = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE
----@field cured_value py.Fixed # 受到的治疗值
+---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 
 --单位受到治疗
@@ -1846,7 +1846,7 @@ event.ET_UNIT_GET_CURE = {
         name = "__cured_value",
         type = "py.Fixed",
         lua_name = "cured_value",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的治疗值",
         lua_desc = "受到的治疗值",
     },
@@ -2108,7 +2108,7 @@ event.ET_UNIT_ON_COMMAND = {
 }
 
 ---@class EventParam.ET_KILL_UNIT
----@field damage py.Fixed # 伤害值
+---@field damage number # 伤害值
 ---@field source_unit Unit # 杀手单位
 ---@field target_unit Unit # 死亡单位
 ---@field ability Ability # 致命伤害所属技能
@@ -2121,7 +2121,7 @@ event.ET_KILL_UNIT = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "伤害值",
         lua_desc = "伤害值",
     },
@@ -2226,7 +2226,7 @@ event.ET_UNIT_CREATE_SLAVE = {
 ---@class EventParam.ET_ITEM_ATTACHED_ATTR_CHANGED
 ---@field item Item # 无描述
 ---@field attr_key string # 无描述
----@field delta py.Fixed # 无描述
+---@field delta number # 无描述
 
 --物品附加属性变化
 event.ET_ITEM_ATTACHED_ATTR_CHANGED = {
@@ -2246,7 +2246,7 @@ event.ET_ITEM_ATTACHED_ATTR_CHANGED = {
         name = "__delta",
         type = "py.Fixed",
         lua_name = "delta",
-        lua_type = "py.Fixed",
+        lua_type = "number",
     },
 }
 
@@ -4174,7 +4174,7 @@ event.ET_DEST_COLLECTED_NEW = {
 ---@class EventParam.ET_GET_HURT_NEW
 ---@field destructible Destructible # 可破坏物
 ---@field unit_id_of_hurt_dest Unit # 事件中的单位
----@field damage_value_of_hurt_dest py.Fixed # 受到的伤害
+---@field damage_value_of_hurt_dest number # 受到的伤害
 
 --可破坏物受到伤害
 event.ET_GET_HURT_NEW = {
@@ -4198,7 +4198,7 @@ event.ET_GET_HURT_NEW = {
         name = "__damage_value_of_hurt_dest",
         type = "py.Fixed",
         lua_name = "damage_value_of_hurt_dest",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "受到的伤害",
         lua_desc = "受到的伤害",
     },
@@ -4677,7 +4677,7 @@ event.LOCAL_MOUSE_MOVE_EVENT = {}
 ---@field event_name string # 事件名
 ---@field point Point # 点
 ---@field int1 integer # 整数1
----@field float1 py.Fixed # 实数1
+---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
@@ -4712,7 +4712,7 @@ event.ET_UNIT_EVENT_TO_GLOBAL = {
         name = "__float1",
         type = "py.Fixed",
         lua_name = "float1",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "实数1",
         lua_desc = "实数1",
     },
@@ -4746,7 +4746,7 @@ event.ET_UNIT_EVENT_TO_GLOBAL = {
 ---@field event_name string # 事件名
 ---@field point Point # 点
 ---@field int1 integer # 整数1
----@field float1 py.Fixed # 实数1
+---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
@@ -4781,7 +4781,7 @@ event.ET_ABILITY_EVENT_TO_GLOBAL = {
         name = "__float1",
         type = "py.Fixed",
         lua_name = "float1",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "实数1",
         lua_desc = "实数1",
     },
@@ -4815,7 +4815,7 @@ event.ET_ABILITY_EVENT_TO_GLOBAL = {
 ---@field event_name string # 事件名
 ---@field point Point # 点
 ---@field int1 integer # 整数1
----@field float1 py.Fixed # 实数1
+---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
@@ -4850,7 +4850,7 @@ event.ET_MODIFIER_EVENT_TO_GLOBAL = {
         name = "__float1",
         type = "py.Fixed",
         lua_name = "float1",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "实数1",
         lua_desc = "实数1",
     },
@@ -4884,7 +4884,7 @@ event.ET_MODIFIER_EVENT_TO_GLOBAL = {
 ---@field event_name string # 事件名
 ---@field point Point # 点
 ---@field int1 integer # 整数1
----@field float1 py.Fixed # 实数1
+---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
@@ -4919,7 +4919,7 @@ event.ET_PROJECTILE_EVENT_TO_GLOBAL = {
         name = "__float1",
         type = "py.Fixed",
         lua_name = "float1",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "实数1",
         lua_desc = "实数1",
     },
@@ -4953,7 +4953,7 @@ event.ET_PROJECTILE_EVENT_TO_GLOBAL = {
 ---@field event_name string # 事件名
 ---@field point Point # 点
 ---@field int1 integer # 整数1
----@field float1 py.Fixed # 实数1
+---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
 ---@field unit Unit # 单位
@@ -4988,7 +4988,7 @@ event.ET_ITEM_EVENT_TO_GLOBAL = {
         name = "__float1",
         type = "py.Fixed",
         lua_name = "float1",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "实数1",
         lua_desc = "实数1",
     },
@@ -6148,8 +6148,8 @@ event.ET_ITEM_CREATE_ON_DEST_COLLECTED = {
 
 ---@class EventParam.ET_ATTACK_MOVE_CMD
 ---@field unit Unit # 指定单位
----@field tar_x py.Fixed # 点击位置X坐标
----@field tar_y py.Fixed # 点击位置Y坐标
+---@field tar_x number # 点击位置X坐标
+---@field tar_y number # 点击位置Y坐标
 
 --左键A地板
 event.ET_ATTACK_MOVE_CMD = {
@@ -6165,7 +6165,7 @@ event.ET_ATTACK_MOVE_CMD = {
         name = "__tar_x",
         type = "py.Fixed",
         lua_name = "tar_x",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "点击位置X坐标",
         lua_desc = "点击位置X坐标",
     },
@@ -6173,7 +6173,7 @@ event.ET_ATTACK_MOVE_CMD = {
         name = "__tar_y",
         type = "py.Fixed",
         lua_name = "tar_y",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "点击位置Y坐标",
         lua_desc = "点击位置Y坐标",
     },
@@ -6256,8 +6256,8 @@ event.ET_AI_RELEASE_SKILL_CMD = {
 
 ---@class EventParam.ET_PATROL_CMD
 ---@field unit Unit # 指定单位
----@field tar_x py.Fixed # 点击位置X坐标
----@field tar_y py.Fixed # 点击位置Y坐标
+---@field tar_x number # 点击位置X坐标
+---@field tar_y number # 点击位置Y坐标
 
 --巡逻
 event.ET_PATROL_CMD = {
@@ -6273,7 +6273,7 @@ event.ET_PATROL_CMD = {
         name = "__tar_x",
         type = "py.Fixed",
         lua_name = "tar_x",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "点击位置X坐标",
         lua_desc = "点击位置X坐标",
     },
@@ -6281,7 +6281,7 @@ event.ET_PATROL_CMD = {
         name = "__tar_y",
         type = "py.Fixed",
         lua_name = "tar_y",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "点击位置Y坐标",
         lua_desc = "点击位置Y坐标",
     },
@@ -6289,8 +6289,8 @@ event.ET_PATROL_CMD = {
 
 ---@class EventParam.ET_MOVE_UNIT_TO_TARGET_CMD
 ---@field unit Unit # 指定单位
----@field tar_x py.Fixed # 点击位置X坐标
----@field tar_y py.Fixed # 点击位置Y坐标
+---@field tar_x number # 点击位置X坐标
+---@field tar_y number # 点击位置Y坐标
 
 --寻路到位置
 event.ET_MOVE_UNIT_TO_TARGET_CMD = {
@@ -6306,7 +6306,7 @@ event.ET_MOVE_UNIT_TO_TARGET_CMD = {
         name = "__tar_x",
         type = "py.Fixed",
         lua_name = "tar_x",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "点击位置X坐标",
         lua_desc = "点击位置X坐标",
     },
@@ -6314,7 +6314,7 @@ event.ET_MOVE_UNIT_TO_TARGET_CMD = {
         name = "__tar_y",
         type = "py.Fixed",
         lua_name = "tar_y",
-        lua_type = "py.Fixed",
+        lua_type = "number",
         desc = "点击位置Y坐标",
         lua_desc = "点击位置Y坐标",
     },
