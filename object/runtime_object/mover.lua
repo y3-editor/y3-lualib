@@ -84,11 +84,11 @@ end)
 ---@private
 ---@param mover_data Mover.CreateData.Base
 ---@return fun(mover: Mover) # update mover
----@return fun(mover: Mover, unit: Unit)? # on_hit
----@return fun(mover: Mover)? # on_block
----@return fun(mover: Mover)? # on_finish
----@return fun(mover: Mover)? # on_break
----@return fun(mover: Mover)? # on_remove
+---@return fun()? # on_hit
+---@return fun()? # on_block
+---@return fun()? # on_finish
+---@return fun()? # on_break
+---@return fun()? # on_remove
 function M.wrap_callbacks(mover_data)
     ---@type Mover
     local mover
@@ -101,8 +101,8 @@ function M.wrap_callbacks(mover_data)
     ---@type fun(mover: py.Mover, unit: py.Unit)?
     local on_hit
     if mover_data.on_hit then
-        ---@param py_unit py.Unit
-        on_hit = function (_, py_unit)
+        on_hit = function ()
+            local py_unit = GameAPI.get_mover_collide_unit()
             local unit = y3.unit.get_by_handle(py_unit)
             xpcall(mover_data.on_hit, log.error, mover, unit)
         end
