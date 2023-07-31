@@ -1339,6 +1339,7 @@ event.ET_UNIT_ON_BIND_ROLE = {
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 无描述
+---@field damage_instance DamageInstance # 伤害实例
 
 --单位即将受到攻击
 event.ET_UNIT_BE_HURT = {
@@ -1388,6 +1389,17 @@ event.ET_UNIT_BE_HURT = {
         lua_name = "unit",
         lua_type = "Unit",
     },
+    [7] = {
+        name = nil,
+        type = nil,
+        lua_name = "damage_instance",
+        lua_type = "DamageInstance",
+        lua_desc = "伤害实例",
+        lua_code = function (data)
+            local instance = New 'DamageInstance' (data, "伤害前")
+            return instance
+        end,
+    },
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER
@@ -1397,6 +1409,7 @@ event.ET_UNIT_BE_HURT = {
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 无描述
+---@field damage_instance DamageInstance # 伤害实例
 
 --单位即将击中其他单位
 event.ET_UNIT_HURT_OTHER = {
@@ -1446,6 +1459,17 @@ event.ET_UNIT_HURT_OTHER = {
         lua_name = "unit",
         lua_type = "Unit",
     },
+    [7] = {
+        name = nil,
+        type = nil,
+        lua_name = "damage_instance",
+        lua_type = "DamageInstance",
+        lua_desc = "伤害实例",
+        lua_code = function (data)
+            local instance = New 'DamageInstance' (data, "伤害前")
+            return instance
+        end,
+    },
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_BEFORE_APPLY
@@ -1455,6 +1479,7 @@ event.ET_UNIT_HURT_OTHER = {
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 无描述
+---@field damage_instance DamageInstance # 伤害实例
 
 --单位即将受到攻击（计算加成后）
 event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
@@ -1504,6 +1529,17 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         lua_name = "unit",
         lua_type = "Unit",
     },
+    [7] = {
+        name = nil,
+        type = nil,
+        lua_name = "damage_instance",
+        lua_type = "DamageInstance",
+        lua_desc = "伤害实例",
+        lua_code = function (data)
+            local instance = New 'DamageInstance' (data, "伤害时")
+            return instance
+        end,
+    },
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_BEFORE_APPLY
@@ -1513,6 +1549,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 无描述
+---@field damage_instance DamageInstance # 伤害实例
 
 --单位即将击中其他单位（计算加成后）
 event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
@@ -1562,6 +1599,17 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         lua_name = "unit",
         lua_type = "Unit",
     },
+    [7] = {
+        name = nil,
+        type = nil,
+        lua_name = "damage_instance",
+        lua_type = "DamageInstance",
+        lua_desc = "伤害实例",
+        lua_code = function (data)
+            local instance = New 'DamageInstance' (data, "伤害时")
+            return instance
+        end,
+    },
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_FINISH
@@ -1573,6 +1621,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 无描述
+---@field damage_instance DamageInstance # 伤害实例
 
 --单位实际对其他单位造成伤害
 event.ET_UNIT_HURT_OTHER_FINISH = {
@@ -1638,6 +1687,17 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
         lua_name = "unit",
         lua_type = "Unit",
     },
+    [9] = {
+        name = nil,
+        type = nil,
+        lua_name = "damage_instance",
+        lua_type = "DamageInstance",
+        lua_desc = "伤害实例",
+        lua_code = function (data)
+            local instance = New 'DamageInstance' (data, "伤害后")
+            return instance
+        end,
+    },
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_COMPLETE
@@ -1649,6 +1709,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
 ---@field unit Unit # 无描述
+---@field damage_instance DamageInstance # 伤害实例
 
 --单位实际受到伤害
 event.ET_UNIT_BE_HURT_COMPLETE = {
@@ -1713,6 +1774,17 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
         type = "py.UnitID",
         lua_name = "unit",
         lua_type = "Unit",
+    },
+    [9] = {
+        name = nil,
+        type = nil,
+        lua_name = "damage_instance",
+        lua_type = "DamageInstance",
+        lua_desc = "伤害实例",
+        lua_code = function (data)
+            local instance = New 'DamageInstance' (data, "伤害后")
+            return instance
+        end,
     },
 }
 

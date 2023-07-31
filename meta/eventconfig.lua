@@ -877,8 +877,18 @@ M.config["未知-ET_UNIT_ON_BIND_ROLE"] = {
 ---@alias EventParam.单位-受到伤害前 EventParam.ET_UNIT_BE_HURT
 M.config["单位-受到伤害前"] = {
     __class__ = "EventConfigBuilder",
-    desc = "在其他计算前触发，可以修改闪避和暴击",
+    desc = "在其他计算前触发，可以修改闪避",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local instance = New 'DamageInstance' (data, \"伤害前\")\
+    return instance\
+end\
+",
+            desc = "伤害实例",
+            name = "damage_instance",
+            type = "DamageInstance",
+        },
     },
     key = "ET_UNIT_BE_HURT",
     name = "单位-受到伤害前",
@@ -889,8 +899,18 @@ M.config["单位-受到伤害前"] = {
 ---@alias EventParam.单位-造成伤害前 EventParam.ET_UNIT_HURT_OTHER
 M.config["单位-造成伤害前"] = {
     __class__ = "EventConfigBuilder",
-    desc = "在其他计算前触发，可以修改闪避和暴击",
+    desc = "在其他计算前触发，可以修改闪避",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local instance = New 'DamageInstance' (data, \"伤害前\")\
+    return instance\
+end\
+",
+            desc = "伤害实例",
+            name = "damage_instance",
+            type = "DamageInstance",
+        },
     },
     key = "ET_UNIT_HURT_OTHER",
     name = "单位-造成伤害前",
@@ -903,6 +923,16 @@ M.config["单位-受到伤害时"] = {
     __class__ = "EventConfigBuilder",
     desc = "可以修改伤害值",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local instance = New 'DamageInstance' (data, \"伤害时\")\
+    return instance\
+end\
+",
+            desc = "伤害实例",
+            name = "damage_instance",
+            type = "DamageInstance",
+        },
     },
     key = "ET_UNIT_BE_HURT_BEFORE_APPLY",
     name = "单位-受到伤害时",
@@ -915,6 +945,16 @@ M.config["单位-造成伤害时"] = {
     __class__ = "EventConfigBuilder",
     desc = "可以修改伤害值",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local instance = New 'DamageInstance' (data, \"伤害时\")\
+    return instance\
+end\
+",
+            desc = "伤害实例",
+            name = "damage_instance",
+            type = "DamageInstance",
+        },
     },
     key = "ET_UNIT_HURT_OTHER_BEFORE_APPLY",
     name = "单位-造成伤害时",
@@ -927,6 +967,16 @@ M.config["单位-造成伤害后"] = {
     __class__ = "EventConfigBuilder",
     desc = "伤害已结算，只能获取伤害值",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local instance = New 'DamageInstance' (data, \"伤害后\")\
+    return instance\
+end\
+",
+            desc = "伤害实例",
+            name = "damage_instance",
+            type = "DamageInstance",
+        },
     },
     key = "ET_UNIT_HURT_OTHER_FINISH",
     name = "单位-造成伤害后",
@@ -939,6 +989,16 @@ M.config["单位-受到伤害后"] = {
     __class__ = "EventConfigBuilder",
     desc = "伤害已结算，只能获取伤害值",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local instance = New 'DamageInstance' (data, \"伤害后\")\
+    return instance\
+end\
+",
+            desc = "伤害实例",
+            name = "damage_instance",
+            type = "DamageInstance",
+        },
     },
     key = "ET_UNIT_BE_HURT_COMPLETE",
     name = "单位-受到伤害后",
