@@ -618,10 +618,12 @@ end
 
 --获取指定命名的子控件
 ---@param name string
----@return UI ui_comp ui控件
+---@return UI? ui_comp ui控件
 function M:get_child(name)
     local py_ui = GameAPI.get_comp_by_path(self.player.handle, self.handle, name)
-    assert(py_ui, ('子控件[%s]不存在'):format(name))
+    if not py_ui then
+        return nil
+    end
     return y3.ui.get_by_handle(self.player, py_ui)
 end
 

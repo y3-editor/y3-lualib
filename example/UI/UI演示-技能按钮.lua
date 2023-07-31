@@ -19,6 +19,7 @@ local function init_ui()
 
     -- 修改技能图片
     local skill_image = skill_btn:get_child('skill_icon_img')
+    assert(skill_image)
     skill_image:set_image(106728)
 end
 
