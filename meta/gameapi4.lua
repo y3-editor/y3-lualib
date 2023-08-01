@@ -5517,6 +5517,7 @@ function GameAPI.create_projectile_in_scene_new(p_key, location, owner_unit_or_p
 ---@param loop boolean # 是否循环
 ---@param fade_in_time? number # 淡入时间
 ---@param fade_out_time? number # 淡出时间
+---@return py.SoundEntity # 声音对象
 function GameAPI.play_sound_for_player(role, sid, loop, fade_in_time, fade_out_time) end
 
 --对目标播放音乐
@@ -5531,23 +5532,25 @@ function GameAPI.play_sound_for_role_relation(unit_key, camp_target, sid, loop) 
 ---@param sid py.AudioKey # 乐曲编号
 ---@param position py.Point # 播放位置
 ---@param height number # 高度
----@param fade_in_time? boolean # 是否循环
----@param fade_out_time? number # 淡入时间
----@param ensure_play? number # 淡出时间
----@param loop? boolean # 确保播放
+---@param fade_in_time? number # 淡入时间
+---@param fade_out_time? number # 淡出时间
+---@param ensure_play? boolean # 确保播放
+---@param loop? boolean # 是否循环
+---@return py.SoundEntity # 声音对象
 function GameAPI.play_3d_sound_for_player(role, sid, position, height, fade_in_time, fade_out_time, ensure_play, loop) end
 
 --跟随单位播放3d音乐
 ---@param role py.Role # 玩家
 ---@param sid py.AudioKey # 乐曲编号
 ---@param unit py.Unit # 单位
----@param fade_in_time? boolean # 是否循环
----@param fade_out_time? number # 淡入时间
----@param ensure_play? number # 淡出时间
----@param loop? boolean # 确保播放
+---@param fade_in_time? number # 淡入时间
+---@param fade_out_time? number # 淡出时间
+---@param ensure_play? boolean # 确保播放
+---@param loop? boolean # 是否循环
 ---@param offset_x? number # 偏移x
 ---@param offset_y? number # 偏移y
 ---@param offset_z? number # 偏移z
+---@return py.SoundEntity # 声音对象
 function GameAPI.follow_object_play_3d_sound_for_player(role, sid, unit, fade_in_time, fade_out_time, ensure_play, loop, offset_x, offset_y, offset_z) end
 
 --停止播放音乐
