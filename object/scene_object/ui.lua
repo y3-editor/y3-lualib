@@ -702,5 +702,10 @@ function M:get_window_height()
     return GameAPI.get_window_real_y_size()
 end
 
+-- 设置控件跟随鼠标
+---@param follow_mouse boolean
+function M:set_follow_mouse(follow_mouse)
+    GameAPI.set_ui_comp_follow_mouse(self.player.handle, self.handle, follow_mouse)
+end
 
 return M

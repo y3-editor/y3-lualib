@@ -4749,7 +4749,7 @@ function GameAPI.trigger_ui_event(role, comp_name, event_name) end
 --控制控件跟随鼠标
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件uid
----@param is_follow string # 事件名
+---@param is_follow boolean # 是否跟随
 function GameAPI.set_ui_comp_follow_mouse(role, comp_name, is_follow) end
 
 --获得坐标是否在控件内
