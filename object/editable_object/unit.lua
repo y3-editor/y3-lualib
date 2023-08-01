@@ -959,8 +959,9 @@ end
 
 ---给单位添加魔法效果
 ---@param data Buff.AddData
+---@return Buff?
 function M:add_buff(data)
-    self.handle:api_add_modifier(
+    local py_buff = self.handle:api_add_modifier(
         data.key,
         data.source and data.source.handle or nil,
         data.ability and data.ability.handle or nil,
@@ -968,6 +969,10 @@ function M:add_buff(data)
         data.pulse and Fix32(data.pulse) or nil,
         data.stacks
     )
+    if not py_buff then
+        return nil
+    end
+    return y3.buff.get_by_handle(py_buff)
 end
 
 ---单位移除所有指定id的魔法效果
