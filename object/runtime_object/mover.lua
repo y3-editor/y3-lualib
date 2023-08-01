@@ -143,6 +143,7 @@ function M.wrap_callbacks(mover_data)
     return update_mover, on_hit, on_block, on_finish, on_break, on_remove
 end
 
+---@private
 ---@param args Mover.CreateData.Line
 ---@return table
 function M.wrap_line_args(args)
@@ -170,6 +171,7 @@ function M.wrap_line_args(args)
     return builder
 end
 
+---@private
 ---@param args Mover.CreateData.Target
 ---@return table
 function M.wrap_target_args(args)
@@ -197,6 +199,7 @@ function M.wrap_target_args(args)
     return builder
 end
 
+---@private
 ---@param args Mover.CreateData.Curve
 ---@return table
 function M.wrap_curve_args(args)
@@ -225,6 +228,7 @@ function M.wrap_curve_args(args)
     return builder
 end
 
+---@private
 ---@param args Mover.CreateData.Round
 ---@return table
 function M.wrap_round_args(args)
