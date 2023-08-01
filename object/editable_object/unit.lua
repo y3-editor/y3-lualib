@@ -965,9 +965,9 @@ function M:add_buff(data)
         data.key,
         data.source and data.source.handle or nil,
         data.ability and data.ability.handle or nil,
-        data.time and Fix32(data.time) or nil,
-        data.pulse and Fix32(data.pulse) or nil,
-        data.stacks
+        Fix32(data.time or 100.0),
+        Fix32(data.pulse or 0.0),
+        data.stacks or 1
     )
     if not py_buff then
         return nil
