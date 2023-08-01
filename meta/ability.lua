@@ -196,6 +196,10 @@ function Ability:api_set_bool_attr(attr, value) end
 --阻止当前技能施法
 function Ability:api_break_ability_in_cs() end
 
+--获取最近的技能可升级等级
+---@return integer # 等级
+function Ability:api_get_ability_nearest_upgradable_unit_level() end
+
 --获取技能编号
 ---@return py.AbilityKey # 技能编号
 function Ability:api_get_ability_id() end

@@ -4,6 +4,1128 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--设置SFX_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.SfxKey # 值
+function GameAPI.set_sfx_key_list_value(l, i, v) end
+
+--生成n个值为v的SFX_KEY数组
+---@param n integer # 长度
+---@param v? py.SfxKey # 值
+---@return py.List # 列表
+function GameAPI.get_sfx_key_n_list(n, v) end
+
+--获取UI_COMP数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return string # 值
+function GameAPI.get_ui_comp_list_value(l, i) end
+
+--设置UI_COMP数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v string # 值
+function GameAPI.set_ui_comp_list_value(l, i, v) end
+
+--生成n个值为v的UI_COMP数组
+---@param n integer # 长度
+---@param v? string # 值
+---@return py.List # 列表
+function GameAPI.get_ui_comp_n_list(n, v) end
+
+--获取UI_COMP_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_ui_comp_type_list_value(l, i) end
+
+--设置UI_COMP_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_ui_comp_type_list_value(l, i, v) end
+
+--生成n个值为v的UI_COMP_TYPE数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_ui_comp_type_n_list(n, v) end
+
+--获取UI_COMP_EVENT_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_ui_comp_event_type_list_value(l, i) end
+
+--设置UI_COMP_EVENT_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_ui_comp_event_type_list_value(l, i, v) end
+
+--生成n个值为v的UI_COMP_EVENT_TYPE数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_ui_comp_event_type_n_list(n, v) end
+
+--获取CAMERA数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Camera # 值
+function GameAPI.get_camera_list_value(l, i) end
+
+--设置CAMERA数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Camera # 值
+function GameAPI.set_camera_list_value(l, i, v) end
+
+--生成n个值为v的CAMERA数组
+---@param n integer # 长度
+---@param v? py.Camera # 值
+---@return py.List # 列表
+function GameAPI.get_camera_n_list(n, v) end
+
+--获取MODIFIER_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ModifierEntity # 值
+function GameAPI.get_modifier_entity_list_value(l, i) end
+
+--设置MODIFIER_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ModifierEntity # 值
+function GameAPI.set_modifier_entity_list_value(l, i, v) end
+
+--生成n个值为v的MODIFIER_ENTITY数组
+---@param n integer # 长度
+---@param v? py.ModifierEntity # 值
+---@return py.List # 列表
+function GameAPI.get_modifier_entity_n_list(n, v) end
+
+--获取PROJECTILE_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ProjectileEntity # 值
+function GameAPI.get_projectile_entity_list_value(l, i) end
+
+--设置PROJECTILE_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ProjectileEntity # 值
+function GameAPI.set_projectile_entity_list_value(l, i, v) end
+
+--生成n个值为v的PROJECTILE_ENTITY数组
+---@param n integer # 长度
+---@param v? py.ProjectileEntity # 值
+---@return py.List # 列表
+function GameAPI.get_projectile_entity_n_list(n, v) end
+
+--获取AUDIO_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.AudioKey # 值
+function GameAPI.get_audio_key_list_value(l, i) end
+
+--设置AUDIO_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.AudioKey # 值
+function GameAPI.set_audio_key_list_value(l, i, v) end
+
+--生成n个值为v的AUDIO_KEY数组
+---@param n integer # 长度
+---@param v? py.AudioKey # 值
+---@return py.List # 列表
+function GameAPI.get_audio_key_n_list(n, v) end
+
+--获取TEXTURE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Texture # 值
+function GameAPI.get_texture_list_value(l, i) end
+
+--设置TEXTURE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Texture # 值
+function GameAPI.set_texture_list_value(l, i, v) end
+
+--生成n个值为v的TEXTURE数组
+---@param n integer # 长度
+---@param v? py.Texture # 值
+---@return py.List # 列表
+function GameAPI.get_texture_n_list(n, v) end
+
+--获取UNIT_NAME数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.UnitKey # 值
+function GameAPI.get_unit_name_list_value(l, i) end
+
+--设置UNIT_NAME数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.UnitKey # 值
+function GameAPI.set_unit_name_list_value(l, i, v) end
+
+--生成n个值为v的UNIT_NAME数组
+---@param n integer # 长度
+---@param v? py.UnitKey # 值
+---@return py.List # 列表
+function GameAPI.get_unit_name_n_list(n, v) end
+
+--获取MODEL数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ModelKey # 值
+function GameAPI.get_model_list_value(l, i) end
+
+--设置MODEL数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ModelKey # 值
+function GameAPI.set_model_list_value(l, i, v) end
+
+--生成n个值为v的MODEL数组
+---@param n integer # 长度
+---@param v? py.ModelKey # 值
+---@return py.List # 列表
+function GameAPI.get_model_n_list(n, v) end
+
+--获取STORE_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.StoreKey # 值
+function GameAPI.get_store_key_list_value(l, i) end
+
+--设置STORE_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.StoreKey # 值
+function GameAPI.set_store_key_list_value(l, i, v) end
+
+--生成n个值为v的STORE_KEY数组
+---@param n integer # 长度
+---@param v? py.StoreKey # 值
+---@return py.List # 列表
+function GameAPI.get_store_key_n_list(n, v) end
+
+--获取SFX_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Sfx # 值
+function GameAPI.get_sfx_entity_list_value(l, i) end
+
+--设置SFX_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Sfx # 值
+function GameAPI.set_sfx_entity_list_value(l, i, v) end
+
+--生成n个值为v的SFX_ENTITY数组
+---@param n integer # 长度
+---@param v? py.Sfx # 值
+---@return py.List # 列表
+function GameAPI.get_sfx_entity_n_list(n, v) end
+
+--获取ROAD_GROUP数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.RoadGroup # 值
+function GameAPI.get_road_group_list_value(l, i) end
+
+--设置ROAD_GROUP数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.RoadGroup # 值
+function GameAPI.set_road_group_list_value(l, i, v) end
+
+--生成n个值为v的ROAD_GROUP数组
+---@param n integer # 长度
+---@param v? py.RoadGroup # 值
+---@return py.List # 列表
+function GameAPI.get_road_group_n_list(n, v) end
+
+--获取POLYGON数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.PolyArea # 值
+function GameAPI.get_polygon_list_value(l, i) end
+
+--设置POLYGON数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.PolyArea # 值
+function GameAPI.set_polygon_list_value(l, i, v) end
+
+--生成n个值为v的POLYGON数组
+---@param n integer # 长度
+---@param v? py.PolyArea # 值
+---@return py.List # 列表
+function GameAPI.get_polygon_n_list(n, v) end
+
+--获取ITEM_GROUP数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ItemGroup # 值
+function GameAPI.get_item_group_list_value(l, i) end
+
+--设置ITEM_GROUP数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ItemGroup # 值
+function GameAPI.set_item_group_list_value(l, i, v) end
+
+--生成n个值为v的ITEM_GROUP数组
+---@param n integer # 长度
+---@param v? py.ItemGroup # 值
+---@return py.List # 列表
+function GameAPI.get_item_group_n_list(n, v) end
+
+--获取TECH_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.TechKey # 值
+function GameAPI.get_tech_key_list_value(l, i) end
+
+--设置TECH_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.TechKey # 值
+function GameAPI.set_tech_key_list_value(l, i, v) end
+
+--生成n个值为v的TECH_KEY数组
+---@param n integer # 长度
+---@param v? py.TechKey # 值
+---@return py.List # 列表
+function GameAPI.get_tech_key_n_list(n, v) end
+
+--获取MODIFIER_EFFECT_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ModifierEffectType # 值
+function GameAPI.get_modifier_effect_type_list_value(l, i) end
+
+--设置MODIFIER_EFFECT_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ModifierEffectType # 值
+function GameAPI.set_modifier_effect_type_list_value(l, i, v) end
+
+--生成n个值为v的MODIFIER_EFFECT_TYPE数组
+---@param n integer # 长度
+---@param v? py.ModifierEffectType # 值
+---@return py.List # 列表
+function GameAPI.get_modifier_effect_type_n_list(n, v) end
+
+--获取DYNAMIC_TRIGGER_INSTANCE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.DynamicTriggerInstance # 值
+function GameAPI.get_dynamic_trigger_instance_list_value(l, i) end
+
+--设置DYNAMIC_TRIGGER_INSTANCE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.DynamicTriggerInstance # 值
+function GameAPI.set_dynamic_trigger_instance_list_value(l, i, v) end
+
+--生成n个值为v的DYNAMIC_TRIGGER_INSTANCE数组
+---@param n integer # 长度
+---@param v? py.DynamicTriggerInstance # 值
+---@return py.List # 列表
+function GameAPI.get_dynamic_trigger_instance_n_list(n, v) end
+
+--获取ROLE_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.RoleType # 值
+function GameAPI.get_role_type_list_value(l, i) end
+
+--设置ROLE_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.RoleType # 值
+function GameAPI.set_role_type_list_value(l, i, v) end
+
+--生成n个值为v的ROLE_TYPE数组
+---@param n integer # 长度
+---@param v? py.RoleType # 值
+---@return py.List # 列表
+function GameAPI.get_role_type_n_list(n, v) end
+
+--获取ROLE_STATUS数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.RoleStatus # 值
+function GameAPI.get_role_status_list_value(l, i) end
+
+--设置ROLE_STATUS数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.RoleStatus # 值
+function GameAPI.set_role_status_list_value(l, i, v) end
+
+--生成n个值为v的ROLE_STATUS数组
+---@param n integer # 长度
+---@param v? py.RoleStatus # 值
+---@return py.List # 列表
+function GameAPI.get_role_status_n_list(n, v) end
+
+--获取NEW_TIMER数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Timer # 值
+function GameAPI.get_new_timer_list_value(l, i) end
+
+--设置NEW_TIMER数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Timer # 值
+function GameAPI.set_new_timer_list_value(l, i, v) end
+
+--生成n个值为v的NEW_TIMER数组
+---@param n integer # 长度
+---@param v? py.Timer # 值
+---@return py.List # 列表
+function GameAPI.get_new_timer_n_list(n, v) end
+
+--获取ABILITY_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_ability_type_list_value(l, i) end
+
+--设置ABILITY_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_ability_type_list_value(l, i, v) end
+
+--生成n个值为v的ABILITY_TYPE数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_ability_type_n_list(n, v) end
+
+--获取MODIFIER_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ModifierType # 值
+function GameAPI.get_modifier_type_list_value(l, i) end
+
+--设置MODIFIER_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ModifierType # 值
+function GameAPI.set_modifier_type_list_value(l, i, v) end
+
+--生成n个值为v的MODIFIER_TYPE数组
+---@param n integer # 长度
+---@param v? py.ModifierType # 值
+---@return py.List # 列表
+function GameAPI.get_modifier_type_n_list(n, v) end
+
+--获取LINK_SFX_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.LinkSfxKey # 值
+function GameAPI.get_link_sfx_key_list_value(l, i) end
+
+--设置LINK_SFX_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.LinkSfxKey # 值
+function GameAPI.set_link_sfx_key_list_value(l, i, v) end
+
+--生成n个值为v的LINK_SFX_KEY数组
+---@param n integer # 长度
+---@param v? py.LinkSfxKey # 值
+---@return py.List # 列表
+function GameAPI.get_link_sfx_key_n_list(n, v) end
+
+--获取UI_COMP_ALIGN_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_ui_comp_align_type_list_value(l, i) end
+
+--设置UI_COMP_ALIGN_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_ui_comp_align_type_list_value(l, i, v) end
+
+--生成n个值为v的UI_COMP_ALIGN_TYPE数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_ui_comp_align_type_n_list(n, v) end
+
+--获取UI_DIRECTION数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_ui_direction_list_value(l, i) end
+
+--设置UI_DIRECTION数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_ui_direction_list_value(l, i, v) end
+
+--生成n个值为v的UI_DIRECTION数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_ui_direction_n_list(n, v) end
+
+--获取RANDOM_POOL数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.RandomPool # 值
+function GameAPI.get_random_pool_list_value(l, i) end
+
+--设置RANDOM_POOL数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.RandomPool # 值
+function GameAPI.set_random_pool_list_value(l, i, v) end
+
+--生成n个值为v的RANDOM_POOL数组
+---@param n integer # 长度
+---@param v? py.RandomPool # 值
+---@return py.List # 列表
+function GameAPI.get_random_pool_n_list(n, v) end
+
+--获取LINK_SFX_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.LinkSfx # 值
+function GameAPI.get_link_sfx_entity_list_value(l, i) end
+
+--设置LINK_SFX_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.LinkSfx # 值
+function GameAPI.set_link_sfx_entity_list_value(l, i, v) end
+
+--生成n个值为v的LINK_SFX_ENTITY数组
+---@param n integer # 长度
+---@param v? py.LinkSfx # 值
+---@return py.List # 列表
+function GameAPI.get_link_sfx_entity_n_list(n, v) end
+
+--获取PROJECTILE_GROUP数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ProjectileGroup # 值
+function GameAPI.get_projectile_group_list_value(l, i) end
+
+--设置PROJECTILE_GROUP数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ProjectileGroup # 值
+function GameAPI.set_projectile_group_list_value(l, i, v) end
+
+--生成n个值为v的PROJECTILE_GROUP数组
+---@param n integer # 长度
+---@param v? py.ProjectileGroup # 值
+---@return py.List # 列表
+function GameAPI.get_projectile_group_n_list(n, v) end
+
+--获取DESTRUCTIBLE_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Destructible # 值
+function GameAPI.get_destructible_entity_list_value(l, i) end
+
+--设置DESTRUCTIBLE_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Destructible # 值
+function GameAPI.set_destructible_entity_list_value(l, i, v) end
+
+--生成n个值为v的DESTRUCTIBLE_ENTITY数组
+---@param n integer # 长度
+---@param v? py.Destructible # 值
+---@return py.List # 列表
+function GameAPI.get_destructible_entity_n_list(n, v) end
+
+--获取DESTRUCTIBLE_NAME数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.DestructibleKey # 值
+function GameAPI.get_destructible_name_list_value(l, i) end
+
+--设置DESTRUCTIBLE_NAME数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.DestructibleKey # 值
+function GameAPI.set_destructible_name_list_value(l, i, v) end
+
+--生成n个值为v的DESTRUCTIBLE_NAME数组
+---@param n integer # 长度
+---@param v? py.DestructibleKey # 值
+---@return py.List # 列表
+function GameAPI.get_destructible_name_n_list(n, v) end
+
+--获取SOUND_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.SoundEntity # 值
+function GameAPI.get_sound_entity_list_value(l, i) end
+
+--设置SOUND_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.SoundEntity # 值
+function GameAPI.set_sound_entity_list_value(l, i, v) end
+
+--生成n个值为v的SOUND_ENTITY数组
+---@param n integer # 长度
+---@param v? py.SoundEntity # 值
+---@return py.List # 列表
+function GameAPI.get_sound_entity_n_list(n, v) end
+
+--获取ABILITY_CAST_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_ability_cast_type_list_value(l, i) end
+
+--设置ABILITY_CAST_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_ability_cast_type_list_value(l, i, v) end
+
+--生成n个值为v的ABILITY_CAST_TYPE数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_ability_cast_type_n_list(n, v) end
+
+--获取CURVED_PATH数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.CurvedPath # 值
+function GameAPI.get_curved_path_list_value(l, i) end
+
+--设置CURVED_PATH数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.CurvedPath # 值
+function GameAPI.set_curved_path_list_value(l, i, v) end
+
+--生成n个值为v的CURVED_PATH数组
+---@param n integer # 长度
+---@param v? py.CurvedPath # 值
+---@return py.List # 列表
+function GameAPI.get_curved_path_n_list(n, v) end
+
+--获取IMAGE_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_image_key_list_value(l, i) end
+
+--设置IMAGE_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_image_key_list_value(l, i, v) end
+
+--生成n个值为v的IMAGE_KEY数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_image_key_n_list(n, v) end
+
+--获取ANGLE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Fixed # 值
+function GameAPI.get_angle_list_value(l, i) end
+
+--设置ANGLE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Fixed # 值
+function GameAPI.set_angle_list_value(l, i, v) end
+
+--生成n个值为v的ANGLE数组
+---@param n integer # 长度
+---@param v? py.Fixed # 值
+---@return py.List # 列表
+function GameAPI.get_angle_n_list(n, v) end
+
+--获取INT_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_int_save_list_value(l, i) end
+
+--设置INT_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_int_save_list_value(l, i, v) end
+
+--生成n个值为v的INT_SAVE数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_int_save_n_list(n, v) end
+
+--获取STR_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return string # 值
+function GameAPI.get_str_save_list_value(l, i) end
+
+--设置STR_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v string # 值
+function GameAPI.set_str_save_list_value(l, i, v) end
+
+--生成n个值为v的STR_SAVE数组
+---@param n integer # 长度
+---@param v? string # 值
+---@return py.List # 列表
+function GameAPI.get_str_save_n_list(n, v) end
+
+--获取FLOAT_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Fixed # 值
+function GameAPI.get_float_save_list_value(l, i) end
+
+--设置FLOAT_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Fixed # 值
+function GameAPI.set_float_save_list_value(l, i, v) end
+
+--生成n个值为v的FLOAT_SAVE数组
+---@param n integer # 长度
+---@param v? py.Fixed # 值
+---@return py.List # 列表
+function GameAPI.get_float_save_n_list(n, v) end
+
+--获取BOOL_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return boolean # 值
+function GameAPI.get_bool_save_list_value(l, i) end
+
+--设置BOOL_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v boolean # 值
+function GameAPI.set_bool_save_list_value(l, i, v) end
+
+--生成n个值为v的BOOL_SAVE数组
+---@param n integer # 长度
+---@param v? boolean # 值
+---@return py.List # 列表
+function GameAPI.get_bool_save_n_list(n, v) end
+
+--获取SCENE_UI数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.SceneNode # 值
+function GameAPI.get_scene_ui_list_value(l, i) end
+
+--设置SCENE_UI数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.SceneNode # 值
+function GameAPI.set_scene_ui_list_value(l, i, v) end
+
+--生成n个值为v的SCENE_UI数组
+---@param n integer # 长度
+---@param v? py.SceneNode # 值
+---@return py.List # 列表
+function GameAPI.get_scene_ui_n_list(n, v) end
+
+--获取UI_ANIM数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.UIAnimKey # 值
+function GameAPI.get_ui_anim_list_value(l, i) end
+
+--设置UI_ANIM数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.UIAnimKey # 值
+function GameAPI.set_ui_anim_list_value(l, i, v) end
+
+--生成n个值为v的UI_ANIM数组
+---@param n integer # 长度
+---@param v? py.UIAnimKey # 值
+---@return py.List # 列表
+function GameAPI.get_ui_anim_n_list(n, v) end
+
+--获取UNIT_BEHAVIOR数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.UnitBehavior # 值
+function GameAPI.get_unit_behavior_list_value(l, i) end
+
+--设置UNIT_BEHAVIOR数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.UnitBehavior # 值
+function GameAPI.set_unit_behavior_list_value(l, i, v) end
+
+--生成n个值为v的UNIT_BEHAVIOR数组
+---@param n integer # 长度
+---@param v? py.UnitBehavior # 值
+---@return py.List # 列表
+function GameAPI.get_unit_behavior_n_list(n, v) end
+
+--获取CAMLINE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.CamlineID # 值
+function GameAPI.get_camline_list_value(l, i) end
+
+--设置CAMLINE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.CamlineID # 值
+function GameAPI.set_camline_list_value(l, i, v) end
+
+--生成n个值为v的CAMLINE数组
+---@param n integer # 长度
+---@param v? py.CamlineID # 值
+---@return py.List # 列表
+function GameAPI.get_camline_n_list(n, v) end
+
+--获取TABLE_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Table # 值
+function GameAPI.get_table_save_list_value(l, i) end
+
+--设置TABLE_SAVE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Table # 值
+function GameAPI.set_table_save_list_value(l, i, v) end
+
+--生成n个值为v的TABLE_SAVE数组
+---@param n integer # 长度
+---@param v? py.Table # 值
+---@return py.List # 列表
+function GameAPI.get_table_save_n_list(n, v) end
+
+--获取HARM_TEXT_TYPE_NEW数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return string # 值
+function GameAPI.get_harm_text_type_new_list_value(l, i) end
+
+--设置HARM_TEXT_TYPE_NEW数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v string # 值
+function GameAPI.set_harm_text_type_new_list_value(l, i, v) end
+
+--生成n个值为v的HARM_TEXT_TYPE_NEW数组
+---@param n integer # 长度
+---@param v? string # 值
+---@return py.List # 列表
+function GameAPI.get_harm_text_type_new_n_list(n, v) end
+
+--获取SCENE_SOUND数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.SceneSound # 值
+function GameAPI.get_scene_sound_list_value(l, i) end
+
+--设置SCENE_SOUND数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.SceneSound # 值
+function GameAPI.set_scene_sound_list_value(l, i, v) end
+
+--生成n个值为v的SCENE_SOUND数组
+---@param n integer # 长度
+---@param v? py.SceneSound # 值
+---@return py.List # 列表
+function GameAPI.get_scene_sound_n_list(n, v) end
+
+--获取MOVER_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Mover # 值
+function GameAPI.get_mover_entity_list_value(l, i) end
+
+--设置MOVER_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Mover # 值
+function GameAPI.set_mover_entity_list_value(l, i, v) end
+
+--生成n个值为v的MOVER_ENTITY数组
+---@param n integer # 长度
+---@param v? py.Mover # 值
+---@return py.List # 列表
+function GameAPI.get_mover_entity_n_list(n, v) end
+
+--获取PROJECTILE_3D数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ProjectileKey # 值
+function GameAPI.get_projectile_3d_list_value(l, i) end
+
+--设置PROJECTILE_3D数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ProjectileKey # 值
+function GameAPI.set_projectile_3d_list_value(l, i, v) end
+
+--生成n个值为v的PROJECTILE_3D数组
+---@param n integer # 长度
+---@param v? py.ProjectileKey # 值
+---@return py.List # 列表
+function GameAPI.get_projectile_3d_n_list(n, v) end
+
+--获取CURSOR_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.CursorKey # 值
+function GameAPI.get_cursor_key_list_value(l, i) end
+
+--设置CURSOR_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.CursorKey # 值
+function GameAPI.set_cursor_key_list_value(l, i, v) end
+
+--生成n个值为v的CURSOR_KEY数组
+---@param n integer # 长度
+---@param v? py.CursorKey # 值
+---@return py.List # 列表
+function GameAPI.get_cursor_key_n_list(n, v) end
+
+--获取VECTOR3数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.FVector3 # 值
+function GameAPI.get_vector3_list_value(l, i) end
+
+--设置VECTOR3数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.FVector3 # 值
+function GameAPI.set_vector3_list_value(l, i, v) end
+
+--生成n个值为v的VECTOR3数组
+---@param n integer # 长度
+---@param v? py.FVector3 # 值
+---@return py.List # 列表
+function GameAPI.get_vector3_n_list(n, v) end
+
+--获取SEQUENCE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Sequence # 值
+function GameAPI.get_sequence_list_value(l, i) end
+
+--设置SEQUENCE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Sequence # 值
+function GameAPI.set_sequence_list_value(l, i, v) end
+
+--生成n个值为v的SEQUENCE数组
+---@param n integer # 长度
+---@param v? py.Sequence # 值
+---@return py.List # 列表
+function GameAPI.get_sequence_n_list(n, v) end
+
+--获取PHYSICS_OBJECT数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.PhysicsObject # 值
+function GameAPI.get_physics_object_list_value(l, i) end
+
+--设置PHYSICS_OBJECT数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.PhysicsObject # 值
+function GameAPI.set_physics_object_list_value(l, i, v) end
+
+--生成n个值为v的PHYSICS_OBJECT数组
+---@param n integer # 长度
+---@param v? py.PhysicsObject # 值
+---@return py.List # 列表
+function GameAPI.get_physics_object_n_list(n, v) end
+
+--获取PHYSICS_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.PhysicsEntity # 值
+function GameAPI.get_physics_entity_list_value(l, i) end
+
+--设置PHYSICS_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.PhysicsEntity # 值
+function GameAPI.set_physics_entity_list_value(l, i, v) end
+
+--生成n个值为v的PHYSICS_ENTITY数组
+---@param n integer # 长度
+---@param v? py.PhysicsEntity # 值
+---@return py.List # 列表
+function GameAPI.get_physics_entity_n_list(n, v) end
+
+--获取RIGID_BODY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.RigidBody # 值
+function GameAPI.get_rigid_body_list_value(l, i) end
+
+--设置RIGID_BODY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.RigidBody # 值
+function GameAPI.set_rigid_body_list_value(l, i, v) end
+
+--生成n个值为v的RIGID_BODY数组
+---@param n integer # 长度
+---@param v? py.RigidBody # 值
+---@return py.List # 列表
+function GameAPI.get_rigid_body_n_list(n, v) end
+
+--获取COLLIDER数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Collider # 值
+function GameAPI.get_collider_list_value(l, i) end
+
+--设置COLLIDER数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Collider # 值
+function GameAPI.set_collider_list_value(l, i, v) end
+
+--生成n个值为v的COLLIDER数组
+---@param n integer # 长度
+---@param v? py.Collider # 值
+---@return py.List # 列表
+function GameAPI.get_collider_n_list(n, v) end
+
+--获取ATTR_ELEMENT数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return string # 值
+function GameAPI.get_attr_element_list_value(l, i) end
+
+--设置ATTR_ELEMENT数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v string # 值
+function GameAPI.set_attr_element_list_value(l, i, v) end
+
+--生成n个值为v的ATTR_ELEMENT数组
+---@param n integer # 长度
+---@param v? string # 值
+---@return py.List # 列表
+function GameAPI.get_attr_element_n_list(n, v) end
+
+--获取ATTR_ELEMENT_READ数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return string # 值
+function GameAPI.get_attr_element_read_list_value(l, i) end
+
+--设置ATTR_ELEMENT_READ数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v string # 值
+function GameAPI.set_attr_element_read_list_value(l, i, v) end
+
+--生成n个值为v的ATTR_ELEMENT_READ数组
+---@param n integer # 长度
+---@param v? string # 值
+---@return py.List # 列表
+function GameAPI.get_attr_element_read_n_list(n, v) end
+
+--获取JOINT数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Joint # 值
+function GameAPI.get_joint_list_value(l, i) end
+
+--设置JOINT数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Joint # 值
+function GameAPI.set_joint_list_value(l, i, v) end
+
+--生成n个值为v的JOINT数组
+---@param n integer # 长度
+---@param v? py.Joint # 值
+---@return py.List # 列表
+function GameAPI.get_joint_n_list(n, v) end
+
+--获取PHYSICS_OBJECT_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.PhysicsObjectKey # 值
+function GameAPI.get_physics_object_key_list_value(l, i) end
+
+--设置PHYSICS_OBJECT_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.PhysicsObjectKey # 值
+function GameAPI.set_physics_object_key_list_value(l, i, v) end
+
+--生成n个值为v的PHYSICS_OBJECT_KEY数组
+---@param n integer # 长度
+---@param v? py.PhysicsObjectKey # 值
+---@return py.List # 列表
+function GameAPI.get_physics_object_key_n_list(n, v) end
+
+--获取PHYSICS_ENTITY_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.PhysicsEntityKey # 值
+function GameAPI.get_physics_entity_key_list_value(l, i) end
+
+--设置PHYSICS_ENTITY_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.PhysicsEntityKey # 值
+function GameAPI.set_physics_entity_key_list_value(l, i, v) end
+
+--生成n个值为v的PHYSICS_ENTITY_KEY数组
+---@param n integer # 长度
+---@param v? py.PhysicsEntityKey # 值
+---@return py.List # 列表
+function GameAPI.get_physics_entity_key_n_list(n, v) end
+
+--获取ROTATION数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.FRotation # 值
+function GameAPI.get_rotation_list_value(l, i) end
+
+--设置ROTATION数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.FRotation # 值
+function GameAPI.set_rotation_list_value(l, i, v) end
+
 --生成n个值为v的ROTATION数组
 ---@param n integer # 长度
 ---@param v? py.FRotation # 值
@@ -964,6 +2086,12 @@ function GameAPI.set_unit_key_random_pool_kv(item_key, key, value) end
 ---@param value string # 键值名称
 function GameAPI.set_unit_key_scene_ui_kv(item_key, key, value) end
 
+--预设库 添加PHYSICS_ENTITY_STATE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_physics_entity_state_kv(item_key, key, value) end
+
 --预设库 添加DAMAGE_TYPE键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -1593,6 +2721,12 @@ function GameAPI.set_item_key_random_pool_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_item_key_scene_ui_kv(item_key, key, value) end
+
+--预设库 添加PHYSICS_ENTITY_STATE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_physics_entity_state_kv(item_key, key, value) end
 
 --预设库 添加DAMAGE_TYPE键值对
 ---@param item_key integer # prefab库ID
@@ -2224,6 +3358,12 @@ function GameAPI.set_ability_key_random_pool_kv(item_key, key, value) end
 ---@param value string # 键值名称
 function GameAPI.set_ability_key_scene_ui_kv(item_key, key, value) end
 
+--预设库 添加PHYSICS_ENTITY_STATE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_ability_key_physics_entity_state_kv(item_key, key, value) end
+
 --预设库 添加DAMAGE_TYPE键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -2419,6 +3559,12 @@ function GameAPI.api_get_value_of_item_name_comp_res(item_key, role_res_key) end
 ---@param old_entity_no py.ItemKey # 物品物编
 ---@return py.ItemKey # 物品物编
 function GameAPI.create_item_editor_data(old_entity_no) end
+
+--获取物品类型的购买所需资源
+---@param item_no py.ItemKey # 物品物编
+---@param role_res_key py.RoleResKey # 玩家属性
+---@return integer # 资源数量
+function GameAPI.api_get_item_key_res_cnt(item_no, role_res_key) end
 
 --最近被购买物品
 ---@return py.Item # 物品实体
@@ -2821,8 +3967,11 @@ function GameAPI.create_unit_command_transfer_item(item, target) end
 
 --跟随
 ---@param target py.Unit # 目标
+---@param refresh_interval? py.Fixed # 间隔
+---@param near_offset? py.Fixed # 跟随距离
+---@param far_offset? py.Fixed # 重新跟随距离
 ---@return py.UnitCommand # 单位命令
-function GameAPI.create_unit_command_follow(target) end
+function GameAPI.create_unit_command_follow(target, refresh_interval, near_offset, far_offset) end
 
 --特效播放开关
 ---@param role py.Role # 玩家
@@ -3447,6 +4596,12 @@ function GameAPI.force_enable_camera_sync(enable) end
 ---@param entity py.Unit # 单位
 function GameAPI.init_bind_nim(role, entity) end
 
+--设置玩家镜头模式
+---@param role py.Role # 玩家
+---@param cam_mod py.CameraMode # 镜头模式
+---@param ortho_scale? number # 正交缩放
+function GameAPI.api_set_role_camera_mode(role, cam_mod, ortho_scale) end
+
 --判断玩家单位类型前置条件满足需求
 ---@param player py.Role # 玩家
 ---@param unity_key py.UnitKey # 单位类型
@@ -3737,9 +4892,9 @@ function GameAPI.api_physics_raycast(start_point, end_point) end
 function GameAPI.api_set_physics_object_activated_and_visible(physics_object_id, is_visible) end
 
 --设置逻辑物理组件可见性(以及是否为生效状态)
----@param physics_entity_id py.Actor # 物理组件
+---@param physics_entity py.Actor # 物理组件
 ---@param is_visible boolean # 是否可见
-function GameAPI.api_set_physics_entity_activated_and_visible(physics_entity_id, is_visible) end
+function GameAPI.api_set_physics_entity_activated_and_visible(physics_entity, is_visible) end
 
 --单位/逻辑物理组件之间是否有重叠
 ---@param entity_1 py.Actor # 单位/逻辑物理组件
@@ -3772,18 +4927,8 @@ function GameAPI.api_create_physics_entity(physics_entity_id, translation, direc
 function GameAPI.api_del_physics_object(physics_object_id) end
 
 --删除逻辑物理组件
----@param physics_entity_id py.Actor # 逻辑物理组件
-function GameAPI.api_del_physics_entity(physics_entity_id) end
-
---设置逻辑物理组件开启状态
----@param entity py.PhysicsEntity # 物理组件
----@param is_active boolean # 开启状态
----@param visible? boolean # 可见性
-function GameAPI.api_set_entity_active(entity, is_active, visible) end
-
---获得逻辑物理组件开启状态
----@param entity py.PhysicsEntity # 物理组件
-function GameAPI.api_get_entity_active(entity) end
+---@param physics_entity py.Actor # 逻辑物理组件
+function GameAPI.api_del_physics_entity(physics_entity) end
 
 --逻辑物理组件是否存在
 ---@param entity? py.PhysicsEntity # 逻辑物理组件
@@ -3797,15 +4942,31 @@ function GameAPI.api_physics_entity_is_exist(entity) end
 ---@param loop boolean # 是否循环
 function GameAPI.api_physics_play_animation(entity, rigid, anim_name, loop) end
 
---获得逻辑物理组件当前状态
+--获得逻辑物理组件的状态
 ---@param entity py.PhysicsEntity # 物理组件
 ---@return integer # 状态
-function GameAPI.api_get_entity_state(entity) end
+function GameAPI.api_get_physics_entity_state(entity) end
 
---设置逻辑物理组件当前状态
+--设置逻辑物理组件状态
 ---@param entity py.PhysicsEntity # 物理组件
 ---@param state integer # 状态
 function GameAPI.api_set_entity_state(entity, state) end
+
+--设置逻辑物理组件的激活状态
+---@param entity py.PhysicsEntity # 物理组件
+---@param is_active boolean # 开启状态
+---@param visible? boolean # 可见性
+function GameAPI.api_set_entity_active(entity, is_active, visible) end
+
+--判断逻辑物理组件是激活状态
+---@param entity py.PhysicsEntity # 物理组件
+---@return boolean # 激活状态
+function GameAPI.api_is_physics_entity_active(entity) end
+
+--判断逻辑物理组件是关闭状态
+---@param entity py.PhysicsEntity # 物理组件
+---@return boolean # 关闭状态
+function GameAPI.api_is_physics_entity_deactive(entity) end
 
 --设置爆炸器属性
 ---@param exploder py.PhysicsEntity # 爆炸器组件
@@ -3846,6 +5007,15 @@ function GameAPI.api_set_exploder_down_value(exploder, down_value) end
 ---@param exploder py.PhysicsEntity # 爆炸器组件
 ---@param force py.Fixed # 击飞力
 function GameAPI.api_set_exploder_force(exploder, force) end
+
+--根据id获得逻辑物理组件
+---@param entity_id py.Fixed # id
+---@return py.PhysicsEntity # 逻辑物理组件
+function GameAPI.api_get_physics_entity(entity_id) end
+
+--设置重力加速度
+---@param gravity py.FVector3 # 重力加速度
+function GameAPI.api_set_gravity(gravity) end
 
 --设置物理主控单位
 ---@param ctrl_unit py.Unit # 单位
@@ -4080,7 +5250,12 @@ function GameAPI.api_get_rigidbody_active(rigid) end
 ---@param direction py.FVector3 # 速度方向
 function GameAPI.api_set_rigidbody_velocity(body, speed, direction) end
 
---设置刚体速度
+--获得刚体速度
+---@param body py.RigidBody # 刚体
+---@return py.FVector3 # 速度
+function GameAPI.api_get_rigidbody_velocity(body) end
+
+--设置刚体角速度
 ---@param body py.RigidBody # 刚体
 ---@param angular_velocity py.FVector3 # 角速度
 function GameAPI.api_set_rigidbody_angular_velocity(body, angular_velocity) end
@@ -4135,6 +5310,14 @@ function GameAPI.api_delete_reaction_group(reactions) end
 ---@param vel py.Fixed # 水平速度
 ---@param socket_name string # 出手绑点
 function GameAPI.throw_physics_item(physics_item, length, vel, socket_name) end
+
+--物理组件-单位扔出道具
+---@param unit py.Unit # 单位
+---@param physics_item py.PhysicsEntity # 物理组件
+---@param length py.Fixed # 抛出距离
+---@param vel py.Fixed # 水平速度
+---@param socket_name string # 出手绑点
+function GameAPI.throw_physics_item1(unit, physics_item, length, vel, socket_name) end
 
 --获取物理物品的刚体
 ---@param physics_item py.Unit # 物品单位
@@ -4769,1147 +5952,3 @@ function GameAPI.edit_area_fov_block(area, fov_block_type, is_add) end
 --设置全局天气
 ---@param weather_type integer # 天气类型
 function GameAPI.update_global_weather(weather_type) end
-
---获得全局天气
----@return integer # 天气类型
-function GameAPI.get_global_weather() end
-
---打开技能指示器
----@param role py.Role # 玩家
----@param ability py.Ability # 技能
-function GameAPI.start_skill_pointer(role, ability) end
-
---关闭技能指示器
----@param role py.Role # 玩家
----@param ability py.Ability # 技能
-function GameAPI.stop_skill_pointer(role, ability) end
-
---打开技能指示器
----@param role py.Role # 玩家
----@param ability py.Ability # 技能
-function GameAPI.create_preview_skill_pointer(role, ability) end
-
---关闭技能指示器
----@param role py.Role # 玩家
-function GameAPI.clear_preview_skill_pointer(role) end
-
---技能类型指示器
----@param ability_id py.AbilityKey # 技能ID
----@return integer # 指示器类型
-function GameAPI.get_ability_key_skill_pointer(ability_id) end
-
---发送信号
----@param role_or_role_id py.RoleID # 玩家ID
----@param signal_type py.SignalType # 信号类型
----@param world_pos py.Point # 位置
----@param visible_type py.SignalVisibleType # 显示类型
-function GameAPI.send_signal(role_or_role_id, signal_type, world_pos, visible_type) end
-
---根据点光源ID返回点光源
----@param res_id py.LightID # 光源ID
----@return py.PointLight # 点光源
-function GameAPI.get_point_light_res_by_res_id(res_id) end
-
---根据方向光源ID返回方向光源
----@param res_id py.LightID # 光源ID
----@return py.SpotLight # 方向光源
-function GameAPI.get_spot_light_res_by_res_id(res_id) end
-
---创建点光源到点
----@param point py.Point # 点
----@param offset_y? py.Fixed # 偏移高度
----@return py.PointLight # 点光源
-function GameAPI.create_point_light_to_point(point, offset_y) end
-
---创建点光源到单位绑点
----@param unit py.Unit # 单位
----@param socket_name string # 挂节点
----@param offset_y? py.Fixed # 偏移高度
----@return py.PointLight # 点光源
-function GameAPI.create_point_light_to_unit_socket(unit, socket_name, offset_y) end
-
---创建方向光源到点
----@param point py.Point # 点
----@param pos_offset_y? py.Fixed # 起点偏移高度
----@param target? py.Actor # 朝向目标
----@param target_offset_y? py.Fixed # 朝向目标偏移高度
----@return py.SpotLight # 方向光源
-function GameAPI.create_spot_light_to_point(point, pos_offset_y, target, target_offset_y) end
-
---创建方向光源到单位绑点
----@param unit py.Unit # 单位
----@param socket_name string # 挂节点
----@param pos_offset_y? py.Fixed # 起点偏移高度
----@param target? py.Actor # 朝向目标
----@param target_offset_y? py.Fixed # 朝向目标偏移高度
----@return py.SpotLight # 方向光源
-function GameAPI.create_spot_light_to_unit_socket(unit, socket_name, pos_offset_y, target, target_offset_y) end
-
---删除光源
----@param light py.Light # 光源
-function GameAPI.remove_light(light) end
-
---设置光源Float属性
----@param light py.Light # 光源
----@param attr_name string # 属性名
----@param value py.Fixed # 值
-function GameAPI.set_light_float_attr_value(light, attr_name, value) end
-
---获取光源Float属性
----@param light py.Light # 光源
----@param attr_name string # 属性名
----@return py.Fixed # 值
-function GameAPI.get_light_float_attr_value(light, attr_name) end
-
---设置光源是否产生阴影
----@param light py.Light # 光源
----@param value boolean # 值
-function GameAPI.set_light_cast_shadow_attr_value(light, value) end
-
---获取光源是否产生阴影
----@param light py.Light # 光源
----@return boolean # 值
-function GameAPI.get_light_cast_shadow_attr_value(light) end
-
---根据局部雾ID返回局部雾
----@param res_id py.FogID # 雾ID
----@return py.Fog # 雾
-function GameAPI.get_fog_res_by_res_id(res_id) end
-
---修改雾效属性
----@param fog py.Fog # 雾
----@param op_flag integer # 默认参数
----@param yaw? number # 朝向
----@param pos_x? number # 位置x
----@param pos_y? number # 位置y
----@param pos_z? number # 位置z
----@param scale_x? number # 缩放x
----@param scale_y? number # 缩放y
----@param scale_z? number # 缩放z
----@param color_r? number # 颜色r
----@param color_g? number # 颜色g
----@param color_b? number # 颜色b
----@param density? number # 浓度
----@param flow_speed? number # 流速
-function GameAPI.set_fog_attr(fog, op_flag, yaw, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, color_r, color_g, color_b, density, flow_speed) end
-
---获取固定单位编号的单位组
----@param unit_key py.UnitKey # 单位编号
----@return py.UnitGroup # 单位组
-function GameAPI.get_units_by_key(unit_key) end
-
---单位组内随机整数个单位
----@param units py.UnitGroup # 单位组
----@param n integer # 随机个数
----@return py.UnitGroup # 随机的单位组
-function GameAPI.get_random_n_unit_in_group(units, n) end
-
---单位组内第一个单位
----@param units py.UnitGroup # 单位组
----@return py.Unit # 第一个单位
-function GameAPI.get_first_unit_in_group(units) end
-
---单位组内最后一个单位
----@param units py.UnitGroup # 单位组
----@return py.Unit # 最后一个单位
-function GameAPI.get_last_unit_in_group(units) end
-
---根据属性值从单位组中取整数个单位
----@param units py.UnitGroup # 单位组
----@param attr string # 属性
----@param rise boolean # 是否升序排列
----@param num integer # 单位个数
----@return py.UnitGroup # 单位组
-function GameAPI.get_unit_sort_by_attr(units, attr, rise, num) end
-
---根据距离从单位组中取整数个单位
----@param units py.UnitGroup # 单位组
----@param point py.FPoint # 点
----@param rise boolean # 是否升序排列
----@param num integer # 单位个数
----@return py.UnitGroup # 单位组
-function GameAPI.get_unit_sort_by_position(units, point, rise, num) end
-
---单位组内随机一个单位
----@param units py.UnitGroup # 单位组
----@return py.Unit # 单位
-function GameAPI.get_random_unit_in_unit_group(units) end
-
---技能类型是否受冷却缩减影响
----@param ability_id py.AbilityKey # 技能类型
----@return boolean # 布尔值
-function GameAPI.api_get_influenced_by_cd_reduce(ability_id) end
-
---技能类型的字符串属性
----@param ability_id py.AbilityKey # 技能类型
----@param attr_name py.AbilityStrAttr # 字符串属性
----@return string # 字符串
-function GameAPI.get_ability_conf_str_attr(ability_id, attr_name) end
-
---技能类型的布尔属性
----@param ability_id py.AbilityKey # 技能类型
----@param attr_name string # 布尔属性
----@return boolean # 布尔属性
-function GameAPI.get_ability_conf_bool_attr(ability_id, attr_name) end
-
---技能类型的实数属性
----@param ability_id py.AbilityKey # 技能类型
----@param attr_name string # 实数属性
----@return py.Fixed # 实数
-function GameAPI.get_ability_conf_float_attr(ability_id, attr_name) end
-
---技能类型的整数属性
----@param ability_id py.AbilityKey # 技能类型
----@param attr_name string # 整数属性
----@return integer # 实数
-function GameAPI.get_ability_conf_int_attr(ability_id, attr_name) end
-
---技能类型的公式属性
----@param ability_id py.AbilityKey # 技能类型
----@param attr_name string # 公式属性
----@param level integer # 当前等级
----@param stack_count integer # 当前充能层数
----@param unit_hp_max? py.Fixed # 施法者最大生命值
----@param unit_hp_cur? py.Fixed # 施法者当前生命值
----@return py.Fixed # 实数
-function GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, stack_count, unit_hp_max, unit_hp_cur) end
-
---技能类型的公式属性
----@param ability_id py.AbilityKey # 技能类型
----@param attr_name string # 公式属性
----@param level integer # 当前等级
----@param stack_count integer # 当前充能层数
----@param unit? py.Unit # 施法计算单位
----@return py.Fixed # 实数
-function GameAPI.get_ability_conf_formula_attr_with_unit(ability_id, attr_name, level, stack_count, unit) end
-
---技能选取的目标单位
----@param ability py.Ability # 技能
----@param runtime_id? integer # runtime_id
----@return py.Unit # 单位
-function GameAPI.get_target_unit_in_ability(ability, runtime_id) end
-
---技能选取的目标物品
----@param ability py.Ability # 技能
----@param runtime_id? integer # runtime_id
----@return py.Item # 物品
-function GameAPI.get_target_item_in_ability(ability, runtime_id) end
-
---技能选取的目标可破坏物
----@param ability py.Ability # 技能
----@param runtime_id? integer # runtime_id
----@return py.Destructible # 可破坏物
-function GameAPI.get_target_dest_in_ability(ability, runtime_id) end
-
---筛选范围内单位(废弃)
----@param pos py.Vector3 # 坐标
----@param shape py.Shape # 形状
----@return py.UnitGroup # 单位组
-function GameAPI.filter_unit_id_list_in_area(pos, shape) end
-
---筛选范围内单位
----@param pos py.Vector3 # 坐标
----@param shape py.Shape # 形状
----@param belong_role_group? py.Role # 属于玩家或玩家组
----@param visible_role? py.Role # 对玩家可见
----@param invisible_role? py.Role # 对玩家不可见
----@param exclude_unit_group? py.UnitGroup # 不在单位组内
----@param with_tag? string # 具有标签
----@param without_tag? string # 不具有标签
----@param entity_no? py.UnitKey # 单位名称
----@param exclude_unit? py.Unit # 排除单位
----@param unit_type? py.UnitType # 单位种类
----@param in_state? integer # 具有状态
----@param not_in_state? integer # 不具有状态
----@param include_dead? boolean # 是否包括死亡单位
----@param max_count? integer # 数量上限
----@param sort_type? py.SortType # 排序类型
----@return py.UnitGroup # 单位组
-function GameAPI.filter_unit_id_list_in_area_v2(pos, shape, belong_role_group, visible_role, invisible_role, exclude_unit_group, with_tag, without_tag, entity_no, exclude_unit, unit_type, in_state, not_in_state, include_dead, max_count, sort_type) end
-
---筛选范围内投射物
----@param pos py.Vector3 # 坐标
----@param shape py.Shape # 形状
----@param sort_type? py.SortType # 排序类型
----@return py.ProjectileGroup # 投射物组
-function GameAPI.filter_projectile_id_list_in_area(pos, shape, sort_type) end
-
---筛选带有tag的投射物
----@param tag string # tag
----@return py.ProjectileGroup # 投射物组
-function GameAPI.get_all_projectiles_with_tag(tag) end
-
---按阵营编号获取阵营对象
----@param camp_id py.CampID # 阵营编号
----@return py.Camp # 阵营对象
-function GameAPI.get_camp_by_camp_id(camp_id) end
-
---按玩家编号获取阵营编号
----@param role_id py.RoleID # 玩家编号
----@return py.Camp # 阵营编号
-function GameAPI.get_camp_id_by_role_id(role_id) end
-
---按玩家编号获取玩家对象
----@param role_id py.RoleID # 玩家编号
----@return py.Role # 玩家
-function GameAPI.get_role_by_role_id(role_id) end
-
---按整型获取玩家对象
----@param role_id integer # 玩家编号
----@return py.Role # 玩家
-function GameAPI.get_role_by_int(role_id) end
-
---获取阵营存活单位数量
----@param camp_id py.CampID # 阵营编号
----@return integer # 单位数量
-function GameAPI.get_alive_unit_num_by_camp_id(camp_id) end
-
---所有玩家
----@return py.RoleGroup # 玩家组
-function GameAPI.get_all_role_ids() end
-
---阵营所有玩家
----@param camp py.Camp # 阵营对象
----@return py.RoleGroup # 玩家组
-function GameAPI.get_role_ids_by_camp(camp) end
-
---特定类型玩家
----@param role_type integer # 玩家类型
----@return py.RoleGroup # 玩家组
-function GameAPI.get_role_ids_by_type(role_type) end
-
---同盟玩家
----@param role py.Role # 玩家
----@return py.RoleGroup # 玩家组
-function GameAPI.get_ally_ids_by_role(role) end
-
---获取某玩家敌对玩家组
----@param role py.Role # 玩家
----@return py.RoleGroup # 玩家组
-function GameAPI.get_enemy_ids_by_role(role) end
-
---获取获胜玩家组
----@return py.RoleGroup # 玩家组
-function GameAPI.get_victorious_role_ids() end
-
---获取失利玩家组
----@return py.RoleGroup # 玩家组
-function GameAPI.get_defeated_role_ids() end
-
---三维属性是否开启
----@return boolean # 是否开启
-function GameAPI.api_if_pri_attr_state_open() end
-
---判断单位敌对关系
----@param unit1 py.Unit # 单位
----@param unit2 py.Unit # 单位
----@return boolean # 是否敌对
-function GameAPI.is_enemy(unit1, unit2) end
-
---判断单位友军关系
----@param unit1 py.Unit # 单位
----@param unit2 py.Unit # 单位
----@return boolean # 是否友军
-function GameAPI.is_ally(unit1, unit2) end
-
---玩家或单位是否拥有单位的可见性
----@param role_or_unit py.Role # 玩家
----@param unit py.Unit # 单位
----@return boolean # 是否可见
-function GameAPI.get_visibility_of_unit(role_or_unit, unit) end
-
---玩家是否加入游戏
----@param role py.Role # 玩家
----@return boolean # 玩家是否加入游戏
-function GameAPI.role_in_game(role) end
-
---玩家是否拥有收费道具
----@param role py.Role # 玩家
----@param no py.StoreKey # 收费道具key
----@return boolean # 玩家是否拥有收费道具
-function GameAPI.role_has_store_item(role, no) end
-
---玩家下载存档是否回调
----@param role py.Role # 玩家
----@return boolean # 玩家下载存档是否回调
-function GameAPI.has_download_save_data_callback(role) end
-
---获取最近创建的物品
----@return py.Item # 物品对象
-function GameAPI.get_last_created_item() end
-
---创建物品
----@param position py.FVector3 # 位置
----@param num integer # 数量
----@param eid py.ItemKey # 物品编号
----@param player py.Role # 所属玩家
-function GameAPI.create_items(position, num, eid, player) end
-
---根据id获取物品
----@param id py.ItemID # 物品ID
----@return py.Item # 物品
-function GameAPI.get_item(id) end
-
---根据物品id获取物品
----@param item_unit_id integer # unit_id
----@return py.Item # 物品
-function GameAPI.get_item_by_unit_id(item_unit_id) end
-
---获取物品配置名称
----@param key py.ItemKey # item_id
----@return string # 物品名称
-function GameAPI.get_item_conf_name(key) end
-
---创建单个物品
----@param position py.FVector3 # 位置
----@param item_key py.ItemKey # 物品编号
----@param player py.Role # 所属玩家
----@return py.Item # 创建出的物品
-function GameAPI.create_item_by_id(position, item_key, player) end
-
---根据ID获取图片
----@param icon_id integer # 图片ID
----@return py.Texture # 图片
-function GameAPI.get_texture_by_icon_id(icon_id) end
-
---根据图片获取ID
----@param texture py.Texture # 图片
----@return integer # 图片ID
-function GameAPI.get_icon_id_by_texture(texture) end
-
---刷新触发器
-function GameAPI.refresh_triggers() end
-
---激活Lua动态触发器
----@param lua_conf py.Dict # Lua触发器
-function GameAPI.enable_global_lua_trigger(lua_conf) end
-
---根据预设id获取可破坏物
----@param dest_unit_id py.DestructibleID # 预设可破坏物unit_id
----@return py.Destructible # 可破坏物
-function GameAPI.get_dest_by_id(dest_unit_id) end
-
---获取可破坏物类型
----@param dest py.Destructible # 可破坏物
----@return py.DestructibleKey # 可破坏物类型
-function GameAPI.get_dest_type(dest) end
-
---判断可破坏物是否在区域中
----@param dest_id py.Destructible # 可破坏物
----@param area py.Area # 区域
----@return boolean # 布尔值
-function GameAPI.is_dest_in_area(dest_id, area) end
-
---创建可破坏物
----@param location py.FVector3 # 位置
----@param dest_key py.DestructibleKey # 物品编号
----@param angle py.Fixed # 面向角度
----@param size number # 大小
----@return py.Destructible # 创建出的可破坏物
-function GameAPI.create_destructible(location, dest_key, angle, size) end
-
---创建可破坏物
----@param dest_key py.DestructibleKey # 物品编号
----@param location py.FVector3 # 位置
----@param angle py.Fixed # 面向角度
----@param scale_x? py.Fixed # 缩放x
----@param scale_y? py.Fixed # 缩放y
----@param scale_z? py.Fixed # 缩放z
----@param height_offset? py.Fixed # 高度
----@return py.Destructible # 创建出的可破坏物
-function GameAPI.create_destructible_new(dest_key, location, angle, scale_x, scale_y, scale_z, height_offset) end
-
---获取区域内的可破坏物列表
----@param area py.Area # 区域对象
----@return py.List # 可破坏物列表
-function GameAPI.get_all_dest_in_area(area) end
-
---获取点范围内的可破坏物列表
----@param point py.Point # 区域对象
----@param rng number # 半径
----@return py.List # 可破坏物列表
-function GameAPI.get_all_dest_in_point_rng(point, rng) end
-
---获取不同形状范围内的可破坏物列表
----@param point py.Point # 区域对象
----@param shape py.Shape # 形状
----@return py.List # 可破坏物列表
-function GameAPI.get_all_dest_in_shapes(point, shape) end
-
---创建镜头
----@param focus_point py.FVector3 # 点
----@param dis number # 焦距
----@param focus_y? number # 焦点高度
----@param yaw? number # yaw
----@param pitch? number # pitch
----@param fov? number # fov
----@return integer # 镜头ID
-function GameAPI.add_camera_conf(focus_point, dis, focus_y, yaw, pitch, fov) end
-
---应用镜头配置
----@param role py.Role # 玩家
----@param conf_id py.Camera # 镜头配置
----@param duration number # 过渡时间
----@param slope_mode? integer # 镜头移动类型
-function GameAPI.apply_camera_conf(role, conf_id, duration, slope_mode) end
-
---线性移动镜头(时间)
----@param role py.Role # 玩家
----@param point py.FVector3 # 点
----@param duration py.Fixed # 持续时间
----@param acc integer # 加速度
-function GameAPI.camera_linear_move_duration(role, point, duration, acc) end
-
---线性移动镜头(初速度)
----@param role py.Role # 玩家
----@param point py.FVector3 # 点
----@param speed py.Fixed # 初速度
----@param acc integer # 加速度
-function GameAPI.camera_linear_move_speed(role, point, speed, acc) end
-
---让镜头看向某点（镜头位置不变）
----@param role py.Role # 玩家
----@param point py.FVector3 # 点
----@param move_time? py.Fixed # 时间
-function GameAPI.camera_look_at(role, point, move_time) end
-
---设置镜头参数roll
----@param role py.Role # 玩家
----@param roll py.Fixed # 滚动角
----@param move_time? py.Fixed # 时间
-function GameAPI.camera_set_param_roll(role, roll, move_time) end
-
---设置镜头参数pitch
----@param role py.Role # 玩家
----@param pitch py.Fixed # 俯仰角
----@param move_time? py.Fixed # 时间
-function GameAPI.camera_set_param_pitch(role, pitch, move_time) end
-
---设置镜头参数yaw
----@param role py.Role # 玩家
----@param yaw py.Fixed # 导航角
----@param move_time? py.Fixed # 时间
-function GameAPI.camera_set_param_yaw(role, yaw, move_time) end
-
---设置镜头角度参数
----@param role py.Role # 玩家
----@param rotate_type py.CameraRotate # 角度类型
----@param angle py.Fixed # 角度值
----@param move_time? py.Fixed # 时间
-function GameAPI.camera_set_param_rotate(role, rotate_type, angle, move_time) end
-
---设置镜头参数distance
----@param role py.Role # 玩家
----@param distance py.Fixed # 焦点距离
----@param move_time? py.Fixed # 时间
-function GameAPI.camera_set_param_distance(role, distance, move_time) end
-
---旋转镜头俯仰角（角度，时间）
----@param role py.Role # 玩家
----@param angle py.Fixed # 角度
----@param duration py.Fixed # 时间
-function GameAPI.camera_rotate_pitch_angle_duration(role, angle, duration) end
-
---旋转镜头俯仰角（角速度，时间）
----@param role py.Role # 玩家
----@param angle_speed py.Fixed # 角速度
----@param duration py.Fixed # 时间
-function GameAPI.camera_rotate_pitch_speed_duration(role, angle_speed, duration) end
-
---旋转镜头俯仰角（角速度，角度）
----@param role py.Role # 玩家
----@param angle_speed py.Fixed # 角速度
----@param angle py.Fixed # 角度
-function GameAPI.camera_rotate_pitch_speed_angle(role, angle_speed, angle) end
-
---旋转镜头导航角（角度，时间）
----@param role py.Role # 玩家
----@param angle py.Fixed # 角度
----@param duration py.Fixed # 时间
-function GameAPI.camera_rotate_yaw_angle_duration(role, angle, duration) end
-
---旋转镜头导航角（角速度，时间）
----@param role py.Role # 玩家
----@param angle_speed py.Fixed # 角速度
----@param duration py.Fixed # 时间
-function GameAPI.camera_rotate_yaw_speed_duration(role, angle_speed, duration) end
-
---旋转镜头导航角（角速度，角度）
----@param role py.Role # 玩家
----@param angle_speed py.Fixed # 角速度
----@param angle py.Fixed # 角度
-function GameAPI.camera_rotate_yaw_speed_angle(role, angle_speed, angle) end
-
---旋转镜头滚角（角度，时间）
----@param role py.Role # 玩家
----@param angle py.Fixed # 角度
----@param duration py.Fixed # 时间
-function GameAPI.camera_rotate_roll_angle_duration(role, angle, duration) end
-
---旋转镜头滚角（角速度，时间）
----@param role py.Role # 玩家
----@param angle_speed py.Fixed # 角速度
----@param duration py.Fixed # 时间
-function GameAPI.camera_rotate_roll_speed_duration(role, angle_speed, duration) end
-
---旋转镜头滚角（角速度，角度）
----@param role py.Role # 玩家
----@param angle_speed py.Fixed # 角速度
----@param angle py.Fixed # 角度
-function GameAPI.camera_rotate_roll_speed_angle(role, angle_speed, angle) end
-
---镜头摇晃xy
----@param role py.Role # 玩家
----@param amplitude py.Fixed # 摇晃幅度
----@param speed py.Fixed # 摇晃速率
----@param duration py.Fixed # 持续时间
----@param t integer # 摇晃方式
-function GameAPI.camera_shake_xy(role, amplitude, speed, duration, t) end
-
---镜头摇晃z
----@param role py.Role # 玩家
----@param amplitude py.Fixed # 摇晃幅度
----@param speed py.Fixed # 摇晃速率
----@param duration py.Fixed # 持续时间
-function GameAPI.camera_shake_z(role, amplitude, speed, duration) end
-
---镜头摇晃xy
----@param role py.Role # 玩家
----@param amplitude py.Fixed # 摇晃幅度
----@param speed py.Fixed # 摇晃速率
----@param duration py.Fixed # 持续时间
----@param shake_mode integer # 摇晃方式
-function GameAPI.camera_shake(role, amplitude, speed, duration, shake_mode) end
-
---镜头带衰减震动
----@param role py.Role # 玩家
----@param amplitude py.Fixed # 震动幅度
----@param decay py.Fixed # 衰减速率
----@param frequency py.Fixed # 频率
----@param duration py.Fixed # 持续时间
----@param shake_type integer # 震动方式
-function GameAPI.camera_shake_with_decay(role, amplitude, decay, frequency, duration, shake_type) end
-
---镜头限制移动区域
----@param role py.Role # 玩家
----@param area py.Area # 限制区域
-function GameAPI.camera_limit_area(role, area) end
-
---镜头限制移动区域
----@param role py.Role # 玩家
-function GameAPI.camera_limit_area_close(role) end
-
---镜头跟随某个单位
----@param role py.Role # 玩家
----@param unit py.Unit # 跟随单位
----@param offset_x? number # 偏移距离x
----@param offset_y? number # 偏移距离y
----@param offset_height? number # 偏移高度
-function GameAPI.camera_set_follow_unit(role, unit, offset_x, offset_y, offset_height) end
-
---镜头tps跟随某个单位
----@param role py.Role # 玩家
----@param unit py.Unit # 跟随单位
----@param sensitive? number # 灵敏度
----@param pitch? number # 俯仰角
----@param yaw? number # 偏航角
----@param offset_x? number # 偏移距离x
----@param offset_y? number # 偏移距离y
----@param offset_z? number # 偏移高度
----@param distance? number # 摄像机距离
-function GameAPI.camera_set_tps_follow_unit(role, unit, sensitive, pitch, yaw, offset_x, offset_y, offset_z, distance) end
-
---取消镜头tps跟随单位
----@param role py.Role # 玩家
-function GameAPI.camera_cancel_tps_follow_unit(role) end
-
---将玩家相机解除绑定
----@param role py.Role # 玩家
-function GameAPI.camera_cancel_follow_unit(role) end
-
---本地镜头在跟随状态
----@return boolean # 是否跟随
-function GameAPI.camera_is_following_target() end
-
---设置玩家镜头焦点高度
----@param role py.Role # 玩家
----@param y py.Fixed # 高度
----@param move_time? py.Fixed # 时间
-function GameAPI.camera_set_focus_y(role, y, move_time) end
-
---设置玩家相机允许移动
----@param role py.Role # 玩家
-function GameAPI.camera_set_move_enable(role) end
-
---设置玩家相机禁止移动
----@param role py.Role # 玩家
-function GameAPI.camera_set_move_not_enable(role) end
-
---玩家镜头是否正在播放动画
----@param role py.Role # 玩家
----@return boolean # 是否播放动画
-function GameAPI.is_cameraIS_playing_timeline(role) end
-
---播放镜头动画
----@param role py.Role # 玩家
----@param camline_id py.CamlineID # 镜头TimelineID
-function GameAPI.play_camera_timeline(role, camline_id) end
-
---停止播放镜头动画
----@param role py.Role # 玩家
-function GameAPI.stop_camera_timeline(role) end
-
---设置第三人称跟随镜头鼠标控制开关
----@param role py.Role # 玩家
----@param enable boolean # 开关
-function GameAPI.set_tps_mode_ctrl(role, enable) end
-
---向玩家正上方显示提示信息
----@param role py.Role # 玩家
----@param seconds? number # 持续时间
----@param text string # 信息
----@param localize? boolean # 多语言转化
-function GameAPI.api_show_text(role, seconds, text, localize) end
-
---向玩家显示多语言信息
----@param role py.Role # 玩家
----@param text string # 显示信息
----@param second py.Fixed # 持续时间, 单位秒
----@param localize? boolean # 多语言转化
-function GameAPI.show_tips_text(role, text, second, localize) end
-
---API测试记录日志并可选显示
----@param text string # 信息
----@param seconds py.Fixed # 持续时间, 单位秒
----@param show boolean # 是否在屏幕显示
-function GameAPI.api_test_log_msg(text, seconds, show) end
-
---API测试显示UI信息
----@param text string # 信息
----@param seconds py.Fixed # 持续时间, 单位秒
-function GameAPI.api_test_show_msg_tip(text, seconds) end
-
---API测试-向Log添加Assert结果
----@param is_pass boolean # 是否通过
----@param info_str string # 信息
-function GameAPI.api_test_add_log_assert_result(is_pass, info_str) end
-
---Dialog窗口输出信息
----@param type integer # 窗口等级
----@param text string # 打印信息
----@param trigger_info? py.Dict # 字典
-function GameAPI.print_to_dialog(type, text, trigger_info) end
-
---向玩家显示单位对话
----@param unit py.Unit # 单位
----@param role py.Role # 玩家
----@param text string # 信息
----@param second py.Fixed # 持续时间
----@param localize? boolean # 多语言转化
-function GameAPI.show_unit_text_to_role(unit, role, text, second, localize) end
-
---向玩家左下角显示信息
----@param role py.Role # 玩家
----@param text string # 信息
----@param localize? boolean # 多语言转化
-function GameAPI.show_msg_to_role(role, text, localize) end
-
---设置当前聊天框控件
----@param role py.Role # 玩家
----@param comp_uid string # 聊天框id
-function GameAPI.set_cur_chatbox(role, comp_uid) end
-
---按阵营显示游戏结束信息
----@param camp_id py.CampID # 阵营编号
----@param result string # 结束信息
-function GameAPI.show_game_end_ui_by_camp_id(camp_id, result) end
-
---范围内随机整数
----@param min_num integer # 最小值
----@param max_num integer # 最大值
----@return integer # 随机整数
-function GameAPI.get_random_int(min_num, max_num) end
-
---范围内随机定点数
----@param min_num py.Fixed # 最小值
----@param max_num py.Fixed # 最大值
----@return py.Fixed # 随机定点数
-function GameAPI.get_random_fixed(min_num, max_num) end
-
---随机角度
----@return py.Fixed # 随机定点数
-function GameAPI.get_random_angle() end
-
---计算公式类型KV
----@param actor py.Actor # 公式所属对象
----@param k string # key
----@return py.Fixed # 值
-function GameAPI.api_calc_formula_kv(actor, k) end
-
---单位组内所有状态的单位数量
----@param unit_group py.UnitGroup # 单位组
----@return integer # 单位数量
-function GameAPI.get_unit_group_num(unit_group) end
-
---遍历时过滤单位组
----@param unit_group py.UnitGroup # 单位组
----@return py.UnitGroup # 单位组
-function GameAPI.refresh_unit_group(unit_group) end
-
---遍历时过滤投射物组
----@param proj_group py.UnitGroup # 投射物组
----@return py.UnitGroup # 投射物组
-function GameAPI.refresh_projectile_group(proj_group) end
-
---单位组某状态的单位数量
----@param unit_group py.UnitGroup # 单位组
----@param status string # 状态名称
----@return integer # 单位数量
-function GameAPI.get_state_unit_num_in_group(unit_group, status) end
-
---单位组中特定单位编号的单位数量
----@param unit_group py.UnitGroup # 单位组
----@param unit_key py.UnitKey # 单位编号
----@return integer # 无符号整型
-function GameAPI.get_num_of_unit_key_in_group(unit_group, unit_key) end
-
---删除单位组中某种单位
----@param unit_group py.UnitGroup # 单位组
----@param unit_key py.UnitKey # 单位编号
-function GameAPI.remove_unit_in_group_by_key(unit_group, unit_key) end
-
---删除单位组中某个单位
----@param unit_group py.UnitGroup # 单位组
----@param unit py.Unit # 单位
-function GameAPI.remove_unit_in_group(unit_group, unit) end
-
---设置单位组中单位选中
----@param unit_group_id py.UnitGroup # 单位组
-function GameAPI.set_unit_group_selected(unit_group_id) end
-
---单位编号池添加单位编号
----@param pool py.UnitKeyPool # 单位编号池
----@param key py.UnitKey # 单位编号
----@param pro py.Fixed # 定点数
-function GameAPI.unit_key_pool_add_key(pool, key, pro) end
-
---单位编号池删除单位编号
----@param pool py.UnitKeyPool # 单位编号池
----@param key py.UnitKey # 单位编号
-function GameAPI.unit_key_pool_rem_key(pool, key) end
-
---单位编号池返回单位编号
----@param pool py.UnitKeyPool # 单位编号池
----@return py.UnitKey # 单位编号
-function GameAPI.get_unit_key_from_pool(pool) end
-
---获取单位预设库配置的图标路径
----@param key py.UnitKey # 单位编号
----@return string # 图标
-function GameAPI.get_unit_key_icon(key) end
-
---获取物品预设库配置的图标路径
----@param key py.ItemKey # 物品编号
----@return string # 图标
-function GameAPI.get_item_key_icon(key) end
-
---获取单位预设库配置的图片路径
----@param key py.UnitKey # 单位编号
----@param pic_type string # 图片类型
----@return string # 图片
-function GameAPI.get_unit_key_pic(key, pic_type) end
-
---获取单位预设库配置的类型为字符串的属性
----@param unit_key py.UnitKey # 单位编号
----@param attr string # 属性名称
----@return string # 字符串属性值
-function GameAPI.get_unit_key_str(unit_key, attr) end
-
---获取单位预设库配置的类型为实数的属性
----@param unit_key py.UnitKey # 单位编号
----@param attr string # 属性名称
----@return py.Fixed # 实数属性值
-function GameAPI.get_unit_key_fixed(unit_key, attr) end
-
---根据UID获取预设库配置的图标路径
----@param icon_uid string # 图标唯一ID
----@return string # 图标
-function GameAPI.get_icon_by_uid(icon_uid) end
-
---获取技能预设库配置的图标路径
----@param key py.AbilityKey # 技能编号
----@return string # 图标
-function GameAPI.get_ability_key_icon(key) end
-
---变量长度
----@param var py.List # 变量
----@return integer # 变量长度
-function GameAPI.len_of_var(var) end
-
---获取三维属性的slave系数
----@param pri string # 三维属性
----@param slave string # slave属性
----@return py.Fixed # slave系数
-function GameAPI.get_slave_coeff(pri, slave) end
-
---设置三维属性的slave系数
----@param pri string # 三维属性
----@param slave string # slave属性
----@param coeff py.Fixed # slave系数
-function GameAPI.set_slave_coeff(pri, slave, coeff) end
-
---攻击类型和防御类型对应的伤害系数
----@param attack_idx integer # 攻击类型
----@param armor_idx integer # 防御类型
----@return py.Fixed # 伤害系数
-function GameAPI.get_damage_ratio(attack_idx, armor_idx) end
-
---设置攻击类型和防御类型对应的伤害系数
----@param attack_idx integer # 攻击类型
----@param armor_idx integer # 防御类型
----@param damage_ratio py.Fixed # 伤害系数
-function GameAPI.set_damage_ratio(attack_idx, armor_idx, damage_ratio) end
-
---应用伤害
----@param source_unit? py.Unit # 伤害者
----@param ability? py.Ability # 来源关联技能
----@param target_unit? py.Unit # 单位或者物品
----@param damage_type? integer # 伤害类型
----@param damage? py.Fixed # 伤害值
----@param jump_word? boolean # 是否跳字
----@param extra_context? py.Actor # extra_data
----@param as_normal_hit? boolean # 视为普攻
----@param critical? boolean # 必定暴击
----@param no_miss? boolean # 无视闪避
----@param hit_sfx? py.SfxKey # 受击特效
----@param hit_socket string # 挂接点
----@param harm_text_enum string # 跳字枚举
-function GameAPI.apply_damage(source_unit, ability, target_unit, damage_type, damage, jump_word, extra_context, as_normal_hit, critical, no_miss, hit_sfx, hit_socket, harm_text_enum) end
-
---攻击伤害绝对值
----@param damage py.Fixed # 伤害值
----@return py.Fixed # 伤害绝对值
-function GameAPI.get_hurt_damage(damage) end
-
---设置当前攻击伤害的数值
----@param damage py.Fixed # 伤害值
-function GameAPI.set_cur_damage(damage) end
-
---获取当次攻击是否闪避
----@param damage_result_state integer # damage_result_state
----@return boolean # 伤害绝对值
-function GameAPI.get_cur_damage_is_miss(damage_result_state) end
-
---设置当前是否闪避
----@param is_miss boolean # 是否闪避
-function GameAPI.set_cur_damage_is_miss(is_miss) end
-
---设置当前治疗的数值
----@param value py.Fixed # 治疗值
-function GameAPI.set_cur_cure_value(value) end
-
---启动行为树
----@param unit py.Unit # 单位
----@param tree_name string # 行为树名称
----@param tree_args py.Dict # 行为树参数
-function GameAPI.assign_behavior_tree(unit, tree_name, tree_args) end
-
---停止一棵行为树
----@param unit py.Unit # 单位
----@param tree_name string # 行为树名称
-function GameAPI.stop_behavior_tree(unit, tree_name) end
-
---停止所有行为树
----@param unit py.Unit # 单位
-function GameAPI.stop_all_behavior_tree(unit) end
-
---运行一次行为树
----@param unit py.Unit # 单位
----@param tree_name string # 行为树名称
----@param tree_args py.Dict # 行为树参数
-function GameAPI.run_behavior_tree_once(unit, tree_name, tree_args) end
-
---预设库单位删除键值对
----@param unit_key py.UnitKey # 单位编号
----@param key string # 键值名称
-function GameAPI.unit_key_del_kv(unit_key, key) end
-
---预设库技能删除键值对
----@param ability_key py.AbilityKey # 技能编号
----@param key string # 键值名称
-function GameAPI.ability_key_del_kv(ability_key, key) end
-
---预设库物品删除键值对
----@param item_key py.ItemKey # 物品编号
----@param key string # 键值名称
-function GameAPI.item_key_del_kv(item_key, key) end
-
---设置物品商品售价
----@param item_no py.ItemKey # 物品编号
----@param res_type py.RoleResKey # 资源类型
----@param price number # 售价
-function GameAPI.set_item_buy_price(item_no, res_type, price) end
-
---设置物品商品出售资源获得
----@param item_no py.ItemKey # 物品编号
----@param res_type py.RoleResKey # 资源类型
----@param price number # 出售资源获得
-function GameAPI.set_item_sell_price(item_no, res_type, price) end
-
---设置单位商品售价
----@param entity_no py.UnitKey # 单位编号
----@param res_type py.RoleResKey # 资源类型
----@param price number # 售价
-function GameAPI.set_unit_buy_price(entity_no, res_type, price) end
-
---设置单位商品出售资源获得
----@param entity_no py.UnitKey # 单位编号
----@param res_type py.RoleResKey # 资源类型
----@param price number # 出售资源获得
-function GameAPI.set_unit_sell_price(entity_no, res_type, price) end
-
---获取物品商品售价
----@param item_no py.ItemKey # 物品编号
----@param res_type py.RoleResKey # 资源类型
----@return py.Fixed # 售价
-function GameAPI.get_item_buy_price(item_no, res_type) end
-
---获取物品商品出售资源获得
----@param item_no py.ItemKey # 物品编号
----@param res_type py.RoleResKey # 资源类型
----@return py.Fixed # 出售资源获得
-function GameAPI.get_item_sell_price(item_no, res_type) end
-
---获取单位商品售价
----@param entity_no py.UnitKey # 单位编号
----@param res_type py.RoleResKey # 资源类型
----@return py.Fixed # 售价
-function GameAPI.get_unit_buy_price(entity_no, res_type) end
-
---获取单位商品出售资源获得
----@param entity_no py.UnitKey # 单位编号
----@param res_type py.RoleResKey # 资源类型
----@return py.Fixed # 出售资源获得
-function GameAPI.get_unit_sell_price(entity_no, res_type) end
-
---返回矩形区域中心点
----@param rec py.RecArea # 矩形区域
----@return py.FVector3 # 中心点
-function GameAPI.get_rec_center_point(rec) end
-
---返回圆形区域中心点
----@param cir py.CirArea # 圆形区域
----@return py.FVector3 # 中心点
-function GameAPI.get_circle_center_point(cir) end
-
---返回矩形区域内随机点
----@param area py.RecArea # 矩形区域
----@return py.FVector3 # 随机点
-function GameAPI.get_random_point_in_rec_area(area) end
-
---返回圆形区域内随机点
----@param area py.CirArea # 圆形区域
----@return py.FVector3 # 随机点
-function GameAPI.get_random_point_in_circular_area(area) end
-
---返回多边形区域内随机点
----@param area py.PolyArea # 不规则区域
----@return py.FVector3 # 随机点
-function GameAPI.get_random_point_in_poly_area(area) end
-
---最近创建的圆型区域
----@return py.CirArea # 圆型区域
-function GameAPI.get_cir_area_last_created() end
-
---通过资源id返回路径
----@param res_id integer # 资源ID
----@return py.Road # 路径
-function GameAPI.get_road_point_list_by_res_id(res_id) end
-
---在某点创建一条路径
----@param point py.Point # 点
----@return py.Road # 路径
-function GameAPI.create_road_point_list(point) end
-
---移除路径
----@param road py.Road # 路径
-function GameAPI.remove_road_point_list(road) end
-
---给路径添加点
----@param road_point_list py.Road # 路径
----@param num integer # 序号
----@param point py.Point # 点
-function GameAPI.add_road_point(road_point_list, num, point) end
-
---移除路径点
----@param road_point_list py.Road # 路径
----@param num integer # 序号
-function GameAPI.remove_road_point(road_point_list, num) end
-
---获取某点的最近路径
----@param point py.Point # 位置
----@return py.Road # 路径
-function GameAPI.get_nearest_road_point_list_by_pos(point) end
-
---获取某路径偏移后的路径
----@param origin_roads py.Road # 原始路径
----@param offset py.Fixed # 偏移距离
----@return py.Road # 路径
-function GameAPI.get_road_point_list_by_offset(origin_roads, offset) end
-
---获取某路径循环n次后的路径
----@param point_list py.Road # 原始路径
----@param n integer # 循环次数
----@return py.Road # 路径
-function GameAPI.get_road_point_list_loop(point_list, n) end
-
---获取两路径拼接后的路径
----@param pl1 py.Road # 原始路径
----@param pl2 py.Road # 原始路径
----@return py.Road # 路径
-function GameAPI.get_road_point_list_join(pl1, pl2) end
-
---获取某路径反转后的路径
----@param point_list py.Road # 原始路径
----@return py.Road # 路径
-function GameAPI.get_road_point_list_inversion(point_list) end
-
---获取路径中点的数量
----@param road_point_list py.Road # 路径
----@return integer # 数量
-function GameAPI.get_road_point_num(road_point_list) end
-
---最近创建单位实体
----@return py.Unit # 单位实体
-function GameAPI.get_last_created_unit() end
-
---最近创建子触发器
----@return integer # 子触发器ID
-function GameAPI.get_last_created_trigger() end
-
---最近创建投射物
----@return py.Unit # 投射物
-function GameAPI.get_last_created_projectile() end
-
---得到区域内的单位id列表
----@param area py.Area # 区域对象
----@return py.List # 单位ID列表
-function GameAPI.get_unit_group_in_area(area) end
-
---获取区域内玩家所有单位id列表
----@param area py.Area # 区域对象
----@param role py.Role # 玩家
----@return py.UnitGroup # 单位id列表
-function GameAPI.get_unit_group_belong_to_player_in_area(area, role) end
-
---得到区域内的物品对象id列表
----@param area py.Area # 区域对象
----@return py.ItemGroup # 物品组
-function GameAPI.get_item_group_in_area(area) end
-
---获取指定形状内的所有物品
----@param point py.Point # 区域对象
----@param shape py.Shape # 形状
----@param sort_type? py.SortType # 排序类型
----@return py.ItemGroup # 物品组
-function GameAPI.get_all_items_in_shapes(point, shape, sort_type) end

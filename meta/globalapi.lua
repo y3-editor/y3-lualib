@@ -24,6 +24,12 @@ function GlobalAPI.has_tag(actor, tag) end
 ---@return boolean # 是否有tag
 function GlobalAPI.api_has_kv_any(kvbase, key) end
 
+--字符串A是否包含字符串B
+---@param str_a string # str
+---@param str_b string # str
+---@return boolean # 是否包含
+function GlobalAPI.is_str_include_other(str_a, str_b) end
+
 --使能Actor身上的触发器
 ---@param actor py.Actor # Actor
 ---@param trigger_id py.TriggerID # 触发器id

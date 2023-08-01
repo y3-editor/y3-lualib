@@ -306,26 +306,28 @@
 --
 ---@class py.PlatformCommunityType: integer
 --物理组件
----@class py.PhysicsObject: py.DynamicTypeMeta
+---@class py.PhysicsObject: py.Actor
 --逻辑物理组件
----@class py.PhysicsEntity: py.DynamicTypeMeta
+---@class py.PhysicsEntity: py.Actor
 --物理组件类型
----@class py.PhysicsObjectKey: py.DynamicTypeMeta
+---@class py.PhysicsObjectKey: integer
 --逻辑物理组件类型
----@class py.PhysicsEntityKey: py.DynamicTypeMeta
+---@class py.PhysicsEntityKey: integer
 --刚体
----@class py.RigidBody: py.DynamicTypeMeta
+---@class py.RigidBody: py.Actor
 --刚体组
 ---@class py.RigidBodyGroup: py.DynamicTypeMeta
 --碰撞体
----@class py.Collider: py.DynamicTypeMeta
+---@class py.Collider: py.Actor
 --关节
----@class py.Joint: py.DynamicTypeMeta
+---@class py.Joint: py.Actor
 --物理Reaction
----@class py.Reaction: py.DynamicTypeMeta
+---@class py.Reaction: py.Actor
 --物理Reaction Group
 ---@class py.ReactionGroup: py.DynamicTypeMeta
 --表排序顺序
 ---@class py.TableOrder: integer
 --镜头模式
 ---@class py.CameraMode: integer
+--逻辑物理组件状态
+---@class py.PhysicsEntityState: integer

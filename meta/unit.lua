@@ -860,6 +860,7 @@ function Unit:api_set_unit_disk_shadow_size(shadow_size) end
 ---@param time? py.Fixed # 持续时间
 ---@param cycle_time? py.Fixed # 循环周期
 ---@param stack_count? integer # 效果层数
+---@return py.ModifierEntity # 魔法效果
 function Unit:api_add_modifier(modifier_key, from_unit, from_ability, time, cycle_time, stack_count) end
 
 --获取单位身上指定编号的的效果层数

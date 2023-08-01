@@ -271,3 +271,8 @@ function Item:api_change_model(source_model) end
 --取消物品替换模型
 ---@param target_model py.ModelKey # 目标模型名字
 function Item:api_cancel_replace_model(target_model) end
+
+--获取物品购买所需资源
+---@param role_res_key py.RoleResKey # 玩家属性key
+---@return integer # 所需资源数量
+function Item:api_get_item_res_cnt(role_res_key) end

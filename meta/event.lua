@@ -6820,4 +6820,124 @@ event.ET_PHYSICS_ENTITY_ON_RESET = {
     },
 }
 
+---@class EventParam.ET_PHYSICS_ENTITY_ON_DESTROY
+---@field physics_entity py.PhysicsEntity # 被销毁的组件
+---@field physics_entity_id py.PhysicsEntityKey # 组件id
+
+--逻辑物理组件销毁
+event.ET_PHYSICS_ENTITY_ON_DESTROY = {
+    [1] = {
+        name = "__physics_entity",
+        type = "py.PhysicsEntity",
+        lua_name = "physics_entity",
+        lua_type = "py.PhysicsEntity",
+        desc = "被销毁的组件",
+        lua_desc = "被销毁的组件",
+    },
+    [2] = {
+        name = "__physics_entity_id",
+        type = "py.PhysicsEntityKey",
+        lua_name = "physics_entity_id",
+        lua_type = "py.PhysicsEntityKey",
+        desc = "组件id",
+        lua_desc = "组件id",
+    },
+}
+
+---@class EventParam.ET_PHYSICS_ENTITY_ON_OBTAIN
+---@field physics_entity py.PhysicsEntity # 被获得的组件
+---@field physics_entity_id py.PhysicsEntityKey # 组件id
+
+--逻辑物理组件被获得
+event.ET_PHYSICS_ENTITY_ON_OBTAIN = {
+    [1] = {
+        name = "__physics_entity",
+        type = "py.PhysicsEntity",
+        lua_name = "physics_entity",
+        lua_type = "py.PhysicsEntity",
+        desc = "被获得的组件",
+        lua_desc = "被获得的组件",
+    },
+    [2] = {
+        name = "__physics_entity_id",
+        type = "py.PhysicsEntityKey",
+        lua_name = "physics_entity_id",
+        lua_type = "py.PhysicsEntityKey",
+        desc = "组件id",
+        lua_desc = "组件id",
+    },
+}
+
+---@class EventParam.ET_PHYSICS_ENTITY_ON_USE
+---@field physics_entity py.PhysicsEntity # 被使用的组件
+---@field physics_entity_id py.PhysicsEntityKey # 组件id
+
+--逻辑物理组件使用
+event.ET_PHYSICS_ENTITY_ON_USE = {
+    [1] = {
+        name = "__physics_entity",
+        type = "py.PhysicsEntity",
+        lua_name = "physics_entity",
+        lua_type = "py.PhysicsEntity",
+        desc = "被使用的组件",
+        lua_desc = "被使用的组件",
+    },
+    [2] = {
+        name = "__physics_entity_id",
+        type = "py.PhysicsEntityKey",
+        lua_name = "physics_entity_id",
+        lua_type = "py.PhysicsEntityKey",
+        desc = "组件id",
+        lua_desc = "组件id",
+    },
+}
+
+---@class EventParam.ET_PHYSICS_ENTITY_ON_STOP_USE
+---@field physics_entity py.PhysicsEntity # 被使用结束的组件
+---@field physics_entity_id py.PhysicsEntityKey # 组件id
+
+--逻辑物理组件使用结束
+event.ET_PHYSICS_ENTITY_ON_STOP_USE = {
+    [1] = {
+        name = "__physics_entity",
+        type = "py.PhysicsEntity",
+        lua_name = "physics_entity",
+        lua_type = "py.PhysicsEntity",
+        desc = "被使用结束的组件",
+        lua_desc = "被使用结束的组件",
+    },
+    [2] = {
+        name = "__physics_entity_id",
+        type = "py.PhysicsEntityKey",
+        lua_name = "physics_entity_id",
+        lua_type = "py.PhysicsEntityKey",
+        desc = "组件id",
+        lua_desc = "组件id",
+    },
+}
+
+---@class EventParam.ET_PHYSICS_ENTITY_ON_LOSE
+---@field physics_entity py.PhysicsEntity # 被失去的组件
+---@field physics_entity_id py.PhysicsEntityKey # 组件id
+
+--逻辑物理组件失去
+event.ET_PHYSICS_ENTITY_ON_LOSE = {
+    [1] = {
+        name = "__physics_entity",
+        type = "py.PhysicsEntity",
+        lua_name = "physics_entity",
+        lua_type = "py.PhysicsEntity",
+        desc = "被失去的组件",
+        lua_desc = "被失去的组件",
+    },
+    [2] = {
+        name = "__physics_entity_id",
+        type = "py.PhysicsEntityKey",
+        lua_name = "physics_entity_id",
+        lua_type = "py.PhysicsEntityKey",
+        desc = "组件id",
+        lua_desc = "组件id",
+    },
+}
+
 return event
