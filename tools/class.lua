@@ -91,7 +91,7 @@ function M.super(name)
         assert(super, ('class %q not inherit from any class'):format(name))
         M._superCache[name] = function (...)
             local k, self = debug.getlocal(2, 1)
-            assert(k == 'self', ('%s() must be called by the class'):format(name))
+            assert(k == 'self', ('`%s()` must be called by the class'):format(name))
             super.__call(self,...)
         end
     end
@@ -116,17 +116,22 @@ function M.component(name, compName, init)
         if not k:match '^__'
         and k ~= 'constructor'
         and k ~= 'alloc' then
-            assert(class[k] == nil, ('%s.%s is already defined'):format(name, k))
+            assert(class[k] == nil, ('"%s.%s" is already defined'):format(name, k))
             class[k] = v
         end
     end
-    if not M._componentCalls[name] then
-        M._componentCalls[name] = {}
+    if init then
+        if not M._componentCalls[name] then
+            M._componentCalls[name] = {}
+        end
+        table.insert(M._componentCalls[name], {
+            init = init,
+            name = compName,
+        })
     end
-    table.insert(M._componentCalls[name], {
-        init = init,
-        name = compName,
-    })
+    if comp.constructor and not init then
+        error(('must call super for component "%s"'):format(compName))
+    end
 end
 
 ---@private

@@ -26,6 +26,7 @@ require 'y3.util.eca_function'
 require 'y3.util.trigger'
 require 'y3.util.event'
 require 'y3.util.event_manager'
+require 'y3.util.ref'
 
 ---@param ... any
 function print(...)
