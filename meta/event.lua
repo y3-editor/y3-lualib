@@ -3573,7 +3573,7 @@ event.ET_OBTAIN_MODIFIER = {
     },
     [3] = {
         name = "__from_unit_id",
-        type = "py.Unit",
+        type = "py.UnitID",
         lua_name = "from_unit",
         lua_type = "Unit",
         desc = "效果施加者",
@@ -3606,7 +3606,7 @@ event.ET_LOSS_MODIFIER = {
     },
     [3] = {
         name = "__from_unit_id",
-        type = "py.Unit",
+        type = "py.UnitID",
         lua_name = "from_unit",
         lua_type = "Unit",
         desc = "效果施加者",
@@ -3639,7 +3639,7 @@ event.ET_MODIFIER_CYCLE_TRIGGER = {
     },
     [3] = {
         name = "__from_unit_id",
-        type = "py.Unit",
+        type = "py.UnitID",
         lua_name = "from_unit",
         lua_type = "Unit",
         desc = "效果施加者",
@@ -3677,7 +3677,7 @@ event.ET_MODIFIER_ADDTION = {
     },
     [3] = {
         name = "__from_unit_id",
-        type = "py.Unit",
+        type = "py.UnitID",
         lua_name = "from_unit",
         lua_type = "Unit",
         desc = "效果施加者",
@@ -3719,7 +3719,7 @@ event.ET_MODIFIER_LAYER_CHANGE = {
     },
     [4] = {
         name = "__from_unit_id",
-        type = "py.Unit",
+        type = "py.UnitID",
         lua_name = "from_unit",
         lua_type = "Unit",
         desc = "效果施加者",
@@ -3752,7 +3752,7 @@ event.ET_MODIFIER_GET_BEFORE_CREATE = {
     },
     [3] = {
         name = "__from_unit_id",
-        type = "py.Unit",
+        type = "py.UnitID",
         lua_name = "from_unit",
         lua_type = "Unit",
         desc = "效果施加者",
