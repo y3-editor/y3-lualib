@@ -105,7 +105,7 @@ M._componentCalls = {}
 ---@generic Comp: string
 ---@param name `Class`
 ---@param compName `Comp`
----@param init? fun(self: Class, constructor: Comp)
+---@param init? fun(self: Class, super: Comp)
 function M.component(name, compName, init)
     local class = M._classes[name]
     assert(class, ('class %q not found'):format(name))

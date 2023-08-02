@@ -33,7 +33,13 @@ end
 ---@field private objects GCObject[]
 ---@field private removed boolean
 ---@overload fun(): self
-local GC = Class('GC', 'GCObject')
+local GC = Class 'GC'
+
+Component('GC', 'GCObject', function (self, super)
+    super(function ()
+        self:remove()
+    end)
+end)
 
 ---@private
 GC.max = 10
