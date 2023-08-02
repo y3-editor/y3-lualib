@@ -62,3 +62,7 @@ ECA可以直接执行Lua代码，你也可以参考[此代码](./example/ECA调�
 # 想要做的事情
 
 见 [开发计划](./开发计划.md)
+
+# 贡献者
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=y3-editor/y3-lualib)
