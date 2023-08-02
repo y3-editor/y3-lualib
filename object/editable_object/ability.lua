@@ -483,4 +483,10 @@ function M.get_skill_type_pointer(name)
     return GameAPI.get_ability_key_skill_pointer(name)
 end
 
+---设置技能最大CD
+---@param value number
+function M:set_max_cd(value)
+    return self:set_float_attr("cold_down_time", value)
+end
+
 return M

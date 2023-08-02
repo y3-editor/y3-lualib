@@ -106,7 +106,7 @@ function M:shift_item(item, type, index, force)
     self.handle:api_shift_item_new(item.handle, type, index, force)
 end
 
----获取指定类型的搜友技能
+---获取指定类型的所有技能
 ---@param type y3.Const.AbilityType
 ---@return Ability[]
 function M:get_abilities_by_type(type)
@@ -518,7 +518,7 @@ end
 ---@param attr_name string 属性名
 ---@param value number 属性值
 ---@param attr_type string 属性类型
-function M:set_attr(attr_type, attr_name, value)
+function M:set_attr(attr_name, value, attr_type)
     self.handle:api_set_attr_by_attr_element(attr_name, Fix32(value), attr_type)
 end
 
@@ -526,7 +526,7 @@ end
 ---@param attr_name string 属性名
 ---@param value number 属性值
 ---@param attr_type string 属性类型
-function M:add_attr(attr_type, attr_name, value)
+function M:add_attr(attr_name, value, attr_type)
     self.handle:api_add_attr_by_attr_element(attr_name, Fix32(value), attr_type)
 end
 
@@ -1635,6 +1635,12 @@ function M:damage(data)
         data.socket or '',
         data.text_type or 'physics'
     )
+end
+
+---获取单位主属性(需要开启复合属性)
+---@return string
+function M:get_main_attr()
+    return self.handle:api_get_main_attr()
 end
 
 return M
