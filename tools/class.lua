@@ -18,10 +18,7 @@ function M.declare(name, super)
     class.__name  = name
 
     function class:__call(...)
-        if not class.constructor then
-            return self
-        end
-        class.constructor(self, ...)
+        M.runConstructor(self, name, ...)
         return self
     end
 
@@ -99,6 +96,56 @@ function M.super(name)
         end
     end
     return M._superCache[name]
+end
+
+---@private
+M._componentCalls = {}
+
+---@generic Class: string
+---@generic Comp: string
+---@param name `Class`
+---@param compName `Comp`
+---@param init? fun(self: Class, constructor: Comp)
+function M.component(name, compName, init)
+    local class = M._classes[name]
+    assert(class, ('class %q not found'):format(name))
+    local comp = M._classes[compName]
+    assert(comp, ('class %q not found'):format(compName))
+    assert(type(init) == 'nil' or type(init) == 'function', ('init must be nil or function'))
+    for k, v in pairs(comp) do
+        if not k:match '^__'
+        and k ~= 'constructor'
+        and k ~= 'alloc' then
+            assert(class[k] == nil, ('%s.%s is already defined'):format(name, k))
+            class[k] = v
+        end
+    end
+    if not M._componentCalls[name] then
+        M._componentCalls[name] = {}
+    end
+    table.insert(M._componentCalls[name], {
+        init = init,
+        name = compName,
+    })
+end
+
+---@private
+---@param obj table
+---@param name string
+---@param ... any
+function M.runConstructor(obj, name,...)
+    local class = M._classes[name]
+    local compCalls = M._componentCalls[name]
+    if compCalls then
+        for _, call in ipairs(compCalls) do
+            call.init(obj, function (...)
+                M.runConstructor(obj, call.name,...)
+            end)
+        end
+    end
+    if class.constructor then
+        class.constructor(obj,...)
+    end
 end
 
 return M
