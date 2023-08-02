@@ -57,6 +57,10 @@ function M.build_params_lazy_mt(event_data)
             if not param then
                 return nil
             end
+            local nil_map = data._nil_map
+            if nil_map and nil_map[k] then
+                return nil
+            end
             local lua_value
             if param.lua_code then
                 lua_value = param.lua_code(data)
@@ -68,6 +72,13 @@ function M.build_params_lazy_mt(event_data)
                 lua_value = y3.py_converter.py_to_lua(py_type, py_value)
             end
             data[k] = lua_value
+            if lua_value == nil then
+                if not nil_map then
+                    nil_map = {}
+                    data._nil_map = nil_map
+                end
+                nil_map[k] = true
+            end
             return lua_value
         end,
     }
