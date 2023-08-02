@@ -1,7 +1,7 @@
----@class Unit: GCObject
+---@class Unit: GCObject, Storage
 ---@field handle py.Unit
 ---@field id integer
----@overload fun(py_unit_id?: py.UnitID): self
+---@overload fun(py_unit_id: py.UnitID, py_unit: py.Unit): self
 local M = Class 'Unit'
 
 M.type = 'unit'
@@ -11,6 +11,7 @@ Component('Unit', 'GCObject', function (self, super)
         self:remove()
     end)
 end)
+Component('Unit', 'Storage')
 
 function M:__tostring()
     return string.format('{unit|%s|%s}'
@@ -20,18 +21,23 @@ function M:__tostring()
 end
 
 ---@param py_unit_id py.UnitID
+---@param py_unit py.Unit
 ---@return self
-function M:constructor(py_unit_id)
-    self.handle = GameAPI.get_unit_by_id(py_unit_id)
+function M:constructor(py_unit_id, py_unit)
+    self.handle = py_unit
     self.id     = py_unit_id
     return self
 end
 
 ---@package
 ---@param key py.UnitID
----@return Unit
+---@return Unit?
 M.ref_manager = New 'Ref' ('Unit', function (key)
-    return New 'Unit' (key)
+    local py_unit = GameAPI.get_unit_by_id(key)
+    if not py_unit then
+        return nil
+    end
+    return New 'Unit' (key, py_unit)
 end)
 
 ---通过py层的单位实例获取lua层的单位实例

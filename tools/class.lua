@@ -120,16 +120,22 @@ function M.component(name, compName, init)
             class[k] = v
         end
     end
-    if init then
-        if not M._componentCalls[name] then
-            M._componentCalls[name] = {}
-        end
-        table.insert(M._componentCalls[name], {
-            init = init,
-            name = compName,
-        })
+    if not M._componentCalls[name] then
+        M._componentCalls[name] = {}
     end
-    if comp.constructor and not init then
+    table.insert(M._componentCalls[name], {
+        init = init,
+        name = compName,
+    })
+    -- 检查是否需要显性初始化
+    if not init then
+        if not comp.constructor then
+            return
+        end
+        local info = debug.getinfo(comp.constructor, 'u')
+        if info.nparams <= 1 then
+            return
+        end
         error(('must call super for component "%s"'):format(compName))
     end
 end
@@ -143,9 +149,13 @@ function M.runConstructor(obj, name,...)
     local compCalls = M._componentCalls[name]
     if compCalls then
         for _, call in ipairs(compCalls) do
-            call.init(obj, function (...)
-                M.runConstructor(obj, call.name,...)
-            end)
+            if call.init then
+                call.init(obj, function (...)
+                    M.runConstructor(obj, call.name,...)
+                end)
+            else
+                M.runConstructor(obj, call.name)
+            end
         end
     end
     if class.constructor then
