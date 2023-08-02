@@ -10,13 +10,15 @@
 ---@class Ref
 local M = Class 'Ref'
 
+---@alias Ref.ValidKeyType integer|string
+
 -- 至少在这个时间之后才会释放引用
 ---@private
 M.unrefTimeAtLeast = 60.0
 
 ---@generic T: string
 ---@param className `T`
----@param new fun(key: integer): T
+---@param new fun(key: Ref.ValidKeyType): T
 function M:constructor(className, new)
     -- 用于管理的对象类名
     ---@private
@@ -39,7 +41,7 @@ function M:constructor(className, new)
 end
 
 -- 获取指定key的对象，如果不存在，则创建并返回
----@param key any
+---@param key Ref.ValidKeyType
 ---@return any
 function M:get(key)
     local strongRefMap = self.strongRefMap
@@ -56,7 +58,7 @@ function M:get(key)
 end
 
 -- 移除指定的key
----@param key any
+---@param key Ref.ValidKeyType
 function M:remove(key)
     self.waitingListYoung[key] = true
     self.waitingListOld[key] = nil
