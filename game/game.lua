@@ -534,7 +534,7 @@ function M.get_global_weather()
 end
 
 ---@param player Player 玩家
----@param key number 按键
+---@param key y3.Const.KeyboardKey 按键
 ---@return boolean 是否被按下
 ---玩家键盘按键是否被按下
 function M.player_keyboard_key_is_pressed(player, key)
@@ -542,7 +542,7 @@ function M.player_keyboard_key_is_pressed(player, key)
 end
 
 ---@param player Player 玩家
----@param key string 键
+---@param key y3.Const.MouseKey 键
 ---@return boolean 是否被按下
 ---玩家鼠标是否被按下
 function M.player_mouse_key_is_pressed(player, key)
@@ -579,19 +579,20 @@ function M.test_add_log_assert_result(assert_result, information)
 end
 
 ---@param player Player 玩家
----@param tech_type number 科技类型
+---@param tech_type py.TechKey 科技类型
 ---@return boolean is_success 是否满足
 ---检查科技类型前置条件
 function M.check_tech_key_precondition(player, tech_type)
     return GameAPI.check_tech_key_precondition(player.handle, tech_type)
 end
 
----@param str1 string 字符串1
----@param str2 string 字符串2
+---@param ... string 任意字符串
 ---@return string result 结果字符串
 ---字符串拼接
-function M.joint_string(str1, str2)
-    return GlobalAPI.join_s(str1, str2)
+---@deprecated 这个函数已经过时，可以用lua内置函数table.concat代替
+function M.joint_string(...)
+    local args = {...} -- 将所有参数存储在一个表中
+    return table.concat(args, "") -- 将所有参数连接成一个字符串
 end
 
 ---@param str string 要截取的字符串
@@ -599,23 +600,41 @@ end
 ---@param end_pos number 终止位置
 ---@return string result 结果字符串
 ---截取字符串
+---@deprecated 这个函数已经过时，可以用lua内置函数string.sub代替
 function M.extract_string(str, start_pos, end_pos)
-    return GameAPI.extract_str(str, start_pos, end_pos)
+    return string.sub(str, start_pos, end_pos)
 end
 
 ---@param str string 字符串
 ---@param sub_str string 子字符串
 ---@param is_once boolean 是否只删一次
 ---@return string result 结果字符串
----删除子字符串
+--- 从字符串中删除子字符串
 function M.delete_sub_string(str, sub_str, is_once)
-    return GameAPI.delete_sub_str(str, sub_str, is_once)
+    -- 将结果初始化为原始字符串
+    local result = str
+    -- 查找第一个匹配项的起始和结束索引
+    local start_index, end_index = string.find(str, sub_str)
+    -- 只要还有匹配项，就继续删除
+    while start_index do
+        -- 将匹配项前面的子字符串和匹配项后面的子字符串拼接起来
+        result = string.sub(result, 1, start_index - 1) .. string.sub(result, end_index + 1)
+        -- 如果只删除第一个匹配项，就退出循环
+        if is_once then
+            break
+        end
+        -- 继续查找下一个匹配项的起始和结束索引
+        start_index, end_index = string.find(result, sub_str)
+    end
+    -- 返回删除后的字符串
+    return result
 end
 
 ---@param key string 多语言key
 ---@return string 多语言内容
 ---获取多语言内容
 function M.get_text_config(key)
+   
     return GameAPI.get_text_config(key)
 end
 
@@ -687,13 +706,13 @@ function M.get_game_y_resolution()
     return GameAPI.get_game_y_resolution()
 end
 
----@return number quality 画质
+---@return string quality 画质
 ---获取初始化游戏画质
 function M.get_graphics_quality()
     return GameAPI.get_graphics_quality()
 end
 
----@return number mode 窗口类别
+---@return string mode 窗口类别
 ---获取初始化窗口类别
 function M.get_window_mode()
     return GameAPI.get_window_mode()
@@ -709,7 +728,7 @@ function M.number_to_str(value)
     return tostring(value)
 end
 
----@param list userdata 数组变量
+---@param list py.List 数组变量
 ---遍历数组变量
 function M.list_loop(list)
     local lua_table ={}
@@ -781,6 +800,7 @@ end
 ---@param range number 范围
 ---@return boolean in_radius 在单位附近
 ---在附近
+---@deprecated 此方法GameApi暂时并没有进行实现
 function M.is_in_radius(point_or_unit, range)
     return GameAPI.api_is_in_range(point_or_unit.handle, Fix32(range))
 end
@@ -799,6 +819,7 @@ end
 
 
 ---任意变量转字符串
+---@deprecated 此方法可以有lua内置函数tostring代替
 function M.any_var_to_str(p1,p2)
     if not ToString[p1] then
         return GlobalAPI.to_str_default(p2)
@@ -822,8 +843,9 @@ function M.set_globale_view(enable)
     GameAPI.enable_fow_for_player(enable)
 end
 
+---@deprecated 此方法GameApi暂时并没有进行实现
 function M.request_server_time(func,context)
-    GameAPI.lua_request_message_from_server(func,context)
+    --GameAPI.lua_request_message_from_server(func,context)
 end
 
 ---@param obj Unit|Item|Point|Area 各种对象
@@ -834,9 +856,11 @@ function M.api_has_kv_any(obj,key)
     return GlobalAPI.api_has_kv_any(obj and obj.handle or nil,key)
 end
 
+
+---@return Player Player 玩家
 ---获取本地玩家
 function M.get_client_player()
-    return M.player.get(GameAPI.get_owner_role_id())
+    return y3.player.get_by_id(GameAPI.get_owner_role_id())
 end
 
 ---设置对象基础材质颜色
