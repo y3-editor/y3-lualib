@@ -1,21 +1,27 @@
+---@alias Timer.OnTimer fun(timer: Timer,...)
+
 ---@class Timer
 ---@field handle py.Timer
----@overload fun(py_timer: py.Timer): self
+---@field private on_timer Timer.OnTimer
+---@overload fun(py_timer: py.Timer, on_timer: Timer.OnTimer): self
 local M = Class 'Timer'
 
 M.type = 'timer'
 
 ---@param py_timer py.Timer
+---@param on_timer Timer.OnTimer
 ---@return self
-function M:constructor(py_timer)
+function M:constructor(py_timer, on_timer)
     self.handle = py_timer
+    self.on_timer = on_timer
     return self
 end
 
 ---@param py_timer py.Timer
+---@param on_timer Timer.OnTimer
 ---@return Timer
-function M.get_by_handle(py_timer)
-    local timer = New 'Timer' (py_timer)
+function M.get_by_handle(py_timer, on_timer)
+    local timer = New 'Timer' (py_timer, on_timer)
     return timer
 end
 
@@ -30,11 +36,12 @@ end)
 ---@param on_timer fun(timer: Timer)
 ---@return Timer
 function M.wait(timeout, on_timer)
+    ---@type Timer
     local timer
     local py_timer = GameAPI.run_lua_timer(Fix32(timeout), 0, false, function()
-        xpcall(on_timer, log.error, timer)
+        timer:execute()
     end, {})
-    timer = New 'Timer' (py_timer)
+    timer = New 'Timer' (py_timer, on_timer)
     return timer
 end
 
@@ -47,9 +54,9 @@ function M.loop(timeout, on_timer)
     local count = 0
     local py_timer = GameAPI.run_lua_timer(Fix32(timeout), -1, false, function()
         count = count + 1
-        xpcall(on_timer, log.error, timer, count)
+        timer:execute(count)
     end, {})
-    timer = New 'Timer' (py_timer)
+    timer = New 'Timer' (py_timer, on_timer)
     return timer
 end
 
@@ -63,24 +70,33 @@ function M.count_loop(timeout, times, on_timer)
     local count = 0
     local py_timer = GameAPI.run_lua_timer(Fix32(timeout), times, false, function()
         count = count + 1
-        xpcall(on_timer, log.error, timer, count)
+        timer:execute(count)
     end, {})
-    timer = New 'Timer' (py_timer)
+    timer = New 'Timer' (py_timer, on_timer)
     return timer
 end
 
+-- 立即执行
+function M:execute(...)
+    xpcall(self.on_timer, log.error, self, ...)
+end
+
+-- 移除计时器
 function M:remove()
     GameAPI.delete_timer(self.handle)
 end
 
+-- 暂停计时器
 function M:pause()
     GameAPI.pause_timer(self.handle)
 end
 
+-- 继续计时器
 function M:resume()
     GameAPI.resume_timer(self.handle)
 end
 
+-- 是否在运行
 function M:is_running()
     return GameAPI.is_timer_valid(self.handle)
 end
