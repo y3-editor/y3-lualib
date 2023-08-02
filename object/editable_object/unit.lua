@@ -1,10 +1,16 @@
----@class Unit
+---@class Unit: GCObject
 ---@field handle py.Unit
 ---@field id integer
----@overload fun(py_unit?: py.Unit): self
+---@overload fun(py_unit_id?: py.UnitID): self
 local M = Class 'Unit'
 
 M.type = 'unit'
+
+Component('Unit', 'GCObject', function (self, super)
+    super(function ()
+        self:remove()
+    end)
+end)
 
 function M:__tostring()
     return string.format('{unit|%s|%s}'
@@ -13,27 +19,28 @@ function M:__tostring()
     )
 end
 
----@param py_unit py.Unit
+---@param py_unit_id py.UnitID
 ---@return self
-function M:constructor(py_unit)
-    self.handle = py_unit
-    self.id     = py_unit:api_get_id()
+function M:constructor(py_unit_id)
+    self.handle = GameAPI.get_unit_by_id(py_unit_id)
+    self.id     = py_unit_id
     return self
 end
 
----所有单位实例
 ---@package
-M.map = setmetatable({}, { __mode = 'kv' })
+---@param key py.UnitID
+---@return Unit
+M.ref_manager = New 'Ref' ('Unit', function (key)
+    return New 'Unit' (key)
+end)
 
 ---通过py层的单位实例获取lua层的单位实例
 ---@param py_unit py.Unit
 ---@return Unit
 function M.get_by_handle(py_unit)
     local id = py_unit:api_get_id()
-    if not M.map[id] then
-        M.map[id] = New 'Unit' (py_unit)
-    end
-    return M.map[id]
+    local unit = M.ref_manager:get(id)
+    return unit
 end
 
 y3.py_converter.register_py_to_lua('py.Unit', M.get_by_handle)
@@ -45,11 +52,8 @@ end)
 ---@param id py.UnitID
 ---@return Unit?
 function M.get_by_id(id)
-    local py_unit = GameAPI.get_unit_by_id(id)
-    if not py_unit then
-        return nil
-    end
-    return M.get_by_handle(py_unit)
+    local unit = M.ref_manager:get(id)
+    return unit
 end
 
 -- 获取摆放在场景上的单位
@@ -63,10 +67,15 @@ end
 
 y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)
 
+y3.game:event('单位-移除后', function (trg, data)
+    local id = data.unit.id
+    M.ref_manager:remove(id)
+end)
+
 ---是否存在
 ---@return boolean is_exist 是否存在
 function M:is_exist()
-    return  GameAPI.unit_is_exist(self.handle)
+    return GameAPI.unit_is_exist(self.handle)
 end
 
 -- 获取唯一ID

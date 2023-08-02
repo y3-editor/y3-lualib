@@ -8,13 +8,14 @@
 --]]
 
 ---@class Ref
+---@overload fun(className: string, new: (fun(key: Ref.ValidKeyType): any)): self
 local M = Class 'Ref'
 
 ---@alias Ref.ValidKeyType integer|string
 
 -- 至少在这个时间之后才会释放引用
 ---@private
-M.unrefTimeAtLeast = 60.0
+M.unrefTimeAtLeast = 6.0
 
 ---@generic T: string
 ---@param className `T`
