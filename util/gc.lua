@@ -47,9 +47,6 @@ GC.max = 10
 ---@return self
 function GC:constructor()
     self.objects = {}
-    Super 'GC' (function ()
-        self:remove()
-    end)
     return self
 end
 

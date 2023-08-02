@@ -24,9 +24,6 @@ function M:constructor(event, event_args, callback)
     self._callback = callback
     self._id = counter()
     self._event_args = event_args
-    Super 'Trigger' (function ()
-        self:remove()
-    end)
     event:add_trigger(self)
     return self
 end
