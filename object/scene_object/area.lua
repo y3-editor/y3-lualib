@@ -269,7 +269,7 @@ end
 ---@return Unit[] 单位组
 function M:get_all_unit_in_area()
     local py_unit_list = GameAPI.get_unit_group_in_area(self.handle)
-    local units = y3.helper.wrap_list(py_unit_list, y3.unit.get_by_handle)
+    local units = y3.helper.wrap_list(py_unit_list, y3.unit.get_by_id)
     return units
 end
 
