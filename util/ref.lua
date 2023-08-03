@@ -22,7 +22,7 @@ M.allowWeakRef = false
 
 ---@generic T: string
 ---@param className `T`
----@param new fun(key: Ref.ValidKeyType): T
+---@param new fun(key: Ref.ValidKeyType, ...): T
 function M:constructor(className, new)
     -- 用于管理的对象类名
     ---@private
@@ -44,10 +44,11 @@ function M:constructor(className, new)
     self.waitingListOld = {}
 end
 
--- 获取指定key的对象，如果不存在，则创建并返回
+-- 获取指定key的对象，如果不存在，则使用所有的参数创建并返回
 ---@param key Ref.ValidKeyType
+---@param ... any
 ---@return any
-function M:get(key)
+function M:get(key, ...)
     local strongRefMap = self.strongRefMap
     if strongRefMap[key] then
         return strongRefMap[key]
@@ -56,7 +57,7 @@ function M:get(key)
     if weakRefMap[key] then
         return weakRefMap[key]
     end
-    local obj = self.newMethod(key)
+    local obj = self.newMethod(key, ...)
     strongRefMap[key] = obj
     return obj
 end

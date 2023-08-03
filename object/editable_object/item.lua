@@ -1,7 +1,7 @@
 ---@class Item: GCObject, Storage
 ---@field handle py.Item
----@field id integer
----@overload fun(py_item: py.Item): self
+---@field id py.ItemID
+---@overload fun(id: py.ItemID, py_item: py.Item): self
 local M = Class 'Item'
 
 M.type = 'item'

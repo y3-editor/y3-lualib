@@ -1,38 +1,61 @@
----@class Buff
+---@class Buff: GCObject, Storage
 ---@field handle py.ModifierEntity
 ---@field id     integer
----@overload fun(py_modifier: py.ModifierEntity): Buff
+---@overload fun(id: integer, py_modifier: py.ModifierEntity): Buff
 local M = Class 'Buff'
 
 M.type = 'buff'
 
+Component('Buff', 'GCObject', function (self, super)
+    super(function ()
+        self:remove()
+    end)
+end)
+Component('Buff', 'Storage')
+
+function M:__tostring()
+    return string.format('{buff|%s|%s} @ %s'
+        , self:get_name()
+        , self.handle
+        , self:get_owner()
+    )
+end
+
+---@param id integer
 ---@param py_modifier py.ModifierEntity
 ---@return Buff
-function M:constructor(py_modifier)
+function M:constructor(id, py_modifier)
+    self.id     = id
     self.handle = py_modifier
-    self.id     = py_modifier:api_get_modifier_unique_id()
     return self
 end
 
 ---所有魔法效果实例
 ---@private
-M.map = setmetatable({}, { __mode = 'kv' })
+---@param id integer
+---@param py_buff py.ModifierEntity
+---@return Buff
+M.ref_manager = New 'Ref' ('Buff', function (id, py_buff)
+    return New 'Buff' (id, py_buff)
+end)
 
 ---通过py层的魔法效果实例获取lua层的魔法效果实例
----@param  py_modifier py.ModifierEntity # py层的魔法效果实例
+---@param  py_buff py.ModifierEntity # py层的魔法效果实例
 ---@return Buff # 返回在lua层初始化后的lua层魔法效果实例
-function M.get_by_handle(py_modifier)
-    local id = py_modifier:api_get_modifier_unique_id()
-    if not M.map[id] then
-        M.map[id] = New 'Buff' (py_modifier)
-    end
-    return M.map[id]
+function M.get_by_handle(py_buff)
+    local id = py_buff:api_get_modifier_unique_id()
+    return M.ref_manager:get(id, py_buff)
 end
 
 y3.py_converter.register_type_alias('py.ModifierEntity', 'Buff')
 y3.py_converter.register_py_to_lua('py.ModifierEntity', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
     return lua_value.handle
+end)
+
+y3.game:event('效果-失去', function (trg, data)
+    local id = data.buff.id
+    M.ref_manager:remove(id)
 end)
 
 ---是否具有标签
