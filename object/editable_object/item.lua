@@ -1,7 +1,4 @@
---- File Name : item.lua
---- Description: 物品相关逻辑 对应编辑器---物品
-
----@class Item
+---@class Item: GCObject, Storage
 ---@field handle py.Item
 ---@field id integer
 ---@overload fun(py_item: py.Item): self
@@ -9,27 +6,39 @@ local M = Class 'Item'
 
 M.type = 'item'
 
+Component('Item', 'GCObject', function (self, super)
+    super(function ()
+        self:remove()
+    end)
+end)
+Component('Item', 'Storage')
+
+---@param id py.ItemID
 ---@param py_item py.Item # py层的道具实例
 ---@return Item # 返回在lua层初始化后的lua层道具实例
-function M:constructor(py_item)
+function M:constructor(id, py_item)
+    self.id     = id
     self.handle = py_item
-    self.id     = py_item:api_get_id()
     return self
 end
 
----所有物品实例
----@private
-M.map = setmetatable({}, { __mode = 'kv' })
+---@package
+---@param id py.ItemID
+---@return Item?
+M.ref_manager = New 'Ref' ('Item', function (id)
+    local py_item = GameAPI.get_item(id)
+    if not py_item then
+        return nil
+    end
+    return New 'Item' (id, py_item)
+end)
 
 ---通过py层的技能实例获取lua层的道具实例
 ---@param  py_item py.Item py层的道具实例
 ---@return Item # 返回在lua层初始化后的lua层道具实例
 function M.get_by_handle(py_item)
     local id = py_item:api_get_id()
-    if not M.map[id] then
-        M.map[id] = New 'Item' (py_item)
-    end
-    return M.map[id]
+    return M.get_by_id(id)
 end
 
 y3.py_converter.register_py_to_lua('py.Item', M.get_by_handle)
@@ -41,11 +50,16 @@ end)
 ---@param id py.ItemID
 ---@return Item # 返回在lua层初始化后的lua层道具实例
 function M.get_by_id(id)
-    local py_item = GameAPI.get_item(id)
-    return M.get_by_handle(py_item)
+    local item = M.ref_manager:get(id)
+    return item
 end
 
 y3.py_converter.register_py_to_lua('py.ItemID', M.get_by_id)
+
+y3.game:event('物品-移除', function (trg, data)
+    local item = data.item
+    M.ref_manager:remove(item.id)
+end)
 
 ---是否存在
 ---@return boolean is_exist 是否存在
@@ -373,9 +387,12 @@ end
 ---创建物品到点
 ---@param point Point 点
 ---@param item_key py.ItemKey 道具类型
----@param player Player 玩家
+---@param player? Player 玩家
 ---@return Item
 function M.create_item(point, item_key, player)
+    if not player then
+        player = y3.player(31)
+    end
     local py_item = GameAPI.create_item_by_id(point.handle, item_key, player.handle)
     return M.get_by_handle(py_item)
 end

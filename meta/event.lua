@@ -5943,15 +5943,15 @@ event.ET_ITEM_ON_CREATE = {
 }
 
 ---@class EventParam.ET_ITEM_ON_DESTROY
----@field item_id py.ItemKey # 销毁的物品
+---@field item Item # 销毁的物品
 
 --物品销毁
 event.ET_ITEM_ON_DESTROY = {
     [1] = {
         name = "__item_id",
-        type = "py.ItemKey",
-        lua_name = "item_id",
-        lua_type = "py.ItemKey",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
         desc = "销毁的物品",
         lua_desc = "销毁的物品",
     },

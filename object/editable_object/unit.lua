@@ -30,14 +30,14 @@ function M:constructor(py_unit_id, py_unit)
 end
 
 ---@package
----@param key py.UnitID
+---@param id py.UnitID
 ---@return Unit?
-M.ref_manager = New 'Ref' ('Unit', function (key)
-    local py_unit = GameAPI.get_unit_by_id(key)
+M.ref_manager = New 'Ref' ('Unit', function (id)
+    local py_unit = GameAPI.get_unit_by_id(id)
     if not py_unit then
         return nil
     end
-    return New 'Unit' (key, py_unit)
+    return New 'Unit' (id, py_unit)
 end)
 
 ---通过py层的单位实例获取lua层的单位实例

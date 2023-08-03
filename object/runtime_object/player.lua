@@ -1,4 +1,4 @@
----@class Player
+---@class Player: Storage
 ---@field handle py.Role
 ---@field id integer
 ---@overload fun(py_player?: py.Role): self
@@ -7,8 +7,18 @@ local M = Class 'Player'
 
 M.type = 'player'
 
----@private
-M.map = {}
+Component('Player', 'Storage')
+
+---@package
+---@param key py.RoleID
+---@return Player?
+M.ref_manager = New 'Ref' ('Player', function (key)
+    local py_player = GameAPI.get_role_by_role_id(key)
+    if not py_player then
+        return nil
+    end
+    return New 'Player' (py_player)
+end)
 
 ---@param py_player py.Role
 ---@return self
@@ -25,22 +35,18 @@ function M:__tostring()
 end
 
 ---转换玩家ID为玩家
----@param id py.RoleID 玩家ID
+---@param id integer 玩家ID
 ---@return Player player 玩家
 function M:alloc(id)
     return M.get_by_id(id)
 end
 
 ---转换玩家ID为玩家
----@param id py.RoleID 玩家ID
+---@param id integer 玩家ID
 ---@return Player player 玩家
 function M.get_by_id(id)
-    if M.map[id] == nil then
-        local py_player = GameAPI.get_role_by_role_id(id)
-        assert(py_player ~= nil, string.format('找不到玩家(%d)', id))
-        return M.get_by_handle(py_player)
-    end
-    return M.map[id]
+    local player = M.ref_manager:get(id)
+    return player
 end
 
 y3.py_converter.register_type_alias('py.Role', 'Player')
@@ -50,10 +56,7 @@ y3.py_converter.register_py_to_lua('py.RoleID', M.get_by_id)
 ---@return Player
 function M.get_by_handle(py_player)
     local id = py_player:get_role_id_num()
-    if M.map[id] == nil then
-        M.map[id] = New 'Player' (py_player)
-    end
-    return M.map[id]
+    return M.get_by_id(id)
 end
 
 y3.py_converter.register_py_to_lua('py.Role', M.get_by_handle)
