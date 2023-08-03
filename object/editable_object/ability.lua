@@ -486,7 +486,7 @@ end
 ---设置技能最大CD
 ---@param value number
 function M:set_max_cd(value)
-    return self:set_float_attr("cold_down_time", value)
+    self:set_float_attr("cold_down_time", value)
 end
 
 return M
