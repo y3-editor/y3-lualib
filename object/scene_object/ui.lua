@@ -708,4 +708,15 @@ function M:set_follow_mouse(follow_mouse)
     GameAPI.set_ui_comp_follow_mouse(self.player.handle, self.handle, follow_mouse)
 end
 
+-- 设置鼠标样式
+---@param player Player
+---@param state y3.Const.CursorState
+---@param key py.CursorKey
+function M:set_cursor(player, state, key)
+    player.handle:api_set_role_cursor(
+        y3.const.CursorState[state],
+        key
+    )
+end
+
 return M
