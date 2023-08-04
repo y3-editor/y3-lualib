@@ -121,13 +121,13 @@ end
 ---设置护盾值
 ---@param value number 护盾值
 function M:set_shield(value)
-    self.handle:api_set_float_shield(Fix32(value))
+    self.handle:api_set_float_shield('', Fix32(value))
 end
 
 ---增加护盾值
 ---@param value number 护盾值
 function M:add_shield(value)
-    self.handle:api_add_float_shield(Fix32(value))
+    self.handle:api_add_float_shield('', Fix32(value))
 end
 
 ---获取魔法效果的堆叠层数
