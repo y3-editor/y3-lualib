@@ -4,6 +4,29 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--设置区域碰撞
+---@param area py.Area # 区域
+---@param is_add boolean # 添加/去除
+---@param ground_channel boolean # 地面碰撞
+---@param air_channel boolean # 飞行碰撞
+function GameAPI.set_area_collision(area, is_add, ground_channel, air_channel) end
+
+--编辑区域碰撞
+---@param area py.Area # 区域
+---@param collision_layer integer # 碰撞类型
+---@param is_add boolean # 添加/去除
+function GameAPI.edit_area_collision(area, collision_layer, is_add) end
+
+--编辑区域视野阻挡
+---@param area py.Area # 区域
+---@param fov_block_type integer # 视野阻挡类型
+---@param is_add boolean # 添加/去除
+function GameAPI.edit_area_fov_block(area, fov_block_type, is_add) end
+
+--设置全局天气
+---@param weather_type integer # 天气类型
+function GameAPI.update_global_weather(weather_type) end
+
 --获得全局天气
 ---@return integer # 天气类型
 function GameAPI.get_global_weather() end

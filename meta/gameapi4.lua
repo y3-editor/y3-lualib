@@ -4770,6 +4770,13 @@ function GameAPI.create_unit_editor_data(old_entity_no) end
 ---@param unit py.Unit # 单位
 function GameAPI.set_camera_perspective_ray_unit(role, unit) end
 
+--create_spine
+---@param ientity py.Unit # ientity
+---@param spine string # spine
+---@param vertical? boolean # vertical
+---@param rate? number # rate
+function GameAPI.create_spine(ientity, spine, vertical, rate) end
+
 --创建新技能物编
 ---@param old_entity_no py.AbilityKey # 技能物编
 ---@return py.AbilityKey # 技能物编
@@ -5296,6 +5303,12 @@ function GameAPI.api_restore_rigid_body_last_model(rigid) end
 ---@return boolean # 布尔值
 function GameAPI.api_is_rigid_has_tag(rigid, tag) end
 
+--逻辑物理组件是否有指定tag
+---@param physics_entity py.PhysicsEntity # 逻辑物理组件
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.api_physics_entity_has_tag(physics_entity, tag) end
+
 --删除REACTION
 ---@param reaction py.Reaction # Reaction
 function GameAPI.api_delete_reaction(reaction) end
@@ -5310,14 +5323,6 @@ function GameAPI.api_delete_reaction_group(reactions) end
 ---@param vel py.Fixed # 水平速度
 ---@param socket_name string # 出手绑点
 function GameAPI.throw_physics_item(physics_item, length, vel, socket_name) end
-
---物理组件-单位扔出道具
----@param unit py.Unit # 单位
----@param physics_item py.PhysicsEntity # 物理组件
----@param length py.Fixed # 抛出距离
----@param vel py.Fixed # 水平速度
----@param socket_name string # 出手绑点
-function GameAPI.throw_physics_item1(unit, physics_item, length, vel, socket_name) end
 
 --获取物理物品的刚体
 ---@param physics_item py.Unit # 物品单位
@@ -5351,6 +5356,22 @@ function GameAPI.api_physics_item_create_sfx(physics_item, sfx_id, position, dur
 ---@param loop boolean # 是否循环
 ---@param return_idle boolean # 播放结束后是否恢复idle
 function GameAPI.api_physics_item_play_animation(physics_item, anim, play_speed, begin_t, end_t, loop, return_idle) end
+
+--扔出物理组件
+---@param entity py.PhysicsEntity # 物理组件
+---@param length py.Fixed # 抛出距离
+---@param vel py.Fixed # 水平速度
+---@param socket_name string # 出手绑点
+function GameAPI.throw_physics_entity(entity, length, vel, socket_name) end
+
+--持有者解绑逻辑物理组件模型
+---@param entity py.Unit # 逻辑物理组件
+function GameAPI.api_detach_physics_entity_viewer(entity) end
+
+--获得逻辑物理组件的持有者
+---@param entity py.PhysicsEntity # 逻辑物理组件
+---@return py.Unit # 持有者
+function GameAPI.api_get_physics_entity_owner(entity) end
 
 --创建特效到三维坐标
 ---@param sfx_id py.SfxKey # 特效编号
@@ -5932,26 +5953,3 @@ function GameAPI.update_area_weather(area, weather_type) end
 ---@param ground_channel boolean # 地面碰撞
 ---@param air_channel boolean # 飞行碰撞
 function GameAPI.set_point_collision(point, is_add, ground_channel, air_channel) end
-
---设置区域碰撞
----@param area py.Area # 区域
----@param is_add boolean # 添加/去除
----@param ground_channel boolean # 地面碰撞
----@param air_channel boolean # 飞行碰撞
-function GameAPI.set_area_collision(area, is_add, ground_channel, air_channel) end
-
---编辑区域碰撞
----@param area py.Area # 区域
----@param collision_layer integer # 碰撞类型
----@param is_add boolean # 添加/去除
-function GameAPI.edit_area_collision(area, collision_layer, is_add) end
-
---编辑区域视野阻挡
----@param area py.Area # 区域
----@param fov_block_type integer # 视野阻挡类型
----@param is_add boolean # 添加/去除
-function GameAPI.edit_area_fov_block(area, fov_block_type, is_add) end
-
---设置全局天气
----@param weather_type integer # 天气类型
-function GameAPI.update_global_weather(weather_type) end

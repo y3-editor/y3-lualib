@@ -17,8 +17,9 @@ function ModifierEntity:api_add_buff_layer(plus_layer) end
 function ModifierEntity:api_add_buff_residue_time(residue_time) end
 
 --增加buff浮点属性效果
+---@param attr_name string # 属性名称
 ---@param attr_num py.Fixed # 浮点数属性值
-function ModifierEntity:api_add_float_shield(attr_num) end
+function ModifierEntity:api_add_float_shield(attr_name, attr_num) end
 
 --增加循环周期事件的循环时间
 ---@param add_cycle_time py.Fixed # 浮点数属性值
@@ -142,8 +143,9 @@ function ModifierEntity:api_set_buff_layer(attr_num) end
 function ModifierEntity:api_set_buff_residue_time(residue_time) end
 
 --设置buff浮点属性效果
+---@param attr_name string # 属性名称
 ---@param attr_num py.Fixed # 浮点数属性值
-function ModifierEntity:api_set_float_shield(attr_num) end
+function ModifierEntity:api_set_float_shield(attr_name, attr_num) end
 
 --设置循环周期事件
 ---@param new_cycle_time py.Fixed # 浮点数属性值

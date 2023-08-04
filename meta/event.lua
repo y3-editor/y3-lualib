@@ -2930,6 +2930,7 @@ event.ET_TECH_PRECONDITION_FAILED = {
 
 ---@class EventParam.ET_ABILITY_UPGRADE
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 
 --技能升级
 event.ET_ABILITY_UPGRADE = {
@@ -2941,10 +2942,19 @@ event.ET_ABILITY_UPGRADE = {
         desc = "技能对象",
         lua_desc = "技能对象",
     },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
 }
 
 ---@class EventParam.ET_ABILITY_CS_START
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -2959,6 +2969,14 @@ event.ET_ABILITY_CS_START = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -2966,7 +2984,7 @@ event.ET_ABILITY_CS_START = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -2983,6 +3001,7 @@ event.ET_ABILITY_CS_START = {
 
 ---@class EventParam.ET_ABILITY_CS_END
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 
 --技能开始施法结束
@@ -2996,6 +3015,14 @@ event.ET_ABILITY_CS_END = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3007,6 +3034,7 @@ event.ET_ABILITY_CS_END = {
 
 ---@class EventParam.ET_ABILITY_PS_START
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3021,6 +3049,14 @@ event.ET_ABILITY_PS_START = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3028,7 +3064,7 @@ event.ET_ABILITY_PS_START = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3045,6 +3081,7 @@ event.ET_ABILITY_PS_START = {
 
 ---@class EventParam.ET_ABILITY_PS_END
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3059,6 +3096,14 @@ event.ET_ABILITY_PS_END = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3066,7 +3111,7 @@ event.ET_ABILITY_PS_END = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3098,6 +3143,7 @@ event.ET_ITEM_ABILITY_PS_END = {
 
 ---@class EventParam.ET_ABILITY_SP_END
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3112,6 +3158,14 @@ event.ET_ABILITY_SP_END = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3119,7 +3173,7 @@ event.ET_ABILITY_SP_END = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3136,6 +3190,7 @@ event.ET_ABILITY_SP_END = {
 
 ---@class EventParam.ET_ABILITY_CST_END
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3150,6 +3205,14 @@ event.ET_ABILITY_CST_END = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3157,7 +3220,7 @@ event.ET_ABILITY_CST_END = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3174,6 +3237,7 @@ event.ET_ABILITY_CST_END = {
 
 ---@class EventParam.ET_ABILITY_BS_END
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3188,6 +3252,14 @@ event.ET_ABILITY_BS_END = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3195,7 +3267,7 @@ event.ET_ABILITY_BS_END = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3212,6 +3284,7 @@ event.ET_ABILITY_BS_END = {
 
 ---@class EventParam.ET_ABILITY_CS_INTERRUPT
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 
 --技能准备阶段被打断
@@ -3225,6 +3298,14 @@ event.ET_ABILITY_CS_INTERRUPT = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3236,6 +3317,7 @@ event.ET_ABILITY_CS_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_PS_INTERRUPT
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3250,6 +3332,14 @@ event.ET_ABILITY_PS_INTERRUPT = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3257,7 +3347,7 @@ event.ET_ABILITY_PS_INTERRUPT = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3274,6 +3364,7 @@ event.ET_ABILITY_PS_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_SP_INTERRUPT
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3288,6 +3379,14 @@ event.ET_ABILITY_SP_INTERRUPT = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3295,7 +3394,7 @@ event.ET_ABILITY_SP_INTERRUPT = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3312,6 +3411,7 @@ event.ET_ABILITY_SP_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_CST_INTERRUPT
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3326,6 +3426,14 @@ event.ET_ABILITY_CST_INTERRUPT = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3333,7 +3441,7 @@ event.ET_ABILITY_CST_INTERRUPT = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3350,6 +3458,7 @@ event.ET_ABILITY_CST_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_BS_INTERRUPT
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 
 --技能后摇阶段被打断
@@ -3363,6 +3472,14 @@ event.ET_ABILITY_BS_INTERRUPT = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3374,6 +3491,7 @@ event.ET_ABILITY_BS_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_END
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3388,6 +3506,14 @@ event.ET_ABILITY_END = {
         lua_desc = "技能对象",
     },
     [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
         name = "__ability_target_unit_id",
         type = "py.UnitID",
         lua_name = "ability_target_unit",
@@ -3395,7 +3521,7 @@ event.ET_ABILITY_END = {
         desc = "技能目标单位ID",
         lua_desc = "技能目标单位",
     },
-    [3] = {
+    [4] = {
         name = nil,
         type = nil,
         lua_name = "cast",
@@ -3460,6 +3586,7 @@ event.ET_ABILITY_LOSE = {
 
 ---@class EventParam.ET_ABILITY_SWITCH
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 
 --交换技能
 event.ET_ABILITY_SWITCH = {
@@ -3470,6 +3597,14 @@ event.ET_ABILITY_SWITCH = {
         lua_type = "Ability",
         desc = "技能对象",
         lua_desc = "技能对象",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
     },
 }
 
@@ -3520,6 +3655,7 @@ event.ET_ABILITY_ATTR_CHANGED = {
 
 ---@class EventParam.ET_ABILITY_CD_END
 ---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
 
 --技能冷却事件
 event.ET_ABILITY_CD_END = {
@@ -3530,6 +3666,14 @@ event.ET_ABILITY_CD_END = {
         lua_type = "Ability",
         desc = "技能对象",
         lua_desc = "技能对象",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
     },
 }
 
