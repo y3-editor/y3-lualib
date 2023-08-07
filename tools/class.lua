@@ -99,20 +99,20 @@ function M.super(name)
 end
 
 ---@private
-M._componentCalls = {}
+M._extendsCalls = {}
 
 ---@generic Class: string
----@generic Comp: string
+---@generic Extends: string
 ---@param name `Class`
----@param compName `Comp`
----@param init? fun(self: Class, super: Comp)
-function M.component(name, compName, init)
+---@param extendsName `Extends`
+---@param init? fun(self: Class, super: Extends)
+function M.extends(name, extendsName, init)
     local class = M._classes[name]
     assert(class, ('class %q not found'):format(name))
-    local comp = M._classes[compName]
-    assert(comp, ('class %q not found'):format(compName))
+    local extends = M._classes[extendsName]
+    assert(extends, ('class %q not found'):format(extendsName))
     assert(type(init) == 'nil' or type(init) == 'function', ('init must be nil or function'))
-    for k, v in pairs(comp) do
+    for k, v in pairs(extends) do
         if not k:match '^__'
         and k ~= 'constructor'
         and k ~= 'alloc' then
@@ -120,23 +120,23 @@ function M.component(name, compName, init)
             class[k] = v
         end
     end
-    if not M._componentCalls[name] then
-        M._componentCalls[name] = {}
+    if not M._extendsCalls[name] then
+        M._extendsCalls[name] = {}
     end
-    table.insert(M._componentCalls[name], {
+    table.insert(M._extendsCalls[name], {
         init = init,
-        name = compName,
+        name = extendsName,
     })
     -- 检查是否需要显性初始化
     if not init then
-        if not comp.constructor then
+        if not extends.constructor then
             return
         end
-        local info = debug.getinfo(comp.constructor, 'u')
+        local info = debug.getinfo(extends.constructor, 'u')
         if info.nparams <= 1 then
             return
         end
-        error(('must call super for component "%s"'):format(compName))
+        error(('must call super for extends "%s"'):format(extendsName))
     end
 end
 
@@ -146,9 +146,9 @@ end
 ---@param ... any
 function M.runConstructor(obj, name,...)
     local class = M._classes[name]
-    local compCalls = M._componentCalls[name]
-    if compCalls then
-        for _, call in ipairs(compCalls) do
+    local extendsCalls = M._extendsCalls[name]
+    if extendsCalls then
+        for _, call in ipairs(extendsCalls) do
             if call.init then
                 call.init(obj, function (...)
                     M.runConstructor(obj, call.name,...)

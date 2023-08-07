@@ -1,4 +1,4 @@
----@class Item: GCObject, Storage
+---@class Item
 ---@field handle py.Item
 ---@field id py.ItemID
 ---@overload fun(id: py.ItemID, py_item: py.Item): self
@@ -6,12 +6,14 @@ local M = Class 'Item'
 
 M.type = 'item'
 
-Component('Item', 'GCObject', function (self, super)
+---@class Item: GCObject
+Extends('Item', 'GCObject', function (self, super)
     super(function ()
         self:remove()
     end)
 end)
-Component('Item', 'Storage')
+---@class Item: Storage
+Extends('Item', 'Storage')
 
 ---@param id py.ItemID
 ---@param py_item py.Item # py层的道具实例

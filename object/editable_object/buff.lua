@@ -1,4 +1,4 @@
----@class Buff: GCObject, Storage
+---@class Buff
 ---@field handle py.ModifierEntity
 ---@field id     integer
 ---@overload fun(id: integer, py_modifier: py.ModifierEntity): Buff
@@ -6,12 +6,14 @@ local M = Class 'Buff'
 
 M.type = 'buff'
 
-Component('Buff', 'GCObject', function (self, super)
+---@class Buff: GCObject
+Extends('Buff', 'GCObject', function (self, super)
     super(function ()
         self:remove()
     end)
 end)
-Component('Buff', 'Storage')
+---@class Buff: Storage
+Extends('Buff', 'Storage')
 
 function M:__tostring()
     return string.format('{buff|%s|%s} @ %s'

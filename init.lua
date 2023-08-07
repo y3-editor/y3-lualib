@@ -10,10 +10,10 @@ y3.proxy = require 'y3.tools.proxy'
 y3.class = require 'y3.tools.class'
 y3.util  = require 'y3.tools.utility'
 
-Class     = y3.class.declare
-New       = y3.class.new
-Super     = y3.class.super
-Component = y3.class.component
+Class   = y3.class.declare
+New     = y3.class.new
+Super   = y3.class.super
+Extends = y3.class.extends
 
 ---@diagnostic disable-next-line: lowercase-global
 log      = require 'y3.tools.log'

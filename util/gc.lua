@@ -29,13 +29,14 @@ function GCObject:GCObjectIsRemoved()
     return self._GCObjectRemoved == true
 end
 
----@class GC: GCObject
+---@class GC
 ---@field private objects GCObject[]
 ---@field private removed boolean
 ---@overload fun(): self
 local GC = Class 'GC'
 
-Component('GC', 'GCObject', function (self, super)
+---@class GC: GCObject
+Extends('GC', 'GCObject', function (self, super)
     super(function ()
         self:remove()
     end)

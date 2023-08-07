@@ -1,13 +1,14 @@
 local counter = y3.util.counter()
 
----@class Trigger: GCObject
+---@class Trigger
 ---@field private _event Event
 ---@field private _callback Trigger.CallBack
 ---@field private _event_args? any[]
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
 local M = Class 'Trigger'
 
-Component('Trigger', 'GCObject', function (self, super)
+---@class Trigger: GCObject
+Extends('Trigger', 'GCObject', function (self, super)
     super(function ()
         self:remove()
     end)

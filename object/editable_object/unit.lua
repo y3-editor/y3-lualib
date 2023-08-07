@@ -1,4 +1,4 @@
----@class Unit: GCObject, Storage
+---@class Unit
 ---@field handle py.Unit
 ---@field id integer
 ---@overload fun(py_unit_id: py.UnitID, py_unit: py.Unit): self
@@ -6,12 +6,14 @@ local M = Class 'Unit'
 
 M.type = 'unit'
 
-Component('Unit', 'GCObject', function (self, super)
+---@class Unit: GCObject
+Extends('Unit', 'GCObject', function (self, super)
     super(function ()
         self:remove()
     end)
 end)
-Component('Unit', 'Storage')
+---@class Unit: Storage
+Extends('Unit', 'Storage')
 
 function M:__tostring()
     return string.format('{unit|%s|%s}'

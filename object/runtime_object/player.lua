@@ -1,4 +1,4 @@
----@class Player: Storage
+---@class Player
 ---@field handle py.Role
 ---@field id integer
 ---@overload fun(py_player?: py.Role): self
@@ -7,7 +7,8 @@ local M = Class 'Player'
 
 M.type = 'player'
 
-Component('Player', 'Storage')
+---@class Player: Storage
+Extends('Player', 'Storage')
 
 ---@package
 ---@param key py.RoleID
