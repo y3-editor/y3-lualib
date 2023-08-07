@@ -421,25 +421,37 @@ function M:get_platform_model()
     return GameAPI.get_role_platform_model(self.handle)
 end
 
----获取鼠标在游戏内的所在点
+-- 获取鼠标在游戏内的所在点。
+-- 必须先设置 `y3.config.sync.mouse = true`。
 ---@return Point point 点
 function M:get_mouse_pos()
+    if not y3.config.sync.mouse then
+        error('必须先设置 `y3.config.sync.mouse = true`')
+    end
     local py_point = GameAPI.get_player_pointing_pos(self.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     return y3.point.get_by_handle(py_point)
 end
 
----获取玩家鼠标屏幕坐标X的占比
+---获取玩家鼠标屏幕坐标X的占比。
+-- 必须先设置 `y3.config.sync.mouse = true`。
 ---@return number x_per X的占比
 function M:get_mouse_ui_x_percent()
-    return GameAPI.get_role_ui_x_per(self.handle)
+    if not y3.config.sync.mouse then
+        error('必须先设置 `y3.config.sync.mouse = true`')
+    end
+    return GameAPI.get_role_ui_x_per(self.handle):float()
 end
 
----获取玩家鼠标屏幕坐标y的占比
+---获取玩家鼠标屏幕坐标y的占比。
+-- 必须先设置 `y3.config.sync.mouse = true`。
 ---@return number y_per Y的占比
 function M:get_mouse_ui_y_percent()
-    return GameAPI.get_role_ui_y_per(self.handle)
+    if not y3.config.sync.mouse then
+        error('必须先设置 `y3.config.sync.mouse = true`')
+    end
+    return GameAPI.get_role_ui_y_per(self.handle):float()
 end
 
 ---获取鼠标在屏幕上的X坐标

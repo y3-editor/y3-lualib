@@ -66,6 +66,7 @@ y3.selector     = require 'y3.object.runtime_object.selector'
 y3.cast         = require 'y3.object.runtime_object.cast'
 y3.damage_instance = require 'y3.object.runtime_object.damage_instance'
 y3.sound        = require 'y3.object.runtime_object.sound'
+y3.config       = require 'y3.object.runtime_object.config'
 
 y3.area         = require 'y3.object.scene_object.area'
 y3.camera       = require 'y3.object.scene_object.camera'

@@ -231,10 +231,14 @@ function M.set_keyboard_move_camera_speed(player, speed)
 end
 
 
----获取玩家摄像机朝向
+-- 获取玩家摄像机朝向。
+-- 必须先设置 `y3.config.sync.camera = true`
 ---@param player Player 玩家
 ---@return Point 摄像机朝向
 function M.get_player_camera_direction(player)
+    if not y3.config.sync.camera then
+        error('必须先设置 `y3.config.sync.camera = true`')
+    end
     local py_point = GameAPI.get_player_camera_direction(player.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
@@ -242,10 +246,14 @@ function M.get_player_camera_direction(player)
 end
 
 
----获取玩家摄像机中心射线的碰撞点
+-- 获取玩家摄像机中心射线的碰撞点。
+-- 必须先设置 `y3.config.sync.camera = true`
 ---@param player Player 玩家
 ---@return Point 摄像机中心射线的碰撞点
 function M.get_camera_center_raycast(player)
+    if not y3.config.sync.camera then
+        error('必须先设置 `y3.config.sync.camera = true`')
+    end
     local py_point = GameAPI.get_camera_center_raycast(player.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
