@@ -7,11 +7,7 @@ local M = Class 'Item'
 M.type = 'item'
 
 ---@class Item: GCObject
-Extends('Item', 'GCObject', function (self, super)
-    super(function ()
-        self:remove()
-    end)
-end)
+Extends('Item', 'GCObject')
 ---@class Item: Storage
 Extends('Item', 'Storage')
 

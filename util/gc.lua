@@ -1,15 +1,9 @@
+-- 当对象移除时会调用 `self:remove()` 方法
 ---@class GCObject
----@field package _GCObjectOnRemove fun()
+---@field remove? fun(self: self)
 ---@field package _GCObjectRemoved boolean
----@overload fun(callOnRemove: fun(self: self)): self
+---@overload fun(): self
 local GCObject = Class 'GCObject'
-
----@param callOnRemove fun(self: self)
----@return self
-function GCObject:constructor(callOnRemove)
-    self._GCObjectOnRemove = callOnRemove
-    return self
-end
 
 ---@package
 function GCObject:_GCObjectRemove()
@@ -17,7 +11,11 @@ function GCObject:_GCObjectRemove()
         return
     end
     self._GCObjectRemoved = true
-    xpcall(self._GCObjectOnRemove, log.error)
+    local onRemove = self.remove
+    if not onRemove then
+        return
+    end
+    xpcall(onRemove, log.error, self)
 end
 
 function GCObject:GCObjectMarkRemoved()
@@ -35,12 +33,27 @@ end
 ---@overload fun(): self
 local GC = Class 'GC'
 
+---@class GCHost
+---@field private _gccontainer GC
+local GCHost = Class 'GCHost'
+
+function GCHost:constructor()
+    self._gccontainer = New 'GC' ()
+end
+
+---@generic T: GCObject
+---@param obj T
+---@return T
+function GCHost:addGC(obj)
+    return self._gccontainer:add(obj)
+end
+
+function GCHost:removeGC()
+    self._gccontainer:remove()
+end
+
 ---@class GC: GCObject
-Extends('GC', 'GCObject', function (self, super)
-    super(function ()
-        self:remove()
-    end)
-end)
+Extends('GC', 'GCObject')
 
 ---@private
 GC.max = 10
@@ -65,8 +78,8 @@ end
 ---@param obj T
 ---@return T
 function GC:add(obj)
+    -- TODO 插件BUG
     ---@cast obj GCObject
-    assert(obj._GCObjectOnRemove, 'obj must be a GCObject')
     if self.removed then
         obj:_GCObjectRemove()
         return nil

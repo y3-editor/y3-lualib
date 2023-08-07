@@ -8,6 +8,9 @@ local M = Class 'Timer'
 
 M.type = 'timer'
 
+---@class Timer: GCObject
+Extends('Timer', 'GCObject')
+
 ---@param py_timer py.Timer
 ---@param on_timer Timer.OnTimer
 ---@return self

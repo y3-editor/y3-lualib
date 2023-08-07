@@ -7,11 +7,7 @@ local M = Class 'Buff'
 M.type = 'buff'
 
 ---@class Buff: GCObject
-Extends('Buff', 'GCObject', function (self, super)
-    super(function ()
-        self:remove()
-    end)
-end)
+Extends('Buff', 'GCObject')
 ---@class Buff: Storage
 Extends('Buff', 'Storage')
 

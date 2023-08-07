@@ -7,11 +7,9 @@ local M = Class 'Unit'
 M.type = 'unit'
 
 ---@class Unit: GCObject
-Extends('Unit', 'GCObject', function (self, super)
-    super(function ()
-        self:remove()
-    end)
-end)
+Extends('Unit', 'GCObject')
+---@class Unit: GCHost
+Extends('Unit', 'GCHost')
 ---@class Unit: Storage
 Extends('Unit', 'Storage')
 
@@ -280,6 +278,7 @@ end
 ---删除单位
 function M:remove()
     self.handle:api_delete()
+    self:removeGC()
 end
 
 ---传送到点

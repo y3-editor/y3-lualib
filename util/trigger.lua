@@ -8,11 +8,7 @@ local counter = y3.util.counter()
 local M = Class 'Trigger'
 
 ---@class Trigger: GCObject
-Extends('Trigger', 'GCObject', function (self, super)
-    super(function ()
-        self:remove()
-    end)
-end)
+Extends('Trigger', 'GCObject')
 
 ---@alias Trigger.CallBack fun(...): ...
 
