@@ -12,10 +12,13 @@ end
 
 -- 将一个对象的生命周期与自己绑定，
 -- 当自己被移除时，也会移除该对象。
+-- 如果调用此方法时自己已经被移除，
+-- 则会立即移除该对象并返回 `nil`，
+-- 否则会返回该对象。
 ---@generic T: table
 ---@param obj T
 ---@return T
-function GCHost:addGC(obj)
+function GCHost:bindGC(obj)
     return self._gccontainer:add(obj)
 end
 
