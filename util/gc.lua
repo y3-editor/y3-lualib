@@ -2,11 +2,10 @@
 ---@field private _gccontainer GC
 local GCHost = Class 'GCHost'
 
-function GCHost:constructor()
-    self._gccontainer = New 'GC' ()
-end
-
 function GCHost:destructor()
+    if not self._gccontainer then
+        return
+    end
     self._gccontainer:remove()
 end
 
@@ -19,6 +18,10 @@ end
 ---@param obj T
 ---@return T
 function GCHost:bindGC(obj)
+    if not self._gccontainer then
+        ---@private
+        self._gccontainer = New 'GC' ()
+    end
     return self._gccontainer:add(obj)
 end
 
