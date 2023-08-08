@@ -6,7 +6,7 @@
     "workspace.preloadFileSize": 5000,
     "runtime.pathStrict": true,
     "hover.expandAlias": false,
-    "doc.privateName": ["__*", "constructor"],
+    "doc.privateName": ["__*", "constructor", "destructor", "alloc"],
     "diagnostics.groupFileStatus": {
         "ambiguity": "Any",
         "await": "Any",
@@ -21,6 +21,5 @@
     },
     "type.weakNilCheck": false,
     "type.weakUnionCheck": false,
-    "type.castNumberToInteger": false,
-    "codeLens.enable": false
+    "type.castNumberToInteger": false
 }

@@ -14,6 +14,10 @@ function M:constructor(py_projectile)
     return self
 end
 
+function M:destructor()
+    self.handle:api_delete()
+end
+
 ---@private
 M.map = setmetatable({}, { __mode = 'kv' })
 
@@ -170,7 +174,7 @@ end
 
 ---销毁
 function M:remove()
-    self.handle:api_delete(nil)
+    Delete(self)
 end
 
 ---设置高度

@@ -6,8 +6,6 @@ local M = Class 'Item'
 
 M.type = 'item'
 
----@class Item: GCObject
-Extends('Item', 'GCObject')
 ---@class Item: Storage
 Extends('Item', 'Storage')
 
@@ -18,6 +16,10 @@ function M:constructor(id, py_item)
     self.id     = id
     self.handle = py_item
     return self
+end
+
+function M:destructor()
+    self.handle:api_remove()
 end
 
 ---@package
@@ -98,7 +100,7 @@ end
 
 ---删除物品
 function M:remove()
-    self.handle:api_remove()
+    Delete(self)
 end
 
 ---丢弃物品到点

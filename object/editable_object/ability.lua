@@ -13,6 +13,10 @@ function M:constructor(py_ability)
     return self
 end
 
+function M:destructor()
+    self.handle:api_remove()
+end
+
 ---通过py层的技能实例获取lua层的技能实例
 ---@param py_ability py.Ability # py层的技能实例
 ---@return Ability ability # 返回在lua层初始化后的lua层技能实例
@@ -73,7 +77,7 @@ end
 
 ---移除技能
 function M:remove()
-    self.handle:api_remove()
+    Delete(self)
 end
 
 ---设置技能等级

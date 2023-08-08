@@ -1,38 +1,3 @@
--- 当对象移除时会调用 `self:remove()` 方法
----@class GCObject
----@field remove? fun(self: self)
----@field package _GCObjectRemoved boolean
----@overload fun(): self
-local GCObject = Class 'GCObject'
-
----@package
-function GCObject:_GCObjectRemove()
-    if self._GCObjectRemoved then
-        return
-    end
-    self._GCObjectRemoved = true
-    local onRemove = self.remove
-    if not onRemove then
-        return
-    end
-    xpcall(onRemove, log.error, self)
-end
-
-function GCObject:GCObjectMarkRemoved()
-    self._GCObjectRemoved = true
-end
-
----@return boolean
-function GCObject:GCObjectIsRemoved()
-    return self._GCObjectRemoved == true
-end
-
----@class GC
----@field private objects GCObject[]
----@field private removed boolean
----@overload fun(): self
-local GC = Class 'GC'
-
 ---@class GCHost
 ---@field private _gccontainer GC
 local GCHost = Class 'GCHost'
@@ -41,7 +6,11 @@ function GCHost:constructor()
     self._gccontainer = New 'GC' ()
 end
 
----@generic T: GCObject
+function GCHost:destructor()
+    self._gccontainer:remove()
+end
+
+---@generic T: table
 ---@param obj T
 ---@return T
 function GCHost:addGC(obj)
@@ -52,8 +21,11 @@ function GCHost:removeGC()
     self._gccontainer:remove()
 end
 
----@class GC: GCObject
-Extends('GC', 'GCObject')
+---@class GC
+---@field private objects table[]
+---@field private removed boolean
+---@overload fun(): self
+local GC = Class 'GC'
 
 ---@private
 GC.max = 10
@@ -64,24 +36,24 @@ function GC:constructor()
     return self
 end
 
-function GC:remove()
-    if self.removed then
-        return
-    end
-    self.removed = true
+function GC:destructor()
     for _, obj in ipairs(self.objects) do
-        obj:_GCObjectRemove()
+        Delete(obj)
     end
 end
 
----@generic T: GCObject
+function GC:remove()
+    Delete(self)
+end
+
+---@generic T: table
 ---@param obj T
 ---@return T
 function GC:add(obj)
     -- TODO 插件BUG
-    ---@cast obj GCObject
-    if self.removed then
-        obj:_GCObjectRemove()
+    ---@cast obj table
+    if not IsValid(obj) then
+        Delete(obj)
         return nil
     end
     self.objects[#self.objects+1] = obj
@@ -99,7 +71,7 @@ function GC:zip()
         if not obj then
             break
         end
-        if obj._GCObjectRemoved then
+        if not IsValid(obj) then
             if index == #objects then
                 objects[#objects] = nil
                 break

@@ -16,6 +16,10 @@ function M:constructor(player, ui_name)
     return self
 end
 
+function M:destructor()
+    GameAPI.del_ui_comp(self.player.handle, self.handle)
+end
+
 function M:__tostring()
     return string.format('{UI|%s|%s} @ %s'
         , self.name
@@ -463,7 +467,7 @@ end
 
 --删除界面控件
 function M:remove()
-    GameAPI.del_ui_comp(self.player.handle, self.handle)
+    Delete(self)
 end
 
 --绑定技能冷却时间到玩家界面控件的属性

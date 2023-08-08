@@ -14,6 +14,8 @@ Class   = y3.class.declare
 New     = y3.class.new
 Super   = y3.class.super
 Extends = y3.class.extends
+Delete  = y3.class.delete
+IsValid = y3.class.isValid
 
 ---@diagnostic disable-next-line: lowercase-global
 log      = require 'y3.tools.log'

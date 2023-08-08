@@ -16,6 +16,10 @@ function M:constructor(py_area, shape)
     return self
 end
 
+function M:destructor()
+    GameAPI.remove_area(self.handle)
+end
+
 ---@private
 ---@type table<py.AreaID, Area>
 M.map = {}
@@ -89,7 +93,7 @@ end
 
 ---删除区域
 function M:remove()
-    GameAPI.remove_area(self.handle)
+    Delete(self)
 end
 
 ---设置区域碰撞

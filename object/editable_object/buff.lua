@@ -6,8 +6,6 @@ local M = Class 'Buff'
 
 M.type = 'buff'
 
----@class Buff: GCObject
-Extends('Buff', 'GCObject')
 ---@class Buff: Storage
 Extends('Buff', 'Storage')
 
@@ -26,6 +24,10 @@ function M:constructor(id, py_modifier)
     self.id     = id
     self.handle = py_modifier
     return self
+end
+
+function M:destructor()
+    self.handle:api_remove()
 end
 
 ---所有魔法效果实例
@@ -71,7 +73,7 @@ end
 
 ---移除
 function M:remove()
-    self.handle:api_remove()
+    Delete(self)
 end
 
 ---是否存在

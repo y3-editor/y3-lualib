@@ -10,6 +10,10 @@ function M:constructor(handle)
     return self
 end
 
+function M:destructor()
+    GameAPI.remove_mover(self.handle)
+end
+
 ---@param py_mover py.Mover
 ---@return Mover
 function M.get_by_handle(py_mover)
@@ -279,7 +283,7 @@ end
 
 -- 移除运动器
 function M:remove()
-    GameAPI.remove_mover(self.handle)
+    Delete(self)
 end
 
 local DUMMY_FUNCTION = function() end

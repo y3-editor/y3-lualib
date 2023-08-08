@@ -16,6 +16,10 @@ function M:constructor(py_destructible)
     return self
 end
 
+function M:destructor()
+    self.handle:api_delete()
+end
+
 ---所有可破坏物实例
 M.map = setmetatable({}, { __mode = 'kv' })
 
@@ -101,7 +105,7 @@ end
 
 ---删除可破坏物
 function M:remove()
-    self.handle:api_delete()
+    Delete(self)
 end
 
 ---复活可破坏物

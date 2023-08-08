@@ -8,9 +8,6 @@ local M = Class 'Timer'
 
 M.type = 'timer'
 
----@class Timer: GCObject
-Extends('Timer', 'GCObject')
-
 ---@param py_timer py.Timer
 ---@param on_timer Timer.OnTimer
 ---@return self
@@ -18,6 +15,10 @@ function M:constructor(py_timer, on_timer)
     self.handle = py_timer
     self.on_timer = on_timer
     return self
+end
+
+function M:destructor()
+    GameAPI.delete_timer(self.handle)
 end
 
 ---@param py_timer py.Timer
@@ -86,7 +87,7 @@ end
 
 -- 移除计时器
 function M:remove()
-    GameAPI.delete_timer(self.handle)
+    Delete(self)
 end
 
 -- 暂停计时器

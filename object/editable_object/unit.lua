@@ -6,8 +6,6 @@ local M = Class 'Unit'
 
 M.type = 'unit'
 
----@class Unit: GCObject
-Extends('Unit', 'GCObject')
 ---@class Unit: GCHost
 Extends('Unit', 'GCHost')
 ---@class Unit: Storage
@@ -27,6 +25,10 @@ function M:constructor(py_unit_id, py_unit)
     self.handle = py_unit
     self.id     = py_unit_id
     return self
+end
+
+function M:destructor()
+    self.handle:api_delete()
 end
 
 ---@package
@@ -277,8 +279,7 @@ end
 
 ---删除单位
 function M:remove()
-    self.handle:api_delete()
-    self:removeGC()
+    Delete(self)
 end
 
 ---传送到点

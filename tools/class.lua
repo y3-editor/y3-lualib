@@ -68,14 +68,32 @@ function M.new(name)
     return instance
 end
 
+-- 析构一个实例
+---@param obj table
+function M.delete(obj)
+    if obj.__deleted__ then
+        return
+    end
+    obj.__deleted__ = true
+    local name = obj.__class__
+    assert(name, 'can not delete undeclared class')
+
+    M.runDesctructor(obj, name)
+end
+
 -- 获取类的名称
----@param obj any
+---@param obj table
 ---@return string?
 function M.type(obj)
-    if type(obj) ~= 'table' then
-        return nil
-    end
-    return obj.__name
+    return obj.__class__
+end
+
+-- 判断一个实例是否有效
+---@param obj table
+---@return boolean
+function M.isValid(obj)
+    return obj.__class__
+       and not obj.__deleted__
 end
 
 ---@private
@@ -115,6 +133,7 @@ function M.extends(name, extendsName, init)
     for k, v in pairs(extends) do
         if not k:match '^__'
         and k ~= 'constructor'
+        and k ~= 'destructor'
         and k ~= 'alloc' then
             assert(class[k] == nil, ('"%s.%s" is already defined'):format(name, k))
             class[k] = v
@@ -144,14 +163,14 @@ end
 ---@param obj table
 ---@param name string
 ---@param ... any
-function M.runConstructor(obj, name,...)
+function M.runConstructor(obj, name, ...)
     local class = M._classes[name]
     local extendsCalls = M._extendsCalls[name]
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
             if call.init then
                 call.init(obj, function (...)
-                    M.runConstructor(obj, call.name,...)
+                    M.runConstructor(obj, call.name, ...)
                 end)
             else
                 M.runConstructor(obj, call.name)
@@ -159,7 +178,23 @@ function M.runConstructor(obj, name,...)
         end
     end
     if class.constructor then
-        class.constructor(obj,...)
+        class.constructor(obj, ...)
+    end
+end
+
+---@private
+---@param obj table
+---@param name string
+function M.runDesctructor(obj, name)
+    local class = M._classes[name]
+    local extendsCalls = M._extendsCalls[name]
+    if extendsCalls then
+        for _, call in ipairs(extendsCalls) do
+            M.runDesctructor(obj, call.name)
+        end
+    end
+    if class.destructor then
+        class.destructor(obj)
     end
 end
 

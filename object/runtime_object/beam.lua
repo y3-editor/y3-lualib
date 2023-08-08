@@ -11,6 +11,10 @@ function M:constructor(py_beam)
     return self
 end
 
+function M:destructor()
+    GameAPI.remove_link_sfx(self.handle)
+end
+
 ---@param py_beam py.LinkSfx
 ---@return Beam beam
 function M.create_lua_beam_by_py(py_beam)
@@ -111,8 +115,7 @@ end
 
 ---链接特效 - 销毁
 function M:remove()
-    GameAPI.remove_link_sfx(self.handle)
-    self = nil
+    Delete(self)
 end
 
 

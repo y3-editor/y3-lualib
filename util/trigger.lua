@@ -7,9 +7,6 @@ local counter = y3.util.counter()
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
 local M = Class 'Trigger'
 
----@class Trigger: GCObject
-Extends('Trigger', 'GCObject')
-
 ---@alias Trigger.CallBack fun(...): ...
 
 ---@param event Event
@@ -23,6 +20,10 @@ function M:constructor(event, event_args, callback)
     self._event_args = event_args
     event:add_trigger(self)
     return self
+end
+
+function M:destructor()
+    self._event:remove_trigger(self)
 end
 
 M.type = 'trigger'
@@ -72,7 +73,7 @@ end
 ---@param ... any
 ---@return any, any, any, any
 function M:execute(...)
-    if self:GCObjectIsRemoved() then
+    if not IsValid(self) then
         return
     end
     if self._enable then
@@ -84,9 +85,5 @@ function M:execute(...)
 end
 
 function M:remove()
-    if self:GCObjectIsRemoved() then
-        return
-    end
-    self:GCObjectMarkRemoved()
-    self._event:remove_trigger(self)
+    Delete(self)
 end

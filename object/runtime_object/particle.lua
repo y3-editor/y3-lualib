@@ -19,6 +19,10 @@ function M:constructor(sfx)
     return self
 end
 
+function M:destructor()
+    GameAPI.delete_sfx(self.handle)
+end
+
 ---@param py_sfx py.Sfx
 ---@return Particle
 function M.get_by_handle(py_sfx)
@@ -114,11 +118,7 @@ end
 
 --删除粒子
 function M:remove()
-    if self._removed then
-        return
-    end
-    self._removed = true
-    GameAPI.delete_sfx(self.handle)
+    Delete(self)
 end
 
 --设置旋转角度
