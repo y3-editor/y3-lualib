@@ -3,6 +3,11 @@
 ---@overload fun(handle: py.Mover): self
 local M = Class 'Mover'
 
+---@class Mover: Storage
+Extends('Mover', 'Storage')
+---@class Mover: GCHost
+Extends('Mover', 'GCHost')
+
 ---@param handle py.Mover
 ---@return Mover
 function M:constructor(handle)

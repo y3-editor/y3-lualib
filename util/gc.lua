@@ -10,6 +10,8 @@ function GCHost:destructor()
     self._gccontainer:remove()
 end
 
+-- 将一个对象的生命周期与自己绑定，
+-- 当自己被移除时，也会移除该对象。
 ---@generic T: table
 ---@param obj T
 ---@return T

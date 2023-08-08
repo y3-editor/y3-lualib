@@ -3,6 +3,13 @@
 ---@overload fun(py_ability: py.Ability): self
 local M = Class 'Ability'
 
+-- TODO: 目前技能无法维护生命周期
+
+---@class Ability: GCHost
+Extends('Ability', 'GCHost')
+---@class Ability: Storage
+Extends('Ability', 'Storage')
+
 ---所有技能实例
 M.map = {}
 

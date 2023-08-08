@@ -8,6 +8,8 @@ M.type = 'buff'
 
 ---@class Buff: Storage
 Extends('Buff', 'Storage')
+---@class Buff: GCHost
+Extends('Buff', 'GCHost')
 
 function M:__tostring()
     return string.format('{buff|%s|%s} @ %s'
