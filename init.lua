@@ -53,6 +53,7 @@ y3.destructible = require 'y3.object.editable_object.destructible'
 y3.item         = require 'y3.object.editable_object.item'
 y3.buff         = require 'y3.object.editable_object.buff'
 y3.projectile   = require 'y3.object.editable_object.projectile'
+y3.technology   = require 'y3.object.editable_object.technology'
 
 y3.beam         = require 'y3.object.runtime_object.beam'
 y3.item_group   = require 'y3.object.runtime_object.item_group'

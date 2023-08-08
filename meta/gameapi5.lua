@@ -1627,6 +1627,7 @@ function GameAPI.get_random_pool_pointed_weight(random_pool, value) end
 
 --翻译字符串
 ---@param string string # 字符串
+---@return string # 翻译后的字符串
 function GameAPI.get_text_config(string) end
 
 --发送触发器自定义事件
