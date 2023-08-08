@@ -527,26 +527,10 @@ function M.get_archive_rank_player_archive_value(file, index)
     return GameAPI.get_archive_rank_player_archive_value(file, index)
 end
 
----@return integer weather 天气
 ---获取全局天气
+---@return integer weather 天气
 function M.get_global_weather()
     return GameAPI.get_global_weather()
-end
-
----@param player Player 玩家
----@param key number 按键
----@return boolean 是否被按下
----玩家键盘按键是否被按下
-function M.player_keyboard_key_is_pressed(player, key)
-    return GameAPI.player_key_is_pressed(player.handle, key)
-end
-
----@param player Player 玩家
----@param key string 键
----@return boolean 是否被按下
----玩家鼠标是否被按下
-function M.player_mouse_key_is_pressed(player, key)
-    return GameAPI.player_key_is_pressed(player.handle, key)
 end
 
 ---@param type number 日志类型

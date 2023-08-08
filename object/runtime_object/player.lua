@@ -457,14 +457,24 @@ end
 
 ---获取鼠标在屏幕上的X坐标
 ---@return number pos_x X坐标
-function M:get_ui_pos_x()
+function M:get_mouse_pos_x()
     return GameAPI.get_player_ui_pos_x(self.handle)
 end
 
 ---获取鼠标在屏幕上的y坐标
 ---@return number pos_y Y坐标
-function M:get_ui_pos_y()
+function M:get_mouse_pos_y()
     return GameAPI.get_player_ui_pos_y(self.handle)
+end
+
+---玩家的按键是否被按下
+---@param key y3.Const.KeyboardKey | y3.Const.MouseKey 按键
+---@return boolean 是否被按下
+function M:is_key_pressed(key)
+    if not y3.config.sync.key then
+        error('必须先设置 `y3.config.sync.key = true`')
+    end
+    return GameAPI.player_key_is_pressed(self.handle, key)
 end
 
 ---获取玩家唯一名称

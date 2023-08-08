@@ -14,7 +14,7 @@ M.sync = y3.proxy.new({}, {
             GameAPI.force_enable_mouse_sync(value)
             return value
         end,
-        keyboard = function (self, raw, key, value, config)
+        key = function (self, raw, key, value, config)
             assert(type(value) == 'boolean', ('`Config.sync.%s` 的赋值类型必须是 `boolean`'):format(key))
             GameAPI.force_enable_keyboard_sync(value)
             return value
@@ -27,11 +27,11 @@ M.sync = y3.proxy.new({}, {
     },
 })
 
--- 同步玩家的鼠标
-M.sync.mouse    = false
--- 同步玩家的键盘（好像没有相关的获取API？）
-M.sync.keyboard = false
+-- 同步玩家的鼠标位置
+M.sync.mouse  = false
+-- 同步玩家的键盘与鼠标按键
+M.sync.key    = false
 -- 同步玩家的镜头
-M.sync.camera   = false
+M.sync.camera = false
 
 return M
