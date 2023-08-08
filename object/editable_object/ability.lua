@@ -37,6 +37,10 @@ y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
     return lua_value.handle
 end)
 
+y3.game:event('技能-失去', function (trg, data)
+    data.ability:remove()
+end)
+
 ---是否受冷却缩减影响
 ---@return boolean is_influenced 是否受冷却缩减影响
 function M:is_cd_reduce()

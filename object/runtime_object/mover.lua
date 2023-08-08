@@ -97,7 +97,7 @@ end)
 ---@return fun()? # on_block
 ---@return fun()? # on_finish
 ---@return fun()? # on_break
----@return fun()? # on_remove
+---@return fun()  # on_remove
 function M.wrap_callbacks(mover_data)
     ---@type Mover
     local mover
@@ -141,12 +141,11 @@ function M.wrap_callbacks(mover_data)
         end
     end
 
-    ---@type fun(mover: py.Mover)?
-    local on_remove
-    if mover_data.on_remove then
-        on_remove = function ()
-            xpcall(mover_data.on_remove, log.error, mover)
-        end
+    -- TODO 目前没有运动移除的全局事件，因此在每个运动的移除回调中析构自己
+    ---@type fun(mover: py.Mover)
+    local on_remove = function ()
+        Delete(mover)
+        xpcall(mover_data.on_remove, log.error, mover)
     end
 
     return update_mover, on_hit, on_block, on_finish, on_break, on_remove
