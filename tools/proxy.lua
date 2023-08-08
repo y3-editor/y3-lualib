@@ -16,7 +16,6 @@ local CONFIG = {'CONFIG'}
 ---@field anyGetter? Proxy.Getter # 只有没有对应的 `getter` 才会触发 `anyGetter`
 local defaultConfig = {
     cache     = true,
-    updateRaw = true,
 }
 
 local metatable = {
