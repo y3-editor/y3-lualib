@@ -85,4 +85,10 @@ function M.isBetween(number, min, max)
     return number >= min and number <= max
 end
 
+---获取随机种子
+---@return integer seed 随机种子
+function M.get_random_seed()
+    return GameAPI.get_random_seed()
+end
+
 return M

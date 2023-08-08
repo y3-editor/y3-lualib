@@ -62,32 +62,6 @@ y3.py_converter.register_lua_to_py('py.Point', function (lua_value)
     return lua_value.handle
 end)
 
----设置碰撞
----@param is_collision_effect boolean  碰撞是否生效
----@param is_land_effect boolean  地面碰撞开关
----@param is_air_effect boolean  空中碰撞开关
-function M:set_collision(is_collision_effect, is_land_effect, is_air_effect)
-    -- TODO 见问题2
-    ---@diagnostic disable-next-line: param-type-mismatch
-    GameAPI.set_point_collision(self.handle, is_collision_effect, is_land_effect, is_air_effect)
-end
-
----获取地图在该点位置的碰撞类型 
----@return integer
-function M:get_ground_collision()
-    -- TODO 见问题2
-    ---@diagnostic disable-next-line: param-type-mismatch
-    return GameAPI.get_point_ground_collision(self.handle)
-end
-
----获取地图在该点位置的视野类型
----@return integer
-function M:get_view_block_type()
-    -- TODO 见问题2
-    ---@diagnostic disable-next-line: param-type-mismatch
-    return GameAPI.get_point_view_block_type(self.handle)
-end
-
 ---点的x坐标
 ---@return number
 function M:get_x()

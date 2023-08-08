@@ -540,19 +540,6 @@ function M.locale(key)
     return GameAPI.get_text_config(key)
 end
 
----@param point Point 点
----@return number height 层级
----获取地图在该点位置的层级
-function M.get_point_ground_height(point)
-    return GameAPI.get_point_ground_height(point.handle)
-end
-
----@return number seed 随机种子
----获取随机种子
-function M.get_random_seed()
-    return GameAPI.get_random_seed()
-end
-
 ---@return number time_stamp 时间戳
 ---获取游戏开始时间戳
 function M.get_game_init_time_stamp()

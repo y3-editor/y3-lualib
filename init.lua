@@ -42,10 +42,12 @@ function print(...)
 end
 
 y3.const        = require 'y3.game.const'
+y3.math         = require 'y3.game.math'
 y3.game         = require 'y3.game.game'
 y3.py_converter = require 'y3.game.py_converter'
 y3.py_event_sub = require 'y3.game.py_event_subscribe'
 y3.helper       = require 'y3.game.helper'
+y3.ground       = require 'y3.game.ground'
 
 y3.unit         = require 'y3.object.editable_object.unit'
 y3.ability      = require 'y3.object.editable_object.ability'
@@ -57,7 +59,6 @@ y3.technology   = require 'y3.object.editable_object.technology'
 
 y3.beam         = require 'y3.object.runtime_object.beam'
 y3.item_group   = require 'y3.object.runtime_object.item_group'
-y3.math         = require 'y3.object.runtime_object.math'
 y3.mover        = require 'y3.object.runtime_object.mover'
 y3.particle     = require 'y3.object.runtime_object.particle'
 y3.player       = require 'y3.object.runtime_object.player'
