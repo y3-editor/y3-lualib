@@ -17,10 +17,6 @@ function GCHost:addGC(obj)
     return self._gccontainer:add(obj)
 end
 
-function GCHost:removeGC()
-    self._gccontainer:remove()
-end
-
 ---@class GC
 ---@field private objects table[]
 ---@field private removed boolean
