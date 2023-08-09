@@ -4,6 +4,7 @@ local M = Class 'Game'
 ---@private
 M._event_object = {'<GAME_EVENT_OBJECT>'}
 
+-- 注册引擎事件
 ---@param event_type y3.Const.EventType
 ---@param ... any
 ---@return Trigger

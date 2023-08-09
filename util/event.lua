@@ -111,6 +111,26 @@ function M:dispatch(...)
     self:check_waiting()
 end
 
+---@param event_args any[]
+---@param ... any
+---@return any, any, any, any
+function M:dispatch_with_args(event_args, ...)
+    self.fire_lock = self.fire_lock + 1
+    ---@param trigger Trigger
+    for trigger in self.triggers:pairs() do
+        if trigger:is_match_args(event_args) then
+            local a, b, c, d = trigger:execute(...)
+            if a ~= nil then
+                self.fire_lock = self.fire_lock - 1
+                self:check_waiting()
+                return a, b, c, d
+            end
+        end
+    end
+    self.fire_lock = self.fire_lock - 1
+    self:check_waiting()
+end
+
 ---@return boolean
 function M:is_firing()
     return self.fire_lock > 0
