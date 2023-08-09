@@ -3,7 +3,6 @@
 ---@field private triggers LinkedTable
 ---@field private wait_pushing Trigger[]
 ---@field private wait_poping  Trigger[]
----@field private has_extra_args? boolean
 ---@overload fun(event_name: string): self
 local M = Class 'Event'
 
@@ -13,14 +12,12 @@ local M = Class 'Event'
 M.fire_lock = 0
 
 ---@param event_name Event.Name
----@param has_extra_args? boolean
 ---@return self
-function M:constructor(event_name, has_extra_args)
+function M:constructor(event_name)
     self.event_name = event_name
     self.triggers = New 'LinkedTable' ()
     self.wait_pushing = {}
     self.wait_poping  = {}
-    self.has_extra_args = has_extra_args
     return self
 end
 

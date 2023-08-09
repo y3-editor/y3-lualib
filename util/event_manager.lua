@@ -1,6 +1,7 @@
 ---@class EventManager
 ---@field private object table
 ---@field private event_map table<string, Event>
+---@field private stack_list? LinkedTable
 ---@overload fun(object: table): self
 local M = Class 'EventManager'
 
@@ -43,6 +44,31 @@ function M:has_event(event_name, event_args)
     return true
 end
 
+---@private
+---@param event_name Event.Name
+---@param event_args any[]?
+---@param ... any
+function M:stack_notify(event_name, event_args, ...)
+    if not self.stack_list then
+        self.stack_list = New 'LinkedTable' ()
+    end
+    local box = table.pack(event_name, event_args, ...)
+    self.stack_list:pushTail(box)
+end
+
+---@private
+function M:check_stack()
+    if not self.stack_list then
+        return
+    end
+    local box = self.stack_list:getHead()
+    if not box then
+        return
+    end
+    self.stack_list:pop(box)
+    self:notify(table.unpack(box, 1, box.n))
+end
+
 ---@param event_name Event.Name
 ---@param event_args any[]?
 ---@param ... any
@@ -51,9 +77,14 @@ function M:notify(event_name, event_args, ...)
     if not event then
         return
     end
+    if self.fire_lock > 0 then
+        self:stack_notify(event_name, event_args,...)
+        return
+    end
     self.fire_lock = self.fire_lock + 1
     event:notify(event_args, ...)
     self.fire_lock = self.fire_lock - 1
+    self:check_stack()
 end
 
 ---@param event_name Event.Name

@@ -29,10 +29,10 @@ Obj:event_on('输入', {'123'}, function (trigger, ...)
     print('触发了输入事件', ...)
 end)
 
-Obj:event_notify('输入', '123', '456') -- 不能触发事件
-Obj:event_notify_with_args('输入', {'123'}, '123', '456') -- 可以触发事件
-Obj:event_notify_with_args('输入', {'456'}, '123', '456') -- 不能触发事件
-Obj:event_notify_with_args('输入', {'123', '666'}, '123', '456') -- 可以触发事件
+Obj:event_notify('输入', 1) -- 不能触发事件
+Obj:event_notify_with_args('输入', {'123'}, 2) -- 可以触发事件
+Obj:event_notify_with_args('输入', {'456'}, 3) -- 不能触发事件
+Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 ```
 ]]
 ---@overload fun(self: self, event_name:string, callback:Trigger.CallBack):Trigger
@@ -44,7 +44,10 @@ function M:event_on(...)
     local event_name, args, callback =...
     if not callback then
         callback = args
+        args = nil
     end
+    assert(event_name, '缺少事件名')
+    assert(type(callback) == 'function', '缺少回调函数')
     local trigger = self.custom_event_manager:event(event_name, args, callback)
     return trigger
 end
@@ -54,18 +57,18 @@ end
 当发生插入结算时，后面的事件会进入队列
 
 ```lua
-OBj:event_on('获得', function ()
+Obj:event_on('获得', function ()
     print('触发获得')
     print('发起移除前')
-    self:event_notify('移除') -- 实际业务中，可能你获得的buff把你自己杀死了，而死亡会清除buff
+    Obj:event_notify('移除') -- 实际业务中，可能你获得的buff把你自己杀死了，而死亡会清除buff
     print('发起移除后')
 end)
 
-OBj:event_on('移除', function ()
+Obj:event_on('移除', function ()
     print('触发移除')
 end)
 
-OBj:event_notify('获得')
+Obj:event_notify('获得')
 ```
 
 这段代码会打印：
@@ -131,7 +134,7 @@ function M:event_dispatch(event_name, ...)
     if not self.custom_event_manager then
         return
     end
-    self.custom_event_manager:dispatch(event_name, nil, ...)
+    return self.custom_event_manager:dispatch(event_name, nil, ...)
 end
 
 -- 发起带事件参数的自定义事件（回执模式）
@@ -143,5 +146,5 @@ function M:event_dispatch_with_args(event_name, args, ...)
     if not self.custom_event_manager then
         return
     end
-    self.custom_event_manager:dispatch(event_name, args, ...)
+    return self.custom_event_manager:dispatch(event_name, args, ...)
 end
