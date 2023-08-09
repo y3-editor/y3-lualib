@@ -52,7 +52,7 @@ end
 
 -- 检查事件的参数与触发器的参数是否匹配，
 -- 允许事件的参数数量多余触发器的参数数量。
----@param fire_args any[]
+---@param fire_args any[]?
 ---@return boolean
 function M:is_match_args(fire_args)
     local event_args = self._event_args

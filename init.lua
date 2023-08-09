@@ -28,6 +28,7 @@ require 'y3.util.eca_function'
 require 'y3.util.trigger'
 require 'y3.util.event'
 require 'y3.util.event_manager'
+require 'y3.util.custom_event'
 require 'y3.util.ref'
 require 'y3.util.storage'
 

@@ -69,20 +69,9 @@ function M:has_matched_trigger(args)
     return false
 end
 
+---@param event_args any[]?
 ---@param ... any
-function M:notify(...)
-    self.fire_lock = self.fire_lock + 1
-    ---@param trigger Trigger
-    for trigger in self.triggers:pairs() do
-        trigger:execute(...)
-    end
-    self.fire_lock = self.fire_lock - 1
-    self:check_waiting()
-end
-
----@param event_args any[]
----@param ... any
-function M:notify_with_args(event_args, ...)
+function M:notify(event_args, ...)
     self.fire_lock = self.fire_lock + 1
     ---@param trigger Trigger
     for trigger in self.triggers:pairs() do
@@ -94,27 +83,10 @@ function M:notify_with_args(event_args, ...)
     self:check_waiting()
 end
 
+---@param event_args any[]?
 ---@param ... any
 ---@return any, any, any, any
-function M:dispatch(...)
-    self.fire_lock = self.fire_lock + 1
-    ---@param trigger Trigger
-    for trigger in self.triggers:pairs() do
-        local a, b, c, d = trigger:execute(...)
-        if a ~= nil then
-            self.fire_lock = self.fire_lock - 1
-            self:check_waiting()
-            return a, b, c, d
-        end
-    end
-    self.fire_lock = self.fire_lock - 1
-    self:check_waiting()
-end
-
----@param event_args any[]
----@param ... any
----@return any, any, any, any
-function M:dispatch_with_args(event_args, ...)
+function M:dispatch(event_args, ...)
     self.fire_lock = self.fire_lock + 1
     ---@param trigger Trigger
     for trigger in self.triggers:pairs() do

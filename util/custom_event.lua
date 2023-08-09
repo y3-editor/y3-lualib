@@ -1,5 +1,6 @@
 ---@class CustomEvent
 ---@field private custom_event_manager EventManager
+---@overload fun(): self
 local M = Class 'CustomEvent'
 
 --[[
@@ -31,7 +32,7 @@ end)
 Obj:event_notify('输入', '123', '456') -- 不能触发事件
 Obj:event_notify_with_args('输入', {'123'}, '123', '456') -- 可以触发事件
 Obj:event_notify_with_args('输入', {'456'}, '123', '456') -- 不能触发事件
-Obj:event_notify_with_args('输入', {'123'， '666'}, '123', '456') -- 可以触发事件
+Obj:event_notify_with_args('输入', {'123', '666'}, '123', '456') -- 可以触发事件
 ```
 ]]
 ---@overload fun(self: self, event_name:string, callback:Trigger.CallBack):Trigger
@@ -82,7 +83,7 @@ function M:event_notify(event_name, ...)
     if not self.custom_event_manager then
         return
     end
-    self.custom_event_manager:notify(event_name,...)
+    self.custom_event_manager:notify(event_name, nil, ...)
 end
 
 -- 发起带事件参数的自定义事件（通知模式）
@@ -93,7 +94,7 @@ function M:event_notify_with_args(event_name, args, ...)
     if not self.custom_event_manager then
         return
     end
-    self.custom_event_manager:notify_with_args(event_name, args, ...)
+    self.custom_event_manager:notify(event_name, args, ...)
 end
 
 --[[
@@ -130,7 +131,7 @@ function M:event_dispatch(event_name, ...)
     if not self.custom_event_manager then
         return
     end
-    self.custom_event_manager:dispatch(event_name, ...)
+    self.custom_event_manager:dispatch(event_name, nil, ...)
 end
 
 -- 发起带事件参数的自定义事件（回执模式）
@@ -142,5 +143,5 @@ function M:event_dispatch_with_args(event_name, args, ...)
     if not self.custom_event_manager then
         return
     end
-    self.custom_event_manager:dispatch_with_args(event_name, args, ...)
+    self.custom_event_manager:dispatch(event_name, args, ...)
 end

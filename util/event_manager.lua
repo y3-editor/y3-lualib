@@ -44,57 +44,31 @@ function M:has_event(event_name, event_args)
 end
 
 ---@param event_name Event.Name
+---@param event_args any[]?
+---@param ... any
+function M:notify(event_name, event_args, ...)
+    local event = self.event_map[event_name]
+    if not event then
+        return
+    end
+    self.fire_lock = self.fire_lock + 1
+    event:notify(event_args, ...)
+    self.fire_lock = self.fire_lock - 1
+end
+
+---@param event_name Event.Name
+---@param event_args any[]?
 ---@param ... any
 ---@return any, any, any, any
-function M:dispatch(event_name, ...)
+function M:dispatch(event_name, event_args, ...)
     local event = self.event_map[event_name]
     if not event then
         return
     end
     self.fire_lock = self.fire_lock + 1
-    local a, b, c, d = event:dispatch(...)
+    local a, b, c, d = event:dispatch(event_args, ...)
     self.fire_lock = self.fire_lock - 1
     return a, b, c, d
-end
-
----@param event_name Event.Name
----@param event_args any[]
----@param ... any
----@return any, any, any, any
-function M:dispatch_with_args(event_name, event_args, ...)
-    local event = self.event_map[event_name]
-    if not event then
-        return
-    end
-    self.fire_lock = self.fire_lock + 1
-    local a, b, c, d = event:dispatch_with_args(event_args, ...)
-    self.fire_lock = self.fire_lock - 1
-    return a, b, c, d
-end
-
----@param event_name Event.Name
----@param ... any
-function M:notify(event_name, ...)
-    local event = self.event_map[event_name]
-    if not event then
-        return
-    end
-    self.fire_lock = self.fire_lock + 1
-    event:notify(...)
-    self.fire_lock = self.fire_lock - 1
-end
-
----@param event_name Event.Name
----@param event_args any[]
----@param ... any
-function M:notify_with_args(event_name, event_args, ...)
-    local event = self.event_map[event_name]
-    if not event then
-        return
-    end
-    self.fire_lock = self.fire_lock + 1
-    event:notify_with_args(event_args, ...)
-    self.fire_lock = self.fire_lock - 1
 end
 
 function M:is_firing()
