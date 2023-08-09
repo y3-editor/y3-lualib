@@ -10,6 +10,8 @@ M.type = 'unit'
 Extends('Unit', 'GCHost')
 ---@class Unit: Storage
 Extends('Unit', 'Storage')
+---@class Unit: CustomEvent
+Extends('Unit', 'CustomEvent')
 
 function M:__tostring()
     return string.format('{unit|%s|%s}'

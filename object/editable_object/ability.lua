@@ -9,6 +9,8 @@ local M = Class 'Ability'
 Extends('Ability', 'GCHost')
 ---@class Ability: Storage
 Extends('Ability', 'Storage')
+---@class Ability: CustomEvent
+Extends('Ability', 'CustomEvent')
 
 ---所有技能实例
 M.map = {}

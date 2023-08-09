@@ -10,6 +10,8 @@ M.type = 'item'
 Extends('Item', 'Storage')
 ---@class Item: GCHost
 Extends('Item', 'GCHost')
+---@class Item: CustomEvent
+Extends('Item', 'CustomEvent')
 
 ---@param id py.ItemID
 ---@param py_item py.Item # py层的道具实例

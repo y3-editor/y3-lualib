@@ -9,6 +9,8 @@ M.type = 'player'
 
 ---@class Player: Storage
 Extends('Player', 'Storage')
+---@class Player: CustomEvent
+Extends('Player', 'CustomEvent')
 
 ---@package
 ---@param key py.RoleID

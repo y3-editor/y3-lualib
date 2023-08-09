@@ -10,6 +10,8 @@ M.type = 'buff'
 Extends('Buff', 'Storage')
 ---@class Buff: GCHost
 Extends('Buff', 'GCHost')
+---@class Buff: CustomEvent
+Extends('Buff', 'CustomEvent')
 
 function M:__tostring()
     return string.format('{buff|%s|%s} @ %s'

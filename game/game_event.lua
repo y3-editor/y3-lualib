@@ -1,6 +1,9 @@
 ---@class Game
 local M = Class 'Game'
 
+---@class Game: CustomEvent
+Extends('Game', 'CustomEvent')
+
 ---@private
 M._event_object = {'<GAME_EVENT_OBJECT>'}
 
