@@ -32,13 +32,6 @@ function Fix32(luaNumber) end
 ---@return {on_event: fun(trigger: table, event: y3.Const.EventType, actor, data)}
 function new_global_trigger(id, name, event, init_enabled, addition) end
 
----@param unit_id integer
----@param id integer
----@param name string
----@param event y3.Const.EventType | { [1]: y3.Const.EventType, [2]: integer }
----@param init_enabled boolean
-function new_unit_trigger(unit_id, id, name, event, init_enabled) end
-
 -- 获取容器大小
 ---@param obj py.DynamicTypeMeta
 ---@return integer
