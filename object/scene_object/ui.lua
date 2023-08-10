@@ -83,18 +83,21 @@ end
 ---@param  visible boolean 显示/隐藏
 function M:set_visible(visible)
     GameAPI.set_ui_comp_visible(self.player.handle, visible, self.handle)
+    return self
 end
 
 --设置图片
 ---@param  img py.Texture 图片id
 function M:set_image(img)
     GameAPI.set_ui_comp_image_with_icon(self.player.handle, self.handle, img)
+    return self
 end
 
 --设置文本
 ---@param  str string 文本
 function M:set_text(str)
     GameAPI.set_ui_comp_text(self.player.handle, self.handle, str)
+    return self
 end
 
 
@@ -102,12 +105,14 @@ end
 ---@param  value number 透明度
 function M:set_alpha(value)
     GameAPI.set_ui_comp_opacity(self.player.handle, self.handle, value)
+    return self
 end
 
 --设置控件是否可拖动
 ---@param  isdrag boolean 是否可拖动
 function M:set_is_draggable(isdrag)
     GameAPI.set_ui_comp_drag(self.player.handle, self.handle, isdrag)
+    return self
 end
 
 
@@ -115,6 +120,7 @@ end
 ---@param  intercepts boolean 是否拦截操作
 function M:set_intercepts_operations(intercepts)
     GameAPI.set_ui_comp_swallow(self.player.handle, self.handle, intercepts)
+    return self
 end
 
 
@@ -122,6 +128,7 @@ end
 ---@param  deep integer 深度
 function M:set_z_order(deep)
     GameAPI.set_ui_comp_z_order(self.player.handle, self.handle, deep)
+    return self
 end
 
 
@@ -129,6 +136,7 @@ end
 ---@param  progress number 进度条最大值
 function M:set_max_progress_bar_value(progress)
     GameAPI.set_progress_bar_max_value(self.player.handle, self.handle, progress)
+    return self
 end
 
 
@@ -137,6 +145,7 @@ end
 ---@param  time number? 渐变时间
 function M:set_current_progress_bar_value(progress, time)
     GameAPI.set_progress_bar_current_value(self.player.handle, self.handle, progress, time)
+    return self
 end
 
 
@@ -144,6 +153,7 @@ end
 ---@param  enable boolean 启用/禁用按钮
 function M:set_button_enable(enable)
     GameAPI.set_ui_comp_enable(self.player.handle, self.handle, enable)
+    return self
 end
 
 
@@ -152,6 +162,7 @@ end
 ---@param  height number 高度
 function M:set_ui_size(width, height)
     GameAPI.set_ui_comp_size(self.player.handle, self.handle, width, height)
+    return self
 end
 
 
@@ -159,11 +170,13 @@ end
 ---@param  size integer 字体大小
 function M:set_font_size(size)
     GameAPI.set_ui_comp_font_size(self.player.handle, self.handle, size)
+    return self
 end
 
 --让输入框获取焦点
 function M:set_input_field_focus()
     GameAPI.set_input_field_focus(self.player.handle, self.handle)
+    return self
 end
 
 
@@ -171,6 +184,7 @@ end
 ---@param  skill Ability 技能对象
 function M:set_skill_on_ui_comp(skill)
     GameAPI.set_skill_on_ui_comp(self.player.handle, skill.handle, self.handle)
+    return self
 end
 
 
@@ -178,6 +192,7 @@ end
 ---@param  unit Unit 单位
 function M:set_buff_on_ui(unit)
     GameAPI.set_buff_on_ui_comp(self.player.handle, unit.handle, self.handle)
+    return self
 end
 
 
@@ -185,6 +200,7 @@ end
 ---@param  item Item 物品对象
 function M:set_item_on_ui(item)
     GameAPI.set_item_on_ui_comp(self.player.handle, item.handle, self.handle)
+    return self
 end
 
 --设置默认游戏界面的开关
@@ -199,6 +215,7 @@ end
 ---@param  modelid py.Model 模型id
 function M:set_ui_model_id(modelid)
     GameAPI.set_ui_model_id(self.player.handle, self.handle, modelid)
+    return self
 end
 
 
@@ -217,18 +234,21 @@ end
 ---@param  index integer 格子位置
 function M:set_ui_unit_slot(unit, field, index)
     GameAPI.set_ui_comp_unit_slot(self.player.handle, self.handle, unit.handle, field, index)
+    return self
 end
 
 --设置按钮快捷键
 ---@param  key integer 快捷键
 function M:set_button_shortcut(key)
     GameAPI.set_btn_short_cut(self.player.handle, self.handle, key)
+    return self
 end
 
 --设置按钮组合快捷键
 ---@param  key integer 辅助按键
 function M:set_btn_meta_key(key)
     GameAPI.set_btn_func_short_cut(self.player.handle, self.handle, key)
+    return self
 end
 
 
@@ -236,6 +256,7 @@ end
 ---@param  key integer 快捷键
 function M:set_skill_btn_smart_cast_key(key)
     GameAPI.set_skill_btn_smart_cast_key(self.player.handle, self.handle, key)
+    return self
 end
 
 
@@ -243,6 +264,7 @@ end
 ---@param  key integer 辅助按键
 function M:set_skill_btn_func_meta_key(key)
     GameAPI.set_skill_btn_func_smart_cast_key(self.player.handle, self.handle, key)
+    return self
 end
 
 
@@ -250,6 +272,7 @@ end
 ---@param  isopen boolean 播放/停止技能按钮激活动效
 function M:set_skill_btn_action_effect(isopen)
     GameAPI.set_skill_btn_action_effect(self.player.handle, self.handle, isopen)
+    return self
 end
 
 
@@ -260,6 +283,7 @@ end
 ---@param  a number 红色
 function M:set_text_color(r,g,b,a)
     GameAPI.set_ui_comp_font_color(self.player.handle, self.handle, r, g, b, a)
+    return self
 end
 
 
@@ -267,6 +291,7 @@ end
 ---@param  fov number 视野范围
 function M:change_showroom_fov(fov)
     GameAPI.change_showroom_fov(self.player.handle, self.handle, fov)
+    return self
 end
 
 
@@ -276,6 +301,7 @@ end
 ---@param  z number z轴
 function M:change_showroom_cposition(x,y,z)
     GameAPI.change_showroom_cposition(self.player.handle, self.handle, x, y, z)
+    return self
 end
 
 
@@ -285,6 +311,7 @@ end
 ---@param  z number z轴
 function M:change_showroom_crotation(x,y,z)
     GameAPI.change_showroom_crotation(self.player.handle, self.handle, x, y, z)
+    return self
 end
 
 
@@ -304,12 +331,14 @@ end
 ---@param  a number 透明度
 function M:set_show_room_background_color(r, g, b, a)
     GameAPI.set_show_room_background_color(self.player.handle, self.handle, r, g, b, a)
+    return self
 end
 
 --设置控件相对旋转
 ---@param  rot number 角度
 function M:set_widget_relative_rotation(rot)
     GameAPI.set_ui_comp_rotation(self.player.handle,self.handle, rot)
+    return self
 end
 
 
@@ -318,6 +347,7 @@ end
 ---@param  y number y轴
 function M:set_widget_absolute_coordinates(x,y)
     GameAPI.set_ui_comp_world_pos(self.player.handle,self.handle, x, y)
+    return self
 end
 
 
@@ -325,6 +355,7 @@ end
 ---@param  rot number 角度
 function M:set_widget_absolute_rotation(rot)
     GameAPI.set_ui_comp_world_rotation(self.player.handle,self.handle, rot)
+    return self
 end
 
 
@@ -333,6 +364,7 @@ end
 ---@param  y number y轴
 function M:set_widget_absolute_scale(x, y)
     GameAPI.set_ui_comp_world_scale(self.player.handle,self.handle, x, y)
+    return self
 end
 
 
@@ -341,6 +373,7 @@ end
 ---@param  y number y轴
 function M:set_widget_relative_scale(x, y)
     GameAPI.set_ui_comp_scale(self.player.handle,self.handle, x, y)
+    return self
 end
 
 
@@ -356,11 +389,13 @@ end
 ---@param  percent number 滑动条的进度
 function M:set_slider_value(percent)
     GameAPI.set_slider_cur_percent(self.player.handle,self.handle, percent)
+    return self
 end
 
 --解绑控件
 function M:unbind_widget()
     GameAPI.unbind_ui_comp(self.player.handle,self.handle)
+    return self
 end
 
 --遍历某个界面控件的子节点
@@ -391,6 +426,7 @@ end
 ---@param  z number z轴
 function M:set_ui_model_focus_pos(x, y, z)
     GameAPI.set_ui_model_focus_pos(self.player.handle, self.handle, x, y, z)
+    return self
 end
 
 --绑定单位属性到玩家界面控件的属性
@@ -399,6 +435,7 @@ end
 ---@param  accuracy integer 小数精度
 function M:bind_player_attribute(uiAttr, attr, accuracy)
     GameAPI.set_ui_comp_bind_attr(self.player.handle, self.handle, uiAttr, attr, accuracy)
+    return self
 end
 
 --绑定全局变量到玩家界面控件的属性
@@ -407,36 +444,42 @@ end
 ---@param  accuracy integer 小数精度
 function M:bind_global_variable(uiAttr, globalVar, accuracy)
     GameAPI.set_ui_comp_bind_var(self.player.handle, self.handle, uiAttr, globalVar, accuracy)
+    return self
 end
 
 --解绑界面控件属性绑定
 ---@param  uiAttr string 界面控件属性
 function M:unbind(uiAttr)
     GameAPI.ui_comp_unbind(self.player.handle,self.handle,uiAttr)
+    return self
 end
 
 --界面控件属性绑定指定单位
 ---@param  unit Unit 单位
 function M:bind_unit(unit)
     GameAPI.ui_comp_bind_unit(self.player.handle, self.handle, unit.handle)
+    return self
 end
 
 --设置禁用图片(图片类型)
 ---@param  img integer 图片id
 function M:set_disable_image_type(img)
     GameAPI.set_ui_comp_disabled_image(self.player.handle, self.handle, img)
+    return self
 end
 
 --设置悬浮图片(图片类型)
 ---@param  img integer 图片id
 function M:set_hover_image_type(img)
     GameAPI.set_ui_comp_suspend_image(self.player.handle, self.handle, img)
+    return self
 end
 
 --设置按下图片(图片类型)
 ---@param  img integer 图片id
 function M:set_press_image_type(img)
     GameAPI.set_ui_comp_press_image(self.player.handle, self.handle, img)
+    return self
 end
 
 --设置文本的对齐方式
@@ -449,6 +492,7 @@ function M:set_text_alignment(h, v)
     if v then
         GameAPI.set_ui_comp_align(self.player.handle, self.handle, y3.const.UIVAlignmentType[v])
     end
+    return self
 end
 
 --开启绘制单位路径线
@@ -475,6 +519,7 @@ end
 ---@param  skill Ability 技能
 function M:bind_ability_cd(uiAttr, skill)
     GameAPI.set_ui_comp_bind_ability_cd(self.player.handle, self.handle, uiAttr, skill.handle)
+    return self
 end
 
 --绑定魔法效果剩余时间到玩家界面控件的属性
@@ -482,12 +527,14 @@ end
 ---@param  buff Buff 魔法效果
 function M:bind_buff_time(uiAttr, buff)
     GameAPI.set_ui_comp_bind_modifier_cd(self.player.handle, self.handle, uiAttr, buff.handle)
+    return self
 end
 
 --开启/禁用发送聊天功能
 ---@param  enable boolean 开启/禁用发送聊天功能
 function M:enable_chat(enable)
     GameAPI.set_chat_send_enabled(self.player.handle, self.handle, enable)
+    return self
 end
 
 --显示/隐藏聊天框
@@ -495,11 +542,13 @@ end
 ---@param  player Player 目标玩家
 function M:show_chat(player, enable)
     GameAPI.set_player_chat_show(self.player.handle, self.handle, player.handle,enable)
+    return self
 end
 
 --清空聊天信息
 function M:clear_chat()
     GameAPI.clear_player_chat_panel(self.player.handle, self.handle)
+    return self
 end
 
 --发送私聊信息
@@ -507,6 +556,7 @@ end
 ---@param  msg string 信息
 function M:send_chat(player, msg)
     GameAPI.send_chat_to_role(self.player.handle, self.handle, player.handle, msg)
+    return self
 end
 
 --创建悬浮文字
@@ -667,6 +717,7 @@ end
 ---@param  y number y轴
 function M:set_pos(x, y)
     GameAPI.set_ui_comp_pos_no_trans(self.player.handle, self.handle, x, y)
+    return self
 end
 
 ---设置界面控件的锚点
@@ -674,12 +725,14 @@ end
 ---@param  y number y轴
 function M:set_anchor(x, y)
     GameAPI.set_ui_comp_anchor(self.player.handle, self.handle, x, y)
+    return self
 end
 
 ---设置聊天频道
 ---@param  switch boolean 开关
 function M:set_nearby_micro_switch(switch)
     GameAPI.set_ui_comp_chat_channel(self.player.handle, self.handle, switch)
+    return self
 end
 
 --获取屏幕横向分辨率
@@ -710,6 +763,7 @@ end
 ---@param follow_mouse boolean
 function M:set_follow_mouse(follow_mouse)
     GameAPI.set_ui_comp_follow_mouse(self.player.handle, self.handle, follow_mouse)
+    return self
 end
 
 -- 设置鼠标样式
@@ -721,6 +775,7 @@ function M:set_cursor(player, state, key)
         y3.const.CursorState[state],
         key
     )
+    return self
 end
 
 return M
