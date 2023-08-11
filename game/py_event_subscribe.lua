@@ -185,7 +185,7 @@ function M.event_register(object, event_name, extra_args)
 
     py_trigger.on_event = function (trigger, event, actor, data)
         local lua_params = M.convert_py_params(py_event_name, data)
-        event_manager:notify(event_name, extra_args, lua_params)
+        event_manager:dispatch(event_name, extra_args, lua_params)
     end
 
     -- 在初始化时注册的事件会自动启用，但之后注册的事件需要手动启用
