@@ -344,7 +344,13 @@ M.SfxRotateType = {
 M.SlotType = {
     ['PKG'] = 0,
     ['BAR'] = 1,
+    ['物品栏'] = 0,
+    ['背包栏'] = 1,
 }
+
+---@alias y3.Const.SlotTypeAlias
+---| '物品栏'
+---| '背包栏'
 
 ---@enum y3.Const.EffectType
 M.ModifierEffectType = {

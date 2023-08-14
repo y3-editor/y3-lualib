@@ -27,4 +27,10 @@ function M.include(name)
     return result
 end
 
+-- 进行重载
+---@param logger? fun(str: string)
+function M.reload(logger)
+    logger = logger or print
+end
+
 return M
