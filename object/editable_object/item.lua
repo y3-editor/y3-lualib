@@ -200,7 +200,7 @@ end
 ---@param key string 属性key
 ---@return number
 function M:get_attribute(key)
-    return self.handle:api_get_attr("ATTR_BASE", key)
+    return self.handle:api_get_attr("ATTR_BASE", key):float()
 end
 
 ---设置生命值

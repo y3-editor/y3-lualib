@@ -131,7 +131,7 @@ function Item:api_change_attr(attr_element_field, attr_key, delta) end
 --获取物品附加属性
 ---@param attr_element_field string # 属性成分名
 ---@param attr_key string # 属性名
----@return number # 属性值
+---@return py.Fixed # 属性值
 function Item:api_get_attr(attr_element_field, attr_key) end
 
 --设置物品所有者
