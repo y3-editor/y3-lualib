@@ -138,6 +138,13 @@ function Role:set_save_table_key_value(save_slot, key1, value, key2, key3, value
 ---@param key3 string # key3
 function Role:add_save_table_key_value(save_slot, key1, value, key2, key3) end
 
+--remove_save_table_key_value
+---@param save_slot integer # 玩家存档栏位
+---@param key1 string # key1
+---@param key2 string # key2
+---@param key3 string # key3
+function Role:remove_save_table_key_value(save_slot, key1, key2, key3) end
+
 --get_save_table_key_value
 ---@param save_slot integer # 玩家存档栏位
 ---@param key1 string # key1

@@ -68,8 +68,8 @@ function Item:api_set_charge_cnt(charge_cnt) end
 ---@param max_charge integer # 最大充能数
 function Item:api_set_max_charge(max_charge) end
 
---获取物品位置
----@return py.Point # 位置
+--物品实体所在位置(若在玩家身上返回玩家位置)
+---@return py.FVector3 # 物品位置
 function Item:api_get_position() end
 
 --物品是否在场景中
@@ -276,3 +276,17 @@ function Item:api_cancel_replace_model(target_model) end
 ---@param role_res_key py.RoleResKey # 玩家属性key
 ---@return integer # 所需资源数量
 function Item:api_get_item_res_cnt(role_res_key) end
+
+--获取物品的实数属性
+---@param att_key string # 物品实数属性key
+---@return py.Fixed # 实数属性值
+function Item:api_get_item_float_attr(att_key) end
+
+--获取物品的整数属性
+---@param att_key string # 物品整数属性key
+---@return integer # 整数属性值
+function Item:api_get_item_int_attr(att_key) end
+
+--物品是否自动使用
+---@return boolean # 是否自动使用
+function Item:api_is_item_auto_use() end

@@ -199,10 +199,14 @@
 ---@class py.FogID: integer
 --主控角色预定义行为ID
 ---@class py.CcActionID: integer
+--主控角色动画状态机状态
+---@class py.CcAsmState: integer
 --主控角色
 ---@class py.CcHandID: integer
 --动画机状态
 ---@class py.CcAnimationMachineStatus: string
+--角色表情
+---@class py.CcEmo: integer
 --技能对象
 ---@class py.Ability: py.Actor
 --效果对象

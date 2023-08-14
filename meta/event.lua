@@ -1860,6 +1860,63 @@ event.ET_UNIT_GET_CURE = {
     },
 }
 
+---@class EventParam.ET_UNIT_ANIM_STATE_ENTER
+---@field unit Unit # 单位
+---@field last_asm_state py.CcAsmState # 前一个动画机状态
+---@field cur_asm_state py.CcAsmState # 当前动画机状态
+
+--单位动画状态机进入状态
+event.ET_UNIT_ANIM_STATE_ENTER = {
+    [1] = {
+        name = "__unit",
+        type = "py.Unit",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位",
+        lua_desc = "单位",
+    },
+    [2] = {
+        name = "__last_asm_state",
+        type = "py.CcAsmState",
+        lua_name = "last_asm_state",
+        lua_type = "py.CcAsmState",
+        desc = "前一个动画机状态",
+        lua_desc = "前一个动画机状态",
+    },
+    [3] = {
+        name = "__cur_asm_state",
+        type = "py.CcAsmState",
+        lua_name = "cur_asm_state",
+        lua_type = "py.CcAsmState",
+        desc = "当前动画机状态",
+        lua_desc = "当前动画机状态",
+    },
+}
+
+---@class EventParam.ET_UNIT_ANIM_STATE_EXIT
+---@field unit Unit # 单位
+---@field cur_asm_state py.CcAsmState # 当前动画机状态
+
+--单位动画状态机退出状态
+event.ET_UNIT_ANIM_STATE_EXIT = {
+    [1] = {
+        name = "__unit",
+        type = "py.Unit",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位",
+        lua_desc = "单位",
+    },
+    [2] = {
+        name = "__cur_asm_state",
+        type = "py.CcAsmState",
+        lua_name = "cur_asm_state",
+        lua_type = "py.CcAsmState",
+        desc = "当前动画机状态",
+        lua_desc = "当前动画机状态",
+    },
+}
+
 ---@class EventParam.ET_RES_ICON_CHANGED
 ---@field res_key py.RoleResKey # 资源
 ---@field icon_id integer # ICON ID
