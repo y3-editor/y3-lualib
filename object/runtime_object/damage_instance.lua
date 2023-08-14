@@ -20,7 +20,7 @@ end
 -- 获取当前伤害
 ---@return number
 function M:get_damage()
-    return self.data.damage:float()
+    return self.data.damage
 end
 
 -- 修改当前伤害

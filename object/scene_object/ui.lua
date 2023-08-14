@@ -578,8 +578,8 @@ end
 
 --开启/禁用发送聊天功能
 ---@param  enable boolean 开启/禁用发送聊天功能
-function M:enable_chat(enable)
 ---@return self
+function M:enable_chat(enable)
     GameAPI.set_chat_send_enabled(self.player.handle, self.handle, enable)
     return self
 end
