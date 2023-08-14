@@ -118,20 +118,20 @@ end
 
 ---移动物品
 ---@param item Item 物品
----@param type y3.Const.SlotTypeAlias | y3.Const.SlotType
+---@param type y3.Const.ShiftSlotTypeAlias
 ---@param index integer 槽位
 ---@param force boolean 是否强制移动，`true`: 如果目标有物品，则移动到另一个空格中；`false`: 如果目标有物品，则要移动的物品会掉落
 function M:shift_item(item, type, index, force)
-    self.handle:api_shift_item_new(item.handle, y3.const.SlotType[type] or type, index, force)
+    self.handle:api_shift_item_new(item.handle, y3.const.ShiftSlotType[type], index, force)
 end
 
 -- 交换物品  
 -- 如果目标位置是空的，则相当于把物品移动了过去
 ---@param item Item 物品
----@param type y3.Const.SlotTypeAlias | y3.Const.SlotType
+---@param type y3.Const.ShiftSlotTypeAlias
 ---@param index integer 槽位
 function M:exchange_item(item, type, index)
-    self.handle:api_shift_item(item.handle, y3.const.SlotType[type] or type, index)
+    self.handle:api_shift_item(item.handle, y3.const.ShiftSlotType[type], index)
 end
 
 ---获取指定类型的所有技能

@@ -344,13 +344,17 @@ M.SfxRotateType = {
 M.SlotType = {
     ['PKG'] = 0,
     ['BAR'] = 1,
-    ['物品栏'] = 0,
-    ['背包栏'] = 1,
 }
 
----@alias y3.Const.SlotTypeAlias
+---@alias y3.Const.ShiftSlotTypeAlias
 ---| '物品栏'
 ---| '背包栏'
+
+---@enum y3.Const.ShiftSlotType
+M.ShiftSlotType = {
+    ['物品栏'] = 1,
+    ['背包栏'] = 2,
+}
 
 ---@enum y3.Const.EffectType
 M.ModifierEffectType = {
@@ -746,6 +750,18 @@ M.CursorState = {
     ['友方非建筑单位悬浮'] = 'f_nb_u_hover',
     ['友方建筑单位选取'] = 'f_b_u_selected',
     ['友方非建筑单位选取'] = 'f_nb_u_selected',
+}
+
+M.HarmTextType = {
+    ['system'] = 0,
+    ['phy'] = 1,
+    ['crit_phy'] = 2,
+    ['heal'] = 3,
+    ['mag'] = 4,
+    ['crit_mag'] = 5,
+    ['real'] = 6,
+    ['get_gold'] = 7,
+    ['dodge'] = 8,
 }
 
 return M
