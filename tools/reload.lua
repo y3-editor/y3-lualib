@@ -37,6 +37,7 @@ end
 
 -- 进行重载
 function M.reload()
+    log.info('=========== reload start ===========')
     for _, callback in ipairs(M.beforeReloadCallbacks) do
         xpcall(callback, log.error)
     end
@@ -59,6 +60,7 @@ function M.reload()
     for _, callback in ipairs(M.afterReloadCallbacks) do
         xpcall(callback, log.error)
     end
+    log.info('=========== reload finish ===========')
 end
 
 -- 注册在重载之前的回调

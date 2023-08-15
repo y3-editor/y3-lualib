@@ -34,4 +34,8 @@ M.sync = y3.proxy.new({
     },
 })
 
+-- 是否是debug模式
+---@type boolean
+M.debug = false
+
 return M
