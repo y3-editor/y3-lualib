@@ -105,10 +105,6 @@ function M.convert_py_params_lazy(event_key, event_data, event_params)
     return lua_params
 end
 
----@private
----@type table<any, EventManager>
-M.event_mark_map = setmetatable({}, y3.util.MODE_K)
-
 ---@param event_name string
 ---@return string
 local function get_py_event_name(event_name)
@@ -155,25 +151,12 @@ local function extract_addition(event_name, extra_args)
     return nil, py_args
 end
 
----@param object any
----@return EventManager
-function M.get_event_manager(object)
-    local event_manager = M.event_mark_map[object]
-    if not event_manager then
-        event_manager = New 'EventManager' ()
-        M.event_mark_map[object] = event_manager
-    end
-    return event_manager
-end
-
----@param object any
+---@param event_manager EventManager
 ---@param event_name y3.Const.EventType # 注册给引擎的事件名
 ---@param extra_args? any[] # 额外参数
 ---@return EventManager
-function M.event_register(object, event_name, extra_args)
+function M.event_register(event_manager, event_name, extra_args)
     local py_event_name = get_py_event_name(event_name)
-
-    local event_manager = M.get_event_manager(object)
 
     if event_manager:has_event(event_name, extra_args) then
         return event_manager
