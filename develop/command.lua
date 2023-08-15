@@ -23,8 +23,20 @@ local function remove_all_triggers_in_include()
     end
 end
 
+local function remove_all_timers_in_include()
+    local include_source_map = y3.util.revertMap(y3.reload.includedNameMap)
+    for timer in y3.timer.pairs() do
+        local source = timer:get_info_source()
+        local path = source:match('^@(.+)$')
+        if include_source_map[path] then
+            timer:remove()
+        end
+    end
+end
+
 M.register('RD', function ()
     remove_all_triggers_in_include()
+    remove_all_timers_in_include()
     y3.reload.reload()
 end)
 
