@@ -5,7 +5,7 @@ local M = Class 'Game'
 Extends('Game', 'CustomEvent')
 
 ---@private
-M._event_object = {'<GAME_EVENT_OBJECT>'}
+M.event_object = {'<GAME_EVENT_OBJECT>'}
 
 -- 注册引擎事件
 ---@param event_type y3.Const.EventType
@@ -25,7 +25,12 @@ function M:event(event_type, ...)
     else
         error('缺少回调函数！')
     end
-    local event_manager = y3.py_event_sub.event_register(M._event_object, event_type, extra_args)
+    local event_manager = y3.py_event_sub.event_register(M.event_object, event_type, extra_args)
     local trg = event_manager:event(event_type, extra_args, callback)
     return trg
+end
+
+---@return EventManager
+function M:get_event_manager()
+    return y3.py_event_sub.get_event_manager(M.event_object)
 end

@@ -105,3 +105,19 @@ end
 function M:is_firing()
     return self.fire_lock > 0
 end
+
+---@return fun():Trigger?
+function M:pairs()
+    local triggers = {}
+    for _, event in pairs(self.event_map) do
+        for trigger in event:pairs() do
+            triggers[#triggers+1] = trigger
+        end
+    end
+    local i = 0
+    return function ()
+        i = i + 1
+        local trigger = triggers[i]
+        return trigger
+    end
+end

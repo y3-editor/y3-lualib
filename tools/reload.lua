@@ -1,11 +1,9 @@
 ---@class Reload
 local M = {}
 
----@private
 ---@type table<string, string>
 M.includedNameMap = {}
 
----@private
 ---@type string[]
 M.includedNames = {}
 
