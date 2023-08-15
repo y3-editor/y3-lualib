@@ -833,4 +833,37 @@ function M:set_cursor(player, state, key)
     return self
 end
 
+
+-- UI事件类型
+local id_map={
+    ["鼠标点击"]=1,
+    ["鼠标抬起"]=2,
+    ["鼠标长按"]=3,
+    ["鼠标双击"]=22,
+    ["鼠标悬停"]=23,
+    ["鼠标进入"]=24,
+    ["鼠标离开"]=25,
+    ["鼠标右击"]=26,
+}
+-- 给UI注册事件
+function M:on(name, callback)
+    if not id_map[name] then
+        print("不存在【"..name.."】类型事件")
+    end
+    local event_key = self.handle.."_"..name
+    -- 新版创建并绑定ui控件事件(指定事件名),不再传入玩家，同时支持普通控件和动态创建控件
+    GameAPI.create_ui_comp_event_ex_ex(self.handle, id_map[name], event_key)
+    local trigger_id_counter = y3.util.counter()--[[@as integer]]
+    local trg = new_global_trigger(trigger_id_counter,"UI-事件", {EVENT.TRIGGER_COMPONENT_EVENT,event_key}, true)
+    trg.on_event = function(trigger,event_name,actor,data)
+        local args = {
+            ["触发玩家"] = y3.player(data["__role_id"]),
+        }
+        callback(args)
+    end
+    -- 在初始化时注册的事件会自动启用，但之后注册的事件需要手动启用
+    GameAPI.enable_global_lua_trigger(trg)
+    return self
+end
+
 return M
