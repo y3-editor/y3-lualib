@@ -80,7 +80,7 @@ local direction_adaptation = {
     ["右侧"] = 3,
 }
 -- 设置控件自适应窗口
----@param direction integer # 方向
+---@param direction string # 方向
 ---@param offset number # 偏移
 ---@return self
 function M:set_adaptation(direction,offset)
