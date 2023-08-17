@@ -24,5 +24,6 @@
     },
     "type.weakNilCheck": false,
     "type.weakUnionCheck": false,
-    "type.castNumberToInteger": false
+    "type.castNumberToInteger": false,
+    "runtime.unicodeName": true
 }
