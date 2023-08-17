@@ -73,6 +73,15 @@ function M:add_event(event, name)
     return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name)
 end
 
+-- 设置控件自适应窗口(如果使用编辑器打开测试,非全屏不开自适应,会导致UI位置不准确问题不利于开发)
+---@param direction integer # 方向
+---@param offset number # 偏移
+---@return self
+function M:set_adaptation(direction,offset)
+    GameAPI.set_ui_comp_adapt_option(self.player.handle, self.handle, direction, offset)
+    return self
+end
+
 -- 对玩家触发UI事件
 ---@param event_name string
 function M:send_event(event_name)
@@ -830,41 +839,6 @@ function M:set_cursor(player, state, key)
         y3.const.CursorState[state],
         key
     )
-    return self
-end
-
--- UI事件类型
-local id_map={
-    ["鼠标点击"]=1,
-    ["鼠标抬起"]=2,
-    ["鼠标长按"]=3,
-    ["鼠标双击"]=22,
-    ["鼠标悬停"]=23,
-    ["鼠标进入"]=24,
-    ["鼠标离开"]=25,
-    ["鼠标右击"]=26,
-}
--- 给UI注册事件
----@param name string
----@param callback function
----@return self
-function M:on(name, callback)
-    if not id_map[name] then
-        print("不存在【"..name.."】类型事件")
-    end
-    local event_key = self.handle.."_"..name
-    -- 新版创建并绑定ui控件事件(指定事件名),不再传入玩家，同时支持普通控件和动态创建控件
-    GameAPI.create_ui_comp_event_ex_ex(self.handle, id_map[name], event_key)
-    local trigger_id_counter = y3.util.counter()--[[@as integer]]
-    local trg = new_global_trigger(trigger_id_counter,"UI-事件", {EVENT.TRIGGER_COMPONENT_EVENT,event_key}, true)
-    trg.on_event = function(trigger,event_name,actor,data)
-        local args = {
-            ["触发玩家"] = y3.player(data["__role_id"]),
-        }
-        callback(args)
-    end
-    -- 在初始化时注册的事件会自动启用，但之后注册的事件需要手动启用
-    GameAPI.enable_global_lua_trigger(trg)
     return self
 end
 
