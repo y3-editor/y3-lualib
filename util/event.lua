@@ -104,3 +104,8 @@ end
 function M:is_firing()
     return self.fire_lock > 0
 end
+
+---@return fun(): Trigger
+function M:pairs()
+    return self.triggers:pairs()
+end

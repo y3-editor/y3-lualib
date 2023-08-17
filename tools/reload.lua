@@ -1,11 +1,11 @@
+local require = require
+
 ---@class Reload
 local M = {}
 
----@private
 ---@type table<string, string>
 M.includedNameMap = {}
 
----@private
 ---@type string[]
 M.includedNames = {}
 
@@ -35,10 +35,44 @@ function M.include(name)
     return result
 end
 
+---@class Reload.Optional
+---@field list? string[] -- 要重载的模块列表
+---@field filter? fun(name: string): boolean -- 过滤函数
+
 -- 进行重载
-function M.reload()
+---@param optional? Reload.Optional
+function M.reload(optional)
+    local validMap = optional and optional.list and y3.util.revertMap(optional.list)
+    local filter = optional and optional.filter
+    local includedPathMap = y3.util.revertMap(M.includedNameMap)
+
+    local function canCall(callback)
+        if not validMap and not filter then
+            return true
+        end
+        local path = debug.getinfo(callback, 'S').source:match '^@(.+)'
+        if not path then
+            return true
+        end
+        local name = includedPathMap[path]
+        if not name then
+            return true
+        end
+        if validMap and validMap[name] then
+            return true
+        end
+        local suc, result = xpcall(callback, log.error, name)
+        if not suc then
+            return true
+        end
+        return result
+    end
+
+    log.info('=========== reload start ===========')
     for _, callback in ipairs(M.beforeReloadCallbacks) do
-        xpcall(callback, log.error)
+        if canCall(callback) then
+            xpcall(callback, log.error)
+        end
     end
 
     local includedNames   = M.includedNames
@@ -56,9 +90,13 @@ function M.reload()
         M.include(name)
     end
 
+    includedPathMap = y3.util.revertMap(M.includedNameMap)
     for _, callback in ipairs(M.afterReloadCallbacks) do
-        xpcall(callback, log.error)
+        if canCall(callback) then
+            xpcall(callback, log.error)
+        end
     end
+    log.info('=========== reload finish ===========')
 end
 
 -- 注册在重载之前的回调

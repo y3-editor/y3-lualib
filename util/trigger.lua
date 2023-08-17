@@ -98,3 +98,10 @@ end
 function M:remove()
     Delete(self)
 end
+
+-- 获取触发器回调函数的source信息
+---@return string
+function M:get_info_source()
+    local info = debug.getinfo(self._callback, 'S')
+    return info.source
+end

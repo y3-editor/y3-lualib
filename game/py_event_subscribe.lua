@@ -105,10 +105,6 @@ function M.convert_py_params_lazy(event_key, event_data, event_params)
     return lua_params
 end
 
----@private
----@type table<any, EventManager>
-M.event_mark_map = setmetatable({}, y3.util.MODE_K)
-
 ---@param event_name string
 ---@return string
 local function get_py_event_name(event_name)
@@ -155,21 +151,56 @@ local function extract_addition(event_name, extra_args)
     return nil, py_args
 end
 
----@param object any
+---@private
+---@type table<string, any[][]>
+M.mark_subscribed_map = {}
+
+-- 如果已经被标记过，会返回false
+---@private
+---@param name  string
+---@param args? any[]
+---@return boolean
+function M.mark_subscribed(name, args)
+    local args_arr = M.mark_subscribed_map[name]
+    if args_arr then
+        if not args then
+            return false
+        end
+    else
+        args_arr = {}
+        M.mark_subscribed_map[name] = args_arr
+        if not args then
+            return true
+        end
+    end
+    local function eq(a, b)
+        if #a ~= #b then
+            return false
+        end
+        for i = 1, #a do
+            if a[i] ~= b[i] then
+                return false
+            end
+        end
+        return true
+    end
+    for _, iargs in ipairs(args_arr) do
+        if eq(iargs, args) then
+            return false
+        end
+    end
+    args_arr[#args_arr+1] = args
+    return true
+end
+
+---@param event_manager EventManager
 ---@param event_name y3.Const.EventType # 注册给引擎的事件名
 ---@param extra_args? any[] # 额外参数
----@return EventManager
-function M.event_register(object, event_name, extra_args)
+function M.event_register(event_manager, event_name, extra_args)
     local py_event_name = get_py_event_name(event_name)
 
-    local event_manager = M.event_mark_map[object]
-    if not event_manager then
-        event_manager = New 'EventManager' ()
-        M.event_mark_map[object] = event_manager
-    end
-
-    if event_manager:has_event(event_name, extra_args) then
-        return event_manager
+    if not M.mark_subscribed(py_event_name, extra_args) then
+        return
     end
 
     ---@type y3.Const.EventType | { [1]: y3.Const.EventType, [integer]: any }
@@ -192,8 +223,6 @@ function M.event_register(object, event_name, extra_args)
     if M.need_enable_trigger_manualy then
         GameAPI.enable_global_lua_trigger(py_trigger)
     end
-
-    return event_manager
 end
 
 new_global_trigger(M.trigger_id_counter(), 'GAME_INIT', 'ET_GAME_INIT', true).on_event = function ()
