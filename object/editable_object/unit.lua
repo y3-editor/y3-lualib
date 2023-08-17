@@ -786,6 +786,12 @@ function M:set_enemy_minimap_icon(img_id)
     self.handle:api_set_enemy_mini_map_icon(img_id)
 end
 
+--设置单位选择框的可见性
+---@param bool boolean # 布尔值
+function M:set_select_effect_visible(bool)
+    self.handle:api_set_unit_select_effect_visible(bool)
+end
+
 ---设置模型缩放
 ---@param scale number 模型缩放
 function M:set_scale(scale)
