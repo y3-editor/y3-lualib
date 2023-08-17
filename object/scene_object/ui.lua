@@ -833,7 +833,6 @@ function M:set_cursor(player, state, key)
     return self
 end
 
-
 -- UI事件类型
 local id_map={
     ["鼠标点击"]=1,
@@ -846,6 +845,9 @@ local id_map={
     ["鼠标右击"]=26,
 }
 -- 给UI注册事件
+---@param name string
+---@param callback function
+---@return self
 function M:on(name, callback)
     if not id_map[name] then
         print("不存在【"..name.."】类型事件")
