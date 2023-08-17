@@ -33,7 +33,7 @@ M.map = {}
 
 ---通过py层的界面实例获取lua层的界面实例
 ---@param player Player
----@param  ui_name string 
+---@param  ui_name string
 ---@return UI
 function M.get_by_handle(player, ui_name)
     local ui = New 'UI' (player, ui_name)
@@ -645,13 +645,13 @@ end
 --获取本地控件相对坐标的X
 ---@return number x x相对坐标
 function M:get_relative_x()
-    return GameAPI.get_ui_comp_pos_x(self.handle)
+    return GameAPI.get_ui_comp_pos_x(self.handle):float()
 end
 
 --获取本地控件相对坐标的Y
 ---@return number y y坐标
 function M:get_relative_y()
-    return GameAPI.get_ui_comp_pos_y(self.handle)
+    return GameAPI.get_ui_comp_pos_y(self.handle):float()
 end
 
 --获取本地控件绝对坐标的X
@@ -681,13 +681,13 @@ end
 --获取本地控件相对缩放的X
 ---@return number x x相对缩放
 function M:get_relative_scale_x()
-    return GameAPI.get_ui_comp_scale_x(self.handle)
+    return GameAPI.get_ui_comp_scale_x(self.handle):float()
 end
 
 --获取本地控件相对缩放的Y
 ---@return number y y绝对缩放
 function M:get_relative_scale_y()
-    return GameAPI.get_ui_comp_scale_y(self.handle)
+    return GameAPI.get_ui_comp_scale_y(self.handle):float()
 end
 
 --获取本地控件绝对缩放的X

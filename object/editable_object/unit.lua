@@ -125,7 +125,7 @@ function M:shift_item(item, type, index, force)
     self.handle:api_shift_item_new(item.handle, y3.const.ShiftSlotType[type], index, force)
 end
 
--- 交换物品  
+-- 交换物品
 -- 如果目标位置是空的，则相当于把物品移动了过去
 ---@param item Item 物品
 ---@param type y3.Const.ShiftSlotTypeAlias
@@ -1246,7 +1246,7 @@ end
 ---获取单位当前升级所需经验
 ---@return number exp 单位当前升级所需经验
 function M:get_upgrade_exp()
-    return self.handle:api_get_upgrade_exp():float()
+    return self.handle:api_get_upgrade_exp()
 end
 
 ---获取英雄的技能点数量

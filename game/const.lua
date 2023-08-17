@@ -353,7 +353,7 @@ M.SlotType = {
 ---@enum y3.Const.ShiftSlotType
 M.ShiftSlotType = {
     ['物品栏'] = 1,
-    ['背包栏'] = 2,
+    ['背包栏'] = 0,
 }
 
 ---@enum y3.Const.EffectType
