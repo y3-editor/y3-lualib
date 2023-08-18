@@ -341,7 +341,7 @@ function Unit:api_set_exp(exp) end
 function Unit:api_get_exp() end
 
 --获取当前升级所需经验, 如果达到了顶级，就返回-1
----@return py.Fixed # 当前升级所需经验值
+---@return integer # 当前升级所需经验值
 function Unit:api_get_upgrade_exp() end
 
 --单位移除键值对
