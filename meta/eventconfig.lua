@@ -2260,7 +2260,6 @@ M.config["界面-消息"] = {
     },
     key = "ET_TRIGGER_COMPONENT_EVENT",
     name = "界面-消息",
-    object = "UI",
     params = {
         [1] = {
             desc = "自定义事件名称",
@@ -2765,7 +2764,6 @@ M.config["界面-创建"] = {
     },
     key = "ET_UI_PREFAB_CREATE_EVENT",
     name = "界面-创建",
-    object = "UI",
     params = {
     },
 }
@@ -2778,7 +2776,6 @@ M.config["界面-移除"] = {
     },
     key = "ET_UI_PREFAB_DEL_EVENT",
     name = "界面-移除",
-    object = "UI",
     params = {
     },
 }
@@ -3054,11 +3051,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@class Projectile
 ---@field event fun(self: Projectile, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
 ---@field event fun(self: Projectile, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
-
----@class UI
----@field event fun(self: UI, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
----@field event fun(self: UI, event: "界面-创建", callback: fun(trg: Trigger, data: EventParam.界面-创建)): Trigger
----@field event fun(self: UI, event: "界面-移除", callback: fun(trg: Trigger, data: EventParam.界面-移除)): Trigger
 
 ---@class Unit
 ---@field event fun(self: Unit, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
