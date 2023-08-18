@@ -1,5 +1,5 @@
 ---@class CustomEvent
----@field private custom_event_manager EventManager
+---@field private custom_event_manager? EventManager
 ---@overload fun(): self
 local M = Class 'CustomEvent'
 

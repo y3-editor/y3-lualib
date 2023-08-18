@@ -1,4 +1,5 @@
 require 'y3.game.game_event'
+require 'y3.game.object_event'
 
 ---@class Game
 local M = Class 'Game'

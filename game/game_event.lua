@@ -12,6 +12,21 @@ M.event_manager = New 'EventManager' ()
 ---@param ... any
 ---@return Trigger
 function M:event(event_type, ...)
+    local extra_args, callback = self:subscribe_event(event_type, ...)
+    local trg = self.event_manager:event(event_type, extra_args, callback)
+    return trg
+end
+
+---@return EventManager
+function M:get_event_manager()
+    return self.event_manager
+end
+
+---@param event_type y3.Const.EventType
+---@param ... any
+---@return any[]?
+---@return Trigger.CallBack
+function M:subscribe_event(event_type, ...)
     local nargs = select('#', ...)
     local extra_args
     ---@type Trigger.CallBack
@@ -25,12 +40,14 @@ function M:event(event_type, ...)
     else
         error('缺少回调函数！')
     end
-    y3.py_event_sub.event_register(self.event_manager, event_type, extra_args)
-    local trg = self.event_manager:event(event_type, extra_args, callback)
-    return trg
+    y3.py_event_sub.event_register(event_type, extra_args)
+    return extra_args, callback
 end
 
----@return EventManager
-function M:get_event_manager()
-    return self.event_manager
+local function event_notify(event_name, extra_args, lua_params)
+    M.event_manager:dispatch(event_name, extra_args, lua_params)
 end
+
+return {
+    event_notify = event_notify,
+}
