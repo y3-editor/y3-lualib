@@ -657,25 +657,25 @@ end
 --获取本地控件绝对坐标的X
 ---@return number x x绝对坐标
 function M:get_absolute_x()
-    return GameAPI.get_ui_comp_world_pos_x(self.handle)
+    return GameAPI.get_ui_comp_world_pos_x(self.handle):float()
 end
 
 --获取本地控件绝对坐标的Y
 ---@return number y y绝对坐标
 function M:get_absolute_y()
-    return GameAPI.get_ui_comp_world_pos_y(self.handle)
+    return GameAPI.get_ui_comp_world_pos_y(self.handle):float()
 end
 
 --获取本地控件相对旋转
 ---@return number rot 相对旋转
 function M:get_relative_rotation()
-    return GameAPI.get_ui_comp_rotation(self.handle)
+    return GameAPI.get_ui_comp_rotation(self.handle):float()
 end
 
 --获取本地控件绝对旋转
 ---@return number rot 绝对旋转
 function M:get_absolute_rotation()
-    return GameAPI.get_ui_comp_world_rotation(self.handle)
+    return GameAPI.get_ui_comp_world_rotation(self.handle):float()
 end
 
 --获取本地控件相对缩放的X
@@ -693,13 +693,13 @@ end
 --获取本地控件绝对缩放的X
 ---@return number x x绝对缩放
 function M:get_absolute_scale_x()
-    return GameAPI.get_ui_comp_world_scale_x(self.handle)
+    return GameAPI.get_ui_comp_world_scale_x(self.handle):float()
 end
 
 --获取本地控件绝对缩放的Y
 ---@return number y y绝对缩放
 function M:get_absolute_scale_y()
-    return GameAPI.get_ui_comp_world_scale_y(self.handle)
+    return GameAPI.get_ui_comp_world_scale_y(self.handle):float()
 end
 
 --界面控件转化为字符串

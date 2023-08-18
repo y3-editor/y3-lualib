@@ -421,3 +421,7 @@ function Role:api_is_bookmark_current_map() end
 ---@param ladder_key string # 天梯key
 ---@return integer # 积分
 function Role:api_get_ladder_rank_points(ladder_key) end
+
+--获取玩家该地图累计充值
+---@return number # 累计充值
+function Role:api_get_role_total_consume() end
