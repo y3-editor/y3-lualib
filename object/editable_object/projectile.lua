@@ -3,17 +3,19 @@
 
 ---@class Projectile
 ---@field handle py.ProjectileEntity
----@overload fun(py_projectile: py.ProjectileEntity): self
+---@overload fun(id: integer, py_projectile: py.ProjectileEntity): self
 local M = Class 'Projectile'
 M.type = 'projectile'
 
 ---@class Projectile: ObjectEvent
 Extends('Projectile', 'ObjectEvent')
 
+---@param id integer
 ---@param py_projectile py.ProjectileEntity
 ---@return self
-function M:constructor(py_projectile)
+function M:constructor(id, py_projectile)
     self.handle = py_projectile
+    self.id     = id
     return self
 end
 
@@ -21,22 +23,34 @@ function M:destructor()
     self.handle:api_delete()
 end
 
----@private
-M.map = setmetatable({}, { __mode = 'kv' })
+---@package
+M.ref_manager = New 'Ref' ('Projectile', function (id)
+    local py_proj = GameAPI.get_projectile_by_id(id)
+    if not py_proj then
+        return nil
+    end
+    return New 'Projectile' (id, py_proj)
+end)
 
 ---@param py_projectile py.ProjectileEntity
 ---@return Projectile projectile
 function M.get_by_handle(py_projectile)
-    -- TODO 不保证对象唯一性
-    if not M.map[py_projectile] then
-        M.map[py_projectile] = New 'Projectile' (py_projectile)
-    end
-    return M.map[py_projectile]
+    -- TODO 获取ID换成正式API
+    -- <LProjectile(10000016)>
+    local view = tostring(py_projectile)
+    local id = tonumber(view:match '%d+')
+    local projectile = M.ref_manager:get(id)
+    return projectile
 end
 
 y3.py_converter.register_py_to_lua('py.Projectile', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Projectile', function (lua_value)
     return lua_value.handle
+end)
+
+y3.game:event('投射物-死亡', function (trg, data)
+    local id = data.projectile.id
+    M.ref_manager:remove(id)
 end)
 
 ---获取投射物的类型ID

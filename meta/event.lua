@@ -4445,14 +4445,42 @@ event.ET_DEST_DELETE = {
 }
 
 ---@class EventParam.ET_PRODUCE_PROJECTILE
+---@field projectile Projectile # 投射物
 
 --投射物产生
-event.ET_PRODUCE_PROJECTILE = {}
+event.ET_PRODUCE_PROJECTILE = {
+    [1] = {
+        name = nil,
+        type = nil,
+        lua_name = "projectile",
+        lua_type = "Projectile",
+        lua_desc = "投射物",
+        lua_code = function (data)
+            local py_proj = data._py_params['projectile']
+            local projectile = y3.projectile.get_by_handle(py_proj)
+            return projectile
+        end,
+    },
+}
 
 ---@class EventParam.ET_DEATH_PROJECTILE
+---@field projectile Projectile # 投射物
 
 --投射物死亡
-event.ET_DEATH_PROJECTILE = {}
+event.ET_DEATH_PROJECTILE = {
+    [1] = {
+        name = nil,
+        type = nil,
+        lua_name = "projectile",
+        lua_type = "Projectile",
+        lua_desc = "投射物",
+        lua_code = function (data)
+            local py_proj = data._py_params['projectile']
+            local projectile = y3.projectile.get_by_handle(py_proj)
+            return projectile
+        end,
+    },
+}
 
 ---@class EventParam.ET_START_MOVE_PROJECTILE
 

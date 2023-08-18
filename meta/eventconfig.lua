@@ -2209,6 +2209,17 @@ M.config["投射物-创建"] = {
     __class__ = "EventConfigBuilder",
     desc = "投射物创建后触发",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local py_proj = data._py_params['projectile']\
+    local projectile = y3.projectile.get_by_handle(py_proj)\
+    return projectile\
+end\
+",
+            desc = "投射物",
+            name = "projectile",
+            type = "Projectile",
+        },
     },
     key = "ET_PRODUCE_PROJECTILE",
     name = "投射物-创建",
@@ -2222,6 +2233,17 @@ M.config["投射物-死亡"] = {
     __class__ = "EventConfigBuilder",
     desc = "投射物死亡后触发",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local py_proj = data._py_params['projectile']\
+    local projectile = y3.projectile.get_by_handle(py_proj)\
+    return projectile\
+end\
+",
+            desc = "投射物",
+            name = "projectile",
+            type = "Projectile",
+        },
     },
     key = "ET_DEATH_PROJECTILE",
     name = "投射物-死亡",

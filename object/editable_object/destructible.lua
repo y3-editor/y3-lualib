@@ -23,18 +23,22 @@ function M:destructor()
     self.handle:api_delete()
 end
 
----所有可破坏物实例
-M.map = setmetatable({}, { __mode = 'kv' })
+---@package
+M.ref_manager = New 'Ref' ('Destructible', function (id)
+    local py_destructible = GameAPI.get_dest_by_id(id)
+    if not py_destructible then
+        return nil
+    end
+    return New 'Destructible' (py_destructible)
+end)
 
 ---通过py层的可破坏物实例获取lua层的可破坏物对象
 ---@param  py_destructible py.Destructible
 ---@return Destructible
 function M.get_by_handle(py_destructible)
     local id = py_destructible:api_get_id()
-    if not M.map[id] then
-        M.map[id] = New 'Destructible' (py_destructible)
-    end
-    return M.map[id]
+    local dest = M.ref_manager:get(id)
+    return dest
 end
 
 y3.py_converter.register_py_to_lua('py.Destructible', M.get_by_handle)
@@ -51,6 +55,11 @@ function M.get_by_id(id)
 end
 
 y3.py_converter.register_py_to_lua('py.DestructibleID', M.get_by_id)
+
+y3.game:event('可破坏物-移除', function (trg, data)
+    local id = data.destructible.id
+    M.ref_manager:remove(id)
+end)
 
 ---是否存在
 ---@return boolean is_exist 是否存在
