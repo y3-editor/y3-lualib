@@ -1624,8 +1624,8 @@ function GameAPI.set_ui_comp_drag(role, comp_name, can_drag) end
 --设置控件世界坐标
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
----@param x number # x
----@param y number # y
+---@param x py.Fixed # x
+---@param y py.Fixed # y
 function GameAPI.set_ui_comp_world_pos(role, comp_name, x, y) end
 
 --设置控件世界旋转

@@ -395,7 +395,7 @@ end
 ---@param  y number y轴
 ---@return self
 function M:set_widget_absolute_coordinates(x,y)
-    GameAPI.set_ui_comp_world_pos(self.player.handle,self.handle, x, y)
+    GameAPI.set_ui_comp_world_pos(self.player.handle,self.handle, Fix32(x), Fix32(y))
     return self
 end
 
@@ -676,13 +676,13 @@ end
 --获取本地控件绝对坐标的X
 ---@return number x x绝对坐标
 function M:get_absolute_x()
-    return GameAPI.get_ui_comp_world_pos_x(self.handle)
+    return GameAPI.get_ui_comp_world_pos_x(self.handle):float()
 end
 
 --获取本地控件绝对坐标的Y
 ---@return number y y绝对坐标
 function M:get_absolute_y()
-    return GameAPI.get_ui_comp_world_pos_y(self.handle)
+    return GameAPI.get_ui_comp_world_pos_y(self.handle):float()
 end
 
 --获取本地控件相对旋转
