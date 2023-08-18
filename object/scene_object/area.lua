@@ -5,6 +5,9 @@
 ---@overload fun(py_area: py.Area, shape: Area.Shape): self
 local M = Class 'Area'
 
+---@class Area: ObjectEvent
+Extends('Area', 'ObjectEvent')
+
 M.type = 'area'
 
 ---@param py_area py.Area
@@ -69,6 +72,7 @@ function M.get_by_res_id(res_id, shape)
     return M.map[res_id]
 end
 
+y3.py_converter.register_py_to_lua('py.AreaID', M.get_by_res_id)
 
 ---根据场景id获得圆形区域
 ---@param res_id py.AreaID 编辑场景中的id

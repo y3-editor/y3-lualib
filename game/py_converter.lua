@@ -60,12 +60,14 @@ end
 ---@param py_type string
 ---@param converter fun(py_value:any):any
 function M.register_py_to_lua(py_type, converter)
+    assert(converter)
     M.py_to_lua_method[py_type] = converter
 end
 
 ---@param py_type string
 ---@param converter fun(lua_value:any):any
 function M.register_lua_to_py(py_type, converter)
+    assert(converter)
     M.lua_to_py_method[py_type] = converter
 end
 

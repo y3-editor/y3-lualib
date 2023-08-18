@@ -12,6 +12,8 @@ Extends('Unit', 'GCHost')
 Extends('Unit', 'Storage')
 ---@class Unit: CustomEvent
 Extends('Unit', 'CustomEvent')
+---@class Unit: ObjectEvent
+Extends('Unit', 'ObjectEvent')
 
 function M:__tostring()
     return string.format('{unit|%s|%s}'

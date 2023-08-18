@@ -11,6 +11,8 @@ M.type = 'player'
 Extends('Player', 'Storage')
 ---@class Player: CustomEvent
 Extends('Player', 'CustomEvent')
+---@class Player: ObjectEvent
+Extends('Player', 'ObjectEvent')
 
 ---@package
 ---@param key py.RoleID

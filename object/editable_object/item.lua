@@ -12,6 +12,8 @@ Extends('Item', 'Storage')
 Extends('Item', 'GCHost')
 ---@class Item: CustomEvent
 Extends('Item', 'CustomEvent')
+---@class Item: ObjectEvent
+Extends('Item', 'ObjectEvent')
 
 ---@param id py.ItemID
 ---@param py_item py.Item # py层的道具实例

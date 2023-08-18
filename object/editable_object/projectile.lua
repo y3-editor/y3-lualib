@@ -7,6 +7,9 @@
 local M = Class 'Projectile'
 M.type = 'projectile'
 
+---@class Projectile: ObjectEvent
+Extends('Projectile', 'ObjectEvent')
+
 ---@param py_projectile py.ProjectileEntity
 ---@return self
 function M:constructor(py_projectile)

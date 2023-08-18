@@ -90,7 +90,7 @@ M.config["时间-周期帧"] = {
 ---@alias EventParam.游戏-初始化 EventParam.ET_GAME_INIT
 M.config["游戏-初始化"] = {
     __class__ = "EventConfigBuilder",
-    desc = "游戏初始化时触发。注意！此事件每个玩家是不同步的！",
+    desc = "游戏初始化时触发。",
     extraArgs = {
     },
     key = "ET_GAME_INIT",
@@ -270,6 +270,7 @@ M.config["区域-进入"] = {
     },
     key = "ET_AREA_ENTER",
     name = "区域-进入",
+    object = "Area",
     params = {
         [1] = {
             call = true,
@@ -288,6 +289,7 @@ M.config["区域-离开"] = {
     },
     key = "ET_AREA_LEAVE",
     name = "区域-离开",
+    object = "Area",
     params = {
         [1] = {
             call = true,
@@ -306,6 +308,7 @@ M.config["玩家-加入游戏"] = {
     },
     key = "ET_ROLE_JOIN_BATTLE",
     name = "玩家-加入游戏",
+    object = "Player",
     params = {
     },
 }
@@ -318,6 +321,7 @@ M.config["玩家-离开游戏"] = {
     },
     key = "ET_ROLE_ACTIVE_EXIT_GAME_EVENT",
     name = "玩家-离开游戏",
+    object = "Player",
     params = {
     },
 }
@@ -330,6 +334,7 @@ M.config["玩家-掉线"] = {
     },
     key = "ET_ROLE_LOSE_CONNECT",
     name = "玩家-掉线",
+    object = "Player",
     params = {
     },
 }
@@ -368,6 +373,7 @@ M.config["玩家-使用平台道具"] = {
     },
     key = "ET_ROLE_USE_STORE_ITEM_END",
     name = "玩家-使用平台道具",
+    object = "Player",
     params = {
         [1] = {
             desc = "道具编号",
@@ -398,6 +404,7 @@ M.config["玩家-持有平台道具"] = {
     },
     key = "ET_ROLE_HOLD_STORE_ITEM",
     name = "玩家-持有平台道具",
+    object = "Player",
     params = {
         [1] = {
             desc = "道具编号",
@@ -415,6 +422,7 @@ M.config["玩家-属性变化"] = {
     },
     key = "ET_ROLE_RESOURCE_CHANGED",
     name = "玩家-属性变化",
+    object = "Player",
     params = {
     },
 }
@@ -427,6 +435,7 @@ M.config["玩家-发送指定消息"] = {
     },
     key = "ET_ROLE_INPUT_MSG",
     name = "玩家-发送指定消息",
+    object = "Player",
     params = {
         [1] = {
             desc = "消息内容",
@@ -457,6 +466,7 @@ M.config["玩家-科技提升"] = {
     },
     key = "ET_ROLE_TECH_UPGRADE",
     name = "玩家-科技提升",
+    object = "Player",
     params = {
     },
 }
@@ -469,6 +479,7 @@ M.config["玩家-科技降低"] = {
     },
     key = "ET_ROLE_TECH_DOWNGRADE",
     name = "玩家-科技降低",
+    object = "Player",
     params = {
     },
 }
@@ -481,6 +492,7 @@ M.config["玩家-科技变化"] = {
     },
     key = "ET_ROLE_TECH_CHANGED",
     name = "玩家-科技变化",
+    object = "Player",
     params = {
     },
 }
@@ -493,6 +505,7 @@ M.config["单位-研发科技"] = {
     },
     key = "ET_UNIT_UPGRADE_TECH",
     name = "单位-研发科技",
+    object = "Unit",
     params = {
     },
 }
@@ -505,6 +518,7 @@ M.config["单位-获得科技"] = {
     },
     key = "ET_UNIT_ADD_TECH",
     name = "单位-获得科技",
+    object = "Unit",
     params = {
     },
 }
@@ -517,6 +531,7 @@ M.config["单位-失去科技"] = {
     },
     key = "ET_UNIT_REMOVE_TECH",
     name = "单位-失去科技",
+    object = "Unit",
     params = {
     },
 }
@@ -529,6 +544,7 @@ M.config["玩家-关系变化"] = {
     },
     key = "ET_ROLE_CHANGE_RELATION",
     name = "玩家-关系变化",
+    object = "Player",
     params = {
     },
 }
@@ -541,6 +557,7 @@ M.config["技能-建造完成"] = {
     },
     key = "ET_ABILITY_BUILD_FINISH",
     name = "技能-建造完成",
+    object = "Ability",
     params = {
     },
 }
@@ -553,6 +570,7 @@ M.config["单位-普攻命中"] = {
     },
     key = "ET_ATTACK_HIT_TARGET",
     name = "单位-普攻命中",
+    object = "Unit",
     params = {
     },
 }
@@ -565,6 +583,7 @@ M.config["单位-普攻造成伤害"] = {
     },
     key = "ET_ATTACK_HURT",
     name = "单位-普攻造成伤害",
+    object = "Unit",
     params = {
     },
 }
@@ -577,6 +596,7 @@ M.config["技能-冷却变化"] = {
     },
     key = "ET_ABILITY_CD_CHANGE",
     name = "技能-冷却变化",
+    object = "Ability",
     params = {
     },
 }
@@ -602,6 +622,7 @@ M.config["技能-层数变化"] = {
     },
     key = "ET_ABILITY_STACK_CHANGE",
     name = "技能-层数变化",
+    object = "Ability",
     params = {
     },
 }
@@ -614,6 +635,7 @@ M.config["技能-学习"] = {
     },
     key = "ET_ABILITY_PLUS_POINT",
     name = "技能-学习",
+    object = "Ability",
     params = {
     },
 }
@@ -626,6 +648,7 @@ M.config["技能-充能进度变化"] = {
     },
     key = "ET_ABILITY_STACK_CD_CHANGE",
     name = "技能-充能进度变化",
+    object = "Ability",
     params = {
     },
 }
@@ -638,6 +661,7 @@ M.config["技能-可用状态变化"] = {
     },
     key = "ET_ABILITY_FORBIDDEN_CHANGED",
     name = "技能-可用状态变化",
+    object = "Ability",
     params = {
     },
 }
@@ -650,6 +674,7 @@ M.config["技能-沉默状态变化"] = {
     },
     key = "ET_ABILITY_SILENT_CHANGED",
     name = "技能-沉默状态变化",
+    object = "Ability",
     params = {
     },
 }
@@ -662,6 +687,7 @@ M.config["技能-图标变化"] = {
     },
     key = "ET_ABILITY_ICON_CHANGED",
     name = "技能-图标变化",
+    object = "Ability",
     params = {
     },
 }
@@ -674,6 +700,7 @@ M.config["单位-名称变化"] = {
     },
     key = "ET_UNIT_NAME_CHANGE",
     name = "单位-名称变化",
+    object = "Unit",
     params = {
     },
 }
@@ -686,6 +713,7 @@ M.config["单位-小地图图标变化"] = {
     },
     key = "ET_UNIT_CHANGE_MINI_MAP_ICON",
     name = "单位-小地图图标变化",
+    object = "Unit",
     params = {
     },
 }
@@ -698,6 +726,7 @@ M.config["单位-头像变化"] = {
     },
     key = "ET_UNIT_ICON_CHANGE",
     name = "单位-头像变化",
+    object = "Unit",
     params = {
     },
 }
@@ -749,6 +778,7 @@ M.config["单位-开始移动"] = {
     },
     key = "ET_UNIT_START_MOVE",
     name = "单位-开始移动",
+    object = "Unit",
     params = {
     },
 }
@@ -761,6 +791,7 @@ M.config["单位-结束移动"] = {
     },
     key = "ET_UNIT_END_MOVE",
     name = "单位-结束移动",
+    object = "Unit",
     params = {
     },
 }
@@ -773,6 +804,7 @@ M.config["单位-移除"] = {
     },
     key = "ET_UNIT_REMOVE",
     name = "单位-移除",
+    object = "Unit",
     params = {
     },
 }
@@ -785,6 +817,7 @@ M.config["单位-移除后"] = {
     },
     key = "ET_UNIT_DELETE",
     name = "单位-移除后",
+    object = "Unit",
     params = {
     },
 }
@@ -797,6 +830,7 @@ M.config["单位-传送结束"] = {
     },
     key = "ET_UNIT_END_TRANSLATE",
     name = "单位-传送结束",
+    object = "Unit",
     params = {
     },
 }
@@ -809,6 +843,7 @@ M.config["单位-属性变化"] = {
     },
     key = "ET_UNIT_ATTR_CHANGE",
     name = "单位-属性变化",
+    object = "Unit",
     params = {
         [1] = {
             call = true,
@@ -832,6 +867,7 @@ M.config["单位-即将死亡"] = {
     },
     key = "ET_BEFORE_UNIT_DIE",
     name = "单位-即将死亡",
+    object = "Unit",
     params = {
     },
 }
@@ -844,6 +880,7 @@ M.config["单位-死亡"] = {
     },
     key = "ET_UNIT_DIE",
     name = "单位-死亡",
+    object = "Unit",
     params = {
     },
 }
@@ -892,6 +929,7 @@ end\
     },
     key = "ET_UNIT_BE_HURT",
     name = "单位-受到伤害前",
+    object = "Unit",
     params = {
     },
 }
@@ -914,6 +952,7 @@ end\
     },
     key = "ET_UNIT_HURT_OTHER",
     name = "单位-造成伤害前",
+    object = "Unit",
     params = {
     },
 }
@@ -936,6 +975,7 @@ end\
     },
     key = "ET_UNIT_BE_HURT_BEFORE_APPLY",
     name = "单位-受到伤害时",
+    object = "Unit",
     params = {
     },
 }
@@ -958,6 +998,7 @@ end\
     },
     key = "ET_UNIT_HURT_OTHER_BEFORE_APPLY",
     name = "单位-造成伤害时",
+    object = "Unit",
     params = {
     },
 }
@@ -980,6 +1021,7 @@ end\
     },
     key = "ET_UNIT_HURT_OTHER_FINISH",
     name = "单位-造成伤害后",
+    object = "Unit",
     params = {
     },
 }
@@ -1002,6 +1044,7 @@ end\
     },
     key = "ET_UNIT_BE_HURT_COMPLETE",
     name = "单位-受到伤害后",
+    object = "Unit",
     params = {
     },
 }
@@ -1014,6 +1057,7 @@ M.config["单位-受到治疗前"] = {
     },
     key = "ET_UNIT_GET_CURE_BEFORE_APPLY",
     name = "单位-受到治疗前",
+    object = "Unit",
     params = {
     },
 }
@@ -1026,6 +1070,7 @@ M.config["单位-受到治疗后"] = {
     },
     key = "ET_UNIT_GET_CURE_FINISH",
     name = "单位-受到治疗后",
+    object = "Unit",
     params = {
     },
 }
@@ -1038,6 +1083,7 @@ M.config["单位-受到治疗时"] = {
     },
     key = "ET_UNIT_GET_CURE",
     name = "单位-受到治疗时",
+    object = "Unit",
     params = {
     },
 }
@@ -1050,6 +1096,7 @@ M.config["玩家-属性图标变化"] = {
     },
     key = "ET_RES_ICON_CHANGED",
     name = "玩家-属性图标变化",
+    object = "Player",
     params = {
     },
 }
@@ -1062,6 +1109,7 @@ M.config["单位-施放技能"] = {
     },
     key = "ET_UNIT_RELEASE_ABILITY",
     name = "单位-施放技能",
+    object = "Unit",
     params = {
     },
 }
@@ -1139,6 +1187,7 @@ M.config["单位-获得经验前"] = {
     },
     key = "ET_UNIT_PRE_ADD_EXP",
     name = "单位-获得经验前",
+    object = "Unit",
     params = {
     },
 }
@@ -1151,6 +1200,7 @@ M.config["单位-获得经验后"] = {
     },
     key = "ET_UNIT_ON_ADD_EXP",
     name = "单位-获得经验后",
+    object = "Unit",
     params = {
     },
 }
@@ -1163,6 +1213,7 @@ M.config["单位-接收命令"] = {
     },
     key = "ET_UNIT_ON_COMMAND",
     name = "单位-接收命令",
+    object = "Unit",
     params = {
     },
 }
@@ -1175,6 +1226,7 @@ M.config["单位-击杀"] = {
     },
     key = "ET_KILL_UNIT",
     name = "单位-击杀",
+    object = "Unit",
     params = {
     },
 }
@@ -1187,6 +1239,7 @@ M.config["单位-创建"] = {
     },
     key = "ET_UNIT_BORN",
     name = "单位-创建",
+    object = "Unit",
     params = {
     },
 }
@@ -1199,6 +1252,7 @@ M.config["单位-进入战斗"] = {
     },
     key = "ET_UNIT_ENTER_BATTLE",
     name = "单位-进入战斗",
+    object = "Unit",
     params = {
     },
 }
@@ -1211,6 +1265,7 @@ M.config["单位-脱离战斗"] = {
     },
     key = "ET_UNIT_EXIT_BATTLE",
     name = "单位-脱离战斗",
+    object = "Unit",
     params = {
     },
 }
@@ -1249,6 +1304,7 @@ M.config["单位-购买物品"] = {
     },
     key = "ET_UNIT_SHOP_BUY_ITEM",
     name = "单位-购买物品",
+    object = "Unit",
     params = {
     },
 }
@@ -1261,6 +1317,7 @@ M.config["单位-购买单位"] = {
     },
     key = "ET_UNIT_SHOP_BUY_UNIT",
     name = "单位-购买单位",
+    object = "Unit",
     params = {
     },
 }
@@ -1273,6 +1330,7 @@ M.config["单位-出售物品"] = {
     },
     key = "ET_UNIT_ITEM_SELL",
     name = "单位-出售物品",
+    object = "Unit",
     params = {
     },
 }
@@ -1321,6 +1379,7 @@ M.config["单位-物品合成"] = {
     },
     key = "ET_UNIT_ITEM_COMPOSE",
     name = "单位-物品合成",
+    object = "Unit",
     params = {
     },
 }
@@ -1333,6 +1392,7 @@ M.config["单位-购买物品合成"] = {
     },
     key = "ET_UNIT_SHOP_BUY_WITH_COMPOSE",
     name = "单位-购买物品合成",
+    object = "Unit",
     params = {
     },
 }
@@ -1345,6 +1405,7 @@ M.config["单位-复活"] = {
     },
     key = "ET_REVIVE_UNIT",
     name = "单位-复活",
+    object = "Unit",
     params = {
     },
 }
@@ -1357,6 +1418,7 @@ M.config["单位-升级"] = {
     },
     key = "ET_UPGRADE_UNIT",
     name = "单位-升级",
+    object = "Unit",
     params = {
     },
 }
@@ -1395,6 +1457,7 @@ M.config["单位-进入草丛"] = {
     },
     key = "ET_UNIT_ENTER_GRASS",
     name = "单位-进入草丛",
+    object = "Unit",
     params = {
     },
 }
@@ -1407,6 +1470,7 @@ M.config["单位-离开草丛"] = {
     },
     key = "ET_UNIT_LEAVE_GRASS",
     name = "单位-离开草丛",
+    object = "Unit",
     params = {
     },
 }
@@ -1432,6 +1496,7 @@ M.config["单位-改变所属"] = {
     },
     key = "ET_UNIT_ROLE_CHANGED",
     name = "单位-改变所属",
+    object = "Unit",
     params = {
     },
 }
@@ -1566,6 +1631,7 @@ M.config["技能-升级"] = {
     },
     key = "ET_ABILITY_UPGRADE",
     name = "技能-升级",
+    object = "Ability",
     params = {
     },
 }
@@ -1590,6 +1656,7 @@ end\
     },
     key = "ET_ABILITY_CS_START",
     name = "施法-即将开始",
+    object = "Cast",
     params = {
     },
 }
@@ -1627,6 +1694,7 @@ end\
     },
     key = "ET_ABILITY_PS_START",
     name = "施法-开始",
+    object = "Cast",
     params = {
     },
 }
@@ -1651,6 +1719,7 @@ end\
     },
     key = "ET_ABILITY_PS_END",
     name = "施法-引导",
+    object = "Cast",
     params = {
     },
 }
@@ -1688,6 +1757,7 @@ end\
     },
     key = "ET_ABILITY_SP_END",
     name = "施法-出手",
+    object = "Cast",
     params = {
     },
 }
@@ -1712,6 +1782,7 @@ end\
     },
     key = "ET_ABILITY_CST_END",
     name = "施法-完成",
+    object = "Cast",
     params = {
     },
 }
@@ -1736,6 +1807,7 @@ end\
     },
     key = "ET_ABILITY_BS_END",
     name = "施法-结束",
+    object = "Cast",
     params = {
     },
 }
@@ -1773,6 +1845,7 @@ end\
     },
     key = "ET_ABILITY_PS_INTERRUPT",
     name = "施法-打断开始",
+    object = "Cast",
     params = {
     },
 }
@@ -1797,6 +1870,7 @@ end\
     },
     key = "ET_ABILITY_SP_INTERRUPT",
     name = "施法-打断引导",
+    object = "Cast",
     params = {
     },
 }
@@ -1821,6 +1895,7 @@ end\
     },
     key = "ET_ABILITY_CST_INTERRUPT",
     name = "施法-打断出手",
+    object = "Cast",
     params = {
     },
 }
@@ -1858,6 +1933,7 @@ end\
     },
     key = "ET_ABILITY_END",
     name = "施法-停止",
+    object = "Cast",
     params = {
     },
 }
@@ -1870,6 +1946,7 @@ M.config["技能-获得"] = {
     },
     key = "ET_ABILITY_OBTAIN",
     name = "技能-获得",
+    object = "Ability",
     params = {
     },
 }
@@ -1882,6 +1959,7 @@ M.config["技能-失去"] = {
     },
     key = "ET_ABILITY_LOSE",
     name = "技能-失去",
+    object = "Ability",
     params = {
     },
 }
@@ -1894,6 +1972,7 @@ M.config["技能-交换"] = {
     },
     key = "ET_ABILITY_SWITCH",
     name = "技能-交换",
+    object = "Ability",
     params = {
     },
 }
@@ -1906,6 +1985,7 @@ M.config["技能-禁用"] = {
     },
     key = "ET_ABILITY_DISABLE",
     name = "技能-禁用",
+    object = "Ability",
     params = {
     },
 }
@@ -1918,6 +1998,7 @@ M.config["技能-启用"] = {
     },
     key = "ET_ABILITY_ENABLE",
     name = "技能-启用",
+    object = "Ability",
     params = {
     },
 }
@@ -1930,6 +2011,7 @@ M.config["技能-冷却结束"] = {
     },
     key = "ET_ABILITY_CD_END",
     name = "技能-冷却结束",
+    object = "Ability",
     params = {
     },
 }
@@ -2026,6 +2108,7 @@ M.config["可破坏物-创建"] = {
     },
     key = "ET_DEST_CREATE_NEW",
     name = "可破坏物-创建",
+    object = "Destructible",
     params = {
     },
 }
@@ -2038,6 +2121,7 @@ M.config["可破坏物-死亡"] = {
     },
     key = "ET_DEST_DIE_NEW",
     name = "可破坏物-死亡",
+    object = "Destructible",
     params = {
     },
 }
@@ -2050,6 +2134,7 @@ M.config["可破坏物-复活"] = {
     },
     key = "ET_DEST_REVIVE_NEW",
     name = "可破坏物-复活",
+    object = "Destructible",
     params = {
     },
 }
@@ -2062,6 +2147,7 @@ M.config["可破坏物-资源变化"] = {
     },
     key = "ET_DEST_RES_CNT_CHG_NEW",
     name = "可破坏物-资源变化",
+    object = "Destructible",
     params = {
     },
 }
@@ -2074,6 +2160,7 @@ M.config["可破坏物-采集"] = {
     },
     key = "ET_DEST_COLLECTED_NEW",
     name = "可破坏物-采集",
+    object = "Destructible",
     params = {
     },
 }
@@ -2086,6 +2173,7 @@ M.config["可破坏物-受到伤害"] = {
     },
     key = "ET_GET_HURT_NEW",
     name = "可破坏物-受到伤害",
+    object = "Destructible",
     params = {
     },
 }
@@ -2098,6 +2186,7 @@ M.config["选中-可破坏物"] = {
     },
     key = "ET_SELECT_DEST",
     name = "选中-可破坏物",
+    object = "Player",
     params = {
     },
 }
@@ -2110,6 +2199,7 @@ M.config["可破坏物-移除"] = {
     },
     key = "ET_DEST_DELETE",
     name = "可破坏物-移除",
+    object = "Destructible",
     params = {
     },
 }
@@ -2122,6 +2212,7 @@ M.config["投射物-创建"] = {
     },
     key = "ET_PRODUCE_PROJECTILE",
     name = "投射物-创建",
+    object = "Projectile",
     params = {
     },
 }
@@ -2134,6 +2225,7 @@ M.config["投射物-死亡"] = {
     },
     key = "ET_DEATH_PROJECTILE",
     name = "投射物-死亡",
+    object = "Projectile",
     params = {
     },
 }
@@ -2146,6 +2238,7 @@ M.config["界面-消息"] = {
     },
     key = "ET_TRIGGER_COMPONENT_EVENT",
     name = "界面-消息",
+    object = "UI",
     params = {
         [1] = {
             desc = "自定义事件名称",
@@ -2328,6 +2421,7 @@ M.config["选中-单位"] = {
     },
     key = "ET_SELECT_UNIT",
     name = "选中-单位",
+    object = "Player",
     params = {
     },
 }
@@ -2340,6 +2434,7 @@ M.config["选中-物品"] = {
     },
     key = "ET_SELECT_ITEM",
     name = "选中-物品",
+    object = "Player",
     params = {
     },
 }
@@ -2376,6 +2471,7 @@ M.config["选中-单位组"] = {
     },
     key = "ET_SELECT_UNIT_GROUP",
     name = "选中-单位组",
+    object = "Player",
     params = {
     },
 }
@@ -2388,6 +2484,7 @@ M.config["技能-打开指示器"] = {
     },
     key = "ET_START_SKILL_POINTER",
     name = "技能-打开指示器",
+    object = "Ability",
     params = {
     },
 }
@@ -2400,6 +2497,7 @@ M.config["技能-关闭指示器"] = {
     },
     key = "ET_STOP_SKILL_POINTER",
     name = "技能-关闭指示器",
+    object = "Ability",
     params = {
     },
 }
@@ -2412,6 +2510,7 @@ M.config["物品-获得"] = {
     },
     key = "ET_UNIT_ADD_ITEM",
     name = "物品-获得",
+    object = "Item",
     params = {
     },
 }
@@ -2424,6 +2523,7 @@ M.config["物品-进入物品栏"] = {
     },
     key = "ET_UNIT_ADD_ITEM_TO_BAR",
     name = "物品-进入物品栏",
+    object = "Item",
     params = {
     },
 }
@@ -2436,6 +2536,7 @@ M.config["物品-进入背包"] = {
     },
     key = "ET_UNIT_ADD_ITEM_TO_PKG",
     name = "物品-进入背包",
+    object = "Item",
     params = {
     },
 }
@@ -2448,6 +2549,7 @@ M.config["物品-失去"] = {
     },
     key = "ET_UNIT_REMOVE_ITEM",
     name = "物品-失去",
+    object = "Item",
     params = {
     },
 }
@@ -2460,6 +2562,7 @@ M.config["物品-离开物品栏"] = {
     },
     key = "ET_UNIT_REMOVE_ITEM_FROM_BAR",
     name = "物品-离开物品栏",
+    object = "Item",
     params = {
     },
 }
@@ -2472,6 +2575,7 @@ M.config["物品-离开背包"] = {
     },
     key = "ET_UNIT_REMOVE_ITEM_FROM_PKG",
     name = "物品-离开背包",
+    object = "Item",
     params = {
     },
 }
@@ -2484,6 +2588,7 @@ M.config["物品-使用"] = {
     },
     key = "ET_UNIT_USE_ITEM",
     name = "物品-使用",
+    object = "Item",
     params = {
     },
 }
@@ -2496,6 +2601,7 @@ M.config["单位-寻路开始"] = {
     },
     key = "ET_UNIT_START_NAV_EVENT",
     name = "单位-寻路开始",
+    object = "Unit",
     params = {
     },
 }
@@ -2508,6 +2614,7 @@ M.config["单位-寻路结束"] = {
     },
     key = "ET_UNIT_END_NAV_EVENT",
     name = "单位-寻路结束",
+    object = "Unit",
     params = {
     },
 }
@@ -2520,6 +2627,7 @@ M.config["物品-堆叠变化"] = {
     },
     key = "ET_ITEM_STACK_CHANGED",
     name = "物品-堆叠变化",
+    object = "Item",
     params = {
     },
 }
@@ -2532,6 +2640,7 @@ M.config["物品-充能变化"] = {
     },
     key = "ET_ITEM_CHARGE_CHANGED",
     name = "物品-充能变化",
+    object = "Item",
     params = {
     },
 }
@@ -2544,6 +2653,7 @@ M.config["物品-创建"] = {
     },
     key = "ET_ITEM_ON_CREATE",
     name = "物品-创建",
+    object = "Item",
     params = {
     },
 }
@@ -2556,6 +2666,7 @@ M.config["物品-移除"] = {
     },
     key = "ET_ITEM_ON_DESTROY",
     name = "物品-移除",
+    object = "Item",
     params = {
     },
 }
@@ -2568,6 +2679,7 @@ M.config["物品-出售"] = {
     },
     key = "ET_ITEM_SOLD",
     name = "物品-出售",
+    object = "Item",
     params = {
     },
 }
@@ -2580,6 +2692,7 @@ M.config["物品-死亡"] = {
     },
     key = "ET_ITEM_BROKEN",
     name = "物品-死亡",
+    object = "Item",
     params = {
     },
 }
@@ -2592,6 +2705,7 @@ M.config["物品-采集创建"] = {
     },
     key = "ET_ITEM_CREATE_ON_DEST_COLLECTED",
     name = "物品-采集创建",
+    object = "Item",
     params = {
     },
 }
@@ -2604,6 +2718,7 @@ M.config["玩家-发送消息"] = {
     },
     key = "ET_CHAT_SEND_GM",
     name = "玩家-发送消息",
+    object = "Player",
     params = {
     },
 }
@@ -2628,6 +2743,7 @@ M.config["界面-创建"] = {
     },
     key = "ET_UI_PREFAB_CREATE_EVENT",
     name = "界面-创建",
+    object = "UI",
     params = {
     },
 }
@@ -2640,6 +2756,7 @@ M.config["界面-移除"] = {
     },
     key = "ET_UI_PREFAB_DEL_EVENT",
     name = "界面-移除",
+    object = "UI",
     params = {
     },
 }
@@ -2652,6 +2769,7 @@ M.config["玩家-语音发言"] = {
     },
     key = "ET_MICRO_SPEAK",
     name = "玩家-语音发言",
+    object = "Player",
     params = {
     },
 }
@@ -2830,5 +2948,141 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "界面-创建", callback: fun(trg: Trigger, data: EventParam.界面-创建)): Trigger
 ---@field event fun(self: self, event: "界面-移除", callback: fun(trg: Trigger, data: EventParam.界面-移除)): Trigger
 ---@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
+
+---@class Ability
+---@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
+---@field event fun(self: Ability, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
+---@field event fun(self: Ability, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
+---@field event fun(self: Ability, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
+---@field event fun(self: Ability, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
+---@field event fun(self: Ability, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
+---@field event fun(self: Ability, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
+---@field event fun(self: Ability, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
+---@field event fun(self: Ability, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
+---@field event fun(self: Ability, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
+---@field event fun(self: Ability, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
+---@field event fun(self: Ability, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
+---@field event fun(self: Ability, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
+---@field event fun(self: Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
+---@field event fun(self: Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field event fun(self: Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
+
+---@class Area
+---@field event fun(self: Area, event: "区域-进入", callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
+---@field event fun(self: Area, event: "区域-离开", callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
+
+---@class Cast
+---@field event fun(self: Cast, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
+---@field event fun(self: Cast, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
+---@field event fun(self: Cast, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
+---@field event fun(self: Cast, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
+---@field event fun(self: Cast, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
+---@field event fun(self: Cast, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
+---@field event fun(self: Cast, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
+---@field event fun(self: Cast, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
+---@field event fun(self: Cast, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: Cast, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
+
+---@class Destructible
+---@field event fun(self: Destructible, event: "可破坏物-创建", callback: fun(trg: Trigger, data: EventParam.可破坏物-创建)): Trigger
+---@field event fun(self: Destructible, event: "可破坏物-死亡", callback: fun(trg: Trigger, data: EventParam.可破坏物-死亡)): Trigger
+---@field event fun(self: Destructible, event: "可破坏物-复活", callback: fun(trg: Trigger, data: EventParam.可破坏物-复活)): Trigger
+---@field event fun(self: Destructible, event: "可破坏物-资源变化", callback: fun(trg: Trigger, data: EventParam.可破坏物-资源变化)): Trigger
+---@field event fun(self: Destructible, event: "可破坏物-采集", callback: fun(trg: Trigger, data: EventParam.可破坏物-采集)): Trigger
+---@field event fun(self: Destructible, event: "可破坏物-受到伤害", callback: fun(trg: Trigger, data: EventParam.可破坏物-受到伤害)): Trigger
+---@field event fun(self: Destructible, event: "可破坏物-移除", callback: fun(trg: Trigger, data: EventParam.可破坏物-移除)): Trigger
+
+---@class Item
+---@field event fun(self: Item, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
+---@field event fun(self: Item, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
+---@field event fun(self: Item, event: "物品-进入背包", callback: fun(trg: Trigger, data: EventParam.物品-进入背包)): Trigger
+---@field event fun(self: Item, event: "物品-失去", callback: fun(trg: Trigger, data: EventParam.物品-失去)): Trigger
+---@field event fun(self: Item, event: "物品-离开物品栏", callback: fun(trg: Trigger, data: EventParam.物品-离开物品栏)): Trigger
+---@field event fun(self: Item, event: "物品-离开背包", callback: fun(trg: Trigger, data: EventParam.物品-离开背包)): Trigger
+---@field event fun(self: Item, event: "物品-使用", callback: fun(trg: Trigger, data: EventParam.物品-使用)): Trigger
+---@field event fun(self: Item, event: "物品-堆叠变化", callback: fun(trg: Trigger, data: EventParam.物品-堆叠变化)): Trigger
+---@field event fun(self: Item, event: "物品-充能变化", callback: fun(trg: Trigger, data: EventParam.物品-充能变化)): Trigger
+---@field event fun(self: Item, event: "物品-创建", callback: fun(trg: Trigger, data: EventParam.物品-创建)): Trigger
+---@field event fun(self: Item, event: "物品-移除", callback: fun(trg: Trigger, data: EventParam.物品-移除)): Trigger
+---@field event fun(self: Item, event: "物品-出售", callback: fun(trg: Trigger, data: EventParam.物品-出售)): Trigger
+---@field event fun(self: Item, event: "物品-死亡", callback: fun(trg: Trigger, data: EventParam.物品-死亡)): Trigger
+---@field event fun(self: Item, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
+
+---@class Player
+---@field event fun(self: Player, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
+---@field event fun(self: Player, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
+---@field event fun(self: Player, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
+---@field event fun(self: Player, event: "玩家-使用平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-使用平台道具)): Trigger
+---@field event fun(self: Player, event: "玩家-持有平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-持有平台道具)): Trigger
+---@field event fun(self: Player, event: "玩家-属性变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性变化)): Trigger
+---@field event fun(self: Player, event: "玩家-发送指定消息", msg: string, callback: fun(trg: Trigger, data: EventParam.玩家-发送指定消息)): Trigger
+---@field event fun(self: Player, event: "玩家-科技提升", callback: fun(trg: Trigger, data: EventParam.玩家-科技提升)): Trigger
+---@field event fun(self: Player, event: "玩家-科技降低", callback: fun(trg: Trigger, data: EventParam.玩家-科技降低)): Trigger
+---@field event fun(self: Player, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
+---@field event fun(self: Player, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
+---@field event fun(self: Player, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
+---@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
+---@field event fun(self: Player, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
+---@field event fun(self: Player, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
+---@field event fun(self: Player, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
+---@field event fun(self: Player, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
+---@field event fun(self: Player, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
+
+---@class Projectile
+---@field event fun(self: Projectile, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
+---@field event fun(self: Projectile, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
+
+---@class UI
+---@field event fun(self: UI, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: UI, event: "界面-创建", callback: fun(trg: Trigger, data: EventParam.界面-创建)): Trigger
+---@field event fun(self: UI, event: "界面-移除", callback: fun(trg: Trigger, data: EventParam.界面-移除)): Trigger
+
+---@class Unit
+---@field event fun(self: Unit, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
+---@field event fun(self: Unit, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
+---@field event fun(self: Unit, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
+---@field event fun(self: Unit, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
+---@field event fun(self: Unit, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
+---@field event fun(self: Unit, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
+---@field event fun(self: Unit, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
+---@field event fun(self: Unit, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
+---@field event fun(self: Unit, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
+---@field event fun(self: Unit, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
+---@field event fun(self: Unit, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
+---@field event fun(self: Unit, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
+---@field event fun(self: Unit, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
+---@field event fun(self: Unit, event: "单位-属性变化", attr: string, callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
+---@field event fun(self: Unit, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
+---@field event fun(self: Unit, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
+---@field event fun(self: Unit, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
+---@field event fun(self: Unit, event: "单位-造成伤害前", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害前)): Trigger
+---@field event fun(self: Unit, event: "单位-受到伤害时", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害时)): Trigger
+---@field event fun(self: Unit, event: "单位-造成伤害时", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害时)): Trigger
+---@field event fun(self: Unit, event: "单位-造成伤害后", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害后)): Trigger
+---@field event fun(self: Unit, event: "单位-受到伤害后", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害后)): Trigger
+---@field event fun(self: Unit, event: "单位-受到治疗前", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗前)): Trigger
+---@field event fun(self: Unit, event: "单位-受到治疗后", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗后)): Trigger
+---@field event fun(self: Unit, event: "单位-受到治疗时", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗时)): Trigger
+---@field event fun(self: Unit, event: "单位-施放技能", callback: fun(trg: Trigger, data: EventParam.单位-施放技能)): Trigger
+---@field event fun(self: Unit, event: "单位-获得经验前", callback: fun(trg: Trigger, data: EventParam.单位-获得经验前)): Trigger
+---@field event fun(self: Unit, event: "单位-获得经验后", callback: fun(trg: Trigger, data: EventParam.单位-获得经验后)): Trigger
+---@field event fun(self: Unit, event: "单位-接收命令", callback: fun(trg: Trigger, data: EventParam.单位-接收命令)): Trigger
+---@field event fun(self: Unit, event: "单位-击杀", callback: fun(trg: Trigger, data: EventParam.单位-击杀)): Trigger
+---@field event fun(self: Unit, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
+---@field event fun(self: Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
+---@field event fun(self: Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
+---@field event fun(self: Unit, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
+---@field event fun(self: Unit, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
+---@field event fun(self: Unit, event: "单位-物品合成", callback: fun(trg: Trigger, data: EventParam.单位-物品合成)): Trigger
+---@field event fun(self: Unit, event: "单位-购买物品合成", callback: fun(trg: Trigger, data: EventParam.单位-购买物品合成)): Trigger
+---@field event fun(self: Unit, event: "单位-复活", callback: fun(trg: Trigger, data: EventParam.单位-复活)): Trigger
+---@field event fun(self: Unit, event: "单位-升级", callback: fun(trg: Trigger, data: EventParam.单位-升级)): Trigger
+---@field event fun(self: Unit, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
+---@field event fun(self: Unit, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
+---@field event fun(self: Unit, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
+---@field event fun(self: Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
+---@field event fun(self: Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
 
 return M

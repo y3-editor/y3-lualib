@@ -11,6 +11,8 @@ Extends('Ability', 'GCHost')
 Extends('Ability', 'Storage')
 ---@class Ability: CustomEvent
 Extends('Ability', 'CustomEvent')
+---@class Ability: ObjectEvent
+Extends('Ability', 'ObjectEvent')
 
 ---所有技能实例
 M.map = {}

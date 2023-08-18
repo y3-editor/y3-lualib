@@ -8,6 +8,9 @@
 local M = Class 'Destructible'
 M.type = 'destructible'
 
+---@class Destructible: ObjectEvent
+Extends('Destructible', 'ObjectEvent')
+
 ---@param py_destructible py.Destructible
 ---@return self
 function M:constructor(py_destructible)
