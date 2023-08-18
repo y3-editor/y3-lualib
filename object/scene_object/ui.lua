@@ -4,9 +4,6 @@
 ---@overload fun(player: Player, ui_name: string): self
 local M = Class 'UI'
 
----@class UI: ObjectEvent
-Extends('UI', 'ObjectEvent')
-
 M.type = 'ui'
 
 ---@param player Player
