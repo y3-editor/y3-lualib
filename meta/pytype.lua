@@ -333,5 +333,7 @@
 ---@class py.TableOrder: integer
 --镜头模式
 ---@class py.CameraMode: integer
+--相机射线方向
+---@class py.CameraRayDirection: integer
 --逻辑物理组件状态
 ---@class py.PhysicsEntityState: integer

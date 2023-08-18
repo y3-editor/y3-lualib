@@ -4,6 +4,190 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--创建单个物品
+---@param position py.FVector3 # 位置
+---@param item_key py.ItemKey # 物品编号
+---@param player py.Role # 所属玩家
+---@return py.Item # 创建出的物品
+function GameAPI.create_item_by_id(position, item_key, player) end
+
+--根据ID获取图片
+---@param icon_id integer # 图片ID
+---@return py.Texture # 图片
+function GameAPI.get_texture_by_icon_id(icon_id) end
+
+--根据图片获取ID
+---@param texture py.Texture # 图片
+---@return integer # 图片ID
+function GameAPI.get_icon_id_by_texture(texture) end
+
+--刷新触发器
+function GameAPI.refresh_triggers() end
+
+--激活Lua动态触发器
+---@param lua_conf py.Dict # Lua触发器
+function GameAPI.enable_global_lua_trigger(lua_conf) end
+
+--根据预设id获取可破坏物
+---@param dest_unit_id py.DestructibleID # 预设可破坏物unit_id
+---@return py.Destructible # 可破坏物
+function GameAPI.get_dest_by_id(dest_unit_id) end
+
+--获取可破坏物类型
+---@param dest py.Destructible # 可破坏物
+---@return py.DestructibleKey # 可破坏物类型
+function GameAPI.get_dest_type(dest) end
+
+--判断可破坏物是否在区域中
+---@param dest_id py.Destructible # 可破坏物
+---@param area py.Area # 区域
+---@return boolean # 布尔值
+function GameAPI.is_dest_in_area(dest_id, area) end
+
+--创建可破坏物
+---@param location py.FVector3 # 位置
+---@param dest_key py.DestructibleKey # 物品编号
+---@param angle py.Fixed # 面向角度
+---@param size number # 大小
+---@return py.Destructible # 创建出的可破坏物
+function GameAPI.create_destructible(location, dest_key, angle, size) end
+
+--创建可破坏物
+---@param dest_key py.DestructibleKey # 物品编号
+---@param location py.FVector3 # 位置
+---@param angle py.Fixed # 面向角度
+---@param scale_x? py.Fixed # 缩放x
+---@param scale_y? py.Fixed # 缩放y
+---@param scale_z? py.Fixed # 缩放z
+---@param height_offset? py.Fixed # 高度
+---@return py.Destructible # 创建出的可破坏物
+function GameAPI.create_destructible_new(dest_key, location, angle, scale_x, scale_y, scale_z, height_offset) end
+
+--获取区域内的可破坏物列表
+---@param area py.Area # 区域对象
+---@return py.List # 可破坏物列表
+function GameAPI.get_all_dest_in_area(area) end
+
+--获取点范围内的可破坏物列表
+---@param point py.Point # 区域对象
+---@param rng number # 半径
+---@return py.List # 可破坏物列表
+function GameAPI.get_all_dest_in_point_rng(point, rng) end
+
+--获取不同形状范围内的可破坏物列表
+---@param point py.Point # 区域对象
+---@param shape py.Shape # 形状
+---@return py.List # 可破坏物列表
+function GameAPI.get_all_dest_in_shapes(point, shape) end
+
+--创建镜头
+---@param focus_point py.FVector3 # 点
+---@param dis number # 焦距
+---@param focus_y? number # 焦点高度
+---@param yaw? number # yaw
+---@param pitch? number # pitch
+---@param fov? number # fov
+---@return integer # 镜头ID
+function GameAPI.add_camera_conf(focus_point, dis, focus_y, yaw, pitch, fov) end
+
+--应用镜头配置
+---@param role py.Role # 玩家
+---@param conf_id py.Camera # 镜头配置
+---@param duration number # 过渡时间
+---@param slope_mode? integer # 镜头移动类型
+function GameAPI.apply_camera_conf(role, conf_id, duration, slope_mode) end
+
+--线性移动镜头(时间)
+---@param role py.Role # 玩家
+---@param point py.FVector3 # 点
+---@param duration py.Fixed # 持续时间
+---@param acc integer # 加速度
+function GameAPI.camera_linear_move_duration(role, point, duration, acc) end
+
+--线性移动镜头(初速度)
+---@param role py.Role # 玩家
+---@param point py.FVector3 # 点
+---@param speed py.Fixed # 初速度
+---@param acc integer # 加速度
+function GameAPI.camera_linear_move_speed(role, point, speed, acc) end
+
+--让镜头看向某点（镜头位置不变）
+---@param role py.Role # 玩家
+---@param point py.FVector3 # 点
+---@param move_time? py.Fixed # 时间
+function GameAPI.camera_look_at(role, point, move_time) end
+
+--设置镜头参数roll
+---@param role py.Role # 玩家
+---@param roll py.Fixed # 滚动角
+---@param move_time? py.Fixed # 时间
+function GameAPI.camera_set_param_roll(role, roll, move_time) end
+
+--设置镜头参数pitch
+---@param role py.Role # 玩家
+---@param pitch py.Fixed # 俯仰角
+---@param move_time? py.Fixed # 时间
+function GameAPI.camera_set_param_pitch(role, pitch, move_time) end
+
+--设置镜头参数yaw
+---@param role py.Role # 玩家
+---@param yaw py.Fixed # 导航角
+---@param move_time? py.Fixed # 时间
+function GameAPI.camera_set_param_yaw(role, yaw, move_time) end
+
+--设置镜头角度参数
+---@param role py.Role # 玩家
+---@param rotate_type py.CameraRotate # 角度类型
+---@param angle py.Fixed # 角度值
+---@param move_time? py.Fixed # 时间
+function GameAPI.camera_set_param_rotate(role, rotate_type, angle, move_time) end
+
+--设置玩家的声音接收器跟随镜头射线与地面焦点
+---@param role py.Role # 玩家
+---@param camera_ray_direction py.CameraRayDirection # 相机射线方向
+function GameAPI.set_player_listener_to_follow_intersection_of_camera_ray_and_ground(role, camera_ray_direction) end
+
+--设置玩家的声音接收器跟随单位
+---@param role py.Role # 玩家
+---@param unit py.Unit # 单位
+function GameAPI.set_player_listener_to_follow_unit(role, unit) end
+
+--设置镜头参数distance
+---@param role py.Role # 玩家
+---@param distance py.Fixed # 焦点距离
+---@param move_time? py.Fixed # 时间
+function GameAPI.camera_set_param_distance(role, distance, move_time) end
+
+--旋转镜头俯仰角（角度，时间）
+---@param role py.Role # 玩家
+---@param angle py.Fixed # 角度
+---@param duration py.Fixed # 时间
+function GameAPI.camera_rotate_pitch_angle_duration(role, angle, duration) end
+
+--旋转镜头俯仰角（角速度，时间）
+---@param role py.Role # 玩家
+---@param angle_speed py.Fixed # 角速度
+---@param duration py.Fixed # 时间
+function GameAPI.camera_rotate_pitch_speed_duration(role, angle_speed, duration) end
+
+--旋转镜头俯仰角（角速度，角度）
+---@param role py.Role # 玩家
+---@param angle_speed py.Fixed # 角速度
+---@param angle py.Fixed # 角度
+function GameAPI.camera_rotate_pitch_speed_angle(role, angle_speed, angle) end
+
+--旋转镜头导航角（角度，时间）
+---@param role py.Role # 玩家
+---@param angle py.Fixed # 角度
+---@param duration py.Fixed # 时间
+function GameAPI.camera_rotate_yaw_angle_duration(role, angle, duration) end
+
+--旋转镜头导航角（角速度，时间）
+---@param role py.Role # 玩家
+---@param angle_speed py.Fixed # 角速度
+---@param duration py.Fixed # 时间
+function GameAPI.camera_rotate_yaw_speed_duration(role, angle_speed, duration) end
+
 --旋转镜头导航角（角速度，角度）
 ---@param role py.Role # 玩家
 ---@param angle_speed py.Fixed # 角速度
@@ -1643,52 +1827,52 @@ function GameAPI.set_ui_comp_world_scale(role, comp_name, scale_x, scale_y) end
 
 --获取当前玩家控件相对位置x
 ---@param comp_name string # 控件名
----@return number # x
+---@return py.Fixed # x
 function GameAPI.get_ui_comp_pos_x(comp_name) end
 
 --获取当前玩家控件相对位置y
 ---@param comp_name string # 控件名
----@return number # y
+---@return py.Fixed # y
 function GameAPI.get_ui_comp_pos_y(comp_name) end
 
 --获取当前玩家控件绝对位置x
 ---@param comp_name string # 控件名
----@return number # x
+---@return py.Fixed # x
 function GameAPI.get_ui_comp_world_pos_x(comp_name) end
 
 --获取当前玩家控件绝对位置y
 ---@param comp_name string # 控件名
----@return number # y
+---@return py.Fixed # y
 function GameAPI.get_ui_comp_world_pos_y(comp_name) end
 
 --获取当前玩家控件相对旋转
 ---@param comp_name string # 控件名
----@return number # rotation
+---@return py.Fixed # rotation
 function GameAPI.get_ui_comp_rotation(comp_name) end
 
 --获取当前玩家控件绝对旋转
 ---@param comp_name string # 控件名
----@return number # rotation
+---@return py.Fixed # rotation
 function GameAPI.get_ui_comp_world_rotation(comp_name) end
 
 --获取当前玩家控件相对缩放x
 ---@param comp_name string # 控件名
----@return number # scale_x
+---@return py.Fixed # scale_x
 function GameAPI.get_ui_comp_scale_x(comp_name) end
 
 --获取当前玩家控件相对缩放y
 ---@param comp_name string # 控件名
----@return number # scale_y
+---@return py.Fixed # scale_y
 function GameAPI.get_ui_comp_scale_y(comp_name) end
 
 --获取当前玩家控件绝对缩放x
 ---@param comp_name string # 控件名
----@return number # scale_x
+---@return py.Fixed # scale_x
 function GameAPI.get_ui_comp_world_scale_x(comp_name) end
 
 --获取当前玩家控件绝对缩放y
 ---@param comp_name string # 控件名
----@return number # scale_y
+---@return py.Fixed # scale_y
 function GameAPI.get_ui_comp_world_scale_y(comp_name) end
 
 --创建ui控件

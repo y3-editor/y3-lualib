@@ -10,7 +10,6 @@ y3.proxy  = require 'y3.tools.proxy'
 y3.class  = require 'y3.tools.class'
 y3.util   = require 'y3.tools.utility'
 y3.json   = require 'y3.tools.json'
-y3.reload = require 'y3.tools.reload'
 
 Class   = y3.class.declare
 New     = y3.class.new
@@ -21,6 +20,8 @@ IsValid = y3.class.isValid
 
 ---@diagnostic disable-next-line: lowercase-global
 log      = require 'y3.tools.log'
+
+y3.reload = require 'y3.tools.reload'
 
 ---@diagnostic disable-next-line: lowercase-global
 include  = y3.reload.include

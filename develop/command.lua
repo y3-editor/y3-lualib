@@ -11,33 +11,36 @@ function M.register(command, callback)
     M.commands[command:lower()] = callback
 end
 
-local function remove_all_triggers_in_include()
-    local include_source_map = y3.util.revertMap(y3.reload.includedNameMap)
+---@param reload Reload
+local function remove_all_triggers_in_include(reload)
     local event_manager = y3.game:get_event_manager()
     for trigger in event_manager:pairs() do
         local source = trigger:get_info_source()
         local path = source:match('^@(.+)$')
-        if include_source_map[path] then
+        if reload:isValidPath(path) then
             trigger:remove()
         end
     end
 end
 
-local function remove_all_timers_in_include()
-    local include_source_map = y3.util.revertMap(y3.reload.includedNameMap)
+---@param reload Reload
+local function remove_all_timers_in_include(reload)
     for timer in y3.timer.pairs() do
         local source = timer:get_info_source()
         local path = source:match('^@(.+)$')
-        if include_source_map[path] then
+        if reload:isValidPath(path) then
             timer:remove()
         end
     end
 end
 
 M.register('RD', function ()
-    remove_all_triggers_in_include()
-    remove_all_timers_in_include()
     y3.reload.reload()
+end)
+
+y3.reload.onBeforeReload(function (reload, willReload)
+    remove_all_triggers_in_include(reload)
+    remove_all_timers_in_include(reload)
 end)
 
 y3.game:event('玩家-发送消息', function (trg, data)

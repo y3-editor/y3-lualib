@@ -129,3 +129,21 @@ function M:dump()
     end
     return table.concat(buf, '\n')
 end
+
+-- 遍历池的对象
+---@return fun(): any, integer
+function M:pairs()
+    local keys = {}
+    for k in pairs(self.pool) do
+        keys[#keys+1] = k
+    end
+    table.sort(keys, function (a, b)
+        return tostring(a) < tostring(b)
+    end)
+    local i = 0
+    return function ()
+        i = i + 1
+        local k = keys[i]
+        return k, self.pool[k]
+    end
+end
