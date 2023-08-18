@@ -73,6 +73,25 @@ function M:add_event(event, name)
     return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name)
 end
 
+local direction_adaptation = {
+    ["顶部"] = 0,
+    ["底部"] = 1,
+    ["左侧"] = 2,
+    ["右侧"] = 3,
+}
+-- 设置控件自适应窗口
+---@param direction string # 方向
+---@param offset number # 偏移
+---@return self
+function M:set_adaptation(direction,offset)
+    if not direction[direction] then
+        error("不存在该方向【"..direction.."】")
+        return self
+    end
+    GameAPI.set_ui_comp_adapt_option(self.player.handle, self.handle, direction_adaptation[direction], offset)
+    return self
+end
+
 -- 对玩家触发UI事件
 ---@param event_name string
 function M:send_event(event_name)
@@ -376,7 +395,7 @@ end
 ---@param  y number y轴
 ---@return self
 function M:set_widget_absolute_coordinates(x,y)
-    GameAPI.set_ui_comp_world_pos(self.player.handle,self.handle, x, y)
+    GameAPI.set_ui_comp_world_pos(self.player.handle,self.handle, Fix32(x), Fix32(y))
     return self
 end
 
