@@ -2247,6 +2247,16 @@ M.config["界面-消息"] = {
     __class__ = "EventConfigBuilder",
     desc = "触发界面上标记的自定义事件后触发",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    return ui\
+end\
+",
+            desc = "ui",
+            name = "ui",
+            type = "UI",
+        },
     },
     key = "ET_TRIGGER_COMPONENT_EVENT",
     name = "界面-消息",

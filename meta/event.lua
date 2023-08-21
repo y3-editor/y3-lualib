@@ -4516,6 +4516,7 @@ event.ET_UNIT_PRODUCE_PROJECTILE = {}
 ---@field comp_name string # 触发事件控件名称
 ---@field pos py.Vector2 # 触碰坐标
 ---@field touch_id integer # 触碰ID
+---@field ui UI # ui
 
 --ui编辑器事件
 event.ET_TRIGGER_COMPONENT_EVENT = {
@@ -4558,6 +4559,17 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
         lua_type = "integer",
         desc = "触碰ID",
         lua_desc = "触碰ID",
+    },
+    [6] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
     },
 }
 

@@ -7,12 +7,12 @@ local M = Class 'UI'
 M.type = 'ui'
 
 ---@param player Player
----@param ui_name string
+---@param handle string
 ---@return self
-function M:constructor(player, ui_name)
+function M:constructor(player, handle)
     self.player = player
-    self.handle = ui_name
-    self.name   = GameAPI.get_ui_comp_name(player.handle, ui_name)
+    self.handle = handle
+    self.name   = GameAPI.get_ui_comp_name(player.handle, handle)
     return self
 end
 
@@ -33,10 +33,10 @@ M.map = {}
 
 ---通过py层的界面实例获取lua层的界面实例
 ---@param player Player
----@param  ui_name string
+---@param  handle string
 ---@return UI
-function M.get_by_handle(player, ui_name)
-    local ui = New 'UI' (player, ui_name)
+function M.get_by_handle(player, handle)
+    local ui = New 'UI' (player, handle)
     return ui
 end
 
