@@ -4,9 +4,6 @@
 ---@overload fun(ability: Ability, cast_id: integer): self
 local M = Class 'Cast'
 
----@class Cast: ObjectEvent
-Extends('Cast', 'ObjectEvent')
-
 ---@param ability Ability
 ---@param cast_id integer
 ---@return self

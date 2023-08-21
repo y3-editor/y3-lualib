@@ -1656,7 +1656,6 @@ end\
     },
     key = "ET_ABILITY_CS_START",
     name = "施法-即将开始",
-    object = "Cast",
     params = {
     },
 }
@@ -1694,7 +1693,6 @@ end\
     },
     key = "ET_ABILITY_PS_START",
     name = "施法-开始",
-    object = "Cast",
     params = {
     },
 }
@@ -1719,7 +1717,6 @@ end\
     },
     key = "ET_ABILITY_PS_END",
     name = "施法-引导",
-    object = "Cast",
     params = {
     },
 }
@@ -1757,7 +1754,6 @@ end\
     },
     key = "ET_ABILITY_SP_END",
     name = "施法-出手",
-    object = "Cast",
     params = {
     },
 }
@@ -1782,7 +1778,6 @@ end\
     },
     key = "ET_ABILITY_CST_END",
     name = "施法-完成",
-    object = "Cast",
     params = {
     },
 }
@@ -1807,7 +1802,6 @@ end\
     },
     key = "ET_ABILITY_BS_END",
     name = "施法-结束",
-    object = "Cast",
     params = {
     },
 }
@@ -1845,7 +1839,6 @@ end\
     },
     key = "ET_ABILITY_PS_INTERRUPT",
     name = "施法-打断开始",
-    object = "Cast",
     params = {
     },
 }
@@ -1870,7 +1863,6 @@ end\
     },
     key = "ET_ABILITY_SP_INTERRUPT",
     name = "施法-打断引导",
-    object = "Cast",
     params = {
     },
 }
@@ -1895,7 +1887,6 @@ end\
     },
     key = "ET_ABILITY_CST_INTERRUPT",
     name = "施法-打断出手",
-    object = "Cast",
     params = {
     },
 }
@@ -1933,7 +1924,6 @@ end\
     },
     key = "ET_ABILITY_END",
     name = "施法-停止",
-    object = "Cast",
     params = {
     },
 }
@@ -2990,18 +2980,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@class Area
 ---@field event fun(self: Area, event: "区域-进入", callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
 ---@field event fun(self: Area, event: "区域-离开", callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
-
----@class Cast
----@field event fun(self: Cast, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
----@field event fun(self: Cast, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
----@field event fun(self: Cast, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
----@field event fun(self: Cast, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
----@field event fun(self: Cast, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
----@field event fun(self: Cast, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
----@field event fun(self: Cast, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
----@field event fun(self: Cast, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
----@field event fun(self: Cast, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
----@field event fun(self: Cast, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 
 ---@class Destructible
 ---@field event fun(self: Destructible, event: "可破坏物-创建", callback: fun(trg: Trigger, data: EventParam.可破坏物-创建)): Trigger
