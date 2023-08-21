@@ -44,7 +44,7 @@ y3.reload.onBeforeReload(function (reload, willReload)
 end)
 
 y3.game:event('玩家-发送消息', function (trg, data)
-    if not y3.config.debug then
+    if not y3.game.is_debug_mode() then
         return
     end
     if not y3.util.stringStartWith(data.str1, '-') then

@@ -266,7 +266,7 @@
 --
 ---@class py.GameMode: integer
 --
----@class py.StartMode: string
+---@class py.StartMode: integer
 --
 ---@class py.EditableGameFunc: integer
 --
@@ -337,3 +337,5 @@
 ---@class py.CameraRayDirection: integer
 --逻辑物理组件状态
 ---@class py.PhysicsEntityState: integer
+--关卡
+---@class py.Map: integer

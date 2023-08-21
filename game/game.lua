@@ -508,9 +508,23 @@ function M.get_damage_ratio(attack_type, area_type)
 end
 
 ---获取本局游戏环境
----@return string game_mode 游戏环境
+---@return integer game_mode 游戏环境，1是编辑器，2是平台
 function M.get_start_mode()
     return GameAPI.api_get_start_mode()
+end
+
+-- 是否是调试模式
+function M.is_debug_mode()
+    if y3.config.debug == true then
+        return true
+    end
+    if y3.config.debug == false then
+        return false
+    end
+    if y3.config.debug == 'auto' then
+        return M.get_start_mode() == 1
+    end
+    return false
 end
 
 ---获取全局存档

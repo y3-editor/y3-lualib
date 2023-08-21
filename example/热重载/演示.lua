@@ -1,6 +1,3 @@
--- 启用测试指令
-y3.config.debug = true
-
 -- 使用include来加载的文件会被标记为可重载
 include 'y3.example.热重载.重载的脚本'
 
