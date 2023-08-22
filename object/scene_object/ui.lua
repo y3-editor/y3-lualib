@@ -73,22 +73,12 @@ function M:add_event(event, name)
     return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name)
 end
 
-local direction_adaptation = {
-    ["顶部"] = 0,
-    ["底部"] = 1,
-    ["左侧"] = 2,
-    ["右侧"] = 3,
-}
--- 设置控件适配
----@param direction string # 方向
+-- 设置相对父级位置. 目前不建议使用, 引擎层存在 bug, 建议手动计算位置赋值.
+---@param direction y3.Const.UIRelativeParentPosType
 ---@param offset number # 相对父级位置
----@return self
-function M:set_adaptation(direction,offset)
-    if not direction[direction] then
-        error("不存在该方向【"..direction.."】")
-        return self
-    end
-    GameAPI.set_ui_comp_adapt_option(self.player.handle, self.handle, direction_adaptation[direction], offset)
+---@return UI
+function M:set_relative_parent_pos(direction, offset)
+    GameAPI.set_ui_comp_adapt_option(self.player.handle, self.handle, y3.const.UIRelativeParentPosType[direction], offset)
     return self
 end
 
