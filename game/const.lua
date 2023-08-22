@@ -764,4 +764,17 @@ M.HarmTextType = {
     ['dodge'] = 8,
 }
 
+---@alias y3.Const.UIRelativeParentPosType
+---| '顶部'
+---| '底部'
+---| '左侧'
+---| '右侧'
+
+M.UIRelativeParentPosType = {
+    ["顶部"] = 0,
+    ["底部"] = 1,
+    ["左侧"] = 2,
+    ["右侧"] = 3,
+}
+
 return M

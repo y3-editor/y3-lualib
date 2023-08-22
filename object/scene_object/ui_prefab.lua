@@ -30,13 +30,21 @@ end
 ---@param  ui_name string ui实例
 ---@return UIPrefab
 function M.create_ui_prefab_instance(player, prefab_name, ui_name)
-    local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle,prefab_name,ui_name)
-    return M.get_by_handle(player,py_ui_prefab)
+    local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle, prefab_name, ui_name)
+    return M.get_by_handle(player, py_ui_prefab)
 end
 
 --删除界面模块实例
 function M:remove_ui_prefab()
     GameAPI.del_ui_prefab(self.handle)
+end
+
+-- 获取 UIPrefab 的 UI 实例
+---@param  player Player 玩家
+---@return UI
+function M:get_ui(player)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return y3.ui.get_by_handle(player, GameAPI.get_ui_prefab_child_by_path(self.handle, ""))
 end
 
 return M
