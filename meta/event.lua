@@ -6085,7 +6085,7 @@ event.ET_UNIT_END_NAV_EVENT = {
 event.ET_UNIT_BAG_REFRESH = {}
 
 ---@class EventParam.ET_ITEM_STACK_CHANGED
----@field unit Item # 单位
+---@field unit Unit # 单位
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 ---@field delta_cnt integer # 变化值
@@ -6094,9 +6094,9 @@ event.ET_UNIT_BAG_REFRESH = {}
 event.ET_ITEM_STACK_CHANGED = {
     [1] = {
         name = "__unit_id",
-        type = "py.ItemID",
+        type = "py.UnitID",
         lua_name = "unit",
-        lua_type = "Item",
+        lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
     },
@@ -6127,7 +6127,7 @@ event.ET_ITEM_STACK_CHANGED = {
 }
 
 ---@class EventParam.ET_ITEM_CHARGE_CHANGED
----@field unit Item # 单位
+---@field unit Unit # 单位
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 ---@field delta_cnt integer # 变化值
@@ -6136,9 +6136,9 @@ event.ET_ITEM_STACK_CHANGED = {
 event.ET_ITEM_CHARGE_CHANGED = {
     [1] = {
         name = "__unit_id",
-        type = "py.ItemID",
+        type = "py.UnitID",
         lua_name = "unit",
-        lua_type = "Item",
+        lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
     },
