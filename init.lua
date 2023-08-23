@@ -18,8 +18,24 @@ Extends = y3.class.extends
 Delete  = y3.class.delete
 IsValid = y3.class.isValid
 
+require 'y3.tools.log'
 ---@diagnostic disable-next-line: lowercase-global
-log      = require 'y3.tools.log'
+log = New 'Log' {
+    level = 'debug',
+    --path  = 'y3/log/test.log',
+    clock = function ()
+        return GameAPI.get_cur_game_time():float()
+    end,
+    print = function (level, message)
+        if level == 'error' or level == 'fatal' then
+            GameAPI.print_to_dialog(1, message)
+        elseif level == 'warn' then
+            GameAPI.print_to_dialog(2, message)
+        else
+            GameAPI.print_to_dialog(3, message)
+        end
+    end,
+}
 
 y3.reload = require 'y3.tools.reload'
 
@@ -28,8 +44,8 @@ include  = y3.reload.include
 
 require 'y3.tools.linked_table'
 require 'y3.tools.pool'
+require 'y3.tools.gc'
 
-require 'y3.util.gc'
 require 'y3.util.eca_function'
 require 'y3.util.trigger'
 require 'y3.util.event'

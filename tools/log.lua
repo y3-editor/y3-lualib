@@ -1,68 +1,150 @@
 ---@class Log
+---@field private file? file*
+---@field option Log.Option
+---@field logLevel table<Log.Level, integer>
+---@field needTraceBack table<Log.Level, boolean>
+---@field trace fun(...): string, string
+---@field debug fun(...): string, string
+---@field info  fun(...): string, string
+---@field warn  fun(...): string, string
+---@field error fun(...): string, string
+---@field fatal fun(...): string, string
+---@overload fun(option: Log.Option): Log
 local M = Class 'Log'
 
--- TODO 在py的错误处理中无法访问GameAPI的字段，所以需要先把它缓存下来
-local print_to_dialog = GameAPI.print_to_dialog
+-- 设置日志文件的最大大小
+M.maxSize = 100 * 1024 * 1024
+
+M.usedSize = 0
+
+M.level = 'debug'
+
+M.clock = os.clock
+
+M.messageFormat = '[%s][%5s][%s]: %s\n'
+
+---@enum (key) Log.Level
+M.logLevel = {
+    trace = 1,
+    debug = 2,
+    info  = 3,
+    warn  = 4,
+    error = 5,
+    fatal = 6,
+}
+
+M.needTraceBack = {
+    trace = true,
+    error = true,
+    fatal = true,
+}
+
+---@param a  table
+---@param b? table
+---@return table
+local function merge(a, b)
+    local new = {}
+    for k, v in pairs(a) do
+        new[k] = v
+    end
+    if b then
+        for k, v in pairs(b) do
+            new[k] = v
+        end
+    end
+    return new
+end
+
+---@class Log.Option
+---@field maxSize? integer # 日志文件的最大大小
+---@field path? string # 日志文件的路径，与file二选一
+---@field file? file* # 日志文件对象，与path二选一
+---@field print? fun(level: Log.Level, message: string) # 额外的打印回调
+---@field level? Log.Level # 日志等级，低于此等级的日志将不会被记录
+---@field logLevel? table<Log.Level, integer> # 自定义日志等级
+---@field needTraceBack? table<Log.Level, boolean> # 是否需要打印堆栈信息
+---@field clock? fun(): number # 获取当前时间，需要精确到毫秒
+
+---@param option Log.Option
+function M:__init(option)
+    self.maxSize = option.maxSize
+    self.level   = option.level
+    self.clock = option.clock
+    if not option.file then
+        if option.path then
+            self.file = assert(io.open(option.path, 'w+b'))
+            self.file:setvbuf 'no'
+        end
+    end
+    self.option = option
+    self.logLevel = merge(M.logLevel, option.logLevel)
+    self.needTraceBack = merge(M.needTraceBack, option.needTraceBack)
+
+    for level in pairs(self.logLevel) do
+        self[level] = function (...)
+            return self:build(level, ...)
+        end
+    end
+
+    self.startClock = self.clock()
+    self.startTime  = os.time()
+end
+
+---@return string
+function M:getTimeStamp()
+    local deltaClock = self.clock() - self.startClock
+    local sec, ms = math.modf((self.startTime + deltaClock) / 1000.0)
+    local timeStamp = os.date('%m-%d %H:%M:%S', sec) --[[@as string]]
+    timeStamp = ('%s.%03.f'):format(timeStamp, ms * 1000)
+    return timeStamp
+end
 
 ---@private
 ---@param level string
----@param stack boolean
 ---@param ... any
----@return string
-function M.build(level, stack, ...)
+---@return string message
+---@return string timestamp
+function M:build(level, ...)
     local t = table.pack(...)
     for i = 1, t.n do
         t[i] = tostring(t[i])
     end
-    local str = table.concat(t, '\t', 1, t.n)
-    if stack then
-        str = debug.traceback(str, 2)
+    local message = table.concat(t, '\t', 1, t.n)
+
+    if self.needTraceBack[level] then
+        message = debug.traceback(message, 3)
     end
-    str = ('[%s] %s'):format(level, str)
-    if level == 'error' or level == 'fatal' then
-        print_to_dialog(1, str)
-    elseif level == 'warn' then
-        print_to_dialog(2, str)
+
+    local timeStamp = self:getTimeStamp()
+
+    if self.logLevel[level] < self.logLevel[self.level] then
+        return message, timeStamp
+    end
+
+    if self.option.print then
+        pcall(self.option.print, level, message, timeStamp)
+    end
+
+    if not self.file then
+        return message, timeStamp
+    end
+
+    local info = debug.getinfo(3, 'Sl')
+    local sourceStr
+    if info.currentline == -1 then
+        sourceStr = '?'
     else
-        print_to_dialog(3, str)
+        sourceStr = ('%s:%d'):format(info.short_src, info.currentline)
     end
-    return str
-end
+    local fullMessage = self.messageFormat:format(timeStamp, level, sourceStr, message)
+    self.usedSize = self.usedSize + #fullMessage
+    if self.usedSize > self.maxSize then
+        self.file:write('[REACH MAX SIZE]!')
+        self.file:close()
+        self.file = nil
+    else
+        self.file:write(fullMessage)
+    end
 
----@param ... any
----@return string
-function M.info(...)
-    return M.build('info', false, ...)
+    return message, timeStamp
 end
-
----@param ... any
----@return string
-function M.debug(...)
-    return M.build('debug', false, ...)
-end
-
----@param ... any
----@return string
-function M.warn(...)
-    return M.build('warn', false, ...)
-end
-
----@param ... any
----@return string
-function M.error(...)
-    return M.build('error', true, ...)
-end
-
----@param ... any
----@return string
-function M.fatal(...)
-    return M.build('fatal', true, ...)
-end
-
----@param ... any
----@return string
-function M.trace(...)
-    return M.build('trace', true, ...)
-end
-
-return M
