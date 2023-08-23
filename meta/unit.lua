@@ -761,6 +761,12 @@ function Unit:api_get_height() end
 ---@param scale number # 缩放
 function Unit:api_set_scale(scale) end
 
+--设置单位三轴缩放
+---@param scale_x number # x缩放
+---@param scale_y number # y缩放
+---@param scale_z number # z缩放
+function Unit:api_set_unit_scale(scale_x, scale_y, scale_z) end
+
 --获取单位缩放
 ---@return py.Fixed # 获取缩放
 function Unit:api_get_scale() end

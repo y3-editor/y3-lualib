@@ -4,6 +4,232 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--技能类型是否受冷却缩减影响
+---@param ability_id py.AbilityKey # 技能类型
+---@return boolean # 布尔值
+function GameAPI.api_get_influenced_by_cd_reduce(ability_id) end
+
+--技能类型的字符串属性
+---@param ability_id py.AbilityKey # 技能类型
+---@param attr_name py.AbilityStrAttr # 字符串属性
+---@return string # 字符串
+function GameAPI.get_ability_conf_str_attr(ability_id, attr_name) end
+
+--技能类型的布尔属性
+---@param ability_id py.AbilityKey # 技能类型
+---@param attr_name string # 布尔属性
+---@return boolean # 布尔属性
+function GameAPI.get_ability_conf_bool_attr(ability_id, attr_name) end
+
+--技能类型的实数属性
+---@param ability_id py.AbilityKey # 技能类型
+---@param attr_name string # 实数属性
+---@return py.Fixed # 实数
+function GameAPI.get_ability_conf_float_attr(ability_id, attr_name) end
+
+--技能类型的整数属性
+---@param ability_id py.AbilityKey # 技能类型
+---@param attr_name string # 整数属性
+---@return integer # 实数
+function GameAPI.get_ability_conf_int_attr(ability_id, attr_name) end
+
+--技能类型的公式属性
+---@param ability_id py.AbilityKey # 技能类型
+---@param attr_name string # 公式属性
+---@param level integer # 当前等级
+---@param stack_count integer # 当前充能层数
+---@param unit_hp_max? py.Fixed # 施法者最大生命值
+---@param unit_hp_cur? py.Fixed # 施法者当前生命值
+---@return py.Fixed # 实数
+function GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, stack_count, unit_hp_max, unit_hp_cur) end
+
+--技能类型的公式属性
+---@param ability_id py.AbilityKey # 技能类型
+---@param attr_name string # 公式属性
+---@param level integer # 当前等级
+---@param stack_count integer # 当前充能层数
+---@param unit? py.Unit # 施法计算单位
+---@param return_cm? boolean # 是否返回cm
+---@return py.Fixed # 实数
+function GameAPI.get_ability_conf_formula_attr_with_unit(ability_id, attr_name, level, stack_count, unit, return_cm) end
+
+--技能选取的目标单位
+---@param ability py.Ability # 技能
+---@param runtime_id? integer # runtime_id
+---@return py.Unit # 单位
+function GameAPI.get_target_unit_in_ability(ability, runtime_id) end
+
+--技能选取的目标物品
+---@param ability py.Ability # 技能
+---@param runtime_id? integer # runtime_id
+---@return py.Item # 物品
+function GameAPI.get_target_item_in_ability(ability, runtime_id) end
+
+--技能选取的目标可破坏物
+---@param ability py.Ability # 技能
+---@param runtime_id? integer # runtime_id
+---@return py.Destructible # 可破坏物
+function GameAPI.get_target_dest_in_ability(ability, runtime_id) end
+
+--筛选范围内单位(废弃)
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 形状
+---@return py.UnitGroup # 单位组
+function GameAPI.filter_unit_id_list_in_area(pos, shape) end
+
+--筛选范围内单位
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 形状
+---@param belong_role_group? py.Role # 属于玩家或玩家组
+---@param visible_role? py.Role # 对玩家可见
+---@param invisible_role? py.Role # 对玩家不可见
+---@param exclude_unit_group? py.UnitGroup # 不在单位组内
+---@param with_tag? string # 具有标签
+---@param without_tag? string # 不具有标签
+---@param entity_no? py.UnitKey # 单位名称
+---@param exclude_unit? py.Unit # 排除单位
+---@param unit_type? py.UnitType # 单位种类
+---@param in_state? integer # 具有状态
+---@param not_in_state? integer # 不具有状态
+---@param include_dead? boolean # 是否包括死亡单位
+---@param max_count? integer # 数量上限
+---@param sort_type? py.SortType # 排序类型
+---@return py.UnitGroup # 单位组
+function GameAPI.filter_unit_id_list_in_area_v2(pos, shape, belong_role_group, visible_role, invisible_role, exclude_unit_group, with_tag, without_tag, entity_no, exclude_unit, unit_type, in_state, not_in_state, include_dead, max_count, sort_type) end
+
+--筛选范围内投射物
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 形状
+---@param sort_type? py.SortType # 排序类型
+---@return py.ProjectileGroup # 投射物组
+function GameAPI.filter_projectile_id_list_in_area(pos, shape, sort_type) end
+
+--筛选带有tag的投射物
+---@param tag string # tag
+---@return py.ProjectileGroup # 投射物组
+function GameAPI.get_all_projectiles_with_tag(tag) end
+
+--按阵营编号获取阵营对象
+---@param camp_id py.CampID # 阵营编号
+---@return py.Camp # 阵营对象
+function GameAPI.get_camp_by_camp_id(camp_id) end
+
+--按玩家编号获取阵营编号
+---@param role_id py.RoleID # 玩家编号
+---@return py.Camp # 阵营编号
+function GameAPI.get_camp_id_by_role_id(role_id) end
+
+--按玩家编号获取玩家对象
+---@param role_id py.RoleID # 玩家编号
+---@return py.Role # 玩家
+function GameAPI.get_role_by_role_id(role_id) end
+
+--按整型获取玩家对象
+---@param role_id integer # 玩家编号
+---@return py.Role # 玩家
+function GameAPI.get_role_by_int(role_id) end
+
+--获取阵营存活单位数量
+---@param camp_id py.CampID # 阵营编号
+---@return integer # 单位数量
+function GameAPI.get_alive_unit_num_by_camp_id(camp_id) end
+
+--所有玩家
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_all_role_ids() end
+
+--阵营所有玩家
+---@param camp py.Camp # 阵营对象
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_role_ids_by_camp(camp) end
+
+--特定类型玩家
+---@param role_type integer # 玩家类型
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_role_ids_by_type(role_type) end
+
+--同盟玩家
+---@param role py.Role # 玩家
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_ally_ids_by_role(role) end
+
+--获取某玩家敌对玩家组
+---@param role py.Role # 玩家
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_enemy_ids_by_role(role) end
+
+--获取获胜玩家组
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_victorious_role_ids() end
+
+--获取失利玩家组
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_defeated_role_ids() end
+
+--三维属性是否开启
+---@return boolean # 是否开启
+function GameAPI.api_if_pri_attr_state_open() end
+
+--判断单位敌对关系
+---@param unit1 py.Unit # 单位
+---@param unit2 py.Unit # 单位
+---@return boolean # 是否敌对
+function GameAPI.is_enemy(unit1, unit2) end
+
+--判断单位友军关系
+---@param unit1 py.Unit # 单位
+---@param unit2 py.Unit # 单位
+---@return boolean # 是否友军
+function GameAPI.is_ally(unit1, unit2) end
+
+--玩家或单位是否拥有单位的可见性
+---@param role_or_unit py.Role # 玩家
+---@param unit py.Unit # 单位
+---@return boolean # 是否可见
+function GameAPI.get_visibility_of_unit(role_or_unit, unit) end
+
+--玩家是否加入游戏
+---@param role py.Role # 玩家
+---@return boolean # 玩家是否加入游戏
+function GameAPI.role_in_game(role) end
+
+--玩家是否拥有收费道具
+---@param role py.Role # 玩家
+---@param no py.StoreKey # 收费道具key
+---@return boolean # 玩家是否拥有收费道具
+function GameAPI.role_has_store_item(role, no) end
+
+--玩家下载存档是否回调
+---@param role py.Role # 玩家
+---@return boolean # 玩家下载存档是否回调
+function GameAPI.has_download_save_data_callback(role) end
+
+--获取最近创建的物品
+---@return py.Item # 物品对象
+function GameAPI.get_last_created_item() end
+
+--创建物品
+---@param position py.FVector3 # 位置
+---@param num integer # 数量
+---@param eid py.ItemKey # 物品编号
+---@param player py.Role # 所属玩家
+function GameAPI.create_items(position, num, eid, player) end
+
+--根据id获取物品
+---@param id py.ItemID # 物品ID
+---@return py.Item # 物品
+function GameAPI.get_item(id) end
+
+--根据物品id获取物品
+---@param item_unit_id integer # unit_id
+---@return py.Item # 物品
+function GameAPI.get_item_by_unit_id(item_unit_id) end
+
+--获取物品配置名称
+---@param key py.ItemKey # item_id
+---@return string # 物品名称
+function GameAPI.get_item_conf_name(key) end
+
 --创建单个物品
 ---@param position py.FVector3 # 位置
 ---@param item_key py.ItemKey # 物品编号
