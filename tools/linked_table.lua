@@ -11,7 +11,7 @@ local HEAD = {'<HEAD>'}
 local TAIL = {'<TAIL>'}
 
 ---@return self
-function M:constructor()
+function M:__init()
     self:reset()
     return self
 end

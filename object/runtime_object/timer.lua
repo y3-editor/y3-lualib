@@ -17,7 +17,7 @@ M.all_timers = setmetatable({}, y3.util.MODE_V)
 ---@param py_timer py.Timer
 ---@param on_timer Timer.OnTimer
 ---@return self
-function M:constructor(py_timer, on_timer)
+function M:__init(py_timer, on_timer)
     self.handle = py_timer
     self.on_timer = on_timer
     self.id = self.id_counter()
@@ -25,7 +25,7 @@ function M:constructor(py_timer, on_timer)
     return self
 end
 
-function M:destructor()
+function M:__del()
     GameAPI.delete_timer(self.handle)
     M.all_timers[self.id] = nil
 end

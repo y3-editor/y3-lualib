@@ -10,12 +10,12 @@ Extends('Mover', 'GCHost')
 
 ---@param handle py.Mover
 ---@return Mover
-function M:constructor(handle)
+function M:__init(handle)
     self.handle = handle
     return self
 end
 
-function M:destructor()
+function M:__del()
     GameAPI.remove_mover(self.handle)
 end
 

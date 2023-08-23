@@ -13,7 +13,7 @@ local M = Class 'Trigger'
 ---@param event_args? any[]
 ---@param callback Trigger.CallBack
 ---@return self
-function M:constructor(event, event_args, callback)
+function M:__init(event, event_args, callback)
     self._event = event
     self._callback = callback
     self._id = counter()
@@ -22,7 +22,7 @@ function M:constructor(event, event_args, callback)
     return self
 end
 
-function M:destructor()
+function M:__del()
     self._event:remove_trigger(self)
 end
 

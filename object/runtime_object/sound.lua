@@ -3,7 +3,7 @@
 local M = Class 'Sound'
 
 ---@param py_sound py.SoundEntity
-function M:constructor(py_sound)
+function M:__init(py_sound)
     self.handle = py_sound
 end
 

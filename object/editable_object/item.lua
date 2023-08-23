@@ -18,13 +18,13 @@ Extends('Item', 'ObjectEvent')
 ---@param id py.ItemID
 ---@param py_item py.Item # py层的道具实例
 ---@return Item # 返回在lua层初始化后的lua层道具实例
-function M:constructor(id, py_item)
+function M:__init(id, py_item)
     self.id     = id
     self.handle = py_item
     return self
 end
 
-function M:destructor()
+function M:__del()
     self.handle:api_remove()
 end
 

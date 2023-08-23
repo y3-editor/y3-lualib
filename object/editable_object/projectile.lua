@@ -13,13 +13,13 @@ Extends('Projectile', 'ObjectEvent')
 ---@param id integer
 ---@param py_projectile py.ProjectileEntity
 ---@return self
-function M:constructor(id, py_projectile)
+function M:__init(id, py_projectile)
     self.handle = py_projectile
     self.id     = id
     return self
 end
 
-function M:destructor()
+function M:__del()
     self.handle:api_delete()
 end
 

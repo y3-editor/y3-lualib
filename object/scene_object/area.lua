@@ -13,13 +13,13 @@ M.type = 'area'
 ---@param py_area py.Area
 ---@param shape Area.Shape
 ---@return self
-function M:constructor(py_area, shape)
+function M:__init(py_area, shape)
     self.handle = py_area
     self.shape  = shape
     return self
 end
 
-function M:destructor()
+function M:__del()
     GameAPI.remove_area(self.handle)
 end
 

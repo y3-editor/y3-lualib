@@ -14,12 +14,12 @@ end
 
 ---@param sfx py.Sfx
 ---@return self
-function M:constructor(sfx)
+function M:__init(sfx)
     self.handle = sfx
     return self
 end
 
-function M:destructor()
+function M:__del()
     GameAPI.delete_sfx(self.handle)
 end
 

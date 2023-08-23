@@ -54,7 +54,7 @@ end
 
 ---@param name string
 ---@return self
-function M:constructor(name)
+function M:__init(name)
     self.call_name  = name
     self.params     = {}
     self.returns    = {}

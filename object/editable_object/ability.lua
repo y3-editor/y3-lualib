@@ -19,12 +19,12 @@ M.map = {}
 
 ---@param py_ability py.Ability
 ---@return self
-function M:constructor(py_ability)
+function M:__init(py_ability)
     self.handle = py_ability
     return self
 end
 
-function M:destructor()
+function M:__del()
     self.handle:api_remove()
 end
 

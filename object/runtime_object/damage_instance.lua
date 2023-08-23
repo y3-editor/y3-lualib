@@ -4,7 +4,7 @@ local M = Class 'DamageInstance'
 
 ---@param data EventParam.单位-受到伤害后
 ---@param mode '伤害前' | '伤害时' | '伤害后'
-function M:constructor(data, mode)
+function M:__init(data, mode)
     ---@private
     self.data = data
     ---@private

@@ -7,7 +7,7 @@ M.type = 'camera'
 
 ---@param py_camera integer
 ---@return self
-function M:constructor(py_camera)
+function M:__init(py_camera)
     self.handle = py_camera
     return self
 end

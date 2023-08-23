@@ -23,7 +23,7 @@ M.allowWeakRef = false
 ---@generic T: string
 ---@param className `T`
 ---@param new fun(key: Ref.ValidKeyType, ...): T
-function M:constructor(className, new)
+function M:__init(className, new)
     -- 用于管理的对象类名
     ---@private
     self.className = className

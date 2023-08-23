@@ -8,7 +8,7 @@ M.type = 'light'
 
 ---@param py_light py.Light
 ---@return self
-function M:constructor(py_light)
+function M:__init(py_light)
     self.handle = py_light
     return self
 end

@@ -7,7 +7,7 @@ M.type = 'projectile_group'
 
 ---@param py_projectile_group py.ProjectileGroup
 ---@return self
-function M:constructor(py_projectile_group)
+function M:__init(py_projectile_group)
     self.handle = py_projectile_group
     return self
 end

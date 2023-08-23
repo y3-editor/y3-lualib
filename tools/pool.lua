@@ -3,7 +3,7 @@
 ---@overload fun(): self
 local M = Class 'Pool'
 
-function M:constructor()
+function M:__init()
     self.pool = {}
     return self
 end

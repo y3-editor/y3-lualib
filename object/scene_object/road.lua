@@ -9,7 +9,7 @@ M.map = {}
 
 ---@param py_road py.Road
 ---@return self
-function M:constructor(py_road)
+function M:__init(py_road)
     self.handle = py_road
     return self
 end

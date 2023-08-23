@@ -2,7 +2,7 @@
 ---@field private _gccontainer GC
 local GCHost = Class 'GCHost'
 
-function GCHost:destructor()
+function GCHost:__del()
     if not self._gccontainer then
         return
     end
@@ -35,12 +35,12 @@ local GC = Class 'GC'
 GC.max = 10
 
 ---@return self
-function GC:constructor()
+function GC:__init()
     self.objects = {}
     return self
 end
 
-function GC:destructor()
+function GC:__del()
     for _, obj in ipairs(self.objects) do
         Delete(obj)
     end

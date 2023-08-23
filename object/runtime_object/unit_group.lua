@@ -6,7 +6,7 @@ local M = Class 'UnitGroup'
 
 ---@param py_unit_group py.UnitGroup
 ---@return self
-function M:constructor(py_unit_group)
+function M:__init(py_unit_group)
     self.handle = py_unit_group
     return self
 end

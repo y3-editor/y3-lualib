@@ -9,14 +9,14 @@ M.type = 'ui'
 ---@param player Player
 ---@param handle string
 ---@return self
-function M:constructor(player, handle)
+function M:__init(player, handle)
     self.player = player
     self.handle = handle
     self.name   = GameAPI.get_ui_comp_name(player.handle, handle)
     return self
 end
 
-function M:destructor()
+function M:__del()
     GameAPI.del_ui_comp(self.player.handle, self.handle)
 end
 

@@ -13,13 +13,13 @@ Extends('Destructible', 'ObjectEvent')
 
 ---@param py_destructible py.Destructible
 ---@return self
-function M:constructor(py_destructible)
+function M:__init(py_destructible)
     self.handle = py_destructible
     self.id     = py_destructible:api_get_id()
     return self
 end
 
-function M:destructor()
+function M:__del()
     self.handle:api_delete()
 end
 

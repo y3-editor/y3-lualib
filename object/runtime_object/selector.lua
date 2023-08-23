@@ -3,7 +3,7 @@
 local M = Class 'Selector'
 
 ---@return self
-function M:constructor()
+function M:__init()
     return self
 end
 

@@ -10,7 +10,7 @@ M.fire_lock = 0
 
 ---@param object table
 ---@return self
-function M:constructor(object)
+function M:__init(object)
     self.object = object
     self.event_map = {}
     return self

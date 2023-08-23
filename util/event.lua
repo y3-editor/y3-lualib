@@ -13,7 +13,7 @@ M.fire_lock = 0
 
 ---@param event_name Event.Name
 ---@return self
-function M:constructor(event_name)
+function M:__init(event_name)
     self.event_name = event_name
     self.triggers = New 'LinkedTable' ()
     self.wait_pushing = {}

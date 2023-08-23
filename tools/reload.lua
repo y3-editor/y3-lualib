@@ -33,7 +33,7 @@ M.afterReloadCallbacks = {}
 M.defaultReloadOptional = nil
 
 ---@param optional? Reload.Optional
-function M:constructor(optional)
+function M:__init(optional)
     self.optional = optional
 
     ---@private

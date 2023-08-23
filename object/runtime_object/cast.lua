@@ -7,7 +7,7 @@ local M = Class 'Cast'
 ---@param ability Ability
 ---@param cast_id integer
 ---@return self
-function M:constructor(ability, cast_id)
+function M:__init(ability, cast_id)
     self.ability = ability
     self.cast_id = cast_id
     return self

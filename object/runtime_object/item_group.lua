@@ -6,7 +6,7 @@ M.type = 'item_group'
 
 ---@param py_item_group py.ItemGroup
 ---@return self
-function M:constructor(py_item_group)
+function M:__init(py_item_group)
     self.handle = py_item_group
     return self
 end

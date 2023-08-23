@@ -18,7 +18,7 @@ function M.declare(name, super)
     class.__name  = name
 
     function class:__call(...)
-        M.runConstructor(self, name, ...)
+        M.runInit(self, name, ...)
         return self
     end
 
@@ -26,10 +26,10 @@ function M.declare(name, super)
 
     local mt = {
         __call = function (self, ...)
-            if not self.alloc then
+            if not self.__alloc then
                 return self
             end
-            return self:alloc(...)
+            return self:__alloc(...)
         end,
     }
     setmetatable(class, mt)
@@ -78,7 +78,7 @@ function M.delete(obj)
     local name = obj.__class__
     assert(name, 'can not delete undeclared class')
 
-    M.runDesctructor(obj, name)
+    M.runDel(obj, name)
 end
 
 -- 获取类的名称
@@ -131,10 +131,7 @@ function M.extends(name, extendsName, init)
     assert(extends, ('class %q not found'):format(extendsName))
     assert(type(init) == 'nil' or type(init) == 'function', ('init must be nil or function'))
     for k, v in pairs(extends) do
-        if not k:match '^__'
-        and k ~= 'constructor'
-        and k ~= 'destructor'
-        and k ~= 'alloc' then
+        if not k:match '^__' then
             assert(class[k] == nil, ('"%s.%s" is already defined'):format(name, k))
             class[k] = v
         end
@@ -148,10 +145,10 @@ function M.extends(name, extendsName, init)
     })
     -- 检查是否需要显性初始化
     if not init then
-        if not extends.constructor then
+        if not extends.__init then
             return
         end
-        local info = debug.getinfo(extends.constructor, 'u')
+        local info = debug.getinfo(extends.__init, 'u')
         if info.nparams <= 1 then
             return
         end
@@ -163,38 +160,38 @@ end
 ---@param obj table
 ---@param name string
 ---@param ... any
-function M.runConstructor(obj, name, ...)
+function M.runInit(obj, name, ...)
     local class = M._classes[name]
     local extendsCalls = M._extendsCalls[name]
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
             if call.init then
                 call.init(obj, function (...)
-                    M.runConstructor(obj, call.name, ...)
+                    M.runInit(obj, call.name, ...)
                 end)
             else
-                M.runConstructor(obj, call.name)
+                M.runInit(obj, call.name)
             end
         end
     end
-    if class.constructor then
-        class.constructor(obj, ...)
+    if class.__init then
+        class.__init(obj, ...)
     end
 end
 
 ---@private
 ---@param obj table
 ---@param name string
-function M.runDesctructor(obj, name)
+function M.runDel(obj, name)
     local class = M._classes[name]
     local extendsCalls = M._extendsCalls[name]
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
-            M.runDesctructor(obj, call.name)
+            M.runDel(obj, call.name)
         end
     end
-    if class.destructor then
-        class.destructor(obj)
+    if class.__del then
+        class.__del(obj)
     end
 end
 

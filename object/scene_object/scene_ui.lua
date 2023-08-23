@@ -8,7 +8,7 @@ M.type = 'scene_ui'
 
 ---@param py_scene_node py.SceneNode
 ---@return self
-function M:constructor(py_scene_node)
+function M:__init(py_scene_node)
     self.handle = py_scene_node
     return self
 end

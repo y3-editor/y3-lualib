@@ -6,12 +6,12 @@ M.type = 'beam'
 
 ---@param py_beam py.LinkSfx
 ---@return self
-function M:constructor(py_beam)
+function M:__init(py_beam)
     self.handle = py_beam
     return self
 end
 
-function M:destructor()
+function M:__del()
     GameAPI.remove_link_sfx(self.handle)
 end
 

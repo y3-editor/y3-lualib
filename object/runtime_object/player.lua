@@ -27,7 +27,7 @@ end)
 
 ---@param py_player py.Role
 ---@return self
-function M:constructor(py_player)
+function M:__init(py_player)
     self.handle = py_player
     self.id     = py_player:get_role_id_num()
     return self
@@ -42,7 +42,7 @@ end
 ---转换玩家ID为玩家
 ---@param id integer 玩家ID
 ---@return Player player 玩家
-function M:alloc(id)
+function M:__alloc(id)
     return M.get_by_id(id)
 end
 

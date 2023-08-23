@@ -24,13 +24,13 @@ end
 ---@param id integer
 ---@param py_modifier py.ModifierEntity
 ---@return Buff
-function M:constructor(id, py_modifier)
+function M:__init(id, py_modifier)
     self.id     = id
     self.handle = py_modifier
     return self
 end
 
-function M:destructor()
+function M:__del()
     self.handle:api_remove()
 end
 

@@ -7,7 +7,7 @@ M.type = 'shape'
 
 ---@param py_shape py.Shape
 ---@return self
-function M:constructor(py_shape)
+function M:__init(py_shape)
     self.handle = py_shape
     return self
 end

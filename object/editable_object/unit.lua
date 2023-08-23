@@ -25,13 +25,13 @@ end
 ---@param py_unit_id py.UnitID
 ---@param py_unit py.Unit
 ---@return self
-function M:constructor(py_unit_id, py_unit)
+function M:__init(py_unit_id, py_unit)
     self.handle = py_unit
     self.id     = py_unit_id
     return self
 end
 
-function M:destructor()
+function M:__del()
     self.handle:api_delete()
 end
 

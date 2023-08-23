@@ -14,7 +14,7 @@ end
 
 ---@param py_player_group py.RoleGroup
 ---@return self
-function M:constructor(py_player_group)
+function M:__init(py_player_group)
     self.handle = py_player_group
     return self
 end

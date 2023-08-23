@@ -9,7 +9,7 @@ M.type = 'ui_prefab'
 ---@param player Player
 ---@param ui_name string
 ---@return self
-function M:constructor(player, ui_name)
+function M:__init(player, ui_name)
     self.handle = ui_name
     self.player = player
     return self

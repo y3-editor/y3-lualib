@@ -19,7 +19,7 @@ end
 
 ---@param py_point Point.HandleType
 ---@return self
-function M:constructor(py_point)
+function M:__init(py_point)
     self.handle = py_point
     return self
 end
@@ -29,7 +29,7 @@ end
 ---@param y number
 ---@param z? number
 ---@return Point
-function M:alloc(x, y, z)
+function M:__alloc(x, y, z)
     return M.create(x, y, z)
 end
 
