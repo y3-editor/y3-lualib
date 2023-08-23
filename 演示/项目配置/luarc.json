@@ -1,0 +1,29 @@
+{
+    "diagnostics.globals": [
+        "gameapi",
+        "globalapi"
+    ],
+    "workspace.preloadFileSize": 5000,
+    "runtime.pathStrict": true,
+    "runtime.special": {
+        "include": "require"
+    },
+    "hover.expandAlias": false,
+    "doc.privateName": ["__*"],
+    "diagnostics.groupFileStatus": {
+        "ambiguity": "Any",
+        "await": "Any",
+        "duplicate": "Any",
+        "global": "Any",
+        "luadoc": "Any",
+        "redefined": "Any",
+        "strict": "Any",
+        "type-check": "Any",
+        "unbalanced": "Any",
+        "unused": "Any"
+    },
+    "type.weakNilCheck": false,
+    "type.weakUnionCheck": false,
+    "type.castNumberToInteger": false,
+    "runtime.unicodeName": true
+}
