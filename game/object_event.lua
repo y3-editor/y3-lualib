@@ -70,7 +70,11 @@ local function event_notify(event_name, extra_args, lua_params)
             ---@type EventManager?
             local event_manager = obj.object_event_manager
             if event_manager then
-                event_manager:dispatch(event_name, extra_args, lua_params)
+                if config.dispatch then
+                    event_manager:dispatch(event_name, extra_args, lua_params)
+                else
+                    event_manager:notify(event_name, extra_args, lua_params)
+                end
             end
             break
         end

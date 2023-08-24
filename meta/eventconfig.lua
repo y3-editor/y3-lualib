@@ -863,6 +863,7 @@ M.config["单位-属性变化"] = {
 M.config["单位-即将死亡"] = {
     __class__ = "EventConfigBuilder",
     desc = "单位死亡前触发",
+    dispatch = true,
     extraArgs = {
     },
     key = "ET_BEFORE_UNIT_DIE",
@@ -915,6 +916,7 @@ M.config["未知-ET_UNIT_ON_BIND_ROLE"] = {
 M.config["单位-受到伤害前"] = {
     __class__ = "EventConfigBuilder",
     desc = "在其他计算前触发，可以修改闪避",
+    dispatch = true,
     extraArgs = {
         [1] = {
             code = "function (data)\
@@ -938,6 +940,7 @@ end\
 M.config["单位-造成伤害前"] = {
     __class__ = "EventConfigBuilder",
     desc = "在其他计算前触发，可以修改闪避",
+    dispatch = true,
     extraArgs = {
         [1] = {
             code = "function (data)\
@@ -961,6 +964,7 @@ end\
 M.config["单位-受到伤害时"] = {
     __class__ = "EventConfigBuilder",
     desc = "可以修改伤害值",
+    dispatch = true,
     extraArgs = {
         [1] = {
             code = "function (data)\
@@ -984,6 +988,7 @@ end\
 M.config["单位-造成伤害时"] = {
     __class__ = "EventConfigBuilder",
     desc = "可以修改伤害值",
+    dispatch = true,
     extraArgs = {
         [1] = {
             code = "function (data)\
@@ -1053,6 +1058,7 @@ end\
 M.config["单位-受到治疗前"] = {
     __class__ = "EventConfigBuilder",
     desc = "可在其他计算前触发，可以修改有效性",
+    dispatch = true,
     extraArgs = {
     },
     key = "ET_UNIT_GET_CURE_BEFORE_APPLY",
@@ -1079,6 +1085,7 @@ M.config["单位-受到治疗后"] = {
 M.config["单位-受到治疗时"] = {
     __class__ = "EventConfigBuilder",
     desc = "可以修改治疗值",
+    dispatch = true,
     extraArgs = {
     },
     key = "ET_UNIT_GET_CURE",
@@ -1183,6 +1190,7 @@ M.config["未知-ET_UNIT_EXP_CHANGE"] = {
 M.config["单位-获得经验前"] = {
     __class__ = "EventConfigBuilder",
     desc = "单位获得经验前触发",
+    dispatch = true,
     extraArgs = {
     },
     key = "ET_UNIT_PRE_ADD_EXP",
@@ -1640,6 +1648,7 @@ M.config["技能-升级"] = {
 M.config["施法-即将开始"] = {
     __class__ = "EventConfigBuilder",
     desc = "即将施法时触发",
+    dispatch = true,
     extraArgs = {
         [1] = {
             code = "function (data)\
@@ -2070,6 +2079,7 @@ M.config["效果-层数变化"] = {
 M.config["效果-即将获得"] = {
     __class__ = "EventConfigBuilder",
     desc = "魔法效果获得前触发",
+    dispatch = true,
     extraArgs = {
     },
     key = "ET_MODIFIER_GET_BEFORE_CREATE",
@@ -2082,6 +2092,7 @@ M.config["效果-即将获得"] = {
 M.config["效果-覆盖"] = {
     __class__ = "EventConfigBuilder",
     desc = "魔法效果覆盖时触发",
+    dispatch = true,
     extraArgs = {
     },
     key = "ET_MODIFIER_BE_COVERED",
