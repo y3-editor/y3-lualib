@@ -620,13 +620,13 @@ end
 
 --创建悬浮文字
 ---@param point Point 点
----@param harm_type integer 跳字类型
+---@param text_type y3.Const.HarmTextType 跳字类型
 ---@param str string 文字
 ---@param player_group PlayerGroup 玩家组
-function M.create_floating_text(point, harm_type, str, player_group)
+function M.create_floating_text(point, text_type, str, player_group)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    GameAPI.create_harm_text(point.handle, harm_type, str, player_group.handle)
+    GameAPI.create_harm_text(point.handle, y3.const.HarmTextType[text_type] or text_type, str, player_group.handle)
 end
 
 --设置窗口
