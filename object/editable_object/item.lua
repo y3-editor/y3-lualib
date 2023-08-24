@@ -364,6 +364,9 @@ end
 ---获取物品在单位身上的格子位置
 ---@return integer index 格子位置
 function M:get_slot()
+    if not self.handle:api_get_owner() then
+        return 0
+    end
     return self.handle:api_get_item_slot_idx()
 end
 
@@ -377,6 +380,9 @@ end
 ---获取物品在单位身上的背包槽类型
 ---@return py.SlotType 背包槽类型
 function M:get_slot_type()
+    if not self.handle:api_get_owner() then
+        return 0
+    end
     return self.handle:api_get_item_slot_type()
 end
 
