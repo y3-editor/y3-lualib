@@ -72,8 +72,29 @@ function M:__init(option)
     self.clock = option.clock
     if not option.file then
         if option.path then
-            self.file = assert(io.open(option.path, 'w+b'))
-            self.file:setvbuf 'no'
+            local suc, res1, res2 = pcall(io.open, option.path, 'w+b')
+            if suc then
+                local file, err = res1, res2
+                if file then
+                    self.file = file
+                    self.file:setvbuf 'no'
+                elseif err then
+                    warn(err)
+                    if option.print then
+                        pcall(option.print, 'warn', err)
+                    end
+                end
+            else
+                ---@diagnostic disable-next-line
+                ---@cast res1 string
+                local err = res1
+                if err then
+                    warn(err)
+                    if option.print then
+                        pcall(option.print, 'warn', err)
+                    end
+                end
+            end
         end
     end
     self.option = option

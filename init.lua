@@ -22,7 +22,7 @@ require 'y3.tools.log'
 ---@diagnostic disable-next-line: lowercase-global
 log = New 'Log' {
     level = 'debug',
-    --path  = 'y3/log/test.log',
+    path  = 'y3/log/test.log',
     clock = function ()
         return GameAPI.get_cur_game_time():float()
     end,
