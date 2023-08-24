@@ -69,6 +69,9 @@ y3.py_converter.register_lua_to_py('py.Role', function (lua_value)
     return lua_value.handle
 end)
 
+-- 本地玩家，注意这可能会导致不同步！
+M.LOCAL_PLAYER = M.get_by_handle(GameAPI.get_client_role())
+
 function M:get_camp()
     return self.handle:api_get_camp()
 end
@@ -552,6 +555,12 @@ end
 ---@param time number 过渡时间
 function M:set_vignetting_color(red, green, blue, time)
     self.handle:set_role_vignetting_color(red, green, blue, time)
+end
+
+-- 获取本地玩家，注意这可能会导致不同步！
+---@return Player
+function M.get_local()
+    return M.LOCAL_PLAYER
 end
 
 return M

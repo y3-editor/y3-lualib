@@ -1,8 +1,8 @@
 ---@class Log
 ---@field private file? file*
----@field option Log.Option
----@field logLevel table<Log.Level, integer>
----@field needTraceBack table<Log.Level, boolean>
+---@field private option Log.Option
+---@field private logLevel table<Log.Level, integer>
+---@field private needTraceBack table<Log.Level, boolean>
 ---@field trace fun(...): string, string
 ---@field debug fun(...): string, string
 ---@field info  fun(...): string, string
@@ -15,12 +15,16 @@ local M = Class 'Log'
 -- 设置日志文件的最大大小
 M.maxSize = 100 * 1024 * 1024
 
+---@private
 M.usedSize = 0
 
+---@type Log.Level
 M.level = 'debug'
 
+---@private
 M.clock = os.clock
 
+---@private
 M.messageFormat = '[%s][%5s][%s]: %s\n'
 
 ---@enum (key) Log.Level
@@ -97,8 +101,11 @@ function M:__init(option)
             end
         end
     end
+    ---@private
     self.option = option
+    ---@private
     self.logLevel = merge(M.logLevel, option.logLevel)
+    ---@private
     self.needTraceBack = merge(M.needTraceBack, option.needTraceBack)
 
     for level in pairs(self.logLevel) do
@@ -106,11 +113,13 @@ function M:__init(option)
             return self:build(level, ...)
         end
     end
-
+    ---@private
     self.startClock = self.clock()
+    ---@private
     self.startTime  = os.time()
 end
 
+---@private
 ---@return string
 function M:getTimeStamp()
     local deltaClock = self.clock() - self.startClock

@@ -38,4 +38,22 @@ M.sync = y3.proxy.new({
 ---@type boolean|'auto'
 M.debug = 'auto'
 
+---@class Config.Log
+---@field level Log.Level # 日志等级，默认为 `debug`
+---@field toDialog boolean # 是否打印到Dialog窗口，默认为 `true`
+---@field toGame boolean # 是否打印到游戏窗口中，默认为 `false`
+-- 日志相关的配置
+M.log = y3.proxy.new({
+    level    = 'debug',
+    toDialog = true,
+    toGmae   = false,
+}, {
+    updateRaw = true,
+    setter = {
+        level = function (self, raw, key, value, config)
+            log.level = value
+        end,
+    }
+})
+
 return M

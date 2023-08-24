@@ -19,6 +19,7 @@ Delete  = y3.class.delete
 IsValid = y3.class.isValid
 
 require 'y3.tools.log'
+local log_cache = {}
 ---@diagnostic disable-next-line: lowercase-global
 log = New 'Log' {
     level = 'debug',
@@ -27,12 +28,21 @@ log = New 'Log' {
         return GameAPI.get_cur_game_time():float()
     end,
     print = function (level, message)
-        if level == 'error' or level == 'fatal' then
-            GameAPI.print_to_dialog(1, message)
-        elseif level == 'warn' then
-            GameAPI.print_to_dialog(2, message)
-        else
-            GameAPI.print_to_dialog(3, message)
+        if y3.config.log.toDialog then
+            if level == 'error' or level == 'fatal' then
+                GameAPI.print_to_dialog(1, message)
+            elseif level == 'warn' then
+                GameAPI.print_to_dialog(2, message)
+            else
+                GameAPI.print_to_dialog(3, message)
+            end
+        end
+        if y3.config.log.toGame then
+            log_cache[#log_cache+1] = message
+            if #log_cache > 10 then
+                table.remove(log_cache, 1)
+            end
+            y3.ui.display_message(y3.player.LOCAL_PLAYER, table.concat(log_cache, '\n'), 60)
         end
     end,
 }
