@@ -403,10 +403,10 @@ end
 ---创建单位
 ---@param unit_id py.UnitKey 单位类型
 ---@param point Point 单位
----@param direction number 单位
+---@param facing number 朝向
 ---@return Unit
-function M:create_unit(unit_id, point, direction)
-    local unit = y3.unit.create_unit(self, unit_id, point, direction)
+function M:create_unit(unit_id, point, facing)
+    local unit = y3.unit.create_unit(self, unit_id, point, facing)
     return unit
 end
 

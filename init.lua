@@ -115,5 +115,7 @@ y3.ui           = require 'y3.object.scene_object.ui'
 y3.ui_prefab    = require 'y3.object.scene_object.ui_prefab'
 y3.shape        = require 'y3.object.scene_object.shape'
 
+y3.object       = require 'y3.util.object'
+
 y3.develop = {}
 y3.develop.command = require 'y3.develop.command'
