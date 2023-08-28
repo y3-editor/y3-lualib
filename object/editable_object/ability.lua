@@ -45,6 +45,10 @@ y3.game:event('技能-失去', function (trg, data)
     data.ability:remove()
 end)
 
+function M:get_key()
+    return self.handle:api_get_ability_id()
+end
+
 ---是否受冷却缩减影响
 ---@return boolean is_influenced 是否受冷却缩减影响
 function M:is_cd_reduce()
@@ -285,12 +289,6 @@ end
 ---@return y3.Const.AbilityType type 技能种类
 function M:get_type()
     return self.handle:api_get_type()
-end
-
----获取技能类型id(物编id)
----@return py.AbilityKey ability_key 技能类型id(物编id)
-function M:get_ability_key()
-    return self.handle:api_get_ability_id()
 end
 
 ---获取技能所在技能位
