@@ -1,6 +1,7 @@
 ---@class Command
 local M = {}
 
+---@private
 ---@type table<string, fun(...)>
 M.commands = {}
 
@@ -97,5 +98,15 @@ y3.game:event('玩家-发送消息', function (trg, data)
     end
     f(table.unpack(strs))
 end)
+
+-- 执行作弊指令
+---@param command string
+---@param ... string
+function M.execute(command, ...)
+    command = command:lower()
+    local f = M.commands[command]
+    assert(f, '作弊指令不存在: ' .. command)
+    f(...)
+end
 
 return M
