@@ -39,6 +39,8 @@ M.register('RD', function ()
 end)
 
 M.register('SS', function ()
+    collectgarbage()
+    collectgarbage()
     local reports = y3.doctor.report()
     local lines = {}
     for _, report in ipairs(reports) do
@@ -55,6 +57,8 @@ M.register('SS', function ()
 end)
 
 M.register('CT', function (...)
+    collectgarbage()
+    collectgarbage()
     local results = y3.doctor.catch(...)
     local lines = {}
     for _, result in ipairs(results) do
