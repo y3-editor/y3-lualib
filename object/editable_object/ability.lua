@@ -15,7 +15,7 @@ Extends('Ability', 'CustomEvent')
 Extends('Ability', 'ObjectEvent')
 
 ---所有技能实例
-M.map = {}
+M.map = setmetatable({}, y3.util.MODE_K)
 
 ---@param py_ability py.Ability
 ---@return self
@@ -32,7 +32,8 @@ end
 ---@param py_ability py.Ability # py层的技能实例
 ---@return Ability ability # 返回在lua层初始化后的lua层技能实例
 function M.get_by_handle(py_ability)
-    local ability = New 'Ability' (py_ability)
+    local ability = M.map[py_ability] or New 'Ability' (py_ability)
+    M.map[py_ability] = ability
     return ability
 end
 
