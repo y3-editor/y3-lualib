@@ -21,6 +21,8 @@ local mathType       = math.type
 local _G             = _G
 local registry       = getregistry()
 local ccreate        = coroutine.create
+local setmetatable   = setmetatable
+local error          = error
 
 _ENV = nil
 
@@ -489,10 +491,26 @@ end)
 ---@return string[][]
 m.catch = private(function (...)
     local targets = {}
-    for i = 1, select('#', ...) do
-        local target = select(i, ...)
-        if target ~= nil then
-            targets[target] = true
+    if not ... then
+        error('没有指定目标')
+    end
+    if ... == '*' then
+        setmetatable(targets, {
+            __index = function (t, k)
+                return type(k) == 'string'
+            end,
+            __newindex = function (t, k, v)
+                if v == nil then
+                    t[k] = false
+                end
+            end
+        })
+    else
+        for i = 1, select('#', ...) do
+            local target = select(i, ...)
+            if target ~= nil then
+                targets[target] = true
+            end
         end
     end
     local report = m.snapshot()

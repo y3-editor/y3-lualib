@@ -54,6 +54,19 @@ M.register('SS', function ()
     log.debug('快照已保存到 script/log/snapshot.txt')
 end)
 
+M.register('CT', function (...)
+    local results = y3.doctor.catch(...)
+    local lines = {}
+    for _, result in ipairs(results) do
+        result[1] = 'root'
+        lines[#lines+1] = table.concat(result, '->')
+    end
+    local content = table.concat(lines, '\n')
+    ---@diagnostic disable-next-line: undefined-global
+    py_write_file(lua_script_path .. '/log/catch.txt', 'w', content)
+    log.debug('快照已保存到 script/log/catch.txt')
+end)
+
 y3.reload.onBeforeReload(function (reload, willReload)
     remove_all_triggers_in_include(reload)
     remove_all_timers_in_include(reload)
