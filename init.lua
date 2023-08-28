@@ -10,6 +10,7 @@ y3.proxy  = require 'y3.tools.proxy'
 y3.class  = require 'y3.tools.class'
 y3.util   = require 'y3.tools.utility'
 y3.json   = require 'y3.tools.json'
+y3.doctor = require 'y3.tools.doctor'
 
 Class   = y3.class.declare
 New     = y3.class.new
@@ -23,7 +24,7 @@ local log_cache = {}
 ---@diagnostic disable-next-line: lowercase-global
 log = New 'Log' {
     level = 'debug',
-    path  = 'y3/log/test.log',
+    path  = 'log/test.log',
     clock = function ()
         return GameAPI.get_cur_game_time():float()
     end,
@@ -118,4 +119,4 @@ y3.shape        = require 'y3.object.scene_object.shape'
 y3.object       = require 'y3.util.object'
 
 y3.develop = {}
-y3.develop.command = require 'y3.develop.command'
+y3.develop.command = include 'y3.develop.command'
