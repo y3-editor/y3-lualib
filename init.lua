@@ -119,4 +119,4 @@ y3.shape        = require 'y3.object.scene_object.shape'
 y3.object       = require 'y3.util.object'
 
 y3.develop = {}
-y3.develop.command = include 'y3.develop.command'
+y3.develop.command = require 'y3.develop.command'
