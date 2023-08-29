@@ -5,6 +5,10 @@
     ],
     "workspace.preloadFileSize": 5000,
     "runtime.pathStrict": true,
+    "runtime.path": [
+        "../?.lua",
+        "../?/init.lua"
+    ],
     "runtime.special": {
         "include": "require"
     },
