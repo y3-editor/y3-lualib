@@ -46,13 +46,13 @@ function M.create(data)
     local key    = data.key
     local source = data.source
     local target = data.target
-    local time   = data.time
+    local time   = data.time or -1
     local source_height = data.source_height or 0
     local target_height = data.target_height or 0
     local source_socket = data.source_socket or 'origin'
     local target_socket = data.target_socket or 'origin'
     local immediate     = data.immediate
-    if source.type == 'unit' and target.type == 'point' then
+    if source.type == 'unit' then
         ---@cast source Unit
         if target.type == 'point' then
             ---@cast target Point
