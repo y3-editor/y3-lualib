@@ -185,12 +185,18 @@ function M:stop_all_abilities()
 end
 
 ---添加技能
----@param type y3.Const.AbilityType 技能类型
+---@param type y3.Const.AbilityType | y3.Const.AbilityTypeAlias 技能类型
 ---@param id py.AbilityKey 物编id
 ---@param slot? y3.Const.AbilityIndex 技能位
 ---@param level? integer 等级
+---@return Ability?
 function M:add_ability(type, id, slot, level)
-    self.handle:api_add_ability(type, id, slot, level)
+    local py_ability = self.handle:api_add_ability(y3.const.AbilityType[type] or type, id, slot or -1, level or 1)
+    if not py_ability then
+        return nil
+    end
+    local ability = y3.ability.get_by_handle(py_ability)
+    return ability
 end
 
 ---移除技能
