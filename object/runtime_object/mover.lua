@@ -245,13 +245,14 @@ function M.wrap_round_args(args)
     if target.type == 'unit' then
         ---@cast target Unit
         builder.set_is_to_unit(true)
-        builder.set_target_unit_id(target.handle)
+        builder.set_target_unit_id(target:get_id())
     else
         ---@cast target Point
         builder.set_is_to_unit(false)
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        builder.set_target_pos(target.handle)
+        local x, y = target:get_x(), target:get_y()
+        builder.set_target_pos(Fix32Vec2(x / 100.0, y / 100.0))
     end
     builder.set_circle_radius          (Fix32(args.radius or 0.0))
     builder.set_angle_velocity         (Fix32(args.angle_speed or 0.0))
@@ -260,7 +261,7 @@ function M.wrap_round_args(args)
     builder.set_round_time             (Fix32(args.round_time or 0))
     builder.set_centrifugal_velocity   (Fix32(args.radius_speed or 0.0))
     builder.set_lifting_velocity       (Fix32(args.lifting_speed or 0.0))
-    builder.set_around_init_height     (Fix32(args.height or 0.0))
+    --builder.set_init_height            (Fix32(args.height or 0.0))
     builder.set_collision_type         (args.hit_type or 0)
     builder.set_collision_radius       (Fix32(args.hit_radius or 0.0))
     builder.set_is_face_angle          (args.face_angle or false)

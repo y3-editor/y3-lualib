@@ -10,6 +10,13 @@ local Projectile = Class 'py.ProjectileEntity'
 ---@return py.Fixed Fixed
 function Fix32(luaNumber) end
 
+---@class py.FixedVec2
+
+---@param x number
+---@param y number
+---@return py.FixedVec2
+function Fix32Vec2(x, y) end
+
 ---@class py.Fixed
 ---@field float fun(self: self): number
 
@@ -108,8 +115,8 @@ function python_index(obj, index) end
 
 ---@class py.MoverRoundBuilder
 ---@field set_is_to_unit             fun(is_to_unit: boolean)
----@field set_target_unit_id         fun(target_unit_id: py.Unit)
----@field set_target_pos             fun(target_pos: py.Point)
+---@field set_target_unit_id         fun(target_unit_id: integer)
+---@field set_target_pos             fun(target_pos: py.FixedVec2)
 ---@field set_circle_radius          fun(circle_radius: py.Fixed)
 ---@field set_angle_velocity         fun(angle_velocity: py.Fixed)
 ---@field set_init_angle             fun(init_angle: py.Fixed)
