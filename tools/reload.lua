@@ -5,7 +5,7 @@ local require = require
 local M = Class 'Reload'
 
 ---@private
----@type table<string, string>
+---@type table<string, boolean>
 M.includedNameMap = {}
 
 ---@private
@@ -15,13 +15,13 @@ M.includedNames = {}
 ---@alias Reload.beforeReloadCallback fun(reload: Reload, willReload: boolean)
 
 ---@private
----@type Reload.beforeReloadCallback[]
+---@type {name?: string, callback: Reload.beforeReloadCallback}[]
 M.beforeReloadCallbacks = {}
 
 ---@alias Reload.afterReloadCallback fun(reload: Reload, hasReloaded: boolean)
 
 ---@private
----@type Reload.afterReloadCallback[]
+---@type {name?: string, callback: Reload.afterReloadCallback}[]
 M.afterReloadCallbacks = {}
 
 ---@class Reload.Optional
@@ -42,14 +42,10 @@ function M:__init(optional)
 
     ---@private
     self.filter = self.optional and self.optional.filter
-
-    ---@private
-    ---@type table<string, string>
-    self.includedPathMap = y3.util.revertMap(M.includedNameMap)
 end
 
 -- 模块名是否会被重载
----@param name string
+---@param name? string
 ---@return boolean
 function M:isValidName(name)
     if not self.includedNameMap[name] then
@@ -71,40 +67,24 @@ function M:isValidName(name)
     return result
 end
 
--- 文件名是否会被重载
----@param path string
----@return boolean
-function M:isValidPath(path)
-    local name = self.includedPathMap[path]
-    if not name then
-        return false
-    end
-    return self:isValidName(name)
-end
-
 function M:fire()
-    local function canBeReload(callback)
-        local path = debug.getinfo(callback, 'S').source:match '^@(.+)'
-        return self:isValidPath(path)
-    end
-
     log.info('=========== reload start ===========')
 
     local beforeReloadCallbacksNoReload = {}
     local afterReloadCallbacksNoReload  = {}
 
-    for _, callback in ipairs(M.beforeReloadCallbacks) do
-        local willReload = canBeReload(callback)
+    for _, data in ipairs(M.beforeReloadCallbacks) do
+        local willReload = self:isValidName(data.name)
         if not willReload then
-            beforeReloadCallbacksNoReload[#beforeReloadCallbacksNoReload+1] = callback
+            beforeReloadCallbacksNoReload[#beforeReloadCallbacksNoReload+1] = data
         end
-        xpcall(callback, log.error, self, willReload)
+        xpcall(data.callback, log.error, self, willReload)
     end
 
-    for _, callback in ipairs(M.afterReloadCallbacks) do
-        local willReload = canBeReload(callback)
+    for _, data in ipairs(M.afterReloadCallbacks) do
+        local willReload = self:isValidName(data.name)
         if not willReload then
-            afterReloadCallbacksNoReload[#afterReloadCallbacksNoReload+1] = callback
+            afterReloadCallbacksNoReload[#afterReloadCallbacksNoReload+1] = data
         end
     end
 
@@ -126,29 +106,35 @@ function M:fire()
         M.include(name)
     end
 
-    self.includedPathMap = y3.util.revertMap(M.includedNameMap)
-    for _, callback in ipairs(M.afterReloadCallbacks) do
-        xpcall(callback, log.error, self, canBeReload(callback))
+    for _, data in ipairs(M.afterReloadCallbacks) do
+        xpcall(data.callback, log.error, self, self:isValidName(data.name))
     end
     log.info('=========== reload finish ===========')
 end
+
+---@private
+M.includeStack = {}
 
 -- 类似于 `require` ，但是会在重载时重新加载文件。
 ---@param name string
 ---@return any
 function M.include(name)
-    local suc, result, path = xpcall(require, log.error, name)
+    M.includeStack[#M.includeStack+1] = name
+    local suc, result = xpcall(require, log.error, name)
+    M.includeStack[#M.includeStack] = nil
     if not suc then
         return false
     end
     if not M.includedNameMap[name] then
-        if not path then
-            error(('不能混用 `require` 与 `include` 加载 "%s"'):format(name))
-        end
-        M.includedNameMap[name] = path
+        M.includedNameMap[name] = true
         M.includedNames[#M.includedNames+1] = name
     end
     return result
+end
+
+---@return string?
+function M.getCurrentIncludeName()
+    return M.includeStack[#M.includeStack]
 end
 
 -- 设置默认的重载选项
@@ -168,13 +154,19 @@ end
 -- 注册在重载之前的回调
 ---@param callback Reload.beforeReloadCallback
 function M.onBeforeReload(callback)
-    M.beforeReloadCallbacks[#M.beforeReloadCallbacks+1] = callback
+    M.beforeReloadCallbacks[#M.beforeReloadCallbacks+1] = {
+        name     = M.getCurrentIncludeName(),
+        callback = callback,
+    }
 end
 
 -- 注册在重载之后的回调
 ---@param callback Reload.afterReloadCallback
 function M.onAfterReload(callback)
-    M.afterReloadCallbacks[#M.afterReloadCallbacks+1] = callback
+    M.afterReloadCallbacks[#M.afterReloadCallbacks+1] = {
+        name     = M.getCurrentIncludeName(),
+        callback = callback,
+    }
 end
 
 return M

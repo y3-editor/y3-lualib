@@ -3,6 +3,7 @@
 ---@class Timer
 ---@field handle py.Timer
 ---@field private on_timer Timer.OnTimer
+---@field private include_name? string
 ---@overload fun(py_timer: py.Timer, on_timer: Timer.OnTimer): self
 local M = Class 'Timer'
 
@@ -21,6 +22,7 @@ function M:__init(py_timer, on_timer)
     self.handle = py_timer
     self.on_timer = on_timer
     self.id = self.id_counter()
+    self.include_name = y3.reload.getCurrentIncludeName()
     M.all_timers[self.id] = self
     return self
 end
@@ -145,11 +147,9 @@ function M:get_time_out_time()
     return GameAPI.get_timer_time_out_time(self.handle)
 end
 
--- 获取计时器回调函数的source信息
----@return string
-function M:get_info_source()
-    local info = debug.getinfo(self.on_timer, 'S')
-    return info.source
+---@return string?
+function M:get_include_name()
+    return self.include_name
 end
 
 -- 遍历所有的计时器，仅用于调试（可能会遍历到已经失效的）

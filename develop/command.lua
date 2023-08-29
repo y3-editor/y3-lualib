@@ -16,9 +16,8 @@ end
 local function remove_all_triggers_in_include(reload)
     local event_manager = y3.game:get_event_manager()
     for trigger in event_manager:pairs() do
-        local source = trigger:get_info_source()
-        local path = source:match('^@(.+)$')
-        if reload:isValidPath(path) then
+        local name = trigger:get_include_name()
+        if reload:isValidName(name) then
             trigger:remove()
         end
     end
@@ -27,9 +26,8 @@ end
 ---@param reload Reload
 local function remove_all_timers_in_include(reload)
     for timer in y3.timer.pairs() do
-        local source = timer:get_info_source()
-        local path = source:match('^@(.+)$')
-        if reload:isValidPath(path) then
+        local name = timer:get_include_name()
+        if reload:isValidName(name) then
             timer:remove()
         end
     end
