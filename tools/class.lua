@@ -13,9 +13,9 @@ M._classConfig = {}
 M._errorHandler = error
 
 ---@class Class.Base
----@field public  __init   fun(self: any, ...)
----@field public  __del    fun(self: any)
----@field public  __alloc  fun(self: any)
+---@field public  __init?  fun(self: any, ...)
+---@field public  __del?   fun(self: any)
+---@field public  __alloc? fun(self: any)
 ---@field package __call   fun(self: any, ...)
 ---@field public  __getter table<any, fun(self: any): any>
 
