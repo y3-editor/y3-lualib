@@ -4,6 +4,9 @@ local M = {}
 ---@private
 M._classes = {}
 
+---@private
+M._errorHandler = error
+
 -- 定义一个类
 ---@generic T: string
 ---@param name  `T`
@@ -36,7 +39,9 @@ function M.declare(name, super)
 
     local superClass = M._classes[super]
     if superClass then
-        assert(class ~= superClass, ('class %q can not inherit itself'):format(name))
+        if class == superClass then
+            M._errorHandler(('class %q can not inherit itself'):format(name))
+        end
         mt.__index = superClass
 
         class.__super = superClass
@@ -59,7 +64,9 @@ end
 ---@return T
 function M.new(name)
     local class = M._classes[name]
-    assert(class, ('class %q not found'):format(name))
+    if not class then
+        M._errorHandler(('class %q not found'):format(name))
+    end
 
     local instance = setmetatable({
         __class__ = name,
@@ -76,7 +83,9 @@ function M.delete(obj)
     end
     obj.__deleted__ = true
     local name = obj.__class__
-    assert(name, 'can not delete undeclared class')
+    if not name then
+        M._errorHandler('can not delete undeclared class')
+    end
 
     M.runDel(obj, name)
 end
@@ -104,12 +113,18 @@ M._superCache = {}
 function M.super(name)
     if not M._superCache[name] then
         local class = M._classes[name]
-        assert(class, ('class %q not found'):format(name))
+        if not class then
+            M._errorHandler(('class %q not found'):format(name))
+        end
         local super = class.__super
-        assert(super, ('class %q not inherit from any class'):format(name))
+        if not super then
+            M._errorHandler(('class %q not inherit from any class'):format(name))
+        end
         M._superCache[name] = function (...)
             local k, self = debug.getlocal(2, 1)
-            assert(k == 'self', ('`%s()` must be called by the class'):format(name))
+            if k ~= 'self' then
+                M._errorHandler(('`%s()` must be called by the class'):format(name))
+            end
             super.__call(self,...)
         end
     end
@@ -126,13 +141,21 @@ M._extendsCalls = {}
 ---@param init? fun(self: Class, super: Extends)
 function M.extends(name, extendsName, init)
     local class = M._classes[name]
-    assert(class, ('class %q not found'):format(name))
+    if not class then
+        M._errorHandler(('class %q not found'):format(name))
+    end
     local extends = M._classes[extendsName]
-    assert(extends, ('class %q not found'):format(extendsName))
-    assert(type(init) == 'nil' or type(init) == 'function', ('init must be nil or function'))
+    if not extends then
+        M._errorHandler(('class %q not found'):format(extendsName))
+    end
+    if type(init) ~= 'nil' and type(init) ~= 'function' then
+        M._errorHandler(('init must be nil or function'))
+    end
     for k, v in pairs(extends) do
         if not k:match '^__' then
-            assert(class[k] == nil, ('"%s.%s" is already defined'):format(name, k))
+            if class[k] ~= nil then
+                M._errorHandler(('"%s.%s" is already defined'):format(name, k))
+            end
             class[k] = v
         end
     end
@@ -152,7 +175,7 @@ function M.extends(name, extendsName, init)
         if info.nparams <= 1 then
             return
         end
-        error(('must call super for extends "%s"'):format(extendsName))
+        M._errorHandler(('must call super for extends "%s"'):format(extendsName))
     end
 end
 
@@ -193,6 +216,11 @@ function M.runDel(obj, name)
     if class.__del then
         class.__del(obj)
     end
+end
+
+---@param errorHandler fun(msg: string)
+function M.setErrorHandler(errorHandler)
+    M._errorHandler = errorHandler
 end
 
 return M
