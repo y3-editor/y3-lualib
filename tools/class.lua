@@ -19,10 +19,11 @@ M._errorHandler = error
 ---@field package __call  fun(self: any, ...)
 
 ---@class Class.Data
----@field name        string
----@field extendsMap  table<string, boolean>
----@field superCache  table<string, fun(...)>
----@field superClass? Class.Base
+---@field name         string
+---@field extendsMap   table<string, boolean>
+---@field extendsCalls Class.Extends.CallData[]
+---@field superCache   table<string, fun(...)>
+---@field superClass?  Class.Base
 local Data = {}
 
 ---@private
@@ -31,9 +32,10 @@ local Data = {}
 function M.getData(name)
     if not M._classData[name] then
         M._classData[name] = setmetatable({
-            name       = name,
-            extendsMap = {},
-            superCache = {},
+            name         = name,
+            extendsMap   = {},
+            superCache   = {},
+            extendsCalls = {},
         }, { __index = Data })
     end
     return M._classData[name]
@@ -145,8 +147,7 @@ function M.super(name)
     return data:getSuperCall(name)
 end
 
----@private
-M._extendsCalls = {}
+---@alias Class.Extends.CallData { name: string, init?: fun(self: any, super: fun(...)) }
 
 ---@generic Class: string
 ---@generic Extends: string
@@ -165,18 +166,19 @@ function M.extends(name, extendsName, init)
     if type(init) ~= 'nil' and type(init) ~= 'function' then
         M._errorHandler(('init must be nil or function'))
     end
-    for k, v in pairs(extends) do
-        if not k:match '^__' then
-            if class[k] ~= nil then
-                M._errorHandler(('"%s.%s" is already defined'):format(name, k))
+    local data = M.getData(name)
+    if not data.extendsMap[extendsName] then
+        data.extendsMap[extendsName] = true
+        for k, v in pairs(extends) do
+            if not k:match '^__' then
+                if class[k] ~= nil then
+                    M._errorHandler(('"%s.%s" is already defined'):format(name, k))
+                end
+                class[k] = v
             end
-            class[k] = v
         end
     end
-    if not M._extendsCalls[name] then
-        M._extendsCalls[name] = {}
-    end
-    table.insert(M._extendsCalls[name], {
+    table.insert(data.extendsCalls, {
         init = init,
         name = extendsName,
     })
@@ -199,7 +201,8 @@ end
 ---@param ... any
 function M.runInit(obj, name, ...)
     local class = M._classes[name]
-    local extendsCalls = M._extendsCalls[name]
+    local data  = M.getData(name)
+    local extendsCalls = data.extendsCalls
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
             if call.init then
@@ -221,7 +224,8 @@ end
 ---@param name string
 function M.runDel(obj, name)
     local class = M._classes[name]
-    local extendsCalls = M._extendsCalls[name]
+    local data  = M.getData(name)
+    local extendsCalls = data.extendsCalls
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
             M.runDel(obj, call.name)
