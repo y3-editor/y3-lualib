@@ -2,10 +2,42 @@
 local M = {}
 
 ---@private
+---@type table<string, Class.Base>
 M._classes = {}
 
 ---@private
+---@type table<string, Class.Data>
+M._classData = {}
+
+---@private
 M._errorHandler = error
+
+---@class Class.Base
+---@field public  __init  fun(self: any, ...)
+---@field public  __del   fun(self: any)
+---@field public  __alloc fun(self: any)
+---@field package __call  fun(self: any, ...)
+
+---@class Class.Data
+---@field name        string
+---@field extendsMap  table<string, boolean>
+---@field superCache  table<string, fun(...)>
+---@field superClass? Class.Base
+local Data = {}
+
+---@private
+---@param name string
+---@return Class.Data
+function M.getData(name)
+    if not M._classData[name] then
+        M._classData[name] = setmetatable({
+            name       = name,
+            extendsMap = {},
+            superCache = {},
+        }, { __index = Data })
+    end
+    return M._classData[name]
+end
 
 -- 定义一个类
 ---@generic T: string
@@ -44,7 +76,8 @@ function M.declare(name, super)
         end
         mt.__index = superClass
 
-        class.__super = superClass
+        local data = M.getData(name)
+        data.superClass = superClass
     end
 
     return class
@@ -105,30 +138,11 @@ function M.isValid(obj)
        and not obj.__deleted__
 end
 
----@private
-M._superCache = {}
-
 ---@param name string
 ---@return fun(...)
 function M.super(name)
-    if not M._superCache[name] then
-        local class = M._classes[name]
-        if not class then
-            M._errorHandler(('class %q not found'):format(name))
-        end
-        local super = class.__super
-        if not super then
-            M._errorHandler(('class %q not inherit from any class'):format(name))
-        end
-        M._superCache[name] = function (...)
-            local k, self = debug.getlocal(2, 1)
-            if k ~= 'self' then
-                M._errorHandler(('`%s()` must be called by the class'):format(name))
-            end
-            super.__call(self,...)
-        end
-    end
-    return M._superCache[name]
+    local data = M.getData(name)
+    return data:getSuperCall(name)
 end
 
 ---@private
@@ -221,6 +235,30 @@ end
 ---@param errorHandler fun(msg: string)
 function M.setErrorHandler(errorHandler)
     M._errorHandler = errorHandler
+end
+
+---@param name string
+---@return fun(...)
+function Data:getSuperCall(name)
+    if not self.superCache[name] then
+        local class = M._classes[name]
+        if not class then
+            M._errorHandler(('class %q not found'):format(name))
+        end
+        local super = self.superClass
+        if not super then
+            M._errorHandler(('class %q not inherit from any class'):format(name))
+        end
+        ---@cast super -?
+        self.superCache[name] = function (...)
+            local k, obj = debug.getlocal(2, 1)
+            if k ~= 'self' then
+                M._errorHandler(('`%s()` must be called by the class'):format(name))
+            end
+            super.__call(obj,...)
+        end
+    end
+    return self.superCache[name]
 end
 
 return M
