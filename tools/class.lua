@@ -6,39 +6,40 @@ local M = {}
 M._classes = {}
 
 ---@private
----@type table<string, Class.Data>
-M._classData = {}
+---@type table<string, Class.Config>
+M._classConfig = {}
 
 ---@private
 M._errorHandler = error
 
 ---@class Class.Base
----@field public  __init  fun(self: any, ...)
----@field public  __del   fun(self: any)
----@field public  __alloc fun(self: any)
----@field package __call  fun(self: any, ...)
+---@field public  __init   fun(self: any, ...)
+---@field public  __del    fun(self: any)
+---@field public  __alloc  fun(self: any)
+---@field package __call   fun(self: any, ...)
+---@field public  __getter table<any, fun(self: any): any>
 
----@class Class.Data
----@field name         string
----@field extendsMap   table<string, boolean>
----@field extendsCalls Class.Extends.CallData[]
----@field superCache   table<string, fun(...)>
----@field superClass?  Class.Base
-local Data = {}
+---@class Class.Config
+---@field private name         string
+---@field package extendsMap   table<string, boolean>
+---@field package extendsCalls Class.Extends.CallData[]
+---@field private superCache   table<string, fun(...)>
+---@field package superClass?  Class.Base
+---@field public  getter       table<any, fun(obj: any)>
+local Config = {}
 
----@private
 ---@param name string
----@return Class.Data
-function M.getData(name)
-    if not M._classData[name] then
-        M._classData[name] = setmetatable({
+---@return Class.Config
+function M.getConfig(name)
+    if not M._classConfig[name] then
+        M._classConfig[name] = setmetatable({
             name         = name,
             extendsMap   = {},
             superCache   = {},
             extendsCalls = {},
-        }, { __index = Data })
+        }, { __index = Config })
     end
-    return M._classData[name]
+    return M._classConfig[name]
 end
 
 -- 定义一个类
@@ -46,13 +47,39 @@ end
 ---@param name  `T`
 ---@param super? string
 ---@return T
+---@return Class.Config
 function M.declare(name, super)
+    local config = M.getConfig(name)
     if M._classes[name] then
-        return M._classes[name]
+        return M._classes[name], config
     end
-    local class = {}
-    class.__index = class
-    class.__name  = name
+    local class  = {}
+    local getter = {}
+    class.__index  = class
+    class.__name   = name
+    class.__getter = getter
+
+    ---@param self any
+    ---@param k any
+    ---@return any
+    local function getterFunc(self, k)
+        local f = getter[k]
+        if f then
+            return f(self)
+        else
+            return class[k]
+        end
+    end
+
+    function class:__index(k)
+        if next(class.__getter) then
+            class.__index = getterFunc
+            return getterFunc(self, k)
+        else
+            class.__index = class
+            return class[k]
+        end
+    end
 
     function class:__call(...)
         M.runInit(self, name, ...)
@@ -78,11 +105,10 @@ function M.declare(name, super)
         end
         mt.__index = superClass
 
-        local data = M.getData(name)
-        data.superClass = superClass
+        config.superClass = superClass
     end
 
-    return class
+    return class, config
 end
 
 -- 获取一个类
@@ -143,8 +169,8 @@ end
 ---@param name string
 ---@return fun(...)
 function M.super(name)
-    local data = M.getData(name)
-    return data:getSuperCall(name)
+    local config = M.getConfig(name)
+    return config:super(name)
 end
 
 ---@alias Class.Extends.CallData { name: string, init?: fun(self: any, super: fun(...)) }
@@ -155,44 +181,8 @@ end
 ---@param extendsName `Extends`
 ---@param init? fun(self: Class, super: Extends)
 function M.extends(name, extendsName, init)
-    local class = M._classes[name]
-    if not class then
-        M._errorHandler(('class %q not found'):format(name))
-    end
-    local extends = M._classes[extendsName]
-    if not extends then
-        M._errorHandler(('class %q not found'):format(extendsName))
-    end
-    if type(init) ~= 'nil' and type(init) ~= 'function' then
-        M._errorHandler(('init must be nil or function'))
-    end
-    local data = M.getData(name)
-    if not data.extendsMap[extendsName] then
-        data.extendsMap[extendsName] = true
-        for k, v in pairs(extends) do
-            if not k:match '^__' then
-                if class[k] ~= nil then
-                    M._errorHandler(('"%s.%s" is already defined'):format(name, k))
-                end
-                class[k] = v
-            end
-        end
-    end
-    table.insert(data.extendsCalls, {
-        init = init,
-        name = extendsName,
-    })
-    -- 检查是否需要显性初始化
-    if not init then
-        if not extends.__init then
-            return
-        end
-        local info = debug.getinfo(extends.__init, 'u')
-        if info.nparams <= 1 then
-            return
-        end
-        M._errorHandler(('must call super for extends "%s"'):format(extendsName))
-    end
+    local config = M.getConfig(name)
+    config:extends(extendsName, init)
 end
 
 ---@private
@@ -201,7 +191,7 @@ end
 ---@param ... any
 function M.runInit(obj, name, ...)
     local class = M._classes[name]
-    local data  = M.getData(name)
+    local data  = M.getConfig(name)
     local extendsCalls = data.extendsCalls
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
@@ -224,7 +214,7 @@ end
 ---@param name string
 function M.runDel(obj, name)
     local class = M._classes[name]
-    local data  = M.getData(name)
+    local data  = M.getConfig(name)
     local extendsCalls = data.extendsCalls
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
@@ -243,7 +233,7 @@ end
 
 ---@param name string
 ---@return fun(...)
-function Data:getSuperCall(name)
+function Config:super(name)
     if not self.superCache[name] then
         local class = M._classes[name]
         if not class then
@@ -263,6 +253,46 @@ function Data:getSuperCall(name)
         end
     end
     return self.superCache[name]
+end
+
+---@generic Extends: string
+---@param extendsName `Extends`
+---@param init? fun(self: self, super: Extends)
+function Config:extends(extendsName, init)
+    local class   = M._classes[self.name]
+    local extends = M._classes[extendsName]
+    if not extends then
+        M._errorHandler(('class %q not found'):format(extendsName))
+    end
+    if type(init) ~= 'nil' and type(init) ~= 'function' then
+        M._errorHandler(('init must be nil or function'))
+    end
+    if not self.extendsMap[extendsName] then
+        self.extendsMap[extendsName] = true
+        for k, v in pairs(extends) do
+            if not k:match '^__' then
+                if class[k] ~= nil then
+                    M._errorHandler(('"%s.%s" is already defined'):format(self.name, k))
+                end
+                class[k] = v
+            end
+        end
+    end
+    table.insert(self.extendsCalls, {
+        init = init,
+        name = extendsName,
+    })
+    -- 检查是否需要显性初始化
+    if not init then
+        if not extends.__init then
+            return
+        end
+        local info = debug.getinfo(extends.__init, 'u')
+        if info.nparams <= 1 then
+            return
+        end
+        M._errorHandler(('must call super for extends "%s"'):format(extendsName))
+    end
 end
 
 return M
