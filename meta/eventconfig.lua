@@ -2742,6 +2742,18 @@ M.config["物品-采集创建"] = {
     },
 }
 
+---@alias EventParam.鼠标-悬停 EventParam.ET_MOUSE_HOVER_EVENT
+M.config["鼠标-悬停"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "悬停进入或离开都会触发",
+    extraArgs = {
+    },
+    key = "ET_MOUSE_HOVER_EVENT",
+    name = "鼠标-悬停",
+    params = {
+    },
+}
+
 ---@alias EventParam.玩家-发送消息 EventParam.ET_CHAT_SEND_GM
 M.config["玩家-发送消息"] = {
     __class__ = "EventConfigBuilder",
@@ -2973,6 +2985,7 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "物品-出售", callback: fun(trg: Trigger, data: EventParam.物品-出售)): Trigger
 ---@field event fun(self: self, event: "物品-死亡", callback: fun(trg: Trigger, data: EventParam.物品-死亡)): Trigger
 ---@field event fun(self: self, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
+---@field event fun(self: self, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 ---@field event fun(self: self, event: "游戏-消息", callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
 ---@field event fun(self: self, event: "界面-创建", callback: fun(trg: Trigger, data: EventParam.界面-创建)): Trigger
