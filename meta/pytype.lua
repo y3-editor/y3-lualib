@@ -108,7 +108,7 @@
 --
 ---@class py.RoleResKey: string
 --平台道具类型
----@class py.StoreKey: string
+---@class py.StoreKey: integer
 --
 ---@class py.TabName: string
 --商店页签ID

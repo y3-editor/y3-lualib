@@ -321,11 +321,12 @@ M.OnceRecycle = {
     ['RECYCLE'] = false,
 }
 
-M.SfxVisibleType = {
-    ['ALL'] = 1,
-    ['SELF'] = 2,
-    ['ALLY'] = 3,
-    ['ENEMY'] = 4,
+---@enum(key) y3.Const.VisibleType
+M.VisibleType = {
+    ['全体'] = 1,
+    ['自己'] = 2,
+    ['友方'] = 3,
+    ['敌方'] = 4,
 }
 
 ---@enum y3.Const.LinkSfxPointType
@@ -405,10 +406,11 @@ M.CameraShakeMode = {
     ['LR_UD_FB'] = 7,
 }
 
+---@enum(key) y3.Const.SignalType
 M.SignalType = {
-    ['WARNING_COMMON'] = 1,
-    ['WARNING_YELLOW'] = 2,
-    ['WARNING_BLUE'] = 3,
+    ['普通'] = 1,
+    ['黄色'] = 2,
+    ['蓝色'] = 3,
 }
 
 ---@enum y3.Const.GlobalEventType

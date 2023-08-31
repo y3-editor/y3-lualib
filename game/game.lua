@@ -555,120 +555,50 @@ function M.locale(key)
     return GameAPI.get_text_config(key)
 end
 
----@return number time_stamp 时间戳
 ---获取游戏开始时间戳
+---@return integer time_stamp 时间戳
 function M.get_game_init_time_stamp()
     return GameAPI.get_game_init_time_stamp()
 end
 
----@return number x_resolution 横向分辨率
 ---获取初始化横向分辨率
+---@return integer x_resolution 横向分辨率
 function M.get_game_x_resolution()
     return GameAPI.get_game_x_resolution()
 end
 
----@return number y_resolution 纵向分辨率
 ---获取初始化纵向分辨率
+---@return integer y_resolution 纵向分辨率
 function M.get_game_y_resolution()
     return GameAPI.get_game_y_resolution()
 end
 
----@return number quality 画质
 ---获取初始化游戏画质
+---@return 'low' | 'medium' | 'high' quality 画质
 function M.get_graphics_quality()
     return GameAPI.get_graphics_quality()
 end
 
----@return number mode 窗口类别
----获取初始化窗口类别
+---获取窗口化类别
+---@return 'full_screen' | 'window_mode' | 'window_mode_full_screen' mode 窗口化类别
 function M.get_window_mode()
     return GameAPI.get_window_mode()
 end
 
----@param value number 数字
----@return string str 字符串
----数字转字符串
-function M.number_to_str(value)
-    if type(value) == 'Fix32' then
-        
-    end
-    return tostring(value)
-end
-
----@param list userdata 数组变量
----遍历数组变量
-function M.list_loop(list)
-    local lua_table ={}
-    local py_list = GlobalAPI.list_index_iterator(list)
-    for i = 0, python_len(py_list)-1 do
-        local var = python_index(py_list,i)
-        table.insert(lua_table,var)
-    end
-    return lua_table
-end
-
----@param is_only_gold boolean 是否只遍历货币
----遍历玩家属性
-function M.iter_role_res(is_only_gold)
-    local res_table ={}
-    local py_list = GameAPI.iter_role_res(is_only_gold)
-    for i = 0, python_len(py_list)-1 do
-        table.insert(res_table,python_index(py_list,i))
-    end
-    return res_table
-end
-
----@param func_name string 方法枚举
----@param actor userdata 数组变量
----@param key string 变量名
----@param index integer 索引
----@param var userdata 变量
----设置变量
-function M.set_lua_var(func_name,actor,key,index,var)
-    return GameAPI.set_lua_var(func_name, actor, key, index, var)
-end
-
----@param func_name string 方法枚举
----@param key string 变量名
----@param index integer 索引
----获取变量
-function M.get_lua_var(func_name,key,index)
-    return GameAPI.get_lua_var(func_name, key, index)
-end
-
----@param key string 变量名
----@param value userdata 值
----@param boolean if_list 是否数组
----LUA层初始化参数
-function M.init_lua_var(key,value,if_list)
-    return GameAPI.init_lua_var(key, value, if_list)
-end
-
----退出游戏
-function M.exit_game(player)
-    GameAPI.exit_game(player and player.handle or nil)
-end
-
----@param player Player 玩家
----@param signal_enum number 信号枚举值
----@param point Point 点
----@param visible_enum Point 可见性枚举值
 ---发送信号
-function M.send_signal(player,signal_enum,point,visible_enum)
-    GameAPI.send_signal(player.handle,signal_enum,point.handle,visible_enum)
-end
-
----发送自定义事件
-function M.send_custom_event(id,table)
-    GameAPI.send_event_custom(id,table)
-end
-
----@param point_or_unit Point|Unit 点或单位
----@param range number 范围
----@return boolean in_radius 在单位附近
----在附近
-function M.is_in_radius(point_or_unit, range)
-    return GameAPI.api_is_in_range(point_or_unit.handle, Fix32(range))
+---@param player Player 玩家
+---@param signal_enum y3.Const.SignalType 信号枚举值
+---@param point Point 点
+---@param visible_enum y3.Const.VisibleType 可见性枚举值
+function M.send_signal(player, signal_enum, point, visible_enum)
+    GameAPI.send_signal(
+        player:get_id() --[[@as py.RoleID]],
+        y3.const.SignalType[signal_enum] or signal_enum,
+        -- TODO 见问题2
+        ---@diagnostic disable-next-line: param-type-mismatch
+        point.handle,
+        y3.const.VisibleType[visible_enum] or visible_enum
+    )
 end
 
 ---@param value number 治疗值
@@ -683,25 +613,18 @@ function M.str_to_ui_event(str)
     return GlobalAPI.str_to_ui_event(str)
 end
 
-
----任意变量转字符串
-function M.any_var_to_str(p1,p2)
-    if not ToString[p1] then
-        return GlobalAPI.to_str_default(p2)
-    end
-    return ToString[p1](p2)
-end
-
+---获取表
 ---@param name string 表名
 ---@return table tb 表
----获得表
 function M.get_table(name)
     return GameAPI.get_table(name)
 end
 
 ---表是否存在字段
-function M.is_exist_key(table,key)
-    return GameAPI.table_has_key(table,key)
+---@param table tb
+---@param key string
+function M.table_has_key(table, key)
+    return GameAPI.table_has_key(table, key)
 end
 
 function M.set_globale_view(enable)

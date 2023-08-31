@@ -1481,12 +1481,20 @@ function M:is_moving()
     return self.handle:api_is_moving()
 end
 
----是否在另一个单位附近
----@param other Unit 单位
+---是否在另一个单位或点附近
+---@param other Unit|Point 单位/点
 ---@param range number 范围
 ---@return boolean in_radius 在单位附近
 function M:is_in_radius(other, range)
-    return self.handle:api_is_in_range(other.handle, range)
+    if other.type == 'unit' then
+        ---@cast other Unit
+        return self.handle:api_is_in_range(other.handle, range)
+    else
+        ---@cast other Point
+        -- TODO 见问题2
+        ---@diagnostic disable-next-line: param-type-mismatch
+        return self.handle:api_is_point_in_range(other.handle, range)
+    end
 end
 
 ---是否是商店

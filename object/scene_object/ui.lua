@@ -446,7 +446,7 @@ end
 ---@return UI[]
 function M:get_ui_comp_children()
     local py_list = GameAPI.get_ui_comp_children(self.player.handle, self.handle)
-    local uis = y3.helper.wrap_list(py_list, function (py_object)
+    local uis = y3.helper.unpack_list(py_list, function (py_object)
         return y3.ui.get_by_handle(self.player, py_object)
     end)
     return uis

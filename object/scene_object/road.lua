@@ -108,7 +108,7 @@ end
 ---@return Road[] 路径
 function M.get_path_areas_by_tag(tag)
     local py_list = GameAPI.get_roads_by_tag(tag)
-    local roads = y3.helper.wrap_list(py_list, M.get_by_handle)
+    local roads = y3.helper.unpack_list(py_list, M.get_by_handle)
     return roads
 end
 

@@ -214,7 +214,7 @@ end
 ---@return table
 function M.wrap_curve_args(args)
     ---@type py.CurvedPath
-    local path = y3.helper.unwrap_list(args.path, y3.py_converter.lua_to_py_factory 'py.Point')
+    local path = y3.helper.pack_list(args.path, y3.py_converter.lua_to_py_factory 'py.Point')
 
     local builder = CurvedMoverArgs()
     builder.set_angle              (Fix32(args.angle))

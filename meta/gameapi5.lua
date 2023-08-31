@@ -2312,6 +2312,7 @@ function GameAPI.set_mouse_click_control_move(b) end
 
 --遍历所有玩家的资源属性
 ---@param is_iter_coin_only boolean # 是否遍历货币类型
+---@return py.List # 资源属性列表
 function GameAPI.iter_role_res(is_iter_coin_only) end
 
 --设置控件旋转

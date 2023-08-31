@@ -557,10 +557,23 @@ function M:set_vignetting_color(red, green, blue, time)
     self.handle:set_role_vignetting_color(red, green, blue, time)
 end
 
+-- 退出游戏
+function M:exit_game()
+    GameAPI.exit_game(self.handle)
+end
+
 -- 获取本地玩家，注意这可能会导致不同步！
 ---@return Player
 function M.get_local()
     return M.LOCAL_PLAYER
+end
+
+-- 获取所有玩家属性的属性名
+---@param only_coin boolean # 只获取货币类型的玩家属性
+---@return py.RoleResKey[]
+function M.get_res_keys(only_coin)
+    local py_list = GameAPI.iter_role_res(only_coin)
+    return y3.helper.unpack_list(py_list)
 end
 
 return M

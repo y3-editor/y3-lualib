@@ -277,7 +277,7 @@ end
 ---@return Unit[] 单位组
 function M:get_all_unit_in_area()
     local py_unit_list = GameAPI.get_unit_group_in_area(self.handle)
-    local units = y3.helper.wrap_list(py_unit_list, y3.unit.get_by_id)
+    local units = y3.helper.unpack_list(py_unit_list, y3.unit.get_by_id)
     return units
 end
 
@@ -380,7 +380,7 @@ end
 ---@return Area[] area 矩形区域
 function M.get_circle_areas_by_tag(tag)
     local py_list = GameAPI.get_cir_areas_by_tag(tag)
-    local areas = y3.helper.wrap_list(py_list, function (py_object)
+    local areas = y3.helper.unpack_list(py_list, function (py_object)
         return M.get_by_handle(py_object, M.SHAPE.CIRCLE)
     end)
     return areas
@@ -391,7 +391,7 @@ end
 ---@return Area[] area 矩形区域表
 function M.get_rect_areas_by_tag(tag)
     local py_list = GameAPI.get_rect_areas_by_tag(tag)
-    local areas = y3.helper.wrap_list(py_list, function (py_object)
+    local areas = y3.helper.unpack_list(py_list, function (py_object)
         return M.get_by_handle(py_object, M.SHAPE.RECTANGLE)
     end)
     return areas
@@ -402,7 +402,7 @@ end
 ---@return Area[] area 多边形区域表
 function M.get_polygon_areas_by_tag(tag)
     local py_list = GameAPI.get_polygon_areas_by_tag(tag)
-    local areas = y3.helper.wrap_list(py_list, function (py_object)
+    local areas = y3.helper.unpack_list(py_list, function (py_object)
         return M.get_by_handle(py_object, M.SHAPE.POLYGON)
     end)
     return areas
@@ -416,7 +416,7 @@ function M.get_polygon_areas_point_list(polygon)
     local handle = polygon.handle
     ---@cast handle py.PolyArea
     local py_list = GameAPI.get_poly_area_point_list(handle)
-    local points = y3.helper.wrap_list(py_list, y3.point.get_by_handle)
+    local points = y3.helper.unpack_list(py_list, y3.point.get_by_handle)
     return points
 end
 
