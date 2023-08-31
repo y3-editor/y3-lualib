@@ -283,6 +283,8 @@
 ---@class py.HitPointKey: integer
 --曲线运动器路径
 ---@class py.CurvedPath: py.List
+--3D曲线运动器路径
+---@class py.CurvedPath3D: py.List
 --表
 ---@class py.Table: py.DynamicTypeMeta
 --画风
@@ -339,3 +341,5 @@
 ---@class py.PhysicsEntityState: integer
 --关卡
 ---@class py.Map: integer
+--移动方向
+---@class py.MoveDirection: integer

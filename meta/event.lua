@@ -1864,6 +1864,8 @@ event.ET_UNIT_GET_CURE = {
 ---@field unit Unit # 单位
 ---@field last_asm_state py.CcAsmState # 前一个动画机状态
 ---@field cur_asm_state py.CcAsmState # 当前动画机状态
+---@field asm_node_name string # 节点名称
+---@field asm_node_id integer # 节点ID
 
 --单位动画状态机进入状态
 event.ET_UNIT_ANIM_STATE_ENTER = {
@@ -1891,11 +1893,29 @@ event.ET_UNIT_ANIM_STATE_ENTER = {
         desc = "当前动画机状态",
         lua_desc = "当前动画机状态",
     },
+    [4] = {
+        name = "__asm_node_name",
+        type = "string",
+        lua_name = "asm_node_name",
+        lua_type = "string",
+        desc = "节点名称",
+        lua_desc = "节点名称",
+    },
+    [5] = {
+        name = "__asm_node_id",
+        type = "integer",
+        lua_name = "asm_node_id",
+        lua_type = "integer",
+        desc = "节点ID",
+        lua_desc = "节点ID",
+    },
 }
 
 ---@class EventParam.ET_UNIT_ANIM_STATE_EXIT
 ---@field unit Unit # 单位
 ---@field cur_asm_state py.CcAsmState # 当前动画机状态
+---@field asm_node_name string # 节点名称
+---@field asm_node_id integer # 节点ID
 
 --单位动画状态机退出状态
 event.ET_UNIT_ANIM_STATE_EXIT = {
@@ -1914,6 +1934,22 @@ event.ET_UNIT_ANIM_STATE_EXIT = {
         lua_type = "py.CcAsmState",
         desc = "当前动画机状态",
         lua_desc = "当前动画机状态",
+    },
+    [3] = {
+        name = "__asm_node_name",
+        type = "string",
+        lua_name = "asm_node_name",
+        lua_type = "string",
+        desc = "节点名称",
+        lua_desc = "节点名称",
+    },
+    [4] = {
+        name = "__asm_node_id",
+        type = "integer",
+        lua_name = "asm_node_id",
+        lua_type = "integer",
+        desc = "节点ID",
+        lua_desc = "节点ID",
     },
 }
 
@@ -2279,6 +2315,11 @@ event.ET_UNIT_CREATE_SLAVE = {
         lua_desc = "仆从",
     },
 }
+
+---@class EventParam.UNIT_ANIMATION_FINISHED_EVENT
+
+--单位动画播放完成
+event.UNIT_ANIMATION_FINISHED_EVENT = {}
 
 ---@class EventParam.ET_ITEM_ATTACHED_ATTR_CHANGED
 ---@field item Item # 无描述
