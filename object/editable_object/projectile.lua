@@ -161,8 +161,8 @@ function M.create(data)
         local py_obj = GameAPI.create_projectile_on_socket(
             data.key,
             target.handle,
-            data.socket,
-            Fix32(data.angle),
+            data.socket or 'origin',
+            Fix32(data.angle or 0.0),
             -- TODO 见问题3
             ---@diagnostic disable-next-line: param-type-mismatch
             data.owner.handle,

@@ -145,7 +145,9 @@ function M.wrap_callbacks(mover_data)
     ---@type fun(mover: py.Mover)
     local on_remove = function ()
         Delete(mover)
-        xpcall(mover_data.on_remove, log.error, mover)
+        if mover_data.on_remove then
+            xpcall(mover_data.on_remove, log.error, mover)
+        end
     end
 
     return update_mover, on_hit, on_block, on_finish, on_break, on_remove
