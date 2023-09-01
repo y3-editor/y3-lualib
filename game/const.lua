@@ -343,6 +343,7 @@ M.SfxRotateType = {
 
 ---@enum y3.Const.SlotType
 M.SlotType = {
+    ['NOT_IN_BAG'] = -1,
     ['PKG'] = 0,
     ['BAR'] = 1,
 }

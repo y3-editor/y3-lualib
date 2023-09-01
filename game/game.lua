@@ -624,18 +624,22 @@ function M.get_table(name)
 end
 
 ---表是否存在字段
----@param table tb
+---@param table table
 ---@param key string
+---@return boolean
 function M.table_has_key(table, key)
     return GameAPI.table_has_key(table, key)
 end
 
-function M.set_globale_view(enable)
-    GameAPI.enable_fow_for_player(enable)
+---清空表
+function M.clear_table(table)
+    GameAPI.clear_table(table)
 end
 
-function M.request_server_time(func,context)
-    GameAPI.lua_request_message_from_server(func,context)
+-- 启用全图视野（总是可见的）
+---@param enable boolean
+function M.set_globale_view(enable)
+    GameAPI.enable_fow_for_player(enable)
 end
 
 ---@param obj Unit|Item|Point|Area 各种对象
@@ -646,19 +650,10 @@ function M.api_has_kv_any(obj,key)
     return GlobalAPI.api_has_kv_any(obj and obj.handle or nil,key)
 end
 
----获取本地玩家
-function M.get_client_player()
-    return M.player.get(GameAPI.get_owner_role_id())
-end
-
+---获取本地
 ---设置对象基础材质颜色
 function M.set_object_color(obj,r,g,b,a)
     GameAPI.api_change_obj_base_color(obj.handle,r,g,b,a)
-end
-
----清空表
-function M.clear_table(table)
-    GameAPI.clear_table(table)
 end
 
 --物品类型合成所需的物品类型数量
