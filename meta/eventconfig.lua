@@ -1060,6 +1060,16 @@ M.config["单位-受到治疗前"] = {
     desc = "可在其他计算前触发，可以修改有效性",
     dispatch = true,
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local instance = New 'HealInstance' (data, \"治疗前\")\
+    return instance\
+end\
+",
+            desc = "治疗实例",
+            name = "heal_instance",
+            type = "HealInstance",
+        },
     },
     key = "ET_UNIT_GET_CURE_BEFORE_APPLY",
     name = "单位-受到治疗前",
@@ -1087,6 +1097,16 @@ M.config["单位-受到治疗时"] = {
     desc = "可以修改治疗值",
     dispatch = true,
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local instance = New 'HealInstance' (data, \"治疗时\")\
+    return instance\
+end\
+",
+            desc = "治疗实例",
+            name = "heal_instance",
+            type = "HealInstance",
+        },
     },
     key = "ET_UNIT_GET_CURE",
     name = "单位-受到治疗时",

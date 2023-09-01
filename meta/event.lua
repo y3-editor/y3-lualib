@@ -1791,6 +1791,7 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
 ---@class EventParam.ET_UNIT_GET_CURE_BEFORE_APPLY
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
+---@field heal_instance HealInstance # 治疗实例
 
 --单位即将受到治疗
 event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
@@ -1809,6 +1810,17 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
         lua_type = "Ability",
         desc = "当前治疗所属技能",
         lua_desc = "当前治疗所属技能",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "heal_instance",
+        lua_type = "HealInstance",
+        lua_desc = "治疗实例",
+        lua_code = function (data)
+            local instance = New 'HealInstance' (data, "治疗前")
+            return instance
+        end,
     },
 }
 
@@ -1839,6 +1851,7 @@ event.ET_UNIT_GET_CURE_FINISH = {
 ---@class EventParam.ET_UNIT_GET_CURE
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
+---@field heal_instance HealInstance # 治疗实例
 
 --单位受到治疗
 event.ET_UNIT_GET_CURE = {
@@ -1857,6 +1870,17 @@ event.ET_UNIT_GET_CURE = {
         lua_type = "Ability",
         desc = "当前治疗所属技能",
         lua_desc = "当前治疗所属技能",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "heal_instance",
+        lua_type = "HealInstance",
+        lua_desc = "治疗实例",
+        lua_code = function (data)
+            local instance = New 'HealInstance' (data, "治疗时")
+            return instance
+        end,
     },
 }
 

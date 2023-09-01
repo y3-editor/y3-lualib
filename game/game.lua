@@ -609,14 +609,9 @@ function M.send_custom_event(id, table)
     GameAPI.send_custom_event(id, table)
 end
 
----@param value number 治疗值
----设置当前治疗值
-function M.set_cure_value(value)
-    GameAPI.set_cur_cure_value(Fix32(value))
-end
-
----@param str string 字符串
 ---字符串转界面事件
+---@param str string 字符串
+---@return string
 function M.str_to_ui_event(str)
     return GlobalAPI.str_to_ui_event(str)
 end
