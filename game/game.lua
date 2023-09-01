@@ -601,6 +601,14 @@ function M.send_signal(player, signal_enum, point, visible_enum)
     )
 end
 
+-- 发送自定义事件给ECA
+---@param id integer 事件id
+---@param table table 事件数据
+function M.send_custom_event(id, table)
+    ---@diagnostic disable-next-line
+    GameAPI.send_custom_event(id, table)
+end
+
 ---@param value number 治疗值
 ---设置当前治疗值
 function M.set_cure_value(value)
