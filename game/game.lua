@@ -642,71 +642,30 @@ function M.set_globale_view(enable)
     GameAPI.enable_fow_for_player(enable)
 end
 
----@param obj Unit|Item|Point|Area 各种对象
----@param key string 字段
----@return Point command 点
----是否存在字段
-function M.api_has_kv_any(obj,key)
-    return GlobalAPI.api_has_kv_any(obj and obj.handle or nil,key)
-end
-
----获取本地
 ---设置对象基础材质颜色
-function M.set_object_color(obj,r,g,b,a)
-    GameAPI.api_change_obj_base_color(obj.handle,r,g,b,a)
+---@param obj Unit|Item|Destructible
+---@param r integer
+---@param g integer
+---@param b integer
+---@param a integer
+function M.set_object_color(obj, r, g, b, a)
+    GameAPI.api_change_obj_base_color(obj.handle, r, g, b, a)
 end
 
---物品类型合成所需的物品类型数量
-function M.get_num_of_item_mat(item_key, comp_item_key)
-    return GameAPI.api_get_value_of_item_name_comp_mat(item_key, comp_item_key)
-end
-
---物品类型合成所需的玩家属性数量
-function M.get_num_of_player_attr(item_key, role_res_key)
-    return GameAPI.api_get_value_of_item_name_comp_res(item_key, role_res_key)
-end
-
----获取返回的服务器时间(年)
-function M.get_server_year(v)
-    return GlobalAPI.get_year_of_server_timestamp(v)
-end
----获取返回的服务器时间(月)
-function M.get_server_month(v)
-    return GlobalAPI.get_month_of_server_timestamp(v)
-end
----获取返回的服务器时间(日)
-function M.get_server_day(v)
-    return GlobalAPI.get_day_of_server_timestamp(v)
-end
----获取返回的服务器时间(小时)
-function M.get_server_hour(v)
-    return GlobalAPI.get_hour_of_server_timestamp(v)
-end
-
----@param mainString string 母字符串
----@param findString string 被替换的字符串
----@param replaceString string 替换目标字符串
----@param num integer 最大替换次数
----@return string str 字符串
----字符串替换
-function M.string_gsub(mainString,findString,replaceString,num)
-    return GlobalAPI.replace_str(mainString,findString,replaceString,num)
-end
-
----@param fps integer 帧率
 ---设置逻辑帧率
+---@param fps integer 帧率
 function M.set_logic_fps(fps)
     GameAPI.api_change_logic_fps(fps)
 end
 
----@param tab table 表
 ---加密表
+---@param tab table 表
 function M.encrypt_table(tab)
     GameAPI.encrypt_table(tab)
 end
 
----@param enable boolean 是否关闭
 ---关闭localplayer的表现层跳字
+---@param enable boolean 是否关闭
 function M.set_jump_word(enable)
     GameAPI.set_local_player_jump_word_close(enable)
 end

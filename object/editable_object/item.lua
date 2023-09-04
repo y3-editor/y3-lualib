@@ -467,4 +467,20 @@ function M.get_model_by_key(item_key)
     return GameAPI.api_get_item_type_model(item_key)
 end
 
+--物品类型合成所需的物品类型数量
+---@param item_key py.ItemKey
+---@param comp_item_key py.ItemKey
+---@return integer
+function M.get_num_of_item_mat(item_key, comp_item_key)
+    return GameAPI.api_get_value_of_item_name_comp_mat(item_key, comp_item_key)
+end
+
+--物品类型合成所需的玩家属性数量
+---@param item_key py.ItemKey
+---@param role_res_key py.RoleResKey
+---@return number
+function M.get_num_of_player_attr(item_key, role_res_key)
+    return GameAPI.api_get_value_of_item_name_comp_res(item_key, role_res_key)
+end
+
 return M

@@ -3,6 +3,10 @@
 ---@class py.Unit
 local Unit = Class 'py.Unit'
 
+---@class py.Item: py.Actor
+
+---@class py.Destructible: py.Actor
+
 ---@class py.ProjectileEntity
 local Projectile = Class 'py.ProjectileEntity'
 
