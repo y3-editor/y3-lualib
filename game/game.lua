@@ -670,84 +670,84 @@ function M.set_jump_word(enable)
     GameAPI.set_local_player_jump_word_close(enable)
 end
 
+---特效播放开关
 ---@param player Player 玩家
 ---@param switch boolean 是否关闭
----特效播放开关
-function M.sfx_switch(player,switch)
-    GameAPI.set_player_sfx_switch(player and player.handle or nil,switch)
+function M.sfx_switch(player, switch)
+    GameAPI.set_player_sfx_switch(player.handle, switch)
 end
 
----@param area Area 区域
 ---注册区域的附近语音频道
-function M.reg_sound_area(area)
-    GameAPI.reg_sound_area(area and area.handle or nil)
-end
-
 ---@param area Area 区域
----注销区域的附近语音频道
-function M.unreg_sound_area(area)
-    GameAPI.unreg_sound_area(area and area.handle or nil)
+function M.reg_sound_area(area)
+    GameAPI.reg_sound_area(area.handle)
 end
 
----@param switch boolean 是否关闭
+---注销区域的附近语音频道
+---@param area Area 区域
+function M.unreg_sound_area(area)
+    GameAPI.unreg_sound_area(area.handle)
+end
+
 --设置附近语音的区域模式开关
+---@param switch boolean 是否关闭
 function M.set_nearby_voice_mode(switch)
     GameAPI.set_nearby_voice_mode(switch)
 end
 
----@param player Player 玩家
----@param switch boolean 是否关闭
 --设置玩家的附近语音聊天收听开关
-function M.set_nearby_sound_switch(player,switch)
-    GameAPI.set_nearby_sound_switch(player and player.handle,switch)
-end
-
 ---@param player Player 玩家
 ---@param switch boolean 是否关闭
---设置玩家的附近语音聊天发言开关
-function M.set_nearby_micro_switch(player,switch)
-    GameAPI.set_nearby_micro_switch(player and player.handle,switch)
+function M.set_nearby_sound_switch(player, switch)
+    GameAPI.set_nearby_sound_switch(player.handle, switch)
 end
 
+--设置玩家的附近语音聊天发言开关
+---@param player Player 玩家
+---@param switch boolean 是否关闭
+function M.set_nearby_micro_switch(player, switch)
+    GameAPI.set_nearby_micro_switch(player.handle, switch)
+end
+
+---设置玩家的声音主单位
 ---@param player Player 玩家
 ---@param unit Unit 是否关闭
----设置玩家的声音主单位
-function M.set_role_micro_unit(player,unit)
-    GameAPI.set_role_micro_unit(player and player.handle,unit and unit.handle)
+function M.set_role_micro_unit(player, unit)
+    GameAPI.set_role_micro_unit(player.handle, unit.handle)
 end
 
----@param player Player 玩家
 ---关闭玩家的附近语音聊天
+---@param player Player 玩家
 function M.close_role_micro_unit(player)
-    GameAPI.close_role_micro_unit(player and player.handle)
+    GameAPI.close_role_micro_unit(player.handle)
 end
 
----@param player Player 玩家
----@param switch boolean 是否关闭
 ---设置玩家的同阵营语音聊天收听开关
-function M.set_role_camp_sound_switch(player,switch)
-    GameAPI.set_role_camp_sound_switch(player and player.handle,switch)
-end
-
 ---@param player Player 玩家
 ---@param switch boolean 是否关闭
+function M.set_role_camp_sound_switch(player, switch)
+    GameAPI.set_role_camp_sound_switch(player.handle, switch)
+end
+
 ---设置玩家的同阵营语音聊天发言开关
-function M.set_role_camp_micro_switch(player,switch)
-    GameAPI.set_role_camp_micro_switch(player and player.handle,switch)
-end
-
 ---@param player Player 玩家
 ---@param switch boolean 是否关闭
+function M.set_role_camp_micro_switch(player, switch)
+    GameAPI.set_role_camp_micro_switch(player.handle, switch)
+end
+
 ---设置玩家的所有人语音聊天收听开关
-function M.set_role_all_sound_switch(player,switch)
-    GameAPI.set_role_all_sound_switch(player and player.handle,switch)
-end
-
 ---@param player Player 玩家
 ---@param switch boolean 是否关闭
+function M.set_role_all_sound_switch(player, switch)
+    GameAPI.set_role_all_sound_switch(player.handle, switch)
+end
+
 ---设置玩家的所有人语音聊天发言开关
-function M.set_role_all_micro_switch(player,switch)
-    GameAPI.set_role_all_micro_switch(player and player.handle,switch)
+---@param player Player 玩家
+---@param switch boolean 是否关闭
+function M.set_role_all_micro_switch(player, switch)
+    GameAPI.set_role_all_micro_switch(player.handle, switch)
 end
 
 return M
