@@ -880,6 +880,7 @@ M.config["单位-死亡"] = {
     extraArgs = {
     },
     key = "ET_UNIT_DIE",
+    master = "unit",
     name = "单位-死亡",
     object = "Unit",
     params = {

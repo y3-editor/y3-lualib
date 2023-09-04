@@ -58,25 +58,37 @@ function M:subscribe_event(event_name, ...)
     return extra_args, callback
 end
 
+local function getMaster(datas, config, lua_params)
+    local master = config.master
+    if master then
+        return lua_params[master]
+    end
+    for _, data in ipairs(datas) do
+        if data.lua_type == config.object then
+            master = data.lua_name
+            config.master = master
+            return lua_params[data.lua_name]
+        end
+    end
+end
+
 local function event_notify(event_name, extra_args, lua_params)
     local config = event_configs.config[event_name]
     if not config or not config.object then
         return
     end
     local datas = event_datas[config.key]
-    for _, data in ipairs(datas) do
-        if data.lua_type == config.object then
-            local obj = lua_params[data.lua_name]
-            ---@type EventManager?
-            local event_manager = obj.object_event_manager
-            if event_manager then
-                if config.dispatch then
-                    event_manager:dispatch(event_name, extra_args, lua_params)
-                else
-                    event_manager:notify(event_name, extra_args, lua_params)
-                end
-            end
-            break
+    local master = getMaster(datas, config, lua_params)
+    if not master then
+        return
+    end
+    ---@type EventManager?
+    local event_manager = master.object_event_manager
+    if event_manager then
+        if config.dispatch then
+            event_manager:dispatch(event_name, extra_args, lua_params)
+        else
+            event_manager:notify(event_name, extra_args, lua_params)
         end
     end
 end
