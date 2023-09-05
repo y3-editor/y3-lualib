@@ -71,8 +71,8 @@ function M.wait(timeout, on_timer)
     ---@type Timer
     local timer
     local py_timer = GameAPI.run_lua_timer(Fix32(timeout), 0, false, function()
-        timer:remove()
         timer:execute()
+        timer:remove()
     end, {})
     timer = New 'Timer' (py_timer, on_timer)
     return timer
@@ -86,8 +86,8 @@ function M.wait_frame(frame, on_timer)
     ---@type Timer
     local timer
     local py_timer = run_timer_by_frame(frame, 0, function()
-        timer:remove()
         timer:execute()
+        timer:remove()
     end)
     timer = New 'Timer' (py_timer, on_timer)
     return timer
