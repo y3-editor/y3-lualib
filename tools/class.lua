@@ -17,7 +17,7 @@ M._errorHandler = error
 ---@field public  __del?   fun(self: any)
 ---@field public  __alloc? fun(self: any)
 ---@field package __call   fun(self: any, ...)
----@field public  __getter table<any, fun(self: any): any>
+---@field public  __getter table
 
 ---@class Class.Config
 ---@field private name         string
@@ -26,6 +26,7 @@ M._errorHandler = error
 ---@field private superCache   table<string, fun(...)>
 ---@field package superClass?  Class.Base
 ---@field public  getter       table<any, fun(obj: any)>
+---@field package initCalls?   false|fun(...)[]
 local Config = {}
 
 ---@param name string
@@ -55,7 +56,6 @@ function M.declare(name, super)
     end
     local class  = {}
     local getter = {}
-    class.__index  = class
     class.__name   = name
     class.__getter = getter
 
@@ -103,9 +103,9 @@ function M.declare(name, super)
         if class == superClass then
             M._errorHandler(('class %q can not inherit itself'):format(name))
         end
-        mt.__index = superClass
 
         config.superClass = superClass
+        config:extends(super, function () end)
     end
 
     return class, config
@@ -122,16 +122,20 @@ end
 -- 实例化一个类
 ---@generic T: string
 ---@param name `T`
+---@param tbl? table
 ---@return T
-function M.new(name)
+function M.new(name, tbl)
     local class = M._classes[name]
     if not class then
         M._errorHandler(('class %q not found'):format(name))
     end
 
-    local instance = setmetatable({
-        __class__ = name,
-    }, class)
+    if not tbl then
+        tbl = {}
+    end
+    tbl.__class__ = name
+
+    local instance = setmetatable(tbl, class)
 
     return instance
 end
@@ -173,13 +177,13 @@ function M.super(name)
     return config:super(name)
 end
 
----@alias Class.Extends.CallData { name: string, init?: fun(self: any, super: fun(...)) }
+---@alias Class.Extends.CallData { name: string, init?: fun(self: any, super: fun(...), ...) }
 
 ---@generic Class: string
 ---@generic Extends: string
 ---@param name `Class`
 ---@param extendsName `Extends`
----@param init? fun(self: Class, super: Extends)
+---@param init? fun(self: Class, super: Extends, ...)
 function M.extends(name, extendsName, init)
     local config = M.getConfig(name)
     config:extends(extendsName, init)
@@ -190,22 +194,47 @@ end
 ---@param name string
 ---@param ... any
 function M.runInit(obj, name, ...)
-    local class = M._classes[name]
     local data  = M.getConfig(name)
-    local extendsCalls = data.extendsCalls
-    if extendsCalls then
-        for _, call in ipairs(extendsCalls) do
-            if call.init then
-                call.init(obj, function (...)
-                    M.runInit(obj, call.name, ...)
-                end)
-            else
-                M.runInit(obj, call.name)
+    if data.initCalls == false then
+        return
+    end
+    if not data.initCalls then
+        local initCalls = {}
+
+        local function collectInitCalls(cname)
+            local class = M._classes[cname]
+            local cdata  = M.getConfig(cname)
+            local extendsCalls = cdata.extendsCalls
+            if extendsCalls then
+                for _, call in ipairs(extendsCalls) do
+                    if call.init then
+                        initCalls[#initCalls+1] = function (cobj, ...)
+                            call.init(cobj, function (...)
+                                M.runInit(cobj, call.name, ...)
+                            end, ...)
+                        end
+                    else
+                        collectInitCalls(call.name)
+                    end
+                end
+            end
+            if class.__init then
+                initCalls[#initCalls+1] = class.__init
             end
         end
+
+        collectInitCalls(name)
+
+        if #initCalls == 0 then
+            data.initCalls = false
+            return
+        else
+            data.initCalls = initCalls
+        end
     end
-    if class.__init then
-        class.__init(obj, ...)
+
+    for i = 1, #data.initCalls do
+        data.initCalls[i](obj, ...)
     end
 end
 
@@ -270,11 +299,13 @@ function Config:extends(extendsName, init)
     if not self.extendsMap[extendsName] then
         self.extendsMap[extendsName] = true
         for k, v in pairs(extends) do
-            if not k:match '^__' then
-                if class[k] ~= nil then
-                    M._errorHandler(('"%s.%s" is already defined'):format(self.name, k))
-                end
+            if not class[k] and not k:match '^__' then
                 class[k] = v
+            end
+        end
+        for k, v in pairs(extends.__getter) do
+            if not class.__getter[k] then
+                class.__getter[k] = v
             end
         end
     end
