@@ -36,9 +36,8 @@ end)
 ---@return Projectile projectile
 function M.get_by_handle(py_projectile)
     -- TODO 获取ID换成正式API
-    -- <LProjectile(10000016)>
-    local view = tostring(py_projectile)
-    local id = tonumber(view:match '%d+')
+    ---@diagnostic disable-next-line: undefined-field
+    local id = py_projectile.id
     local projectile = M.ref_manager:get(id)
     return projectile
 end
