@@ -19,74 +19,6 @@ M.config["未知-ET_LOGIC_UNIT_DESTROY"] = {
     },
 }
 
----@alias EventParam.时间-经过 EventParam.ET_TIMEOUT
-M.config["时间-经过"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "经过指定的时间后触发",
-    extraArgs = {
-    },
-    key = "ET_TIMEOUT",
-    name = "时间-经过",
-    params = {
-        [1] = {
-            desc = "经过的时间",
-            name = "time",
-            type = "number",
-        },
-    },
-}
-
----@alias EventParam.时间-周期 EventParam.ET_REPEAT_TIMEOUT
-M.config["时间-周期"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "每隔指定的时间重复触发",
-    extraArgs = {
-    },
-    key = "ET_REPEAT_TIMEOUT",
-    name = "时间-周期",
-    params = {
-        [1] = {
-            desc = "经过的时间",
-            name = "time",
-            type = "number",
-        },
-    },
-}
-
----@alias EventParam.时间-经过帧 EventParam.ET_TIMEOUT_BY_FRAME
-M.config["时间-经过帧"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "经过指定数量的帧数后触发",
-    extraArgs = {
-    },
-    key = "ET_TIMEOUT_BY_FRAME",
-    name = "时间-经过帧",
-    params = {
-        [1] = {
-            desc = "经过的帧数",
-            name = "count",
-            type = "integer",
-        },
-    },
-}
-
----@alias EventParam.时间-周期帧 EventParam.ET_REPEAT_TIMEOUT_BY_FRAME
-M.config["时间-周期帧"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "每隔指定的帧数重复触发",
-    extraArgs = {
-    },
-    key = "ET_REPEAT_TIMEOUT_BY_FRAME",
-    name = "时间-周期帧",
-    params = {
-        [1] = {
-            desc = "经过的帧数",
-            name = "count",
-            type = "integer",
-        },
-    },
-}
-
 ---@alias EventParam.游戏-初始化 EventParam.ET_GAME_INIT
 M.config["游戏-初始化"] = {
     __class__ = "EventConfigBuilder",
@@ -2851,10 +2783,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 }
 
 ---@class Game
----@field event fun(self: self, event: "时间-经过", time: number, callback: fun(trg: Trigger, data: EventParam.时间-经过)): Trigger
----@field event fun(self: self, event: "时间-周期", time: number, callback: fun(trg: Trigger, data: EventParam.时间-周期)): Trigger
----@field event fun(self: self, event: "时间-经过帧", count: integer, callback: fun(trg: Trigger, data: EventParam.时间-经过帧)): Trigger
----@field event fun(self: self, event: "时间-周期帧", count: integer, callback: fun(trg: Trigger, data: EventParam.时间-周期帧)): Trigger
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-开始", callback: fun(trg: Trigger, data: EventParam.游戏-开始)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
