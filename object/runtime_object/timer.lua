@@ -46,6 +46,23 @@ y3.py_converter.register_lua_to_py('py.Timer', function (lua_value)
     return lua_value.handle
 end)
 
+---@param frame integer
+---@param count integer
+---@param callback fun()
+---@return py.Timer
+local function run_timer_by_frame(frame, count, callback)
+    local timer_node = {
+        on_timer_callback = callback,
+        _rt = {
+            call_with_frame = function (f)
+                f()
+            end
+        }
+    }
+    ---@diagnostic disable-next-line: undefined-field
+    return GameAPI.run_timer_by_frame(frame, count, false, timer_node, {})
+end
+
 -- 等待时间后执行
 ---@param timeout number
 ---@param on_timer fun(timer: Timer)
@@ -57,6 +74,21 @@ function M.wait(timeout, on_timer)
         timer:remove()
         timer:execute()
     end, {})
+    timer = New 'Timer' (py_timer, on_timer)
+    return timer
+end
+
+-- 等待一定帧数后执行
+---@param frame integer
+---@param on_timer fun(timer: Timer)
+---@return Timer
+function M.wait_frame(frame, on_timer)
+    ---@type Timer
+    local timer
+    local py_timer = run_timer_by_frame(frame, 0, function()
+        timer:remove()
+        timer:execute()
+    end)
     timer = New 'Timer' (py_timer, on_timer)
     return timer
 end
@@ -76,6 +108,22 @@ function M.loop(timeout, on_timer)
     return timer
 end
 
+-- 循环一定帧数后执行
+---@param frame integer
+---@param on_timer fun(timer: Timer, count: integer)
+---@return Timer
+function M.loop_frame(frame, on_timer)
+    ---@type Timer
+    local timer
+    local count = 0
+    local py_timer = run_timer_by_frame(frame, -1, function()
+        count = count + 1
+        timer:execute(count)
+    end)
+    timer = New 'Timer' (py_timer, on_timer)
+    return timer
+end
+
 -- 循环指定次数
 ---@param timeout number
 ---@param times integer
@@ -88,6 +136,22 @@ function M.count_loop(timeout, times, on_timer)
         count = count + 1
         timer:execute(count)
     end, {})
+    timer = New 'Timer' (py_timer, on_timer)
+    return timer
+end
+
+-- 循环一定帧数指定次数
+---@param frame integer
+---@param times integer
+---@param on_timer fun(timer: Timer, count: integer)
+---@return Timer
+function M.count_loop_frame(frame, times, on_timer)
+    local timer
+    local count = 0
+    local py_timer = run_timer_by_frame(frame, times, function()
+        count = count + 1
+        timer:execute(count)
+    end)
     timer = New 'Timer' (py_timer, on_timer)
     return timer
 end
