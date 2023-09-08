@@ -16,6 +16,12 @@ function M:event(event_name, ...)
     end
     local extra_args, callback = self:subscribe_event(event_name, ...)
     local trigger = self.object_event_manager:event(event_name, extra_args, callback)
+
+    local gcHost = self --[[@as GCHost]]
+    if gcHost.bindGC then
+        gcHost:bindGC(trigger)
+    end
+
     return trigger
 end
 
