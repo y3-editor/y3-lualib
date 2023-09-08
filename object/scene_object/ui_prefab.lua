@@ -27,15 +27,15 @@ end
 --创建界面模块实例
 ---@param  player Player 玩家
 ---@param  prefab_name string 界面模块id
----@param  ui_name string ui实例
+---@param  parent_ui UI 父控件
 ---@return UIPrefab
-function M.create_ui_prefab_instance(player, prefab_name, ui_name)
-    local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle, prefab_name, ui_name)
+function M.create(player, prefab_name, parent_ui)
+    local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle, prefab_name, parent_ui.handle)
     return M.get_by_handle(player, py_ui_prefab)
 end
 
 --删除界面模块实例
-function M:remove_ui_prefab()
+function M:remove()
     GameAPI.del_ui_prefab(self.handle)
 end
 
