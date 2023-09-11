@@ -9,6 +9,8 @@ M.type = 'projectile'
 
 ---@class Projectile: ObjectEvent
 Extends('Projectile', 'ObjectEvent')
+---@class Projectile: KV
+Extends('Projectile', 'KV')
 
 ---@param id integer
 ---@param py_projectile py.ProjectileEntity

@@ -7,6 +7,8 @@ local M = Class 'Area'
 
 ---@class Area: ObjectEvent
 Extends('Area', 'ObjectEvent')
+---@class Area: KV
+Extends('Area', 'KV')
 
 M.type = 'area'
 

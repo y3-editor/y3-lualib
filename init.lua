@@ -83,6 +83,7 @@ y3.py_event_sub = require 'y3.game.py_event_subscribe'
 y3.helper       = require 'y3.game.helper'
 y3.ground       = require 'y3.game.ground'
 y3.config       = require 'y3.game.config'
+y3.kv           = require 'y3.game.kv'
 
 y3.unit         = require 'y3.object.editable_object.unit'
 y3.ability      = require 'y3.object.editable_object.ability'

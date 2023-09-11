@@ -13,6 +13,8 @@ Extends('Ability', 'Storage')
 Extends('Ability', 'CustomEvent')
 ---@class Ability: ObjectEvent
 Extends('Ability', 'ObjectEvent')
+---@class Ability: KV
+Extends('Ability', 'KV')
 
 ---所有技能实例
 M.map = setmetatable({}, y3.util.MODE_K)

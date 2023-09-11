@@ -14,6 +14,8 @@ Extends('Unit', 'Storage')
 Extends('Unit', 'CustomEvent')
 ---@class Unit: ObjectEvent
 Extends('Unit', 'ObjectEvent')
+---@class Unit: KV
+Extends('Unit', 'KV')
 
 function M:__tostring()
     return string.format('{unit|%s|%s}'

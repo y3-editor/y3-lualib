@@ -10,6 +10,8 @@ M.type = 'destructible'
 
 ---@class Destructible: ObjectEvent
 Extends('Destructible', 'ObjectEvent')
+---@class Destructible: KV
+Extends('Destructible', 'KV')
 
 ---@param py_destructible py.Destructible
 ---@return self
