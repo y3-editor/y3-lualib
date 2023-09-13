@@ -28,7 +28,16 @@ log = New 'Log' {
     clock = function ()
         return GameAPI.get_cur_game_time():float()
     end,
-    print = function (level, message)
+    print = function (level, message, timeStamp)
+        local logger = y3.config.log.logger
+        if logger then
+            y3.config.log.logger = nil
+            local suc, res = xpcall(logger, log.error, level, message, timeStamp)
+            y3.config.log.logger = logger
+            if suc and res then
+                return
+            end
+        end
         if y3.config.log.toDialog then
             if level == 'error' or level == 'fatal' then
                 GameAPI.print_to_dialog(1, message)
@@ -65,15 +74,7 @@ require 'y3.util.custom_event'
 require 'y3.util.ref'
 require 'y3.util.storage'
 
----@param ... any
-function print(...)
-    local t = table.pack(...)
-    for i = 1, t.n do
-        t[i] = tostring(t[i])
-    end
-    local str = table.concat(t, '\t', 1, t.n)
-    GameAPI.print_to_dialog(3, str)
-end
+print = log.debug
 
 y3.const        = require 'y3.game.const'
 y3.math         = require 'y3.game.math'
