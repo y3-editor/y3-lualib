@@ -191,8 +191,8 @@ end
 ---@param y_top integer # width
 ---@param y_bottom integer # height
 ---@return self
-function M:set_ui_9(x_left, x_right,y_top,y_bottom)
-    GameAPI.set_ui_comp_cap_insets(self.player.handle, self.handle, x_left, x_right,y_top,y_bottom)
+function M:set_ui_9(x_left, x_right, y_top, y_bottom)
+    GameAPI.set_ui_comp_cap_insets(self.player.handle, self.handle, x_left, x_right, y_top, y_bottom)
     return self
 end
 
