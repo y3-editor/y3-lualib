@@ -185,6 +185,16 @@ function M:set_ui_size(width, height)
     return self
 end
 
+--设置控件9宫格
+---@param x_left integer # x
+---@param x_right integer # y
+---@param y_top integer # width
+---@param y_bottom integer # height
+---@return self
+function M:set_ui_9(x_left, x_right,y_top,y_bottom)
+    GameAPI.set_ui_comp_cap_insets(self.player.handle, self.handle, x_left, x_right,y_top,y_bottom)
+    return self
+end
 
 --设置文本字体大小
 ---@param size integer 字体大小
