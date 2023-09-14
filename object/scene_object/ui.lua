@@ -781,7 +781,7 @@ function M:is_visible()
     return GameAPI.get_ui_comp_visible(self.player.handle, self.handle)
 end
 
----设置ui坐标
+---设置控件相对坐标
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
