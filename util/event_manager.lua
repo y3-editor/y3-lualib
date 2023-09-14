@@ -99,6 +99,7 @@ function M:dispatch(event_name, event_args, ...)
     self.fire_lock = self.fire_lock + 1
     local a, b, c, d = event:dispatch(event_args, ...)
     self.fire_lock = self.fire_lock - 1
+    self:check_stack()
     return a, b, c, d
 end
 
