@@ -144,6 +144,12 @@ function M:set_icon(picture_id)
     self.handle:api_set_item_icon(picture_id)
 end
 
+---获取物品的图标
+---@return py.Texture
+function M:get_icon()
+    return self.handle:api_get_item_icon()
+end
+
 ---设置所属玩家
 ---@param player Player 所属玩家
 function M:set_owner_player(player)
