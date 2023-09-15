@@ -356,7 +356,7 @@ end
 
 ---是否存在
 ---@return boolean is_exist 是否存在
-function M:is_destory()
+function M:is_exist()
     return GameAPI.ability_is_exist(self.handle)
 end
 
