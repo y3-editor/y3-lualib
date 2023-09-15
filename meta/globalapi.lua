@@ -259,8 +259,9 @@ function GlobalAPI.fvector2_to_str(f) end
 
 --浮点数转字符串
 ---@param f number # 浮点数
+---@param num? integer # 保留位数
 ---@return string # 字符串
-function GlobalAPI.float_to_str(f) end
+function GlobalAPI.float_to_str(f, num) end
 
 --浮点Vector3转字符串
 ---@param f py.Vector3 # Vector3
@@ -462,6 +463,11 @@ function GlobalAPI.pow(f, n) end
 ---@param f py.Fixed # 定点数
 ---@return py.Fixed # 定点数
 function GlobalAPI.abs(f) end
+
+--求绝对值
+---@param number integer # 整数
+---@return integer # 整数
+function GlobalAPI.int_abs(number) end
 
 --区间
 ---@param x0 py.Fixed # 定点数

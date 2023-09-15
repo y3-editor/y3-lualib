@@ -4,6 +4,29 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--施加倒地状态
+---@param unit py.Unit # 施加目标
+---@param duration py.Fixed # 持续时间
+function GameAPI.api_physics_hit_down_unit(unit, duration) end
+
+--获取抓举单位
+---@param unit py.Unit # 单位
+function GameAPI.api_get_grab_unit(unit) end
+
+--检查是否处于抓举状态
+---@param unit py.Unit # 单位
+---@return boolean # 是否处于抓举状态
+function GameAPI.api_check_grab_state(unit) end
+
+--获取手持物品
+---@param unit py.Unit # 单位
+function GameAPI.api_get_pick_item(unit) end
+
+--检查是否手持物品
+---@param unit py.Unit # 单位
+---@return boolean # 是否手持物品
+function GameAPI.api_check_physics_unit_pick_item_exist(unit) end
+
 --增加击倒值
 ---@param unit py.Unit # 单位
 ---@param down_value py.Fixed # 击倒值
