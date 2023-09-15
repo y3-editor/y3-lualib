@@ -863,6 +863,7 @@ end\
         },
     },
     key = "ET_UNIT_BE_HURT",
+    master = "target_unit",
     name = "单位-受到伤害前",
     object = "Unit",
     params = {
@@ -911,6 +912,7 @@ end\
         },
     },
     key = "ET_UNIT_BE_HURT_BEFORE_APPLY",
+    master = "target_unit",
     name = "单位-受到伤害时",
     object = "Unit",
     params = {
@@ -981,6 +983,7 @@ end\
         },
     },
     key = "ET_UNIT_BE_HURT_COMPLETE",
+    master = "target_unit",
     name = "单位-受到伤害后",
     object = "Unit",
     params = {
