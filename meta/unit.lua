@@ -514,11 +514,6 @@ function Unit:set_move_channel_land(land_limitation, item_limitation, water_limi
 ---@param air_limitation? boolean # 空中限制
 function Unit:set_move_channel_air(air_limitation) end
 
---获取单位从点到点的寻路距离
----@param point_start py.Unit # 单位
----@param point_end py.Point # 起始点
-function Unit:get_unit_path_length_between_points(point_start, point_end) end
-
 --播放动画
 ---@param name string # 动画名称
 ---@param rate? number # 播放倍率

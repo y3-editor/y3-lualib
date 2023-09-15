@@ -2732,30 +2732,6 @@ M.config["游戏-消息"] = {
     },
 }
 
----@alias EventParam.界面-创建 EventParam.ET_UI_PREFAB_CREATE_EVENT
-M.config["界面-创建"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "界面的实例（控件）创建后触发",
-    extraArgs = {
-    },
-    key = "ET_UI_PREFAB_CREATE_EVENT",
-    name = "界面-创建",
-    params = {
-    },
-}
-
----@alias EventParam.界面-移除 EventParam.ET_UI_PREFAB_DEL_EVENT
-M.config["界面-移除"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "界面的实例（控件）创建后触发",
-    extraArgs = {
-    },
-    key = "ET_UI_PREFAB_DEL_EVENT",
-    name = "界面-移除",
-    params = {
-    },
-}
-
 ---@alias EventParam.玩家-语音发言 EventParam.ET_MICRO_SPEAK
 M.config["玩家-语音发言"] = {
     __class__ = "EventConfigBuilder",
@@ -2937,8 +2913,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 ---@field event fun(self: self, event: "游戏-消息", callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
----@field event fun(self: self, event: "界面-创建", callback: fun(trg: Trigger, data: EventParam.界面-创建)): Trigger
----@field event fun(self: self, event: "界面-移除", callback: fun(trg: Trigger, data: EventParam.界面-移除)): Trigger
 ---@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
 
 ---@class Ability

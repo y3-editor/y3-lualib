@@ -8,6 +8,10 @@ local ProjectileEntity = {}
 ---@return py.Unit # 投射物本身对象
 function ProjectileEntity:api_get_self() end
 
+--获取单位ID
+---@return py.UnitID # 单位ID
+function ProjectileEntity:api_get_id() end
+
 --投射物编号
 ---@return py.ProjectileKey # 投射物的key
 function ProjectileEntity:api_get_key() end

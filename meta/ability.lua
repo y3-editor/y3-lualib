@@ -42,6 +42,10 @@ function Ability:api_get_ability_seq() end
 ---@return py.AbilityCastType # 技能释放类型
 function Ability:api_get_ability_cast_type() end
 
+--获取技能全局唯一id
+---@return integer # 技能全局唯一id
+function Ability:api_get_ability_global_id() end
+
 --移除技能
 function Ability:api_remove() end
 

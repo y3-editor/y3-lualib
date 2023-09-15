@@ -423,9 +423,5 @@ function Role:api_is_bookmark_current_map() end
 function Role:api_get_ladder_rank_points(ladder_key) end
 
 --获取玩家该地图累计充值
----@return py.Fixed # 累计充值
+---@return number # 累计充值
 function Role:api_get_role_total_consume() end
-
---获取玩家是否打赏该地图
----@return boolean # 是否打赏该地图
-function Role:api_get_role_is_donated() end

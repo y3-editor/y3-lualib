@@ -363,6 +363,25 @@ function GlobalAPI.vector3_arithmetic_operation(a, o, b) end
 ---@return py.Fixed # 定点数
 function GlobalAPI.vector3_length(vec3) end
 
+--三维向量归一化
+---@param vec3 py.Vector3 # 三维向量
+function GlobalAPI.vector3_normalize(vec3) end
+
+--三维向量的归一化向量
+---@param vec3 py.Vector3 # 三维向量
+---@return py.Vector3 # 三维向量
+function GlobalAPI.get_vector3_normalize(vec3) end
+
+--三维向量乘以标量
+---@param vec3 py.Vector3 # 三维向量
+---@param scalar py.Vector3 # 标量
+function GlobalAPI.vector3_multiply_scalar(vec3, scalar) end
+
+--三维向量转欧拉角
+---@param vec3 py.Vector3 # 三维向量
+---@return py.FRotation # 欧拉角
+function GlobalAPI.vector3_to_euler(vec3) end
+
 --定点数自增1
 ---@param fix_value py.Fixed # x
 ---@return py.Fixed # 定点数
