@@ -92,7 +92,7 @@
 --链接特效编号
 ---@class py.LinkSfxKey: integer
 --模型编号
----@class py.ModelKey: py.Model
+---@class py.ModelKey: integer
 --触发器ID
 ---@class py.TriggerID: integer
 --动态触发器实例
