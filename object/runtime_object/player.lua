@@ -70,6 +70,7 @@ y3.py_converter.register_lua_to_py('py.Role', function (lua_value)
 end)
 
 -- 本地玩家，注意这可能会导致不同步！
+---@private
 M.LOCAL_PLAYER = M.get_by_handle(GameAPI.get_client_role())
 
 function M:get_camp()
@@ -562,7 +563,8 @@ function M:exit_game()
     GameAPI.exit_game(self.handle)
 end
 
--- 获取本地玩家，注意这可能会导致不同步！
+-- 获取本地玩家，注意这可能会导致不同步！  
+--> 警告：如果你不确定这个函数在做什么，请不要使用它！
 ---@return Player
 function M.get_local()
     return M.LOCAL_PLAYER

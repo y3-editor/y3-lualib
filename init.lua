@@ -52,7 +52,7 @@ log = New 'Log' {
             if #log_cache > 10 then
                 table.remove(log_cache, 1)
             end
-            y3.ui.display_message(y3.player.LOCAL_PLAYER, table.concat(log_cache, '\n'), 60)
+            y3.ui.display_message(y3.player.get_local(), table.concat(log_cache, '\n'), 60)
         end
     end,
 }
