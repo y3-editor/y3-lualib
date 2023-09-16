@@ -356,7 +356,7 @@ end
 
 ---是否存在
 ---@return boolean is_exist 是否存在
-function M:is_destory()
+function M:is_exist()
     return GameAPI.ability_is_exist(self.handle)
 end
 
@@ -390,6 +390,12 @@ end
 ---@param player Player 玩家
 function M:show_indicator(player)
     GameAPI.create_preview_skill_pointer(player.handle, self.handle)
+end
+
+---开关自动施法
+---@param enable boolean 开关
+function M:set_autocast(enable)
+    self.handle:api_set_autocast_enabled(enable)
 end
 
 --------------------------------------------------------类的方法--------------------------------------------------------
@@ -450,12 +456,6 @@ end
 ---@return integer id 图片ID
 function M.get_icon_by_key(ability_key)
     return GameAPI.get_icon_id_by_ability_type(ability_key)
-end
-
----开关自动施法
----@param enable boolean 开关
-function M:set_autocast(enable)
-    self.handle:api_set_autocast_enabled(enable)
 end
 
 ---获取技能类型公式属性
