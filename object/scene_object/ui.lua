@@ -494,6 +494,17 @@ function M:bind_player_attribute(uiAttr, attr, accuracy)
     return self
 end
 
+--绑定玩家属性到玩家界面控件的属性
+---@param uiAttr string 界面控件属性
+---@param player Player # 玩家
+---@param attr_or_var string # 玩家属性key
+---@param accuracy integer 小数精度
+---@return self
+function M:bind_player_prop(uiAttr, player, attr_or_var, accuracy)
+    GameAPI.set_ui_comp_bind_player_prop(self.player.handle, self.handle, uiAttr, player.handle, attr_or_var, accuracy)
+    return self
+end
+
 --绑定全局变量到玩家界面控件的属性
 ---@param uiAttr string 界面控件属性
 ---@param globalVar string 全局属性
