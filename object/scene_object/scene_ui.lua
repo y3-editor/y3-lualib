@@ -43,6 +43,15 @@ function M.create_scene_ui_at_point(sceneui, point, range, height)
     return scene_ui
 end
 
+--获取指定玩家场景ui中的控件
+---@param comp_path string # 控件路径
+---@param player Player 玩家
+---@return UI # UI控件
+function M:get_ui_comp_in_scene_ui(player, comp_path)
+    local A = GameAPI.get_ui_comp_in_scene_ui(self.handle, comp_path)
+    return y3.ui.get_by_handle(player, A)
+end
+
 --创建场景界面到玩家单位挂点
 ---@param scene_ui_type string 场景ui类型
 ---@param player Player 玩家
