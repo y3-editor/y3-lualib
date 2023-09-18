@@ -26,7 +26,9 @@ function M:_unpack_params(error_handler, ...)
         if py_value == nil and not param.optional then
             error(('第 %d 个参数 %s 为空！'):format(i, param.key))
         end
-        local ok, lua_value = xpcall(y3.py_converter.py_to_lua, error_handler, param.type, py_value)
+        local ok, lua_value = xpcall(y3.py_converter.py_to_lua, function (...)
+            error_handler('第【' .. i .. '】个参数【' .. param.key .. '】转换失败：\n', ...)
+        end, param.type, py_value)
         if not ok then
             return
         end
