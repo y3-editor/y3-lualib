@@ -319,7 +319,8 @@ function Unit:api_get_hpp() end
 ---@param related_ability? py.Ability # 关联技能
 ---@param source_unit? py.Unit # 来源单位
 ---@param harm_text_enum string # 跳字枚举
-function Unit:api_heal(hp_change, jump_word, related_ability, source_unit, harm_text_enum) end
+---@param jump_word_track? integer # 跳字轨迹
+function Unit:api_heal(hp_change, jump_word, related_ability, source_unit, harm_text_enum, jump_word_track) end
 
 --获取输出伤害统计值
 ---@return py.Fixed # 输出伤害统计值
@@ -513,6 +514,11 @@ function Unit:set_move_channel_land(land_limitation, item_limitation, water_limi
 --设置单位的移动类型为空中
 ---@param air_limitation? boolean # 空中限制
 function Unit:set_move_channel_air(air_limitation) end
+
+--获取单位从点到点的寻路距离
+---@param point_start py.Unit # 单位
+---@param point_end py.Point # 起始点
+function Unit:get_unit_path_length_between_points(point_start, point_end) end
 
 --播放动画
 ---@param name string # 动画名称
@@ -1127,6 +1133,12 @@ function Unit:api_set_unit_pkg_cnt(cnt) end
 ---@param item_type py.ItemKey # 物品编号
 ---@return integer # 数量
 function Unit:api_get_num_of_item_type(item_type) end
+
+--获取单位持有的物品类型
+---@param slot_type py.SlotType # 槽位类型
+---@param slot_idx integer # 整数下标
+---@return py.ItemKey # 物品编号
+function Unit:api_get_item_type_by_slot(slot_type, slot_idx) end
 
 --单位是否商店
 ---@return boolean # 单位是否商店

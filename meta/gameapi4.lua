@@ -4344,6 +4344,15 @@ function GameAPI.pause_game() end
 ---@param accumulate? boolean # 是否累积计算分数
 function GameAPI.set_melee_result_by_role(role, result, show, send, score, accumulate) end
 
+--结束玩家游戏
+---@param role py.Role # 玩家
+---@param result string # 战斗结果
+---@param comp_uid string # 控件uid
+---@param send? boolean # 是否上传玩家排行榜分数
+---@param score? integer # 排行榜分数
+---@param accumulate? boolean # 是否累积计算分数
+function GameAPI.set_melee_result_by_role_2(role, result, comp_uid, send, score, accumulate) end
+
 --上传玩家排行榜分数
 ---@param role py.Role # 玩家
 ---@param score integer # 排行榜分数
@@ -4685,6 +4694,24 @@ function GameAPI.set_ui_scrollview_size_change_according_children(role, comp_uid
 ---@param a number # A
 function GameAPI.set_ui_image_color(role, comp_uid, r, g, b, a) end
 
+--界面-获取控件的真实长度
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件名
+function GameAPI.get_role_ui_comp_real_width(role, comp_uid) end
+
+--界面-获取控件的真实高度
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件名
+function GameAPI.get_role_ui_comp_real_height(role, comp_uid) end
+
+--界面-获取玩家鼠标真实x坐标
+---@param role py.Role # 玩家
+function GameAPI.get_role_real_mouse_x(role) end
+
+--界面-获取玩家鼠标真实y坐标
+---@param role py.Role # 玩家
+function GameAPI.get_role_real_mouse_y(role) end
+
 --设置当前聊天框控件
 ---@param role py.Role # 玩家
 ---@param comp_uid string # 聊天框id
@@ -4926,7 +4953,7 @@ function GameAPI.set_skill_btn_func_smart_cast_key(role, comp_name, btn) end
 --设置UI模型控件ID
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
----@param model_id py.Model # 模型id
+---@param model_id py.ModelKey # 模型id
 function GameAPI.set_ui_model_id(role, comp_name, model_id) end
 
 --设置玩家的商店控件的目标商店单位
@@ -5964,26 +5991,3 @@ function GameAPI.api_physics_pick_up_item(unit, item) end
 --单位丢弃物理道具
 ---@param unit py.Unit # 单位
 function GameAPI.api_physics_drop(unit) end
-
---施加倒地状态
----@param unit py.Unit # 施加目标
----@param duration py.Fixed # 持续时间
-function GameAPI.api_physics_hit_down_unit(unit, duration) end
-
---获取抓举单位
----@param unit py.Unit # 单位
-function GameAPI.api_get_grab_unit(unit) end
-
---检查是否处于抓举状态
----@param unit py.Unit # 单位
----@return boolean # 是否处于抓举状态
-function GameAPI.api_check_grab_state(unit) end
-
---获取手持物品
----@param unit py.Unit # 单位
-function GameAPI.api_get_pick_item(unit) end
-
---检查是否手持物品
----@param unit py.Unit # 单位
----@return boolean # 是否手持物品
-function GameAPI.api_check_physics_unit_pick_item_exist(unit) end

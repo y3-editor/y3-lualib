@@ -101,10 +101,25 @@ function Role:set_group_navigate_mode(group_navigate_mode) end
 ---@param value integer # 整型参数
 function Role:set_save_data_int_value(index, value) end
 
+--增加整数型参数到玩家存档栏位
+---@param index integer # 玩家存档栏位
+---@param value integer # 整型参数
+function Role:add_save_data_int_value(index, value) end
+
+--乘量实数型参数到玩家存档栏位
+---@param index integer # 玩家存档栏位
+---@param value py.Fixed # 实数型参数
+function Role:mult_save_data_value(index, value) end
+
 --设置实数型参数到玩家存档栏位
 ---@param index integer # 玩家存档栏位
 ---@param value py.Fixed # 实数型参数
 function Role:set_save_data_fixed_value(index, value) end
+
+--增加实数型参数到玩家存档栏位
+---@param index integer # 玩家存档栏位
+---@param value py.Fixed # 实数型参数
+function Role:add_save_data_fixed_value(index, value) end
 
 --设置布尔型参数到玩家存档栏位
 ---@param index integer # 玩家存档栏位
@@ -137,6 +152,14 @@ function Role:set_save_table_key_value(save_slot, key1, value, key2, key3, value
 ---@param key2 string # key2
 ---@param key3 string # key3
 function Role:add_save_table_key_value(save_slot, key1, value, key2, key3) end
+
+--multiply_save_table_key_value
+---@param save_slot integer # 玩家存档栏位
+---@param key1 string # key1
+---@param value py.Actor # value
+---@param key2 string # key2
+---@param key3 string # key3
+function Role:multiply_save_table_key_value(save_slot, key1, value, key2, key3) end
 
 --remove_save_table_key_value
 ---@param save_slot integer # 玩家存档栏位
@@ -374,6 +397,10 @@ function Role:api_set_role_cursor(cur_state_key, cur_key) end
 ---@param effect_key py.SfxKey # 特效key
 function Role:api_set_role_skill_indicator(skill_indicator_key, effect_key) end
 
+--获取玩家颜色
+---@return string # 颜色
+function Role:api_get_role_color() end
+
 --玩家是否为平台荣耀会员
 ---@return boolean # 是否是会员
 function Role:api_is_honor_vip() end
@@ -423,5 +450,9 @@ function Role:api_is_bookmark_current_map() end
 function Role:api_get_ladder_rank_points(ladder_key) end
 
 --获取玩家该地图累计充值
----@return number # 累计充值
+---@return py.Fixed # 累计充值
 function Role:api_get_role_total_consume() end
+
+--获取玩家是否打赏该地图
+---@return boolean # 是否打赏该地图
+function Role:api_get_role_is_donated() end

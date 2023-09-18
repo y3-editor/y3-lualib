@@ -16,16 +16,19 @@ function M:__tostring()
 end
 
 ---@private
+---@param error_handler fun(...)
 ---@param ... any
 ---@return ...
-function M:_unpack_params(...)
+function M:_unpack_params(error_handler, ...)
     local param_list = {...}
     for i, param in ipairs(self.params) do
         local py_value = param_list[i]
         if py_value == nil and not param.optional then
             error(('第 %d 个参数 %s 为空！'):format(i, param.key))
         end
-        local ok, lua_value = xpcall(y3.py_converter.py_to_lua, log.error, param.type, py_value)
+        local ok, lua_value = xpcall(y3.py_converter.py_to_lua, function (...)
+            error_handler('第【' .. i .. '】个参数【' .. param.key .. '】转换失败：\n', ...)
+        end, param.type, py_value)
         if not ok then
             return
         end
@@ -35,17 +38,18 @@ function M:_unpack_params(...)
 end
 
 ---@private
+---@param error_handler fun(...)
 ---@param ok boolean
 ---@param ... any
 ---@return ...
-function M:_pack_returns(ok, ...)
+function M:_pack_returns(error_handler, ok, ...)
     if not ok then
         return nil
     end
     if #self.returns == 0 then
         return nil
     end
-    local ok2, ret_value = xpcall(y3.py_converter.lua_to_py, log.error, self.returns[1].type, ...)
+    local ok2, ret_value = xpcall(y3.py_converter.lua_to_py, error_handler, self.returns[1].type, ...)
     if not ok2 then
         return nil
     end
@@ -96,8 +100,11 @@ end
 function M:call(func)
     assert(Bind[self.call_name] == nil, ('不能重复定义绑定函数: %s'):format(self.call_name))
     self.func = func
+    local function error_handler(...)
+        log.error('在【' .. self.call_name .. '】中发生错误：\n', ...)
+    end
     Bind[self.call_name] = function (...)
-        return self:_pack_returns(xpcall(self.func, log.error, self:_unpack_params(...)))
+        return self:_pack_returns(error_handler, xpcall(self.func, error_handler, self:_unpack_params(error_handler, ...)))
     end
 end
 
