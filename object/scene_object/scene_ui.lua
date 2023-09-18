@@ -48,8 +48,8 @@ end
 ---@param player Player 玩家
 ---@return UI # UI控件
 function M:get_ui_comp_in_scene_ui(player, comp_path)
-    local A = GameAPI.get_ui_comp_in_scene_ui(self.handle, comp_path)
-    return y3.ui.get_by_handle(player, A)
+    local temp_ui = GameAPI.get_ui_comp_in_scene_ui(self.handle, comp_path)
+    return y3.ui.get_by_handle(player, temp_ui)
 end
 
 --创建场景界面到玩家单位挂点
