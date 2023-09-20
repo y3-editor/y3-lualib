@@ -58,6 +58,9 @@ end
 ---@return boolean
 function M:is_match_args(fire_args)
     local event_args = self._event_args
+    if fire_args == event_args  then
+        return true
+    end
     local fire_args_n = fire_args and #fire_args or 0
     local event_args_n = event_args and #event_args or 0
     -- 事件参数数量多余触发器参数数量，肯定不匹配，返回false
