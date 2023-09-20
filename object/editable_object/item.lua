@@ -255,6 +255,12 @@ function M:set_scale(scale)
     self.handle:api_set_scale(scale)
 end
 
+--设置物品可见性
+---@param is_visible boolean # 是否可见
+function M:set_visible(is_visible)
+    self.handle:api_set_item_visible(is_visible)
+end
+
 ---设置物品朝向
 ---@param facing number 朝向
 function M:set_facing(facing)
