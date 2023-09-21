@@ -247,7 +247,7 @@ end
 
 
 --设置模型控件的模型
----@param modelid py.Model 模型id
+---@param modelid py.ModelKey 模型id
 ---@return self
 function M:set_ui_model_id(modelid)
     GameAPI.set_ui_model_id(self.player.handle, self.handle, modelid)
