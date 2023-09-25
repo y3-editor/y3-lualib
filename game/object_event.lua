@@ -25,13 +25,36 @@ function M:event(event_name, ...)
     return trigger
 end
 
+---@param self_type string
+---@param config table
+---@return boolean
+local function is_valid_object(self_type, config)
+    if config.object == self_type then
+        return true
+    end
+    local extra_objs = config.extraObjs
+    if not extra_objs then
+        return false
+    end
+    for _, data in ipairs(extra_objs) do
+        if data.luaType == self_type then
+            return true
+        end
+    end
+    return false
+end
+
 ---@param event_name string
 ---@param ... any
 ---@return any[]?
 ---@return Trigger.CallBack
 function M:subscribe_event(event_name, ...)
     local config = event_configs.config[event_name]
-    if not config or config.object ~= y3.class.type(self) then
+    local self_type = y3.class.type(self)
+    if not config or not self_type then
+        error('此事件无法作为对象事件：' .. tostring(event_name))
+    end
+    if not config or not is_valid_object(self_type, config) then
         error('此事件无法作为对象事件：' .. tostring(event_name))
     end
 
@@ -49,14 +72,16 @@ function M:subscribe_event(event_name, ...)
         error('缺少回调函数！')
     end
 
-    -- 检查将对象还原到事件参数中
-    for i, param in ipairs(config.params) do
-        if param.type == config.object then
-            if not extra_args then
-                extra_args = {}
+    if self_type == config.object then
+        -- 检查将对象还原到事件参数中
+        for i, param in ipairs(config.params) do
+            if param.type == config.object then
+                if not extra_args then
+                    extra_args = {}
+                end
+                table.insert(extra_args, i, self)
+                break
             end
-            table.insert(extra_args, i, self)
-            break
         end
     end
 
@@ -95,6 +120,23 @@ local function event_notify(event_name, extra_args, lua_params)
             event_manager:dispatch(event_name, extra_args, lua_params)
         else
             event_manager:notify(event_name, extra_args, lua_params)
+        end
+    end
+
+    if config.extraObjs then
+        for _, data in ipairs(config.extraObjs) do
+            local extraMaster = data.getter(master)
+            if extraMaster then
+                ---@type EventManager?
+                local extra_event_manager = extraMaster.object_event_manager
+                if extra_event_manager then
+                    if config.dispatch then
+                        extra_event_manager:dispatch(event_name, extra_args, lua_params)
+                    else
+                        extra_event_manager:notify(event_name, extra_args, lua_params)
+                    end
+                end
+            end
         end
     end
 end

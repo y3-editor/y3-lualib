@@ -1159,6 +1159,7 @@ event.ET_UNIT_END_TRANSLATE = {
 ---@class EventParam.ET_UNIT_ATTR_CHANGE
 ---@field unit Unit # 无描述
 ---@field attr string # 无描述
+---@field old_float_attr_value number # 无描述
 
 --单位属性变化
 event.ET_UNIT_ATTR_CHANGE = {
@@ -1173,6 +1174,12 @@ event.ET_UNIT_ATTR_CHANGE = {
         type = "string",
         lua_name = "attr",
         lua_type = "string",
+    },
+    [3] = {
+        name = "__old_float_attr_value",
+        type = "py.Fixed",
+        lua_name = "old_float_attr_value",
+        lua_type = "number",
     },
 }
 

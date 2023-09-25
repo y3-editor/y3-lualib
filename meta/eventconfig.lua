@@ -487,6 +487,12 @@ M.config["技能-建造完成"] = {
     desc = "通过建造类技能建造完成时触发，可以获取到被建造出来的单位",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_BUILD_FINISH",
     name = "技能-建造完成",
     object = "Ability",
@@ -526,6 +532,12 @@ M.config["技能-冷却变化"] = {
     desc = "",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_CD_CHANGE",
     name = "技能-冷却变化",
     object = "Ability",
@@ -552,6 +564,12 @@ M.config["技能-层数变化"] = {
     desc = "",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_STACK_CHANGE",
     name = "技能-层数变化",
     object = "Ability",
@@ -564,6 +582,12 @@ M.config["技能-学习"] = {
     __class__ = "EventConfigBuilder",
     desc = "学习技能后触发",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_ABILITY_PLUS_POINT",
     name = "技能-学习",
@@ -578,6 +602,12 @@ M.config["技能-充能进度变化"] = {
     desc = "",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_STACK_CD_CHANGE",
     name = "技能-充能进度变化",
     object = "Ability",
@@ -590,6 +620,12 @@ M.config["技能-可用状态变化"] = {
     __class__ = "EventConfigBuilder",
     desc = "",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_ABILITY_FORBIDDEN_CHANGED",
     name = "技能-可用状态变化",
@@ -604,6 +640,12 @@ M.config["技能-沉默状态变化"] = {
     desc = "",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_SILENT_CHANGED",
     name = "技能-沉默状态变化",
     object = "Ability",
@@ -616,6 +658,12 @@ M.config["技能-图标变化"] = {
     __class__ = "EventConfigBuilder",
     desc = "",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_ABILITY_ICON_CHANGED",
     name = "技能-图标变化",
@@ -1545,6 +1593,12 @@ M.config["技能类型-前置条件成立"] = {
     desc = "前置条件由不成立变为成立时触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_PRECONDITION_SUCCEED",
     name = "技能类型-前置条件成立",
     params = {
@@ -1556,6 +1610,12 @@ M.config["技能类型-前置条件不成立"] = {
     __class__ = "EventConfigBuilder",
     desc = "前置条件由成立变为不成立时触发",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_ABILITY_PRECONDITION_FAILED",
     name = "技能类型-前置条件不成立",
@@ -1569,6 +1629,12 @@ M.config["科技类型-前置条件成立"] = {
     desc = "前置条件由不成立变为成立时触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_TECH_PRECONDITION_SUCCEED",
     name = "科技类型-前置条件成立",
     params = {
@@ -1581,6 +1647,12 @@ M.config["科技类型-前置条件不成立"] = {
     desc = "前置条件由成立变为不成立时触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_TECH_PRECONDITION_FAILED",
     name = "科技类型-前置条件不成立",
     params = {
@@ -1592,6 +1664,12 @@ M.config["技能-升级"] = {
     __class__ = "EventConfigBuilder",
     desc = "技能升级后触发",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_ABILITY_UPGRADE",
     name = "技能-升级",
@@ -1617,6 +1695,12 @@ end\
             desc = "施法",
             name = "cast",
             type = "Cast",
+        },
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
         },
     },
     key = "ET_ABILITY_CS_START",
@@ -1656,6 +1740,12 @@ end\
             type = "Cast",
         },
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_PS_START",
     name = "施法-开始",
     params = {
@@ -1678,6 +1768,12 @@ end\
             desc = "施法",
             name = "cast",
             type = "Cast",
+        },
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
         },
     },
     key = "ET_ABILITY_PS_END",
@@ -1717,6 +1813,12 @@ end\
             type = "Cast",
         },
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_SP_END",
     name = "施法-出手",
     params = {
@@ -1741,6 +1843,12 @@ end\
             type = "Cast",
         },
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_CST_END",
     name = "施法-完成",
     params = {
@@ -1763,6 +1871,12 @@ end\
             desc = "施法",
             name = "cast",
             type = "Cast",
+        },
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
         },
     },
     key = "ET_ABILITY_BS_END",
@@ -1802,6 +1916,12 @@ end\
             type = "Cast",
         },
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_PS_INTERRUPT",
     name = "施法-打断开始",
     params = {
@@ -1826,6 +1946,12 @@ end\
             type = "Cast",
         },
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_SP_INTERRUPT",
     name = "施法-打断引导",
     params = {
@@ -1848,6 +1974,12 @@ end\
             desc = "施法",
             name = "cast",
             type = "Cast",
+        },
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
         },
     },
     key = "ET_ABILITY_CST_INTERRUPT",
@@ -1887,6 +2019,12 @@ end\
             type = "Cast",
         },
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_END",
     name = "施法-停止",
     params = {
@@ -1898,6 +2036,12 @@ M.config["技能-获得"] = {
     __class__ = "EventConfigBuilder",
     desc = "获得技能后触发",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_ABILITY_OBTAIN",
     name = "技能-获得",
@@ -1912,6 +2056,12 @@ M.config["技能-失去"] = {
     desc = "失去技能后触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_LOSE",
     name = "技能-失去",
     object = "Ability",
@@ -1924,6 +2074,12 @@ M.config["技能-交换"] = {
     __class__ = "EventConfigBuilder",
     desc = "技能交换后触发",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_ABILITY_SWITCH",
     name = "技能-交换",
@@ -1938,6 +2094,12 @@ M.config["技能-禁用"] = {
     desc = "",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_DISABLE",
     name = "技能-禁用",
     object = "Ability",
@@ -1950,6 +2112,12 @@ M.config["技能-启用"] = {
     __class__ = "EventConfigBuilder",
     desc = "",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_ABILITY_ENABLE",
     name = "技能-启用",
@@ -1964,6 +2132,12 @@ M.config["技能-冷却结束"] = {
     desc = "技能冷却结束后触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_ABILITY_CD_END",
     name = "技能-冷却结束",
     object = "Ability",
@@ -1977,8 +2151,15 @@ M.config["效果-获得"] = {
     desc = "获得魔法效果后触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_OBTAIN_MODIFIER",
     name = "效果-获得",
+    object = "Buff",
     params = {
     },
 }
@@ -1989,8 +2170,15 @@ M.config["效果-失去"] = {
     desc = "失去魔法效果后触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_LOSS_MODIFIER",
     name = "效果-失去",
+    object = "Buff",
     params = {
     },
 }
@@ -2001,8 +2189,15 @@ M.config["效果-心跳"] = {
     desc = "魔法效果的周期性触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_MODIFIER_CYCLE_TRIGGER",
     name = "效果-心跳",
+    object = "Buff",
     params = {
     },
 }
@@ -2013,8 +2208,15 @@ M.config["效果-叠加"] = {
     desc = "魔法效果叠加时触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_MODIFIER_ADDTION",
     name = "效果-叠加",
+    object = "Buff",
     params = {
     },
 }
@@ -2025,8 +2227,15 @@ M.config["效果-层数变化"] = {
     desc = "魔法效果层数变化时触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_MODIFIER_LAYER_CHANGE",
     name = "效果-层数变化",
+    object = "Buff",
     params = {
     },
 }
@@ -2038,8 +2247,15 @@ M.config["效果-即将获得"] = {
     dispatch = true,
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_MODIFIER_GET_BEFORE_CREATE",
     name = "效果-即将获得",
+    object = "Buff",
     params = {
     },
 }
@@ -2051,8 +2267,15 @@ M.config["效果-覆盖"] = {
     dispatch = true,
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_MODIFIER_BE_COVERED",
     name = "效果-覆盖",
+    object = "Buff",
     params = {
     },
 }
@@ -2470,6 +2693,12 @@ M.config["技能-打开指示器"] = {
     desc = "技能的瞄准指示器显示时触发",
     extraArgs = {
     },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     key = "ET_START_SKILL_POINTER",
     name = "技能-打开指示器",
     object = "Ability",
@@ -2482,6 +2711,12 @@ M.config["技能-关闭指示器"] = {
     __class__ = "EventConfigBuilder",
     desc = "技能的瞄准指示器消失时触发",
     extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
     },
     key = "ET_STOP_SKILL_POINTER",
     name = "技能-关闭指示器",
@@ -2941,6 +3176,15 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: Area, event: "区域-进入", callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
 ---@field event fun(self: Area, event: "区域-离开", callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
 
+---@class Buff
+---@field event fun(self: Buff, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
+---@field event fun(self: Buff, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
+---@field event fun(self: Buff, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
+---@field event fun(self: Buff, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
+---@field event fun(self: Buff, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
+---@field event fun(self: Buff, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
+---@field event fun(self: Buff, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
+
 ---@class Destructible
 ---@field event fun(self: Destructible, event: "可破坏物-创建", callback: fun(trg: Trigger, data: EventParam.可破坏物-创建)): Trigger
 ---@field event fun(self: Destructible, event: "可破坏物-死亡", callback: fun(trg: Trigger, data: EventParam.可破坏物-死亡)): Trigger
@@ -2994,8 +3238,16 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: Unit, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
 ---@field event fun(self: Unit, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
 ---@field event fun(self: Unit, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
+---@field event fun(self: Unit, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
 ---@field event fun(self: Unit, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
 ---@field event fun(self: Unit, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
+---@field event fun(self: Unit, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
+---@field event fun(self: Unit, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
+---@field event fun(self: Unit, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
+---@field event fun(self: Unit, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
+---@field event fun(self: Unit, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
+---@field event fun(self: Unit, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
+---@field event fun(self: Unit, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
 ---@field event fun(self: Unit, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
 ---@field event fun(self: Unit, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
 ---@field event fun(self: Unit, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
@@ -3034,6 +3286,36 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: Unit, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
 ---@field event fun(self: Unit, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
 ---@field event fun(self: Unit, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
+---@field event fun(self: Unit, event: "技能类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件成立)): Trigger
+---@field event fun(self: Unit, event: "技能类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件不成立)): Trigger
+---@field event fun(self: Unit, event: "科技类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件成立)): Trigger
+---@field event fun(self: Unit, event: "科技类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件不成立)): Trigger
+---@field event fun(self: Unit, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
+---@field event fun(self: Unit, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
+---@field event fun(self: Unit, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
+---@field event fun(self: Unit, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
+---@field event fun(self: Unit, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
+---@field event fun(self: Unit, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
+---@field event fun(self: Unit, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
+---@field event fun(self: Unit, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
+---@field event fun(self: Unit, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
+---@field event fun(self: Unit, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: Unit, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
+---@field event fun(self: Unit, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
+---@field event fun(self: Unit, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
+---@field event fun(self: Unit, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
+---@field event fun(self: Unit, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
+---@field event fun(self: Unit, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
+---@field event fun(self: Unit, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: Unit, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
+---@field event fun(self: Unit, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
+---@field event fun(self: Unit, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
+---@field event fun(self: Unit, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
+---@field event fun(self: Unit, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
+---@field event fun(self: Unit, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
+---@field event fun(self: Unit, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
+---@field event fun(self: Unit, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field event fun(self: Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
 
