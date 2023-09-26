@@ -2450,6 +2450,7 @@ end\
     },
     key = "ET_TRIGGER_COMPONENT_EVENT",
     name = "界面-消息",
+    object = "Player",
     params = {
         [1] = {
             desc = "自定义事件名称",
@@ -2467,6 +2468,7 @@ M.config["键盘-按下"] = {
     },
     key = "ET_KEYBOARD_KEY_DOWN_EVENT",
     name = "键盘-按下",
+    object = "Player",
     params = {
         [1] = {
             desc = "按下的键",
@@ -2484,6 +2486,7 @@ M.config["键盘-抬起"] = {
     },
     key = "ET_KEYBOARD_KEY_UP_EVENT",
     name = "键盘-抬起",
+    object = "Player",
     params = {
         [1] = {
             desc = "抬起的键",
@@ -2501,6 +2504,7 @@ M.config["鼠标-按下"] = {
     },
     key = "ET_MOUSE_KEY_DOWN_EVENT",
     name = "鼠标-按下",
+    object = "Player",
     params = {
         [1] = {
             desc = "按下的键",
@@ -2518,6 +2522,7 @@ M.config["鼠标-抬起"] = {
     },
     key = "ET_MOUSE_KEY_UP_EVENT",
     name = "鼠标-抬起",
+    object = "Player",
     params = {
         [1] = {
             desc = "抬起的键",
@@ -2535,6 +2540,7 @@ M.config["鼠标-双击"] = {
     },
     key = "MOUSE_KEY_DB_CLICK_EVENT",
     name = "鼠标-双击",
+    object = "Player",
     params = {
         [1] = {
             desc = "双击的键",
@@ -2552,6 +2558,7 @@ M.config["鼠标-按下单位"] = {
     },
     key = "MOUSE_KEY_DOWN_UNIT_EVENT",
     name = "鼠标-按下单位",
+    object = "Player",
     params = {
         [1] = {
             desc = "按下的键",
@@ -2569,6 +2576,7 @@ M.config["鼠标-抬起单位"] = {
     },
     key = "MOUSE_KEY_UP_UNIT_EVENT",
     name = "鼠标-抬起单位",
+    object = "Player",
     params = {
         [1] = {
             desc = "抬起的键",
@@ -2586,6 +2594,7 @@ M.config["鼠标-双击单位"] = {
     },
     key = "MOUSE_KEY_DB_CLICK_UNIT_EVENT",
     name = "鼠标-双击单位",
+    object = "Player",
     params = {
         [1] = {
             desc = "双击的键",
@@ -2603,6 +2612,7 @@ M.config["鼠标-移动"] = {
     },
     key = "MOUSE_MOVE_EVENT",
     name = "鼠标-移动",
+    object = "Player",
     params = {
     },
 }
@@ -2615,6 +2625,7 @@ M.config["鼠标-滚轮"] = {
     },
     key = "ET_MOUSE_WHEEL_EVENT",
     name = "鼠标-滚轮",
+    object = "Player",
     params = {
         [1] = {
             desc = "滚动方向",
@@ -2658,6 +2669,7 @@ M.config["鼠标-双击物品"] = {
     },
     key = "ET_DOUBLE_CLICK_ITEM",
     name = "鼠标-双击物品",
+    object = "Player",
     params = {
     },
 }
@@ -2670,6 +2682,7 @@ M.config["鼠标-双击可破坏物"] = {
     },
     key = "ET_DOUBLE_CLICK_DEST",
     name = "鼠标-双击可破坏物",
+    object = "Player",
     params = {
     },
 }
@@ -2941,6 +2954,7 @@ M.config["鼠标-悬停"] = {
     },
     key = "ET_MOUSE_HOVER_EVENT",
     name = "鼠标-悬停",
+    object = "Player",
     params = {
     },
 }
@@ -3224,9 +3238,23 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: Player, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
 ---@field event fun(self: Player, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
 ---@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
+---@field event fun(self: Player, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: Player, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
+---@field event fun(self: Player, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
+---@field event fun(self: Player, event: "鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
+---@field event fun(self: Player, event: "鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
+---@field event fun(self: Player, event: "鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
+---@field event fun(self: Player, event: "鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
+---@field event fun(self: Player, event: "鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
+---@field event fun(self: Player, event: "鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
+---@field event fun(self: Player, event: "鼠标-移动", callback: fun(trg: Trigger, data: EventParam.鼠标-移动)): Trigger
+---@field event fun(self: Player, event: "鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
 ---@field event fun(self: Player, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
 ---@field event fun(self: Player, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
+---@field event fun(self: Player, event: "鼠标-双击物品", callback: fun(trg: Trigger, data: EventParam.鼠标-双击物品)): Trigger
+---@field event fun(self: Player, event: "鼠标-双击可破坏物", callback: fun(trg: Trigger, data: EventParam.鼠标-双击可破坏物)): Trigger
 ---@field event fun(self: Player, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
+---@field event fun(self: Player, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
 ---@field event fun(self: Player, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 ---@field event fun(self: Player, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
 
