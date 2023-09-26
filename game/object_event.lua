@@ -125,7 +125,7 @@ local function event_notify(event_name, extra_args, lua_params)
 
     if config.extraObjs then
         for _, data in ipairs(config.extraObjs) do
-            local extraMaster = data.getter(master)
+            local extraMaster = data.getter(master, lua_params)
             if extraMaster then
                 ---@type EventManager?
                 local extra_event_manager = extraMaster.object_event_manager
