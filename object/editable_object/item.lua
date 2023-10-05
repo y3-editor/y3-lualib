@@ -232,6 +232,18 @@ function M:set_droppable(dropable)
     self.handle:api_set_droppable(dropable)
 end
 
+---遍历物品的单位属性
+---@return string[] keys 属性key
+function M:attr_pick()
+    -- 去掉首尾的方括号
+    local tmp = tostring(GameAPI.iter_unit_attr_of_item(self.handle)):sub(2, -2)
+    local result = {}
+    for match in tmp:gmatch("'([^']+)'") do
+        table.insert(result, match)
+    end
+    return result
+end
+
 ---添加标签
 ---@param tag string 标签
 function M:add_tag(tag)
