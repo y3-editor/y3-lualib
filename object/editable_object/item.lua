@@ -106,6 +106,18 @@ function M:is_in_bag()
     return self.handle:api_is_in_pkg()
 end
 
+---遍历物品的单位属性
+---@return string[] keys 属性key
+function M:attr_pick()
+    -- 去掉首尾的方括号
+    local tmp = tostring(GameAPI.iter_unit_attr_of_item(self.handle)):sub(2, -2)
+    local result = {}
+    for match in tmp:gmatch("'([^']+)'") do
+        table.insert(result, match)
+    end
+    return result
+end
+
 ---删除物品
 function M:remove()
     Delete(self)
