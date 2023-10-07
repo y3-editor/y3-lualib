@@ -1678,6 +1678,14 @@ function M.get_type_by_id(unit_key)
     return GameAPI.api_get_unit_type_category(unit_key)
 end
 
+---单位属性转单位属性名字
+---@param key string 属性key
+---@return string 属性名字
+function M.attrToName(key)
+    return GameAPI.unit_attr_to_str(key):match("%((.-)%)")
+end
+
+--- 造成伤害
 ---@class Unit.DamageData
 ---@field target Unit|Item|Destructible
 ---@field type y3.Const.DamageType
