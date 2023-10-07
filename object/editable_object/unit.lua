@@ -1681,7 +1681,7 @@ end
 ---单位属性转单位属性名字
 ---@param key string 属性key
 ---@return string 属性名字
-function M.attrToName(key)
+function M.attr_to_name(key)
     return GameAPI.unit_attr_to_str(key):match("%((.-)%)")
 end
 
