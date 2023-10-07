@@ -268,6 +268,30 @@ event.ET_HTTP_RESPONSE = {
     },
 }
 
+---@class EventParam.ET_BROADCAST_LUA_MSG
+---@field broadcast_lua_msg_id string # 消息id
+---@field broadcast_lua_msg_json_str string # 消息内容
+
+--广播自定义Lua消息
+event.ET_BROADCAST_LUA_MSG = {
+    [1] = {
+        name = "__broadcast_lua_msg_id",
+        type = "string",
+        lua_name = "broadcast_lua_msg_id",
+        lua_type = "string",
+        desc = "消息id",
+        lua_desc = "消息id",
+    },
+    [2] = {
+        name = "__broadcast_lua_msg_json_str",
+        type = "string",
+        lua_name = "broadcast_lua_msg_json_str",
+        lua_type = "string",
+        desc = "消息内容",
+        lua_desc = "消息内容",
+    },
+}
+
 ---@class EventParam.ET_ROLE_JOIN_BATTLE
 ---@field player Player # 玩家
 ---@field is_middle_join boolean # 是否中途加入
