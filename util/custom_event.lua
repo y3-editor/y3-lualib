@@ -41,7 +41,7 @@ function M:event_on(...)
     if not self.custom_event_manager then
         self.custom_event_manager = New 'EventManager' (self)
     end
-    local event_name, args, callback =...
+    local event_name, args, callback = ...
     if not callback then
         callback = args
         args = nil
@@ -148,3 +148,5 @@ function M:event_dispatch_with_args(event_name, args, ...)
     end
     return self.custom_event_manager:dispatch(event_name, args, ...)
 end
+
+return M

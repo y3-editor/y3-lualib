@@ -357,6 +357,16 @@ function M:remove_state(state_enum)
     self.handle:api_remove_state(state_enum)
 end
 
+---添加状态
+---@param state_enum integer 状态名
+---@return GCNode
+function M:add_state_gc(state_enum)
+    self:add_state(state_enum)
+    return New 'GCNode' (function ()
+        self:remove_state(state_enum)
+    end)
+end
+
 ---学习技能
 ---@param ability_key py.AbilityKey 技能id
 function M:learn(ability_key)
@@ -566,6 +576,18 @@ end
 ---@param attr_type string 属性类型
 function M:add_attr(attr_name, value, attr_type)
     self.handle:api_add_attr_by_attr_element(attr_name, Fix32(value), attr_type)
+end
+
+---增加属性
+---@param attr_name string 属性名
+---@param value number 属性值
+---@param attr_type string 属性类型
+---@return GCNode
+function M:add_attr_gc(attr_name, value, attr_type)
+    self:add_attr(attr_name, value, attr_type)
+    return New 'GCNode' (function ()
+        self:add_attr(attr_name, - value, attr_type)
+    end)
 end
 
 ---设置等级
@@ -1656,6 +1678,14 @@ function M.get_type_by_id(unit_key)
     return GameAPI.api_get_unit_type_category(unit_key)
 end
 
+---单位属性转单位属性名字
+---@param key string 属性key
+---@return string 属性名字
+function M.attr_to_name(key)
+    return GameAPI.unit_attr_to_str(key):match("%((.-)%)")
+end
+
+--- 造成伤害
 ---@class Unit.DamageData
 ---@field target Unit|Item|Destructible
 ---@field type y3.Const.DamageType

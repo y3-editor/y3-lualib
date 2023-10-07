@@ -108,6 +108,12 @@ function M:set_level(level)
     self.handle:api_set_level(level)
 end
 
+-- 获取技能等级
+---@return integer level 等级
+function M:get_level()
+    return self.handle:api_get_level()
+end
+
 ---增加冷却时间
 ---@param value number 冷却
 function M:add_cd(value)

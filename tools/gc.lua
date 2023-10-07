@@ -88,4 +88,16 @@ function GC:zip()
     self.max = math.max(#objects * 1.5, 10)
 end
 
+---@class GCNode
+---@overload fun(onDel: function): self
+local GCNode = Class 'GCNode'
+
+function GCNode:__init(onDel)
+    self.onDel = onDel
+end
+
+function GCNode:__del()
+    self.onDel()
+end
+
 return GC

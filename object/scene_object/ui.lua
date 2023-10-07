@@ -121,6 +121,17 @@ function M:set_alpha(value)
     return self
 end
 
+--播放UI透明度动画
+---@param start_alpha number # 开始alpha
+---@param end_alpha number # 结束alpha
+---@param duration number # 持续时间
+---@param ease_type? y3.Const.EaseType # 曲线类型
+---@return self
+function M:set_anim_opacity(start_alpha, end_alpha, duration, ease_type)
+    GameAPI.set_ui_comp_anim_opacity(self.player.handle, self.handle, start_alpha, end_alpha, duration, ease_type)
+    return self
+end
+
 --设置控件是否可拖动
 ---@param isdrag boolean 是否可拖动
 ---@return self
@@ -247,7 +258,7 @@ end
 
 
 --设置模型控件的模型
----@param modelid py.Model 模型id
+---@param modelid py.ModelKey 模型id
 ---@return self
 function M:set_ui_model_id(modelid)
     GameAPI.set_ui_model_id(self.player.handle, self.handle, modelid)

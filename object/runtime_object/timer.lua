@@ -184,7 +184,7 @@ end
 ---获取计时器经过的时间
 ---@return number time 计时器经过的时间
 function M:get_elapsed_time()
-    return GameAPI.get_timer_elapsed_time(self.handle)
+    return y3.helper.tonumber(GameAPI.get_timer_elapsed_time(self.handle))
 end
 
 ---获取计时器初始计数
@@ -196,7 +196,7 @@ end
 ---获取计时器剩余时间
 ---@return number time 计时器剩余时间
 function M:get_remaining_time()
-    return GameAPI.get_timer_remaining_time(self.handle)
+    return y3.helper.tonumber(GameAPI.get_timer_remaining_time(self.handle))
 end
 
 ---获取计时器剩余计数
@@ -208,7 +208,7 @@ end
 ---获取计时器设置的时间
 ---@return number time 设置的时间
 function M:get_time_out_time()
-    return GameAPI.get_timer_time_out_time(self.handle)
+    return y3.helper.tonumber(GameAPI.get_timer_time_out_time(self.handle))
 end
 
 ---@return string?
