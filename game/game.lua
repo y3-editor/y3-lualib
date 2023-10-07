@@ -750,11 +750,4 @@ function M.set_role_all_micro_switch(player, switch)
     GameAPI.set_role_all_micro_switch(player.handle, switch)
 end
 
----属性key转属性名字
----@param key string 属性key
----@return string 属性名字
-function M.attrToName(key)
-    return GameAPI.unit_attr_to_str(key):match("%((.-)%)")
-end
-
 return M
