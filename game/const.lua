@@ -2,6 +2,13 @@
 ---@class y3.Const
 local M = {}
 
+---@enum y3.Const.EaseType
+M.EaseType = {
+    ['ease_in曲线'] = 1,
+    ['ease_out曲线'] = 2,
+    ['ease_in_out曲线'] = 3,
+}
+
 M.IterKey = {
     ['ITER_INT'] = "__iter_int",
     ['ITER_INDEX'] = "__iter_index",
