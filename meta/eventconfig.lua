@@ -232,6 +232,18 @@ M.config["区域-离开"] = {
     },
 }
 
+---@alias EventParam.游戏-http返回 EventParam.ET_HTTP_RESPONSE
+M.config["游戏-http返回"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_HTTP_RESPONSE",
+    name = "游戏-http返回",
+    params = {
+    },
+}
+
 ---@alias EventParam.玩家-加入游戏 EventParam.ET_ROLE_JOIN_BATTLE
 M.config["玩家-加入游戏"] = {
     __class__ = "EventConfigBuilder",
@@ -3020,6 +3032,7 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "游戏-昼夜变化", callback: fun(trg: Trigger, data: EventParam.游戏-昼夜变化)): Trigger
 ---@field event fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
 ---@field event fun(self: self, event: "区域-离开", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
+---@field event fun(self: self, event: "游戏-http返回", callback: fun(trg: Trigger, data: EventParam.游戏-http返回)): Trigger
 ---@field event fun(self: self, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
 ---@field event fun(self: self, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
 ---@field event fun(self: self, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger

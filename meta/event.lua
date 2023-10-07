@@ -244,6 +244,30 @@ event.ET_AREA_LEAVE = {
     },
 }
 
+---@class EventParam.ET_HTTP_RESPONSE
+---@field http_req string # http请求
+---@field http_resp py.Dict # http返回
+
+--http请求返回
+event.ET_HTTP_RESPONSE = {
+    [1] = {
+        name = "__http_req",
+        type = "string",
+        lua_name = "http_req",
+        lua_type = "string",
+        desc = "http请求",
+        lua_desc = "http请求",
+    },
+    [2] = {
+        name = "__http_resp",
+        type = "py.Dict",
+        lua_name = "http_resp",
+        lua_type = "py.Dict",
+        desc = "http返回",
+        lua_desc = "http返回",
+    },
+}
+
 ---@class EventParam.ET_ROLE_JOIN_BATTLE
 ---@field player Player # 玩家
 ---@field is_middle_join boolean # 是否中途加入
