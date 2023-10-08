@@ -246,7 +246,8 @@ event.ET_AREA_LEAVE = {
 
 ---@class EventParam.ET_HTTP_RESPONSE
 ---@field http_req string # http请求
----@field http_resp py.Dict # http返回
+---@field http_resp_body string # 响应内容
+---@field http_resp_status string # 响应状态
 
 --http请求返回
 event.ET_HTTP_RESPONSE = {
@@ -259,12 +260,20 @@ event.ET_HTTP_RESPONSE = {
         lua_desc = "http请求",
     },
     [2] = {
-        name = "__http_resp",
-        type = "py.Dict",
-        lua_name = "http_resp",
-        lua_type = "py.Dict",
-        desc = "http返回",
-        lua_desc = "http返回",
+        name = "__http_resp_body",
+        type = "string",
+        lua_name = "http_resp_body",
+        lua_type = "string",
+        desc = "响应内容",
+        lua_desc = "响应内容",
+    },
+    [3] = {
+        name = "__http_resp_status",
+        type = "string",
+        lua_name = "http_resp_status",
+        lua_type = "string",
+        desc = "响应状态",
+        lua_desc = "响应状态",
     },
 }
 
