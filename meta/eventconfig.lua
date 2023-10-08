@@ -244,14 +244,14 @@ M.config["游戏-http返回"] = {
     },
 }
 
----@alias EventParam.游戏-广播自定义消息 EventParam.ET_BROADCAST_LUA_MSG
-M.config["游戏-广播自定义消息"] = {
+---@alias EventParam.游戏-接收广播信息 EventParam.ET_BROADCAST_LUA_MSG
+M.config["游戏-接收广播信息"] = {
     __class__ = "EventConfigBuilder",
     desc = "",
     extraArgs = {
     },
     key = "ET_BROADCAST_LUA_MSG",
-    name = "游戏-广播自定义消息",
+    name = "游戏-接收广播信息",
     params = {
     },
 }
@@ -3045,7 +3045,7 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
 ---@field event fun(self: self, event: "区域-离开", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
 ---@field event fun(self: self, event: "游戏-http返回", callback: fun(trg: Trigger, data: EventParam.游戏-http返回)): Trigger
----@field event fun(self: self, event: "游戏-广播自定义消息", callback: fun(trg: Trigger, data: EventParam.游戏-广播自定义消息)): Trigger
+---@field event fun(self: self, event: "游戏-接收广播信息", callback: fun(trg: Trigger, data: EventParam.游戏-接收广播信息)): Trigger
 ---@field event fun(self: self, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
 ---@field event fun(self: self, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
 ---@field event fun(self: self, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
