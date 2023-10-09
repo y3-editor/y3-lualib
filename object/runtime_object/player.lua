@@ -13,6 +13,8 @@ Extends('Player', 'Storage')
 Extends('Player', 'CustomEvent')
 ---@class Player: ObjectEvent
 Extends('Player', 'ObjectEvent')
+---@class Player: KV
+Extends('Player', 'KV')
 
 ---@package
 ---@param key py.RoleID
