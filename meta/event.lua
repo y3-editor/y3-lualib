@@ -279,7 +279,7 @@ event.ET_HTTP_RESPONSE = {
 
 ---@class EventParam.ET_BROADCAST_LUA_MSG
 ---@field broadcast_lua_msg_id string # 消息id
----@field broadcast_lua_msg_json_str string # 消息内容
+---@field broadcast_lua_msg_content string # 消息内容
 
 --广播自定义Lua消息
 event.ET_BROADCAST_LUA_MSG = {
@@ -292,9 +292,9 @@ event.ET_BROADCAST_LUA_MSG = {
         lua_desc = "消息id",
     },
     [2] = {
-        name = "__broadcast_lua_msg_json_str",
+        name = "__broadcast_lua_msg_content",
         type = "string",
-        lua_name = "broadcast_lua_msg_json_str",
+        lua_name = "broadcast_lua_msg_content",
         lua_type = "string",
         desc = "消息内容",
         lua_desc = "消息内容",
