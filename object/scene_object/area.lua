@@ -9,6 +9,8 @@ local M = Class 'Area'
 Extends('Area', 'ObjectEvent')
 ---@class Area: KV
 Extends('Area', 'KV')
+---@class Area: GCHost
+Extends('Area', 'GCHost')
 
 M.type = 'area'
 
