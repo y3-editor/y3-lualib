@@ -652,6 +652,25 @@ function M.set_object_color(obj, r, g, b, a)
     GameAPI.api_change_obj_base_color(obj.handle, r, g, b, a)
 end
 
+---设置对象的菲涅尔效果
+---@param obj Unit|Item|Destructible
+---@param b boolean
+function M.set_object_fresnel_visible(obj, b)
+    GameAPI.api_set_obj_fresnel_visible(obj.handle, b)
+end
+
+---设置对象的菲涅尔效果
+---@param obj Unit|Item|Destructible
+---@param r? integer # R
+---@param g? integer # G
+---@param b? integer # B
+---@param alpha? number # alpha
+---@param exp? number # exp
+---@param strength? number # strength
+function M.set_object_fresnel(obj, r, g, b, alpha, exp, strength)
+    GameAPI.api_set_obj_fresnel_parameters(obj.handle, r, g, b, alpha, exp, strength)
+end
+
 ---设置逻辑帧率
 ---@param fps integer 帧率
 function M.set_logic_fps(fps)
