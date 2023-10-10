@@ -53,6 +53,12 @@ function M.get_by_handle(py_buff)
     return M.ref_manager:get(id, py_buff)
 end
 
+---@param id integer
+---@return Buff
+function M.get_by_id(id)
+    return M.ref_manager:get(id)
+end
+
 y3.py_converter.register_type_alias('py.ModifierEntity', 'Buff')
 y3.py_converter.register_py_to_lua('py.ModifierEntity', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
