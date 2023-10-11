@@ -153,46 +153,94 @@ local function extract_addition(event_name, extra_args)
     return nil, py_args
 end
 
----@private
----@type table<string, any[][]>
-M.mark_subscribed_map = {}
+---@class PYEventRef
+---@field count integer
+---@field trg_id integer
+---@field args? any[]
 
--- 如果已经被标记过，会返回false
+---@private
+---@type table<string, PYEventRef[]>
+M.ref_map = y3.util.multiTable(2)
+
+local function args_eq(a, b)
+    if a == b then
+        return true
+    end
+    if #a ~= #b then
+        return false
+    end
+    for i = 1, #a do
+        if a[i] ~= b[i] then
+            return false
+        end
+    end
+    return true
+end
+
+-- 为参数增加引用计数，返回引用
 ---@private
 ---@param name  string
 ---@param args? any[]
----@return boolean
-function M.mark_subscribed(name, args)
-    local args_arr = M.mark_subscribed_map[name]
-    if args_arr then
-        if not args then
-            return false
-        end
-    else
-        args_arr = {}
-        M.mark_subscribed_map[name] = args_arr
-        if not args then
-            return true
+---@return PYEventRef
+function M.ref_args(name, args)
+    local refs = M.ref_map[name]
+
+    for _, ref in ipairs(refs) do
+        if args_eq(ref.args, args) then
+            ref.count = ref.count + 1
+            return ref
         end
     end
-    local function eq(a, b)
-        if #a ~= #b then
-            return false
-        end
-        for i = 1, #a do
-            if a[i] ~= b[i] then
-                return false
+
+    local ref = {
+        count = 1,
+        args  = args,
+    }
+    refs[#refs+1] = ref
+
+    return ref
+end
+
+-- 为参数减少引用计数，返回引用
+---@private
+---@param name  string
+---@param args? any[]
+---@return PYEventRef
+function M.unref_args(name, args)
+    local refs = M.ref_map[name]
+
+    for i, ref in ipairs(refs) do
+        if args_eq(ref.args, args) then
+            ref.count = ref.count - 1
+            if ref.count == 0 then
+                table.remove(refs, i)
             end
-        end
-        return true
-    end
-    for _, iargs in ipairs(args_arr) do
-        if eq(iargs, args) then
-            return false
+            return ref
         end
     end
-    args_arr[#args_arr+1] = args
-    return true
+
+    error('未找到事件的引用！' .. tostring(name))
+end
+
+--引擎没有提供移除触发器的接口，但是使用已有id注册事件时会移除之前
+--使用此id的触发器。因此可以通过复用id来达到移除触发器的目的。
+
+---@private
+M.removed_ids = {}
+
+---@private
+---@return integer
+function M.next_id()
+    if #M.removed_ids == 0 then
+        return M.trigger_id_counter()
+    else
+        return table.remove(M.removed_ids)
+    end
+end
+
+---@private
+function M.remove_py_trigger(trigger_id)
+    M.removed_ids[#M.removed_ids+1] = trigger_id
 end
 
 ---@param event_name y3.Const.EventType # 注册给引擎的事件名
@@ -200,7 +248,8 @@ end
 function M.event_register(event_name, extra_args)
     local py_event_name = get_py_event_name(event_name)
 
-    if not M.mark_subscribed(py_event_name, extra_args) then
+    local ref = M.ref_args(py_event_name, extra_args)
+    if ref.count > 1 then
         return
     end
 
@@ -212,7 +261,8 @@ function M.event_register(event_name, extra_args)
         py_event = py_args
     end
 
-    local trigger_id = M.trigger_id_counter()
+    local trigger_id = M.next_id()
+    ref.trg_id = trigger_id
     local py_trigger = new_global_trigger(trigger_id, event_name, py_event, true, py_addition)
 
     py_trigger.on_event = function (trigger, event, actor, data)
@@ -227,7 +277,22 @@ function M.event_register(event_name, extra_args)
     end
 end
 
-new_global_trigger(M.trigger_id_counter(), 'GAME_INIT', 'ET_GAME_INIT', true).on_event = function ()
+function M.event_unregister(event_name, extra_args)
+    local py_event_name = get_py_event_name(event_name)
+
+    local ref = M.unref_args(py_event_name, extra_args)
+    if ref.count > 0 then
+        return
+    end
+
+    local trigger_id = ref.trg_id
+    table.insert(M.removed_ids, trigger_id)
+
+    -- 先创建一个占位的触发器，以尽快释放引用
+    new_global_trigger(trigger_id, 'GAME_INIT', 'ET_GAME_INIT', false)
+end
+
+new_global_trigger(M.next_id(), 'GAME_INIT', 'ET_GAME_INIT', true).on_event = function ()
     M.need_enable_trigger_manualy = true
 end
 

@@ -25,6 +25,9 @@ end
 
 function M:__del()
     GameAPI.remove_area(self.handle)
+    if self.res_id then
+        M.map[self.res_id] = nil
+    end
 end
 
 ---@private

@@ -99,7 +99,7 @@ end)
 
 -- 执行作弊指令
 ---@param command string
----@param ... string
+---@param ... any
 function M.execute(command, ...)
     command = command:lower()
     local f = M.commands[command]

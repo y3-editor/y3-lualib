@@ -5,6 +5,7 @@ local counter = y3.util.counter()
 ---@field private _callback Trigger.CallBack
 ---@field private _event_args? any[]
 ---@field private _include_name? string
+---@field private _on_remove? function
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
 local M = Class 'Trigger'
 
@@ -26,6 +27,9 @@ end
 
 function M:__del()
     self._event:remove_trigger(self)
+    if self._on_remove then
+        self._on_remove()
+    end
 end
 
 M.type = 'trigger'
@@ -107,4 +111,9 @@ end
 ---@return string?
 function M:get_include_name()
     return self._include_name
+end
+
+---@private
+function M:on_remove(callback)
+    self._on_remove = callback
 end

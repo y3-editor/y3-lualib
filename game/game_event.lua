@@ -12,8 +12,10 @@ M.event_manager = New 'EventManager' ()
 ---@param ... any
 ---@return Trigger
 function M:event(event_type, ...)
-    local extra_args, callback = self:subscribe_event(event_type, ...)
+    local extra_args, callback, unsubscribe = self:subscribe_event(event_type, ...)
     local trg = self.event_manager:event(event_type, extra_args, callback)
+    ---@diagnostic disable-next-line: invisible
+    trg:on_remove(unsubscribe)
     return trg
 end
 
@@ -26,6 +28,7 @@ end
 ---@param ... any
 ---@return any[]?
 ---@return Trigger.CallBack
+---@return function Unsubscribe
 function M:subscribe_event(event_type, ...)
     local nargs = select('#', ...)
     local extra_args
@@ -40,8 +43,14 @@ function M:subscribe_event(event_type, ...)
     else
         error('缺少回调函数！')
     end
+
     y3.py_event_sub.event_register(event_type, extra_args)
-    return extra_args, callback
+
+    local unsubscribe = function ()
+        y3.py_event_sub.event_unregister(event_type, extra_args)
+    end
+
+    return extra_args, callback, unsubscribe
 end
 
 local function event_notify(event_name, extra_args, lua_params)
