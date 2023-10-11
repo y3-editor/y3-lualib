@@ -156,6 +156,7 @@ end
 ---@class PYEventRef
 ---@field count integer
 ---@field trg_id integer
+---@field callback? function
 ---@field args? any[]
 
 ---@private
@@ -265,10 +266,18 @@ function M.event_register(event_name, extra_args)
     ref.trg_id = trigger_id
     local py_trigger = new_global_trigger(trigger_id, event_name, py_event, true, py_addition)
 
-    py_trigger.on_event = function (trigger, event, actor, data)
+    -- TODO 由于引擎会引用住 on_event 指向的函数对象，
+    -- 因此这里先改成间接引用以减少内存泄露
+    ref.callback = function (data)
         local lua_params = M.convert_py_params(py_event_name, data)
         game_event.event_notify(event_name, extra_args, lua_params)
         object_event.event_notify(event_name, extra_args, lua_params)
+    end
+
+    py_trigger.on_event = function (trigger, event, actor, data)
+        if ref.callback then
+            ref.callback(data)
+        end
     end
 
     -- 在初始化时注册的事件会自动启用，但之后注册的事件需要手动启用
@@ -288,8 +297,19 @@ function M.event_unregister(event_name, extra_args)
     local trigger_id = ref.trg_id
     table.insert(M.removed_ids, trigger_id)
 
+
     -- 先创建一个占位的触发器，以尽快释放引用
     new_global_trigger(trigger_id, 'GAME_INIT', 'ET_GAME_INIT', false)
+
+    -- TODO 由于引擎会引用住lua_conf，目前先把这张表偷出来清空，以减少内存泄露
+    ---@diagnostic disable-next-line: undefined-global
+    local lua_conf = _GLOBAL_TRIGGERS[trigger_id]
+    for k in pairs(lua_conf) do
+        lua_conf[k] = nil
+    end
+    for k in pairs(ref) do
+        ref[k] = nil
+    end
 end
 
 new_global_trigger(M.next_id(), 'GAME_INIT', 'ET_GAME_INIT', true).on_event = function ()
