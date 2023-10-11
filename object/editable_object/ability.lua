@@ -459,9 +459,9 @@ end
 
 ---获取技能类型的icon图标的图片ID
 ---@param ability_key py.AbilityKey 技能类型id (物编id)
----@return integer id 图片ID
+---@return py.Texture id 图片ID
 function M.get_icon_by_key(ability_key)
-    return GameAPI.get_icon_id_by_ability_type(ability_key)
+    return GameAPI.get_icon_id_by_ability_type(ability_key) --[[@as py.Texture]]
 end
 
 ---获取技能类型公式属性

@@ -53,6 +53,12 @@ function M.get_by_handle(py_buff)
     return M.ref_manager:get(id, py_buff)
 end
 
+---@param id integer
+---@return Buff
+function M.get_by_id(id)
+    return M.ref_manager:get(id)
+end
+
 y3.py_converter.register_type_alias('py.ModifierEntity', 'Buff')
 y3.py_converter.register_py_to_lua('py.ModifierEntity', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
@@ -257,9 +263,9 @@ end
 
 ---获取魔法效果类型的icon图标的图片
 ---@param buff_key py.ModifierKey 类型
----@return integer # 图片id
+---@return py.Texture # 图片id
 function M.get_icon_by_key(buff_key)
-    return GameAPI.get_icon_id_by_buff_type(buff_key)
+    return GameAPI.get_icon_id_by_buff_type(buff_key) --[[@as py.Texture]]
 end
 
 ---获得关联技能

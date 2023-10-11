@@ -1380,9 +1380,9 @@ end
 
 ---获取单位类型的头像
 ---@param unit_key py.UnitKey 单位类型
----@return integer image 单位类型的头像
+---@return py.Texture image 单位类型的头像
 function M.get_icon_by_key(unit_key)
-    return GameAPI.get_icon_id_by_unit_type(unit_key)
+    return GameAPI.get_icon_id_by_unit_type(unit_key) --[[@as py.Texture]]
 end
 
 ---最后创建的单位

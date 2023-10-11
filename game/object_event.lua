@@ -14,8 +14,10 @@ function M:event(event_name, ...)
     if not self.object_event_manager then
         self.object_event_manager = New 'EventManager' (self)
     end
-    local extra_args, callback = self:subscribe_event(event_name, ...)
+    local extra_args, callback, unsubscribe = self:subscribe_event(event_name, ...)
     local trigger = self.object_event_manager:event(event_name, extra_args, callback)
+    ---@diagnostic disable-next-line: invisible
+    trigger:on_remove(unsubscribe)
 
     local gcHost = self --[[@as GCHost]]
     if gcHost.bindGC then
@@ -48,6 +50,7 @@ end
 ---@param ... any
 ---@return any[]?
 ---@return Trigger.CallBack
+---@return function Unsubscribe
 function M:subscribe_event(event_name, ...)
     local config = event_configs.config[event_name]
     local self_type = y3.class.type(self)
@@ -86,7 +89,12 @@ function M:subscribe_event(event_name, ...)
     end
 
     y3.py_event_sub.event_register(event_name, extra_args)
-    return extra_args, callback
+
+    local unsubscribe = function ()
+        y3.py_event_sub.event_unregister(event_name, extra_args)
+    end
+
+    return extra_args, callback, unsubscribe
 end
 
 local function getMaster(datas, config, lua_params)

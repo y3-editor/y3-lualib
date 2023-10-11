@@ -9,6 +9,8 @@ local M = Class 'Area'
 Extends('Area', 'ObjectEvent')
 ---@class Area: KV
 Extends('Area', 'KV')
+---@class Area: GCHost
+Extends('Area', 'GCHost')
 
 M.type = 'area'
 
@@ -23,6 +25,9 @@ end
 
 function M:__del()
     GameAPI.remove_area(self.handle)
+    if self.res_id then
+        M.map[self.res_id] = nil
+    end
 end
 
 ---@private
