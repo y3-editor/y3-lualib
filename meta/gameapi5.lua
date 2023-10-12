@@ -4,6 +4,389 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--设置碰撞体的布尔类型属性
+---@param collider py.RigidBody # 刚体
+---@param attr_name string # 布尔类型属性
+---@param value py.Fixed # 值
+function GameAPI.api_set_collider_bool_attr(collider, attr_name, value) end
+
+--获取碰撞体的布尔类型属性
+---@param collider py.RigidBody # 刚体
+---@param attr_name string # 布尔类型属性
+function GameAPI.api_get_collider_bool_attr(collider, attr_name) end
+
+--设置碰撞体的实数类型属性
+---@param collider py.RigidBody # 刚体
+---@param attr_name string # 实数类型属性
+---@param value boolean # 值
+function GameAPI.api_set_collider_float_attr(collider, attr_name, value) end
+
+--碰撞器的自身碰撞类别是否有指定类型
+---@param collider py.Collider # 碰撞器
+---@param mask py.Fixed # mask
+---@return boolean # 布尔值
+function GameAPI.api_is_collider_collision_category(collider, mask) end
+
+--碰撞器的目标碰撞类别是否有指定类型
+---@param collider py.Collider # 碰撞器
+---@param mask py.Fixed # mask
+---@return boolean # 布尔值
+function GameAPI.api_is_collider_collide_with_mask(collider, mask) end
+
+--碰撞器的自身碰撞类别是否有玩家
+---@param collider py.Collider # 碰撞器
+---@return boolean # 布尔值
+function GameAPI.api_is_collider_collision_category_player(collider) end
+
+--碰撞器的自身碰撞类别是否有地面
+---@param collider py.Collider # 碰撞器
+---@return boolean # 布尔值
+function GameAPI.api_is_collider_collision_category_floor(collider) end
+
+--获得碰撞器的自身碰撞类别
+---@param collider py.Collider # 碰撞器
+---@return integer # mask
+function GameAPI.api_get_collider_collision_category(collider) end
+
+--获得碰撞器的目标碰撞类别
+---@param collider py.Collider # 碰撞器
+---@return integer # mask
+function GameAPI.api_get_collider_collide_with_mask(collider) end
+
+--设置碰撞器的自身碰撞类别
+---@param collider py.Collider # 碰撞器
+---@param mask integer # mask
+function GameAPI.api_set_collider_collision_category(collider, mask) end
+
+--获得碰撞器的目标碰撞类别
+---@param collider py.Collider # 碰撞器
+---@param mask integer # mask
+function GameAPI.api_set_collider_collide_with_mask(collider, mask) end
+
+--根据jid获取joint
+---@param jid integer # joint ID
+---@return py.Joint # Joint
+function GameAPI.api_get_joint_by_bid(jid) end
+
+--创建固定关节
+---@param pos py.FVector3 # 创建位置
+---@param body_1 py.RigidBody # 刚体
+---@param body_2 py.RigidBody # 刚体
+---@param enable_collision? boolean # 检测碰撞
+---@return py.RigidBody # Body
+function GameAPI.api_create_fixed_joint(pos, body_1, body_2, enable_collision) end
+
+--销毁关节
+---@param joint py.Joint # 关节
+function GameAPI.api_destroy_joint(joint) end
+
+--根据id获取物理组件
+---@param comp_id integer # joint ID
+---@return py.PhysicsObject # PhysicsObject
+function GameAPI.api_get_physics_object_by_id(comp_id) end
+
+--根据名称获取逻辑物理组件中的rigidbody
+---@param entity py.PhysicsEntity # 物理组件
+---@param name string # 名称
+---@return py.RigidBody # RigidBody
+function GameAPI.api_get_rigid_body_in_physics_entity(entity, name) end
+
+--获取单位或者物理组件的位置
+---@param unit py.Actor # 单位或物理组件
+---@return py.FVector3 # Position
+function GameAPI.api_get_unit_or_physics_entity_pos(unit) end
+
+--获得射线检测首次碰撞点
+---@param start_point py.FVector3 # 起点
+---@param end_point py.FVector3 # 终点
+---@return py.FVector3 # 碰撞点
+function GameAPI.api_physics_raycast(start_point, end_point) end
+
+--设置物理组件可见性(以及是否为生效状态)
+---@param physics_object_id py.Actor # 物理组件
+---@param is_visible boolean # 是否可见
+function GameAPI.api_set_physics_object_activated_and_visible(physics_object_id, is_visible) end
+
+--设置逻辑物理组件可见性(以及是否为生效状态)
+---@param entity py.Actor # 物理组件
+---@param is_visible boolean # 是否可见
+function GameAPI.api_set_physics_entity_activated_and_visible(entity, is_visible) end
+
+--单位/逻辑物理组件之间是否有重叠
+---@param entity_1 py.Actor # 单位/逻辑物理组件
+---@param entity_2 py.Actor # 单位/逻辑物理组件
+---@return boolean # 是否有重叠
+function GameAPI.api_check_physics_is_overlapping(entity_1, entity_2) end
+
+--单位/逻辑物理组件之间是否有碰撞
+---@param entity_1 py.Actor # 单位/逻辑物理组件
+---@param entity_2 py.Actor # 单位/逻辑物理组件
+---@return boolean # 是否有重叠
+function GameAPI.api_check_physics_is_contacting(entity_1, entity_2) end
+
+--创建物理组件
+---@param physics_object_id py.PhysicsObjectKey # 物理组件类型
+---@param translation py.FVector3 # 位置
+---@param direction py.FVector3 # 朝向
+---@return py.PhysicsObject # 物理组件
+function GameAPI.api_create_physics_object(physics_object_id, translation, direction) end
+
+--创建逻辑物理组件
+---@param physics_entity_id py.PhysicsObjectKey # 物理组件类型
+---@param translation py.FVector3 # 位置
+---@param direction py.FVector3 # 朝向
+---@param scale? py.Fixed # 缩放
+function GameAPI.api_create_physics_entity(physics_entity_id, translation, direction, scale) end
+
+--删除物理组件
+---@param physics_object_id py.Actor # 逻辑物理组件
+function GameAPI.api_del_physics_object(physics_object_id) end
+
+--删除逻辑物理组件
+---@param physics_entity py.Actor # 逻辑物理组件
+function GameAPI.api_del_physics_entity(physics_entity) end
+
+--逻辑物理组件是否存在
+---@param entity? py.PhysicsEntity # 逻辑物理组件
+---@return boolean # 布尔值
+function GameAPI.api_physics_entity_is_exist(entity) end
+
+--逻辑物理组件中指定刚体的模型播放动画
+---@param entity py.PhysicsEntity # 物理组件
+---@param body py.RigidBody # 刚体
+---@param anim_name string # 动画名称
+---@param loop? boolean # 是否循环
+---@param play_speed? py.Fixed # 速度
+function GameAPI.api_physics_play_animation(entity, body, anim_name, loop, play_speed) end
+
+--获得逻辑物理组件的状态
+---@param entity py.PhysicsEntity # 物理组件
+---@return py.PhysicsEntityState # 状态
+function GameAPI.api_get_physics_entity_state(entity) end
+
+--设置逻辑物理组件状态
+---@param entity py.PhysicsEntity # 物理组件
+---@param state py.PhysicsEntityState # 状态
+function GameAPI.api_set_entity_state(entity, state) end
+
+--设置逻辑物理组件的激活状态
+---@param entity py.PhysicsEntity # 物理组件
+---@param is_active boolean # 激活状态
+---@param visible? boolean # 可见性
+function GameAPI.api_set_entity_active(entity, is_active, visible) end
+
+--判断逻辑物理组件是激活状态
+---@param entity py.PhysicsEntity # 物理组件
+---@return boolean # 激活状态
+function GameAPI.api_is_physics_entity_active(entity) end
+
+--判断逻辑物理组件是关闭状态
+---@param entity py.PhysicsEntity # 物理组件
+---@return boolean # 关闭状态
+function GameAPI.api_is_physics_entity_deactive(entity) end
+
+--根据id获得逻辑物理组件
+---@param entity_id py.Fixed # id
+---@return py.PhysicsEntity # 逻辑物理组件
+function GameAPI.api_get_physics_entity(entity_id) end
+
+--设置重力加速度
+---@param gravity py.FVector3 # 重力加速度
+function GameAPI.api_set_gravity(gravity) end
+
+--创建特效到逻辑物理组件
+---@param entity py.PhysicsEntity # 逻辑物理组件
+---@param body_name string # 刚体名称
+---@param sfx_id py.Fixed # 特效ID
+---@param b_follow_rotate? boolean # 是否跟随旋转
+---@param b_follow_scale? boolean # 是否跟随缩放
+---@param position? py.Vector3 # 偏移
+---@param scale? py.Fixed # 缩放
+---@param rotation? py.Vector3 # 旋转
+---@param duration? py.Fixed # 持续时间
+---@param immediately? boolean # 是否播放完移除
+---@return py.Sfx # 特效
+function GameAPI.api_create_sfx_on_rigid(entity, body_name, sfx_id, b_follow_rotate, b_follow_scale, position, scale, rotation, duration, immediately) end
+
+--获取逻辑物理组件类型
+---@param entity py.PhysicsEntity # 逻辑物理组件
+---@return integer # 类型
+function GameAPI.api_get_physics_entity_type(entity) end
+
+--销毁逻辑物理组件
+---@param entity py.PhysicsEntity # 逻辑物理组件
+function GameAPI.api_destroy_physics_entity(entity) end
+
+--设置逻辑物理组件旋转（欧拉角）
+---@param entity py.PhysicsEntity # 逻辑物理组件
+---@param angle_x py.Fixed # X
+---@param angle_y py.Fixed # Y
+---@param angle_z py.Fixed # Z
+function GameAPI.api_physics_entity_set_orientation(entity, angle_x, angle_y, angle_z) end
+
+--逻辑物理组件是否有指定tag
+---@param entity py.PhysicsEntity # 逻辑物理组件
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.api_physics_entity_has_tag(entity, tag) end
+
+--逻辑物理组件添加tag
+---@param entity py.PhysicsEntity # 逻辑物理组件
+---@param tag string # tag
+function GameAPI.api_physics_entity_add_tag(entity, tag) end
+
+--逻辑物理组件删除tag
+---@param entity py.PhysicsEntity # 逻辑物理组件
+---@param tag string # tag
+function GameAPI.api_physics_entity_remove_tag(entity, tag) end
+
+--获取单位的rigidBody
+---@param unit py.Unit # 单位
+---@return py.RigidBody # RigidBody
+function GameAPI.api_get_rigid_body_in_unit(unit) end
+
+--设置物理主控单位
+---@param unit py.Unit # 单位
+---@param ragdoll_collide? boolean # Ragdoll是否碰撞
+function GameAPI.set_physics_ctrl_unit(unit, ragdoll_collide) end
+
+--获取物理主控单位
+---@param role py.Role # 玩家
+---@return py.Unit # 单位
+function GameAPI.get_physics_ctrl_unit(role) end
+
+--设置主控单位可见性visual
+---@param unit py.Unit # 单位
+---@param is_visible boolean # 可见性
+---@param only_self? boolean # 仅自己生效
+---@param only_self_friend? boolean # 仅自己和友军生效
+---@param only_enemy? boolean # 仅对敌军生效
+function GameAPI.api_set_cc_visibility(unit, is_visible, only_self, only_self_friend, only_enemy) end
+
+--创建单位
+---@param key py.UnitKey # 单位编号
+---@param location py.FVector3 # 位置
+---@param direction py.FVector3 # 朝向
+---@param role_or_unit py.Role # 所属玩家
+---@return py.Unit # 创建出的单位
+function GameAPI.create_unit_at_vector3(key, location, direction, role_or_unit) end
+
+--单位传送到指定坐标
+---@param unit py.Unit # 单位
+---@param position py.FVector3 # 目标坐标
+---@param clear_speed boolean # 是否清除速度
+function GameAPI.api_unit_transmit_3d(unit, position, clear_speed) end
+
+--复活单位
+---@param unit py.Unit # 单位
+---@param position py.FVector3 # 复活位置
+---@param clear_speed boolean # 清除速度
+function GameAPI.api_revive_unit_3d(unit, position, clear_speed) end
+
+--获取角色所处状态机节点名称
+---@param unit py.Unit # 单位
+---@return string # 状态机节点名称
+function GameAPI.api_get_character_state_name(unit) end
+
+--让单位lookat镜头
+---@param unit py.Unit # 单位
+function GameAPI.cc_look_at_camera(unit) end
+
+--让单位lookat目标单位
+---@param unit py.Unit # 单位
+---@param other_unit py.Unit # 单位
+function GameAPI.cc_look_at_other_unit(unit, other_unit) end
+
+--取消单位lookat
+---@param unit py.Unit # 单位
+function GameAPI.cc_cancel_look_at(unit) end
+
+--获取单位周围的随机单位
+---@param unit py.Unit # 单位
+---@param radius py.Fixed # 距离
+---@return py.Unit # 随机单位
+function GameAPI.cc_get_random_unit_around(unit, radius) end
+
+--动画状态机状态判断
+---@param state1 py.CcAsmState # 动画机状态
+---@param state2 py.CcAsmState # 动画机状态
+---@return boolean # 是否相等
+function GameAPI.api_check_asm_state(state1, state2) end
+
+--获取单位碰撞盒里最近的抓取单位（测试用）
+---@param unit py.Unit # 单位
+---@return py.Unit # 距离最近的单位
+function GameAPI.api_get_grab_character(unit) end
+
+--抓取技能
+---@param source py.Unit # 施法单位
+---@param target py.Unit # 目标单位
+function GameAPI.api_grab(source, target) end
+
+--判断 - 是否可以施放暴揍技能
+---@param source py.Unit # 施法单位
+---@param target py.Unit # 目标单位
+---@param bind string # 绑点名称
+---@return boolean # 是否可以施放
+function GameAPI.check_catch_other_character(source, target, bind) end
+
+--暴揍技能
+---@param source py.Unit # 施法单位
+---@param target py.Unit # 目标单位
+---@param state integer # 暴揍动作
+---@param duration py.Fixed # 持续时间
+---@param bind string # 绑点名称
+function GameAPI.api_physics_catch(source, target, state, duration, bind) end
+
+--移除手部黏连状态
+---@param unit py.Unit # 单位
+---@param handtype py.CcHandID # 左手/右手
+function GameAPI.api_disconnect_hand(unit, handtype) end
+
+--移除双手的黏连状态
+---@param unit py.Unit # 单位
+function GameAPI.api_disconnect_both_hands(unit) end
+
+--检查手部是否处于黏连状态
+---@param unit py.Unit # 单位
+---@param handtype py.CcHandID # 左手/右手
+---@return boolean # 是否黏连
+function GameAPI.api_check_hand_connection(unit, handtype) end
+
+--主控角色做预定义行为
+---@param unit py.Unit # 角色
+---@param cc_action py.CcActionID # 预定义行为ID
+---@param cc_hand? py.CcHandID # 左手/右手
+function GameAPI.cc_do_predefined_action(unit, cc_action, cc_hand) end
+
+--重载角色动画状态
+---@param unit py.Unit # 角色
+---@param anim_status py.CcAnimationMachineStatus # 动画机节点名字
+---@param anim_name string # 动画名
+function GameAPI.api_override_anim_status(unit, anim_status, anim_name) end
+
+--判断单位上半身行动受限
+---@param unit py.Unit # 单位
+---@return boolean # 是否受限
+function GameAPI.is_upper_body_limited(unit) end
+
+--投掷技能
+---@param unit py.Unit # 施法单位
+function GameAPI.api_physics_throw(unit) end
+
+--拾取物品
+---@param unit py.Unit # 施法单位
+function GameAPI.api_physics_pick_up(unit) end
+
+--拾取指定物品
+---@param unit py.Unit # 单位
+---@param item py.Unit # 物品
+function GameAPI.api_physics_pick_up_item(unit, item) end
+
+--单位丢弃物理道具
+---@param unit py.Unit # 单位
+function GameAPI.api_physics_drop(unit) end
+
 --施加倒地状态
 ---@param unit py.Unit # 施加目标
 ---@param duration py.Fixed # 持续时间
@@ -82,14 +465,6 @@ function GameAPI.api_set_unit_move(unit, move_direction) end
 ---@param unit py.Unit # 单位
 ---@param move_direction py.MoveDirection # 方向
 function GameAPI.api_set_unit_stop_move(unit, move_direction) end
-
---设置是否使用内置键盘控制
----@param enable boolean # 是否使用
-function GameAPI.api_set_builtin_key_control_enable(enable) end
-
---判断是否使用内置键盘控制
----@return boolean # 布尔值
-function GameAPI.api_is_builtin_key_control_enable() end
 
 --通知改键
 ---@param enable boolean # 是否使用
@@ -243,7 +618,7 @@ function GameAPI.api_get_rigid_body_group_in_range(position, radius, collision_c
 
 --替换刚体模型
 ---@param body py.RigidBody # 刚体
----@param id py.Fixed # 模型id
+---@param id py.ModelKey # 模型id
 function GameAPI.api_replace_rigid_body_model(body, id) end
 
 --还原刚体上一个模型
@@ -277,7 +652,7 @@ function GameAPI.api_rigid_body_set_scale(body, scale_x, scale_y, scale_z) end
 --刚体按照指定轴旋转
 ---@param body py.RigidBody # 刚体
 ---@param axis py.Vector3 # 轴
----@param angle py.Fixed # 弧度
+---@param angle py.Fixed # 角度
 function GameAPI.api_rigid_body_angle_axis(body, axis, angle) end
 
 --扔出刚体
@@ -308,6 +683,16 @@ function GameAPI.api_set_rigid_body_remove_reference_frame(body, target) end
 ---@param body py.RigidBody # 刚体
 ---@param local_pos py.FVector3 # local_pos
 function GameAPI.api_transform_local_to_global_coords(body, local_pos) end
+
+--添加刚体到刚体组
+---@param body py.Unit # 刚体
+---@param group py.RigidBodyGroup # 刚体组
+function GameAPI.api_add_rigid_body_to_group(body, group) end
+
+--从刚体组中移除刚体
+---@param group py.UnitGroup # 刚体组
+---@param body py.Unit # 刚体
+function GameAPI.api_remove_rigid_body_in_group(group, body) end
 
 --删除REACTION
 ---@param reaction py.Reaction # Reaction
@@ -1706,6 +2091,16 @@ function GameAPI.set_tps_mode_ctrl(role, enable) end
 ---@param detect_range? integer # 检测范围
 function GameAPI.set_camera_floating_with_terrain(enable, detect_range) end
 
+--获取本地玩家镜头的实数属性
+---@param attr_name string # 属性名
+---@return number # 属性值
+function GameAPI.get_camera_attr_real_num(attr_name) end
+
+--获取本地玩家镜头的整数属性
+---@param attr_name string # 属性名
+---@return integer # 属性值
+function GameAPI.get_camera_attr_integer(attr_name) end
+
 --向玩家正上方显示提示信息
 ---@param role py.Role # 玩家
 ---@param seconds? number # 持续时间
@@ -1945,6 +2340,15 @@ function GameAPI.set_cur_damage_is_miss(is_miss) end
 --设置当前治疗的数值
 ---@param value py.Fixed # 治疗值
 function GameAPI.set_cur_cure_value(value) end
+
+--获取当次攻击是否暴击
+---@param damage_result_state integer # damage_result_state
+---@return boolean # 是否暴击
+function GameAPI.get_cur_damage_is_critical(damage_result_state) end
+
+--设置当前是否暴击
+---@param is_critical boolean # 是否暴击
+function GameAPI.set_cur_damage_is_critical(is_critical) end
 
 --启动行为树
 ---@param unit py.Unit # 单位
@@ -2893,6 +3297,21 @@ function GameAPI.create_scene_node_on_point(comp_name, point, visible_dis, heigh
 ---@return py.SceneNode # 场景点
 function GameAPI.create_scene_node_on_unit(comp_name, player, unit, socket_name, visible_dis) end
 
+--创建场景点并绑定UI到三维坐标
+---@param comp_name string # 控件名
+---@param position py.Vector3 # 三维坐标
+---@param visible_dis? number # 可见距离
+---@return py.SceneNode # 场景点
+function GameAPI.create_scene_node_on_3d(comp_name, position, visible_dis) end
+
+--创建场景界面到刚体
+---@param comp_name string # 控件名
+---@param body py.RigidBody # 刚体
+---@param offset py.Vector3 # 偏移量
+---@param visible_dis? number # 可见距离
+---@return py.SceneNode # 场景点
+function GameAPI.create_scene_node_on_rigid_body(comp_name, body, offset, visible_dis) end
+
 --设置场景点对玩家的可见距离
 ---@param scene_node py.SceneNode # 场景点
 ---@param player py.Role # 玩家
@@ -3498,3 +3917,25 @@ function GameAPI.get_road_resource_id(road) end
 --设置模型加载范围
 ---@param focus_distance number # 范围
 function GameAPI.set_focus_distance(focus_distance) end
+
+--设置血条图片
+---@param unit py.Unit # 单位
+---@param node_name string # 血条命名
+---@param image_id py.Texture # 图片
+---@param role? py.Role # 玩家
+function GameAPI.set_billboard_picture(unit, node_name, image_id, role) end
+
+--设置血条文本
+---@param unit py.Unit # 单位
+---@param node_name string # 血条命名
+---@param text string # 文本
+---@param role? py.Role # 玩家
+---@param font? string # 字体
+function GameAPI.set_billboard_text(unit, node_name, text, role, font) end
+
+--设置血条可见性
+---@param unit py.Unit # 单位
+---@param node_name string # 血条命名
+---@param visible boolean # 可见性
+---@param role? py.Role # 玩家
+function GameAPI.set_billboard_visible(unit, node_name, visible, role) end
