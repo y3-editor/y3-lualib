@@ -70,9 +70,10 @@ M.SHAPE = {
 ---@param shape? Area.Shape 见area.enum
 ---@return Area
 function M.get_by_handle(py_area, shape)
-    local id = GameAPI.get_area_resource_id(py_area) --[[@as py.AreaID]]
-    local area = M.get_by_res_id(id, shape)
-    return area
+    -- TODO 外网没有这个API？
+    --local id = GameAPI.get_area_resource_id(py_area) --[[@as py.AreaID]]
+    --local area = M.get_by_res_id(id, shape)
+    return New 'Area' (py_area, shape)
 end
 
 -- TODO 需要从区域上获取类型
