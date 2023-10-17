@@ -207,6 +207,12 @@ function M:set_ui_9(x_left, x_right, y_top, y_bottom)
     return self
 end
 
+--设置控件9宫格启用
+---@param switch boolean # 启用/禁用
+function M:set_ui_9_enable(switch)
+    GameAPI.set_ui_comp_scale_9_enable(self.player.handle, self.handle, switch)
+end
+
 --设置文本字体大小
 ---@param size integer 字体大小
 ---@return self
