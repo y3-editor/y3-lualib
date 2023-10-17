@@ -1,10 +1,14 @@
 ---@alias Timer.OnTimer fun(timer: Timer,...)
 
+---@alias Timer.Mode 'second' | 'frame'
+
 ---@class Timer
 ---@field handle py.Timer
+---@field desc string
 ---@field private on_timer Timer.OnTimer
 ---@field private include_name? string
----@overload fun(py_timer: py.Timer, on_timer: Timer.OnTimer): self
+---@field private mode Timer.Mode
+---@overload fun(py_timer: py.Timer, on_timer: Timer.OnTimer, mode: Timer.Mode, desc: string): self
 local M = Class 'Timer'
 
 M.type = 'timer'
@@ -17,18 +21,26 @@ M.all_timers = setmetatable({}, y3.util.MODE_V)
 
 ---@param py_timer py.Timer
 ---@param on_timer Timer.OnTimer
+---@param mode Timer.Mode
+---@param desc string
 ---@return self
-function M:__init(py_timer, on_timer)
+function M:__init(py_timer, on_timer, mode, desc)
     self.handle = py_timer
     self.on_timer = on_timer
     self.id = self.id_counter()
+    self.mode = mode
+    self.desc = desc
     self.include_name = y3.reload.getCurrentIncludeName()
     M.all_timers[self.id] = self
     return self
 end
 
 function M:__del()
-    GameAPI.delete_timer(self.handle)
+    if self.mode == 'second' then
+        GameAPI.cancel_timer(self.handle)
+    else
+        GameAPI.delete_timer(self.handle)
+    end
     M.all_timers[self.id] = nil
 end
 
@@ -63,56 +75,77 @@ local function run_timer_by_frame(frame, count, callback)
     return GameAPI.run_timer_by_frame(frame, count, false, timer_node, {})
 end
 
+---@param func function
+---@return string
+local function make_timer_reason(func)
+    local info = debug.getinfo(3, 'Sl')
+    local sourceStr
+    if info.currentline == -1 then
+        sourceStr = '?'
+    else
+        sourceStr = ('%s:%d'):format(info.source, info.currentline)
+    end
+    return sourceStr
+end
+
 -- 等待时间后执行
 ---@param timeout number
 ---@param on_timer fun(timer: Timer)
+---@param desc? string # 描述
 ---@return Timer
-function M.wait(timeout, on_timer)
+function M.wait(timeout, on_timer, desc)
+    desc = desc or make_timer_reason(on_timer)
     ---@type Timer
     local timer
-    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), 0, false, function()
+    local py_timer = GameAPI.add_timer(Fix32(timeout), false, function()
         timer:execute()
         timer:remove()
-    end, {})
-    timer = New 'Timer' (py_timer, on_timer)
+    end, desc)
+    timer = New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
 -- 等待一定帧数后执行
 ---@param frame integer
 ---@param on_timer fun(timer: Timer)
+---@param desc? string # 描述
 ---@return Timer
-function M.wait_frame(frame, on_timer)
+function M.wait_frame(frame, on_timer, desc)
+    desc = desc or make_timer_reason(on_timer)
     ---@type Timer
     local timer
     local py_timer = run_timer_by_frame(frame, 0, function()
         timer:execute()
         timer:remove()
     end)
-    timer = New 'Timer' (py_timer, on_timer)
+    timer = New 'Timer' (py_timer, on_timer, 'frame', desc)
     return timer
 end
 
 -- 循环执行
 ---@param timeout number
 ---@param on_timer fun(timer: Timer, count: integer)
+---@param desc? string # 描述
 ---@return Timer
-function M.loop(timeout, on_timer)
+function M.loop(timeout, on_timer, desc)
+    desc = desc or make_timer_reason(on_timer)
     local timer
     local count = 0
-    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), -1, false, function()
+    local py_timer = GameAPI.add_timer(Fix32(timeout), true, function()
         count = count + 1
         timer:execute(count)
-    end, {})
-    timer = New 'Timer' (py_timer, on_timer)
+    end, desc)
+    timer = New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
 -- 循环一定帧数后执行
 ---@param frame integer
 ---@param on_timer fun(timer: Timer, count: integer)
+---@param desc? string # 描述
 ---@return Timer
-function M.loop_frame(frame, on_timer)
+function M.loop_frame(frame, on_timer, desc)
+    desc = desc or make_timer_reason(on_timer)
     ---@type Timer
     local timer
     local count = 0
@@ -120,7 +153,7 @@ function M.loop_frame(frame, on_timer)
         count = count + 1
         timer:execute(count)
     end)
-    timer = New 'Timer' (py_timer, on_timer)
+    timer = New 'Timer' (py_timer, on_timer, 'frame', desc)
     return timer
 end
 
@@ -128,15 +161,21 @@ end
 ---@param timeout number
 ---@param times integer
 ---@param on_timer fun(timer: Timer, count: integer)
+---@param desc? string # 描述
 ---@return Timer
-function M.count_loop(timeout, times, on_timer)
+function M.count_loop(timeout, times, on_timer, desc)
+    desc = desc or make_timer_reason(on_timer)
     local timer
     local count = 0
-    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), times, false, function()
+    local py_timer = GameAPI.add_timer(Fix32(timeout), true, function()
         count = count + 1
         timer:execute(count)
-    end, {})
-    timer = New 'Timer' (py_timer, on_timer)
+
+        if count >= times then
+            timer:remove()
+        end
+    end, desc)
+    timer = New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
@@ -144,15 +183,17 @@ end
 ---@param frame integer
 ---@param times integer
 ---@param on_timer fun(timer: Timer, count: integer)
+---@param desc? string # 描述
 ---@return Timer
-function M.count_loop_frame(frame, times, on_timer)
+function M.count_loop_frame(frame, times, on_timer, desc)
+    desc = desc or make_timer_reason(on_timer)
     local timer
     local count = 0
     local py_timer = run_timer_by_frame(frame, times, function()
         count = count + 1
         timer:execute(count)
     end)
-    timer = New 'Timer' (py_timer, on_timer)
+    timer = New 'Timer' (py_timer, on_timer, 'frame', desc)
     return timer
 end
 
