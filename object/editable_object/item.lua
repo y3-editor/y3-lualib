@@ -289,7 +289,7 @@ end
 ---@param tag string 标签
 ---@param item_key py.ItemKey 物品类型
 ---@return boolean is_has_tag 是否有标签
-function M.has_type_tag(tag, item_key)
+function M.has_tag_by_key(tag, item_key)
     return GameAPI.item_key_has_tag(item_key, tag)
 end
 
