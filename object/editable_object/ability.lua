@@ -16,6 +16,14 @@ Extends('Ability', 'ObjectEvent')
 ---@class Ability: KV
 Extends('Ability', 'KV')
 
+function M:__tostring()
+    return string.format('{ability|%s|%s} @ %s'
+        , self:get_name()
+        , self.handle
+        , self:get_owner()
+    )
+end
+
 ---所有技能实例
 M.map = setmetatable({}, y3.util.MODE_K)
 

@@ -13,6 +13,13 @@ Extends('Destructible', 'ObjectEvent')
 ---@class Destructible: KV
 Extends('Destructible', 'KV')
 
+function M:__tostring()
+    return string.format('{destructible|%s|%s}'
+        , self:get_name()
+        , self.handle
+    )
+end
+
 ---@param py_destructible py.Destructible
 ---@return self
 function M:__init(py_destructible)

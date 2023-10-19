@@ -17,6 +17,13 @@ Extends('Item', 'ObjectEvent')
 ---@class Item: KV
 Extends('Item', 'KV')
 
+function M:__tostring()
+    return string.format('{item|%s|%s}'
+        , self:get_name()
+        , self.handle
+    )
+end
+
 ---@param id py.ItemID
 ---@param py_item py.Item # py层的道具实例
 ---@return Item # 返回在lua层初始化后的lua层道具实例
