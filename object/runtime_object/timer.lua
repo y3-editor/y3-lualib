@@ -2,6 +2,7 @@
 
 ---@alias Timer.Mode 'second' | 'frame'
 
+-- 同步计时器，所有玩家必须使用一致的计时器
 ---@class Timer
 ---@field handle py.Timer
 ---@field desc string
@@ -139,7 +140,7 @@ function M.loop(timeout, on_timer, desc)
     return timer
 end
 
--- 循环一定帧数后执行
+-- 每经过一定帧数后执行
 ---@param frame integer
 ---@param on_timer fun(timer: Timer, count: integer)
 ---@param desc? string # 描述
@@ -157,7 +158,7 @@ function M.loop_frame(frame, on_timer, desc)
     return timer
 end
 
--- 循环指定次数
+-- 循环执行，可以指定最大次数
 ---@param timeout number
 ---@param times integer
 ---@param on_timer fun(timer: Timer, count: integer)
@@ -179,7 +180,7 @@ function M.count_loop(timeout, times, on_timer, desc)
     return timer
 end
 
--- 循环一定帧数指定次数
+-- 每经过一定帧数后执行，可以指定最大次数
 ---@param frame integer
 ---@param times integer
 ---@param on_timer fun(timer: Timer, count: integer)
