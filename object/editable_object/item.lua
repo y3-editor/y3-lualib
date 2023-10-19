@@ -285,6 +285,14 @@ function M:get_key()
     return self.handle:api_get_key()
 end
 
+---物品类型是否存在标签
+---@param tag string 标签
+---@param item_key py.ItemKey 物品类型
+---@return boolean is_has_tag 是否有标签
+function M.has_type_tag(tag, item_key)
+    return GameAPI.item_key_has_tag(item_key, tag)
+end
+
 ---设置物品商品售价
 ---@param id py.ItemKey 物品id
 ---@param player_attr_name py.RoleResKey 玩家属性
