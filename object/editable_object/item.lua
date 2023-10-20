@@ -98,6 +98,9 @@ end
 ---是否在场景中
 ---@return boolean is_in_scene 是否在场景中
 function M:is_in_scene()
+    if not self:is_exist() then
+        return false
+    end
     return self.handle:api_is_in_scene()
 end
 
