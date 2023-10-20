@@ -12,7 +12,8 @@
 ---@field private removed? boolean
 ---@field private pausing? boolean
 ---@field private paused_at? number
----@field private executing? boolean
+---@field private waking_up? boolean
+---@field private queue_index? integer
 ---@overload fun(time: number, mode: LocalTimer.Mode, count: integer, on_timer: LocalTimer.OnTimer): self
 local M = Class 'LocalTimer'
 
@@ -72,8 +73,6 @@ function M:set_time_out()
         return
     end
 
-    self:pop()
-
     if self.mode == 'second' then
         self.target_ms = self.init_ms
                        + self.time * (self.runned_count + 1) * 1000.0
@@ -94,7 +93,9 @@ function M:wakeup()
     end
 
     self.runned_count = self.runned_count + 1
+    self.waking_up = true
     self:execute()
+    self.waking_up = false
     if self.count > 0 and self.runned_count >= self.count then
         self:remove()
     end
@@ -106,12 +107,7 @@ end
 
 -- 立即执行
 function M:execute(...)
-    if self.executing then
-        return
-    end
-    self.executing = true
     xpcall(self.on_timer, log.error, self, self.runned_count, ...)
-    self.executing = false
 end
 
 -- 移除计时器
@@ -121,6 +117,7 @@ end
 
 ---@package
 function M:push()
+    self:pop()
     local ms = math.floor(self.target_ms)
     if ms <= cur_ms then
         ms = cur_ms + 1
@@ -131,11 +128,13 @@ function M:push()
         timer_queues[ms] = queue
     end
     queue[#queue+1] = self
+    self.queue_index = ms
 end
 
 ---@package
 function M:pop()
-    local ms = math.floor(self.target_ms)
+    local ms = self.queue_index
+    self.queue_index = nil
     local queue = timer_queues[ms]
     if not queue then
         return
@@ -169,7 +168,7 @@ function M:resume()
     self.paused_ms = self.paused_ms + paused_ms
     self.total_paused_ms = self.total_paused_ms + paused_ms
 
-    if not self.executing then
+    if not self.waking_up then
         self:set_time_out()
     end
 end
@@ -186,7 +185,7 @@ function M:get_elapsed_time()
     if self.removed then
         return 0.0
     end
-    if self.executing then
+    if self.waking_up then
         return (self.target_ms - self.start_ms - self.paused_ms) / 1000.0
     end
     if self.pausing then
@@ -204,7 +203,7 @@ end
 -- 获取剩余时间
 ---@return number
 function M:get_remaining_time()
-    if self.removed or self.executing then
+    if self.removed or self.waking_up then
         return 0.0
     end
     if self.pausing then
