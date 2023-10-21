@@ -140,6 +140,10 @@ function M:set_is_draggable(isdrag)
     return self
 end
 
+-- 播放序列帧
+function M:play_ui_sequence()
+    GameAPI.play_ui_comp_sequence(self.player.handle, self.handle)
+end
 
 --设置控件是否拦截操作
 ---@param intercepts boolean 是否拦截操作
