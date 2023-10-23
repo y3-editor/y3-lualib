@@ -528,13 +528,6 @@ function M.get_attribute_by_key(item_key, key)
     return GameAPI.api_get_attr_of_item_key(item_key, "ATTR_BASE", key)
 end
 
----获取物品类型名
----@param item_key py.ItemKey 物品类型
----@return string
-function M.get_name_by_key(item_key)
-    return GameAPI.get_item_conf_name(item_key)
-end
-
 ---物品类型是否存在标签
 ---@param tag string 标签
 ---@param item_key py.ItemKey 物品类型
