@@ -519,4 +519,28 @@ function M.get_num_of_player_attr(item_key, role_res_key)
     return GameAPI.api_get_value_of_item_name_comp_res(item_key, role_res_key)
 end
 
+---获取物品类型的基础属性
+---@param key string 属性key
+---@param item_key py.ItemKey 物品类型
+---@return number
+function M.get_attribute_by_key(item_key, key)
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return GameAPI.api_get_attr_of_item_key(item_key, "ATTR_BASE", key)
+end
+
+---获取物品类型名
+---@param item_key py.ItemKey 物品类型
+---@return string
+function M.get_name_by_key(item_key)
+    return GameAPI.get_item_conf_name(item_key)
+end
+
+---物品类型是否存在标签
+---@param tag string 标签
+---@param item_key py.ItemKey 物品类型
+---@return boolean is_has_tag 是否有标签
+function M.has_tag_by_key(tag, item_key)
+    return GameAPI.item_key_has_tag(item_key, tag)
+end
+
 return M
