@@ -885,4 +885,14 @@ function M:set_cursor(player, state, key)
     return self
 end
 
+-- 播放序列帧
+---@param loop? boolean # 是否循环
+---@param space? number # 间隔帧数
+---@param start_frame? integer # 起始帧
+---@param end_frame? integer # 结束帧
+function M:play_ui_sequence(loop, space, start_frame, end_frame)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    GameAPI.play_ui_comp_sequence(self.player.handle, self.handle, loop or false, space or 0.1, start_frame or 0, end_frame or -1)
+end
+
 return M
