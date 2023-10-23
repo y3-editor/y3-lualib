@@ -128,6 +128,19 @@ function M:attr_pick()
     return result
 end
 
+---遍历物品类型的单位属性
+---@param item_key py.ItemKey 物品类型
+---@return string[] keys 属性key
+function M.attr_pick_by_key(item_key)
+    -- 去掉首尾的方括号
+    local tmp = tostring(GameAPI.iter_unit_attr_of_item_name(item_key)):sub(2, -2)
+    local result = {}
+    for match in tmp:gmatch("'([^']+)'") do
+        table.insert(result, match)
+    end
+    return result
+end
+
 ---删除物品
 function M:remove()
     Delete(self)
@@ -526,13 +539,6 @@ end
 function M.get_attribute_by_key(item_key, key)
     ---@diagnostic disable-next-line: return-type-mismatch
     return GameAPI.api_get_attr_of_item_key(item_key, "ATTR_BASE", key)
-end
-
----获取物品类型名
----@param item_key py.ItemKey 物品类型
----@return string
-function M.get_name_by_key(item_key)
-    return GameAPI.get_item_conf_name(item_key)
 end
 
 ---物品类型是否存在标签
