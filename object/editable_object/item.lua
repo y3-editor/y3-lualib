@@ -128,6 +128,19 @@ function M:attr_pick()
     return result
 end
 
+---遍历物品类型的单位属性
+---@param item_key py.ItemKey 物品类型
+---@return string[] keys 属性key
+function M.item_type_attr_pick(item_key)
+    -- 去掉首尾的方括号
+    local tmp = tostring(GameAPI.iter_unit_attr_of_item_name(item_key)):sub(2, -2)
+    local result = {}
+    for match in tmp:gmatch("'([^']+)'") do
+        table.insert(result, match)
+    end
+    return result
+end
+
 ---删除物品
 function M:remove()
     Delete(self)
