@@ -38,7 +38,7 @@ end)
 function M.create_scene_ui_at_point(sceneui, point, range, height)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    local py_scene_node = GameAPI.create_scene_node_on_point(sceneui, point.handle, range, height)
+    local py_scene_node = GameAPI.create_scene_node_on_point(sceneui, point.handle, range or 10000, height or 0)
     local scene_ui = M.get_by_handle(py_scene_node)
     return scene_ui
 end
