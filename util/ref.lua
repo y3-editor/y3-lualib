@@ -15,7 +15,7 @@ local M = Class 'Ref'
 
 -- 至少在这个时间之后才会释放引用
 ---@private
-M.unrefTimeAtLeast = 6.0
+M.unrefTimeAtLeast = 60
 -- 是否允许弱引用
 ---@private
 M.allowWeakRef = false

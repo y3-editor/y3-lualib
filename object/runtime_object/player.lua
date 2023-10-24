@@ -80,6 +80,7 @@ function M:get_camp()
 end
 
 ---布尔型玩家存档数据
+---@deprecated
 ---@param index  integer 存档key
 ---@return boolean bool_value 布尔型玩家存档数据
 function M:get_save_data_bool_value(index)
@@ -329,6 +330,7 @@ function M:get_team_id()
 end
 
 ---表格型玩家存档数据
+---@deprecated
 ---@param key integer 存档key
 ---@return table table_value 表格型玩家存档数据
 function M:get_save_data_table(key)
@@ -336,6 +338,7 @@ function M:get_save_data_table(key)
 end
 
 ---字符串型玩家存档数据
+---@deprecated
 ---@param key integer 存档key
 ---@return string str_value 字符串玩家存档数据
 function M:get_save_data_string(key)
@@ -343,6 +346,7 @@ function M:get_save_data_string(key)
 end
 
 ---实数型存档数据
+---@deprecated
 ---@param key integer 存档key
 ---@return number int_value 实数型存档数据
 function M:get_save_data_float(key)
@@ -350,6 +354,7 @@ function M:get_save_data_float(key)
 end
 
 ---获取整数型存档数据
+---@deprecated
 ---@param key integer 存档key
 ---@return integer int_value 整数型存档数据
 function M:get_save_data_int(key)

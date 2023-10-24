@@ -120,6 +120,8 @@ y3.ui_prefab    = require 'y3.object.scene_object.ui_prefab'
 y3.shape        = require 'y3.object.scene_object.shape'
 
 y3.object       = require 'y3.util.object'
+y3.ltimer       = require 'y3.util.local_timer'
+y3.save_data    = require 'y3.util.save_data'
 
 y3.develop = {}
 y3.develop.command = include 'y3.develop.command'

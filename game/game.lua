@@ -445,20 +445,20 @@ end
 ---设置游戏时间的流逝速度
 ---@param speed number 速度
 function M.set_day_night_speed(speed)
-    GameAPI.set_day_and_night_time_speed(speed)
+    GameAPI.set_day_and_night_time_speed(Fix32(speed))
 end
 
 ---设置游戏时间
 ---@param time number 时间
 function M.set_day_night_time(time)
-    GameAPI.set_day_and_night_time(time)
+    GameAPI.set_day_and_night_time(Fix32(time))
 end
 
 ---创建人造时间
 ---@param time number 时间
 ---@param dur number 持续时间
 function M.create_day_night_human_time(time, dur)
-    GameAPI.create_day_and_night_human_time(time, dur)
+    GameAPI.create_day_and_night_human_time(Fix32(time), Fix32(dur))
 end
 
 ---设置随机数种子

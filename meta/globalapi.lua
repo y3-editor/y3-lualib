@@ -383,6 +383,13 @@ function GlobalAPI.vector3_multiply_scalar(vec3, scalar) end
 ---@return py.FRotation # 欧拉角
 function GlobalAPI.vector3_to_euler(vec3) end
 
+--获得三维向量绕轴旋转后的向量
+---@param vec3 py.Vector3 # 三维向量
+---@param angle py.Fixed # 旋转角度
+---@param axis py.Vector3 # 旋转轴
+---@return py.FVector3 # 定点数Vector3
+function GlobalAPI.VECTOR3_ANGLE_AXIS(vec3, angle, axis) end
+
 --定点数自增1
 ---@param fix_value py.Fixed # x
 ---@return py.Fixed # 定点数
@@ -578,9 +585,14 @@ function GlobalAPI.stop_actor_timer(actor, name) end
 ---@return py.Fixed # 定点数
 function GlobalAPI.get_fixed_coord_index(point, index) end
 
---清空列表
+--清空组/数组变量
 ---@param list1 py.List # 列表
 function GlobalAPI.clear_group(list1) end
+
+--数组 - 删除数组条目
+---@param list1 py.List # list var
+---@param idx integer # index
+function GlobalAPI.remove_list_var_item(list1, idx) end
 
 --将第二个列表的值赋值给第一个列表 不改变第一个列表的长度
 ---@param list1 py.List # 列表
@@ -965,3 +977,23 @@ function GlobalAPI.get_day_of_server_timestamp(v) end
 ---@param v number # float
 ---@return integer # int
 function GlobalAPI.get_hour_of_server_timestamp(v) end
+
+--随机池结果迭代器
+---@param v py.Dict # Result
+---@return py.Iterator # Python迭代器
+function GlobalAPI.iter_random_pool_result(v) end
+
+--获取服务器随机池执行结果
+---@param v integer # int
+---@return integer # int
+function GlobalAPI.get_random_pool_ret_code(v) end
+
+--获取服务器随机池掉落影响存档槽位
+---@param v integer # int
+---@return integer # int
+function GlobalAPI.get_iter_random_pool_archive_key(v) end
+
+--获取服务器随机池掉落影响存档值
+---@param v integer # int
+---@return integer # int
+function GlobalAPI.get_iter_random_pool_archive_increment(v) end

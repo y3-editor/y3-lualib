@@ -322,7 +322,7 @@
 --刚体
 ---@class py.RigidBody: py.Actor
 --刚体组
----@class py.RigidBodyGroup: py.DynamicTypeMeta
+---@class py.RigidBodyGroup: py.UIntList
 --碰撞体
 ---@class py.Collider: py.Actor
 --关节

@@ -14,6 +14,30 @@ Extends('Area', 'GCHost')
 
 M.type = 'area'
 
+---@package
+---@param id py.AreaID
+---@param shape Area.Shape 见area.enum
+---@return Area
+M.ref_manager = New 'Ref' ('Area', function (id, shape)
+    local py_area
+    if shape == M.SHAPE.CIRCLE then
+        py_area = GameAPI.get_circle_area_by_res_id(id)
+    elseif shape == M.SHAPE.RECTANGLE then
+        py_area = GameAPI.get_rec_area_by_res_id(id)
+    elseif shape == M.SHAPE.POLYGON then
+        py_area = GameAPI.get_polygon_area_by_res_id(id)
+    elseif shape == nil then
+        py_area = GameAPI.get_circle_area_by_res_id(id)
+            or    GameAPI.get_rec_area_by_res_id(id)
+            or    GameAPI.get_polygon_area_by_res_id(id)
+        assert(py_area)
+    else
+        error('不支持的区域类型')
+    end
+    local area = New 'Area' (py_area, shape)
+    return area
+end)
+
 ---@param py_area py.Area
 ---@param shape Area.Shape
 ---@return self
@@ -43,11 +67,13 @@ M.SHAPE = {
 
 ---根据py对象创建区域
 ---@param py_area py.Area py层对象
----@param type Area.Shape 见area.enum
+---@param shape? Area.Shape 见area.enum
 ---@return Area
-function M.get_by_handle(py_area, type)
-    local area = New 'Area' (py_area, type)
-    return area
+function M.get_by_handle(py_area, shape)
+    -- TODO 外网没有这个API？
+    --local id = GameAPI.get_area_resource_id(py_area) --[[@as py.AreaID]]
+    --local area = M.get_by_res_id(id, shape)
+    return New 'Area' (py_area, shape)
 end
 
 -- TODO 需要从区域上获取类型
@@ -57,26 +83,11 @@ y3.py_converter.register_lua_to_py('py.Area', function (lua_value)
 end)
 
 ---@param res_id py.AreaID 编辑场景中的id
----@param shape Area.Shape 见area.enum
+---@param shape? Area.Shape 见area.enum
 ---@return Area
 function M.get_by_res_id(res_id, shape)
-    if not M.map[res_id] then
-        local py_area
-        if shape == M.SHAPE.CIRCLE then
-            py_area = GameAPI.get_circle_area_by_res_id(res_id)
-        elseif shape == M.SHAPE.RECTANGLE then
-            py_area = GameAPI.get_rec_area_by_res_id(res_id)
-        elseif shape == M.SHAPE.POLYGON then
-            py_area = GameAPI.get_polygon_area_by_res_id(res_id)
-        else
-            error('不支持的区域类型')
-        end
-        assert(py_area, '找不到对应的区域:' .. tostring(res_id))
-        local area = M.get_by_handle(py_area, shape)
-        area.res_id = res_id
-        M.map[res_id] = area
-    end
-    return M.map[res_id]
+    local area = M.ref_manager:get(res_id, shape)
+    return area
 end
 
 y3.py_converter.register_py_to_lua('py.AreaID', M.get_by_res_id)

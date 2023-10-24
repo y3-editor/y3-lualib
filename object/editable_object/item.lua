@@ -17,6 +17,13 @@ Extends('Item', 'ObjectEvent')
 ---@class Item: KV
 Extends('Item', 'KV')
 
+function M:__tostring()
+    return string.format('{item|%s|%s}'
+        , self:get_name()
+        , self.handle
+    )
+end
+
 ---@param id py.ItemID
 ---@param py_item py.Item # py层的道具实例
 ---@return Item # 返回在lua层初始化后的lua层道具实例
@@ -91,6 +98,9 @@ end
 ---是否在场景中
 ---@return boolean is_in_scene 是否在场景中
 function M:is_in_scene()
+    if not self:is_exist() then
+        return false
+    end
     return self.handle:api_is_in_scene()
 end
 
@@ -111,6 +121,19 @@ end
 function M:attr_pick()
     -- 去掉首尾的方括号
     local tmp = tostring(GameAPI.iter_unit_attr_of_item(self.handle)):sub(2, -2)
+    local result = {}
+    for match in tmp:gmatch("'([^']+)'") do
+        table.insert(result, match)
+    end
+    return result
+end
+
+---遍历物品类型的单位属性
+---@param item_key py.ItemKey 物品类型
+---@return string[] keys 属性key
+function M.attr_pick_by_key(item_key)
+    -- 去掉首尾的方括号
+    local tmp = tostring(GameAPI.iter_unit_attr_of_item_name(item_key)):sub(2, -2)
     local result = {}
     for match in tmp:gmatch("'([^']+)'") do
         table.insert(result, match)
@@ -507,6 +530,23 @@ end
 ---@return number
 function M.get_num_of_player_attr(item_key, role_res_key)
     return GameAPI.api_get_value_of_item_name_comp_res(item_key, role_res_key)
+end
+
+---获取物品类型的基础属性
+---@param key string 属性key
+---@param item_key py.ItemKey 物品类型
+---@return number
+function M.get_attribute_by_key(item_key, key)
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return GameAPI.api_get_attr_of_item_key(item_key, "ATTR_BASE", key)
+end
+
+---物品类型是否存在标签
+---@param tag string 标签
+---@param item_key py.ItemKey 物品类型
+---@return boolean is_has_tag 是否有标签
+function M.has_tag_by_key(tag, item_key)
+    return GameAPI.item_key_has_tag(item_key, tag)
 end
 
 return M

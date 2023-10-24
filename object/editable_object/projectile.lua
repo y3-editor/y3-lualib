@@ -12,6 +12,13 @@ Extends('Projectile', 'ObjectEvent')
 ---@class Projectile: KV
 Extends('Projectile', 'KV')
 
+function M:__tostring()
+    return string.format('{projectile|%s|%s}'
+        , self:get_key()
+        , self.handle
+    )
+end
+
 ---@param id integer
 ---@param py_projectile py.ProjectileEntity
 ---@return self

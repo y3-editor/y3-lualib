@@ -171,6 +171,14 @@ function Unit:api_get_y_scale() end
 ---@return number # 缩放的值
 function Unit:api_get_z_scale() end
 
+--获取单位的仇恨单位
+---@return py.Unit # 仇恨的单位
+function Unit:api_get_ai_battle_target_unit() end
+
+--获取单位的跟随单位
+---@return py.Unit # 跟随的单位
+function Unit:api_get_ai_follow_target_unit() end
+
 --获取 attr_other
 ---@param key string # 属性名
 ---@return py.Fixed # 属性值

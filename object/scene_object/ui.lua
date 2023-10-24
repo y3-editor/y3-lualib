@@ -207,6 +207,12 @@ function M:set_ui_9(x_left, x_right, y_top, y_bottom)
     return self
 end
 
+--设置控件9宫格启用
+---@param switch boolean # 启用/禁用
+function M:set_ui_9_enable(switch)
+    GameAPI.set_ui_comp_scale_9_enable(self.player.handle, self.handle, switch)
+end
+
 --设置文本字体大小
 ---@param size integer 字体大小
 ---@return self
@@ -877,6 +883,16 @@ function M:set_cursor(player, state, key)
         key
     )
     return self
+end
+
+-- 播放序列帧
+---@param loop? boolean # 是否循环
+---@param space? number # 间隔帧数
+---@param start_frame? integer # 起始帧
+---@param end_frame? integer # 结束帧
+function M:play_ui_sequence(loop, space, start_frame, end_frame)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    GameAPI.play_ui_comp_sequence(self.player.handle, self.handle, loop or false, space or 0.1, start_frame or 0, end_frame or -1)
 end
 
 return M

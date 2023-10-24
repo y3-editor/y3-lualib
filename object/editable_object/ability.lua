@@ -16,6 +16,14 @@ Extends('Ability', 'ObjectEvent')
 ---@class Ability: KV
 Extends('Ability', 'KV')
 
+function M:__tostring()
+    return string.format('{ability|%s|%s} @ %s'
+        , self:get_name()
+        , self.handle
+        , self:get_owner()
+    )
+end
+
 ---所有技能实例
 M.map = setmetatable({}, y3.util.MODE_K)
 
@@ -213,7 +221,7 @@ function M:set_range(value)
     self.handle:api_set_ability_cast_range(Fix32(value))
 end
 
----设置技能施法范围
+---获取技能施法范围
 ---@return number # 施法范围
 function M:get_range()
     return self.handle:api_get_ability_cast_range():float()
