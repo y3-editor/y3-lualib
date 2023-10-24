@@ -514,6 +514,7 @@ function M.get_start_mode()
 end
 
 -- 是否是调试模式
+---@return boolean
 function M.is_debug_mode()
     if y3.config.debug == true then
         return true
