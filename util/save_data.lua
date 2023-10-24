@@ -81,6 +81,33 @@ function M.load_table(player, slot, disable_cover)
     end
 end
 
+-- 保存玩家的存档数据（表），存档设置中必须使用允许覆盖模式
+---@param player Player
+---@param slot integer
+---@param t table
+function M.save_table(player, slot, t)
+    player.handle:set_save_data_table_value(slot, t)
+    M.upload_save_data(player)
+end
+
+---@private
+---@type table<Player, LocalTimer>
+M.timer_map = {}
+
+---@private
+---@param player Player
+function M.upload_save_data(player)
+    local timer = M.timer_map[player]
+    if timer then
+        return
+    end
+    M.timer_map[player] = y3.ltimer.wait(0.1, function ()
+        M.timer_map[player] = nil
+        player.handle:upload_save_data()
+        log.info('自动保存存档：', player)
+    end)
+end
+
 ---@private
 ---@param player Player
 ---@param slot integer
@@ -88,20 +115,6 @@ end
 function M.load_table_with_cover_enable(player, slot)
     local save_data = player.handle:get_save_data_table_value(slot)
     local create_proxy
-    local update_delay = 0.1
-    local update_timer
-
-    local function update_save_data()
-        if update_timer then
-            return
-        end
-        update_timer = y3.ltimer.wait(update_delay, function ()
-            update_timer = nil
-            player.handle:set_save_data_table_value(slot, save_data)
-            player.handle:upload_save_data()
-            log.info('自动保存存档：', player, slot)
-        end)
-    end
 
     ---@type Proxy.Config
     local proxy_config = {
@@ -125,7 +138,7 @@ function M.load_table_with_cover_enable(player, slot)
             end
             raw[key] = value
 
-            update_save_data()
+            M.upload_save_data(player)
         end,
         anyGetter = function (self, raw, key, config, custom)
             local value = raw[key]
