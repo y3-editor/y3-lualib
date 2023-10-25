@@ -40,7 +40,7 @@ function M:__del()
     if self.mode == 'second' then
         GameAPI.cancel_timer(self.handle)
     else
-        GameAPI.delete_timer(self.handle)
+        error('帧计时器不支持删除，若有此需求请改用 `y3.ltimer.xxx_frame`')
     end
     M.all_timers[self.id] = nil
 end
@@ -107,6 +107,8 @@ function M.wait(timeout, on_timer, desc)
 end
 
 -- 等待一定帧数后执行
+--> 请改用 `y3.ltimer.wait_frame`
+---@deprecated
 ---@param frame integer
 ---@param on_timer fun(timer: Timer)
 ---@param desc? string # 描述
@@ -117,7 +119,7 @@ function M.wait_frame(frame, on_timer, desc)
     local timer
     local py_timer = run_timer_by_frame(frame, 0, function()
         timer:execute()
-        timer:remove()
+        M.all_timers[timer.id] = nil
     end)
     timer = New 'Timer' (py_timer, on_timer, 'frame', desc)
     return timer
@@ -141,6 +143,8 @@ function M.loop(timeout, on_timer, desc)
 end
 
 -- 每经过一定帧数后执行
+--> 请改用 `y3.ltimer.loop_frame`
+---@deprecated
 ---@param frame integer
 ---@param on_timer fun(timer: Timer, count: integer)
 ---@param desc? string # 描述
@@ -181,12 +185,15 @@ function M.count_loop(timeout, times, on_timer, desc)
 end
 
 -- 每经过一定帧数后执行，可以指定最大次数
+--> 请改用 `y3.ltimer.count_loop_frame`
+---@deprecated
 ---@param frame integer
 ---@param times integer
 ---@param on_timer fun(timer: Timer, count: integer)
 ---@param desc? string # 描述
 ---@return Timer
 function M.count_loop_frame(frame, times, on_timer, desc)
+    error('帧计时器不支持有次数的循环，若有此需求请改用 `y3.ltimer.count_loop_frame`')
     desc = desc or make_timer_reason(on_timer)
     local timer
     local count = 0
@@ -210,6 +217,9 @@ end
 
 -- 暂停计时器
 function M:pause()
+    if self.mode == 'frame' then
+        error('帧计时器不支持暂停，若有此需求请改用 `y3.ltimer.xxx_frame`')
+    end
     GameAPI.pause_timer(self.handle)
 end
 
