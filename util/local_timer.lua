@@ -330,6 +330,7 @@ local function update_frame()
     cur_ms = target_ms
 end
 
+---@diagnostic disable-next-line: deprecated
 y3.timer.loop_frame(1, update_frame)
 
 return M
