@@ -79,7 +79,7 @@ end
 ---@param func function
 ---@return string
 local function make_timer_reason(func)
-    local info = debug.getinfo(3, 'Sl')
+    local info = debug.getinfo(func, 'Sl')
     local sourceStr
     if info.currentline == -1 then
         sourceStr = '?'
