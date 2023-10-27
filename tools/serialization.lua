@@ -36,6 +36,7 @@ local RefStrLen = 4 -- 字符串长度大于此值时保存引用
 ---| string
 ---| boolean
 ---| table
+---| nil
 
 -- 将一个Lua值序列化为二进制数据
 ---@param data Serialization.SupportTypes | nil

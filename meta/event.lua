@@ -4647,6 +4647,7 @@ event.ET_UNIT_PRODUCE_PROJECTILE = {}
 ---@field touch_id integer # 触碰ID
 ---@field str1 string # 自定义信息
 ---@field ui UI # ui
+---@field data any # 自定义数据
 
 --ui编辑器事件
 event.ET_TRIGGER_COMPONENT_EVENT = {
@@ -4707,6 +4708,18 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
         lua_code = function (data)
             local ui = y3.ui.get_by_handle(data.player, data.comp_name)
             return ui
+        end,
+    },
+    [8] = {
+        name = nil,
+        type = nil,
+        lua_name = "data",
+        lua_type = "any",
+        lua_desc = "自定义数据",
+        lua_code = function (data)
+            local bin = data.str1
+            local undumped = y3.dump.decode(bin)
+            return undumped
         end,
     },
 }

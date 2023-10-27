@@ -2447,6 +2447,17 @@ end\
             name = "ui",
             type = "UI",
         },
+        [2] = {
+            code = "function (data)\
+    local bin = data._py_params['str1']\
+    local undumped = y3.dump.decode(bin)\
+    return undumped\
+end\
+",
+            desc = "自定义数据",
+            name = "data",
+            type = "any",
+        },
     },
     key = "ET_TRIGGER_COMPONENT_EVENT",
     name = "界面-消息",
