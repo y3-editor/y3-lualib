@@ -384,11 +384,11 @@ function GlobalAPI.vector3_multiply_scalar(vec3, scalar) end
 function GlobalAPI.vector3_to_euler(vec3) end
 
 --获得三维向量绕轴旋转后的向量
----@param vec3 py.Vector3 # 三维向量
+---@param vec3 py.FVector3 # 三维向量
+---@param axis py.FVector3 # 旋转轴
 ---@param angle py.Fixed # 旋转角度
----@param axis py.Vector3 # 旋转轴
 ---@return py.FVector3 # 定点数Vector3
-function GlobalAPI.VECTOR3_ANGLE_AXIS(vec3, angle, axis) end
+function GlobalAPI.vector3_angle_axis(vec3, axis, angle) end
 
 --定点数自增1
 ---@param fix_value py.Fixed # x

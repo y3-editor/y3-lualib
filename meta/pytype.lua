@@ -315,6 +315,8 @@
 ---@class py.PhysicsObject: py.Actor
 --逻辑物理组件
 ---@class py.PhysicsEntity: py.Actor
+--物理过滤器
+---@class py.PhysicsFilter: py.Actor
 --物理组件类型
 ---@class py.PhysicsObjectKey: integer
 --逻辑物理组件类型

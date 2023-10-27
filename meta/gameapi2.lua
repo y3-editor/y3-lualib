@@ -4363,61 +4363,61 @@ function GameAPI.get_kv_pair_value_font_type(kvbase, key) end
 --获取单位编号JUMP_WORD_TRACK键值对
 ---@param unit_key py.UnitKey # 单位编号
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_unit_key_jump_word_track_kv(unit_key, key) end
 
 --获取物品编号JUMP_WORD_TRACK键值对
 ---@param item_key py.ItemKey # 物品编号
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_item_key_jump_word_track_kv(item_key, key) end
 
 --获取技能编号JUMP_WORD_TRACK键值对
 ---@param ability_key py.AbilityKey # 技能编号
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_ability_key_jump_word_track_kv(ability_key, key) end
 
 --获取魔法效果特效编号JUMP_WORD_TRACK键值对
 ---@param modifier_key py.ModifierKey # 魔法效果编号
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_modifier_key_jump_word_track_kv(modifier_key, key) end
 
 --获取特效编号JUMP_WORD_TRACK键值对
 ---@param projectile_key py.ProjectileKey # 特效编号
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_projectile_key_jump_word_track_kv(projectile_key, key) end
 
 --获取可破坏物编号JUMP_WORD_TRACK键值对
 ---@param destructible_key py.DestructibleKey # 可破坏物编号
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_destructible_key_jump_word_track_kv(destructible_key, key) end
 
 --获取科技编号JUMP_WORD_TRACK键值对
 ---@param tech_key py.TechKey # 科技编号
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_tech_key_jump_word_track_kv(tech_key, key) end
 
 --获取图片JUMP_WORD_TRACK键值对
 ---@param icon_id py.Texture # 图片
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_icon_id_jump_word_track_kv(icon_id, key) end
 
 --获取逻辑物理组件类型JUMP_WORD_TRACK键值对
 ---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_physics_entity_key_jump_word_track_kv(physics_entity_key, key) end
 
 --获取JUMP_WORD_TRACK键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键名称
----@return string # 键值
+---@return integer # 键值
 function GameAPI.get_kv_pair_value_jump_word_track(kvbase, key) end
 
 --获取单位编号NEW_TIMER键值对

@@ -1958,8 +1958,8 @@ event.ET_UNIT_GET_CURE = {
 --单位动画状态机进入状态
 event.ET_UNIT_ANIM_STATE_ENTER = {
     [1] = {
-        name = "__unit",
-        type = "py.Unit",
+        name = "__unit_id",
+        type = "py.UnitID",
         lua_name = "unit",
         lua_type = "Unit",
         desc = "单位",
@@ -2008,8 +2008,8 @@ event.ET_UNIT_ANIM_STATE_ENTER = {
 --单位动画状态机退出状态
 event.ET_UNIT_ANIM_STATE_EXIT = {
     [1] = {
-        name = "__unit",
-        type = "py.Unit",
+        name = "__unit_id",
+        type = "py.UnitID",
         lua_name = "unit",
         lua_type = "Unit",
         desc = "单位",
@@ -4645,6 +4645,7 @@ event.ET_UNIT_PRODUCE_PROJECTILE = {}
 ---@field comp_name string # 触发事件控件名称
 ---@field pos py.Vector2 # 触碰坐标
 ---@field touch_id integer # 触碰ID
+---@field str1 string # 自定义信息
 ---@field ui UI # ui
 
 --ui编辑器事件
@@ -4690,6 +4691,14 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
         lua_desc = "触碰ID",
     },
     [6] = {
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
+    },
+    [7] = {
         name = nil,
         type = nil,
         lua_name = "ui",

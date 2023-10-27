@@ -694,7 +694,7 @@ function GameAPI.set_prefab_key_font_type_kv(prefab_conf_key, item_key, key, val
 ---@param prefab_conf_key integer # prefab库ID
 ---@param item_key integer # 编号
 ---@param key string # 键值名称
----@param value string # value
+---@param value integer # value
 function GameAPI.set_prefab_key_jump_word_track_kv(prefab_conf_key, item_key, key, value) end
 
 --预设库 添加NEW_TIMER键值对
@@ -1368,7 +1368,7 @@ function GameAPI.add_font_type_kv(kvbase, key, item) end
 --添加JUMP_WORD_TRACK键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
----@param item? string # value
+---@param item? integer # value
 function GameAPI.add_jump_word_track_kv(kvbase, key, item) end
 
 --添加NEW_TIMER键值对

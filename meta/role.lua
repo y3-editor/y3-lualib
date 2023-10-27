@@ -227,6 +227,9 @@ function Role:get_save_data_str_value(index) end
 ---@return py.Table # 表
 function Role:get_save_data_table_value(index) end
 
+--获取玩家加密uuid
+function Role:get_encry_uuid() end
+
 --玩家使用收费道具
 ---@param cnt integer # 数量
 ---@param no py.StoreKey # 收费道具KEY

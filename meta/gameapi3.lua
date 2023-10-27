@@ -2303,6 +2303,41 @@ function GameAPI.get_trigger_list_variable_all_reaction_group(key) end
 ---@return py.List # 数组型变量值
 function GameAPI.get_trigger_list_actor_variable_all_reaction_group(actor, key) end
 
+--获取全局触发器PHYSICS_FILTER非数组变量
+---@param key string # 变量名称
+---@return py.PhysicsFilter # 值
+function GameAPI.get_trigger_variable_physics_filter(key) end
+
+--获取触发器PHYSICS_FILTER非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.PhysicsFilter # 值
+function GameAPI.get_trigger_actor_variable_physics_filter(actor, key) end
+
+--获取全局触发器PHYSICS_FILTER数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return py.PhysicsFilter # 值
+function GameAPI.get_trigger_list_variable_physics_filter(key, index) end
+
+--获取触发器PHYSICS_FILTER数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return py.PhysicsFilter # 值
+function GameAPI.get_trigger_list_actor_variable_physics_filter(actor, key, index) end
+
+--获取全局触发器PHYSICS_FILTER数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_physics_filter(key) end
+
+--获取触发器PHYSICS_FILTER 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_physics_filter(actor, key) end
+
 --获取全局触发器INT_SAVE非数组变量
 ---@param key string # 变量名称
 ---@return integer # 值
@@ -2967,76 +3002,6 @@ function GameAPI.get_trigger_list_variable_all_curved_path_3d(key) end
 ---@param key string # 变量名称
 ---@return py.List # 数组型变量值
 function GameAPI.get_trigger_list_actor_variable_all_curved_path_3d(actor, key) end
-
---获取全局触发器CAMERA_ATTR_REAL_NUMBER非数组变量
----@param key string # 变量名称
----@return string # 值
-function GameAPI.get_trigger_variable_camera_attr_real_number(key) end
-
---获取触发器CAMERA_ATTR_REAL_NUMBER非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return string # 值
-function GameAPI.get_trigger_actor_variable_camera_attr_real_number(actor, key) end
-
---获取全局触发器CAMERA_ATTR_REAL_NUMBER数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@return string # 值
-function GameAPI.get_trigger_list_variable_camera_attr_real_number(key, index) end
-
---获取触发器CAMERA_ATTR_REAL_NUMBER数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@return string # 值
-function GameAPI.get_trigger_list_actor_variable_camera_attr_real_number(actor, key, index) end
-
---获取全局触发器CAMERA_ATTR_REAL_NUMBER数组变量
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_variable_all_camera_attr_real_number(key) end
-
---获取触发器CAMERA_ATTR_REAL_NUMBER 组变量数组
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_actor_variable_all_camera_attr_real_number(actor, key) end
-
---获取全局触发器CAMERA_ATTR_INTEGER非数组变量
----@param key string # 变量名称
----@return string # 值
-function GameAPI.get_trigger_variable_camera_attr_integer(key) end
-
---获取触发器CAMERA_ATTR_INTEGER非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return string # 值
-function GameAPI.get_trigger_actor_variable_camera_attr_integer(actor, key) end
-
---获取全局触发器CAMERA_ATTR_INTEGER数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@return string # 值
-function GameAPI.get_trigger_list_variable_camera_attr_integer(key, index) end
-
---获取触发器CAMERA_ATTR_INTEGER数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@return string # 值
-function GameAPI.get_trigger_list_actor_variable_camera_attr_integer(actor, key, index) end
-
---获取全局触发器CAMERA_ATTR_INTEGER数组变量
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_variable_all_camera_attr_integer(key) end
-
---获取触发器CAMERA_ATTR_INTEGER 组变量数组
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_actor_variable_all_camera_attr_integer(actor, key) end
 
 --设置全局触发器非数组变量（指定类型）
 ---@param key string # 变量名称
@@ -5115,6 +5080,30 @@ function GameAPI.set_trigger_variable_reaction_group(key, value) end
 ---@param value? py.ReactionGroup # 值
 function GameAPI.set_trigger_actor_variable_reaction_group(actor, key, value) end
 
+--设置全局触发器PHYSICS_FILTER数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.PhysicsFilter # 值
+function GameAPI.set_trigger_list_variable_physics_filter(key, index, value) end
+
+--设置全局触发器PHYSICS_FILTER数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.PhysicsFilter # 值
+function GameAPI.set_trigger_list_actor_variable_physics_filter(actor, key, index, value) end
+
+--设置全局触发器PHYSICS_FILTER非数组变量
+---@param key string # 变量名称
+---@param value? py.PhysicsFilter # 值
+function GameAPI.set_trigger_variable_physics_filter(key, value) end
+
+--设置全局触发器PHYSICS_FILTER非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.PhysicsFilter # 值
+function GameAPI.set_trigger_actor_variable_physics_filter(actor, key, value) end
+
 --设置全局触发器INT_SAVE数组变量子项
 ---@param key string # 变量名称
 ---@param index integer # 下标
@@ -5571,54 +5560,6 @@ function GameAPI.set_trigger_variable_curved_path_3d(key, value) end
 ---@param value? py.CurvedPath3D # 值
 function GameAPI.set_trigger_actor_variable_curved_path_3d(actor, key, value) end
 
---设置全局触发器CAMERA_ATTR_REAL_NUMBER数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? string # 值
-function GameAPI.set_trigger_list_variable_camera_attr_real_number(key, index, value) end
-
---设置全局触发器CAMERA_ATTR_REAL_NUMBER数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? string # 值
-function GameAPI.set_trigger_list_actor_variable_camera_attr_real_number(actor, key, index, value) end
-
---设置全局触发器CAMERA_ATTR_REAL_NUMBER非数组变量
----@param key string # 变量名称
----@param value? string # 值
-function GameAPI.set_trigger_variable_camera_attr_real_number(key, value) end
-
---设置全局触发器CAMERA_ATTR_REAL_NUMBER非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? string # 值
-function GameAPI.set_trigger_actor_variable_camera_attr_real_number(actor, key, value) end
-
---设置全局触发器CAMERA_ATTR_INTEGER数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? string # 值
-function GameAPI.set_trigger_list_variable_camera_attr_integer(key, index, value) end
-
---设置全局触发器CAMERA_ATTR_INTEGER数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? string # 值
-function GameAPI.set_trigger_list_actor_variable_camera_attr_integer(actor, key, index, value) end
-
---设置全局触发器CAMERA_ATTR_INTEGER非数组变量
----@param key string # 变量名称
----@param value? string # 值
-function GameAPI.set_trigger_variable_camera_attr_integer(key, value) end
-
---设置全局触发器CAMERA_ATTR_INTEGER非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? string # 值
-function GameAPI.set_trigger_actor_variable_camera_attr_integer(actor, key, value) end
-
 --获取数组中某项（指定类型）
 ---@param l py.List # 列表
 ---@param i integer # 下标
@@ -5920,3 +5861,63 @@ function GameAPI.set_player_group_list_value(l, i, v) end
 ---@param v? py.RoleGroup # 值
 ---@return py.List # 列表
 function GameAPI.get_player_group_n_list(n, v) end
+
+--获取ITEM_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Item # 值
+function GameAPI.get_item_entity_list_value(l, i) end
+
+--设置ITEM_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Item # 值
+function GameAPI.set_item_entity_list_value(l, i, v) end
+
+--生成n个值为v的ITEM_ENTITY数组
+---@param n integer # 长度
+---@param v? py.Item # 值
+---@return py.List # 列表
+function GameAPI.get_item_entity_n_list(n, v) end
+
+--获取ITEM_NAME数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ItemKey # 值
+function GameAPI.get_item_name_list_value(l, i) end
+
+--设置ITEM_NAME数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ItemKey # 值
+function GameAPI.set_item_name_list_value(l, i, v) end
+
+--生成n个值为v的ITEM_NAME数组
+---@param n integer # 长度
+---@param v? py.ItemKey # 值
+---@return py.List # 列表
+function GameAPI.get_item_name_n_list(n, v) end
+
+--获取ROLE_RES_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.RoleResKey # 值
+function GameAPI.get_role_res_key_list_value(l, i) end
+
+--设置ROLE_RES_KEY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.RoleResKey # 值
+function GameAPI.set_role_res_key_list_value(l, i, v) end
+
+--生成n个值为v的ROLE_RES_KEY数组
+---@param n integer # 长度
+---@param v? py.RoleResKey # 值
+---@return py.List # 列表
+function GameAPI.get_role_res_key_n_list(n, v) end
+
+--获取UNIT_NAME_POOL数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.UnitKeyPool # 值
+function GameAPI.get_unit_name_pool_list_value(l, i) end

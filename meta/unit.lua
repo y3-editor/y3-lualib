@@ -470,6 +470,11 @@ function Unit:api_set_face_dir(face_dir, speed_effect) end
 ---@param turn_time_ms? integer # 转身时间毫秒
 function Unit:api_set_face_angle(face_angle, turn_time_ms) end
 
+--单位设置朝向角度
+---@param face_angle py.Fixed # 朝向角度
+---@param turn_type? integer # 动画旋转类型
+function Unit:api_set_face_angle_inner_usage(face_angle, turn_type) end
+
 --单位是否能传送到目标点
 ---@param pos py.FVector3 # 目标点
 ---@return boolean # 单位是否能传送到目标点
@@ -536,6 +541,15 @@ function Unit:get_unit_path_length_between_points(point_start, point_end) end
 ---@param loop? boolean # 是否循环
 ---@param return_idle? boolean # 播放结束后是否恢复idle
 function Unit:api_play_animation(name, rate, init_time, end_time, loop, return_idle) end
+
+--播放动画 内部
+---@param name string # 动画名称
+---@param turn_type? number # 播放倍率
+function Unit:api_play_animation_inner_usage(name, turn_type) end
+
+--设置动画graph 内部
+---@param animation_graph_path string # 动画graph路径
+function Unit:api_set_animation_graph_inner_usage(animation_graph_path) end
 
 --停止播放动画
 ---@param name string # 动画名称
