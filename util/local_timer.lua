@@ -1,5 +1,4 @@
--- 异步计时器，可以只给某个玩家单独创建计时器
--- > 警告： 该功能可能导致不同步，如果你不确定在做什么，请不要使用！
+-- 本地计时器，支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
 ---@class LocalTimer
 ---@field private include_name? string
 ---@field package id integer
