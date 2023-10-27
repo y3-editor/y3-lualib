@@ -126,3 +126,19 @@ y3.dump         = require 'y3.util.dump'
 
 y3.develop = {}
 y3.develop.command = include 'y3.develop.command'
+
+-- TODO 给目前的Lua垃圾回收过慢的问题打个临时补丁
+local function fixGC()
+    local mem = collectgarbage 'count'
+    y3.ltimer.loop_frame(10, function ()
+        local new_mem = collectgarbage 'count'
+        local delta = new_mem - mem
+        mem = new_mem
+        if delta > 0 then
+            collectgarbage 'restart'
+            collectgarbage('step', math.ceil(delta))
+        end
+    end)
+end
+
+fixGC()
