@@ -71,8 +71,7 @@ end
 ---@param data? Serialization.SupportTypes 自定义数据，在事件中通过 `data` 字段获取
 ---@return string
 function M:add_event(event, name, data)
-    ---@diagnostic disable-next-line: missing-parameter
-    return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name)
+    return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name, y3.dump.encode(data))
 end
 
 -- 设置相对父级位置. 目前不建议使用, 引擎层存在 bug, 建议手动计算位置赋值.
