@@ -1,9 +1,7 @@
 ---@class Ability
 ---@field handle py.Ability
----@overload fun(py_ability: py.Ability): self
+---@overload fun(id: integer, py_ability: py.Ability): self
 local M = Class 'Ability'
-
--- TODO: 目前技能无法维护生命周期
 
 ---@class Ability: GCHost
 Extends('Ability', 'GCHost')
@@ -24,12 +22,11 @@ function M:__tostring()
     )
 end
 
----所有技能实例
-M.map = setmetatable({}, y3.util.MODE_K)
-
+---@param id integer
 ---@param py_ability py.Ability
 ---@return self
-function M:__init(py_ability)
+function M:__init(id, py_ability)
+    self.id     = id
     self.handle = py_ability
     return self
 end
@@ -38,13 +35,26 @@ function M:__del()
     self.handle:api_remove()
 end
 
+---@private
+---@param id integer
+---@param py_ability py.Ability
+---@return Ability
+M.ref_manager = New 'Ref' ('Ability', function (id, py_ability)
+    return New 'Ability' (id, py_ability)
+end)
+
 ---通过py层的技能实例获取lua层的技能实例
 ---@param py_ability py.Ability # py层的技能实例
 ---@return Ability ability # 返回在lua层初始化后的lua层技能实例
 function M.get_by_handle(py_ability)
-    local ability = M.map[py_ability] or New 'Ability' (py_ability)
-    M.map[py_ability] = ability
-    return ability
+    local id = py_ability:api_get_ability_global_id()
+    return M.ref_manager:get(id, py_ability)
+end
+
+---@param id integer
+---@return Ability
+function M.get_by_id(id)
+    return M.ref_manager:get(id)
 end
 
 y3.py_converter.register_py_to_lua('py.Ability', M.get_by_handle)
@@ -53,7 +63,8 @@ y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
 end)
 
 y3.game:event('技能-失去', function (trg, data)
-    data.ability:remove()
+    local id = data.ability.id
+    M.ref_manager:remove(id)
 end)
 
 function M:get_key()
