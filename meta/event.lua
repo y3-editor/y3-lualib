@@ -3179,7 +3179,7 @@ event.ET_ABILITY_CS_START = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3259,7 +3259,7 @@ event.ET_ABILITY_PS_START = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3306,7 +3306,7 @@ event.ET_ABILITY_PS_END = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3368,7 +3368,7 @@ event.ET_ABILITY_SP_END = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3415,7 +3415,7 @@ event.ET_ABILITY_CST_END = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3462,7 +3462,7 @@ event.ET_ABILITY_BS_END = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3542,7 +3542,7 @@ event.ET_ABILITY_PS_INTERRUPT = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3589,7 +3589,7 @@ event.ET_ABILITY_SP_INTERRUPT = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3636,7 +3636,7 @@ event.ET_ABILITY_CST_INTERRUPT = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3716,7 +3716,7 @@ event.ET_ABILITY_END = {
         lua_code = function (data)
             local ability = data.ability
             local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -4721,6 +4721,48 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
             local undumped = y3.dump.decode(bin)
             return undumped
         end,
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field float1 number # 自定义信息
+
+--ui滑动条事件
+event.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__float1",
+        type = "py.Fixed",
+        lua_name = "float1",
+        lua_type = "number",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
     },
 }
 

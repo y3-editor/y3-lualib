@@ -1,8 +1,13 @@
 ---@class Cast
----@field private ability Ability
----@field private cast_id integer
+---@field package ability Ability
+---@field package cast_id integer
 ---@overload fun(ability: Ability, cast_id: integer): self
 local M = Class 'Cast'
+
+---@class Cast: GCHost
+Extends('Cast', 'GCHost')
+---@class Cast: Storage
+Extends('Cast', 'Storage')
 
 ---@param ability Ability
 ---@param cast_id integer
@@ -19,6 +24,31 @@ function M:__tostring()
         , self.ability
     )
 end
+
+---@class Ability
+---@field package _castRef? Ref
+
+---@param ability Ability
+---@param cast_id integer
+---@return Cast
+function M.get(ability, cast_id)
+    if not ability._castRef then
+        ability._castRef = New 'Ref' ('Cast', function (id)
+            return New 'Cast' (ability, id)
+        end)
+    end
+    return ability._castRef:get(cast_id)
+end
+
+y3.game:event('施法-结束', function (trg, data)
+    local id = data.cast.cast_id
+    local ability = data.cast.ability
+    local castRef = ability._castRef
+    if not castRef then
+        return
+    end
+    castRef:remove(id)
+end)
 
 -- 获取技能
 ---@return Ability

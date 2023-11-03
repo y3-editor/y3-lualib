@@ -1688,7 +1688,7 @@ M.config["施法-即将开始"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -1731,7 +1731,7 @@ M.config["施法-开始"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -1761,7 +1761,7 @@ M.config["施法-引导"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -1804,7 +1804,7 @@ M.config["施法-出手"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -1834,7 +1834,7 @@ M.config["施法-完成"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -1864,7 +1864,7 @@ M.config["施法-结束"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -1907,7 +1907,7 @@ M.config["施法-打断开始"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -1937,7 +1937,7 @@ M.config["施法-打断引导"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -1967,7 +1967,7 @@ M.config["施法-打断出手"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -2010,7 +2010,7 @@ M.config["施法-停止"] = {
             code = "function (data)\
     local ability = data.ability\
     local id = data._py_params['__ability_runtime_id']\
-    local cast = New 'Cast' (ability, id)\
+    local cast = y3.cast.get(ability, id)\
     return cast\
 end\
 ",
@@ -2449,7 +2449,7 @@ end\
         },
         [2] = {
             code = "function (data)\
-    local bin = data._py_params['str1']\
+    local bin = data.str1\
     local undumped = y3.dump.decode(bin)\
     return undumped\
 end\
