@@ -44,9 +44,7 @@ end)
 ---@param py_projectile py.ProjectileEntity
 ---@return Projectile projectile
 function M.get_by_handle(py_projectile)
-    -- TODO 获取ID换成正式API
-    ---@diagnostic disable-next-line: undefined-field
-    local id = py_projectile.id
+    local id = py_projectile:api_get_id()
     local projectile = M.ref_manager:get(id)
     return projectile
 end
