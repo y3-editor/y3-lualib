@@ -105,6 +105,17 @@ function M:set_image(img)
     return self
 end
 
+--设置图片颜色
+---@param r number 红色
+---@param g number 绿色
+---@param b number 蓝色
+---@param a number 透明度
+---@return self
+function M:set_image_color(r, g, b, a)
+    GameAPI.set_ui_image_color(self.player.handle, self.handle, r, g, b, a)
+    return self
+end
+
 --设置文本
 ---@param str string 文本
 ---@return self
