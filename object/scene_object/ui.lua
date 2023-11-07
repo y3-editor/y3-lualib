@@ -771,7 +771,7 @@ end
 --界面控件转化为字符串
 ---@return string str 字符串
 function M:to_string()
-    return GlobalAPI.comp_to_str(self.handle)
+    return tostring(GlobalAPI.comp_to_str(self.handle))
 end
 
 --获取滑动条当前值
