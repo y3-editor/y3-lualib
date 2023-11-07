@@ -537,7 +537,7 @@ end
 ---进入技能准备施法状态
 ---@param player Player 玩家
 function M:pre_cast(player)
-	GameAPI.start_skill_pointer(player.handle, M.handle)
+	GameAPI.start_skill_pointer(player.handle, self.handle)
 end
 
 return M
