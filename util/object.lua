@@ -31,6 +31,13 @@ function Unit:__init(key)
     self.key = key
 end
 
+--以此单位为模板创建新的单位物编
+---@return Editor.Object.Unit
+function Unit:new()
+    local new_key = GameAPI.create_unit_editor_data(self.key)
+    return M.unit[new_key]
+end
+
 ---@type table<integer, Editor.Object.Unit>
 M.unit = y3.util.defaultTable(function (key)
     return New 'Editor.Object.Unit' (key)
@@ -54,6 +61,13 @@ function Item:__init(key)
     self.key = key
 end
 
+--以此物品为模板创建新的物品物编
+---@return Editor.Object.Item
+function Item:new()
+    local new_key = GameAPI.create_item_editor_data(self.key)
+    return M.item[new_key]
+end
+
 ---@type table<integer, Editor.Object.Item>
 M.item = y3.util.defaultTable(function (key)
     return New 'Editor.Object.Item' (key)
@@ -75,6 +89,13 @@ Extends('Editor.Object.Buff', 'Editor.Object.DataModule')
 
 function Buff:__init(key)
     self.key = key
+end
+
+--以此魔法效果为模板创建新的魔法效果物编
+---@return Editor.Object.Buff
+function Buff:new()
+    local new_key = GameAPI.create_modifier_editor_data(self.key)
+    return M.buff[new_key]
 end
 
 ---@type table<integer, Editor.Object.Buff>
@@ -104,6 +125,13 @@ Extends('Editor.Object.Ability', 'Editor.Object.DataModule')
 
 function Ability:__init(key)
     self.key = key
+end
+
+--以此技能为模板创建新的技能物编
+---@return Editor.Object.Ability
+function Ability:new()
+    local new_key = GameAPI.create_ability_editor_data(self.key)
+    return M.ability[new_key]
 end
 
 ---@type table<integer, Editor.Object.Ability>
