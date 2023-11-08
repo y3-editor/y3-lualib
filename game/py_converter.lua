@@ -99,8 +99,26 @@ M.register_py_to_lua('py.Fixed', function (py_number)
     return py_number:float()
 end)
 
+M.register_py_to_lua('LuaFix32', function (py_number)
+    return py_number:float()
+end)
+
 M.register_lua_to_py('py.Fixed', function (number)
     return Fix32(number)
+end)
+
+M.register_py_to_lua('table', function (py_table)
+    for k, v in pairs(py_table) do
+        if type(v) == 'userdata' then
+            ---@diagnostic disable-next-line: undefined-field
+            local new_value = M.py_to_lua(v.__name, v)
+            py_table[k] = new_value
+        elseif type(v) == 'table' then
+            local new_value = M.py_to_lua('table', v)
+            py_table[k] = new_value
+        end
+    end
+    return py_table
 end)
 
 return M
