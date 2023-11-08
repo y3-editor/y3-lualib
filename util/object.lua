@@ -2,42 +2,88 @@
 ---@class Editor.Object
 local M = Class 'Editor.Object'
 
----@class Editor.Object.Unit
+---@class Editor.Object.DataModule
+---@field private data_key string
+local DataModule = Class 'Editor.Object.DataModule'
+
+---@diagnostic disable-next-line: undefined-field
+DataModule.__getter.data = function (self)
+    return GameAPI.api_get_editor_type_data(self.data_key, self.key), true
+end
+
+---@class Editor.Object.Unit: Editor.Object.DataModule
+---@field key py.UnitKey
 ---@field on_create? fun(unit: Unit) # 单位创建后执行
 ---@field on_remove? fun(unit: Unit) # 单位移除后执行
 ---@field on_dead? fun(unit: Unit) # 单位死亡后执行
+--单位的物编数据，你可以从里面读取或修改任意物编  
+--> 警告：请确保数据类型正确，否则可能导致崩溃  
+--> 警告：如果创建过此单位再修改数据，行为是未定义的
+---@field data Object.Unit
 local Unit = Class 'Editor.Object.Unit'
 
----@type table<any, Editor.Object.Unit>
-M.unit = y3.util.defaultTable(function ()
-    return New 'Editor.Object.Unit' ()
+Extends('Editor.Object.Unit', 'Editor.Object.DataModule')
+
+---@private
+Unit.data_key = 'editor_unit'
+
+function Unit:__init(key)
+    self.key = key
+end
+
+---@type table<integer, Editor.Object.Unit>
+M.unit = y3.util.defaultTable(function (key)
+    return New 'Editor.Object.Unit' (key)
 end)
 
----@class Editor.Object.Item
+---@class Editor.Object.Item: Editor.Object.DataModule
+---@field key py.ItemKey
 ---@field on_add? fun(item: Item) # 物品获得后执行
 ---@field on_lose? fun(item: Item) # 物品失去后执行
 ---@field on_create? fun(item: Item) # 物品创建后执行
 ---@field on_remove? fun(item: Item) # 物品移除后执行
+--物品的物编数据，你可以从里面读取或修改任意物编  
+--> 警告：请确保数据类型正确，否则可能导致崩溃  
+--> 警告：如果创建过此物品再修改数据，行为是未定义的
+---@field data Object.Item
 local Item = Class 'Editor.Object.Item'
 
----@type table<any, Editor.Object.Item>
-M.item = y3.util.defaultTable(function ()
-    return New 'Editor.Object.Item' ()
+Extends('Editor.Object.Item', 'Editor.Object.DataModule')
+
+function Item:__init(key)
+    self.key = key
+end
+
+---@type table<integer, Editor.Object.Item>
+M.item = y3.util.defaultTable(function (key)
+    return New 'Editor.Object.Item' (key)
 end)
 
----@class Editor.Object.Buff
+---@class Editor.Object.Buff: Editor.Object.DataModule
+---@field key py.ModifierKey
 ---@field on_can_add? fun(buff: Buff) # 效果即将获得时执行
 ---@field on_add? fun(buff: Buff) # 效果获得后执行
 ---@field on_lose? fun(buff: Buff) # 效果失去后执行
 ---@field on_pulse? fun(buff: Buff) # 效果心跳后执行
+--魔法效果的物编数据，你可以从里面读取或修改任意物编  
+--> 警告：请确保数据类型正确，否则可能导致崩溃  
+--> 警告：如果创建过此魔法效果再修改数据，行为是未定义的
+---@field data Object.Buff
 local Buff = Class 'Editor.Object.Buff'
 
----@type table<any, Editor.Object.Buff>
-M.buff = y3.util.defaultTable(function ()
-    return New 'Editor.Object.Buff' ()
+Extends('Editor.Object.Buff', 'Editor.Object.DataModule')
+
+function Buff:__init(key)
+    self.key = key
+end
+
+---@type table<integer, Editor.Object.Buff>
+M.buff = y3.util.defaultTable(function (key)
+    return New 'Editor.Object.Buff' (key)
 end)
 
----@class Editor.Object.Ability
+---@class Editor.Object.Ability: Editor.Object.DataModule
+---@field key py.AbilityKey
 ---@field on_add? fun(ability: Ability) # 技能获得后执行
 ---@field on_lose? fun(ability: Ability) # 技能失去后执行
 ---@field on_cooldown? fun(ability: Ability) # 技能冷却结束后执行
@@ -48,11 +94,21 @@ end)
 ---@field on_cast_shot? fun(ability: Ability, cast: Cast) # 技能出手施法时执行
 ---@field on_cast_finish? fun(ability: Ability, cast: Cast) # 技能完成施法时执行
 ---@field on_cast_stop? fun(ability: Ability, cast: Cast) # 技能停止施法时执行
+--技能的物编数据，你可以从里面读取或修改任意物编  
+--> 警告：请确保数据类型正确，否则可能导致崩溃  
+--> 警告：如果创建过此技能再修改数据，行为是未定义的
+---@field data Object.Ability: Class.Base
 local Ability = Class 'Editor.Object.Ability'
 
----@type table<any, Editor.Object.Ability>
-M.ability = y3.util.defaultTable(function ()
-    return New 'Editor.Object.Ability' ()
+Extends('Editor.Object.Ability', 'Editor.Object.DataModule')
+
+function Ability:__init(key)
+    self.key = key
+end
+
+---@type table<integer, Editor.Object.Ability>
+M.ability = y3.util.defaultTable(function (key)
+    return New 'Editor.Object.Ability' (key)
 end)
 
 M.lock_count_map = setmetatable({}, {

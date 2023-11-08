@@ -63,11 +63,21 @@ function M.declare(name, super)
     ---@param k any
     ---@return any
     local function getterFunc(self, k)
-        local f = getter[k]
-        if f then
-            return f(self)
+        local r = class[k]
+        if r == nil then
+            local f = getter[k]
+            if f then
+                local res, needCache = f(self)
+                if needCache then
+                    self[k] = res
+                end
+                return res
+            else
+                return nil
+            end
         else
-            return class[k]
+            self[k] = r
+            return r
         end
     end
 
