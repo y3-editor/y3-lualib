@@ -1378,6 +1378,12 @@ function M:get_subtype()
     return self.handle:api_get_type()
 end
 
+---是否是英雄
+---@returr boolean
+function M:is_hero()
+    return self.handle:api_get_type() == y3.const.UnitCategory['HERO']
+end
+
 ---获取单位类型的头像
 ---@param unit_key py.UnitKey 单位类型
 ---@return py.Texture image 单位类型的头像
