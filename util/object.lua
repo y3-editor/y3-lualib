@@ -198,7 +198,7 @@ y3.game:event('单位-死亡', function (trg, data)
 end)
 
 y3.game:event('物品-获得', function (trg, data)
-    M.callMethod('item',' on_add', data.item_no, data.item, data.item)
+    M.callMethod('item','on_add', data.item_no, data.item, data.item)
 end)
 
 y3.game:event('物品-失去', function (trg, data)
