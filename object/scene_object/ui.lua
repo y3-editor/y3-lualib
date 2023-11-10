@@ -504,6 +504,17 @@ function M.play_timeline_animation(player, anim, speed, isloop)
     GameAPI.play_ui_comp_anim(player.handle, anim, speed, isloop)
 end
 
+--播放动画移动
+---@param start_x number # 开始x
+---@param start_y number # 开始y
+---@param end_x number # 结束x
+---@param end_y number # 结束y
+---@param duration number # 持续时间
+---@param ease_type? integer # 曲线类型
+function M:set_anim_pos(start_x, start_y, end_x, end_y, duration, ease_type)
+    GameAPI.set_ui_comp_anim_pos(self.player.handle, self.handle, start_x, start_y, end_x, end_y, duration, ease_type)
+    return self
+end
 
 --设置模型控件观察点
 ---@param x number x轴
