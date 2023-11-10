@@ -511,6 +511,7 @@ end
 ---@param end_y number # 结束y
 ---@param duration number # 持续时间
 ---@param ease_type? integer # 曲线类型
+---@return UI
 function M:set_anim_pos(start_x, start_y, end_x, end_y, duration, ease_type)
     GameAPI.set_ui_comp_anim_pos(self.player.handle, self.handle, start_x, start_y, end_x, end_y, duration, ease_type)
     return self
