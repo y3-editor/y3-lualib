@@ -63,7 +63,7 @@ end
 ---@field maxSize? integer # 日志文件的最大大小
 ---@field path? string # 日志文件的路径，与file二选一
 ---@field file? file* # 日志文件对象，与path二选一
----@field print? fun(level: Log.Level, message: string) # 额外的打印回调
+---@field print? fun(level: Log.Level, message: string, timeStamp: string) # 额外的打印回调
 ---@field level? Log.Level # 日志等级，低于此等级的日志将不会被记录
 ---@field logLevel? table<Log.Level, integer> # 自定义日志等级
 ---@field needTraceBack? table<Log.Level, boolean> # 是否需要打印堆栈信息

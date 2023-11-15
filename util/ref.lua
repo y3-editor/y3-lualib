@@ -8,7 +8,7 @@
 --]]
 
 ---@class Ref
----@overload fun(className: string, new: (fun(key: Ref.ValidKeyType): any)): self
+---@overload fun(className: string, new: (fun(key: Ref.ValidKeyType, ...): any)): self
 local M = Class 'Ref'
 
 ---@alias Ref.ValidKeyType any
