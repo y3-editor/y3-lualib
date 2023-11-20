@@ -22,7 +22,7 @@ function M.pack_list(lua_list, unwrapper)
     for i = 1, #lua_list do
         local lua_obj = lua_list[i]
         local py_obj = unwrapper and unwrapper(lua_obj) or lua_obj
-        py_list.append(py_obj)
+        py_list[#py_list+1] = py_obj
     end
     return py_list
 end
