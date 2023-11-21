@@ -213,8 +213,12 @@ end
 ---@param args Mover.CreateData.Curve
 ---@return table
 function M.wrap_curve_args(args)
+    ---@param lua_object Point
+    ---@return py.FixedVec2
     ---@type py.CurvedPath
-    local path = y3.helper.pack_list(args.path, y3.py_converter.lua_to_py_factory 'py.Point')
+    local path = y3.helper.pack_list(args.path, function (lua_object)
+        return Fix32Vec2(lua_object:get_x(), lua_object:get_y())
+    end)
 
     local builder = CurvedMoverArgs()
     builder.set_angle              (Fix32(args.angle))
