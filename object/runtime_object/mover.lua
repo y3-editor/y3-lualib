@@ -71,7 +71,7 @@ end)
 ---@field angle number # 运动方向
 ---@field distance number # 运动距离
 ---@field speed number # 初始速度
----@field path Point[] # 路径点
+---@field path (Point|py.FixedVec2)[] # 路径点
 ---@field acceleration? number # 加速度
 ---@field max_speed? number # 最大速度
 ---@field min_speed? number # 最小速度
@@ -213,10 +213,14 @@ end
 ---@param args Mover.CreateData.Curve
 ---@return table
 function M.wrap_curve_args(args)
-    ---@param lua_object Point
+    ---@param lua_object Point | py.FixedVec2
     ---@return py.FixedVec2
     ---@type py.CurvedPath
     local path = y3.helper.pack_list(args.path, function (lua_object)
+        if type(lua_object) == 'userdata' then
+            return lua_object
+        end
+        ---@cast lua_object Point
         return Fix32Vec2(lua_object:get_x(), lua_object:get_y())
     end)
 
