@@ -21,8 +21,9 @@ IsValid = y3.class.isValid
 
 require 'y3.tools.log'
 local log_cache = {}
-local log_file = io.open(lua_script_path .. '/log/lua.log', 'w+b')
-            or   io.open('lua.log', 'w+b')
+local log_name = ('lua_player%02d.log'):format(GameAPI.get_client_role():get_role_id_num())
+local log_file = io.open(lua_script_path .. '/log/' .. log_name, 'w+b')
+            or   io.open(log_name, 'w+b')
 if log_file then
     log_file:setvbuf 'no'
 end
