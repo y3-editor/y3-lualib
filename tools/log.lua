@@ -95,7 +95,9 @@ function M:__init(option)
     self.maxSize = option.maxSize
     self.level   = option.level
     self.clock = option.clock
-    if not option.file then
+    if option.file then
+        self.file = option.file
+    else
         if option.path then
             local file, err = ioOpen(option.path, 'w+b')
             if file then

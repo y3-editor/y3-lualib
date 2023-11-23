@@ -1,5 +1,7 @@
 ---@meta
 
+lua_script_path = ''
+
 ---@class py.Unit
 local Unit = Class 'py.Unit'
 

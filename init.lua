@@ -21,10 +21,15 @@ IsValid = y3.class.isValid
 
 require 'y3.tools.log'
 local log_cache = {}
+local log_file = io.open(lua_script_path .. '/log/lua.log', 'w+b')
+            or   io.open('lua.log', 'w+b')
+if log_file then
+    log_file:setvbuf 'no'
+end
 ---@diagnostic disable-next-line: lowercase-global
 log = New 'Log' {
     level = 'debug',
-    path  = 'log/test.log',
+    file  = log_file,
     clock = function ()
         return GameAPI.get_cur_game_time():float()
     end,
