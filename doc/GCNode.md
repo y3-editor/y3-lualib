@@ -1,0 +1,9 @@
+# GCNode
+
+## onDel
+
+```lua
+any
+```
+
+

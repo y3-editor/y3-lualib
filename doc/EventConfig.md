@@ -1,0 +1,9 @@
+# EventConfig
+
+## config
+
+```lua
+table
+```
+
+
