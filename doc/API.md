@@ -32,7 +32,7 @@
 
 # [EditorObject](API/EditorObject.md)  物体编辑器
 
-# [Enum](API/Enum.md) undefined
+# [Enum](API/Enum.md) 
 
 # [Game](API/Game.md) 游戏接口
 
@@ -52,13 +52,15 @@
 
 用来修改光照、阴影等效果
 
-# [LocalTimer](API/LocalTimer.md) 本地计时器，支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
+# [LocalTimer](API/LocalTimer.md) 本地计时器
+
+支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
 
 # [Math](API/Math.md) 数学库
 
 均使用角度制
 
-# [Mover](API/Mover.md) undefined
+# [Mover](API/Mover.md) 
 
 # [Particle](API/Particle.md) 粒子特效
 
@@ -68,7 +70,7 @@
 
 # [Point](API/Point.md) 点
 
-# [Pool](API/Pool.md) undefined
+# [Pool](API/Pool.md) 
 
 # [Projectile](API/Projectile.md) 投射物
 
@@ -92,7 +94,9 @@
 
 # [Technology](API/Technology.md) 科技
 
-# [Timer](API/Timer.md) 同步计时器，所有玩家必须使用一致的计时器
+# [Timer](API/Timer.md) 同步计时器
+
+所有玩家必须使用一致的计时器，否则会造成不同步
 
 # [Trigger](API/Trigger.md) 触发器
 
@@ -102,5 +106,5 @@
 
 # [UnitGroup](API/UnitGroup.md) 单位组
 
-# [Const](API/Const.md) undefined
+# [Const](API/Const.md) 
 

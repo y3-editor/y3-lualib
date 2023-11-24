@@ -2,7 +2,9 @@
 
 ---@alias Timer.Mode 'second' | 'frame'
 
---同步计时器，所有玩家必须使用一致的计时器
+--同步计时器
+--
+--所有玩家必须使用一致的计时器，否则会造成不同步
 ---@class Timer
 ---@field handle py.Timer
 ---@field desc string
