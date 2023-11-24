@@ -1,3 +1,6 @@
+--伤害实例
+--
+--会在伤害相关的事件中传递
 ---@class DamageInstance
 ---@overload fun(data: EventParam.单位-受到伤害后, mode: string): self
 local M = Class 'DamageInstance'

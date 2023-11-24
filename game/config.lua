@@ -1,3 +1,6 @@
+--配置
+--
+--可以设置日志、同步等相关的配置
 ---@class Config
 local M = Class 'Config'
 

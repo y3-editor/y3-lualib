@@ -1,3 +1,4 @@
+--粒子特效
 ---@class Particle
 ---@field handle py.Sfx
 ---@field private _removed? boolean 

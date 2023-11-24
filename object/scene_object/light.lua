@@ -1,3 +1,6 @@
+--光照
+--
+--用来修改光照、阴影等效果
 ---@class Light
 ---@field handle py.Light
 ---@field res_id? py.LightID

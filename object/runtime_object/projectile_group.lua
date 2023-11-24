@@ -1,3 +1,4 @@
+--投射物组
 ---@class ProjectileGroup
 ---@field handle py.ProjectileGroup
 ---@overload fun(py_projectile_group: py.ProjectileGroup): self

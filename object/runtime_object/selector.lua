@@ -1,3 +1,6 @@
+--选取器
+--
+--用来选取某个区域内的单位
 ---@class Selector
 ---@overload fun(): self
 local M = Class 'Selector'

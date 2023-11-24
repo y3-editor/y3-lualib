@@ -1,5 +1,6 @@
 local counter = y3.util.counter()
 
+--触发器
 ---@class Trigger
 ---@field private _event Event
 ---@field private _callback Trigger.CallBack

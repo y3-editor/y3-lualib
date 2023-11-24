@@ -1,3 +1,4 @@
+--镜头
 ---@class Camera
 ---@field handle integer
 ---@overload fun(py_camera: py.Camera): self

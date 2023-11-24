@@ -1,5 +1,8 @@
 local require = require
 
+--热重载
+--
+--热重载相关的方法，详细请看 `演示/热重载`。
 ---@class Reload
 ---@overload fun(optional?: Reload.Optional): self
 local M = Class 'Reload'

@@ -1,6 +1,4 @@
---- File Name : destructible.lua
---- Description: 可破坏物
-
+--可破坏物
 ---@class Destructible
 ---@field handle py.Destructible
 ---@field id integer

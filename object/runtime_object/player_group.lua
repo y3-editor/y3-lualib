@@ -1,3 +1,4 @@
+--玩家组
 ---@class PlayerGroup
 ---@field handle py.RoleGroup
 ---@field private _removed? boolean

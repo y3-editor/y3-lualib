@@ -1,3 +1,4 @@
+--声音
 ---@class Sound
 ---@overload fun(py_sound: py.SoundEntity):self
 local M = Class 'Sound'

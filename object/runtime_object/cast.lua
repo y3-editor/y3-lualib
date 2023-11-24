@@ -1,3 +1,6 @@
+--施法实例
+--
+--会在施法相关的事件中传递
 ---@class Cast
 ---@field package ability Ability
 ---@field package cast_id integer

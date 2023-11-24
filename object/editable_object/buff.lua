@@ -1,3 +1,4 @@
+--魔法效果
 ---@class Buff
 ---@field handle py.ModifierEntity
 ---@field id     integer

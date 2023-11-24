@@ -1,6 +1,6 @@
 local template = y3.object.unit[134274912] -- 以关羽作为模板
 
----@type Editor.Object.Unit[]
+---@type EditorObject.Unit[]
 local new_units = {}
 
 for i = 1, 5 do

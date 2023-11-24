@@ -1,3 +1,4 @@
+--区域
 ---@class Area
 ---@field handle py.Area
 ---@field shape Area.Shape

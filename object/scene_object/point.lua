@@ -1,5 +1,6 @@
 ---@alias Point.HandleType py.FPoint
 
+--点
 ---@class Point
 ---@field handle Point.HandleType
 ---@field res_id? integer

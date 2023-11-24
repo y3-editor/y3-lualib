@@ -1,3 +1,4 @@
+--物品
 ---@class Item
 ---@field handle py.Item
 ---@field id py.ItemID

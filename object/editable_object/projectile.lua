@@ -1,6 +1,4 @@
---- File Name : projectile.lua
---- Description: 投射物相关逻辑 对应编辑器---投射物
-
+--投射物
 ---@class Projectile
 ---@field handle py.ProjectileEntity
 ---@overload fun(id: integer, py_projectile: py.ProjectileEntity): self

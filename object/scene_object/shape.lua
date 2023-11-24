@@ -1,3 +1,4 @@
+--形状
 ---@class Shape
 ---@field handle py.Shape
 ---@overload fun(py_shape: py.Shape): self

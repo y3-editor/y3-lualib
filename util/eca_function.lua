@@ -1,6 +1,9 @@
 ---@class ECABind
 Bind = {}
 
+--注册ECA函数
+--
+--可以使用该功能让lua函数在ECA中被调用。
 ---@class ECAFunction
 ---@field call_name string
 ---@field params {key: string, type: string, optional?: boolean}[]

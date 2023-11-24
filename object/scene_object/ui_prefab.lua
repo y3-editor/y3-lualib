@@ -1,3 +1,4 @@
+--界面元件
 ---@class UIPrefab
 ---@field handle string
 ---@field player Player

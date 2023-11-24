@@ -1,4 +1,4 @@
-
+--常量
 ---@class y3.Const
 local M = {}
 

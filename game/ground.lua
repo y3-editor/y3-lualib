@@ -1,3 +1,6 @@
+--地面
+--
+--地面碰撞相关方法
 ---@class Ground
 local M = Class 'Ground'
 

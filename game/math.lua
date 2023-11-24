@@ -2,6 +2,9 @@
 local deg = math.deg(1)
 local rad = math.rad(1)
 
+--数学库
+--
+--均使用角度制
 ---@class Math
 local M = Class 'Math'
 

@@ -1,3 +1,4 @@
+--物品组
 ---@class ItemGroup
 ---@field handle py.ItemGroup
 ---@overload fun(py_item_group: py.ItemGroup): self

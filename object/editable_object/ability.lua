@@ -1,3 +1,4 @@
+--技能
 ---@class Ability
 ---@field handle py.Ability
 ---@overload fun(id: integer, py_ability: py.Ability): self

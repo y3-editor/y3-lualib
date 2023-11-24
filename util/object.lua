@@ -1,17 +1,17 @@
 -- 物体编辑器
----@class Editor.Object
-local M = Class 'Editor.Object'
+---@class EditorObject
+local M = Class 'EditorObject'
 
----@class Editor.Object.DataModule
+---@class EditorObject.DataModule
 ---@field private data_key string
-local DataModule = Class 'Editor.Object.DataModule'
+local DataModule = Class 'EditorObject.DataModule'
 
 ---@diagnostic disable-next-line: undefined-field
 DataModule.__getter.data = function (self)
     return GameAPI.api_get_editor_type_data(self.data_key, self.key), true
 end
 
----@class Editor.Object.Unit: Editor.Object.DataModule
+---@class EditorObject.Unit: EditorObject.DataModule
 ---@field key py.UnitKey
 ---@field on_create? fun(unit: Unit) # 单位创建后执行
 ---@field on_remove? fun(unit: Unit) # 单位移除后执行
@@ -20,11 +20,11 @@ end
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此单位再修改数据，行为是未定义的
 ---@field data Object.Unit
-local Unit = Class 'Editor.Object.Unit'
+local Unit = Class 'EditorObject.Unit'
 
-Extends('Editor.Object.Unit', 'Editor.Object.DataModule')
----@class Editor.Object.Unit: KV
-Extends('Editor.Object.Unit', 'KV')
+Extends('EditorObject.Unit', 'EditorObject.DataModule')
+---@class EditorObject.Unit: KV
+Extends('EditorObject.Unit', 'KV')
 Unit.kv_key = 'unit_key'
 
 ---@private
@@ -35,18 +35,18 @@ function Unit:__init(key)
 end
 
 --以此单位为模板创建新的单位物编
----@return Editor.Object.Unit
+---@return EditorObject.Unit
 function Unit:new()
     local new_key = GameAPI.create_unit_editor_data(self.key)
     return M.unit[new_key]
 end
 
----@type table<integer, Editor.Object.Unit>
+---@type table<integer, EditorObject.Unit>
 M.unit = y3.util.defaultTable(function (key)
-    return New 'Editor.Object.Unit' (key)
+    return New 'EditorObject.Unit' (key)
 end)
 
----@class Editor.Object.Item: Editor.Object.DataModule
+---@class EditorObject.Item: EditorObject.DataModule
 ---@field key py.ItemKey
 ---@field on_add? fun(item: Item) # 物品获得后执行
 ---@field on_lose? fun(item: Item) # 物品失去后执行
@@ -56,11 +56,11 @@ end)
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此物品再修改数据，行为是未定义的
 ---@field data Object.Item
-local Item = Class 'Editor.Object.Item'
+local Item = Class 'EditorObject.Item'
 
-Extends('Editor.Object.Item', 'Editor.Object.DataModule')
----@class Editor.Object.Item: KV
-Extends('Editor.Object.Item', 'KV')
+Extends('EditorObject.Item', 'EditorObject.DataModule')
+---@class EditorObject.Item: KV
+Extends('EditorObject.Item', 'KV')
 Item.kv_key = 'item_key'
 
 ---@private
@@ -71,18 +71,18 @@ function Item:__init(key)
 end
 
 --以此物品为模板创建新的物品物编
----@return Editor.Object.Item
+---@return EditorObject.Item
 function Item:new()
     local new_key = GameAPI.create_item_editor_data(self.key)
     return M.item[new_key]
 end
 
----@type table<integer, Editor.Object.Item>
+---@type table<integer, EditorObject.Item>
 M.item = y3.util.defaultTable(function (key)
-    return New 'Editor.Object.Item' (key)
+    return New 'EditorObject.Item' (key)
 end)
 
----@class Editor.Object.Buff: Editor.Object.DataModule
+---@class EditorObject.Buff: EditorObject.DataModule
 ---@field key py.ModifierKey
 ---@field on_can_add? fun(buff: Buff) # 效果即将获得时执行
 ---@field on_add? fun(buff: Buff) # 效果获得后执行
@@ -92,11 +92,11 @@ end)
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此魔法效果再修改数据，行为是未定义的
 ---@field data Object.Buff
-local Buff = Class 'Editor.Object.Buff'
+local Buff = Class 'EditorObject.Buff'
 
-Extends('Editor.Object.Buff', 'Editor.Object.DataModule')
----@class Editor.Object.Buff: KV
-Extends('Editor.Object.Buff', 'KV')
+Extends('EditorObject.Buff', 'EditorObject.DataModule')
+---@class EditorObject.Buff: KV
+Extends('EditorObject.Buff', 'KV')
 Buff.kv_key = 'modifier_key'
 
 ---@private
@@ -107,18 +107,18 @@ function Buff:__init(key)
 end
 
 --以此魔法效果为模板创建新的魔法效果物编
----@return Editor.Object.Buff
+---@return EditorObject.Buff
 function Buff:new()
     local new_key = GameAPI.create_modifier_editor_data(self.key)
     return M.buff[new_key]
 end
 
----@type table<integer, Editor.Object.Buff>
+---@type table<integer, EditorObject.Buff>
 M.buff = y3.util.defaultTable(function (key)
-    return New 'Editor.Object.Buff' (key)
+    return New 'EditorObject.Buff' (key)
 end)
 
----@class Editor.Object.Ability: Editor.Object.DataModule
+---@class EditorObject.Ability: EditorObject.DataModule
 ---@field key py.AbilityKey
 ---@field on_add? fun(ability: Ability) # 技能获得后执行
 ---@field on_lose? fun(ability: Ability) # 技能失去后执行
@@ -134,11 +134,11 @@ end)
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此技能再修改数据，行为是未定义的
 ---@field data Object.Ability: Class.Base
-local Ability = Class 'Editor.Object.Ability'
+local Ability = Class 'EditorObject.Ability'
 
-Extends('Editor.Object.Ability', 'Editor.Object.DataModule')
----@class Editor.Object.Ability: KV
-Extends('Editor.Object.Ability', 'KV')
+Extends('EditorObject.Ability', 'EditorObject.DataModule')
+---@class EditorObject.Ability: KV
+Extends('EditorObject.Ability', 'KV')
 Ability.kv_key = 'ability_key'
 
 ---@private
@@ -149,15 +149,15 @@ function Ability:__init(key)
 end
 
 --以此技能为模板创建新的技能物编
----@return Editor.Object.Ability
+---@return EditorObject.Ability
 function Ability:new()
     local new_key = GameAPI.create_ability_editor_data(self.key)
     return M.ability[new_key]
 end
 
----@type table<integer, Editor.Object.Ability>
+---@type table<integer, EditorObject.Ability>
 M.ability = y3.util.defaultTable(function (key)
-    return New 'Editor.Object.Ability' (key)
+    return New 'EditorObject.Ability' (key)
 end)
 
 M.lock_count_map = setmetatable({}, {

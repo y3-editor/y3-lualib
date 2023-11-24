@@ -1,3 +1,4 @@
+--闪电特效（光束）
 ---@class Beam
 ---@field handle py.LinkSfx
 ---@overload fun(py_beam: py.LinkSfx): self
