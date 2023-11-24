@@ -23,6 +23,9 @@ end
 local Unit = Class 'Editor.Object.Unit'
 
 Extends('Editor.Object.Unit', 'Editor.Object.DataModule')
+---@class Editor.Object.Unit: KV
+Extends('Editor.Object.Unit', 'KV')
+Unit.kv_key = 'unit_key'
 
 ---@private
 Unit.data_key = 'editor_unit'
@@ -56,6 +59,12 @@ end)
 local Item = Class 'Editor.Object.Item'
 
 Extends('Editor.Object.Item', 'Editor.Object.DataModule')
+---@class Editor.Object.Item: KV
+Extends('Editor.Object.Item', 'KV')
+Item.kv_key = 'item_key'
+
+---@private
+Item.data_key = 'editor_item'
 
 function Item:__init(key)
     self.key = key
@@ -86,6 +95,12 @@ end)
 local Buff = Class 'Editor.Object.Buff'
 
 Extends('Editor.Object.Buff', 'Editor.Object.DataModule')
+---@class Editor.Object.Buff: KV
+Extends('Editor.Object.Buff', 'KV')
+Buff.kv_key = 'modifier_key'
+
+---@private
+Buff.data_key = 'modifier_all'
 
 function Buff:__init(key)
     self.key = key
@@ -122,6 +137,12 @@ end)
 local Ability = Class 'Editor.Object.Ability'
 
 Extends('Editor.Object.Ability', 'Editor.Object.DataModule')
+---@class Editor.Object.Ability: KV
+Extends('Editor.Object.Ability', 'KV')
+Ability.kv_key = 'ability_key'
+
+---@private
+Ability.data_key = 'ability_all'
 
 function Ability:__init(key)
     self.key = key
