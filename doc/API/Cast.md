@@ -1,11 +1,16 @@
 # Cast
 
+施法实例
+
+会在施法相关的事件中传递
+
 ## ability
 
 ```lua
 Ability
 ```
 
+技能
 ## cast_id
 
 ```lua

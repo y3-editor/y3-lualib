@@ -1,5 +1,7 @@
 # y3.Const
 
+常量
+
 ## AbilityCastType
 
 ```lua

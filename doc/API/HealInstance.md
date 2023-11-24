@@ -1,5 +1,9 @@
 # HealInstance
 
+治疗实例
+
+在治疗相关的事件中传递
+
 ## data
 
 ```lua

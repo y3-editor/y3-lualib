@@ -1,5 +1,9 @@
 # Light
 
+光照
+
+用来修改光照、阴影等效果
+
 ## create_lua_light_by_py
 
 ```lua

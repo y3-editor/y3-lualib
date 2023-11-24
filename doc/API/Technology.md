@@ -1,5 +1,7 @@
 # Technology
 
+科技
+
 ## check_precondition_by_key
 
 ```lua

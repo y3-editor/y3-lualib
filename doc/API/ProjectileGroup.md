@@ -1,5 +1,7 @@
 # ProjectileGroup
 
+投射物组
+
 ## create_lua_projectile_group_from_py
 
 ```lua

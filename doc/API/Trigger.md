@@ -1,5 +1,7 @@
 # Trigger
 
+触发器
+
 ## disable
 
 ```lua

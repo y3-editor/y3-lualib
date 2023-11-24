@@ -1,5 +1,7 @@
 # Beam
 
+闪电特效（光束）
+
 ## create
 
 ```lua

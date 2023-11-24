@@ -1,5 +1,9 @@
 # Reload
 
+热重载
+
+热重载相关的方法，详细请看 `演示/热重载`。
+
 ## afterReloadCallbacks
 
 ```lua

@@ -1,140 +1,106 @@
-# [Ability](API/Ability.md)
+# [Ability](API/Ability.md) 技能
 
-# [Area](API/Area.md)
+# [Area](API/Area.md) 区域
 
-# [Beam](API/Beam.md)
+# [Beam](API/Beam.md) 闪电特效（光束）
 
-# [Buff](API/Buff.md)
+# [Buff](API/Buff.md) 魔法效果
 
-# [Camera](API/Camera.md)
+# [Camera](API/Camera.md) 镜头
 
-# [Cast](API/Cast.md)
+# [Cast](API/Cast.md) 施法实例
 
-# [Class](API/Class.md)
+会在施法相关的事件中传递
 
-# [Command](API/Command.md)
+# [Command](API/Command.md) 作弊指令
 
-# [Config](API/Config.md)
+该功能仅在开发模式有效
 
-# [CustomEvent](API/CustomEvent.md)
+# [Config](API/Config.md) 配置
 
-# [DamageInstance](API/DamageInstance.md)
+可以设置日志、同步等相关的配置
 
-# [Destructible](API/Destructible.md)
+# [DamageInstance](API/DamageInstance.md) 伤害实例
 
-# [Doctor](API/Doctor.md)
+会在伤害相关的事件中传递
 
-# [Dump](API/Dump.md)
+# [Destructible](API/Destructible.md) 可破坏物
 
-# [ECABind](API/ECABind.md)
+# [ECAFunction](API/ECAFunction.md) 注册ECA函数
 
-# [ECAFunction](API/ECAFunction.md)
+可以使用该功能让lua函数在ECA中被调用。
 
-# [Editor](API/Editor.md)
+# [EditorObject](API/EditorObject.md)  物体编辑器
 
-# [Enum](API/Enum.md)
+# [Enum](API/Enum.md) undefined
 
-# [Event](API/Event.md)
+# [Game](API/Game.md) 游戏接口
 
-# [EventConfig](API/EventConfig.md)
+# [Ground](API/Ground.md) 地面
 
-# [EventManager](API/EventManager.md)
+地面碰撞相关方法
 
-# [GCHost](API/GCHost.md)
+# [HealInstance](API/HealInstance.md) 治疗实例
 
-# [GCNode](API/GCNode.md)
+在治疗相关的事件中传递
 
-# [Game](API/Game.md)
+# [Item](API/Item.md) 物品
 
-# [Ground](API/Ground.md)
+# [ItemGroup](API/ItemGroup.md) 物品组
 
-# [HealInstance](API/HealInstance.md)
+# [Light](API/Light.md) 光照
 
-# [Helper](API/Helper.md)
+用来修改光照、阴影等效果
 
-# [Item](API/Item.md)
+# [LocalTimer](API/LocalTimer.md) 本地计时器，支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
 
-# [ItemGroup](API/ItemGroup.md)
+# [Math](API/Math.md) 数学库
 
-# [KV](API/KV.md)
+均使用角度制
 
-# [Light](API/Light.md)
+# [Mover](API/Mover.md) undefined
 
-# [LinkedTable](API/LinkedTable.md)
+# [Particle](API/Particle.md) 粒子特效
 
-# [LocalTimer](API/LocalTimer.md)
+# [Player](API/Player.md) 玩家
 
- 本地计时器，支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
+# [PlayerGroup](API/PlayerGroup.md) 玩家组
 
-# [Log](API/Log.md)
+# [Point](API/Point.md) 点
 
-# [Math](API/Math.md)
+# [Pool](API/Pool.md) undefined
 
-# [Mover](API/Mover.md)
+# [Projectile](API/Projectile.md) 投射物
 
-# [Object](API/Object.md)
+# [ProjectileGroup](API/ProjectileGroup.md) 投射物组
 
-# [ObjectEvent](API/ObjectEvent.md)
+# [Reload](API/Reload.md) 热重载
 
-# [PYConverter](API/PYConverter.md)
+热重载相关的方法，详细请看 `演示/热重载`。
 
-# [PYEventRef](API/PYEventRef.md)
+# [Road](API/Road.md) 路径
 
-# [PYEventRegister](API/PYEventRegister.md)
+# [SaveData](API/SaveData.md) 存档
 
-# [Particle](API/Particle.md)
+# [Selector](API/Selector.md) 选取器
 
-# [Player](API/Player.md)
+用来选取某个区域内的单位
 
-# [PlayerGroup](API/PlayerGroup.md)
+# [Shape](API/Shape.md) 形状
 
-# [Point](API/Point.md)
+# [Sound](API/Sound.md) 声音
 
-# [Pool](API/Pool.md)
+# [Technology](API/Technology.md) 科技
 
-# [Projectile](API/Projectile.md)
+# [Timer](API/Timer.md) 同步计时器，所有玩家必须使用一致的计时器
 
-# [ProjectileGroup](API/ProjectileGroup.md)
+# [Trigger](API/Trigger.md) 触发器
 
-# [Proxy](API/Proxy.md)
+# [UIPrefab](API/UIPrefab.md) 界面元件
 
-# [Ref](API/Ref.md)
+# [Unit](API/Unit.md) 单位
 
-# [Reload](API/Reload.md)
+# [UnitGroup](API/UnitGroup.md) 单位组
 
-# [Road](API/Road.md)
-
-# [SaveData](API/SaveData.md)
-
-# [Selector](API/Selector.md)
-
-# [Serialization](API/Serialization.md)
-
-# [Shape](API/Shape.md)
-
-# [SortByScoreCallback](API/SortByScoreCallback.md)
-
-# [Sound](API/Sound.md)
-
-# [Storage](API/Storage.md)
-
-# [Technology](API/Technology.md)
-
-# [Timer](API/Timer.md)
-
- 同步计时器，所有玩家必须使用一致的计时器
-
-# [Trigger](API/Trigger.md)
-
-# [UIPrefab](API/UIPrefab.md)
-
-# [Unit](API/Unit.md)
-
-# [UnitGroup](API/UnitGroup.md)
-
- 单位组
-
-# [switch](API/switch.md)
-
-# [Const](API/Const.md)
+# [Const](API/Const.md) undefined
 

@@ -1,5 +1,7 @@
 # Ability
 
+技能
+
 ## add_cd
 
 ```lua

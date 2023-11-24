@@ -1,5 +1,7 @@
 # Point
 
+点
+
 ## create
 
 ```lua

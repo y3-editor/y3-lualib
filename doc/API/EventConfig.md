@@ -1,9 +1,0 @@
-# EventConfig
-
-## config
-
-```lua
-table
-```
-
-

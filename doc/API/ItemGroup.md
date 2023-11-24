@@ -1,5 +1,7 @@
 # ItemGroup
 
+物品组
+
 ## create_lua_item_group_from_py
 
 ```lua

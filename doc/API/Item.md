@@ -1,5 +1,7 @@
 # Item
 
+物品
+
 ## add_attribute
 
 ```lua

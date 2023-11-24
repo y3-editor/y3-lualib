@@ -1,5 +1,9 @@
 # DamageInstance
 
+伤害实例
+
+会在伤害相关的事件中传递
+
 ## data
 
 ```lua

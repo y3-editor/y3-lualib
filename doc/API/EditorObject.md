@@ -1,4 +1,4 @@
-# Editor.Object
+# EditorObject
 
  物体编辑器
 
@@ -17,7 +17,7 @@ unknown
 ## callMethod
 
 ```lua
-function Editor.Object.callMethod(otype: string, mname: string, key: any, lock_obj: any, arg1: any, arg2: any)
+function EditorObject.callMethod(otype: string, mname: string, key: any, lock_obj: any, arg1: any, arg2: any)
 ```
 
 ## call_stack_map
@@ -45,7 +45,7 @@ unknown
 ```
 
 
-# Editor.Object.Ability
+# EditorObject.Ability
 
 ## data
 
@@ -111,8 +111,8 @@ lua_type:
 ## new
 
 ```lua
-(method) Editor.Object.Ability:new()
-  -> Editor.Object.Ability
+(method) EditorObject.Ability:new()
+  -> EditorObject.Ability
 ```
 
 以此技能为模板创建新的技能物编
@@ -187,7 +187,7 @@ fun(ability: Ability)
 
 技能升级后执行
 
-# Editor.Object.Buff
+# EditorObject.Buff
 
 ## data
 
@@ -255,8 +255,8 @@ lua_type:
 ## new
 
 ```lua
-(method) Editor.Object.Buff:new()
-  -> Editor.Object.Buff
+(method) EditorObject.Buff:new()
+  -> EditorObject.Buff
 ```
 
 以此魔法效果为模板创建新的魔法效果物编
@@ -289,7 +289,7 @@ fun(buff: Buff)
 
 效果心跳后执行
 
-# Editor.Object.DataModule
+# EditorObject.DataModule
 
 ## data_key
 
@@ -298,7 +298,7 @@ string
 ```
 
 
-# Editor.Object.Item
+# EditorObject.Item
 
 ## data
 
@@ -366,8 +366,8 @@ lua_type:
 ## new
 
 ```lua
-(method) Editor.Object.Item:new()
-  -> Editor.Object.Item
+(method) EditorObject.Item:new()
+  -> EditorObject.Item
 ```
 
 以此物品为模板创建新的物品物编
@@ -400,7 +400,7 @@ fun(item: Item)
 
 物品移除后执行
 
-# Editor.Object.Unit
+# EditorObject.Unit
 
 ## data
 
@@ -468,8 +468,8 @@ lua_type:
 ## new
 
 ```lua
-(method) Editor.Object.Unit:new()
-  -> Editor.Object.Unit
+(method) EditorObject.Unit:new()
+  -> EditorObject.Unit
 ```
 
 以此单位为模板创建新的单位物编
