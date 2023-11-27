@@ -1,9 +1,30 @@
 require 'y3.tools.log'
 
+---@param path string
+---@param mode openmode
+---@return file*?
+---@return string? errmsg
+local function ioOpen(path, mode)
+    if not io then
+        return nil, 'No io module'
+    end
+    if not io.open then
+        return nil, 'No io.open'
+    end
+    local file, err
+    local suc, res = pcall(function ()
+        file, err = io.open(path, mode)
+    end)
+    if not suc then
+        return nil, res
+    end
+    return file, err
+end
+
 local log_cache = {}
 local log_name = ('lua_player%02d.log'):format(GameAPI.get_client_role():get_role_id_num())
-local log_file = io.open(lua_script_path .. '/log/' .. log_name, 'w+b')
-            or   io.open(log_name, 'w+b')
+local log_file = ioOpen(lua_script_path .. '/log/' .. log_name, 'w+b')
+            or   ioOpen(log_name, 'w+b')
 if log_file then
     log_file:setvbuf 'no'
 end
