@@ -573,6 +573,9 @@ end
 
 -- 获取本地玩家，注意这可能会导致不同步！  
 --> 警告：如果你不确定这个函数在做什么，请不要使用它！
+--
+--> 已废弃：请改用 `y3.player.with_local`
+---@deprecated
 ---@return Player
 function M.get_local()
     return M.LOCAL_PLAYER

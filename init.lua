@@ -72,6 +72,8 @@ y3.damage_instance = require 'y3.object.runtime_object.damage_instance'
 y3.heal_instance   = require 'y3.object.runtime_object.heal_instance'
 y3.sound        = require 'y3.object.runtime_object.sound'
 
+require 'y3.object.runtime_object.local_player'
+
 y3.area         = require 'y3.object.scene_object.area'
 y3.camera       = require 'y3.object.scene_object.camera'
 y3.light        = require 'y3.object.scene_object.light'
