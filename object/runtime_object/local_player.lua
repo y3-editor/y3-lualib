@@ -95,32 +95,44 @@ end
 
 M.LOCAL_PLAYER = y3.player.get_by_handle(GameAPI.get_client_role())
 
+M.dont_wrap_this_function = setmetatable({}, { __mode = 'k' })
+
 ---@private
 ---@param func function
 ---@return function
 function M.wrap_function(func)
-    print('wrap function')
-    return function (...)
+    if M.dont_wrap_this_function[func] then
+        return func
+    end
+    local f = function (...)
         local _ <close> = New 'LocalPlayer' (func)
         return func(...)
     end
+    M.dont_wrap_this_function[f] = true
+    return f
 end
 
 ---@type Proxy.Config
 M.proxy_config = {
     cache = true,
-    anyGetter = function (self, raw, key, config, custom)
+    anyGetter = function (self, raw, key, config, parent_path)
         local value = raw[key]
         if type(value) == 'table' then
-            return y3.proxy.new(value, M.proxy_config, custom .. '.' .. tostring(key))
+            local new_path
+            if parent_path == '' then
+                new_path = tostring(key)
+            else
+                new_path = parent_path .. '.' .. tostring(key)
+            end
+            return y3.proxy.new(value, M.proxy_config, new_path)
         elseif type(value) == 'function' then
-            M.check_function_in_sandbox(custom, value)
+            value = M.check_function_in_sandbox(parent_path, value)
             return value
         else
             return value
         end
     end,
-    anySetter = function (self, raw, key, value, config, custom)
+    anySetter = function (self, raw, key, value, config, parent_path)
         build_global_error_message(self, key, value)
         return value
     end
@@ -128,11 +140,27 @@ M.proxy_config = {
 
 ---@param name string
 ---@param func function
+---@return function
 function M.check_function_in_sandbox(name, func)
-    --
+    --检查是否是“有害”函数，如果是则拒绝执行
+    --包装回调函数
+    local info = getinfo(func, 'u')
+    if info.nparams == 0 then
+        return func
+    end
+    local wrapped_func = function (...)
+        local params = table.pack(...)
+        for i, p in ipairs(params) do
+            if type(p) == 'function' then
+                params[i] = M.wrap_function(p)
+            end
+        end
+        return func(table.unpack(params, 1, params.n))
+    end
+    return wrapped_func
 end
 
-M.sandbox = y3.proxy.new(y3, M.proxy_config, 'y3')
+M.sandbox = y3.proxy.new(_G, M.proxy_config, '')
 
 ---@param env table
 ---@return table
