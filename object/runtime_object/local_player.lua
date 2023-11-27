@@ -23,10 +23,12 @@ function M:__init(func)
         if not name then
             break
         end
-        self.uv_values[i] = value
-        if type(value) == 'function' then
+        if value == _ENV then
+            value = self:wrap_env_in_upvalue(func, i, value)
+        elseif type(value) == 'function' then
             value = self:wrap_function_in_upvalue(func, i, value)
         end
+        self.uv_values[i] = value
     end
 end
 
@@ -45,11 +47,24 @@ local function build_upvalue_error_message(func, name, old_value, new_value)
     ))
 end
 
+---@param t table
+---@param k any
+---@param v any
+local function build_global_error_message(t, k, v)
+    local info = getinfo(3, 'Sl')
+    log.warn(string.format('你在本地环境中把全局变量【%s】的值从【%s】修改为了【%s】。\n修改位置：%s:%d'
+        , k
+        , t[k]
+        , v
+        , info.short_src
+        , info.linedefined
+    ))
+end
+
 function M:__close()
     for i, old_value in ipairs(self.uv_values) do
         local name, value = getupvalue(self.func, i)
-        if  old_value ~= value
-        and type(old_value) ~= 'function' then
+        if old_value ~= value then
             setupvalue(self.func, i, old_value)
             build_upvalue_error_message(self.func, name, old_value, value)
         end
@@ -61,10 +76,21 @@ end
 ---@param value function
 ---@return function
 function M:wrap_function_in_upvalue(func, i, value)
-    local wraped_func = M.wrap_function(value)
-    local dummy = function () return wraped_func end
+    local wrapped_func = M.wrap_function(value)
+    local dummy = function () return wrapped_func end
     upvaluejoin(func, i, dummy, 1)
-    return wraped_func
+    return wrapped_func
+end
+
+---@param func function
+---@param i integer
+---@param value table
+---@return table
+function M:wrap_env_in_upvalue(func, i, value)
+    local wrapped_env = M.wrap_env(value)
+    local dummy = function () return wrapped_env end
+    upvaluejoin(func, i, dummy, 1)
+    return wrapped_env
 end
 
 M.LOCAL_PLAYER = y3.player.get_by_handle(GameAPI.get_client_role())
@@ -73,14 +99,24 @@ M.LOCAL_PLAYER = y3.player.get_by_handle(GameAPI.get_client_role())
 ---@param func function
 ---@return function
 function M.wrap_function(func)
-    if not can_use_debug
-    or not y3.game.is_debug_mode() then
-        return func
-    end
+    print('wrap function')
     return function (...)
         local _ <close> = New 'LocalPlayer' (func)
         return func(...)
     end
+end
+
+---@param env table
+---@return table
+function M.wrap_env(env)
+    local wrapped_env = setmetatable({}, {
+        __index = env,
+        __newindex = function (t, k, v)
+            build_global_error_message(t, k, v)
+            rawset(t, k, v)
+        end
+    })
+    return wrapped_env
 end
 
 ---@class Player
@@ -91,6 +127,11 @@ local Player = Class 'Player'
 --在平台上不会检测，也不会有额外开销。
 ---@param callback fun(local_player: Player)
 function Player.with_local(callback)
+    if not can_use_debug
+    or not y3.game.is_debug_mode() then
+        callback(M.LOCAL_PLAYER)
+        return
+    end
     local func = M.wrap_function(callback)
     func(M.LOCAL_PLAYER)
 end
