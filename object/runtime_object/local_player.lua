@@ -106,17 +106,38 @@ function M.wrap_function(func)
     end
 end
 
+---@type Proxy.Config
+M.proxy_config = {
+    cache = true,
+    anyGetter = function (self, raw, key, config, custom)
+        local value = raw[key]
+        if type(value) == 'table' then
+            return y3.proxy.new(value, M.proxy_config, custom .. '.' .. tostring(key))
+        elseif type(value) == 'function' then
+            M.check_function_in_sandbox(custom, value)
+            return value
+        else
+            return value
+        end
+    end,
+    anySetter = function (self, raw, key, value, config, custom)
+        build_global_error_message(self, key, value)
+        return value
+    end
+}
+
+---@param name string
+---@param func function
+function M.check_function_in_sandbox(name, func)
+    --
+end
+
+M.sandbox = y3.proxy.new(y3, M.proxy_config, 'y3')
+
 ---@param env table
 ---@return table
 function M.wrap_env(env)
-    local wrapped_env = setmetatable({}, {
-        __index = env,
-        __newindex = function (t, k, v)
-            build_global_error_message(t, k, v)
-            rawset(t, k, v)
-        end
-    })
-    return wrapped_env
+    return M.sandbox
 end
 
 ---@class Player
