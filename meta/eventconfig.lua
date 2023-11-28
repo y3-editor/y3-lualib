@@ -31,18 +31,6 @@ M.config["游戏-初始化"] = {
     },
 }
 
----@alias EventParam.游戏-开始 EventParam.ET_LOADING_END
-M.config["游戏-开始"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "所有玩家加载完毕，游戏正式开始时触发",
-    extraArgs = {
-    },
-    key = "ET_LOADING_END",
-    name = "游戏-开始",
-    params = {
-    },
-}
-
 ---@alias EventParam.游戏-追帧完成 EventParam.ET_RELAUNCH_FRAME_CATCHING_FINISHED
 M.config["游戏-追帧完成"] = {
     __class__ = "EventConfigBuilder",
@@ -3023,7 +3011,6 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 
 ---@class Game
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
----@field event fun(self: self, event: "游戏-开始", callback: fun(trg: Trigger, data: EventParam.游戏-开始)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
 ---@field event fun(self: self, event: "游戏-结束", callback: fun(trg: Trigger, data: EventParam.游戏-结束)): Trigger
 ---@field event fun(self: self, event: "游戏-暂停", callback: fun(trg: Trigger, data: EventParam.游戏-暂停)): Trigger
