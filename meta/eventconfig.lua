@@ -2980,6 +2980,11 @@ M.config["游戏-消息"] = {
     key = "ET_EVENT_CUSTOM",
     name = "游戏-消息",
     params = {
+        [1] = {
+            desc = "事件索引",
+            name = "key",
+            type = "integer",
+        },
     },
 }
 
@@ -3162,7 +3167,7 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
 ---@field event fun(self: self, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
----@field event fun(self: self, event: "游戏-消息", callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
+---@field event fun(self: self, event: "游戏-消息", key: integer, callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
 ---@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
 
 ---@class Ability
