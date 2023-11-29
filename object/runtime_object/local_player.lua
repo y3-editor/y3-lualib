@@ -1,3 +1,5 @@
+local must_sync = require 'y3.meta.must_sync'
+
 ---@class LocalPlayer
 local M = Class 'LocalPlayer'
 
@@ -32,6 +34,15 @@ function M:__init(func)
     end
 end
 
+---@param name string
+---@return boolean
+function M.is_name_must_sync(name)
+    if not M.must_sync_name_map then
+        M.must_sync_name_map = y3.util.revertMap(must_sync)
+    end
+    return M.must_sync_name_map[name] ~= nil
+end
+
 ---@param func function
 ---@param name string
 ---@param old_value any
@@ -58,6 +69,14 @@ local function build_global_error_message(t, k, v)
         , v
         , info.short_src
         , info.linedefined
+    ))
+end
+
+---@param name string
+local function build_call_error_message(name)
+    log.warn(string.format('不能在本地环境中调用API【%s】\n%s'
+        , name
+        , debug.traceback()
     ))
 end
 
@@ -143,6 +162,10 @@ M.proxy_config = {
 ---@return function
 function M.check_function_in_sandbox(name, func)
     --检查是否是“有害”函数，如果是则拒绝执行
+    if M.is_name_must_sync(name) then
+        build_call_error_message(name)
+        return function () end
+    end
     --包装回调函数
     local info = getinfo(func, 'u')
     if info.nparams == 0 then
