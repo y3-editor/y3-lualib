@@ -10,7 +10,7 @@ y3.proxy  = require 'y3.tools.proxy'
 y3.class  = require 'y3.tools.class'
 y3.util   = require 'y3.tools.utility'
 y3.json   = require 'y3.tools.json'
-y3.doctor = require 'y3.tools.doctor'
+y3.doctor = pcall(require, 'y3.tools.doctor')
 
 Class   = y3.class.declare
 New     = y3.class.new
