@@ -72,7 +72,8 @@ end
 ---获取投射物高度
 ---@return number height 高度
 function M:get_height()
-    return self.handle:api_get_height()
+    ---@diagnostic disable-next-line: undefined-field
+    return self.handle:api_get_height():float()
 end
 
 ---获取投射物剩余持续时间
