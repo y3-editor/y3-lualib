@@ -924,4 +924,31 @@ function M:play_ui_sequence(loop, space, start_frame, end_frame)
     return self
 end
 
+---@enum(key) Item.UseOperation
+local use_operation_map = {
+    ['无'] = 0,
+    ['左键单击'] = 1,
+    ['右键单击'] = 2,
+    ['左键双击'] = 3,
+}
+
+--设置使用物品操作方式
+---@param use_operation Item.UseOperation # 操作方式
+function M:set_equip_slot_use_operation(use_operation)
+    GameAPI.set_equip_slot_use_operation(self.player.handle, self.handle, use_operation_map[use_operation] or 0)
+end
+
+---@enum(key) Item.DrapOperation
+local drag_operation_map = {
+    ['无'] = 0,
+    ['左键'] = 1,
+    ['右键'] = 2,
+}
+
+--设置拖拽物品操作方式
+---@param drag_operation Item.DrapOperation # 操作方式
+function M:set_equip_slot_drag_operation(drag_operation)
+    GameAPI.set_equip_slot_drag_operation(self.player.handle, self.handle, drag_operation_map[drag_operation] or 0)
+end
+
 return M
