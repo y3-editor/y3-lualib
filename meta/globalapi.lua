@@ -8,6 +8,9 @@ GlobalAPI = {}
 ---@param actor py.Actor # Actor
 function GlobalAPI.api_clear_tag(actor) end
 
+--空api
+function GlobalAPI.api_do_nothing() end
+
 --清空自定义键值
 ---@param actor py.Actor # Actor
 function GlobalAPI.api_clear_kv(actor) end

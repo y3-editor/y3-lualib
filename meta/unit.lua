@@ -179,6 +179,14 @@ function Unit:api_get_ai_battle_target_unit() end
 ---@return py.Unit # 跟随的单位
 function Unit:api_get_ai_follow_target_unit() end
 
+--设置单位是否休眠
+---@param is_sleeping boolean # 是否休眠
+function Unit:api_set_is_sleeping(is_sleeping) end
+
+--获取单位是否休眠
+---@return boolean # 是否休眠
+function Unit:api_get_is_sleeping() end
+
 --获取 attr_other
 ---@param key string # 属性名
 ---@return py.Fixed # 属性值
@@ -212,6 +220,10 @@ function Unit:api_get_attr_all_ratio(key) end
 --获取单位主属性
 ---@return string # 主属性
 function Unit:api_get_main_attr() end
+
+--切换主属性
+---@param main_attr string # 属性名
+function Unit:api_switch_main_attr(main_attr) end
 
 --设置纯值类型的值
 ---@param key string # 属性名
@@ -503,6 +515,10 @@ function Unit:api_set_turn_speed(turn_speed) end
 --获得单位转身速度
 ---@return py.Fixed # 转身速度
 function Unit:api_get_turn_speed() end
+
+--设置基础移动速度（用于控制移动动画播放速度）
+---@param base_speed py.Fixed # 基础移动速度
+function Unit:api_set_base_speed(base_speed) end
 
 --单位是否在移动
 ---@return boolean # 是否在移动
@@ -1319,3 +1335,56 @@ function Unit:api_release_command(command) end
 --设置单位默认跳转状态
 ---@param behavior py.UnitBehavior # 默认跳转状态
 function Unit:api_set_default_switch_behavior(behavior) end
+
+--单位 - 单位发起求救
+---@param source_unit py.Unit # 攻击目标
+---@param seek_range number # 搜寻范围
+function Unit:api_trigger_rescue(source_unit, seek_range) end
+
+--单位 - 设置单位求救类型
+---@param v py.ERescueSeekerType # 值
+function Unit:api_set_rescue_seeker_type(v) end
+
+--单位 - 设置单位救援类型
+---@param v py.ERescuerType # 值
+function Unit:api_set_rescuer_type(v) end
+
+--单位 - 设置单位求救距离
+---@param v number # 值
+function Unit:api_set_rescue_seeker_distance(v) end
+
+--单位 - 设置单位求救间隔
+---@param v number # 值
+function Unit:api_set_rescue_seeker_interval(v) end
+
+--单位 - 设置单位救援后返回
+---@param v boolean # 值
+function Unit:api_set_rescue_finish_return(v) end
+
+--单位 - 获取单位求救类型
+---@return py.ERescueSeekerType # 值
+function Unit:api_get_rescue_seeker_type() end
+
+--单位 - 获取单位救援类型
+---@return py.ERescuerType # 值
+function Unit:api_get_rescuer_type() end
+
+--单位 - 获取单位求救距离
+---@return number # 值
+function Unit:api_get_rescue_seeker_distance() end
+
+--单位 - 获取单位求救间隔
+---@return number # 值
+function Unit:api_get_rescue_seeker_interval() end
+
+--单位 - 获取单位救援后返回
+---@return boolean # 值
+function Unit:api_get_rescue_finish_return() end
+
+--单位 - 获取单位是否正在救援
+---@return boolean # 值
+function Unit:api_get_is_rescuing() end
+
+--单位 - 获取单位是否正在救援后返回
+---@return boolean # 值
+function Unit:api_get_is_rescue_returning() end

@@ -301,6 +301,78 @@ event.ET_BROADCAST_LUA_MSG = {
     },
 }
 
+---@class EventParam.ET_CLOSE_MALL_COIN_PAYMENT
+---@field player Player # 角色
+---@field int1 integer # 错误码
+
+--内购商品事件
+event.ET_CLOSE_MALL_COIN_PAYMENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "错误码",
+        lua_desc = "错误码",
+    },
+}
+
+---@class EventParam.ET_MALL_GOODS_CHANGE
+---@field player Player # 角色
+---@field int1 integer # 数量
+
+--玩家商品变化事件
+event.ET_MALL_GOODS_CHANGE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "数量",
+        lua_desc = "数量",
+    },
+}
+
+---@class EventParam.ET_MALL_COIN_CHANGE
+---@field player Player # 角色
+---@field int1 integer # 数量
+
+--玩家货币变化事件
+event.ET_MALL_COIN_CHANGE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "数量",
+        lua_desc = "数量",
+    },
+}
+
 ---@class EventParam.ET_ROLE_JOIN_BATTLE
 ---@field player Player # 玩家
 ---@field is_middle_join boolean # 是否中途加入
@@ -7371,6 +7443,81 @@ event.ET_PHYSICS_ENTITY_ON_LOSE = {
         lua_type = "py.PhysicsEntityKey",
         desc = "组件id",
         lua_desc = "组件id",
+    },
+}
+
+---@class EventParam.ET_ROLE_STORE_ITEM_CHANGED
+---@field store_key py.StoreKey # 道具编号
+---@field store_item_type py.StoreItemType # 道具类型
+---@field store_item_change_count integer # 平台道具变化数
+---@field store_item_expire_date integer # 平台道具到期时间戳
+---@field player Player # 玩家
+
+--平台道具变化事件
+event.ET_ROLE_STORE_ITEM_CHANGED = {
+    [1] = {
+        name = "__store_key",
+        type = "py.StoreKey",
+        lua_name = "store_key",
+        lua_type = "py.StoreKey",
+        desc = "道具编号",
+        lua_desc = "道具编号",
+    },
+    [2] = {
+        name = "__store_item_type",
+        type = "py.StoreItemType",
+        lua_name = "store_item_type",
+        lua_type = "py.StoreItemType",
+        desc = "道具类型",
+        lua_desc = "道具类型",
+    },
+    [3] = {
+        name = "__store_item_change_count",
+        type = "integer",
+        lua_name = "store_item_change_count",
+        lua_type = "integer",
+        desc = "平台道具变化数",
+        lua_desc = "平台道具变化数",
+    },
+    [4] = {
+        name = "__store_item_expire_date",
+        type = "integer",
+        lua_name = "store_item_expire_date",
+        lua_type = "integer",
+        desc = "平台道具到期时间戳",
+        lua_desc = "平台道具到期时间戳",
+    },
+    [5] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家id",
+        lua_desc = "玩家",
+    },
+}
+
+---@class EventParam.ET_ROLE_STORE_PAGE_STATE_CHANGED
+---@field player Player # 玩家
+---@field store_page_state boolean # 商城界面状态
+
+--平台商城窗口变化事件
+event.ET_ROLE_STORE_PAGE_STATE_CHANGED = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家id",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__store_page_state",
+        type = "boolean",
+        lua_name = "store_page_state",
+        lua_type = "boolean",
+        desc = "商城界面状态",
+        lua_desc = "商城界面状态",
     },
 }
 

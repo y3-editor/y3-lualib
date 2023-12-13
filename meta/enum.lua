@@ -31,6 +31,22 @@ enum.UnitCommandTypeEnum = {
     USE_ITEM = 13,
     EMPTY = 14,
     AUTO_PICK = 15,
+    MOVE_TO_POS_3D = 16,
+    HOLD_3D = 17,
+}
+
+--None
+---@enum Enum.UnitGroupCommandTypeEnum
+enum.UnitGroupCommandTypeEnum = {
+    MOVE_TO_POS = 1,
+    ATTACK_MOVE = 2,
+    ATTACK_TARGET = 3,
+    STOP = 5,
+    FOLLOW_TARGET = 11,
+    MOVE_ALONG_ROAD = 12,
+    EMPTY = 14,
+    MOVE_TO_RANDOM_POS = 15,
+    ATTACK_MOVE_RANDOM_POS = 16,
 }
 
 return enum
