@@ -13,6 +13,10 @@ function M:__init(py_scene_node)
     return self
 end
 
+function M:__del()
+    GameAPI.delete_scene_node(self.handle)
+end
+
 M.map = {}
 
 ---通过py层的界面实例获取lua层的界面实例
@@ -66,7 +70,7 @@ end
 
 --删除场景界面
 function M:remove_scene_ui()
-    GameAPI.delete_scene_node(self.handle)
+    Delete(self)
 end
 
 --设置场景界面对玩家的可见距离

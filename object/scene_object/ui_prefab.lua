@@ -16,6 +16,10 @@ function M:__init(player, ui_name)
     return self
 end
 
+function M:__del()
+    GameAPI.del_ui_prefab(self.handle)
+end
+
 ---通过py层的界面实例获取lua层的界面实例
 ---@param  player Player 玩家
 ---@param  prefab_name string
@@ -37,7 +41,7 @@ end
 
 --删除界面模块实例
 function M:remove()
-    GameAPI.del_ui_prefab(self.handle)
+    Delete(self)
 end
 
 -- 获取 UIPrefab 的 UI 实例
