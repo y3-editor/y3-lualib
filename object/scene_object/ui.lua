@@ -31,6 +31,19 @@ end
 ---@private
 M.map = {}
 
+M.comp_id = y3.proxy.new({}, {
+    cache = true,
+    anyGetter = function (self, raw, key, config, custom)
+        ---@diagnostic disable-next-line: deprecated
+        local id = GameAPI.get_ui_comp_id_by_name(y3.player.get_local().handle, key)
+        if id == '' then
+            return key
+        else
+            return id
+        end
+    end
+})
+
 ---通过py层的界面实例获取lua层的界面实例
 ---@param player Player
 ---@param handle string

@@ -38,7 +38,7 @@ end)
 function M.create_scene_ui_at_point(sceneui, point, range, height)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    local py_scene_node = GameAPI.create_scene_node_on_point(sceneui, point.handle, range or 10000, height or 0)
+    local py_scene_node = GameAPI.create_scene_node_on_point(y3.ui.comp_id[sceneui], point.handle, range or 10000, height or 0)
     local scene_ui = M.get_by_handle(py_scene_node)
     return scene_ui
 end
@@ -60,7 +60,7 @@ end
 ---@param distance? number 可见距离
 ---@return SceneUI scene_ui 场景ui
 function M.create_scene_ui_at_player_unit_socket(scene_ui_type, player, unit, socket_name, distance)
-    local py_scene_node = GameAPI.create_scene_node_on_unit(scene_ui_type, player.handle, unit.handle, socket_name, distance)
+    local py_scene_node = GameAPI.create_scene_node_on_unit(y3.ui.comp_id[scene_ui_type], player.handle, unit.handle, socket_name, distance or 10000)
     return M.get_by_handle(py_scene_node)
 end
 

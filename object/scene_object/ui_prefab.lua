@@ -31,7 +31,7 @@ end
 ---@param  parent_ui UI 父控件
 ---@return UIPrefab
 function M.create(player, prefab_name, parent_ui)
-    local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle, prefab_name, parent_ui.handle)
+    local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle, y3.ui.comp_id[prefab_name], parent_ui.handle)
     return M.get_by_handle(player, py_ui_prefab)
 end
 
