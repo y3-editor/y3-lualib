@@ -59,7 +59,7 @@ end)
 ---@class Mover.CreateData.Target: Mover.CreateData.Base
 ---@field target Unit|Destructible|Item # 追踪目标
 ---@field speed number # 初始速度
----@field target_distance? number # 撞击目标的距离
+---@field target_distance number # 撞击目标的距离
 ---@field acceleration? number # 加速度
 ---@field max_speed? number # 最大速度
 ---@field min_speed? number # 最小速度
@@ -332,7 +332,7 @@ end
 ---@return Mover
 function M.mover_target(mover_unit, mover_data)
     assert(mover_data.speed,        '缺少字段：speed')
-    assert(mover_data.target_distance, '缺少字段：max_distance')
+    assert(mover_data.target_distance, '缺少字段：target_distance')
     assert(mover_data.target,       '缺少字段：target')
     local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
     local wrapped_args = M.wrap_target_args(mover_data)
