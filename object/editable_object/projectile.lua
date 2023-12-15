@@ -47,10 +47,18 @@ function M.get_by_handle(py_projectile)
     return projectile
 end
 
+---@param id py.ProjectileID
+---@return Projectile
+function M.get_by_id(id)
+    local projectile = M.ref_manager:get(id)
+    return projectile
+end
+
 y3.py_converter.register_py_to_lua('py.Projectile', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Projectile', function (lua_value)
     return lua_value.handle
 end)
+y3.py_converter.register_py_to_lua('py.ProjectileID', M.get_by_id)
 
 y3.game:event('投射物-死亡', function (trg, data)
     local id = data.projectile.id
