@@ -151,7 +151,11 @@ function M:build(level, ...)
     local message = table.concat(t, '\t', 1, t.n)
 
     if self.needTraceBack[level] then
-        message = debug.traceback(message, 3)
+        if debug.getinfo(1, "t").istailcall then
+            message = debug.traceback(message, 2)
+        else
+            message = debug.traceback(message, 3)
+        end
     end
 
     local timeStamp = self:getTimeStamp()
