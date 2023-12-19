@@ -197,6 +197,15 @@ local Player = Class 'Player'
 --在本地玩家环境中执行代码。  
 --在开发模式中会阻止这些代码修改上值、修改全局变量、调用同步函数，因此也会产生额外的开销。  
 --在平台上不会检测，也不会有额外开销。
+--
+------
+--
+--```lua
+--y3.player.with_local(function (local_player)
+--    -- 在此回调函数中修改上值、修改全局变量、调用同步函数会给出警告
+--    print(local_player)
+--end)
+--```
 ---@param callback fun(local_player: Player)
 function Player.with_local(callback)
     if not can_use_debug
