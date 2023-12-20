@@ -795,4 +795,11 @@ M.UIRelativeParentPosType = {
     ["右侧"] = 3,
 }
 
+---@enum y3.Const.UIButtonStatus
+M.UIButtonStatus = {
+    ['常态'] = 1,
+    ['悬浮'] = 2,
+    ['按下'] = 3,
+    ['禁用'] = 4,
+}
 return M
