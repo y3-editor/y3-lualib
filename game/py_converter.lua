@@ -55,7 +55,7 @@ end
 ---@param lua_type string
 ---@param lua_value any
 ---@return any
-function M.lua_tp_py_by_lua_type(lua_type, lua_value)
+function M.lua_to_py_by_lua_type(lua_type, lua_value)
     local py_type = M.get_py_type(lua_type)
     if not py_type then
         return lua_value
