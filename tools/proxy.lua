@@ -60,6 +60,14 @@ local metatable = {
         end
         return value
     end,
+    __pairs = function (self)
+        local raw = rawget(self, RAW)
+        return pairs(raw)
+    end,
+    __len = function (self)
+        local raw = rawget(self, RAW)
+        return #raw
+    end
 }
 
 ---@generic T
