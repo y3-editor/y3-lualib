@@ -16,6 +16,8 @@ end)
 
 Class   = y3.class.declare
 New     = y3.class.new
+---@deprecated
+---@diagnostic disable-next-line: deprecated
 Super   = y3.class.super
 Extends = y3.class.extends
 Delete  = y3.class.delete
