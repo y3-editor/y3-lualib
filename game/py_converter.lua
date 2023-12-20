@@ -33,7 +33,7 @@ end
 function M.py_to_lua_by_lua_type(lua_type, py_value)
     local py_type = M.get_py_type(lua_type)
     if not py_type then
-        return nil
+        return py_value
     end
     return M.py_to_lua(py_type, py_value)
 end
@@ -50,6 +50,17 @@ function M.lua_to_py(py_type, lua_value)
         return converter(lua_value)
     end
     return lua_value
+end
+
+---@param lua_type string
+---@param lua_value any
+---@return any
+function M.lua_tp_py_by_lua_type(lua_type, lua_value)
+    local py_type = M.get_py_type(lua_type)
+    if not py_type then
+        return lua_value
+    end
+    return M.lua_to_py(py_type, lua_value)
 end
 
 ---@param py_type string
