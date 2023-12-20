@@ -129,6 +129,7 @@ function M.load_table_with_cover_enable(player, slot)
             end
             local vtype = type(value)
             if  vtype ~= 'nil'
+            and vtype ~= 'string'
             and vtype ~= 'boolean'
             and vtype ~= 'number'
             and vtype ~= 'table' then
@@ -207,6 +208,7 @@ function M.load_table_with_cover_disable(player, slot)
                 error('禁止覆盖模式下表不能作为存档的值')
             end
             if  vtype ~= 'nil'
+            and vtype ~= 'string'
             and vtype ~= 'boolean'
             and vtype ~= 'number' then
                 error('存档的值只能是基础类型')
