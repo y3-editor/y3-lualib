@@ -29,6 +29,8 @@ function M:__init(func)
             value = self:wrap_env_in_upvalue(func, i, value)
         elseif type(value) == 'function' then
             value = self:wrap_function_in_upvalue(func, i, value)
+        elseif type(value) == 'table' then
+            value = self:wrap_table_in_upvalue(func, i, name, value)
         end
         self.uv_values[i] = value
     end
@@ -60,13 +62,14 @@ end
 
 ---@param t table
 ---@param k any
----@param v any
-local function build_global_error_message(t, k, v)
+---@param old_value any
+---@param new_value any
+local function build_variable_error_message(t, k, old_value, new_value)
     local info = getinfo(3, 'Sl')
-    log.warn(string.format('你在本地环境中把全局变量【%s】的值从【%s】修改为了【%s】。\n修改位置：%s:%d'
+    log.warn(string.format('你在本地环境中把变量【%s】的值从【%s】修改为了【%s】。\n修改位置：%s:%d'
         , k
-        , t[k]
-        , v
+        , old_value
+        , new_value
         , info.short_src
         , info.linedefined
     ))
@@ -83,6 +86,10 @@ end
 function M:__close()
     for i, old_value in ipairs(self.uv_values) do
         local name, value = getupvalue(self.func, i)
+        --如果是没代理过的上值，则恢复原样；
+        --如果是已经代理过的上值，它的引用已经
+        --和真正的上值不是同一个引用了，所以
+        --也可以直接修改
         if old_value ~= value then
             setupvalue(self.func, i, old_value)
             build_upvalue_error_message(self.func, name, old_value, value)
@@ -112,23 +119,48 @@ function M:wrap_env_in_upvalue(func, i, value)
     return wrapped_env
 end
 
+---@param func function
+---@param i integer
+---@param name string
+---@param value table
+---@return table
+function M:wrap_table_in_upvalue(func, i, name, value)
+    local wrapped_table = M.wrap_table(name, value)
+    local dummy = function () return wrapped_table end
+    upvaluejoin(func, i, dummy, 1)
+    return wrapped_table
+end
+
 M.LOCAL_PLAYER = y3.player.get_by_handle(GameAPI.get_client_role())
 
-M.dont_wrap_this_function = setmetatable({}, { __mode = 'k' })
+M.dont_wrap_this = setmetatable({}, { __mode = 'k' })
 
 ---@private
 ---@param func function
 ---@return function
 function M.wrap_function(func)
-    if M.dont_wrap_this_function[func] then
+    if M.dont_wrap_this[func] then
         return func
     end
     local f = function (...)
         local _ <close> = New 'LocalPlayer' (func)
         return func(...)
     end
-    M.dont_wrap_this_function[f] = true
+    M.dont_wrap_this[f] = true
     return f
+end
+
+---@private
+---@param name string
+---@param tbl table
+---@return table
+function M.wrap_table(name, tbl)
+    if M.dont_wrap_this[tbl] then
+        return tbl
+    end
+    local wrapped_table = y3.proxy.new(tbl, M.proxy_config, name)
+    M.dont_wrap_this[wrapped_table] = true
+    return wrapped_table
 end
 
 ---@type Proxy.Config
@@ -152,7 +184,7 @@ M.proxy_config = {
         end
     end,
     anySetter = function (self, raw, key, value, config, parent_path)
-        build_global_error_message(self, key, value)
+        build_variable_error_message(self, parent_path .. '.' .. tostring(key), self[key], value)
         return value
     end
 }
