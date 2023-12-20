@@ -249,6 +249,26 @@ function M:get_attribute(key)
     return self.handle:api_get_attr("ATTR_BASE", key):float()
 end
 
+---设置增益属性
+---@param key string 属性key
+---@param value number 属性值
+function M:set_bonus_attribute(key, value)
+    self.handle:api_set_attr("ATTR_BONUS", key, value)
+end
+
+---增加增益属性
+---@param key string 属性key
+---@param value number 属性值
+function M:add_bonus_attribute(key, value)
+    self.handle:api_change_attr("ATTR_BONUS", key, value)
+end
+
+---获取物品的增益属性
+---@param key string 属性key
+---@return number
+function M:get_bonus_attribute(key)
+    return self.handle:api_get_attr("ATTR_BONUS", key):float()
+end
 ---设置生命值
 ---@param value number 生命值
 function M:set_hp(value)
