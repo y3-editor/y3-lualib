@@ -335,6 +335,23 @@ function M:set_btn_meta_key(key)
     return self
 end
 
+--设置按钮不同状态下的文本
+---@param status y3.Const.UIButtonStatus 状态
+---@param text string 文本
+---@return self
+function M:set_btn_status_string(status, text)
+    GameAPI.set_ui_btn_status_string(self.player.handle, self.handle, status, text)
+    return self
+end
+
+--设置按钮不同状态下的图片
+---@param status y3.Const.UIButtonStatus 状态
+---@param img integer 图片id
+---@return self
+function M:set_btn_status_image(status, img)
+    GameAPI.set_ui_btn_status_image(self.player.handle, self.handle, status, img)
+    return self
+end
 
 --设置智能施法快捷键
 ---@param key integer 快捷键
