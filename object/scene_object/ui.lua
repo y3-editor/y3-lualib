@@ -198,7 +198,7 @@ end
 ---@param time number? 渐变时间
 ---@return self
 function M:set_current_progress_bar_value(progress, time)
-    GameAPI.set_progress_bar_current_value(self.player.handle, self.handle, progress, time)
+    GameAPI.set_progress_bar_current_value(self.player.handle, self.handle, progress, time or 0)
     return self
 end
 
