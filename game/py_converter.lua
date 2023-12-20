@@ -27,6 +27,17 @@ function M.py_to_lua(py_type, py_value)
     return py_value
 end
 
+---@param lua_type string
+---@param py_value any
+---@return any
+function M.py_to_lua_by_lua_type(lua_type, py_value)
+    local py_type = M.get_py_type(lua_type)
+    if not py_type then
+        return nil
+    end
+    return M.py_to_lua(py_type, py_value)
+end
+
 ---@param py_type string
 ---@param lua_value any
 ---@return any
