@@ -664,7 +664,7 @@ end
 
 -- 是否被删除
 function M:is_removed()
-    return GameAPI.ui_comp_is_exist(self.handle)
+    return not GameAPI.ui_comp_is_exist(self.handle)
 end
 
 --绑定技能冷却时间到玩家界面控件的属性
