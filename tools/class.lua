@@ -180,6 +180,9 @@ function M.isValid(obj)
        and not obj.__deleted__
 end
 
+--推荐使用“扩展语义”而不是“继承”语义 。
+--因此不适合使用`super`了。
+---@deprecated
 ---@param name string
 ---@return fun(...)
 function M.super(name)
