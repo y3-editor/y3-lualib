@@ -140,7 +140,7 @@ function M.load_table_with_cover_enable(player, slot)
             end
             raw[key] = value
 
-            M.upload_save_data(player)
+            M.save_table(player, slot, save_data)
         end,
         anyGetter = function (self, raw, key, config, custom)
             local value = raw[key]
