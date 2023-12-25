@@ -217,6 +217,10 @@ end
 
 M.sandbox = y3.proxy.new(_G, M.proxy_config, '')
 
+y3.reload.onAfterReload(function ()
+    M.sandbox = y3.proxy.new(_G, M.proxy_config, '')
+end)
+
 ---@param env table
 ---@return table
 function M.wrap_env(env)
