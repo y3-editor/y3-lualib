@@ -56,6 +56,8 @@ function python_len(obj) end
 ---@return any
 function python_index(obj, index) end
 
+python = {}
+
 --------------- 运动器构造 ------------------
 
 ---@class py.MoverLineBuilder

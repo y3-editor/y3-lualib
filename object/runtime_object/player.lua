@@ -589,4 +589,11 @@ function M.get_res_keys(only_coin)
     return y3.helper.unpack_list(py_list)
 end
 
+-- 对玩家显示文本消息
+---@param message string # 消息
+---@param localize boolean # 是否支持语言环境
+function M:display_message(message, localize)
+    GameAPI.show_msg_to_role(self.handle, message, localize)
+end
+
 return M

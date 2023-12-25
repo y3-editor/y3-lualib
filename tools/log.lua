@@ -156,6 +156,12 @@ function M:build(level, ...)
         else
             message = debug.traceback(message, 3)
         end
+        if python and python.get_exc_info then
+            local py_traceback = python.get_exc_info()
+            if py_traceback then
+                message = tostring(py_traceback) .. '\n' .. message
+            end
+        end
     end
 
     local timeStamp = self:getTimeStamp()
