@@ -494,7 +494,7 @@ function M.current_game_run_time()
     return GameAPI.get_cur_game_time():float()
 end
 
----获取游戏当前时间
+---获取游戏当前昼夜时间
 ---@return number time 时间
 function M.get_day_night_time()
     return GameAPI.get_cur_day_and_night_time():float()
@@ -561,6 +561,22 @@ end
 ---@return integer time_stamp 时间戳
 function M.get_game_init_time_stamp()
     return GameAPI.get_game_init_time_stamp()
+end
+
+---@class ServerTime: osdate
+---@field timestamp integer # 时间戳
+---@field msec integer # 毫秒
+
+--获取当前的服务器时间
+---@return ServerTime
+function M.get_current_server_time()
+    local init_time_stamp = GameAPI.get_game_init_time_stamp()
+    local runned_sec, runned_ms = math.modf(GameAPI.get_cur_game_time():float())
+    local time_stamp = init_time_stamp + runned_sec
+    local result = os.date('!*t', time_stamp) --[[@as ServerTime]]
+    result.msec = math.floor(runned_ms * 1000)
+    result.timestamp = time_stamp
+    return result
 end
 
 ---获取初始化横向分辨率
