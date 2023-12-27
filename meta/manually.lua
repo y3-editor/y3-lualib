@@ -176,3 +176,6 @@ function Unit:create_mover_trigger(mover_data, mode, unit_collide, mover_finish,
 ---@param mover_removed   fun(mover: py.Mover)
 ---@return py.Mover
 function Projectile:create_mover_trigger(mover_data, mode, unit_collide, mover_finish, terrain_collide, mover_interrupt, mover_removed) end
+
+---@param ... any
+function consoleprint(...) end
