@@ -787,4 +787,33 @@ function M.set_role_all_micro_switch(player, switch)
     GameAPI.set_role_all_micro_switch(player.handle, switch)
 end
 
+---世界坐标转换屏幕坐标
+---@param world_pos Point 世界坐标
+---@return number x, number y 屏幕坐标
+function M.world_pos_to_camera_pos(world_pos)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local pos = GameAPI.api_world_pos_to_camera_pos(world_pos.handle)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local x = GlobalAPI.get_fixed_coord_index(pos, 0):float() / 100
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local y = GlobalAPI.get_fixed_coord_index(pos, 2):float() / 100
+    y = y - 2 * (y - y3.ui:get_window_height() / 2)
+    return x, y
+end
+
+---世界坐标转换屏幕边缘坐标
+---@param world_pos Point
+---@param delta_dis number
+---@return number x, number y
+function M.world_pos_to_screen_edge_pos(world_pos, delta_dis)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local pos = GameAPI.api_world_pos_to_screen_edge_pos(world_pos.handle, delta_dis)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local x = GlobalAPI.get_fixed_coord_index(pos, 0):float() / 100
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local y = GlobalAPI.get_fixed_coord_index(pos, 2):float() / 100
+    y = y - 2 * (y - y3.ui:get_window_height() / 2)
+    return x, y
+end
+
 return M
