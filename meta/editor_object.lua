@@ -1148,12 +1148,14 @@
 ---@field trajectory_speed number
 
 ---@class Object.Unit.SimpleCommonAtk.AttackTrajectory
+--特效  
 ---@field effect number
 ---@field follow_scale boolean
 ---@field scale number
 ---@field socket string
 
 ---@class Object.Unit.SimpleCommonAtk.HitEffect
+--特效  
 ---@field effect number
 ---@field follow_scale boolean
 ---@field scale number

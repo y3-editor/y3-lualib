@@ -3014,6 +3014,18 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
     },
 }
 
+---@alias EventParam.对话框-点击按钮 EventParam.ET_DIALOG_BUTTON_EVENT
+M.config["对话框-点击按钮"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "对话框按钮被点击时触发",
+    extraArgs = {
+    },
+    key = "ET_DIALOG_BUTTON_EVENT",
+    name = "对话框-点击按钮",
+    params = {
+    },
+}
+
 ---@class Game
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
@@ -3169,6 +3181,7 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 ---@field event fun(self: self, event: "游戏-消息", event_id: integer, callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
 ---@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
+---@field event fun(self: self, event: "对话框-点击按钮", callback: fun(trg: Trigger, data: EventParam.对话框-点击按钮)): Trigger
 
 ---@class Ability
 ---@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger

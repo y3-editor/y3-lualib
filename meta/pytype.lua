@@ -107,10 +107,8 @@
 ---@class py.SlotType: integer
 --
 ---@class py.RoleResKey: string
---平台道具编号
----@class py.StoreKey: integer
 --平台道具类型
----@class py.StoreItemType: integer
+---@class py.StoreKey: integer
 --
 ---@class py.TabName: string
 --商店页签ID
@@ -175,6 +173,8 @@
 ---@class py.DestructibleKey: integer
 --GameAPI对象
 ---@class py.GameAPI: py.DynamicTypeMeta
+--War3API对象
+---@class py.War3API: py.DynamicTypeMeta
 --玩家
 ---@class py.Role: py.DynamicTypeMeta
 --阵营对象
@@ -355,3 +355,27 @@
 ---@class py.Map: integer
 --移动方向
 ---@class py.MoveDirection: integer
+--单位组
+---@class py.W3Group: py.DynamicTypeMeta
+--计时器
+---@class py.W3Timer: py.DynamicTypeMeta
+--计时器窗口
+---@class py.W3TimerDialog: py.DynamicTypeMeta
+--对话框
+---@class py.W3Dialog: py.DynamicTypeMeta
+--对话框按钮
+---@class py.W3Button: py.DynamicTypeMeta
+--排行榜
+---@class py.W3LeaderBoard: py.DynamicTypeMeta
+--多面板
+---@class py.W3MultiBoard: py.DynamicTypeMeta
+--物品
+---@class py.W3Item: py.DynamicTypeMeta
+--单位池
+---@class py.W3UnitPool: py.DynamicTypeMeta
+--玩家
+---@class py.W3Player: py.DynamicTypeMeta
+--单位
+---@class py.W3Unit: py.DynamicTypeMeta
+--单位类型
+---@class py.W3UnitCode: py.DynamicTypeMeta

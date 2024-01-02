@@ -301,78 +301,6 @@ event.ET_BROADCAST_LUA_MSG = {
     },
 }
 
----@class EventParam.ET_CLOSE_MALL_COIN_PAYMENT
----@field player Player # 角色
----@field int1 integer # 错误码
-
---内购商品事件
-event.ET_CLOSE_MALL_COIN_PAYMENT = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "角色ID",
-        lua_desc = "角色",
-    },
-    [2] = {
-        name = "__int1",
-        type = "integer",
-        lua_name = "int1",
-        lua_type = "integer",
-        desc = "错误码",
-        lua_desc = "错误码",
-    },
-}
-
----@class EventParam.ET_MALL_GOODS_CHANGE
----@field player Player # 角色
----@field int1 integer # 数量
-
---玩家商品变化事件
-event.ET_MALL_GOODS_CHANGE = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "角色ID",
-        lua_desc = "角色",
-    },
-    [2] = {
-        name = "__int1",
-        type = "integer",
-        lua_name = "int1",
-        lua_type = "integer",
-        desc = "数量",
-        lua_desc = "数量",
-    },
-}
-
----@class EventParam.ET_MALL_COIN_CHANGE
----@field player Player # 角色
----@field int1 integer # 数量
-
---玩家货币变化事件
-event.ET_MALL_COIN_CHANGE = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "角色ID",
-        lua_desc = "角色",
-    },
-    [2] = {
-        name = "__int1",
-        type = "integer",
-        lua_name = "int1",
-        lua_type = "integer",
-        desc = "数量",
-        lua_desc = "数量",
-    },
-}
-
 ---@class EventParam.ET_ROLE_JOIN_BATTLE
 ---@field player Player # 玩家
 ---@field is_middle_join boolean # 是否中途加入
@@ -1428,6 +1356,64 @@ event.ET_UNIT_DIE = {
     },
 }
 
+---@class EventParam.ET_UNIT_DIE_INTERNAL
+---@field damage number # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field unit Unit # 无描述
+
+--单位死亡(仅内部代码用，在死亡事件前发送)
+event.ET_UNIT_DIE_INTERNAL = {
+    [1] = {
+        name = "__damage",
+        type = "py.Fixed",
+        lua_name = "damage",
+        lua_type = "number",
+        desc = "受到的伤害值",
+        lua_desc = "受到的伤害值",
+    },
+    [2] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "施加伤害的单位",
+        lua_desc = "施加伤害的单位",
+    },
+    [3] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "承受伤害的单位",
+        lua_desc = "承受伤害的单位",
+    },
+    [4] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "当前伤害所属技能",
+        lua_desc = "当前伤害所属技能",
+    },
+    [5] = {
+        name = "__damage_type",
+        type = "integer",
+        lua_name = "damage_type",
+        lua_type = "integer",
+        desc = "伤害类型",
+        lua_desc = "伤害类型",
+    },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+    },
+}
+
 ---@class EventParam.ET_UNIT_ON_UNBIND_ROLE
 ---@field unit Unit # 无描述
 ---@field player Player # 无描述
@@ -1469,6 +1455,7 @@ event.ET_UNIT_ON_BIND_ROLE = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT
+---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
@@ -1480,6 +1467,14 @@ event.ET_UNIT_ON_BIND_ROLE = {
 --单位即将受到攻击
 event.ET_UNIT_BE_HURT = {
     [1] = {
+        name = "__is_normal_hit",
+        type = "boolean",
+        lua_name = "is_normal_hit",
+        lua_type = "boolean",
+        desc = "是否是普通攻击",
+        lua_desc = "是否是普通攻击",
+    },
+    [2] = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
@@ -1487,7 +1482,7 @@ event.ET_UNIT_BE_HURT = {
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
-    [2] = {
+    [3] = {
         name = "__source_unit",
         type = "py.Unit",
         lua_name = "source_unit",
@@ -1495,7 +1490,7 @@ event.ET_UNIT_BE_HURT = {
         desc = "施加伤害的单位",
         lua_desc = "施加伤害的单位",
     },
-    [3] = {
+    [4] = {
         name = "__target_unit",
         type = "py.Unit",
         lua_name = "target_unit",
@@ -1503,7 +1498,7 @@ event.ET_UNIT_BE_HURT = {
         desc = "承受伤害的单位",
         lua_desc = "承受伤害的单位",
     },
-    [4] = {
+    [5] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -1511,7 +1506,7 @@ event.ET_UNIT_BE_HURT = {
         desc = "当前伤害所属技能",
         lua_desc = "当前伤害所属技能",
     },
-    [5] = {
+    [6] = {
         name = "__damage_type",
         type = "integer",
         lua_name = "damage_type",
@@ -1519,13 +1514,13 @@ event.ET_UNIT_BE_HURT = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
-    [6] = {
+    [7] = {
         name = "__unit_id",
         type = "py.UnitID",
         lua_name = "unit",
         lua_type = "Unit",
     },
-    [7] = {
+    [8] = {
         name = nil,
         type = nil,
         lua_name = "damage_instance",
@@ -1539,6 +1534,7 @@ event.ET_UNIT_BE_HURT = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER
+---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
@@ -1550,6 +1546,14 @@ event.ET_UNIT_BE_HURT = {
 --单位即将击中其他单位
 event.ET_UNIT_HURT_OTHER = {
     [1] = {
+        name = "__is_normal_hit",
+        type = "boolean",
+        lua_name = "is_normal_hit",
+        lua_type = "boolean",
+        desc = "是否是普通攻击",
+        lua_desc = "是否是普通攻击",
+    },
+    [2] = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
@@ -1557,7 +1561,7 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
-    [2] = {
+    [3] = {
         name = "__source_unit",
         type = "py.Unit",
         lua_name = "source_unit",
@@ -1565,7 +1569,7 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "施加伤害的单位",
         lua_desc = "施加伤害的单位",
     },
-    [3] = {
+    [4] = {
         name = "__target_unit",
         type = "py.Unit",
         lua_name = "target_unit",
@@ -1573,7 +1577,7 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "承受伤害的单位",
         lua_desc = "承受伤害的单位",
     },
-    [4] = {
+    [5] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -1581,7 +1585,7 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "当前伤害所属技能",
         lua_desc = "当前伤害所属技能",
     },
-    [5] = {
+    [6] = {
         name = "__damage_type",
         type = "integer",
         lua_name = "damage_type",
@@ -1589,13 +1593,13 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
-    [6] = {
+    [7] = {
         name = "__unit_id",
         type = "py.UnitID",
         lua_name = "unit",
         lua_type = "Unit",
     },
-    [7] = {
+    [8] = {
         name = nil,
         type = nil,
         lua_name = "damage_instance",
@@ -1609,6 +1613,7 @@ event.ET_UNIT_HURT_OTHER = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_BEFORE_APPLY
+---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
@@ -1620,6 +1625,14 @@ event.ET_UNIT_HURT_OTHER = {
 --单位即将受到攻击（计算加成后）
 event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
     [1] = {
+        name = "__is_normal_hit",
+        type = "boolean",
+        lua_name = "is_normal_hit",
+        lua_type = "boolean",
+        desc = "是否是普通攻击",
+        lua_desc = "是否是普通攻击",
+    },
+    [2] = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
@@ -1627,7 +1640,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
-    [2] = {
+    [3] = {
         name = "__source_unit",
         type = "py.Unit",
         lua_name = "source_unit",
@@ -1635,7 +1648,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "施加伤害的单位",
         lua_desc = "施加伤害的单位",
     },
-    [3] = {
+    [4] = {
         name = "__target_unit",
         type = "py.Unit",
         lua_name = "target_unit",
@@ -1643,7 +1656,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "承受伤害的单位",
         lua_desc = "承受伤害的单位",
     },
-    [4] = {
+    [5] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -1651,7 +1664,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "当前伤害所属技能",
         lua_desc = "当前伤害所属技能",
     },
-    [5] = {
+    [6] = {
         name = "__damage_type",
         type = "integer",
         lua_name = "damage_type",
@@ -1659,13 +1672,13 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
-    [6] = {
+    [7] = {
         name = "__unit_id",
         type = "py.UnitID",
         lua_name = "unit",
         lua_type = "Unit",
     },
-    [7] = {
+    [8] = {
         name = nil,
         type = nil,
         lua_name = "damage_instance",
@@ -1679,6 +1692,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_BEFORE_APPLY
+---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
@@ -1690,6 +1704,14 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
 --单位即将击中其他单位（计算加成后）
 event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
     [1] = {
+        name = "__is_normal_hit",
+        type = "boolean",
+        lua_name = "is_normal_hit",
+        lua_type = "boolean",
+        desc = "是否是普通攻击",
+        lua_desc = "是否是普通攻击",
+    },
+    [2] = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
@@ -1697,7 +1719,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
-    [2] = {
+    [3] = {
         name = "__source_unit",
         type = "py.Unit",
         lua_name = "source_unit",
@@ -1705,7 +1727,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "施加伤害的单位",
         lua_desc = "施加伤害的单位",
     },
-    [3] = {
+    [4] = {
         name = "__target_unit",
         type = "py.Unit",
         lua_name = "target_unit",
@@ -1713,7 +1735,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "承受伤害的单位",
         lua_desc = "承受伤害的单位",
     },
-    [4] = {
+    [5] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -1721,7 +1743,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "当前伤害所属技能",
         lua_desc = "当前伤害所属技能",
     },
-    [5] = {
+    [6] = {
         name = "__damage_type",
         type = "integer",
         lua_name = "damage_type",
@@ -1729,13 +1751,13 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
-    [6] = {
+    [7] = {
         name = "__unit_id",
         type = "py.UnitID",
         lua_name = "unit",
         lua_type = "Unit",
     },
-    [7] = {
+    [8] = {
         name = nil,
         type = nil,
         lua_name = "damage_instance",
@@ -7446,78 +7468,104 @@ event.ET_PHYSICS_ENTITY_ON_LOSE = {
     },
 }
 
----@class EventParam.ET_ROLE_STORE_ITEM_CHANGED
----@field store_key py.StoreKey # 道具编号
----@field store_item_type py.StoreItemType # 道具类型
----@field store_item_change_count integer # 平台道具变化数
----@field store_item_expire_date integer # 平台道具到期时间戳
----@field player Player # 玩家
+---@class EventParam.ET_DzTriggerRegisterSyncData
+---@field str1 string # 字符串
+---@field bool1 boolean # 是否需要平台参数
 
---平台道具变化事件
-event.ET_ROLE_STORE_ITEM_CHANGED = {
+--数据同步
+event.ET_DzTriggerRegisterSyncData = {
     [1] = {
-        name = "__store_key",
-        type = "py.StoreKey",
-        lua_name = "store_key",
-        lua_type = "py.StoreKey",
-        desc = "道具编号",
-        lua_desc = "道具编号",
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "字符串",
+        lua_desc = "字符串",
     },
     [2] = {
-        name = "__store_item_type",
-        type = "py.StoreItemType",
-        lua_name = "store_item_type",
-        lua_type = "py.StoreItemType",
-        desc = "道具类型",
-        lua_desc = "道具类型",
-    },
-    [3] = {
-        name = "__store_item_change_count",
-        type = "integer",
-        lua_name = "store_item_change_count",
-        lua_type = "integer",
-        desc = "平台道具变化数",
-        lua_desc = "平台道具变化数",
-    },
-    [4] = {
-        name = "__store_item_expire_date",
-        type = "integer",
-        lua_name = "store_item_expire_date",
-        lua_type = "integer",
-        desc = "平台道具到期时间戳",
-        lua_desc = "平台道具到期时间戳",
-    },
-    [5] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "玩家id",
-        lua_desc = "玩家",
+        name = "__bool1",
+        type = "boolean",
+        lua_name = "bool1",
+        lua_type = "boolean",
+        desc = "是否需要平台参数",
+        lua_desc = "是否需要平台参数",
     },
 }
 
----@class EventParam.ET_ROLE_STORE_PAGE_STATE_CHANGED
+---@class EventParam.ET_TriggerRegisterPlayerSelectionEventBJ
 ---@field player Player # 玩家
----@field store_page_state boolean # 商城界面状态
+---@field bool1 boolean # 是否选中
 
---平台商城窗口变化事件
-event.ET_ROLE_STORE_PAGE_STATE_CHANGED = {
+--玩家选择单位事件
+event.ET_TriggerRegisterPlayerSelectionEventBJ = {
+    [1] = {
+        name = "__role_id",
+        type = "py.Role",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__bool1",
+        type = "boolean",
+        lua_name = "bool1",
+        lua_type = "boolean",
+        desc = "是否选中",
+        lua_desc = "是否选中",
+    },
+}
+
+---@class EventParam.ET_PlayerUnitEventDeath
+
+--单位死亡事件
+event.ET_PlayerUnitEventDeath = {}
+
+---@class EventParam.ET_PlayerUnitEventReviveFinish
+
+--完成复活英雄
+event.ET_PlayerUnitEventReviveFinish = {}
+
+---@class EventParam.ET_PlayerUnitEventHeroPickUpItem
+
+--获得物品
+event.ET_PlayerUnitEventHeroPickUpItem = {}
+
+---@class EventParam.ET_PlayerUnitEventSummoned
+
+--被召唤(召唤单位)
+event.ET_PlayerUnitEventSummoned = {}
+
+---@class EventParam.ET_DIALOG_BUTTON_EVENT
+---@field player Player # 玩家
+---@field dialog_id integer # 对话框id
+---@field button_id integer # 按钮id
+
+--对话框按钮-点击
+event.ET_DIALOG_BUTTON_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
         lua_name = "player",
         lua_type = "Player",
-        desc = "玩家id",
+        desc = "玩家ID",
         lua_desc = "玩家",
     },
     [2] = {
-        name = "__store_page_state",
-        type = "boolean",
-        lua_name = "store_page_state",
-        lua_type = "boolean",
-        desc = "商城界面状态",
-        lua_desc = "商城界面状态",
+        name = "__dialog_id",
+        type = "integer",
+        lua_name = "dialog_id",
+        lua_type = "integer",
+        desc = "对话框id",
+        lua_desc = "对话框id",
+    },
+    [3] = {
+        name = "__button_id",
+        type = "integer",
+        lua_name = "button_id",
+        lua_type = "integer",
+        desc = "按钮id",
+        lua_desc = "按钮id",
     },
 }
 
