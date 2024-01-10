@@ -3972,6 +3972,39 @@ event.ET_ABILITY_AUTOCAST_CHANGED = {
     },
 }
 
+---@class EventParam.ET_SIMPLE_ATTACK_PROJECTILE_REACH_TARGET
+---@field ability Ability # 技能对象
+---@field ability_target_unit Unit # 技能Owner
+---@field ability_target_pos Point # 技能目标点
+
+--简易普攻投射物到达目标点
+event.ET_SIMPLE_ATTACK_PROJECTILE_REACH_TARGET = {
+    [1] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "技能对象",
+        lua_desc = "技能对象",
+    },
+    [2] = {
+        name = "__ability_target_unit_id",
+        type = "py.UnitID",
+        lua_name = "ability_target_unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
+        name = "__ability_target_pos",
+        type = "py.Point",
+        lua_name = "ability_target_pos",
+        lua_type = "Point",
+        desc = "技能目标点",
+        lua_desc = "技能目标点",
+    },
+}
+
 ---@class EventParam.ET_OBTAIN_MODIFIER
 ---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
@@ -5873,6 +5906,30 @@ event.ET_RESIZE_SKILL_POINTER = {
         lua_type = "py.AbilitySeq",
         desc = "技能Seq",
         lua_desc = "技能Seq",
+    },
+}
+
+---@class EventParam.ET_SUMMON_UNIT
+---@field summoning_unit Unit # 召唤者
+---@field summoned_unit Unit # 召唤单位
+
+--召唤单位
+event.ET_SUMMON_UNIT = {
+    [1] = {
+        name = "__summoning_unit",
+        type = "py.Unit",
+        lua_name = "summoning_unit",
+        lua_type = "Unit",
+        desc = "召唤者",
+        lua_desc = "召唤者",
+    },
+    [2] = {
+        name = "__summoned_unit",
+        type = "py.Unit",
+        lua_name = "summoned_unit",
+        lua_type = "Unit",
+        desc = "召唤单位",
+        lua_desc = "召唤单位",
     },
 }
 
