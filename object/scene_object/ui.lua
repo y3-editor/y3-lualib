@@ -852,6 +852,20 @@ function M:get_height()
     return GameAPI.get_ui_comp_height(self.handle)
 end
 
+--获得控件真实宽度
+---@return number width 控件真实宽度
+function M:get_real_width()
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return GameAPI.get_role_ui_comp_real_width(self.player.handle, self.handle)
+end
+
+--获得控件真实高度
+---@return number height 控件真实高度
+function M:get_real_height()
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return GameAPI.get_role_ui_comp_real_height(self.player.handle, self.handle)
+end
+
 --获得界面控件的父控件
 ---@return UI ui_comp ui控件
 function M:get_parent()
