@@ -796,6 +796,51 @@ event.ET_ROLE_CHANGE_RELATION = {
     },
 }
 
+---@class EventParam.ET_UNIT_CONSTRUCT_START
+---@field build_unit Unit # 开始建造的单位
+
+--单位建造开始
+event.ET_UNIT_CONSTRUCT_START = {
+    [1] = {
+        name = "__build_unit_id",
+        type = "py.UnitID",
+        lua_name = "build_unit",
+        lua_type = "Unit",
+        desc = "开始建造的单位ID",
+        lua_desc = "开始建造的单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_CONSTRUCT_CANCEL
+---@field build_unit Unit # 取消建造的单位
+
+--单位建造取消
+event.ET_UNIT_CONSTRUCT_CANCEL = {
+    [1] = {
+        name = "__build_unit_id",
+        type = "py.UnitID",
+        lua_name = "build_unit",
+        lua_type = "Unit",
+        desc = "取消建造的单位ID",
+        lua_desc = "取消建造的单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_CONSTRUCT_FINISH
+---@field build_unit Unit # 建造出来的单位
+
+--单位建造成功
+event.ET_UNIT_CONSTRUCT_FINISH = {
+    [1] = {
+        name = "__build_unit_id",
+        type = "py.UnitID",
+        lua_name = "build_unit",
+        lua_type = "Unit",
+        desc = "建造出来的单位ID",
+        lua_desc = "建造出来的单位",
+    },
+}
+
 ---@class EventParam.ET_ABILITY_BUILD_FINISH
 ---@field ability Ability # 技能
 ---@field ability_type py.AbilityType # 技能类型
@@ -5603,6 +5648,21 @@ event.ET_SELECT_UNIT = {
     },
 }
 
+---@class EventParam.CANCEL_SELECT_UNIT
+---@field player Player # 玩家
+
+--取消选中单位
+event.CANCEL_SELECT_UNIT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+}
+
 ---@class EventParam.ET_HIGH_LIGHT_UNIT_CHANGE
 ---@field player Player # 玩家
 ---@field high_light_unit_id py.HighLightUnitID # 高亮单位id
@@ -5930,6 +5990,87 @@ event.ET_SUMMON_UNIT = {
         lua_type = "Unit",
         desc = "召唤单位",
         lua_desc = "召唤单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_TRAIN_START
+---@field unit Unit # 训练器单位
+---@field trained_unit_type py.UnitKey # 被训练单位类型
+
+--单位开始训练
+event.ET_UNIT_TRAIN_START = {
+    [1] = {
+        name = "__unit",
+        type = "py.Unit",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "训练器单位",
+        lua_desc = "训练器单位",
+    },
+    [2] = {
+        name = "__trained_unit_type",
+        type = "py.UnitKey",
+        lua_name = "trained_unit_type",
+        lua_type = "py.UnitKey",
+        desc = "被训练单位类型",
+        lua_desc = "被训练单位类型",
+    },
+}
+
+---@class EventParam.ET_UNIT_TRAIN_FINISH
+---@field unit Unit # 训练器单位
+---@field trained_unit_type py.UnitKey # 被训练单位类型
+---@field trained_unit Unit # 被训练单位
+
+--单位训练完成
+event.ET_UNIT_TRAIN_FINISH = {
+    [1] = {
+        name = "__unit",
+        type = "py.Unit",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "训练器单位",
+        lua_desc = "训练器单位",
+    },
+    [2] = {
+        name = "__trained_unit_type",
+        type = "py.UnitKey",
+        lua_name = "trained_unit_type",
+        lua_type = "py.UnitKey",
+        desc = "被训练单位类型",
+        lua_desc = "被训练单位类型",
+    },
+    [3] = {
+        name = "__trained_unit",
+        type = "py.Unit",
+        lua_name = "trained_unit",
+        lua_type = "Unit",
+        desc = "被训练单位",
+        lua_desc = "被训练单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_TRAIN_CANCEL
+---@field unit Unit # 训练器单位
+---@field trained_unit_type py.UnitKey # 被训练单位类型
+
+--单位训练取消
+event.ET_UNIT_TRAIN_CANCEL = {
+    [1] = {
+        name = "__unit",
+        type = "py.Unit",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "训练器单位",
+        lua_desc = "训练器单位",
+    },
+    [2] = {
+        name = "__trained_unit_type",
+        type = "py.UnitKey",
+        lua_name = "trained_unit_type",
+        lua_type = "py.UnitKey",
+        desc = "被训练单位类型",
+        lua_desc = "被训练单位类型",
     },
 }
 

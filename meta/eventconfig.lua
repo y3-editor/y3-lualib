@@ -2750,6 +2750,45 @@ M.config["单位-召唤"] = {
     },
 }
 
+---@alias EventParam.单位-训练开始 EventParam.ET_UNIT_TRAIN_START
+M.config["单位-训练开始"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_UNIT_TRAIN_START",
+    name = "单位-训练开始",
+    object = "Unit",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-训练完成 EventParam.ET_UNIT_TRAIN_FINISH
+M.config["单位-训练完成"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_UNIT_TRAIN_FINISH",
+    name = "单位-训练完成",
+    object = "Unit",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-训练取消 EventParam.ET_UNIT_TRAIN_CANCEL
+M.config["单位-训练取消"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_UNIT_TRAIN_CANCEL",
+    name = "单位-训练取消",
+    object = "Unit",
+    params = {
+    },
+}
+
 ---@alias EventParam.物品-获得 EventParam.ET_UNIT_ADD_ITEM
 M.config["物品-获得"] = {
     __class__ = "EventConfigBuilder",
@@ -3175,6 +3214,9 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: self, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: self, event: "单位-召唤", callback: fun(trg: Trigger, data: EventParam.单位-召唤)): Trigger
+---@field event fun(self: self, event: "单位-训练开始", callback: fun(trg: Trigger, data: EventParam.单位-训练开始)): Trigger
+---@field event fun(self: self, event: "单位-训练完成", callback: fun(trg: Trigger, data: EventParam.单位-训练完成)): Trigger
+---@field event fun(self: self, event: "单位-训练取消", callback: fun(trg: Trigger, data: EventParam.单位-训练取消)): Trigger
 ---@field event fun(self: self, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
 ---@field event fun(self: self, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
 ---@field event fun(self: self, event: "物品-进入背包", callback: fun(trg: Trigger, data: EventParam.物品-进入背包)): Trigger
@@ -3375,6 +3417,9 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Unit, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: Unit, event: "单位-召唤", callback: fun(trg: Trigger, data: EventParam.单位-召唤)): Trigger
+---@field event fun(self: Unit, event: "单位-训练开始", callback: fun(trg: Trigger, data: EventParam.单位-训练开始)): Trigger
+---@field event fun(self: Unit, event: "单位-训练完成", callback: fun(trg: Trigger, data: EventParam.单位-训练完成)): Trigger
+---@field event fun(self: Unit, event: "单位-训练取消", callback: fun(trg: Trigger, data: EventParam.单位-训练取消)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
 

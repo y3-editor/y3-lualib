@@ -33,6 +33,7 @@ enum.UnitCommandTypeEnum = {
     AUTO_PICK = 15,
     MOVE_TO_POS_3D = 16,
     HOLD_3D = 17,
+    ATTACK_POINT = 18,
 }
 
 --None
@@ -47,6 +48,7 @@ enum.UnitGroupCommandTypeEnum = {
     EMPTY = 14,
     MOVE_TO_RANDOM_POS = 15,
     ATTACK_MOVE_RANDOM_POS = 16,
+    ATTACK_POINT = 18,
 }
 
 return enum

@@ -456,6 +456,22 @@ function Unit:api_set_unit_icon(icon) end
 ---@return string # 属性
 function Unit:api_get_unit_main_attr() end
 
+--设置死亡后是否销毁单位
+---@param should_destroy boolean # 是否销毁
+function Unit:api_set_should_destroy_after_die(should_destroy) end
+
+--设置死亡后销毁尸体时间
+---@param keep_time py.Fixed # 销毁时间
+function Unit:api_set_keep_dead_body_time(keep_time) end
+
+--设置死亡后是否销毁单位
+---@return boolean # 是否销毁
+function Unit:api_get_should_destroy_after_die() end
+
+--设置死亡后销毁尸体时间
+---@return py.Fixed # 销毁时间
+function Unit:api_get_keep_dead_body_time() end
+
 --单位停止移动
 function Unit:api_stop_move() end
 
@@ -1276,9 +1292,9 @@ function Unit:api_buy_item_with_tab_name(shop_unit, tab_idx, item_no) end
 
 --单位购买单位
 ---@param shop_unit py.Unit # 商店
----@param tab_name py.TabName # 页签
+---@param tab_idx integer # 页签
 ---@param entity_no py.UnitKey # 单位编号
-function Unit:api_buy_unit_with_tab_name(shop_unit, tab_name, entity_no) end
+function Unit:api_buy_unit_with_tab_name(shop_unit, tab_idx, entity_no) end
 
 --单位出售物品
 ---@param shop_unit py.Unit # 商店
