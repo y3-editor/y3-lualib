@@ -456,22 +456,6 @@ function Unit:api_set_unit_icon(icon) end
 ---@return string # 属性
 function Unit:api_get_unit_main_attr() end
 
---设置死亡后是否销毁单位
----@param should_destroy boolean # 是否销毁
-function Unit:api_set_should_destroy_after_die(should_destroy) end
-
---设置死亡后销毁尸体时间
----@param keep_time py.Fixed # 销毁时间
-function Unit:api_set_keep_dead_body_time(keep_time) end
-
---设置死亡后是否销毁单位
----@return boolean # 是否销毁
-function Unit:api_get_should_destroy_after_die() end
-
---设置死亡后销毁尸体时间
----@return py.Fixed # 销毁时间
-function Unit:api_get_keep_dead_body_time() end
-
 --单位停止移动
 function Unit:api_stop_move() end
 
@@ -532,13 +516,9 @@ function Unit:api_set_turn_speed(turn_speed) end
 ---@return py.Fixed # 转身速度
 function Unit:api_get_turn_speed() end
 
---设置动画移动速度-跑（用于控制跑的动画播放速度）
----@param base_speed py.Fixed # 动画移动速度
+--设置基础移动速度（用于控制移动动画播放速度）
+---@param base_speed py.Fixed # 基础移动速度
 function Unit:api_set_base_speed(base_speed) end
-
---设置动画移动速度-走（用于控制走的动画播放速度）
----@param speed py.Fixed # 动画移动速度
-function Unit:api_set_anim_walk_speed(speed) end
 
 --单位是否在移动
 ---@return boolean # 是否在移动
@@ -553,11 +533,6 @@ function Unit:api_set_move_collision(collision_layer, enable) end
 ---@param collision_layer integer # 碰撞mask
 ---@return boolean # 是否开启
 function Unit:api_get_move_collision(collision_layer) end
-
---判断单位的移动类型
----@param move_type integer # 移动类型
----@return boolean # 是否为该移动类型
-function Unit:api_is_move_type(move_type) end
 
 --设置单位的移动类型为地面
 ---@param land_limitation? boolean # 陆地限制
@@ -1292,9 +1267,9 @@ function Unit:api_buy_item_with_tab_name(shop_unit, tab_idx, item_no) end
 
 --单位购买单位
 ---@param shop_unit py.Unit # 商店
----@param tab_idx integer # 页签
+---@param tab_name py.TabName # 页签
 ---@param entity_no py.UnitKey # 单位编号
-function Unit:api_buy_unit_with_tab_name(shop_unit, tab_idx, entity_no) end
+function Unit:api_buy_unit_with_tab_name(shop_unit, tab_name, entity_no) end
 
 --单位出售物品
 ---@param shop_unit py.Unit # 商店

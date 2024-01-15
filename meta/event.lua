@@ -797,47 +797,47 @@ event.ET_ROLE_CHANGE_RELATION = {
 }
 
 ---@class EventParam.ET_UNIT_CONSTRUCT_START
----@field build_unit Unit # 开始建造的单位
+---@field unit Unit # 开始建造的单位
 
 --单位建造开始
 event.ET_UNIT_CONSTRUCT_START = {
     [1] = {
-        name = "__build_unit_id",
+        name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "build_unit",
+        lua_name = "unit",
         lua_type = "Unit",
-        desc = "开始建造的单位ID",
+        desc = "开始建造的单位",
         lua_desc = "开始建造的单位",
     },
 }
 
 ---@class EventParam.ET_UNIT_CONSTRUCT_CANCEL
----@field build_unit Unit # 取消建造的单位
+---@field unit Unit # 取消建造的单位
 
 --单位建造取消
 event.ET_UNIT_CONSTRUCT_CANCEL = {
     [1] = {
-        name = "__build_unit_id",
+        name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "build_unit",
+        lua_name = "unit",
         lua_type = "Unit",
-        desc = "取消建造的单位ID",
+        desc = "取消建造的单位",
         lua_desc = "取消建造的单位",
     },
 }
 
 ---@class EventParam.ET_UNIT_CONSTRUCT_FINISH
----@field build_unit Unit # 建造出来的单位
+---@field unit Unit # 建造完成的单位
 
 --单位建造成功
 event.ET_UNIT_CONSTRUCT_FINISH = {
     [1] = {
-        name = "__build_unit_id",
+        name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "build_unit",
+        lua_name = "unit",
         lua_type = "Unit",
-        desc = "建造出来的单位ID",
-        lua_desc = "建造出来的单位",
+        desc = "建造完成的单位",
+        lua_desc = "建造完成的单位",
     },
 }
 
