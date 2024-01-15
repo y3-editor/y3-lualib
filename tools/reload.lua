@@ -119,13 +119,13 @@ M.includeStack = {}
 ---@param name string
 ---@return any
 function M.include(name)
-    M.includeStack[#M.includeStack+1] = name
-    local suc, result = xpcall(require, log.error, name)
-    M.includeStack[#M.includeStack] = nil
     if not M.includedNameMap[name] then
         M.includedNameMap[name] = true
         M.includedNames[#M.includedNames+1] = name
     end
+    M.includeStack[#M.includeStack+1] = name
+    local suc, result = xpcall(require, log.error, name)
+    M.includeStack[#M.includeStack] = nil
     if not suc then
         return false
     end
