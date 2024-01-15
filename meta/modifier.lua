@@ -53,6 +53,10 @@ function ModifierEntity:api_get_residue_time() end
 ---@return py.Fixed # 已经持续时间
 function ModifierEntity:api_get_passed_time() end
 
+--获取buff关联技能id
+---@return integer # 最大堆叠层数
+function ModifierEntity:api_get_from_ability_id() end
+
 --获取buff最大堆叠层数
 ---@return integer # 最大堆叠层数
 function ModifierEntity:api_get_layer_max() end

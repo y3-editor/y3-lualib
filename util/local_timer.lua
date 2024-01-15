@@ -4,6 +4,7 @@
 ---@class LocalTimer
 ---@field private include_name? string
 ---@field package id integer
+---@field private time number
 ---@field private mode LocalTimer.Mode
 ---@field private count integer
 ---@field private on_timer LocalTimer.OnTimer
