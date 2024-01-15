@@ -36,14 +36,17 @@ end)
 ---@field on_finish? fun(self: Mover) # 运动结束回调
 ---@field on_break? fun(self: Mover) # 运动打断回调
 ---@field on_remove? fun(self: Mover) # 运动移除回调
----@field hit_type? integer # 碰撞类型
+---@field hit_type? integer # 碰撞类型 0： 敌人；1： 盟友；2： 全部
 ---@field hit_radius? number # 碰撞范围
 ---@field hit_same? boolean # 能否重复碰撞同一单位
+---@field hit_interval? number # 碰撞同一个单位的间隔
 ---@field terrain_block? boolean # 是否会被地形阻挡
+---@field block_interval? number # 触发地形阻挡事件的间隔
 ---@field priority? integer # 优先级
 ---@field absolute_height? boolean # 是否使用绝对高度
 ---@field face_angle? boolean # 是否始终面向运动方向
 ---@field ability? Ability # 关联技能
+---@field unit? Unit # 关联单位
 
 ---@class Mover.CreateData.Line: Mover.CreateData.Base
 ---@field angle number # 运动方向
@@ -154,10 +157,28 @@ function M.wrap_callbacks(mover_data)
 end
 
 ---@private
+---@param builder py.MoverBaseBuilder
+---@param args Mover.CreateData.Base
+function M.wrap_base_args(builder, args)
+    builder.set_collision_type          (args.hit_type or 0)
+    builder.set_collision_radius        (Fix32(args.hit_radius or 0.0))
+    builder.set_is_face_angle           (args.face_angle or false)
+    builder.set_is_multi_collision      (args.hit_same or false)
+    builder.set_unit_collide_interval   (Fix32(args.hit_interval or 0.0))
+    builder.set_terrain_block           (args.terrain_block or false)
+    builder.set_terrain_collide_interval(Fix32(args.block_interval or 0.0))
+    builder.set_priority                (args.priority or 1)
+    builder.set_is_absolute_height      (args.absolute_height or false)
+    --builder.set_related_unit            (args.unit and args.unit.handle or nil)
+    --builder.set_related_ability         (args.ability and args.ability.handle or nil)
+end
+
+---@private
 ---@param args Mover.CreateData.Line
 ---@return table
 function M.wrap_line_args(args)
     local builder = StraightMoverArgs()
+    M.wrap_base_args(builder, args)
     builder.set_angle              (Fix32(args.angle))
     builder.set_max_dist           (Fix32(args.distance))
     builder.set_init_velocity      (Fix32(args.speed))
@@ -167,14 +188,7 @@ function M.wrap_line_args(args)
     builder.set_init_height        (Fix32(args.init_height or 0.0))
     builder.set_fin_height         (Fix32(args.fin_height or 0.0))
     builder.set_parabola_height    (Fix32(args.parabola_height or 0.0))
-    builder.set_collision_type     (args.hit_type or 0)
-    builder.set_collision_radius   (Fix32(args.hit_radius or 0.0))
-    builder.set_is_face_angle      (args.face_angle or false)
-    builder.set_is_multi_collision (args.hit_same or false)
-    builder.set_terrain_block      (args.terrain_block or false)
-    builder.set_priority           (args.priority or 1)
     builder.set_is_parabola_height (args.parabola_height ~= nil)
-    builder.set_is_absolute_height (args.absolute_height or false)
     builder.set_is_open_init_height(args.init_height ~= nil)
     builder.set_is_open_fin_height (args.fin_height ~= nil)
 
@@ -186,6 +200,7 @@ end
 ---@return table
 function M.wrap_target_args(args)
     local builder = ChasingMoverArgs()
+    M.wrap_base_args(builder, args)
     builder.set_stop_distance_to_target(Fix32(args.target_distance or 0.0))
     builder.set_init_velocity          (Fix32(args.speed))
     builder.set_acceleration           (Fix32(args.acceleration or 0.0))
@@ -193,13 +208,6 @@ function M.wrap_target_args(args)
     builder.set_min_velocity           (Fix32(args.min_speed or 0.0))
     builder.set_init_height            (Fix32(args.height or 0.0))
     builder.set_bind_point             (args.bind_point or '')
-    builder.set_collision_type         (args.hit_type or 0)
-    builder.set_collision_radius       (Fix32(args.hit_radius or 0.0))
-    builder.set_is_face_angle          (args.face_angle or false)
-    builder.set_is_multi_collision     (args.hit_same or false)
-    builder.set_terrain_block          (args.terrain_block or false)
-    builder.set_priority               (args.priority or 1)
-    builder.set_is_absolute_height     (args.absolute_height or false)
     builder.set_is_open_init_height    (args.height ~= nil)
     builder.set_is_parabola_height     (args.parabola_height ~= nil)
     builder.set_parabola_height        (Fix32(args.parabola_height or 0.0))
@@ -225,6 +233,7 @@ function M.wrap_curve_args(args)
     end)
 
     local builder = CurvedMoverArgs()
+    M.wrap_base_args(builder, args)
     builder.set_angle              (Fix32(args.angle))
     builder.set_max_dist           (Fix32(args.distance))
     builder.set_init_velocity      (Fix32(args.speed))
@@ -234,13 +243,6 @@ function M.wrap_curve_args(args)
     builder.set_min_velocity       (Fix32(args.min_speed or 0.0))
     builder.set_init_height        (Fix32(args.init_height or 0.0))
     builder.set_fin_height         (Fix32(args.fin_height or 0.0))
-    builder.set_collision_type     (args.hit_type or 0)
-    builder.set_collision_radius   (Fix32(args.hit_radius or 0.0))
-    builder.set_is_face_angle      (args.face_angle or false)
-    builder.set_is_multi_collision (args.hit_same or false)
-    builder.set_terrain_block      (args.terrain_block or false)
-    builder.set_priority           (args.priority or 1)
-    builder.set_is_absolute_height (args.absolute_height or false)
     builder.set_is_open_init_height(args.init_height ~= nil)
 
     return builder
@@ -252,6 +254,7 @@ end
 function M.wrap_round_args(args)
     local target = args.target
     local builder = RoundMoverArgs()
+    M.wrap_base_args(builder, args)
     if target.type == 'unit' then
         ---@cast target Unit
         builder.set_is_to_unit(true)
@@ -272,13 +275,6 @@ function M.wrap_round_args(args)
     builder.set_centrifugal_velocity   (Fix32(args.radius_speed or 0.0))
     builder.set_lifting_velocity       (Fix32(args.lifting_speed or 0.0))
     --builder.set_init_height            (Fix32(args.height or 0.0))
-    builder.set_collision_type         (args.hit_type or 0)
-    builder.set_collision_radius       (Fix32(args.hit_radius or 0.0))
-    builder.set_is_face_angle          (args.face_angle or false)
-    builder.set_is_multi_collision     (args.hit_same or false)
-    builder.set_terrain_block          (args.terrain_block or false)
-    builder.set_priority               (args.priority or 1)
-    builder.set_is_absolute_height     (args.absolute_height or false)
 
     return builder
 end
