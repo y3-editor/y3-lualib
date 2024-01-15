@@ -162,7 +162,10 @@ function m.dump(tbl, option)
                 tp    = type(value)
             end
             if tp == 'table' then
-                if mark[value] and mark[value] > 0 then
+                -- 如果是Y3对象, 避免直接打印tostring信息,
+                if GameAPI.table_has_key(value, "__class__") then
+                    lines[#lines + 1] = ("%s%s%q,"):format(TAB[deep + 1], keyWord, tostring(value))
+                elseif mark[value] and mark[value] > 0 then
                     lines[#lines+1] = ('%s%s%s,'):format(TAB[deep+1], keyWord, option['loop'] or '"<Loop>"')
                 elseif deep >= (option['deep'] or mathHuge) then
                     lines[#lines+1] = ('%s%s%s,'):format(TAB[deep+1], keyWord, '"<Deep>"')
