@@ -218,9 +218,12 @@ function M:get_source()
 end
 
 ---获取魔法效果的携带者
----@return Unit owner 携带者
+---@return Unit? owner 携带者
 function M:get_owner()
     local py_unit = self.handle:api_get_owner()
+    if not py_unit then
+        return nil
+    end
     return y3.unit.get_by_handle(py_unit)
 end
 
