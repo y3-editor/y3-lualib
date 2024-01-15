@@ -623,8 +623,7 @@ end
 ---@param id integer 事件id
 ---@param table table 事件数据
 function M.send_custom_event(id, table)
-    ---@diagnostic disable-next-line
-    GameAPI.send_custom_event(id, table)
+    GameAPI.send_event_custom(id, table)
 end
 
 ---字符串转界面事件
