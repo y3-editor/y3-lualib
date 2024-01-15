@@ -309,15 +309,3 @@ function Ability:api_set_autocast_enabled(b) end
 --自动施法是否开启
 ---@return boolean # 是否开启
 function Ability:api_is_autocast_enabled() end
-
---是否简易普攻
----@return boolean # 是否简易普攻
-function Ability:api_is_preset_normal_attack() end
-
---是否是远程技能
----@return boolean # 布尔值
-function Ability:w3_api_is_remote_ability() end
-
---获取技能绑定的物品
----@return py.Item # 物品实体
-function Ability:api_get_item() end

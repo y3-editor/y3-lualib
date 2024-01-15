@@ -49,6 +49,9 @@ end
 ---@param ... any
 ---@return any
 function M:get(key, ...)
+    if not key then
+        return nil
+    end
     local strongRefMap = self.strongRefMap
     if strongRefMap[key] then
         return strongRefMap[key]

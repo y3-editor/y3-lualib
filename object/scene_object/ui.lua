@@ -855,6 +855,9 @@ end
 --获得控件真实宽度
 ---@return number width 控件真实宽度
 function M:get_real_width()
+    if self.player:get_state() ~= 1 then
+        return 0
+    end
     ---@diagnostic disable-next-line: return-type-mismatch
     return GameAPI.get_role_ui_comp_real_width(self.player.handle, self.handle)
 end
@@ -862,6 +865,9 @@ end
 --获得控件真实高度
 ---@return number height 控件真实高度
 function M:get_real_height()
+    if self.player:get_state() ~= 1 then
+        return 0
+    end
     ---@diagnostic disable-next-line: return-type-mismatch
     return GameAPI.get_role_ui_comp_real_height(self.player.handle, self.handle)
 end

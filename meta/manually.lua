@@ -60,7 +60,20 @@ python = {}
 
 --------------- 运动器构造 ------------------
 
----@class py.MoverLineBuilder
+---@class py.MoverBaseBuilder
+---@field set_is_face_angle            fun(is_face_angle: boolean)
+---@field set_collision_type           fun(collision_type: integer)
+---@field set_collision_radius         fun(collision_radius: py.Fixed)
+---@field set_is_multi_collision       fun(is_multi_collision: boolean)
+---@field set_unit_collide_interval    fun(interval: py.Fixed)
+---@field set_terrain_block            fun(terrain_block: boolean)
+---@field set_terrain_collide_interval fun(interval: py.Fixed)
+---@field set_priority                 fun(priority: integer)
+---@field set_related_unit             fun(related_unit?: py.Unit)
+---@field set_related_ability          fun(related_ability?: py.Ability)
+---@field set_is_absolute_height       fun(is_absolute_height: boolean)
+
+---@class py.MoverLineBuilder: py.MoverBaseBuilder
 ---@field set_angle               fun(angle: py.Fixed)
 ---@field set_max_dist            fun(max_dist: py.Fixed)
 ---@field set_init_velocity       fun(init_velocity: py.Fixed)
@@ -70,18 +83,11 @@ python = {}
 ---@field set_init_height         fun(init_height: py.Fixed)
 ---@field set_fin_height          fun(fin_height: py.Fixed)
 ---@field set_parabola_height     fun(parabola_height: py.Fixed)
----@field set_collision_type      fun(collision_type: integer)
----@field set_collision_radius    fun(collision_radius: py.Fixed)
----@field set_is_face_angle       fun(is_face_angle: boolean)
----@field set_is_multi_collision  fun(is_multi_collision: boolean)
----@field set_terrain_block       fun(terrain_block: boolean)
----@field set_priority            fun(priority: integer)
 ---@field set_is_parabola_height  fun(is_parabola_height: boolean)
----@field set_is_absolute_height  fun(is_absolute_height: boolean)
 ---@field set_is_open_init_height fun(is_open_init_height: boolean)
 ---@field set_is_open_fin_height  fun(is_open_fin_height: boolean)
 
----@class py.MoverTargetBuilder
+---@class py.MoverTargetBuilder: py.MoverBaseBuilder
 ---@field set_stop_distance_to_target fun(stop_distance: py.Fixed)
 ---@field set_init_velocity           fun(init_velocity: py.Fixed)
 ---@field set_acceleration            fun(acceleration: py.Fixed)
@@ -91,18 +97,13 @@ python = {}
 ---@field set_bind_point              fun(bind_point: string)
 ---@field set_collision_type          fun(collision_type: integer)
 ---@field set_collision_radius        fun(collision_radius: py.Fixed)
----@field set_is_face_angle           fun(is_face_angle: boolean)
----@field set_is_multi_collision      fun(is_multi_collision: boolean)
----@field set_terrain_block           fun(terrain_block: boolean)
----@field set_priority                fun(priority: integer)
----@field set_is_absolute_height      fun(is_absolute_height: boolean)
 ---@field set_is_open_init_height     fun(is_open_init_height: boolean)
 ---@field set_is_parabola_height      fun(is_parabola_height: boolean)
 ---@field set_parabola_height         fun(parabola_height: py.Fixed)
 ---@field set_is_open_bind_point      fun(is_open_bind_point: boolean)
 ---@field set_target_unit_id          fun(target_unit_id: integer)
 
----@class py.MoverCurveBuilder
+---@class py.MoverCurveBuilder: py.MoverBaseBuilder
 ---@field set_angle                fun(angle: py.Fixed)
 ---@field set_max_dist             fun(max_dist: py.Fixed)
 ---@field set_init_velocity        fun(init_velocity: py.Fixed)
@@ -112,16 +113,9 @@ python = {}
 ---@field set_min_velocity         fun(min_velocity: py.Fixed)
 ---@field set_init_height          fun(init_height: py.Fixed)
 ---@field set_fin_height           fun(fin_height: py.Fixed)
----@field set_collision_type       fun(collision_type: integer)
----@field set_collision_radius     fun(collision_radius: py.Fixed)
----@field set_is_face_angle        fun(is_face_angle: boolean)
----@field set_is_multi_collision   fun(is_multi_collision: boolean)
----@field set_terrain_block        fun(terrain_block: boolean)
----@field set_priority             fun(priority: integer)
----@field set_is_absolute_height   fun(is_absolute_height: boolean)
 ---@field set_is_open_init_height  fun(is_open_init_height: boolean)
 
----@class py.MoverRoundBuilder
+---@class py.MoverRoundBuilder: py.MoverBaseBuilder
 ---@field set_is_to_unit             fun(is_to_unit: boolean)
 ---@field set_target_unit_id         fun(target_unit_id: integer)
 ---@field set_target_pos             fun(target_pos: py.FixedVec2)
@@ -133,13 +127,6 @@ python = {}
 ---@field set_centrifugal_velocity   fun(centrifugal_velocity: py.Fixed)
 ---@field set_lifting_velocity       fun(lifting_velocity: py.Fixed)
 ---@field set_around_init_height     fun(around_init_height: py.Fixed)
----@field set_collision_type         fun(collision_type: integer)
----@field set_collision_radius       fun(collision_radius: py.Fixed)
----@field set_is_face_angle          fun(is_face_angle: boolean)
----@field set_is_multi_collision     fun(is_multi_collision: boolean)
----@field set_terrain_block          fun(terrain_block: boolean)
----@field set_priority               fun(priority: integer)
----@field set_is_absolute_height     fun(is_absolute_height: boolean)
 
 -- 直线运动参数生成器
 ---@return py.MoverLineBuilder
