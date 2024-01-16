@@ -109,6 +109,11 @@ event.ET_DAY_NIGHT_CHANGE = {
     },
 }
 
+---@class EventParam.ET_DAY_NIGHT_TIME_CHANGE
+
+--昼夜时间发生变化
+event.ET_DAY_NIGHT_TIME_CHANGE = {}
+
 ---@class EventParam.ET_CONTAINER_ADDED
 ---@field name string # 容器名
 ---@field container py.ActorContainer # 容器
@@ -298,6 +303,111 @@ event.ET_BROADCAST_LUA_MSG = {
         lua_type = "string",
         desc = "消息内容",
         lua_desc = "消息内容",
+    },
+}
+
+---@class EventParam.ET_CLOSE_MALL_COIN_PAYMENT
+---@field player Player # 角色
+---@field int1 integer # 错误码
+
+--内购商品事件
+event.ET_CLOSE_MALL_COIN_PAYMENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "错误码",
+        lua_desc = "错误码",
+    },
+}
+
+---@class EventParam.ET_MALL_GOODS_CHANGE
+---@field player Player # 角色
+---@field int1 integer # 数量
+
+--玩家商品变化事件
+event.ET_MALL_GOODS_CHANGE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "数量",
+        lua_desc = "数量",
+    },
+}
+
+---@class EventParam.ET_MALL_COIN_CHANGE
+---@field player Player # 角色
+---@field int1 integer # 数量
+
+--玩家货币变化事件
+event.ET_MALL_COIN_CHANGE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "数量",
+        lua_desc = "数量",
+    },
+}
+
+---@class EventParam.ET_CAMERA_SHOOT_RAYCAST_HIT
+---@field player Player # 角色
+---@field unit Unit # 单位
+---@field float1 number # 高度
+
+--射击事件
+event.ET_CAMERA_SHOOT_RAYCAST_HIT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位ID",
+        lua_desc = "单位",
+    },
+    [3] = {
+        name = "__float1",
+        type = "py.Fixed",
+        lua_name = "float1",
+        lua_type = "number",
+        desc = "高度",
+        lua_desc = "高度",
     },
 }
 
@@ -793,51 +903,6 @@ event.ET_ROLE_CHANGE_RELATION = {
         lua_type = "py.RoleRelation",
         desc = "关系",
         lua_desc = "关系",
-    },
-}
-
----@class EventParam.ET_UNIT_CONSTRUCT_START
----@field unit Unit # 开始建造的单位
-
---单位建造开始
-event.ET_UNIT_CONSTRUCT_START = {
-    [1] = {
-        name = "__unit_id",
-        type = "py.UnitID",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "开始建造的单位",
-        lua_desc = "开始建造的单位",
-    },
-}
-
----@class EventParam.ET_UNIT_CONSTRUCT_CANCEL
----@field unit Unit # 取消建造的单位
-
---单位建造取消
-event.ET_UNIT_CONSTRUCT_CANCEL = {
-    [1] = {
-        name = "__unit_id",
-        type = "py.UnitID",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "取消建造的单位",
-        lua_desc = "取消建造的单位",
-    },
-}
-
----@class EventParam.ET_UNIT_CONSTRUCT_FINISH
----@field unit Unit # 建造完成的单位
-
---单位建造成功
-event.ET_UNIT_CONSTRUCT_FINISH = {
-    [1] = {
-        name = "__unit_id",
-        type = "py.UnitID",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "建造完成的单位",
-        lua_desc = "建造完成的单位",
     },
 }
 
@@ -2335,7 +2400,7 @@ event.ET_UNIT_PRE_ADD_EXP = {
     },
     [2] = {
         name = "__add_exp",
-        type = "number",
+        type = "py.Fixed",
         lua_name = "add_exp",
         lua_type = "number",
         desc = "增加的经验",
@@ -2345,7 +2410,7 @@ event.ET_UNIT_PRE_ADD_EXP = {
 
 ---@class EventParam.ET_UNIT_ON_ADD_EXP
 ---@field unit Unit # 获得经验的单位
----@field add_exp number # 增加的经验
+---@field add_exp integer # 增加的经验
 
 --单位获得经验
 event.ET_UNIT_ON_ADD_EXP = {
@@ -2359,9 +2424,9 @@ event.ET_UNIT_ON_ADD_EXP = {
     },
     [2] = {
         name = "__add_exp",
-        type = "number",
+        type = "integer",
         lua_name = "add_exp",
-        lua_type = "number",
+        lua_type = "integer",
         desc = "增加的经验",
         lua_desc = "增加的经验",
     },
@@ -4017,39 +4082,6 @@ event.ET_ABILITY_AUTOCAST_CHANGED = {
     },
 }
 
----@class EventParam.ET_SIMPLE_ATTACK_PROJECTILE_REACH_TARGET
----@field ability Ability # 技能对象
----@field ability_target_unit Unit # 技能Owner
----@field ability_target_pos Point # 技能目标点
-
---简易普攻投射物到达目标点
-event.ET_SIMPLE_ATTACK_PROJECTILE_REACH_TARGET = {
-    [1] = {
-        name = "__ability",
-        type = "py.Ability",
-        lua_name = "ability",
-        lua_type = "Ability",
-        desc = "技能对象",
-        lua_desc = "技能对象",
-    },
-    [2] = {
-        name = "__ability_target_unit_id",
-        type = "py.UnitID",
-        lua_name = "ability_target_unit",
-        lua_type = "Unit",
-        desc = "技能Owner",
-        lua_desc = "技能Owner",
-    },
-    [3] = {
-        name = "__ability_target_pos",
-        type = "py.Point",
-        lua_name = "ability_target_pos",
-        lua_type = "Point",
-        desc = "技能目标点",
-        lua_desc = "技能目标点",
-    },
-}
-
 ---@class EventParam.ET_OBTAIN_MODIFIER
 ---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
@@ -4938,6 +4970,117 @@ event.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT = {
     },
 }
 
+---@class EventParam.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field bool1 boolean # 自定义信息
+
+--ui聊天框元件可见性改变事件
+event.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__bool1",
+        type = "boolean",
+        lua_name = "bool1",
+        lua_type = "boolean",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT
+---@field ui_event_name string # 事件名
+---@field player Player # 玩家
+---@field equip_slot_id integer # 槽位索引
+---@field equip_slot_type integer # 物品栏类型
+---@field equip_slot_item Item # 物品
+---@field equip_slot_unit Unit # 单位
+---@field equip_slot_is_begin boolean # 是否拖拽开始
+
+--UI装备栏拖拽事件
+event.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT = {
+    [1] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "事件名",
+        lua_desc = "事件名",
+    },
+    [2] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [3] = {
+        name = "__equip_slot_id",
+        type = "integer",
+        lua_name = "equip_slot_id",
+        lua_type = "integer",
+        desc = "槽位索引",
+        lua_desc = "槽位索引",
+    },
+    [4] = {
+        name = "__equip_slot_type",
+        type = "integer",
+        lua_name = "equip_slot_type",
+        lua_type = "integer",
+        desc = "物品栏类型",
+        lua_desc = "物品栏类型",
+    },
+    [5] = {
+        name = "__equip_slot_item",
+        type = "py.Item",
+        lua_name = "equip_slot_item",
+        lua_type = "Item",
+        desc = "物品",
+        lua_desc = "物品",
+    },
+    [6] = {
+        name = "__equip_slot_unit",
+        type = "py.Unit",
+        lua_name = "equip_slot_unit",
+        lua_type = "Unit",
+        desc = "单位",
+        lua_desc = "单位",
+    },
+    [7] = {
+        name = "__equip_slot_is_begin",
+        type = "boolean",
+        lua_name = "equip_slot_is_begin",
+        lua_type = "boolean",
+        desc = "是否拖拽开始",
+        lua_desc = "是否拖拽开始",
+    },
+}
+
 ---@class EventParam.ET_GLOBAL_EVENT_TO_UI_WITH_DICT
 ---@field event_name string # ui事件名
 ---@field args py.Dict # 参数
@@ -5648,21 +5791,6 @@ event.ET_SELECT_UNIT = {
     },
 }
 
----@class EventParam.CANCEL_SELECT_UNIT
----@field player Player # 玩家
-
---取消选中单位
-event.CANCEL_SELECT_UNIT = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "玩家ID",
-        lua_desc = "玩家",
-    },
-}
-
 ---@class EventParam.ET_HIGH_LIGHT_UNIT_CHANGE
 ---@field player Player # 玩家
 ---@field high_light_unit_id py.HighLightUnitID # 高亮单位id
@@ -5966,111 +6094,6 @@ event.ET_RESIZE_SKILL_POINTER = {
         lua_type = "py.AbilitySeq",
         desc = "技能Seq",
         lua_desc = "技能Seq",
-    },
-}
-
----@class EventParam.ET_SUMMON_UNIT
----@field summoning_unit Unit # 召唤者
----@field summoned_unit Unit # 召唤单位
-
---召唤单位
-event.ET_SUMMON_UNIT = {
-    [1] = {
-        name = "__summoning_unit",
-        type = "py.Unit",
-        lua_name = "summoning_unit",
-        lua_type = "Unit",
-        desc = "召唤者",
-        lua_desc = "召唤者",
-    },
-    [2] = {
-        name = "__summoned_unit",
-        type = "py.Unit",
-        lua_name = "summoned_unit",
-        lua_type = "Unit",
-        desc = "召唤单位",
-        lua_desc = "召唤单位",
-    },
-}
-
----@class EventParam.ET_UNIT_TRAIN_START
----@field unit Unit # 训练器单位
----@field trained_unit_type py.UnitKey # 被训练单位类型
-
---单位开始训练
-event.ET_UNIT_TRAIN_START = {
-    [1] = {
-        name = "__unit",
-        type = "py.Unit",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "训练器单位",
-        lua_desc = "训练器单位",
-    },
-    [2] = {
-        name = "__trained_unit_type",
-        type = "py.UnitKey",
-        lua_name = "trained_unit_type",
-        lua_type = "py.UnitKey",
-        desc = "被训练单位类型",
-        lua_desc = "被训练单位类型",
-    },
-}
-
----@class EventParam.ET_UNIT_TRAIN_FINISH
----@field unit Unit # 训练器单位
----@field trained_unit_type py.UnitKey # 被训练单位类型
----@field trained_unit Unit # 被训练单位
-
---单位训练完成
-event.ET_UNIT_TRAIN_FINISH = {
-    [1] = {
-        name = "__unit",
-        type = "py.Unit",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "训练器单位",
-        lua_desc = "训练器单位",
-    },
-    [2] = {
-        name = "__trained_unit_type",
-        type = "py.UnitKey",
-        lua_name = "trained_unit_type",
-        lua_type = "py.UnitKey",
-        desc = "被训练单位类型",
-        lua_desc = "被训练单位类型",
-    },
-    [3] = {
-        name = "__trained_unit",
-        type = "py.Unit",
-        lua_name = "trained_unit",
-        lua_type = "Unit",
-        desc = "被训练单位",
-        lua_desc = "被训练单位",
-    },
-}
-
----@class EventParam.ET_UNIT_TRAIN_CANCEL
----@field unit Unit # 训练器单位
----@field trained_unit_type py.UnitKey # 被训练单位类型
-
---单位训练取消
-event.ET_UNIT_TRAIN_CANCEL = {
-    [1] = {
-        name = "__unit",
-        type = "py.Unit",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "训练器单位",
-        lua_desc = "训练器单位",
-    },
-    [2] = {
-        name = "__trained_unit_type",
-        type = "py.UnitKey",
-        lua_name = "trained_unit_type",
-        lua_type = "py.UnitKey",
-        desc = "被训练单位类型",
-        lua_desc = "被训练单位类型",
     },
 }
 
@@ -7666,90 +7689,87 @@ event.ET_PHYSICS_ENTITY_ON_LOSE = {
     },
 }
 
----@class EventParam.ET_DzTriggerRegisterSyncData
----@field str1 string # 字符串
----@field bool1 boolean # 是否需要平台参数
+---@class EventParam.ET_ROLE_STORE_ITEM_CHANGED
+---@field store_key py.StoreKey # 道具编号
+---@field store_item_type py.StoreItemType # 道具类型
+---@field store_item_change_count integer # 平台道具变化数
+---@field store_item_expire_date integer # 平台道具到期时间戳
+---@field player Player # 玩家
 
---数据同步
-event.ET_DzTriggerRegisterSyncData = {
+--平台道具变化事件
+event.ET_ROLE_STORE_ITEM_CHANGED = {
     [1] = {
-        name = "__str1",
-        type = "string",
-        lua_name = "str1",
-        lua_type = "string",
-        desc = "字符串",
-        lua_desc = "字符串",
+        name = "__store_key",
+        type = "py.StoreKey",
+        lua_name = "store_key",
+        lua_type = "py.StoreKey",
+        desc = "道具编号",
+        lua_desc = "道具编号",
     },
     [2] = {
-        name = "__bool1",
-        type = "boolean",
-        lua_name = "bool1",
-        lua_type = "boolean",
-        desc = "是否需要平台参数",
-        lua_desc = "是否需要平台参数",
+        name = "__store_item_type",
+        type = "py.StoreItemType",
+        lua_name = "store_item_type",
+        lua_type = "py.StoreItemType",
+        desc = "道具类型",
+        lua_desc = "道具类型",
     },
-}
-
----@class EventParam.ET_TriggerRegisterPlayerSelectionEventBJ
----@field player Player # 玩家
----@field bool1 boolean # 是否选中
-
---玩家选择单位事件
-event.ET_TriggerRegisterPlayerSelectionEventBJ = {
-    [1] = {
+    [3] = {
+        name = "__store_item_change_count",
+        type = "integer",
+        lua_name = "store_item_change_count",
+        lua_type = "integer",
+        desc = "平台道具变化数",
+        lua_desc = "平台道具变化数",
+    },
+    [4] = {
+        name = "__store_item_expire_date",
+        type = "integer",
+        lua_name = "store_item_expire_date",
+        lua_type = "integer",
+        desc = "平台道具到期时间戳",
+        lua_desc = "平台道具到期时间戳",
+    },
+    [5] = {
         name = "__role_id",
-        type = "py.Role",
+        type = "py.RoleID",
         lua_name = "player",
         lua_type = "Player",
-        desc = "玩家",
+        desc = "玩家id",
         lua_desc = "玩家",
-    },
-    [2] = {
-        name = "__bool1",
-        type = "boolean",
-        lua_name = "bool1",
-        lua_type = "boolean",
-        desc = "是否选中",
-        lua_desc = "是否选中",
     },
 }
 
----@class EventParam.ET_PlayerUnitEventDeath
-
---单位死亡事件
-event.ET_PlayerUnitEventDeath = {}
-
----@class EventParam.ET_PlayerUnitEventReviveFinish
-
---完成复活英雄
-event.ET_PlayerUnitEventReviveFinish = {}
-
----@class EventParam.ET_PlayerUnitEventHeroPickUpItem
-
---获得物品
-event.ET_PlayerUnitEventHeroPickUpItem = {}
-
----@class EventParam.ET_PlayerUnitEventSummoned
-
---被召唤(召唤单位)
-event.ET_PlayerUnitEventSummoned = {}
-
----@class EventParam.ET_DIALOG_BUTTON_EVENT
+---@class EventParam.ET_ROLE_STORE_PAGE_STATE_CHANGED
 ---@field player Player # 玩家
----@field dialog_id integer # 对话框id
----@field button_id integer # 按钮id
+---@field store_page_state boolean # 商城界面状态
 
---对话框按钮-点击
-event.ET_DIALOG_BUTTON_EVENT = {
+--平台商城窗口变化事件
+event.ET_ROLE_STORE_PAGE_STATE_CHANGED = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
         lua_name = "player",
         lua_type = "Player",
-        desc = "玩家ID",
+        desc = "玩家id",
         lua_desc = "玩家",
     },
     [2] = {
+        name = "__store_page_state",
+        type = "boolean",
+        lua_name = "store_page_state",
+        lua_type = "boolean",
+        desc = "商城界面状态",
+        lua_desc = "商城界面状态",
+    },
+}
+
+---@class EventParam.ET_DIALOG_EVENT
+---@field dialog_id integer # 对话框id
+
+--对话框-点击
+event.ET_DIALOG_EVENT = {
+    [1] = {
         name = "__dialog_id",
         type = "integer",
         lua_name = "dialog_id",
@@ -7757,7 +7777,23 @@ event.ET_DIALOG_BUTTON_EVENT = {
         desc = "对话框id",
         lua_desc = "对话框id",
     },
-    [3] = {
+}
+
+---@class EventParam.ET_DIALOG_BUTTON_EVENT
+---@field dialog_id integer # 对话框id
+---@field button_id integer # 按钮id
+
+--对话框按钮-点击
+event.ET_DIALOG_BUTTON_EVENT = {
+    [1] = {
+        name = "__dialog_id",
+        type = "integer",
+        lua_name = "dialog_id",
+        lua_type = "integer",
+        desc = "对话框id",
+        lua_desc = "对话框id",
+    },
+    [2] = {
         name = "__button_id",
         type = "integer",
         lua_name = "button_id",

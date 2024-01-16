@@ -459,3 +459,16 @@ function Role:api_get_role_total_consume() end
 --获取玩家是否打赏该地图
 ---@return boolean # 是否打赏该地图
 function Role:api_get_role_is_donated() end
+
+--获取玩家商城登录用token
+---@return string # 商城token
+function Role:api_get_role_store_params() end
+
+--获取玩家当前地图的成就点数
+---@return boolean # 成就点数
+function Role:api_get_role_achieve_point() end
+
+--获取玩家当前地图成就是否解锁
+---@param achieve_id string # 成就ID
+---@return boolean # 是否解锁
+function Role:api_get_role_achieve_unlock(achieve_id) end

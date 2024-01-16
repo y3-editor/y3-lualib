@@ -593,9 +593,28 @@ function GlobalAPI.get_fixed_coord_index(point, index) end
 function GlobalAPI.clear_group(list1) end
 
 --数组 - 删除数组条目
----@param list1 py.List # list var
----@param idx integer # index
-function GlobalAPI.remove_list_var_item(list1, idx) end
+---@param dict_var py.List # list var
+---@param index integer # index
+---@param index_forward? boolean # 索引前移
+function GlobalAPI.remove_list_var_item(dict_var, index, index_forward) end
+
+--数组 - 删除数组条目
+---@param dict_var py.List # list var
+---@param index integer # index
+---@param index_forward? boolean # 索引前移
+function GlobalAPI.remove_list_var_item_2(dict_var, index, index_forward) end
+
+--数组 - 是否具有索引
+---@param dict_var py.List # list var
+---@param key integer # key
+---@return boolean # 结果
+function GlobalAPI.dict_has_key(dict_var, key) end
+
+--数组 - 是否存在元素
+---@param dict_var py.List # list var
+---@param key py.DynamicTypeMeta # value
+---@return boolean # 结果
+function GlobalAPI.dict_has_value(dict_var, key) end
 
 --将第二个列表的值赋值给第一个列表 不改变第一个列表的长度
 ---@param list1 py.List # 列表

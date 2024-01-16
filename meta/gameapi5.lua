@@ -4,6 +4,186 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--获取路径的场景ID
+---@param road py.Road # 路径
+---@return integer # 场景ID
+function GameAPI.get_road_resource_id(road) end
+
+--声音转字符串
+---@param obj py.SoundEntity # 声音对象
+---@return string # 字符串
+function GameAPI.sound_entity_to_str(obj) end
+
+--声音类型转字符串
+---@param obj py.AudioKey # 音效编号
+---@return string # 字符串
+function GameAPI.audio_key_to_str(obj) end
+
+--字符串转声音类型
+---@param obj string # 字符串
+---@return py.AudioKey # 音效编号
+function GameAPI.str_to_audio_key(obj) end
+
+--注册区域的附近语音频道
+---@param area py.Area # 区域
+function GameAPI.reg_sound_area(area) end
+
+--反注册区域的附近语音频道
+---@param area py.Area # 区域
+function GameAPI.unreg_sound_area(area) end
+
+--设置附近语音的区域模式开关
+---@param b boolean # 区域模式开关
+function GameAPI.set_nearby_voice_mode(b) end
+
+--设置玩家发言频道
+---@param role py.Role # 玩家
+---@param channel integer # 频道
+function GameAPI.set_audio_chat_channel(role, channel) end
+
+--播放音乐
+---@param role py.Role # 玩家
+---@param sid py.AudioKey # 乐曲编号
+---@param loop boolean # 是否循环
+---@param fade_in_time? number # 淡入时间
+---@param fade_out_time? number # 淡出时间
+---@return py.SoundEntity # 声音对象
+function GameAPI.play_sound_for_player(role, sid, loop, fade_in_time, fade_out_time) end
+
+--对目标播放音乐
+---@param unit_key py.UnitKey # 单位编号
+---@param camp_target py.RoleRelation # 玩家关系
+---@param sid py.AudioKey # 乐曲编号
+---@param loop boolean # 是否循环
+function GameAPI.play_sound_for_role_relation(unit_key, camp_target, sid, loop) end
+
+--播放3d音乐
+---@param role py.Role # 玩家
+---@param sid py.AudioKey # 乐曲编号
+---@param position py.Point # 播放位置
+---@param height number # 高度
+---@param fade_in_time? number # 淡入时间
+---@param fade_out_time? number # 淡出时间
+---@param ensure_play? boolean # 确保播放
+---@param loop? boolean # 是否循环
+---@return py.SoundEntity # 声音对象
+function GameAPI.play_3d_sound_for_player(role, sid, position, height, fade_in_time, fade_out_time, ensure_play, loop) end
+
+--跟随单位播放3d音乐
+---@param role py.Role # 玩家
+---@param sid py.AudioKey # 乐曲编号
+---@param unit py.Unit # 单位
+---@param fade_in_time? number # 淡入时间
+---@param fade_out_time? number # 淡出时间
+---@param ensure_play? boolean # 确保播放
+---@param loop? boolean # 是否循环
+---@param offset_x? number # 偏移x
+---@param offset_y? number # 偏移y
+---@param offset_z? number # 偏移z
+---@return py.SoundEntity # 声音对象
+function GameAPI.follow_object_play_3d_sound_for_player(role, sid, unit, fade_in_time, fade_out_time, ensure_play, loop, offset_x, offset_y, offset_z) end
+
+--停止播放音乐
+---@param role py.Role # 玩家
+---@param sound py.SoundEntity # 声音
+---@param immediately_stop? boolean # 是否立即停止
+function GameAPI.stop_sound(role, sound, immediately_stop) end
+
+--播放控制
+---@param role py.Role # 玩家
+---@param sound py.SoundEntity # 声音
+---@param play_operation integer # 播放操作
+function GameAPI.sound_play_controller(role, sound, play_operation) end
+
+--设置玩家的声音接收器跟随镜头射线与地面焦点
+---@param role py.Role # 玩家
+---@param camera_ray_direction py.CameraRayDirection # 相机射线方向
+function GameAPI.set_player_listener_to_follow_intersection_of_camera_ray_and_ground(role, camera_ray_direction) end
+
+--设置玩家的声音接收器跟随单位
+---@param role py.Role # 玩家
+---@param unit py.Unit # 单位
+function GameAPI.set_player_listener_to_follow_unit(role, unit) end
+
+--设置背景音乐开关
+---@param role py.Role # 玩家
+---@param value boolean # 打开/关闭
+function GameAPI.open_background_music(role, value) end
+
+--设置战斗音乐开关
+---@param role py.Role # 玩家
+---@param value boolean # 打开/关闭
+function GameAPI.open_battle_music(role, value) end
+
+--设置背景音乐音量
+---@param role py.Role # 玩家
+---@param value integer # 音量
+function GameAPI.set_background_music_volume(role, value) end
+
+--设置战斗音效音量
+---@param role py.Role # 玩家
+---@param value integer # 音量
+function GameAPI.set_battle_music_volume(role, value) end
+
+--设置声音音量
+---@param player py.Role # 玩家
+---@param sound py.SoundEntity # 声音
+---@param volume integer # 音量
+function GameAPI.set_sound_volume(player, sound, volume) end
+
+--通过场景声音ID返回场景声音
+---@param res_id py.SceneSoundID # 场景声音ID
+---@return py.SceneSound # 场景声音
+function GameAPI.get_scene_sound_by_res_id(res_id) end
+
+--播放场景声音
+---@param scene_sound py.SceneSound # 场景声音
+function GameAPI.play_scene_sound(scene_sound) end
+
+--停止场景声音
+---@param scene_sound py.SceneSound # 场景声音
+function GameAPI.stop_scene_sound(scene_sound) end
+
+--设置场景声音是否循环
+---@param scene_sound py.SceneSound # 场景声音
+---@param loop boolean # 是否循环
+function GameAPI.set_scene_sound_loop(scene_sound, loop) end
+
+--设置场景声音衰减距离
+---@param scene_sound py.SceneSound # 场景声音
+---@param min_dist number # 衰减距离
+function GameAPI.set_scene_sound_min_dist(scene_sound, min_dist) end
+
+--设置场景声音静音距离
+---@param scene_sound py.SceneSound # 场景声音
+---@param max_dist number # 静音距离
+function GameAPI.set_scene_sound_max_dist(scene_sound, max_dist) end
+
+--设置场景声音是否暂停
+---@param scene_sound py.SceneSound # 场景声音
+---@param paused boolean # 是否暂停
+function GameAPI.set_scene_sound_pause(scene_sound, paused) end
+
+--获取初始化背景音乐开关状态
+---@return boolean # value
+function GameAPI.get_bgm_state() end
+
+--获取初始化战斗音效开关状态
+---@return boolean # value
+function GameAPI.get_battle_bgm_state() end
+
+--获取初始化背景音乐音量
+---@return integer # value
+function GameAPI.get_bgm_volume() end
+
+--获取初始化战斗音效音量
+---@return integer # value
+function GameAPI.get_battle_volume() end
+
+--获取当前游戏模式
+---@return py.GameMode # 游戏模式
+function GameAPI.get_game_mode() end
+
 --暂停游戏
 function GameAPI.pause_game() end
 
@@ -360,6 +540,10 @@ function GameAPI.set_min_map_show_area(role, rect_area) end
 --关闭localplayer的表现层跳字
 ---@param is_close boolean # 是否关闭
 function GameAPI.set_local_player_jump_word_close(is_close) end
+
+--仅显示本地玩家跳字
+---@param is_show boolean # 是否开启
+function GameAPI.only_show_local_player_jump_word(is_show) end
 
 --设置对象的基础材质属性
 ---@param logic_obj py.Actor # 逻辑对象
@@ -926,6 +1110,12 @@ function GameAPI.set_skill_btn_func_smart_cast_key(role, comp_name, btn) end
 ---@param comp_name string # 控件名
 ---@param model_id py.Model # 模型id
 function GameAPI.set_ui_model_id(role, comp_name, model_id) end
+
+--设置UI模型控件单位
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+---@param model_unit py.Unit # 单位
+function GameAPI.set_ui_model_unit(role, comp_name, model_unit) end
 
 --设置玩家的商店控件的目标商店单位
 ---@param role py.Role # 玩家
@@ -3230,6 +3420,21 @@ function GameAPI.camera_set_follow_unit(role, unit, offset_x, offset_y, offset_h
 ---@param distance? number # 摄像机距离
 function GameAPI.camera_set_tps_follow_unit(role, unit, sensitive, pitch, yaw, offset_x, offset_y, offset_z, distance) end
 
+--设置tps镜头pitch上限
+---@param role py.Role # 玩家
+---@param pitch number # tps pitch上限
+function GameAPI.set_tps_camera_pitch_max(role, pitch) end
+
+--设置tps镜头pitch下限
+---@param role py.Role # 玩家
+---@param pitch number # tps pitch下限
+function GameAPI.set_tps_camera_pitch_min(role, pitch) end
+
+--设置tps镜头fov
+---@param role py.Role # 玩家
+---@param fov number # tps fov
+function GameAPI.set_tps_camera_fov(role, fov) end
+
 --取消镜头tps跟随单位
 ---@param role py.Role # 玩家
 function GameAPI.camera_cancel_tps_follow_unit(role) end
@@ -3363,6 +3568,11 @@ function GameAPI.refresh_unit_group(unit_group) end
 ---@return py.UnitGroup # 投射物组
 function GameAPI.refresh_projectile_group(proj_group) end
 
+--遍历时过滤物品组
+---@param item_group py.ItemGroup # 物品组
+---@return py.ItemGroup # 物品组
+function GameAPI.refresh_item_group(item_group) end
+
 --单位组某状态的单位数量
 ---@param unit_group py.UnitGroup # 单位组
 ---@param status string # 状态名称
@@ -3450,8 +3660,8 @@ function GameAPI.len_of_var(var) end
 
 --请求购买
 ---@param player py.Role # 玩家
----@param token_id string # 物品ID
-function GameAPI.request_buy_mall_coin(player, token_id) end
+---@param goods_id string # 物品ID
+function GameAPI.request_buy_mall_coin(player, goods_id) end
 
 --获取三维属性的slave系数
 ---@param pri string # 三维属性
@@ -3492,7 +3702,8 @@ function GameAPI.set_damage_ratio(attack_idx, armor_idx, damage_ratio) end
 ---@param hit_socket string # 挂接点
 ---@param harm_text_enum string # 跳字枚举
 ---@param jump_word_track? integer # 跳字轨迹
-function GameAPI.apply_damage(source_unit, ability, target_unit, damage_type, damage, jump_word, extra_context, as_normal_hit, critical, no_miss, hit_sfx, hit_socket, harm_text_enum, jump_word_track) end
+---@param attack_type? integer # 攻击类型
+function GameAPI.apply_damage(source_unit, ability, target_unit, damage_type, damage, jump_word, extra_context, as_normal_hit, critical, no_miss, hit_sfx, hit_socket, harm_text_enum, jump_word_track, attack_type) end
 
 --攻击伤害绝对值
 ---@param damage py.Fixed # 伤害值
@@ -4810,3 +5021,29 @@ function GameAPI.set_billboard_progress(unit, node_name, progress, role) end
 --玩家完全退出游戏（大厅完全退出游戏）
 ---@param role py.Role # 玩家
 function GameAPI.lobby_exit_game(role) end
+
+--请求购买平台道具
+---@param role py.Role # 玩家
+---@param store_key py.StoreKey # 平台道具类型
+function GameAPI.open_platform_shop(role, store_key) end
+
+--获取本地玩家镜头焦点
+---@return py.FVector3 # 镜头焦点
+function GameAPI.get_local_player_camera_focus() end
+
+--平台道具是否相等
+---@param store_key1 py.StoreKey # 平台道具
+---@param store_key2 py.StoreKey # 平台道具
+---@return boolean # 是否相等
+function GameAPI.api_compare_store_key(store_key1, store_key2) end
+
+--世界坐标转换屏幕坐标
+---@param world_pos py.Point # 世界坐标
+---@return py.Point # 屏幕坐标
+function GameAPI.api_world_pos_to_camera_pos_2d(world_pos) end
+
+--世界坐标转换屏幕边缘坐标
+---@param world_pos py.Point # 世界坐标
+---@param delta_dis py.Fixed # 定点数
+---@return py.Point # 屏幕坐标
+function GameAPI.api_world_pos_to_screen_edge_pos_2d(world_pos, delta_dis) end
