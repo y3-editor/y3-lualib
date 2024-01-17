@@ -299,7 +299,7 @@ end
 
 ---区域内玩家单位(单位组)
 ---@param player Player 玩家
----@return 类_单位组 单位组
+---@return UnitGroup 单位组
 function M:get_unit_group_in_area(player)
     local py_unit_group = GameAPI.get_unit_group_belong_to_player_in_area(self.handle, player.handle)
     return y3.unit_group.get_by_handle(py_unit_group)

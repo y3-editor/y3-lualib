@@ -297,7 +297,7 @@ end
 ---@param clone_hp_mp boolean 复制当前的生命值和魔法值
 function M.create_illusion(illusion_unit, call_unit, player, point, direction, clone_hp_mp)
     GameAPI.create_illusion(illusion_unit.handle, call_unit.handle, player.handle, point.handle, Fix32(direction),
-        clone_hp_mp)
+                            clone_hp_mp)
 end
 
 ---删除单位
@@ -333,7 +333,7 @@ end
 ---@param text_type? string 跳字类型
 function M:heals(value, skill, source_unit, text_type)
     self.handle:api_heal(Fix32(value), text_type ~= nil, skill and skill.handle or nil,
-        source_unit and source_unit.handle or nil, text_type or "")
+                         source_unit and source_unit.handle or nil, text_type or "")
 end
 
 ---添加标签
@@ -438,7 +438,7 @@ end
 ---@return py.UnitCommand # 命令
 function M:move_along_road(road, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
     local command = GameAPI.create_unit_command_move_along_road(road.handle, patrol_mode, can_attack, start_from_nearest,
-        back_to_nearest)
+                                                                back_to_nearest)
     self:command(command)
     return command
 end
@@ -471,7 +471,7 @@ function M:cast(ability, target, extra_target)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     local command = GameAPI.create_unit_command_use_skill(ability.handle, tar_pos_1, tar_pos_2, tar_unit, tar_item,
-        tar_dest)
+                                                          tar_dest)
     self:command(command)
     return command
 end
@@ -1544,7 +1544,7 @@ function M:is_illusion()
 end
 
 ---是否在单位组中
----@param group 类_单位组 单位组
+---@param group UnitGroup 单位组
 ---@return boolean in_group 在单位组中
 function M:is_in_group(group)
     return GameAPI.judge_unit_in_group(self.handle, group.handle)

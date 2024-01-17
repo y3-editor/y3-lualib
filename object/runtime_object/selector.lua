@@ -50,7 +50,7 @@ function M:not_visible(p)
 end
 
 -- 条件 - 不在某个单位组中
----@param ug 类_单位组
+---@param ug UnitGroup
 ---@return self
 function M:not_in_group(ug)
     ---@private
@@ -139,7 +139,7 @@ function M:count(count)
 end
 
 -- 进行选取
----@return 类_单位组
+---@return UnitGroup
 function M:get()
     local pos = self._pos
     local shape = self._shape

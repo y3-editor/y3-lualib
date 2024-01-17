@@ -1,5 +1,4 @@
---单位组
----@class 类_单位组
+---@class UnitGroup
 ---@field handle py.UnitGroup
 ---@overload fun(py_unit_group?: py.UnitGroup): self
 local M = Class "UnitGroup"
@@ -12,20 +11,19 @@ function M:__init(py_unit_group)
 end
 
 ---@param py_unit_group py.UnitGroup
----@return 类_单位组
-function M.get_by_handle(py_unit_group)
+---@return UnitGroup
+function M.从句柄获取(py_unit_group)
     local unit_group = New "UnitGroup" (py_unit_group)
     return unit_group
 end
 
-y3.py_converter.register_py_to_lua("py.UnitGroup", M.get_by_handle)
+y3.py_converter.register_py_to_lua("py.UnitGroup", M.从句柄获取)
 y3.py_converter.register_lua_to_py("py.UnitGroup", function(lua_value)
     return lua_value.handle
 end)
 
---遍历单位组中单位做动作
 ---@return Unit[]
-function M:遍历()
+function M:到单位数组()
     local lua_table = {}
     for i = 1, python_len(self.handle) do
         local iter_unit = python_index(self.handle, i - 1)
@@ -34,75 +32,64 @@ function M:遍历()
     return lua_table
 end
 
---根据单位组选中单位
 function M:选中组内单位()
     GameAPI.set_unit_group_selected(self.handle)
 end
 
---添加单位
 ---@param unit Unit 单位
 function M:添加单位(unit)
     GameAPI.add_unit_to_group(unit.handle, self.handle)
 end
 
---移除单位
 ---@param unit Unit 单位
 function M:移除单位(unit)
     GameAPI.remove_unit_in_group(self.handle, unit.handle)
 end
 
---移除单位类型
 ---@param unit_key py.UnitKey 单位类型id
 function M:移除单位类型(unit_key)
     GameAPI.remove_unit_in_group_by_key(self.handle, unit_key)
 end
 
---单位组中随机整数个单位
 ---@param count integer
----@return 类_单位组 unit_group  随机整数个单位
+---@return UnitGroup unit_group  随机整数个单位
 function M:获取随机数量单位(count)
     local py_unit_group = GameAPI.get_random_n_unit_in_group(self.handle, count)
-    return M.get_by_handle(py_unit_group)
+    return M.从句柄获取(py_unit_group)
 end
 
---挑选指定单位类型的单位
 ---@param unit_key py.UnitKey 单位类型id
----@return 类_单位组 unit_group 单位组
+---@return UnitGroup unit_group 单位组
 function M.获取指定单位类型(unit_key)
     local py_unit_group = GameAPI.get_units_by_key(unit_key)
-    return M.get_by_handle(py_unit_group)
+    return M.从句柄获取(py_unit_group)
 end
 
---获取单位组中单位数量
 ---@return integer unit_group_num 单位数量
 function M:获取单位数量()
     return GameAPI.get_unit_group_num(self.handle)
 end
 
---单位组中单位类型的数量
 ---@param unit_key py.UnitKey
 ---@return integer num_of_unit 单位类型的数量
-function M:count_by_key(unit_key)
+function M:获取指定单位类型单位数量(unit_key)
     return GameAPI.get_num_of_unit_key_in_group(self.handle, unit_key)
 end
 
---获取单位组内第一个单位
 ---@return Unit unit 单位组内第一个单位
-function M:get_first()
+function M:获取第一格单位()
     local py_unit = GameAPI.get_first_unit_in_group(self.handle)
     return y3.unit.get_by_handle(py_unit)
 end
 
---获取单位组中随机一个单位
 ---@return Unit unit 单位组中随机一个单位
-function M:get_random()
+function M:获取随机一个单位()
     local py_unit = GameAPI.get_random_unit_in_unit_group(self.handle)
     return y3.unit.get_by_handle(py_unit)
 end
 
---获取单位组内最后一个单位
 ---@return Unit unit 最后一个单位
-function M:get_last()
+function M:获取最后一个单位()
     local py_unit = GameAPI.get_last_unit_in_group(self.handle)
     return y3.unit.get_by_handle(py_unit)
 end

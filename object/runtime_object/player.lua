@@ -147,7 +147,7 @@ function M:set_strict_group_navigation(is_strict)
 end
 
 ---选中单位/单位组
----@param unit_or_group Unit|类_单位组 单位/单位组
+---@param unit_or_group Unit|UnitGroup 单位/单位组
 function M:select_unit(unit_or_group)
     self.handle:role_select_unit(unit_or_group.handle)
 end
@@ -402,7 +402,7 @@ function M:is_in_group(player_group)
 end
 
 ---属于某玩家的所有单位
----@return 类_单位组 unit_group 单位组
+---@return UnitGroup unit_group 单位组
 function M:get_all_units()
     local py_unit_group = self.handle:get_all_unit_id()
     return y3.unit_group.get_by_handle(py_unit_group)
