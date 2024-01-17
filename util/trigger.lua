@@ -8,7 +8,7 @@ local counter = y3.util.counter()
 ---@field private _include_name? string
 ---@field private _on_remove? function
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
-local M = Class 'Trigger'
+local M = Class "Trigger"
 
 ---@alias Trigger.CallBack fun(...): any, any, any, any
 
@@ -33,14 +33,14 @@ function M:__del()
     end
 end
 
-M.type = 'trigger'
+M.type = "trigger"
 ---@private
 M._enable = true
 ---@private
 M._id = 0
 
 function M:__tostring()
-    return ('{trigger|%d}'):format(self._id)
+    return ("{trigger|%d}"):format(self._id)
 end
 
 --禁用触发器
@@ -63,7 +63,7 @@ end
 ---@return boolean
 function M:is_match_args(fire_args)
     local event_args = self._event_args
-    if fire_args == event_args  then
+    if fire_args == event_args then
         return true
     end
     local fire_args_n = fire_args and #fire_args or 0
@@ -118,3 +118,5 @@ end
 function M:on_remove(callback)
     self._on_remove = callback
 end
+
+return M
