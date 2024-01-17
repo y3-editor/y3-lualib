@@ -2,7 +2,7 @@
 ---@class UnitGroup
 ---@field handle py.UnitGroup
 ---@overload fun(py_unit_group?: py.UnitGroup): self
-local M = Class 'UnitGroup'
+local M = Class "UnitGroup"
 
 ---@param py_unit_group py.UnitGroup
 ---@return self
@@ -14,22 +14,22 @@ end
 ---@param py_unit_group py.UnitGroup
 ---@return UnitGroup
 function M.get_by_handle(py_unit_group)
-    local unit_group = New 'UnitGroup' (py_unit_group)
+    local unit_group = New "UnitGroup" (py_unit_group)
     return unit_group
 end
 
-y3.py_converter.register_py_to_lua('py.UnitGroup', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.UnitGroup', function (lua_value)
+y3.py_converter.register_py_to_lua("py.UnitGroup", M.get_by_handle)
+y3.py_converter.register_lua_to_py("py.UnitGroup", function(lua_value)
     return lua_value.handle
 end)
 
 --遍历单位组中单位做动作
 ---@return Unit[]
-function M:pick()
-    local lua_table ={}
+function M:遍历()
+    local lua_table = {}
     for i = 1, python_len(self.handle) do
-        local iter_unit = python_index(self.handle,i-1)
-        table.insert(lua_table,y3.unit.get_by_id(iter_unit))
+        local iter_unit = python_index(self.handle, i - 1)
+        table.insert(lua_table, y3.unit.get_by_id(iter_unit))
     end
     return lua_table
 end
@@ -42,7 +42,7 @@ end
 --添加单位
 ---@param unit Unit 单位
 function M:add_unit(unit)
-    GameAPI.add_unit_to_group(unit.handle,self.handle)
+    GameAPI.add_unit_to_group(unit.handle, self.handle)
 end
 
 --移除单位
@@ -61,7 +61,7 @@ end
 ---@param count integer
 ---@return UnitGroup unit_group  随机整数个单位
 function M:pick_random_n(count)
-    local py_unit_group =GameAPI.get_random_n_unit_in_group(self.handle, count)
+    local py_unit_group = GameAPI.get_random_n_unit_in_group(self.handle, count)
     return M.get_by_handle(py_unit_group)
 end
 
@@ -83,7 +83,7 @@ end
 ---@param unit_key py.UnitKey
 ---@return integer num_of_unit 单位类型的数量
 function M:count_by_key(unit_key)
-    return GameAPI.get_num_of_unit_key_in_group(self.handle,unit_key)
+    return GameAPI.get_num_of_unit_key_in_group(self.handle, unit_key)
 end
 
 --获取单位组内第一个单位
