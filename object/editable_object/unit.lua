@@ -3,25 +3,25 @@
 ---@field handle py.Unit
 ---@field id integer
 ---@overload fun(py_unit_id: py.UnitID, py_unit: py.Unit): self
-local M = Class 'Unit'
+local M = Class "Unit"
 
-M.type = 'unit'
+M.type = "unit"
 
 ---@class Unit: GCHost
-Extends('Unit', 'GCHost')
+Extends("Unit", "GCHost")
 ---@class Unit: Storage
-Extends('Unit', 'Storage')
+Extends("Unit", "Storage")
 ---@class Unit: CustomEvent
-Extends('Unit', 'CustomEvent')
+Extends("Unit", "CustomEvent")
 ---@class Unit: ObjectEvent
-Extends('Unit', 'ObjectEvent')
+Extends("Unit", "ObjectEvent")
 ---@class Unit: KV
-Extends('Unit', 'KV')
+Extends("Unit", "KV")
 
 function M:__tostring()
-    return string.format('{unit|%s|%s}'
-        , self:get_name()
-        , self.handle
+    return string.format("{unit|%s|%s}"
+    , self:get_name()
+    , self.handle
     )
 end
 
@@ -41,12 +41,12 @@ end
 ---@package
 ---@param id py.UnitID
 ---@return Unit?
-M.ref_manager = New 'Ref' ('Unit', function (id)
+M.ref_manager = New "Ref" ("Unit", function(id)
     local py_unit = GameAPI.get_unit_by_id(id)
     if not py_unit then
         return nil
     end
-    return New 'Unit' (id, py_unit)
+    return New "Unit" (id, py_unit)
 end)
 
 ---通过py层的单位实例获取lua层的单位实例
@@ -58,8 +58,8 @@ function M.get_by_handle(py_unit)
     return unit
 end
 
-y3.py_converter.register_py_to_lua('py.Unit', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.Unit', function (lua_value)
+y3.py_converter.register_py_to_lua("py.Unit", M.get_by_handle)
+y3.py_converter.register_lua_to_py("py.Unit", function(lua_value)
     return lua_value.handle
 end)
 
@@ -75,14 +75,14 @@ end
 ---@param res_id integer
 ---@return Unit
 function M.get_by_res_id(res_id)
-    local u = M.get_by_id(res_id--[[@as py.UnitID]])
-    assert(u, ('无法找到ID为%d的单位'):format(res_id))
+    local u = M.get_by_id(res_id --[[@as py.UnitID]])
+    assert(u, ("无法找到ID为%d的单位"):format(res_id))
     return u
 end
 
-y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)
+y3.py_converter.register_py_to_lua("py.UnitID", M.get_by_id)
 
-y3.game:event('单位-移除后', function (trg, data)
+y3.game:event("单位-移除后", function(trg, data)
     local id = data.unit.id
     M.ref_manager:remove(id)
 end)
@@ -148,7 +148,7 @@ function M:get_abilities_by_type(type)
     local py_list = self.handle:api_get_abilities_by_type(type)
     for i = 0, python_len(py_list) - 1 do
         local lua_ability = y3.ability.get_by_handle(python_index(py_list, i))
-        abilities[#abilities+1] = lua_ability
+        abilities[#abilities + 1] = lua_ability
     end
     return abilities
 end
@@ -161,7 +161,7 @@ function M:get_buffs()
     local py_list = self.handle:api_get_all_modifiers()
     for i = 0, python_len(py_list) - 1 do
         local lua_buff = y3.buff.get_by_handle(python_index(py_list, i))
-        buffs[#buffs+1] = lua_buff
+        buffs[#buffs + 1] = lua_buff
     end
     return buffs
 end
@@ -296,7 +296,8 @@ end
 ---@param direction number 方向
 ---@param clone_hp_mp boolean 复制当前的生命值和魔法值
 function M.create_illusion(illusion_unit, call_unit, player, point, direction, clone_hp_mp)
-    GameAPI.create_illusion(illusion_unit.handle, call_unit.handle, player.handle, point.handle, Fix32(direction), clone_hp_mp)
+    GameAPI.create_illusion(illusion_unit.handle, call_unit.handle, player.handle, point.handle, Fix32(direction),
+        clone_hp_mp)
 end
 
 ---删除单位
@@ -331,7 +332,8 @@ end
 ---@param source_unit? Unit 单位
 ---@param text_type? string 跳字类型
 function M:heals(value, skill, source_unit, text_type)
-    self.handle:api_heal(Fix32(value), text_type ~= nil, skill and skill.handle or nil, source_unit and source_unit.handle or nil, text_type or '')
+    self.handle:api_heal(Fix32(value), text_type ~= nil, skill and skill.handle or nil,
+        source_unit and source_unit.handle or nil, text_type or "")
 end
 
 ---添加标签
@@ -363,7 +365,7 @@ end
 ---@return GCNode
 function M:add_state_gc(state_enum)
     self:add_state(state_enum)
-    return New 'GCNode' (function ()
+    return New "GCNode" (function()
         self:remove_state(state_enum)
     end)
 end
@@ -435,7 +437,8 @@ end
 ---@param back_to_nearest boolean 偏离后就近返回
 ---@return py.UnitCommand # 命令
 function M:move_along_road(road, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
-    local command = GameAPI.create_unit_command_move_along_road(road.handle, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
+    local command = GameAPI.create_unit_command_move_along_road(road.handle, patrol_mode, can_attack, start_from_nearest,
+        back_to_nearest)
     self:command(command)
     return command
 end
@@ -448,16 +451,16 @@ end
 function M:cast(ability, target, extra_target)
     local tar_pos_1, tar_pos_2, tar_unit, tar_item, tar_dest
     if target then
-        if target.type == 'point' then
+        if target.type == "point" then
             ---@cast target Point
             tar_pos_1 = target.handle
-        elseif target.type == 'unit' then
+        elseif target.type == "unit" then
             ---@cast target Unit
             tar_unit = target.handle
-        elseif target.type == 'item' then
+        elseif target.type == "item" then
             ---@cast target Item
             tar_item = target.handle
-        elseif target.type == 'destructible' then
+        elseif target.type == "destructible" then
             ---@cast target Destructible
             tar_dest = target.handle
         end
@@ -467,7 +470,8 @@ function M:cast(ability, target, extra_target)
     end
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    local command = GameAPI.create_unit_command_use_skill(ability.handle, tar_pos_1, tar_pos_2, tar_unit, tar_item, tar_dest)
+    local command = GameAPI.create_unit_command_use_skill(ability.handle, tar_pos_1, tar_pos_2, tar_unit, tar_item,
+        tar_dest)
     self:command(command)
     return command
 end
@@ -509,16 +513,16 @@ end
 function M:use_item(item, target, extra_target)
     local tar_pos_1, tar_pos_2, tar_unit, tar_item, tar_dest
     if target then
-        if target.type == 'point' then
+        if target.type == "point" then
             ---@cast target Point
             tar_pos_1 = target.handle
-        elseif target.type == 'unit' then
+        elseif target.type == "unit" then
             ---@cast target Unit
             tar_unit = target.handle
-        elseif target.type == 'item' then
+        elseif target.type == "item" then
             ---@cast target Item
             tar_item = target.handle
-        elseif target.type == 'destructible' then
+        elseif target.type == "destructible" then
             ---@cast target Destructible
             tar_dest = target.handle
         end
@@ -586,8 +590,8 @@ end
 ---@return GCNode
 function M:add_attr_gc(attr_name, value, attr_type)
     self:add_attr(attr_name, value, attr_type)
-    return New 'GCNode' (function ()
-        self:add_attr(attr_name, - value, attr_type)
+    return New "GCNode" (function()
+        self:add_attr(attr_name, -value, attr_type)
     end)
 end
 
@@ -910,7 +914,6 @@ function M:get_affect_techs()
     return lua_table
 end
 
-
 -- 设置白天的视野范围
 ---@param value number
 function M:set_day_vision(value)
@@ -1090,7 +1093,7 @@ function M:get_shop_item_list(page)
     local py_list = self.handle:api_get_shop_item_list(page)
     for i = 0, python_len(py_list) - 1 do
         local item_key = python_index(py_list, i)
-        lua_table[#lua_table+1] = item_key
+        lua_table[#lua_table + 1] = item_key
     end
     return lua_table
 end
@@ -1382,7 +1385,7 @@ end
 ---是否是英雄
 ---@returr boolean
 function M:is_hero()
-    return self.handle:api_get_type() == y3.const.UnitCategory['HERO']
+    return self.handle:api_get_type() == y3.const.UnitCategory["HERO"]
 end
 
 ---获取单位类型的头像
@@ -1517,7 +1520,7 @@ end
 ---@param range number 范围
 ---@return boolean in_radius 在单位附近
 function M:is_in_radius(other, range)
-    if other.type == 'unit' then
+    if other.type == "unit" then
         ---@cast other Unit
         return self.handle:api_is_in_range(other.handle, range)
     else
@@ -1541,7 +1544,7 @@ function M:is_illusion()
 end
 
 ---是否在单位组中
----@param group UnitGroup 单位组
+---@param group 类_单位组 单位组
 ---@return boolean in_group 在单位组中
 function M:is_in_group(group)
     return GameAPI.judge_unit_in_group(self.handle, group.handle)
@@ -1722,8 +1725,8 @@ function M:damage(data)
         data.critical or false,
         data.no_miss or false,
         data.particle or nil,
-        data.socket or '',
-        data.text_type or 'physics',
+        data.socket or "",
+        data.text_type or "physics",
         data.text_track or 0
     )
 end

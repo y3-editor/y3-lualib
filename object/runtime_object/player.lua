@@ -4,28 +4,28 @@
 ---@field id integer
 ---@overload fun(py_player?: py.Role): self
 ---@overload fun(id: py.RoleID): self
-local M = Class 'Player'
+local M = Class "Player"
 
-M.type = 'player'
+M.type = "player"
 
 ---@class Player: Storage
-Extends('Player', 'Storage')
+Extends("Player", "Storage")
 ---@class Player: CustomEvent
-Extends('Player', 'CustomEvent')
+Extends("Player", "CustomEvent")
 ---@class Player: ObjectEvent
-Extends('Player', 'ObjectEvent')
+Extends("Player", "ObjectEvent")
 ---@class Player: KV
-Extends('Player', 'KV')
+Extends("Player", "KV")
 
 ---@package
 ---@param key py.RoleID
 ---@return Player?
-M.ref_manager = New 'Ref' ('Player', function (key)
+M.ref_manager = New "Ref" ("Player", function(key)
     local py_player = GameAPI.get_role_by_role_id(key)
     if not py_player then
         return nil
     end
-    return New 'Player' (py_player)
+    return New "Player" (py_player)
 end)
 
 ---@param py_player py.Role
@@ -37,8 +37,8 @@ function M:__init(py_player)
 end
 
 function M:__tostring()
-    return string.format('{Player|%d}'
-        , self.id
+    return string.format("{Player|%d}"
+    , self.id
     )
 end
 
@@ -57,8 +57,8 @@ function M.get_by_id(id)
     return player
 end
 
-y3.py_converter.register_type_alias('py.Role', 'Player')
-y3.py_converter.register_py_to_lua('py.RoleID', M.get_by_id)
+y3.py_converter.register_type_alias("py.Role", "Player")
+y3.py_converter.register_py_to_lua("py.RoleID", M.get_by_id)
 
 ---@param py_player py.Role
 ---@return Player
@@ -67,8 +67,8 @@ function M.get_by_handle(py_player)
     return M.get_by_id(id)
 end
 
-y3.py_converter.register_py_to_lua('py.Role', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.Role', function (lua_value)
+y3.py_converter.register_py_to_lua("py.Role", M.get_by_handle)
+y3.py_converter.register_lua_to_py("py.Role", function(lua_value)
     return lua_value.handle
 end)
 
@@ -147,7 +147,7 @@ function M:set_strict_group_navigation(is_strict)
 end
 
 ---选中单位/单位组
----@param unit_or_group Unit|UnitGroup 单位/单位组
+---@param unit_or_group Unit|类_单位组 单位/单位组
 function M:select_unit(unit_or_group)
     self.handle:role_select_unit(unit_or_group.handle)
 end
@@ -181,11 +181,11 @@ end
 ---@param key py.NormalKey 键名
 ---@param assist_key py.RecordKey 辅助键名
 ---@return boolean is_conf 是否被占用
-function M:is_operation_key_occupied(key,assist_key)
+function M:is_operation_key_occupied(key, assist_key)
     return self.handle:api_is_conf_of_editable_game_func(key, assist_key)
 end
 
----设置玩家的基础操作快捷键（过滤掉禁止设置的） 
+---设置玩家的基础操作快捷键（过滤掉禁止设置的）
 --TODO:operation在lua层的表示方式待整理 方法名英文待确认
 ---@param operation py.EditableGameFunc 可编辑操作
 ---@param key py.NormalKey 功能按键
@@ -285,7 +285,6 @@ end
 function M:is_in_shadow(point)
     return self.handle:is_point_in_shadow(point.handle)
 end
-
 
 ---获取玩家属性
 ---@param key py.RoleResKey 属性名
@@ -403,7 +402,7 @@ function M:is_in_group(player_group)
 end
 
 ---属于某玩家的所有单位
----@return UnitGroup unit_group 单位组
+---@return 类_单位组 unit_group 单位组
 function M:get_all_units()
     local py_unit_group = self.handle:get_all_unit_id()
     return y3.unit_group.get_by_handle(py_unit_group)
@@ -443,7 +442,7 @@ end
 ---@return Point point 点
 function M:get_mouse_pos()
     if not y3.config.sync.mouse then
-        error('必须先设置 `y3.config.sync.mouse = true`')
+        error("必须先设置 `y3.config.sync.mouse = true`")
     end
     local py_point = GameAPI.get_player_pointing_pos(self.handle)
     -- TODO 见问题2
@@ -456,7 +455,7 @@ end
 ---@return number x_per X的占比
 function M:get_mouse_ui_x_percent()
     if not y3.config.sync.mouse then
-        error('必须先设置 `y3.config.sync.mouse = true`')
+        error("必须先设置 `y3.config.sync.mouse = true`")
     end
     return GameAPI.get_role_ui_x_per(self.handle):float()
 end
@@ -466,7 +465,7 @@ end
 ---@return number y_per Y的占比
 function M:get_mouse_ui_y_percent()
     if not y3.config.sync.mouse then
-        error('必须先设置 `y3.config.sync.mouse = true`')
+        error("必须先设置 `y3.config.sync.mouse = true`")
     end
     return GameAPI.get_role_ui_y_per(self.handle):float()
 end
@@ -488,7 +487,7 @@ end
 ---@return boolean 是否被按下
 function M:is_key_pressed(key)
     if not y3.config.sync.key then
-        error('必须先设置 `y3.config.sync.key = true`')
+        error("必须先设置 `y3.config.sync.key = true`")
     end
     return GameAPI.player_key_is_pressed(self.handle, key)
 end
@@ -571,7 +570,7 @@ function M:exit_game()
     GameAPI.exit_game(self.handle)
 end
 
--- 获取本地玩家，注意这可能会导致不同步！  
+-- 获取本地玩家，注意这可能会导致不同步！
 --> 警告：如果你不确定这个函数在做什么，请不要使用它！
 --
 --> 已废弃：请改用 `y3.player.with_local`

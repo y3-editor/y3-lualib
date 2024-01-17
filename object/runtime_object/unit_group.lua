@@ -1,5 +1,5 @@
 --单位组
----@class UnitGroup
+---@class 类_单位组
 ---@field handle py.UnitGroup
 ---@overload fun(py_unit_group?: py.UnitGroup): self
 local M = Class "UnitGroup"
@@ -12,7 +12,7 @@ function M:__init(py_unit_group)
 end
 
 ---@param py_unit_group py.UnitGroup
----@return UnitGroup
+---@return 类_单位组
 function M.get_by_handle(py_unit_group)
     local unit_group = New "UnitGroup" (py_unit_group)
     return unit_group
@@ -35,47 +35,47 @@ function M:遍历()
 end
 
 --根据单位组选中单位
-function M:select_units()
+function M:选中组内单位()
     GameAPI.set_unit_group_selected(self.handle)
 end
 
 --添加单位
 ---@param unit Unit 单位
-function M:add_unit(unit)
+function M:添加单位(unit)
     GameAPI.add_unit_to_group(unit.handle, self.handle)
 end
 
 --移除单位
 ---@param unit Unit 单位
-function M:remove_unit(unit)
+function M:移除单位(unit)
     GameAPI.remove_unit_in_group(self.handle, unit.handle)
 end
 
 --移除单位类型
 ---@param unit_key py.UnitKey 单位类型id
-function M:remove_units_by_key(unit_key)
+function M:移除单位类型(unit_key)
     GameAPI.remove_unit_in_group_by_key(self.handle, unit_key)
 end
 
 --单位组中随机整数个单位
 ---@param count integer
----@return UnitGroup unit_group  随机整数个单位
-function M:pick_random_n(count)
+---@return 类_单位组 unit_group  随机整数个单位
+function M:获取随机数量单位(count)
     local py_unit_group = GameAPI.get_random_n_unit_in_group(self.handle, count)
     return M.get_by_handle(py_unit_group)
 end
 
 --挑选指定单位类型的单位
 ---@param unit_key py.UnitKey 单位类型id
----@return UnitGroup unit_group 单位组
-function M.pick_by_key(unit_key)
+---@return 类_单位组 unit_group 单位组
+function M.获取指定单位类型(unit_key)
     local py_unit_group = GameAPI.get_units_by_key(unit_key)
     return M.get_by_handle(py_unit_group)
 end
 
 --获取单位组中单位数量
 ---@return integer unit_group_num 单位数量
-function M:count()
+function M:获取单位数量()
     return GameAPI.get_unit_group_num(self.handle)
 end
 

@@ -3,7 +3,7 @@
 --用来选取某个区域内的单位
 ---@class Selector
 ---@overload fun(): self
-local M = Class 'Selector'
+local M = Class "Selector"
 
 ---@return self
 function M:__init()
@@ -50,7 +50,7 @@ function M:not_visible(p)
 end
 
 -- 条件 - 不在某个单位组中
----@param ug UnitGroup
+---@param ug 类_单位组
 ---@return self
 function M:not_in_group(ug)
     ---@private
@@ -139,15 +139,15 @@ function M:count(count)
 end
 
 -- 进行选取
----@return UnitGroup
+---@return 类_单位组
 function M:get()
     local pos = self._pos
     local shape = self._shape
-    assert(pos, '必须设置中心点！')
-    assert(shape, '必须设置形状！')
+    assert(pos, "必须设置中心点！")
+    assert(shape, "必须设置形状！")
     local py_unit_group = GameAPI.filter_unit_id_list_in_area_v2(
-        -- TODO 见问题2
-        ---@diagnostic disable-next-line: param-type-mismatch
+    -- TODO 见问题2
+    ---@diagnostic disable-next-line: param-type-mismatch
         pos.handle,
         shape.handle,
         self._owner_player and self._owner_player.handle or nil,
@@ -164,13 +164,13 @@ function M:get()
         self._include_dead,
         self._count or -1
     )
-    return New 'UnitGroup' (py_unit_group)
+    return New "UnitGroup" (py_unit_group)
 end
 
 -- 创建选取器
 ---@return Selector
 function M.create()
-    return New 'Selector' ()
+    return New "Selector" ()
 end
 
 return M
