@@ -2,9 +2,9 @@
 ---@field player Player
 ---@field handle string
 ---@overload fun(player: Player, ui_name: string): self
-local M = Class 'UI'
+local M = Class "UI"
 
-M.type = 'ui'
+M.type = "ui"
 
 ---@param player Player
 ---@param handle string
@@ -21,10 +21,10 @@ function M:__del()
 end
 
 function M:__tostring()
-    return string.format('{UI|%s|%s} @ %s'
-        , self.name
-        , self.handle
-        , self.player
+    return string.format("{UI|%s|%s} @ %s"
+    , self.name
+    , self.handle
+    , self.player
     )
 end
 
@@ -33,10 +33,10 @@ M.map = {}
 
 M.comp_id = y3.proxy.new({}, {
     cache = true,
-    anyGetter = function (self, raw, key, config, custom)
+    anyGetter = function(self, raw, key, config, custom)
         ---@diagnostic disable-next-line: deprecated
         local id = GameAPI.get_ui_comp_id_by_name(y3.player.get_local().handle, key)
-        if id == '' then
+        if id == "" then
             return key
         else
             return id
@@ -48,8 +48,8 @@ M.comp_id = y3.proxy.new({}, {
 ---@param player Player
 ---@param handle string
 ---@return UI
-function M.get_by_handle(player, handle)
-    local ui = New 'UI' (player, handle)
+function M.从句柄获取(player, handle)
+    local ui = New "UI" (player, handle)
     return ui
 end
 
@@ -58,7 +58,7 @@ end
 ---@param parent_ui UI ui控件
 ---@param comp_type y3.Const.UIComponentType ui控件
 ---@return UI 返回在lua层初始化后的lua层技能实例
-function M.create_ui(player, parent_ui, comp_type)
+function M.创建(player, parent_ui, comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 7)
     return y3.ui.get_by_handle(player, py_ui)
 end
@@ -66,16 +66,16 @@ end
 ---@param player Player 玩家
 ---@param ui_path string ui对象路径，自画板一级开始，父节点与子节点使用“.”链接
 ---@return UI
-function M.get_ui(player, ui_path)
+function M.从路径获取(player, ui_path)
     local py_ui = GameAPI.get_comp_by_absolute_path(player.handle, ui_path)
-    assert(py_ui, string.format('UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。', ui_path))
+    assert(py_ui, string.format("UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。", ui_path))
     return y3.ui.get_by_handle(player, py_ui)
 end
 
 ---@param comp_type y3.Const.UIComponentType ui控件
 ---@return UI 返回在lua层初始化后的lua层技能实例
-function M:create_child(comp_type)
-    return M.create_ui(self.player, self, comp_type)
+function M:创建子控件(comp_type)
+    return M.创建(self.player, self, comp_type)
 end
 
 --创建界面事件
@@ -83,29 +83,30 @@ end
 ---@param name string 事件名
 ---@param data? Serialization.SupportTypes 自定义数据，在事件中通过 `data` 字段获取
 ---@return string
-function M:add_event(event, name, data)
-    return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name, y3.dump.encode(data))
+function M:添加事件(event, name, data)
+    return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name,
+                                              y3.dump.encode(data))
 end
 
 -- 设置相对父级位置. 目前不建议使用, 引擎层存在 bug, 建议手动计算位置赋值.
 ---@param direction y3.Const.UIRelativeParentPosType
 ---@param offset number # 相对父级位置
 ---@return UI
-function M:set_relative_parent_pos(direction, offset)
+function M:设置相对父控件位置(direction, offset)
     GameAPI.set_ui_comp_adapt_option(self.player.handle, self.handle, y3.const.UIRelativeParentPosType[direction], offset)
     return self
 end
 
 -- 对玩家触发UI事件
 ---@param event_name string
-function M:send_event(event_name)
+function M:发送事件(event_name)
     GameAPI.trigger_ui_event(self.player.handle, self.handle, event_name)
 end
 
 --设置UI控件显隐
 ---@param visible boolean 显示/隐藏
 ---@return self
-function M:set_visible(visible)
+function M:设置是否可见(visible)
     GameAPI.set_ui_comp_visible(self.player.handle, visible, self.handle)
     return self
 end
@@ -113,7 +114,7 @@ end
 --设置图片
 ---@param img py.Texture 图片id
 ---@return self
-function M:set_image(img)
+function M:设置图片(img)
     GameAPI.set_ui_comp_image_with_icon(self.player.handle, self.handle, img)
     return self
 end
@@ -124,7 +125,7 @@ end
 ---@param b number 蓝色
 ---@param a number 透明度
 ---@return self
-function M:set_image_color(r, g, b, a)
+function M:设置图片颜色(r, g, b, a)
     GameAPI.set_ui_image_color(self.player.handle, self.handle, r, g, b, a)
     return self
 end
@@ -132,16 +133,15 @@ end
 --设置文本
 ---@param str string 文本
 ---@return self
-function M:set_text(str)
+function M:设置文本(str)
     GameAPI.set_ui_comp_text(self.player.handle, self.handle, str)
     return self
 end
 
-
 --设置控件透明度
 ---@param value number 透明度
 ---@return self
-function M:set_alpha(value)
+function M:设置透明度(value)
     GameAPI.set_ui_comp_opacity(self.player.handle, self.handle, value)
     return self
 end
@@ -152,7 +152,7 @@ end
 ---@param duration number # 持续时间
 ---@param ease_type? y3.Const.EaseType # 曲线类型
 ---@return self
-function M:set_anim_opacity(start_alpha, end_alpha, duration, ease_type)
+function M:设置动画透明度(start_alpha, end_alpha, duration, ease_type)
     GameAPI.set_ui_comp_anim_opacity(self.player.handle, self.handle, start_alpha, end_alpha, duration, ease_type)
     return self
 end
@@ -160,63 +160,57 @@ end
 --设置控件是否可拖动
 ---@param isdrag boolean 是否可拖动
 ---@return self
-function M:set_is_draggable(isdrag)
+function M:设置是否可拖动(isdrag)
     GameAPI.set_ui_comp_drag(self.player.handle, self.handle, isdrag)
     return self
 end
 
-
 --设置控件是否拦截操作
 ---@param intercepts boolean 是否拦截操作
 ---@return self
-function M:set_intercepts_operations(intercepts)
+function M:设置是否拦截操作(intercepts)
     GameAPI.set_ui_comp_swallow(self.player.handle, self.handle, intercepts)
     return self
 end
 
-
 --设置控件深度
 ---@param deep integer 深度
 ---@return self
-function M:set_z_order(deep)
+function M:设置深度(deep)
     GameAPI.set_ui_comp_z_order(self.player.handle, self.handle, deep)
     return self
 end
 
-
 --设置进度条最大值
 ---@param progress number 进度条最大值
 ---@return self
-function M:set_max_progress_bar_value(progress)
+function M:设置进度条最大值(progress)
     GameAPI.set_progress_bar_max_value(self.player.handle, self.handle, progress)
     return self
 end
-
 
 --设置进度条当前值
 ---@param progress number 进度条当前值
 ---@param time number? 渐变时间
 ---@return self
-function M:set_current_progress_bar_value(progress, time)
+function M:设置进度条当前值(progress, time)
     GameAPI.set_progress_bar_current_value(self.player.handle, self.handle, progress, time or 0)
     return self
 end
 
-
 --启用/禁用按钮
 ---@param enable boolean 启用/禁用按钮
 ---@return self
-function M:set_button_enable(enable)
+function M:设置是否启用按钮(enable)
     GameAPI.set_ui_comp_enable(self.player.handle, self.handle, enable)
     return self
 end
-
 
 --设置控件尺寸
 ---@param width number 宽度
 ---@param height number 高度
 ---@return self
-function M:set_ui_size(width, height)
+function M:设置尺寸(width, height)
     GameAPI.set_ui_comp_size(self.player.handle, self.handle, width, height)
     return self
 end
@@ -227,7 +221,7 @@ end
 ---@param y_top integer # width
 ---@param y_bottom integer # height
 ---@return self
-function M:set_ui_9(x_left, x_right, y_top, y_bottom)
+function M:设置九宫格(x_left, x_right, y_top, y_bottom)
     GameAPI.set_ui_comp_cap_insets(self.player.handle, self.handle, x_left, x_right, y_top, y_bottom)
     return self
 end
@@ -235,7 +229,7 @@ end
 --设置控件9宫格启用
 ---@param switch boolean # 启用/禁用
 ---@return self
-function M:set_ui_9_enable(switch)
+function M:设置是否启用九宫格(switch)
     GameAPI.set_ui_comp_scale_9_enable(self.player.handle, self.handle, switch)
     return self
 end
@@ -243,41 +237,38 @@ end
 --设置文本字体大小
 ---@param size integer 字体大小
 ---@return self
-function M:set_font_size(size)
+function M:设置字体大小(size)
     GameAPI.set_ui_comp_font_size(self.player.handle, self.handle, size)
     return self
 end
 
 --让输入框获取焦点
 ---@return self
-function M:set_input_field_focus()
+function M:使输入框获得焦点()
     GameAPI.set_input_field_focus(self.player.handle, self.handle)
     return self
 end
 
-
 --绑定技能对象到控件
 ---@param skill Ability 技能对象
 ---@return self
-function M:set_skill_on_ui_comp(skill)
+function M:绑定技能到技能元件(skill)
     GameAPI.set_skill_on_ui_comp(self.player.handle, skill.handle, self.handle)
     return self
 end
 
-
 --绑定单位到魔法效果显示栏组件
 ---@param unit Unit 单位
 ---@return self
-function M:set_buff_on_ui(unit)
+function M:绑定魔法效果到魔法效果元件(unit)
     GameAPI.set_buff_on_ui_comp(self.player.handle, unit.handle, self.handle)
     return self
 end
 
-
 -- 绑定物品对象到物品组件
 ---@param item Item 物品对象
 ---@return self
-function M:set_item_on_ui(item)
+function M:绑定物品到物品元件(item)
     GameAPI.set_item_on_ui_comp(self.player.handle, item.handle, self.handle)
     return self
 end
@@ -285,36 +276,32 @@ end
 --设置默认游戏界面的开关
 ---@param player Player 玩家
 ---@param visible boolean 游戏界面的开关
-function M.set_prefab_ui_visible(player,visible)
+function M.设置默认游戏界面开关(player, visible)
     GameAPI.set_prefab_ui_visible(player.handle, visible)
 end
-
 
 --设置模型控件的模型
 ---@param modelid py.ModelKey 模型id
 ---@return self
-function M:set_ui_model_id(modelid)
+function M:设置模型控件模型(modelid)
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.set_ui_model_id(self.player.handle, self.handle, modelid)
     return self
 end
 
-
-
 --改变小地图图片
 ---@param player Player 玩家
 ---@param img py.Texture 图片id
-function M.change_mini_map_img(player,img)
+function M.设置小地图图片(player, img)
     GameAPI.change_mini_map_img_with_icon(player.handle, img)
 end
-
 
 --设置物品组件绑定单位
 ---@param unit Unit
 ---@param field y3.Const.SlotType 背包槽位类型名
 ---@param index integer 格子位置
 ---@return self
-function M:set_ui_unit_slot(unit, field, index)
+function M:绑定物品组件到单位(unit, field, index)
     GameAPI.set_ui_comp_unit_slot(self.player.handle, self.handle, unit.handle, field, index)
     return self
 end
@@ -322,7 +309,7 @@ end
 --设置按钮快捷键
 ---@param key integer 快捷键
 ---@return self
-function M:set_button_shortcut(key)
+function M:设置按钮快捷键(key)
     GameAPI.set_btn_short_cut(self.player.handle, self.handle, key)
     return self
 end
@@ -330,7 +317,7 @@ end
 --设置按钮组合快捷键
 ---@param key integer 辅助按键
 ---@return self
-function M:set_btn_meta_key(key)
+function M:设置按钮组合快捷键(key)
     GameAPI.set_btn_func_short_cut(self.player.handle, self.handle, key)
     return self
 end
@@ -339,7 +326,7 @@ end
 ---@param status y3.Const.UIButtonStatus 状态
 ---@param text string 文本
 ---@return self
-function M:set_btn_status_string(status, text)
+function M:设置按钮文本(status, text)
     GameAPI.set_ui_btn_status_string(self.player.handle, self.handle, status, text)
     return self
 end
@@ -348,7 +335,7 @@ end
 ---@param status y3.Const.UIButtonStatus 状态
 ---@param img integer 图片id
 ---@return self
-function M:set_btn_status_image(status, img)
+function M:设置按钮图片(status, img)
     GameAPI.set_ui_btn_status_image(self.player.handle, self.handle, status, img)
     return self
 end
@@ -356,29 +343,26 @@ end
 --设置智能施法快捷键
 ---@param key integer 快捷键
 ---@return self
-function M:set_skill_btn_smart_cast_key(key)
+function M:设置智能施法快捷键(key)
     GameAPI.set_skill_btn_smart_cast_key(self.player.handle, self.handle, key)
     return self
 end
 
-
 --设置智能施法组合快捷键
 ---@param key integer 辅助按键
 ---@return self
-function M:set_skill_btn_func_meta_key(key)
+function M:设置智能施法组合快捷键(key)
     GameAPI.set_skill_btn_func_smart_cast_key(self.player.handle, self.handle, key)
     return self
 end
 
-
 --播放/停止技能按钮激活动效
 ---@param isopen boolean 播放/停止技能按钮激活动效
 ---@return self
-function M:set_skill_btn_action_effect(isopen)
+function M:播放_停止_技能按钮激活动效(isopen)
     GameAPI.set_skill_btn_action_effect(self.player.handle, self.handle, isopen)
     return self
 end
-
 
 --设置文本颜色
 ---@param r number 红色
@@ -386,42 +370,38 @@ end
 ---@param b number 红色
 ---@param a number 红色
 ---@return self
-function M:set_text_color(r,g,b,a)
+function M:设置_文本颜色(r, g, b, a)
     GameAPI.set_ui_comp_font_color(self.player.handle, self.handle, r, g, b, a)
     return self
 end
 
-
 --设置模型控件的镜头视野
 ---@param fov number 视野范围
 ---@return self
-function M:change_showroom_fov(fov)
+function M:设置_模型控件镜头视野(fov)
     GameAPI.change_showroom_fov(self.player.handle, self.handle, fov)
     return self
 end
-
 
 --设置模型控件的镜头坐标
 ---@param x number x轴
 ---@param y number y轴
 ---@param z number z轴
 ---@return self
-function M:change_showroom_cposition(x,y,z)
+function M:设置_模型控件镜头坐标(x, y, z)
     GameAPI.change_showroom_cposition(self.player.handle, self.handle, x, y, z)
     return self
 end
-
 
 --设置模型控件的镜头旋转
 ---@param x number x轴
 ---@param y number y轴
 ---@param z number z轴
 ---@return self
-function M:change_showroom_crotation(x,y,z)
+function M:change_showroom_crotation(x, y, z)
     GameAPI.change_showroom_crotation(self.player.handle, self.handle, x, y, z)
     return self
 end
-
 
 --系统消息提示
 ---@param player Player 玩家
@@ -447,70 +427,64 @@ end
 ---@param rot number 角度
 ---@return self
 function M:set_widget_relative_rotation(rot)
-    GameAPI.set_ui_comp_rotation(self.player.handle,self.handle, rot)
+    GameAPI.set_ui_comp_rotation(self.player.handle, self.handle, rot)
     return self
 end
-
 
 --设置控件绝对坐标
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
-function M:set_widget_absolute_coordinates(x,y)
-    GameAPI.set_ui_comp_world_pos(self.player.handle,self.handle, x, y)
+function M:set_widget_absolute_coordinates(x, y)
+    GameAPI.set_ui_comp_world_pos(self.player.handle, self.handle, x, y)
     return self
 end
-
 
 --设置控件绝对旋转
 ---@param rot number 角度
 ---@return self
 function M:set_widget_absolute_rotation(rot)
-    GameAPI.set_ui_comp_world_rotation(self.player.handle,self.handle, rot)
+    GameAPI.set_ui_comp_world_rotation(self.player.handle, self.handle, rot)
     return self
 end
-
 
 --设置控件绝对缩放
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
 function M:set_widget_absolute_scale(x, y)
-    GameAPI.set_ui_comp_world_scale(self.player.handle,self.handle, x, y)
+    GameAPI.set_ui_comp_world_scale(self.player.handle, self.handle, x, y)
     return self
 end
-
 
 --设置控件相对缩放
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
 function M:set_widget_relative_scale(x, y)
-    GameAPI.set_ui_comp_scale(self.player.handle,self.handle, x, y)
+    GameAPI.set_ui_comp_scale(self.player.handle, self.handle, x, y)
     return self
 end
-
 
 --设置小地图显示模式
 ---@param player Player 玩家
 ---@param type integer 小地图显示模式
-function M.change_minimap_display_mode(player,type)
-    GameAPI.change_mini_map_color_type(player.handle,type)
+function M.change_minimap_display_mode(player, type)
+    GameAPI.change_mini_map_color_type(player.handle, type)
 end
-
 
 --设置滑动条的进度
 ---@param percent number 滑动条的进度
 ---@return self
 function M:set_slider_value(percent)
-    GameAPI.set_slider_cur_percent(self.player.handle,self.handle, percent)
+    GameAPI.set_slider_cur_percent(self.player.handle, self.handle, percent)
     return self
 end
 
 --解绑控件
 ---@return self
 function M:unbind_widget()
-    GameAPI.unbind_ui_comp(self.player.handle,self.handle)
+    GameAPI.unbind_ui_comp(self.player.handle, self.handle)
     return self
 end
 
@@ -518,7 +492,7 @@ end
 ---@return UI[]
 function M:get_ui_comp_children()
     local py_list = GameAPI.get_ui_comp_children(self.player.handle, self.handle)
-    local uis = y3.helper.unpack_list(py_list, function (py_object)
+    local uis = y3.helper.unpack_list(py_list, function(py_object)
         return y3.ui.get_by_handle(self.player, py_object)
     end)
     return uis
@@ -593,7 +567,7 @@ end
 ---@param uiAttr string 界面控件属性
 ---@return self
 function M:unbind(uiAttr)
-    GameAPI.ui_comp_unbind(self.player.handle,self.handle,uiAttr)
+    GameAPI.ui_comp_unbind(self.player.handle, self.handle, uiAttr)
     return self
 end
 
@@ -698,7 +672,7 @@ end
 ---@param player Player 目标玩家
 ---@return self
 function M:show_chat(player, enable)
-    GameAPI.set_player_chat_show(self.player.handle, self.handle, player.handle,enable)
+    GameAPI.set_player_chat_show(self.player.handle, self.handle, player.handle, enable)
     return self
 end
 
@@ -970,16 +944,17 @@ end
 ---@return self
 function M:play_ui_sequence(loop, space, start_frame, end_frame)
     ---@diagnostic disable-next-line: param-type-mismatch
-    GameAPI.play_ui_comp_sequence(self.player.handle, self.handle, loop or false, space or 0.1, start_frame or 0, end_frame or -1)
+    GameAPI.play_ui_comp_sequence(self.player.handle, self.handle, loop or false, space or 0.1, start_frame or 0,
+                                  end_frame or -1)
     return self
 end
 
 ---@enum(key) Item.UseOperation
 local use_operation_map = {
-    ['无'] = 0,
-    ['左键单击'] = 1,
-    ['右键单击'] = 2,
-    ['左键双击'] = 3,
+    ["无"] = 0,
+    ["左键单击"] = 1,
+    ["右键单击"] = 2,
+    ["左键双击"] = 3,
 }
 
 --设置使用物品操作方式
@@ -990,9 +965,9 @@ end
 
 ---@enum(key) Item.DrapOperation
 local drag_operation_map = {
-    ['无'] = 0,
-    ['左键'] = 1,
-    ['右键'] = 2,
+    ["无"] = 0,
+    ["左键"] = 1,
+    ["右键"] = 2,
 }
 
 --设置拖拽物品操作方式
