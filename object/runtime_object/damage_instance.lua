@@ -46,3 +46,17 @@ function M:set_missed(missed)
     assert(self.mode == '伤害前', '只能在伤害前修改伤害是否闪避')
     GameAPI.set_cur_damage_is_miss(missed)
 end
+
+-- 获取当前伤害是否暴击
+---@return boolean
+function M:is_critical()
+    local damage_state = self.data['_py_params']['__damage_result_state']
+    return GameAPI.get_cur_damage_is_critical(damage_state)
+end
+
+-- 设置当前伤害是否暴击
+---@param critical boolean
+function M:set_critical(critical)
+    assert(self.mode ~= '伤害后', '只能在伤害前(时)修改伤害是否暴击')
+    GameAPI.set_cur_damage_is_critical(critical)
+end
