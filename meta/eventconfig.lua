@@ -469,45 +469,6 @@ M.config["玩家-关系变化"] = {
     },
 }
 
----@alias EventParam.单位-建造开始 EventParam.ET_UNIT_CONSTRUCT_START
-M.config["单位-建造开始"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "",
-    extraArgs = {
-    },
-    key = "ET_UNIT_CONSTRUCT_START",
-    name = "单位-建造开始",
-    object = "Unit",
-    params = {
-    },
-}
-
----@alias EventParam.单位-建造取消 EventParam.ET_UNIT_CONSTRUCT_CANCEL
-M.config["单位-建造取消"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "",
-    extraArgs = {
-    },
-    key = "ET_UNIT_CONSTRUCT_CANCEL",
-    name = "单位-建造取消",
-    object = "Unit",
-    params = {
-    },
-}
-
----@alias EventParam.单位-建造完成 EventParam.ET_UNIT_CONSTRUCT_FINISH
-M.config["单位-建造完成"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "",
-    extraArgs = {
-    },
-    key = "ET_UNIT_CONSTRUCT_FINISH",
-    name = "单位-建造完成",
-    object = "Unit",
-    params = {
-    },
-}
-
 ---@alias EventParam.技能-建造完成 EventParam.ET_ABILITY_BUILD_FINISH
 M.config["技能-建造完成"] = {
     __class__ = "EventConfigBuilder",
@@ -2776,58 +2737,6 @@ M.config["技能-关闭指示器"] = {
     },
 }
 
----@alias EventParam.单位-召唤 EventParam.ET_SUMMON_UNIT
-M.config["单位-召唤"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "单位被召唤后触发",
-    extraArgs = {
-    },
-    key = "ET_SUMMON_UNIT",
-    name = "单位-召唤",
-    object = "Unit",
-    params = {
-    },
-}
-
----@alias EventParam.单位-训练开始 EventParam.ET_UNIT_TRAIN_START
-M.config["单位-训练开始"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "",
-    extraArgs = {
-    },
-    key = "ET_UNIT_TRAIN_START",
-    name = "单位-训练开始",
-    object = "Unit",
-    params = {
-    },
-}
-
----@alias EventParam.单位-训练完成 EventParam.ET_UNIT_TRAIN_FINISH
-M.config["单位-训练完成"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "",
-    extraArgs = {
-    },
-    key = "ET_UNIT_TRAIN_FINISH",
-    name = "单位-训练完成",
-    object = "Unit",
-    params = {
-    },
-}
-
----@alias EventParam.单位-训练取消 EventParam.ET_UNIT_TRAIN_CANCEL
-M.config["单位-训练取消"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "",
-    extraArgs = {
-    },
-    key = "ET_UNIT_TRAIN_CANCEL",
-    name = "单位-训练取消",
-    object = "Unit",
-    params = {
-    },
-}
-
 ---@alias EventParam.物品-获得 EventParam.ET_UNIT_ADD_ITEM
 M.config["物品-获得"] = {
     __class__ = "EventConfigBuilder",
@@ -3105,6 +3014,18 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
     },
 }
 
+---@alias EventParam.对话框-点击 EventParam.ET_DIALOG_EVENT
+M.config["对话框-点击"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "对话框任意按钮被点击时触发",
+    extraArgs = {
+    },
+    key = "ET_DIALOG_EVENT",
+    name = "对话框-点击",
+    params = {
+    },
+}
+
 ---@alias EventParam.对话框-点击按钮 EventParam.ET_DIALOG_BUTTON_EVENT
 M.config["对话框-点击按钮"] = {
     __class__ = "EventConfigBuilder",
@@ -3140,9 +3061,6 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
 ---@field event fun(self: self, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
 ---@field event fun(self: self, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
----@field event fun(self: self, event: "单位-建造开始", callback: fun(trg: Trigger, data: EventParam.单位-建造开始)): Trigger
----@field event fun(self: self, event: "单位-建造取消", callback: fun(trg: Trigger, data: EventParam.单位-建造取消)): Trigger
----@field event fun(self: self, event: "单位-建造完成", callback: fun(trg: Trigger, data: EventParam.单位-建造完成)): Trigger
 ---@field event fun(self: self, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
 ---@field event fun(self: self, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
 ---@field event fun(self: self, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
@@ -3255,10 +3173,6 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
 ---@field event fun(self: self, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: self, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
----@field event fun(self: self, event: "单位-召唤", callback: fun(trg: Trigger, data: EventParam.单位-召唤)): Trigger
----@field event fun(self: self, event: "单位-训练开始", callback: fun(trg: Trigger, data: EventParam.单位-训练开始)): Trigger
----@field event fun(self: self, event: "单位-训练完成", callback: fun(trg: Trigger, data: EventParam.单位-训练完成)): Trigger
----@field event fun(self: self, event: "单位-训练取消", callback: fun(trg: Trigger, data: EventParam.单位-训练取消)): Trigger
 ---@field event fun(self: self, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
 ---@field event fun(self: self, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
 ---@field event fun(self: self, event: "物品-进入背包", callback: fun(trg: Trigger, data: EventParam.物品-进入背包)): Trigger
@@ -3279,6 +3193,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 ---@field event fun(self: self, event: "游戏-消息", event_id: integer, callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
 ---@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
+---@field event fun(self: self, event: "对话框-点击", callback: fun(trg: Trigger, data: EventParam.对话框-点击)): Trigger
 ---@field event fun(self: self, event: "对话框-点击按钮", callback: fun(trg: Trigger, data: EventParam.对话框-点击按钮)): Trigger
 
 ---@class Ability
@@ -3380,9 +3295,6 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Unit, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
 ---@field event fun(self: Unit, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
 ---@field event fun(self: Unit, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
----@field event fun(self: Unit, event: "单位-建造开始", callback: fun(trg: Trigger, data: EventParam.单位-建造开始)): Trigger
----@field event fun(self: Unit, event: "单位-建造取消", callback: fun(trg: Trigger, data: EventParam.单位-建造取消)): Trigger
----@field event fun(self: Unit, event: "单位-建造完成", callback: fun(trg: Trigger, data: EventParam.单位-建造完成)): Trigger
 ---@field event fun(self: Unit, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
 ---@field event fun(self: Unit, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
 ---@field event fun(self: Unit, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
@@ -3461,10 +3373,6 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Unit, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
 ---@field event fun(self: Unit, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
----@field event fun(self: Unit, event: "单位-召唤", callback: fun(trg: Trigger, data: EventParam.单位-召唤)): Trigger
----@field event fun(self: Unit, event: "单位-训练开始", callback: fun(trg: Trigger, data: EventParam.单位-训练开始)): Trigger
----@field event fun(self: Unit, event: "单位-训练完成", callback: fun(trg: Trigger, data: EventParam.单位-训练完成)): Trigger
----@field event fun(self: Unit, event: "单位-训练取消", callback: fun(trg: Trigger, data: EventParam.单位-训练取消)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
 

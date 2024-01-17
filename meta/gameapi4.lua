@@ -4,6 +4,144 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--设置全局触发器FLOAT_SAVE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Fixed # 值
+function GameAPI.set_trigger_list_variable_float_save(key, index, value) end
+
+--设置全局触发器FLOAT_SAVE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Fixed # 值
+function GameAPI.set_trigger_list_actor_variable_float_save(actor, key, index, value) end
+
+--设置全局触发器FLOAT_SAVE非数组变量
+---@param key string # 变量名称
+---@param value? py.Fixed # 值
+function GameAPI.set_trigger_variable_float_save(key, value) end
+
+--设置全局触发器FLOAT_SAVE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.Fixed # 值
+function GameAPI.set_trigger_actor_variable_float_save(actor, key, value) end
+
+--设置全局触发器BOOL_SAVE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? boolean # 值
+function GameAPI.set_trigger_list_variable_bool_save(key, index, value) end
+
+--设置全局触发器BOOL_SAVE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? boolean # 值
+function GameAPI.set_trigger_list_actor_variable_bool_save(actor, key, index, value) end
+
+--设置全局触发器BOOL_SAVE非数组变量
+---@param key string # 变量名称
+---@param value? boolean # 值
+function GameAPI.set_trigger_variable_bool_save(key, value) end
+
+--设置全局触发器BOOL_SAVE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? boolean # 值
+function GameAPI.set_trigger_actor_variable_bool_save(actor, key, value) end
+
+--设置全局触发器TABLE_SAVE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Table # 值
+function GameAPI.set_trigger_list_variable_table_save(key, index, value) end
+
+--设置全局触发器TABLE_SAVE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Table # 值
+function GameAPI.set_trigger_list_actor_variable_table_save(actor, key, index, value) end
+
+--设置全局触发器TABLE_SAVE非数组变量
+---@param key string # 变量名称
+---@param value? py.Table # 值
+function GameAPI.set_trigger_variable_table_save(key, value) end
+
+--设置全局触发器TABLE_SAVE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.Table # 值
+function GameAPI.set_trigger_actor_variable_table_save(actor, key, value) end
+
+--设置全局触发器GLOBAL_ARCHIVE_SLOT数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? string # 值
+function GameAPI.set_trigger_list_variable_global_archive_slot(key, index, value) end
+
+--设置全局触发器GLOBAL_ARCHIVE_SLOT数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? string # 值
+function GameAPI.set_trigger_list_actor_variable_global_archive_slot(actor, key, index, value) end
+
+--设置全局触发器GLOBAL_ARCHIVE_SLOT非数组变量
+---@param key string # 变量名称
+---@param value? string # 值
+function GameAPI.set_trigger_variable_global_archive_slot(key, value) end
+
+--设置全局触发器GLOBAL_ARCHIVE_SLOT非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? string # 值
+function GameAPI.set_trigger_actor_variable_global_archive_slot(actor, key, value) end
+
+--设置全局触发器RANDOM_POOL_DROP数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_random_pool_drop(key, index, value) end
+
+--设置全局触发器RANDOM_POOL_DROP数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_random_pool_drop(actor, key, index, value) end
+
+--设置全局触发器RANDOM_POOL_DROP非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_random_pool_drop(key, value) end
+
+--设置全局触发器RANDOM_POOL_DROP非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_random_pool_drop(actor, key, value) end
+
+--设置全局触发器DYNAMIC_TRIGGER_INSTANCE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.DynamicTriggerInstance # 值
+function GameAPI.set_trigger_list_variable_dynamic_trigger_instance(key, index, value) end
+
+--设置全局触发器DYNAMIC_TRIGGER_INSTANCE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.DynamicTriggerInstance # 值
+function GameAPI.set_trigger_list_actor_variable_dynamic_trigger_instance(actor, key, index, value) end
+
+--设置全局触发器DYNAMIC_TRIGGER_INSTANCE非数组变量
+---@param key string # 变量名称
+---@param value? py.DynamicTriggerInstance # 值
+function GameAPI.set_trigger_variable_dynamic_trigger_instance(key, value) end
+
 --设置全局触发器DYNAMIC_TRIGGER_INSTANCE非数组 组变量
 ---@param actor py.Actor # 单位实体
 ---@param key string # 变量名称
@@ -273,6 +411,30 @@ function GameAPI.set_trigger_variable_curved_path_3d(key, value) end
 ---@param key string # 变量名称
 ---@param value? py.CurvedPath3D # 值
 function GameAPI.set_trigger_actor_variable_curved_path_3d(actor, key, value) end
+
+--设置全局触发器STORE_ITEM_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.StoreItemType # 值
+function GameAPI.set_trigger_list_variable_store_item_type(key, index, value) end
+
+--设置全局触发器STORE_ITEM_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.StoreItemType # 值
+function GameAPI.set_trigger_list_actor_variable_store_item_type(actor, key, index, value) end
+
+--设置全局触发器STORE_ITEM_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? py.StoreItemType # 值
+function GameAPI.set_trigger_variable_store_item_type(key, value) end
+
+--设置全局触发器STORE_ITEM_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.StoreItemType # 值
+function GameAPI.set_trigger_actor_variable_store_item_type(actor, key, value) end
 
 --获取数组中某项（指定类型）
 ---@param l py.List # 列表
@@ -1998,6 +2160,24 @@ function GameAPI.set_window_type_setting_list_value(l, i, v) end
 ---@return py.List # 列表
 function GameAPI.get_window_type_setting_n_list(n, v) end
 
+--获取STORE_ITEM_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.StoreItemType # 值
+function GameAPI.get_store_item_type_list_value(l, i) end
+
+--设置STORE_ITEM_TYPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.StoreItemType # 值
+function GameAPI.set_store_item_type_list_value(l, i, v) end
+
+--生成n个值为v的STORE_ITEM_TYPE数组
+---@param n integer # 长度
+---@param v? py.StoreItemType # 值
+---@return py.List # 列表
+function GameAPI.get_store_item_type_n_list(n, v) end
+
 --获取KEYBOARD_KEY数组中某项
 ---@param l py.List # 列表
 ---@param i integer # 下标
@@ -2922,6 +3102,12 @@ function GameAPI.set_unit_key_rescue_seeker_type_kv(item_key, key, value) end
 ---@param value string # 键值名称
 function GameAPI.set_unit_key_rescuer_type_kv(item_key, key, value) end
 
+--预设库 添加STORE_ITEM_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_store_item_type_kv(item_key, key, value) end
+
 --预设库 添加BOOLEAN键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -3611,6 +3797,12 @@ function GameAPI.set_item_key_rescue_seeker_type_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_item_key_rescuer_type_kv(item_key, key, value) end
+
+--预设库 添加STORE_ITEM_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_store_item_type_kv(item_key, key, value) end
 
 --预设库 添加BOOLEAN键值对
 ---@param item_key integer # prefab库ID
@@ -4302,6 +4494,12 @@ function GameAPI.set_ability_key_rescue_seeker_type_kv(item_key, key, value) end
 ---@param value string # 键值名称
 function GameAPI.set_ability_key_rescuer_type_kv(item_key, key, value) end
 
+--预设库 添加STORE_ITEM_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_ability_key_store_item_type_kv(item_key, key, value) end
+
 --判断BUFF是否是目标BUFFID的实例
 ---@param modifier1 py.ModifierEntity # BUFF实例
 ---@param modifier_key py.ModifierKey # BUFFID
@@ -4960,8 +5158,9 @@ function GameAPI.play_sfx_on_point(point, sfx, scale, duratime, offset, role, vi
 ---@param duration? number # 持续时间
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param follow_scale? boolean # 是否跟随单位缩放
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, source_socket, target_point, target_height, duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, source_socket, target_point, target_height, duration, immediately, use_sys_d_destroy_way, follow_scale) end
 
 --创建单位到单位闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -4972,8 +5171,9 @@ function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, sou
 ---@param duration? number # 持续时间
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param follow_scale? boolean # 是否跟随单位缩放
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, source_socket, target_unit, target_socket, duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, source_socket, target_unit, target_socket, duration, immediately, use_sys_d_destroy_way, follow_scale) end
 
 --创建点到单位闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -5073,8 +5273,9 @@ function GameAPI.create_sfx_on_unit(sfx_id, unit, socket, b_follow_rotate, b_fol
 ---@param angle? number # 角度
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param detach? boolean # 是否脱离单位
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_unit_new(sfx_id, unit, socket, rotate_type, b_follow_scale, scale, duration, angle, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_sfx_on_unit_new(sfx_id, unit, socket, rotate_type, b_follow_scale, scale, duration, angle, immediately, use_sys_d_destroy_way, detach) end
 
 --删除特效
 ---@param sfx_entity? py.Sfx # 特效
@@ -5815,183 +6016,3 @@ function GameAPI.edit_area_fov_block(area, fov_block_type, is_add) end
 ---@param area py.Area # 区域
 ---@return integer # 场景ID
 function GameAPI.get_area_resource_id(area) end
-
---获取路径的场景ID
----@param road py.Road # 路径
----@return integer # 场景ID
-function GameAPI.get_road_resource_id(road) end
-
---声音转字符串
----@param obj py.SoundEntity # 声音对象
----@return string # 字符串
-function GameAPI.sound_entity_to_str(obj) end
-
---声音类型转字符串
----@param obj py.AudioKey # 音效编号
----@return string # 字符串
-function GameAPI.audio_key_to_str(obj) end
-
---字符串转声音类型
----@param obj string # 字符串
----@return py.AudioKey # 音效编号
-function GameAPI.str_to_audio_key(obj) end
-
---注册区域的附近语音频道
----@param area py.Area # 区域
-function GameAPI.reg_sound_area(area) end
-
---反注册区域的附近语音频道
----@param area py.Area # 区域
-function GameAPI.unreg_sound_area(area) end
-
---设置附近语音的区域模式开关
----@param b boolean # 区域模式开关
-function GameAPI.set_nearby_voice_mode(b) end
-
---设置玩家发言频道
----@param role py.Role # 玩家
----@param channel integer # 频道
-function GameAPI.set_audio_chat_channel(role, channel) end
-
---播放音乐
----@param role py.Role # 玩家
----@param sid py.AudioKey # 乐曲编号
----@param loop boolean # 是否循环
----@param fade_in_time? number # 淡入时间
----@param fade_out_time? number # 淡出时间
----@return py.SoundEntity # 声音对象
-function GameAPI.play_sound_for_player(role, sid, loop, fade_in_time, fade_out_time) end
-
---对目标播放音乐
----@param unit_key py.UnitKey # 单位编号
----@param camp_target py.RoleRelation # 玩家关系
----@param sid py.AudioKey # 乐曲编号
----@param loop boolean # 是否循环
-function GameAPI.play_sound_for_role_relation(unit_key, camp_target, sid, loop) end
-
---播放3d音乐
----@param role py.Role # 玩家
----@param sid py.AudioKey # 乐曲编号
----@param position py.Point # 播放位置
----@param height number # 高度
----@param fade_in_time? number # 淡入时间
----@param fade_out_time? number # 淡出时间
----@param ensure_play? boolean # 确保播放
----@param loop? boolean # 是否循环
----@return py.SoundEntity # 声音对象
-function GameAPI.play_3d_sound_for_player(role, sid, position, height, fade_in_time, fade_out_time, ensure_play, loop) end
-
---跟随单位播放3d音乐
----@param role py.Role # 玩家
----@param sid py.AudioKey # 乐曲编号
----@param unit py.Unit # 单位
----@param fade_in_time? number # 淡入时间
----@param fade_out_time? number # 淡出时间
----@param ensure_play? boolean # 确保播放
----@param loop? boolean # 是否循环
----@param offset_x? number # 偏移x
----@param offset_y? number # 偏移y
----@param offset_z? number # 偏移z
----@return py.SoundEntity # 声音对象
-function GameAPI.follow_object_play_3d_sound_for_player(role, sid, unit, fade_in_time, fade_out_time, ensure_play, loop, offset_x, offset_y, offset_z) end
-
---停止播放音乐
----@param role py.Role # 玩家
----@param sound py.SoundEntity # 声音
----@param immediately_stop? boolean # 是否立即停止
-function GameAPI.stop_sound(role, sound, immediately_stop) end
-
---播放控制
----@param role py.Role # 玩家
----@param sound py.SoundEntity # 声音
----@param play_operation integer # 播放操作
-function GameAPI.sound_play_controller(role, sound, play_operation) end
-
---设置玩家的声音接收器跟随镜头射线与地面焦点
----@param role py.Role # 玩家
----@param camera_ray_direction py.CameraRayDirection # 相机射线方向
-function GameAPI.set_player_listener_to_follow_intersection_of_camera_ray_and_ground(role, camera_ray_direction) end
-
---设置玩家的声音接收器跟随单位
----@param role py.Role # 玩家
----@param unit py.Unit # 单位
-function GameAPI.set_player_listener_to_follow_unit(role, unit) end
-
---设置背景音乐开关
----@param role py.Role # 玩家
----@param value boolean # 打开/关闭
-function GameAPI.open_background_music(role, value) end
-
---设置战斗音乐开关
----@param role py.Role # 玩家
----@param value boolean # 打开/关闭
-function GameAPI.open_battle_music(role, value) end
-
---设置背景音乐音量
----@param role py.Role # 玩家
----@param value integer # 音量
-function GameAPI.set_background_music_volume(role, value) end
-
---设置战斗音效音量
----@param role py.Role # 玩家
----@param value integer # 音量
-function GameAPI.set_battle_music_volume(role, value) end
-
---设置声音音量
----@param player py.Role # 玩家
----@param sound py.SoundEntity # 声音
----@param volume integer # 音量
-function GameAPI.set_sound_volume(player, sound, volume) end
-
---通过场景声音ID返回场景声音
----@param res_id py.SceneSoundID # 场景声音ID
----@return py.SceneSound # 场景声音
-function GameAPI.get_scene_sound_by_res_id(res_id) end
-
---播放场景声音
----@param scene_sound py.SceneSound # 场景声音
-function GameAPI.play_scene_sound(scene_sound) end
-
---停止场景声音
----@param scene_sound py.SceneSound # 场景声音
-function GameAPI.stop_scene_sound(scene_sound) end
-
---设置场景声音是否循环
----@param scene_sound py.SceneSound # 场景声音
----@param loop boolean # 是否循环
-function GameAPI.set_scene_sound_loop(scene_sound, loop) end
-
---设置场景声音衰减距离
----@param scene_sound py.SceneSound # 场景声音
----@param min_dist number # 衰减距离
-function GameAPI.set_scene_sound_min_dist(scene_sound, min_dist) end
-
---设置场景声音静音距离
----@param scene_sound py.SceneSound # 场景声音
----@param max_dist number # 静音距离
-function GameAPI.set_scene_sound_max_dist(scene_sound, max_dist) end
-
---设置场景声音是否暂停
----@param scene_sound py.SceneSound # 场景声音
----@param paused boolean # 是否暂停
-function GameAPI.set_scene_sound_pause(scene_sound, paused) end
-
---获取初始化背景音乐开关状态
----@return boolean # value
-function GameAPI.get_bgm_state() end
-
---获取初始化战斗音效开关状态
----@return boolean # value
-function GameAPI.get_battle_bgm_state() end
-
---获取初始化背景音乐音量
----@return integer # value
-function GameAPI.get_bgm_volume() end
-
---获取初始化战斗音效音量
----@return integer # value
-function GameAPI.get_battle_volume() end
-
---获取当前游戏模式
----@return py.GameMode # 游戏模式
-function GameAPI.get_game_mode() end

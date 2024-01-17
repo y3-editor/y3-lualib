@@ -82,6 +82,14 @@ function ProjectileEntity:api_get_face_dir() end
 ---@param y py.Fixed # 定点数
 function ProjectileEntity:api_raise_height(y) end
 
+--设置投射物是否休眠
+---@param is_sleeping boolean # 是否休眠
+function ProjectileEntity:api_set_is_sleeping(is_sleeping) end
+
+--获取投射物是否休眠
+---@return boolean # 是否休眠
+function ProjectileEntity:api_get_is_sleeping() end
+
 --获取投射物的字符串属性
 ---@param attr_name string # 属性名称
 ---@return string # 字符串类型返回值

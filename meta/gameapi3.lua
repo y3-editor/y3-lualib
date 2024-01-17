@@ -4,6 +4,105 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--获取全局触发器STRING数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return string # 值
+function GameAPI.get_trigger_list_variable_string(key, index) end
+
+--获取触发器STRING数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return string # 值
+function GameAPI.get_trigger_list_actor_variable_string(actor, key, index) end
+
+--获取全局触发器STRING数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_string(key) end
+
+--获取触发器STRING 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_string(actor, key) end
+
+--获取全局触发器UI_COMP非数组变量
+---@param key string # 变量名称
+---@return string # 值
+function GameAPI.get_trigger_variable_ui_comp(key) end
+
+--获取触发器UI_COMP非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return string # 值
+function GameAPI.get_trigger_actor_variable_ui_comp(actor, key) end
+
+--获取全局触发器UI_COMP数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return string # 值
+function GameAPI.get_trigger_list_variable_ui_comp(key, index) end
+
+--获取触发器UI_COMP数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return string # 值
+function GameAPI.get_trigger_list_actor_variable_ui_comp(actor, key, index) end
+
+--获取全局触发器UI_COMP数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_comp(key) end
+
+--获取触发器UI_COMP 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_comp(actor, key) end
+
+--获取全局触发器UI_COMP_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_comp_type(key) end
+
+--获取触发器UI_COMP_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_comp_type(actor, key) end
+
+--获取全局触发器UI_COMP_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_comp_type(key, index) end
+
+--获取触发器UI_COMP_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_comp_type(actor, key, index) end
+
+--获取全局触发器UI_COMP_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_comp_type(key) end
+
+--获取触发器UI_COMP_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_comp_type(actor, key) end
+
+--获取全局触发器UI_COMP_EVENT_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_comp_event_type(key) end
+
 --获取触发器UI_COMP_EVENT_TYPE非数组 组变量
 ---@param actor py.Actor # 单位实体
 ---@param key string # 变量名称
@@ -3569,6 +3668,41 @@ function GameAPI.get_trigger_list_variable_all_curved_path_3d(key) end
 ---@return py.List # 数组型变量值
 function GameAPI.get_trigger_list_actor_variable_all_curved_path_3d(actor, key) end
 
+--获取全局触发器STORE_ITEM_TYPE非数组变量
+---@param key string # 变量名称
+---@return py.StoreItemType # 值
+function GameAPI.get_trigger_variable_store_item_type(key) end
+
+--获取触发器STORE_ITEM_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.StoreItemType # 值
+function GameAPI.get_trigger_actor_variable_store_item_type(actor, key) end
+
+--获取全局触发器STORE_ITEM_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return py.StoreItemType # 值
+function GameAPI.get_trigger_list_variable_store_item_type(key, index) end
+
+--获取触发器STORE_ITEM_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return py.StoreItemType # 值
+function GameAPI.get_trigger_list_actor_variable_store_item_type(actor, key, index) end
+
+--获取全局触发器STORE_ITEM_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_store_item_type(key) end
+
+--获取触发器STORE_ITEM_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_store_item_type(actor, key) end
+
 --设置全局触发器非数组变量（指定类型）
 ---@param key string # 变量名称
 ---@param value py.Actor # 值
@@ -5765,141 +5899,3 @@ function GameAPI.set_trigger_variable_str_save(key, value) end
 ---@param key string # 变量名称
 ---@param value? string # 值
 function GameAPI.set_trigger_actor_variable_str_save(actor, key, value) end
-
---设置全局触发器FLOAT_SAVE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Fixed # 值
-function GameAPI.set_trigger_list_variable_float_save(key, index, value) end
-
---设置全局触发器FLOAT_SAVE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Fixed # 值
-function GameAPI.set_trigger_list_actor_variable_float_save(actor, key, index, value) end
-
---设置全局触发器FLOAT_SAVE非数组变量
----@param key string # 变量名称
----@param value? py.Fixed # 值
-function GameAPI.set_trigger_variable_float_save(key, value) end
-
---设置全局触发器FLOAT_SAVE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.Fixed # 值
-function GameAPI.set_trigger_actor_variable_float_save(actor, key, value) end
-
---设置全局触发器BOOL_SAVE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? boolean # 值
-function GameAPI.set_trigger_list_variable_bool_save(key, index, value) end
-
---设置全局触发器BOOL_SAVE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? boolean # 值
-function GameAPI.set_trigger_list_actor_variable_bool_save(actor, key, index, value) end
-
---设置全局触发器BOOL_SAVE非数组变量
----@param key string # 变量名称
----@param value? boolean # 值
-function GameAPI.set_trigger_variable_bool_save(key, value) end
-
---设置全局触发器BOOL_SAVE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? boolean # 值
-function GameAPI.set_trigger_actor_variable_bool_save(actor, key, value) end
-
---设置全局触发器TABLE_SAVE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Table # 值
-function GameAPI.set_trigger_list_variable_table_save(key, index, value) end
-
---设置全局触发器TABLE_SAVE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Table # 值
-function GameAPI.set_trigger_list_actor_variable_table_save(actor, key, index, value) end
-
---设置全局触发器TABLE_SAVE非数组变量
----@param key string # 变量名称
----@param value? py.Table # 值
-function GameAPI.set_trigger_variable_table_save(key, value) end
-
---设置全局触发器TABLE_SAVE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.Table # 值
-function GameAPI.set_trigger_actor_variable_table_save(actor, key, value) end
-
---设置全局触发器GLOBAL_ARCHIVE_SLOT数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? string # 值
-function GameAPI.set_trigger_list_variable_global_archive_slot(key, index, value) end
-
---设置全局触发器GLOBAL_ARCHIVE_SLOT数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? string # 值
-function GameAPI.set_trigger_list_actor_variable_global_archive_slot(actor, key, index, value) end
-
---设置全局触发器GLOBAL_ARCHIVE_SLOT非数组变量
----@param key string # 变量名称
----@param value? string # 值
-function GameAPI.set_trigger_variable_global_archive_slot(key, value) end
-
---设置全局触发器GLOBAL_ARCHIVE_SLOT非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? string # 值
-function GameAPI.set_trigger_actor_variable_global_archive_slot(actor, key, value) end
-
---设置全局触发器RANDOM_POOL_DROP数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? integer # 值
-function GameAPI.set_trigger_list_variable_random_pool_drop(key, index, value) end
-
---设置全局触发器RANDOM_POOL_DROP数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? integer # 值
-function GameAPI.set_trigger_list_actor_variable_random_pool_drop(actor, key, index, value) end
-
---设置全局触发器RANDOM_POOL_DROP非数组变量
----@param key string # 变量名称
----@param value? integer # 值
-function GameAPI.set_trigger_variable_random_pool_drop(key, value) end
-
---设置全局触发器RANDOM_POOL_DROP非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? integer # 值
-function GameAPI.set_trigger_actor_variable_random_pool_drop(actor, key, value) end
-
---设置全局触发器DYNAMIC_TRIGGER_INSTANCE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.DynamicTriggerInstance # 值
-function GameAPI.set_trigger_list_variable_dynamic_trigger_instance(key, index, value) end
-
---设置全局触发器DYNAMIC_TRIGGER_INSTANCE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.DynamicTriggerInstance # 值
-function GameAPI.set_trigger_list_actor_variable_dynamic_trigger_instance(actor, key, index, value) end
-
---设置全局触发器DYNAMIC_TRIGGER_INSTANCE非数组变量
----@param key string # 变量名称
----@param value? py.DynamicTriggerInstance # 值
-function GameAPI.set_trigger_variable_dynamic_trigger_instance(key, value) end

@@ -309,3 +309,7 @@ function Ability:api_set_autocast_enabled(b) end
 --自动施法是否开启
 ---@return boolean # 是否开启
 function Ability:api_is_autocast_enabled() end
+
+--获取技能绑定的物品
+---@return py.Item # 物品实体
+function Ability:api_get_item() end
