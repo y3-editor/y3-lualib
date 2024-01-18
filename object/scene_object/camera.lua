@@ -33,21 +33,21 @@ function M.是否正在播放动画(player)
 end
 
 ---创建镜头
----@param point Point 镜头所在点
----@param 焦距 number 焦距
----@param 焦点高度 number 焦点高度
+---@param point Point 镜头所在点 焦点位置x,y
+---@param 焦距 number 距离
+---@param 焦点高度 number Z
 ---@param 导航角 number 镜头的yaw
 ---@param 俯视角 number 镜头的pitch
----@param 远景裁剪范围 number 远景裁切范围
+---@param 观察区域 number 观察区域
 ---@return Camera
-function M.创建(point, 焦距, 焦点高度, 导航角, 俯视角, 远景裁剪范围)
+function M.创建(point, 焦距, 焦点高度, 导航角, 俯视角, 观察区域)
     local id = GameAPI.add_camera_conf(
         point.handle,
         焦距,
         焦点高度,
         导航角,
         俯视角,
-        远景裁剪范围
+        观察区域
     )
     return M.从handle获取(id)
 end

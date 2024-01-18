@@ -9,7 +9,7 @@ M.table_cache = setmetatable({}, { __mode = "k" })
 ---@param player Player
 ---@param slot integer
 ---@return boolean
-function M.load_boolean(player, slot)
+function M.读取布尔值(player, slot)
     return player.handle:get_save_data_bool_value(slot)
 end
 
@@ -17,7 +17,7 @@ end
 ---@param player Player
 ---@param slot integer
 ---@param value boolean
-function M.save_boolean(player, slot, value)
+function M.保存布尔值(player, slot, value)
     player.handle:set_save_data_bool_value(slot, value)
 end
 
@@ -25,7 +25,7 @@ end
 ---@param player Player
 ---@param slot integer
 ---@return integer
-function M.load_integer(player, slot)
+function M.读取整数值(player, slot)
     return player.handle:get_save_data_int_value(slot)
 end
 
@@ -33,7 +33,7 @@ end
 ---@param player Player
 ---@param slot integer
 ---@param value integer
-function M.save_integer(player, slot, value)
+function M.保存整数值(player, slot, value)
     player.handle:set_save_data_int_value(slot, value)
 end
 
@@ -41,7 +41,7 @@ end
 ---@param player Player
 ---@param slot integer
 ---@return number
-function M.load_real(player, slot)
+function M.读取实数值(player, slot)
     return player.handle:get_save_data_fixed_value(slot):float()
 end
 
@@ -49,7 +49,7 @@ end
 ---@param player Player
 ---@param slot integer
 ---@param value number
-function M.save_real(player, slot, value)
+function M.保存实数值(player, slot, value)
     player.handle:set_save_data_fixed_value(slot, Fix32(value))
 end
 
@@ -57,7 +57,7 @@ end
 ---@param player Player
 ---@param slot integer
 ---@return string
-function M.load_string(player, slot)
+function M.读取字符串(player, slot)
     return player.handle:get_save_data_str_value(slot)
 end
 
@@ -65,7 +65,7 @@ end
 ---@param player Player
 ---@param slot integer
 ---@param value string
-function M.save_string(player, slot, value)
+function M.保存字符串(player, slot, value)
     player.handle:set_save_data_str_value(slot, value)
 end
 

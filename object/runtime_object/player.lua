@@ -81,14 +81,6 @@ function M:get_camp()
     return self.handle:api_get_camp()
 end
 
----布尔型玩家存档数据
----@deprecated
----@param index  integer 存档key
----@return boolean bool_value 布尔型玩家存档数据
-function M:get_save_data_bool_value(index)
-    return self.handle:get_save_data_bool_value(index)
-end
-
 ---玩家是否中途加入
 ---@return boolean is_middle_join 是否中途加入
 function M:是否为中途加入()
@@ -149,7 +141,7 @@ end
 
 ---选中单位/单位组
 ---@param unit_or_group Unit|UnitGroup 单位/单位组
-function M:select_unit(unit_or_group)
+function M:选中单位_单位组(unit_or_group)
     self.handle:role_select_unit(unit_or_group.handle)
 end
 
@@ -247,18 +239,6 @@ function M:share_vision_of_unit(unit, share)
     end
 end
 
----上传存档
-function M:upload_save_data()
-    self.handle:upload_save_data()
-end
-
----增加全局存档
----@param key string 键
----@param value integer 值
-function M:add_global_save_data(key, value)
-    self.handle:add_global_map_archive_data(key, value)
-end
-
 ---消耗玩家平台道具
 ---@param count integer 个数
 ---@param item_id py.StoreKey 平台道具id
@@ -328,45 +308,6 @@ end
 ---@return integer camp_id 队伍ID
 function M:get_team_id()
     return self.handle:get_camp_id_num()
-end
-
----表格型玩家存档数据
----@deprecated
----@param key integer 存档key
----@return table table_value 表格型玩家存档数据
-function M:get_save_data_table(key)
-    return self.handle:get_save_data_table_value(key)
-end
-
----字符串型玩家存档数据
----@deprecated
----@param key integer 存档key
----@return string str_value 字符串玩家存档数据
-function M:get_save_data_string(key)
-    return self.handle:get_save_data_str_value(key)
-end
-
----实数型存档数据
----@deprecated
----@param key integer 存档key
----@return number int_value 实数型存档数据
-function M:get_save_data_float(key)
-    return self.handle:get_save_data_fixed_value(key):float()
-end
-
----获取整数型存档数据
----@deprecated
----@param key integer 存档key
----@return integer int_value 整数型存档数据
-function M:get_save_data_int(key)
-    return self.handle:get_save_data_int_value(key)
-end
-
----获取整数存档玩家排名
----@param key integer 存档key
----@return integer rank_num 整数存档玩家排名
-function M:get_rank_num(key)
-    return self.handle:get_player_archive_rank_num(key)
 end
 
 ---获取科技等级

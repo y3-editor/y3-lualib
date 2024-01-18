@@ -340,15 +340,19 @@ function M:heals(value, skill, source_unit, text_type)
 end
 
 ---添加标签
----@param tag string 标签
-function M:add_tag(tag)
-    self.handle:api_add_tag(tag)
+---@param tag string[] 标签
+function M:添加标签(tag)
+    for index, value in ipairs(tag) do
+        self.handle:api_add_tag(value)
+    end
 end
 
 ---移除标签
----@param tag string 标签
-function M:remove_tag(tag)
-    self.handle:api_remove_tag(tag)
+---@param tag string[] 标签
+function M:移除标签(tag)
+    for index, value in ipairs(tag) do
+        self.handle:api_remove_tag(value)
+    end
 end
 
 ---添加状态
@@ -828,7 +832,7 @@ end
 
 --设置单位选择框的可见性
 ---@param bool boolean # 布尔值
-function M:set_select_effect_visible(bool)
+function M:设置_选择框是否可见(bool)
     self.handle:api_set_unit_select_effect_visible(bool)
 end
 
@@ -1493,7 +1497,7 @@ end
 ---是否具有标签
 ---@param tag_name string 标签
 ---@return boolean has_tag 具有标签
-function M:has_tag(tag_name)
+function M:是否存在标签(tag_name)
     return GlobalAPI.has_tag(self.handle, tag_name)
 end
 

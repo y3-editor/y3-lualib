@@ -10,7 +10,7 @@
 ---@field error fun(...): string, string
 ---@field fatal fun(...): string, string
 ---@overload fun(option: Log.Option): Log
-local M = Class 'Log'
+local M = Class "Log"
 
 -- 设置日志文件的最大大小
 M.maxSize = 100 * 1024 * 1024
@@ -19,13 +19,13 @@ M.maxSize = 100 * 1024 * 1024
 M.usedSize = 0
 
 ---@type Log.Level
-M.level = 'debug'
+M.level = "debug"
 
 ---@private
 M.clock = os.clock
 
 ---@private
-M.messageFormat = '[%s][%5s][%s]: %s\n'
+M.messageFormat = "[%s][%5s][%s]: %s\n"
 
 ---@enum (key) Log.Level
 M.logLevel = {
@@ -75,13 +75,13 @@ end
 ---@return string? errmsg
 local function ioOpen(path, mode)
     if not io then
-        return nil, 'No io module'
+        return nil, "No io module"
     end
     if not io.open then
-        return nil, 'No io.open'
+        return nil, "No io.open"
     end
     local file, err
-    local suc, res = pcall(function ()
+    local suc, res = pcall(function()
         file, err = io.open(path, mode)
     end)
     if not suc then
@@ -94,18 +94,18 @@ end
 function M:__init(option)
     self.maxSize = option.maxSize
     self.level   = option.level
-    self.clock = option.clock
+    self.clock   = option.clock
     if option.file then
         self.file = option.file
     else
         if option.path then
-            local file, err = ioOpen(option.path, 'w+b')
+            local file, err = ioOpen(option.path, "w+b")
             if file then
                 self.file = file
-                self.file:setvbuf 'no'
+                self.file:setvbuf "no"
             elseif err then
                 if option.print then
-                    pcall(option.print, 'warn', err)
+                    pcall(option.print, "warn", err)
                 end
             end
         end
@@ -118,7 +118,7 @@ function M:__init(option)
     self.needTraceBack = merge(M.needTraceBack, option.needTraceBack)
 
     for level in pairs(self.logLevel) do
-        self[level] = function (...)
+        self[level] = function(...)
             return self:build(level, ...)
         end
     end
@@ -133,8 +133,8 @@ end
 function M:getTimeStamp()
     local deltaClock = self.clock() - self.startClock
     local sec, ms = math.modf(self.startTime + deltaClock)
-    local timeStamp = os.date('%m-%d %H:%M:%S', sec) --[[@as string]]
-    timeStamp = ('%s.%03.f'):format(timeStamp, ms * 1000)
+    local timeStamp = os.date("%m-%d %H:%M:%S", sec) --[[@as string]]
+    timeStamp = ("%s.%03.f"):format(timeStamp, ms * 1000)
     return timeStamp
 end
 
@@ -146,9 +146,13 @@ end
 function M:build(level, ...)
     local t = table.pack(...)
     for i = 1, t.n do
-        t[i] = tostring(t[i])
+        if type(t[i]) == "table" then
+            t[i] = y3.util.dump(t[i])
+        else
+            t[i] = tostring(t[i])
+        end
     end
-    local message = table.concat(t, '\t', 1, t.n)
+    local message = table.concat(t, "\t", 1, t.n)
 
     if self.needTraceBack[level] then
         if debug.getinfo(1, "t").istailcall then
@@ -159,7 +163,7 @@ function M:build(level, ...)
         if python and python.get_exc_info then
             local py_traceback = python.get_exc_info()
             if py_traceback then
-                message = tostring(py_traceback) .. '\n' .. message
+                message = tostring(py_traceback) .. "\n" .. message
             end
         end
     end
@@ -178,17 +182,17 @@ function M:build(level, ...)
         return message, timeStamp
     end
 
-    local info = debug.getinfo(2, 'Sl')
+    local info = debug.getinfo(2, "Sl")
     local sourceStr
     if info.currentline == -1 then
-        sourceStr = '?'
+        sourceStr = "?"
     else
-        sourceStr = ('%s:%d'):format(info.short_src, info.currentline)
+        sourceStr = ("%s:%d"):format(info.source, info.currentline)
     end
     local fullMessage = self.messageFormat:format(timeStamp, level, sourceStr, message)
     self.usedSize = self.usedSize + #fullMessage
     if self.usedSize > self.maxSize then
-        self.file:write('[REACH MAX SIZE]!')
+        self.file:write("[REACH MAX SIZE]!")
         self.file:close()
         self.file = nil
     else

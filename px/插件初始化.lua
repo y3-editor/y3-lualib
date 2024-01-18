@@ -1,4 +1,10 @@
 插件 = {}
+---@param 回调 fun(回调:参_事件)
+function 插件.初始化(回调)
+    return 全局事件.自定义_带标识("游戏初始化", "插件加载", function(参数)
+        回调(参数)
+    end)
+end
 
 include "y3.px.常量"
 
@@ -9,7 +15,6 @@ include "y3.px.常量"
 
 单位 = require "y3.object.editable_object.unit"
 单位组 = require "y3.object.runtime_object.unit_group"
----@class Player
 玩家 = require "y3.object.runtime_object.player"
 玩家组 = require "y3.object.runtime_object.player_group"
 场景 = require "y3.object.scene_object.scene_ui"
@@ -24,7 +29,8 @@ include "y3.px.工具"
 全局事件 = include "y3.px.事件"
 
 
-include "y3.px.模块.界面操作模块"
+include "src.模块.物编资源生成模块"
+include "src.模块.界面操作模块"
 
 -- y3.const = require "y3.game.const"
 -- y3.math = require "y3.game.math"
@@ -72,16 +78,18 @@ include "y3.px.模块.界面操作模块"
 
 -- y3.develop         = {}
 -- y3.develop.command = include "y3.develop.command"
----@param 回调 fun(回调:参_事件)
-function 插件.初始化(回调)
-    return 全局事件.自定义_带标识("游戏初始化", "插件加载", function(参数)
-        回调(参数)
-    end)
-end
+
 
 function _预设数据初始化()
+    ---@diagnostic disable-next-line: inject-field
     玩家.中立友善 = 玩家.从id获取(32)
+    ---@diagnostic disable-next-line: inject-field
     玩家.中立敌对 = 玩家.从id获取(31)
+    ---@diagnostic disable-next-line: inject-field
+    玩家组.空单位组 = 玩家组.获取所有玩家()
+    玩家组.空单位组:遍历(function(索引, 遍历到的玩家)
+        玩家组.空单位组:移除玩家(遍历到的玩家)
+    end)
 end
 
 local function _游戏初始化()

@@ -134,14 +134,12 @@ end
 ---@return Trigger
 function m.控件(名称, 回调)
     return _缓存触发器(y3.game:event("界面-消息", 名称, function(trg, data)
-        print(表_到字符串(data))
         回调({
             当前触发器 = trg,
             触发事件名称 = data.ui_event_name,
             触发控件 = data.ui,
             触发玩家 = data.player,
-            控件数据 = data.data
-
+            控件数据 = data.data,
         })
     end))
 end
