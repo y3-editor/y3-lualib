@@ -5,12 +5,12 @@
 ---@field package ability Ability
 ---@field package cast_id integer
 ---@overload fun(ability: Ability, cast_id: integer): self
-local M = Class 'Cast'
+local M = Class "Cast"
 
 ---@class Cast: GCHost
-Extends('Cast', 'GCHost')
+Extends("Cast", "GCHost")
 ---@class Cast: Storage
-Extends('Cast', 'Storage')
+Extends("Cast", "Storage")
 
 ---@param ability Ability
 ---@param cast_id integer
@@ -22,9 +22,9 @@ function M:__init(ability, cast_id)
 end
 
 function M:__tostring()
-    return string.format('{cast|%d} @ %s'
-        , self.cast_id
-        , self.ability
+    return string.format("{cast|%d} @ %s"
+    , self.cast_id
+    , self.ability
     )
 end
 
@@ -36,14 +36,14 @@ end
 ---@return Cast
 function M.get(ability, cast_id)
     if not ability._castRef then
-        ability._castRef = New 'Ref' ('Cast', function (id)
-            return New 'Cast' (ability, id)
+        ability._castRef = New "Ref" ("Cast", function(id)
+            return New "Cast" (ability, id)
         end)
     end
     return ability._castRef:get(cast_id)
 end
 
-y3.game:event('施法-结束', function (trg, data)
+y3.game:event("施法-结束", function(trg, data)
     local id = data.cast.cast_id
     local ability = data.cast.ability
     local castRef = ability._castRef
@@ -86,7 +86,7 @@ function M:get_target_unit()
     if not py_unit then
         return nil
     end
-    return y3.unit.get_by_handle(py_unit)
+    return y3.unit.从句柄获取(py_unit)
 end
 
 -- 获取施法目标可破坏物
@@ -106,7 +106,7 @@ function M:get_target_point()
     if not py_point then
         return nil
     end
-    return y3.point.get_by_handle(py_point)
+    return y3.point.从handle获取(py_point)
 end
 
 return M

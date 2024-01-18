@@ -248,13 +248,13 @@ function M:get_center_point()
         local py_point = GameAPI.get_circle_center_point(self.handle --[[@as py.CirArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_by_handle(py_point)
+        return y3.point.从handle获取(py_point)
     end
     if self.shape == M.SHAPE.RECTANGLE then
         local py_point = GameAPI.get_rec_center_point(self.handle --[[@as py.RecArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_by_handle(py_point)
+        return y3.point.从handle获取(py_point)
     end
     error("不支持的区域类型")
 end
@@ -266,19 +266,19 @@ function M:random_point()
         local py_point = GameAPI.get_random_point_in_circular_area(self.handle --[[@as py.CirArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_by_handle(py_point)
+        return y3.point.从handle获取(py_point)
     end
     if self.shape == M.SHAPE.POLYGON then
         local py_point = GameAPI.get_random_point_in_poly_area(self.handle --[[@as py.PolyArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_by_handle(py_point)
+        return y3.point.从handle获取(py_point)
     end
     if self.shape == M.SHAPE.RECTANGLE then
         local py_point = GameAPI.get_random_point_in_rec_area(self.handle --[[@as py.RecArea]])
         -- TODO 见问题2
         ---@diagnostic disable-next-line: param-type-mismatch
-        return y3.point.get_by_handle(py_point)
+        return y3.point.从handle获取(py_point)
     end
     error("不支持的区域类型")
 end
@@ -293,7 +293,7 @@ end
 ---@return Unit[] 单位组
 function M:get_all_unit_in_area()
     local py_unit_list = GameAPI.get_unit_group_in_area(self.handle)
-    local units = y3.helper.unpack_list(py_unit_list, y3.unit.get_by_id)
+    local units = y3.helper.unpack_list(py_unit_list, y3.unit.从唯一id获取)
     return units
 end
 
@@ -302,7 +302,7 @@ end
 ---@return UnitGroup 单位组
 function M:get_unit_group_in_area(player)
     local py_unit_group = GameAPI.get_unit_group_belong_to_player_in_area(self.handle, player.handle)
-    return y3.unit_group.get_by_handle(py_unit_group)
+    return y3.unit_group.从handle获取(py_unit_group)
 end
 
 ---区域中单位的数量
@@ -432,7 +432,7 @@ function M.get_polygon_areas_point_list(polygon)
     local handle = polygon.handle
     ---@cast handle py.PolyArea
     local py_list = GameAPI.get_poly_area_point_list(handle)
-    local points = y3.helper.unpack_list(py_list, y3.point.get_by_handle)
+    local points = y3.helper.unpack_list(py_list, y3.point.从handle获取)
     return points
 end
 

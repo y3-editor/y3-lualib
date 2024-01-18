@@ -1,9 +1,9 @@
-require 'y3.game.game_event'
-require 'y3.game.object_event'
+require "y3.game.game_event"
+require "y3.game.object_event"
 
 --游戏接口
 ---@class Game
-local M = Class 'Game'
+local M = Class "Game"
 
 ---设置物体的材质
 ---@param obj Unit
@@ -324,16 +324,18 @@ end
 ---@param blue number 颜色b
 ---@param concentration number 浓度
 ---@param speed number 流速
-function M.set_fog_attribute(fog, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue, concentration, speed)
-    GameAPI.set_fog_attr(fog, 4095, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue, concentration, speed)
+function M.set_fog_attribute(fog, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue,
+                             concentration, speed)
+    GameAPI.set_fog_attr(fog, 4095, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue,
+                         concentration, speed)
 end
 
 ---设置雾效属性(新)
 ---@param fog table 局部雾
 ---@param attr string 朝向
 ---@param value number 位置x
-function M.set_fog_attr(fog,attr,value)
-    GameAPI.set_fog_attr_new(fog,attr,value)
+function M.set_fog_attr(fog, attr, value)
+    GameAPI.set_fog_attr_new(fog, attr, value)
 end
 
 ---设置阴影距离
@@ -516,14 +518,14 @@ end
 
 -- 是否是调试模式
 ---@return boolean
-function M.is_debug_mode()
+function M.是否为调试模式()
     if y3.config.debug == true then
         return true
     end
     if y3.config.debug == false then
         return false
     end
-    if y3.config.debug == 'auto' then
+    if y3.config.debug == "auto" then
         return M.get_start_mode() == 1
     end
     return false
@@ -559,7 +561,7 @@ end
 
 ---获取游戏开始时间戳
 ---@return integer time_stamp 时间戳
-function M.get_game_init_time_stamp()
+function M.获取_游戏开始时间戳()
     return GameAPI.get_game_init_time_stamp()
 end
 
@@ -569,11 +571,11 @@ end
 
 --获取当前的服务器时间
 ---@return ServerTime
-function M.get_current_server_time()
+function M.获取_当前服务器时间()
     local init_time_stamp = GameAPI.get_game_init_time_stamp()
     local runned_sec, runned_ms = math.modf(GameAPI.get_cur_game_time():float())
     local time_stamp = init_time_stamp + runned_sec
-    local result = os.date('!*t', time_stamp) --[[@as ServerTime]]
+    local result = os.date("!*t", time_stamp) --[[@as ServerTime]]
     result.msec = math.floor(runned_ms * 1000)
     result.timestamp = time_stamp
     return result

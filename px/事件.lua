@@ -76,6 +76,13 @@ function m.游戏_初始化(回调)
     end)
 end
 
+---@param 回调 fun(回调:参_事件)
+function m.游戏_加载(回调)
+    return m.自定义_带标识("游戏初始化", "文件加载", function(参数)
+        回调(参数)
+    end)
+end
+
 ---@class 参_玩家加入游戏:参_事件
 ---@field 加入玩家 Player
 ---@field 是否中途加入 boolean
@@ -88,42 +95,61 @@ function m.玩家_加入游戏(回调)
     end)
 end
 
-(function()
-    local function 发送_游戏_初始化()
-        m.发送_自定义_带标识("游戏初始化", "插件加载", {})
-        m.发送_自定义_带标识("游戏初始化", "文件加载", {})
-        m.发送_自定义_带标识("游戏初始化", "游戏初始化", {})
+---@class 参_事件.键盘:参_事件
+---@field 触发玩家 Player
+---@field 触发按键  键盘按类型
+
+---@param 键名 键盘按类型
+---@param 回调 fun(参数:参_事件.键盘)
+function m.键盘_按下(键名, 回调)
+    return _缓存触发器(y3.game:event("键盘-按下", 键名, function(trg, data)
+        回调({
+            当前触发器 = trg,
+            触发按键 = data.current_key,
+            触发玩家 = data.player
+        })
+    end))
+end
+
+---@param 键名 键盘按类型
+---@param 回调 fun(参数:参_事件.键盘)
+function m.键盘_抬起(键名, 回调)
+    return _缓存触发器(y3.game:event("键盘-抬起", 键名, function(trg, data)
+        回调({
+            当前触发器 = trg,
+            触发按键 = data.current_key,
+            触发玩家 = data.player
+        })
+    end))
+end
+
+---@class 参_事件.界面消息:参_事件
+---@field 触发控件 UI
+---@field 触发玩家 Player
+---@field 触发事件名称 string
+---@field 控件数据 any
+
+---@param 名称 string
+---@param 回调 fun(参数:参_事件.界面消息)
+---@return Trigger
+function m.控件(名称, 回调)
+    return _缓存触发器(y3.game:event("界面-消息", 名称, function(trg, data)
+        print(表_到字符串(data))
+        回调({
+            当前触发器 = trg,
+            触发事件名称 = data.ui_event_name,
+            触发控件 = data.ui,
+            触发玩家 = data.player,
+            控件数据 = data.data
+
+        })
+    end))
+end
+
+y3.reload.onBeforeReload(function(reload, willReload)
+    for index, value in ipairs(m.触发器表) do
+        value:移除()
     end
-
-    ---@param 参数 参_玩家加入游戏
-    local function 发送_玩家_加入游戏(参数)
-        m.发送_自定义_带标识("玩家加入游戏", "插件加载", 参数)
-        m.发送_自定义_带标识("玩家加入游戏", "文件加载", 参数)
-        m.发送_自定义_带标识("玩家加入游戏", "玩家加入游戏", 参数)
-    end
-
-
-    y3.game:event("游戏-初始化", function(trg, data)
-        发送_游戏_初始化()
-        y3.game:event("玩家-加入游戏", function(trg, data)
-            发送_玩家_加入游戏({ 加入玩家 = data.player, 是否中途加入 = data.is_middle_join })
-        end)
-    end)
-
-    y3.reload.onBeforeReload(function(reload, willReload)
-        for index, value in ipairs(m.触发器表) do
-            value:移除()
-        end
-    end)
-
-    y3.reload.onAfterReload(function(reload, hasReloaded)
-        发送_游戏_初始化()
-        玩家组.获取所有非中立玩家():遍历(function(索引, 遍历到的玩家)
-            if 遍历到的玩家:get_state() == 1 then
-                发送_玩家_加入游戏({ 加入玩家 = 遍历到的玩家, 是否中途加入 = false })
-            end
-        end)
-    end)
-end)()
+end)
 
 return m

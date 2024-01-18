@@ -3,24 +3,24 @@
 ---@field handle py.ModifierEntity
 ---@field id     integer
 ---@overload fun(id: integer, py_modifier: py.ModifierEntity): Buff
-local M = Class 'Buff'
+local M = Class "Buff"
 
-M.type = 'buff'
+M.type = "buff"
 
 ---@class Buff: Storage
-Extends('Buff', 'Storage')
+Extends("Buff", "Storage")
 ---@class Buff: GCHost
-Extends('Buff', 'GCHost')
+Extends("Buff", "GCHost")
 ---@class Buff: CustomEvent
-Extends('Buff', 'CustomEvent')
+Extends("Buff", "CustomEvent")
 ---@class Buff: KV
-Extends('Buff', 'KV')
+Extends("Buff", "KV")
 
 function M:__tostring()
-    return string.format('{buff|%s|%s} @ %s'
-        , self:get_name()
-        , self.handle
-        , self:get_owner()
+    return string.format("{buff|%s|%s} @ %s"
+    , self:get_name()
+    , self.handle
+    , self:get_owner()
     )
 end
 
@@ -42,8 +42,8 @@ end
 ---@param id integer
 ---@param py_buff py.ModifierEntity
 ---@return Buff
-M.ref_manager = New 'Ref' ('Buff', function (id, py_buff)
-    return New 'Buff' (id, py_buff)
+M.ref_manager = New "Ref" ("Buff", function(id, py_buff)
+    return New "Buff" (id, py_buff)
 end)
 
 ---通过py层的魔法效果实例获取lua层的魔法效果实例
@@ -60,13 +60,13 @@ function M.get_by_id(id)
     return M.ref_manager:get(id)
 end
 
-y3.py_converter.register_type_alias('py.ModifierEntity', 'Buff')
-y3.py_converter.register_py_to_lua('py.ModifierEntity', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
+y3.py_converter.register_type_alias("py.ModifierEntity", "Buff")
+y3.py_converter.register_py_to_lua("py.ModifierEntity", M.get_by_handle)
+y3.py_converter.register_lua_to_py("py.ModifierEntity", function(lua_value)
     return lua_value.handle
 end)
 
-y3.game:event('效果-失去', function (trg, data)
+y3.game:event("效果-失去", function(trg, data)
     local id = data.buff.id
     M.ref_manager:remove(id)
 end)
@@ -134,13 +134,13 @@ end
 ---设置护盾值
 ---@param value number 护盾值
 function M:set_shield(value)
-    self.handle:api_set_float_shield('', Fix32(value))
+    self.handle:api_set_float_shield("", Fix32(value))
 end
 
 ---增加护盾值
 ---@param value number 护盾值
 function M:add_shield(value)
-    self.handle:api_add_float_shield('', Fix32(value))
+    self.handle:api_add_float_shield("", Fix32(value))
 end
 
 ---获取魔法效果的堆叠层数
@@ -214,7 +214,7 @@ end
 ---@return Unit provider 施加者
 function M:get_source()
     local py_unit = self.handle:api_get_releaser()
-    return y3.unit.get_by_handle(py_unit)
+    return y3.unit.从句柄获取(py_unit)
 end
 
 ---获取魔法效果的携带者
@@ -224,7 +224,7 @@ function M:get_owner()
     if not py_unit then
         return nil
     end
-    return y3.unit.get_by_handle(py_unit)
+    return y3.unit.从句柄获取(py_unit)
 end
 
 ---获取魔法效果对象的名称

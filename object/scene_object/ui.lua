@@ -35,7 +35,7 @@ M.comp_id = y3.proxy.new({}, {
     cache = true,
     anyGetter = function(self, raw, key, config, custom)
         ---@diagnostic disable-next-line: deprecated
-        local id = GameAPI.get_ui_comp_id_by_name(y3.player.get_local().handle, key)
+        local id = GameAPI.get_ui_comp_id_by_name(y3.player.获取本地玩家().handle, key)
         if id == "" then
             return key
         else
@@ -48,7 +48,7 @@ M.comp_id = y3.proxy.new({}, {
 ---@param player Player
 ---@param handle string
 ---@return UI
-function M.从句柄获取(player, handle)
+function M.从handle获取(player, handle)
     local ui = New "UI" (player, handle)
     return ui
 end
@@ -60,7 +60,7 @@ end
 ---@return UI 返回在lua层初始化后的lua层技能实例
 function M.创建(player, parent_ui, comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 7)
-    return y3.ui.get_by_handle(player, py_ui)
+    return y3.ui.从handle获取(player, py_ui)
 end
 
 ---@param player Player 玩家
@@ -69,7 +69,7 @@ end
 function M.从路径获取(player, ui_path)
     local py_ui = GameAPI.get_comp_by_absolute_path(player.handle, ui_path)
     assert(py_ui, string.format("UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。", ui_path))
-    return y3.ui.get_by_handle(player, py_ui)
+    return y3.ui.从handle获取(player, py_ui)
 end
 
 ---@param comp_type y3.Const.UIComponentType ui控件
@@ -483,19 +483,40 @@ end
 
 --解绑控件
 ---@return self
-function M:unbind_widget()
+function M:解绑()
     GameAPI.unbind_ui_comp(self.player.handle, self.handle)
     return self
 end
 
 --遍历某个界面控件的子节点
 ---@return UI[]
-function M:get_ui_comp_children()
+function M:获取所有子控件()
     local py_list = GameAPI.get_ui_comp_children(self.player.handle, self.handle)
     local uis = y3.helper.unpack_list(py_list, function(py_object)
-        return y3.ui.get_by_handle(self.player, py_object)
+        return y3.ui.从handle获取(self.player, py_object)
     end)
     return uis
+end
+
+---@param 回调 fun(索引:integer,遍历到的控件:UI)
+function M:遍历子控件(回调)
+    for index, value in ipairs(self:获取所有子控件()) do
+        回调(index, value)
+    end
+end
+
+---@param 回调 fun(深度:integer,父控件:UI)
+function M:遍历父控件(回调)
+    local 父控件 = self
+    for i = 1, 30, 1 do
+        if 回调(i, 父控件) then
+            return
+        end
+        if 字符串_查找文本(父控件:获取_名称(), "画板_") then
+            break
+        end
+        父控件 = 父控件:获取_父控件()
+    end
 end
 
 --播放时间轴动画
@@ -533,11 +554,11 @@ function M:set_ui_model_focus_pos(x, y, z)
 end
 
 --绑定单位属性到玩家界面控件的属性
----@param uiAttr string 界面控件属性
+---@param uiAttr 控件界面属性
 ---@param attr string 单位属性
 ---@param accuracy integer 小数精度
 ---@return self
-function M:bind_player_attribute(uiAttr, attr, accuracy)
+function M:绑定_单位属性(uiAttr, attr, accuracy)
     GameAPI.set_ui_comp_bind_attr(self.player.handle, self.handle, uiAttr, attr, accuracy)
     return self
 end
@@ -548,7 +569,7 @@ end
 ---@param attr_or_var string # 玩家属性key
 ---@param accuracy integer 小数精度
 ---@return self
-function M:bind_player_prop(uiAttr, player, attr_or_var, accuracy)
+function M:绑定_玩家属性(uiAttr, player, attr_or_var, accuracy)
     GameAPI.set_ui_comp_bind_player_prop(self.player.handle, self.handle, uiAttr, player.handle, attr_or_var, accuracy)
     return self
 end
@@ -558,7 +579,7 @@ end
 ---@param globalVar string 全局属性
 ---@param accuracy integer 小数精度
 ---@return self
-function M:bind_global_variable(uiAttr, globalVar, accuracy)
+function M:绑定_全局变量(uiAttr, globalVar, accuracy)
     GameAPI.set_ui_comp_bind_var(self.player.handle, self.handle, uiAttr, globalVar, accuracy)
     return self
 end
@@ -566,7 +587,7 @@ end
 --解绑界面控件属性绑定
 ---@param uiAttr string 界面控件属性
 ---@return self
-function M:unbind(uiAttr)
+function M:解绑_单位属性(uiAttr)
     GameAPI.ui_comp_unbind(self.player.handle, self.handle, uiAttr)
     return self
 end
@@ -574,7 +595,7 @@ end
 --界面控件属性绑定指定单位
 ---@param unit Unit 单位
 ---@return self
-function M:bind_unit(unit)
+function M:绑定单位(unit)
     GameAPI.ui_comp_bind_unit(self.player.handle, self.handle, unit.handle)
     return self
 end
@@ -632,12 +653,12 @@ function M.disable_drawing_unit_path(player, unit)
 end
 
 --删除界面控件
-function M:remove()
+function M:移除()
     Delete(self)
 end
 
 -- 是否被删除
-function M:is_removed()
+function M:是否被移除()
     return not GameAPI.ui_comp_is_exist(self.handle)
 end
 
@@ -645,7 +666,7 @@ end
 ---@param uiAttr string 界面控件属性
 ---@param skill Ability 技能
 ---@return self
-function M:bind_ability_cd(uiAttr, skill)
+function M:绑定_技能冷却(uiAttr, skill)
     GameAPI.set_ui_comp_bind_ability_cd(self.player.handle, self.handle, uiAttr, skill.handle)
     return self
 end
@@ -654,15 +675,15 @@ end
 ---@param uiAttr string 界面控件属性
 ---@param buff Buff 魔法效果
 ---@return self
-function M:bind_buff_time(uiAttr, buff)
-    GameAPI.set_ui_comp_bind_modifier_cd(self.player.handle, self.handle, uiAttr, buff.handle)
+function M:绑定_魔法效果剩余时间(uiAttr, buff)
+    GameAPI.endset_ui_comp_bind_modifier_cd(self.player.handle, self.handle, uiAttr, buff.handle)
     return self
 end
 
 --开启/禁用发送聊天功能
 ---@param enable boolean 开启/禁用发送聊天功能
 ---@return self
-function M:enable_chat(enable)
+function M:聊天框_开启_禁用_聊天功能(enable)
     GameAPI.set_chat_send_enabled(self.player.handle, self.handle, enable)
     return self
 end
@@ -671,14 +692,14 @@ end
 ---@param enable boolean 显示/隐藏聊天框
 ---@param player Player 目标玩家
 ---@return self
-function M:show_chat(player, enable)
+function M:聊天框_显示_隐藏(player, enable)
     GameAPI.set_player_chat_show(self.player.handle, self.handle, player.handle, enable)
     return self
 end
 
 --清空聊天信息
 ---@return self
-function M:clear_chat()
+function M:聊天框_清空()
     GameAPI.clear_player_chat_panel(self.player.handle, self.handle)
     return self
 end
@@ -687,7 +708,7 @@ end
 ---@param player Player 玩家
 ---@param msg string 信息
 ---@return self
-function M:send_chat(player, msg)
+function M:聊天框_发送私聊信息(player, msg)
     GameAPI.send_chat_to_role(self.player.handle, self.handle, player.handle, msg)
     return self
 end
@@ -799,19 +820,19 @@ end
 
 --获得界面控件名
 ---@return string  uiname 控件名
-function M:get_name()
+function M:获取_名称()
     return GameAPI.get_ui_comp_name(self.player.handle, self.handle)
 end
 
 --获取指定命名的子控件
 ---@param name string
 ---@return UI? ui_comp ui控件
-function M:get_child(name)
+function M:获取子控件(name)
     local py_ui = GameAPI.get_comp_by_path(self.player.handle, self.handle, name)
     if not py_ui then
         return nil
     end
-    return y3.ui.get_by_handle(self.player, py_ui)
+    return y3.ui.从handle获取(self.player, py_ui)
 end
 
 --获得控件宽度
@@ -848,9 +869,9 @@ end
 
 --获得界面控件的父控件
 ---@return UI ui_comp ui控件
-function M:get_parent()
+function M:获取_父控件()
     local py_ui = GameAPI.get_ui_comp_parent(self.player.handle, self.handle)
-    return y3.ui.get_by_handle(self.player, py_ui)
+    return y3.ui.从handle获取(self.player, py_ui)
 end
 
 --获得玩家输入框文本内容
@@ -861,7 +882,7 @@ end
 
 --获得控件可见性
 ---@return boolean ui_visible 控件可见性
-function M:is_visible()
+function M:获取_是否可见()
     return GameAPI.get_ui_comp_visible(self.player.handle, self.handle)
 end
 

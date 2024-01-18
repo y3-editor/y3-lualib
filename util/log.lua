@@ -1,4 +1,4 @@
-require 'y3.tools.log'
+require "y3.tools.log"
 
 ---@param path string
 ---@param mode openmode
@@ -6,13 +6,13 @@ require 'y3.tools.log'
 ---@return string? errmsg
 local function ioOpen(path, mode)
     if not io then
-        return nil, 'No io module'
+        return nil, "No io module"
     end
     if not io.open then
-        return nil, 'No io.open'
+        return nil, "No io.open"
     end
     local file, err
-    local suc, res = pcall(function ()
+    local suc, res = pcall(function()
         file, err = io.open(path, mode)
     end)
     if not suc then
@@ -22,11 +22,11 @@ local function ioOpen(path, mode)
 end
 
 local log_cache = {}
-local log_name = ('lua_player%02d.log'):format(GameAPI.get_client_role():get_role_id_num())
-local log_file = ioOpen(lua_script_path .. '/log/' .. log_name, 'w+b')
-            or   ioOpen(log_name, 'w+b')
+local log_name = ("lua_player%02d.log"):format(GameAPI.get_client_role():get_role_id_num())
+local log_file = ioOpen(lua_script_path .. "/log/" .. log_name, "w+b")
+    or ioOpen(log_name, "w+b")
 if log_file then
-    log_file:setvbuf 'no'
+    log_file:setvbuf "no"
 end
 
 ---@param text string
@@ -37,23 +37,23 @@ local function remove_bad_utf8(text)
     while cur <= #text do
         local suc, errpos = utf8.len(text, cur)
         if suc then
-            buf[#buf+1] = text:sub(cur, #text)
+            buf[#buf + 1] = text:sub(cur, #text)
             break
         end
-        buf[#buf+1] = text:sub(cur, errpos - 1)
+        buf[#buf + 1] = text:sub(cur, errpos - 1)
         cur = errpos + 1
     end
     return table.concat(buf)
 end
 
 ---@diagnostic disable-next-line: lowercase-global
-log = New 'Log' {
-    level = 'debug',
+log = New "Log" {
+    level = "debug",
     file  = log_file,
-    clock = function ()
+    clock = function()
         return GameAPI.get_cur_game_time():float()
     end,
-    print = function (level, message, timeStamp)
+    print = function(level, message, timeStamp)
         local logger = y3.config.log.logger
         if logger then
             y3.config.log.logger = nil
@@ -64,21 +64,21 @@ log = New 'Log' {
             end
         end
         if y3.config.log.toDialog then
-            if level == 'error' or level == 'fatal' then
+            if level == "error" or level == "fatal" then
                 GameAPI.print_to_dialog(1, message)
-            elseif level == 'warn' then
+            elseif level == "warn" then
                 GameAPI.print_to_dialog(2, message)
             else
                 GameAPI.print_to_dialog(3, message)
             end
         end
         if y3.config.log.toGame then
-            log_cache[#log_cache+1] = message
+            log_cache[#log_cache + 1] = message
             if #log_cache > 10 then
                 table.remove(log_cache, 1)
             end
             ---@diagnostic disable-next-line: deprecated
-            y3.ui.display_message(y3.player.get_local(), remove_bad_utf8(table.concat(log_cache, '\n')), 60)
+            y3.ui.display_message(y3.player.获取本地玩家(), remove_bad_utf8(table.concat(log_cache, "\n")), 60)
         end
     end,
 }

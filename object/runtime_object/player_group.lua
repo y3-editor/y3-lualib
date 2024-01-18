@@ -41,7 +41,7 @@ function M:到数组()
     local lua_table = {}
     for i = 1, python_len(self.handle) do
         local iter_player = python_index(self.handle, i - 1)
-        table.insert(lua_table, y3.player.get_by_id(iter_player))
+        table.insert(lua_table, y3.player.从id获取(iter_player))
     end
     return lua_table
 end

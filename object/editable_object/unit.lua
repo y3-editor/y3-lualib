@@ -18,13 +18,15 @@ Extends("Unit", "ObjectEvent")
 ---@class Unit: KV
 Extends("Unit", "KV")
 
+---@private
 function M:__tostring()
     return string.format("{unit|%s|%s}"
-    , self:get_name()
+    , self:获取_名称()
     , self.handle
     )
 end
 
+---@private
 ---@param py_unit_id py.UnitID
 ---@param py_unit py.Unit
 ---@return self
@@ -34,6 +36,7 @@ function M:__init(py_unit_id, py_unit)
     return self
 end
 
+---@private
 function M:__del()
     self.handle:api_delete()
 end
@@ -52,13 +55,13 @@ end)
 ---通过py层的单位实例获取lua层的单位实例
 ---@param py_unit py.Unit
 ---@return Unit
-function M.get_by_handle(py_unit)
+function M.从句柄获取(py_unit)
     local id = py_unit:api_get_id()
     local unit = M.ref_manager:get(id)
     return unit
 end
 
-y3.py_converter.register_py_to_lua("py.Unit", M.get_by_handle)
+y3.py_converter.register_py_to_lua("py.Unit", M.从句柄获取)
 y3.py_converter.register_lua_to_py("py.Unit", function(lua_value)
     return lua_value.handle
 end)
@@ -66,7 +69,7 @@ end)
 -- 根据唯一ID获取单位。
 ---@param id py.UnitID
 ---@return Unit?
-function M.get_by_id(id)
+function M.从唯一id获取(id)
     local unit = M.ref_manager:get(id)
     return unit
 end
@@ -74,13 +77,13 @@ end
 -- 获取摆放在场景上的单位
 ---@param res_id integer
 ---@return Unit
-function M.get_by_res_id(res_id)
-    local u = M.get_by_id(res_id --[[@as py.UnitID]])
+function M.从场景获取(res_id)
+    local u = M.从唯一id获取(res_id --[[@as py.UnitID]])
     assert(u, ("无法找到ID为%d的单位"):format(res_id))
     return u
 end
 
-y3.py_converter.register_py_to_lua("py.UnitID", M.get_by_id)
+y3.py_converter.register_py_to_lua("py.UnitID", M.从唯一id获取)
 
 y3.game:event("单位-移除后", function(trg, data)
     local id = data.unit.id
@@ -89,27 +92,27 @@ end)
 
 ---是否存在
 ---@return boolean is_exist 是否存在
-function M:is_exist()
+function M:是否存在()
     return GameAPI.unit_is_exist(self.handle)
 end
 
 -- 获取唯一ID
 ---@return integer
-function M:get_id()
+function M:获取_唯一id()
     return self.id
 end
 
 ---移除技能(指定类型)
 ---@param type y3.Const.AbilityType 技能类型
 ---@param ability_key py.AbilityKey 物编id
-function M:remove_abilitiy_by_key(type, ability_key)
+function M:移除_指定类型技能(type, ability_key)
     self.handle:api_remove_abilities_in_type(type, ability_key)
 end
 
 ---单位添加物品
 ---@param item_id py.ItemKey 物品id
 ---@return Item
-function M:add_item(item_id)
+function M:添加_物品(item_id)
     local py_item = self.handle:api_add_item(item_id)
     return y3.item.get_by_handle(py_item)
 end
@@ -117,7 +120,7 @@ end
 ---单位移除物品
 ---@param item_id py.ItemKey 物品id
 ---@param num integer 数量
-function M:remove_item(item_id, num)
+function M:移除_物品(item_id, num)
     self.handle:api_delete_item(item_id, num)
 end
 
@@ -126,7 +129,7 @@ end
 ---@param type y3.Const.ShiftSlotTypeAlias
 ---@param index integer 槽位
 ---@param force boolean 是否强制移动，`true`: 如果目标有物品，则移动到另一个空格中；`false`: 如果目标有物品，则要移动的物品会掉落
-function M:shift_item(item, type, index, force)
+function M:移动_物品(item, type, index, force)
     self.handle:api_shift_item_new(item.handle, y3.const.ShiftSlotType[type], index, force)
 end
 
@@ -135,14 +138,14 @@ end
 ---@param item Item 物品
 ---@param type y3.Const.ShiftSlotTypeAlias
 ---@param index integer 槽位
-function M:exchange_item(item, type, index)
+function M:交换_物品(item, type, index)
     self.handle:api_shift_item(item.handle, y3.const.ShiftSlotType[type], index)
 end
 
 ---获取指定类型的所有技能
 ---@param type y3.Const.AbilityType
 ---@return Ability[]
-function M:get_abilities_by_type(type)
+function M:获取_指定类型所有技能(type)
     ---@type Ability[]
     local abilities = {}
     local py_list = self.handle:api_get_abilities_by_type(type)
@@ -155,7 +158,7 @@ end
 
 ---获取单位身上的魔法效果
 ---@return Buff[] # 魔法效果表
-function M:get_buffs()
+function M:获取_所有魔法效果()
     ---@type Buff[]
     local buffs = {}
     local py_list = self.handle:api_get_all_modifiers()
@@ -169,7 +172,7 @@ end
 ---交换技能位置
 ---@param ability_1 Ability 第一个技能
 ---@param ability_2 Ability 第二个技能
-function M:switch_ability(ability_1, ability_2)
+function M:交换_技能位置(ability_1, ability_2)
     self.handle:api_switch_ability(ability_1.handle, ability_2.handle)
 end
 
@@ -178,12 +181,12 @@ end
 ---@param slot_1 y3.Const.AbilityIndex 第一个技能坑位
 ---@param type_2 y3.Const.AbilityType 第二个技能类型
 ---@param slot_2 y3.Const.AbilityIndex 第二个技能坑位
-function M:switch_ability_by_slot(type_1, slot_1, type_2, slot_2)
+function M:交换_技能_根据槽位(type_1, slot_1, type_2, slot_2)
     self.handle:api_switch_ability_by_index(type_1, slot_1, type_2, slot_2)
 end
 
 ---停止所有技能
-function M:stop_all_abilities()
+function M:停止_所有技能()
     self.handle:api_stop_all_abilities()
 end
 
@@ -193,7 +196,7 @@ end
 ---@param slot? y3.Const.AbilityIndex 技能位
 ---@param level? integer 等级
 ---@return Ability?
-function M:add_ability(type, id, slot, level)
+function M:添加_技能(type, id, slot, level)
     local py_ability = self.handle:api_add_ability(y3.const.AbilityType[type] or type, id, slot or -1, level or 1)
     if not py_ability then
         return nil
@@ -205,7 +208,7 @@ end
 ---移除技能
 ---@param type y3.Const.AbilityType 技能类型
 ---@param slot y3.Const.AbilityIndex 技能位
-function M:remove_ability(type, slot)
+function M:移除_技能(type, slot)
     self.handle:api_remove_ability_by_index(type, slot)
 end
 
@@ -264,7 +267,7 @@ end
 ---@param point Point 点
 ---@param direction number 方向
 ---@return Unit
-function M.create_unit(owner, unit_id, point, direction)
+function M.创建(owner, unit_id, point, direction)
     local py_unit = GameAPI.create_unit(
         unit_id,
         point.handle,
@@ -273,7 +276,7 @@ function M.create_unit(owner, unit_id, point, direction)
         ---@diagnostic disable-next-line: param-type-mismatch
         owner.handle
     )
-    return M.get_by_handle(py_unit)
+    return M.从句柄获取(py_unit)
 end
 
 ---杀死单位
@@ -301,7 +304,7 @@ function M.create_illusion(illusion_unit, call_unit, player, point, direction, c
 end
 
 ---删除单位
-function M:remove()
+function M:移除()
     Delete(self)
 end
 
@@ -557,7 +560,7 @@ end
 
 ---设置名称
 ---@param name string 名称
-function M:set_name(name)
+function M:设置_名称(name)
     self.handle:api_set_name(name)
 end
 
@@ -1207,7 +1210,7 @@ end
 ---@return Player player 单位所属玩家
 function M:get_owner()
     local py_player = self.handle:api_get_role()
-    return y3.player.get_by_handle(py_player)
+    return y3.player.从句柄获取(py_player)
 end
 
 ---获取建造此单位消耗的资源（玩家属性）
@@ -1345,27 +1348,27 @@ end
 
 ---获取单位名称
 ---@return string unit_name  单位名称
-function M:get_name()
+function M:获取_名称()
     return self.handle:api_get_name()
 end
 
 ---获取单位的描述
 ---@return string unit_description 单位的描述
-function M:get_description()
+function M:获取_描述()
     return self.handle:api_get_str_attr("desc")
 end
 
 ---获取单位类型名称
 ---@param unit_key py.UnitKey
 ---@return string type_name 单位类型名称
-function M.get_name_by_key(unit_key)
+function M.获取_单位类型名称(unit_key)
     return GameAPI.get_unit_name_by_type(unit_key)
 end
 
 ---获取单位类型的描述
 ---@param unit_key py.UnitKey 单位类型
 ---@return string des 单位类型的描述
-function M.get_description_by_key(unit_key)
+function M.获取_单位类型描述(unit_key)
     return GameAPI.get_unit_desc_by_type(unit_key)
 end
 
@@ -1402,7 +1405,7 @@ function M.get_last_created_unit()
     if not py_unit then
         return nil
     end
-    return y3.unit.get_by_handle(py_unit)
+    return y3.unit.从句柄获取(py_unit)
 end
 
 ---获取单位的拥有者（单位）
@@ -1412,7 +1415,7 @@ function M:get_parent_unit()
     if not py_unit then
         return nil
     end
-    return y3.unit.get_by_handle(py_unit)
+    return y3.unit.从句柄获取(py_unit)
 end
 
 ---获取幻象的召唤者
@@ -1422,7 +1425,7 @@ function M:get_illusion_owner()
     if not py_unit then
         return nil
     end
-    return y3.unit.get_by_handle(py_unit)
+    return y3.unit.从句柄获取(py_unit)
 end
 
 ---获取单位的朝向
@@ -1469,7 +1472,7 @@ function M:get_point()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_by_handle(py_point)
+    return y3.point.从handle获取(py_point)
 end
 
 ---获取单位最近的可通行点
@@ -1478,7 +1481,7 @@ function M:get_nearest_valid_point()
     local py_point = self.handle:api_find_nearest_valid_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_by_handle(py_point)
+    return y3.point.从handle获取(py_point)
 end
 
 ---获取单位的队伍
@@ -1664,7 +1667,7 @@ end
 -- 获取所属玩家
 ---@return Player
 function M:get_owner_player()
-    return y3.player.get_by_id(self.handle:api_get_role_id())
+    return y3.player.从id获取(self.handle:api_get_role_id())
 end
 
 ---玩家是否可以购买商店的物品
@@ -1710,7 +1713,7 @@ end
 ---@field socket? string # 特效挂点
 
 ---@param data Unit.DamageData
-function M:damage(data)
+function M:造成伤害(data)
     GameAPI.apply_damage(
         self.handle,
         data.ability and data.ability.handle or nil,
@@ -1733,7 +1736,7 @@ end
 
 ---获取单位主属性(需要开启复合属性)
 ---@return string
-function M:get_main_attr()
+function M:获取_主属性()
     return self.handle:api_get_main_attr()
 end
 

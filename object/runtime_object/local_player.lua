@@ -1,19 +1,19 @@
-local must_sync = require 'y3.meta.must_sync'
+local must_sync     = require "y3.meta.must_sync"
 
 ---@class LocalPlayer
-local M = Class 'LocalPlayer'
+local M             = Class "LocalPlayer"
 
-local getupvalue  = debug and debug.getupvalue
-local setupvalue  = debug and debug.setupvalue
-local upvaluejoin = debug and debug.upvaluejoin
-local getinfo     = debug and debug.getinfo
+local getupvalue    = debug and debug.getupvalue
+local setupvalue    = debug and debug.setupvalue
+local upvaluejoin   = debug and debug.upvaluejoin
+local getinfo       = debug and debug.getinfo
 
 local can_use_debug = getupvalue ~= nil
-                and   setupvalue ~= nil
-                and   upvaluejoin ~= nil
-                and   getinfo ~= nil
-                and   true
-                or    false
+    and setupvalue ~= nil
+    and upvaluejoin ~= nil
+    and getinfo ~= nil
+    and true
+    or false
 
 ---@param func function
 function M:__init(func)
@@ -27,9 +27,9 @@ function M:__init(func)
         end
         if value == _ENV then
             value = self:wrap_env_in_upvalue(func, i, value)
-        elseif type(value) == 'function' then
+        elseif type(value) == "function" then
             value = self:wrap_function_in_upvalue(func, i, value)
-        elseif type(value) == 'table' then
+        elseif type(value) == "table" then
             value = self:wrap_table_in_upvalue(func, i, name, value)
         end
         self.uv_values[i] = value
@@ -50,13 +50,13 @@ end
 ---@param old_value any
 ---@param new_value any
 local function build_upvalue_error_message(func, name, old_value, new_value)
-    local info = getinfo(func, 'Sl')
-    log.warn(string.format('你在本地玩家环境中把上值【%s】的值从【%s】修改为了【%s】。为了保证同步已将值恢复。\n环境位置：%s:%d'
-        , name
-        , old_value
-        , new_value
-        , info.short_src
-        , info.linedefined
+    local info = getinfo(func, "Sl")
+    log.warn(string.format("你在本地玩家环境中把上值【%s】的值从【%s】修改为了【%s】。为了保证同步已将值恢复。\n环境位置：%s:%d"
+    , name
+    , old_value
+    , new_value
+    , info.short_src
+    , info.linedefined
     ))
 end
 
@@ -65,21 +65,21 @@ end
 ---@param old_value any
 ---@param new_value any
 local function build_variable_error_message(t, k, old_value, new_value)
-    local info = getinfo(3, 'Sl')
-    log.warn(string.format('你在本地环境中把变量【%s】的值从【%s】修改为了【%s】。\n修改位置：%s:%d'
-        , k
-        , old_value
-        , new_value
-        , info.short_src
-        , info.linedefined
+    local info = getinfo(3, "Sl")
+    log.warn(string.format("你在本地环境中把变量【%s】的值从【%s】修改为了【%s】。\n修改位置：%s:%d"
+    , k
+    , old_value
+    , new_value
+    , info.short_src
+    , info.linedefined
     ))
 end
 
 ---@param name string
 local function build_call_error_message(name)
-    log.warn(string.format('不能在本地环境中调用API【%s】\n%s'
-        , name
-        , debug.traceback()
+    log.warn(string.format("不能在本地环境中调用API【%s】\n%s"
+    , name
+    , debug.traceback()
     ))
 end
 
@@ -103,7 +103,7 @@ end
 ---@return function
 function M:wrap_function_in_upvalue(func, i, value)
     local wrapped_func = M.wrap_function(value)
-    local dummy = function () return wrapped_func end
+    local dummy = function() return wrapped_func end
     upvaluejoin(func, i, dummy, 1)
     return wrapped_func
 end
@@ -114,7 +114,7 @@ end
 ---@return table
 function M:wrap_env_in_upvalue(func, i, value)
     local wrapped_env = M.wrap_env(value)
-    local dummy = function () return wrapped_env end
+    local dummy = function() return wrapped_env end
     upvaluejoin(func, i, dummy, 1)
     return wrapped_env
 end
@@ -126,14 +126,14 @@ end
 ---@return table
 function M:wrap_table_in_upvalue(func, i, name, value)
     local wrapped_table = M.wrap_table(name, value)
-    local dummy = function () return wrapped_table end
+    local dummy = function() return wrapped_table end
     upvaluejoin(func, i, dummy, 1)
     return wrapped_table
 end
 
-M.LOCAL_PLAYER = y3.player.get_by_handle(GameAPI.get_client_role())
+M.LOCAL_PLAYER = y3.player.从句柄获取(GameAPI.get_client_role())
 
-M.dont_wrap_this = setmetatable({}, { __mode = 'k' })
+M.dont_wrap_this = setmetatable({}, { __mode = "k" })
 
 ---@private
 ---@param func function
@@ -142,8 +142,8 @@ function M.wrap_function(func)
     if M.dont_wrap_this[func] then
         return func
     end
-    local f = function (...)
-        local _ <close> = New 'LocalPlayer' (func)
+    local f = function(...)
+        local _ <close> = New "LocalPlayer" (func)
         return func(...)
     end
     M.dont_wrap_this[f] = true
@@ -166,25 +166,25 @@ end
 ---@type Proxy.Config
 M.proxy_config = {
     cache = true,
-    anyGetter = function (self, raw, key, config, parent_path)
+    anyGetter = function(self, raw, key, config, parent_path)
         local value = raw[key]
-        if type(value) == 'table' then
+        if type(value) == "table" then
             local new_path
-            if parent_path == '' then
+            if parent_path == "" then
                 new_path = tostring(key)
             else
-                new_path = parent_path .. '.' .. tostring(key)
+                new_path = parent_path .. "." .. tostring(key)
             end
             return y3.proxy.new(value, M.proxy_config, new_path)
-        elseif type(value) == 'function' then
+        elseif type(value) == "function" then
             value = M.check_function_in_sandbox(parent_path, value)
             return value
         else
             return value
         end
     end,
-    anySetter = function (self, raw, key, value, config, parent_path)
-        build_variable_error_message(self, parent_path .. '.' .. tostring(key), self[key], value)
+    anySetter = function(self, raw, key, value, config, parent_path)
+        build_variable_error_message(self, parent_path .. "." .. tostring(key), self[key], value)
         return value
     end
 }
@@ -196,17 +196,17 @@ function M.check_function_in_sandbox(name, func)
     --检查是否是“有害”函数，如果是则拒绝执行
     if M.is_name_must_sync(name) then
         build_call_error_message(name)
-        return function () end
+        return function() end
     end
     --包装回调函数
-    local info = getinfo(func, 'u')
+    local info = getinfo(func, "u")
     if info.nparams == 0 then
         return func
     end
-    local wrapped_func = function (...)
+    local wrapped_func = function(...)
         local params = table.pack(...)
         for i, p in ipairs(params) do
-            if type(p) == 'function' then
+            if type(p) == "function" then
                 params[i] = M.wrap_function(p)
             end
         end
@@ -215,10 +215,10 @@ function M.check_function_in_sandbox(name, func)
     return wrapped_func
 end
 
-M.sandbox = y3.proxy.new(_G, M.proxy_config, '')
+M.sandbox = y3.proxy.new(_G, M.proxy_config, "")
 
-y3.reload.onAfterReload(function ()
-    M.sandbox = y3.proxy.new(_G, M.proxy_config, '')
+y3.reload.onAfterReload(function()
+    M.sandbox = y3.proxy.new(_G, M.proxy_config, "")
 end)
 
 ---@param env table
@@ -228,10 +228,10 @@ function M.wrap_env(env)
 end
 
 ---@class Player
-local Player = Class 'Player'
+local Player = Class "Player"
 
---在本地玩家环境中执行代码。  
---在开发模式中会阻止这些代码修改上值、修改全局变量、调用同步函数，因此也会产生额外的开销。  
+--在本地玩家环境中执行代码。
+--在开发模式中会阻止这些代码修改上值、修改全局变量、调用同步函数，因此也会产生额外的开销。
 --在平台上不会检测，也不会有额外开销。
 --
 ------
@@ -243,9 +243,9 @@ local Player = Class 'Player'
 --end)
 --```
 ---@param callback fun(local_player: Player)
-function Player.with_local(callback)
+function Player.执行本地代码(callback)
     if not can_use_debug
-    or not y3.game.is_debug_mode() then
+        or not y3.game.是否为调试模式() then
         callback(M.LOCAL_PLAYER)
         return
     end

@@ -1,14 +1,33 @@
-事件 = {}
+插件 = {}
 
+include "y3.px.常量"
+
+游戏 = require "y3.game.game"
+存档 = require "y3.util.save_data"
+镜头 = require "y3.object.scene_object.camera"
+点 = require "y3.object.scene_object.point"
 
 单位 = require "y3.object.editable_object.unit"
 单位组 = require "y3.object.runtime_object.unit_group"
+---@class Player
 玩家 = require "y3.object.runtime_object.player"
 玩家组 = require "y3.object.runtime_object.player_group"
+场景 = require "y3.object.scene_object.scene_ui"
+控件 = require "y3.object.scene_object.ui"
+元件 = require "y3.object.scene_object.ui_prefab"
+
+include "y3.px.表"
+include "y3.px.字符串"
+include "y3.px.数学"
+include "y3.px.工具"
+
+全局事件 = include "y3.px.事件"
+
+
+include "y3.px.模块.界面操作模块"
 
 -- y3.const = require "y3.game.const"
 -- y3.math = require "y3.game.math"
--- y3.game = require "y3.game.game"
 -- y3.py_converter = require "y3.game.py_converter"
 -- y3.py_event_sub = require "y3.game.py_event_subscribe"
 -- y3.helper = require "y3.game.helper"
@@ -39,10 +58,8 @@
 -- require "y3.object.runtime_object.local_player"
 
 -- y3.area            = require "y3.object.scene_object.area"
--- y3.camera          = require "y3.object.scene_object.camera"
 -- y3.light           = require "y3.object.scene_object.light"
 -- y3.road            = require "y3.object.scene_object.road"
--- y3.point           = require "y3.object.scene_object.point"
 -- y3.scene_ui        = require "y3.object.scene_object.scene_ui"
 -- y3.ui              = require "y3.object.scene_object.ui"
 -- y3.ui_prefab       = require "y3.object.scene_object.ui_prefab"
@@ -50,15 +67,56 @@
 
 -- y3.object          = require "y3.util.object"
 -- y3.ltimer          = require "y3.util.local_timer"
--- y3.save_data       = require "y3.util.save_data"
+
 -- y3.dump            = require "y3.util.dump"
 
 -- y3.develop         = {}
 -- y3.develop.command = include "y3.develop.command"
+---@param 回调 fun(回调:参_事件)
+function 插件.初始化(回调)
+    return 全局事件.自定义_带标识("游戏初始化", "插件加载", function(参数)
+        回调(参数)
+    end)
+end
 
-include "y3.px.表"
-include "y3.px.字符串"
-include "y3.px.数学"
-include "y3.px.工具"
+function _预设数据初始化()
+    玩家.中立友善 = 玩家.从id获取(32)
+    玩家.中立敌对 = 玩家.从id获取(31)
+end
 
-事件.全局事件 = include "y3.px.事件"
+local function _游戏初始化()
+    _预设数据初始化()
+    全局事件.发送_自定义_带标识("游戏初始化", "插件加载", {})
+    全局事件.发送_自定义_带标识("游戏初始化", "文件加载", {})
+    全局事件.发送_自定义_带标识("游戏初始化", "游戏初始化", {})
+end
+
+---@param 参数 参_玩家加入游戏
+local function _玩家加入(参数)
+    全局事件.发送_自定义_带标识("玩家加入游戏", "插件加载", 参数)
+    全局事件.发送_自定义_带标识("玩家加入游戏", "文件加载", 参数)
+    全局事件.发送_自定义_带标识("玩家加入游戏", "玩家加入游戏", 参数)
+end
+
+
+y3.game:event("游戏-初始化", function(trg, data)
+    _游戏初始化()
+    y3.game:event("玩家-加入游戏", function(trg, data)
+        _玩家加入({ 加入玩家 = data.player, 是否中途加入 = data.is_middle_join })
+    end)
+end)
+
+y3.reload.onAfterReload(function(reload, hasReloaded)
+    _游戏初始化()
+    玩家组.获取所有非中立玩家():遍历(function(索引, 遍历到的玩家)
+        if 遍历到的玩家:get_state() == 1 then
+            _玩家加入({ 加入玩家 = 遍历到的玩家, 是否中途加入 = false })
+        end
+    end)
+end)
+
+
+
+插件.初始化(function(回调)
+
+end)

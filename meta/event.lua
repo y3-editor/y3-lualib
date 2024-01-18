@@ -1636,8 +1636,8 @@ event.ET_UNIT_BE_HURT = {
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害前")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害前")
             return instance
         end,
     },
@@ -1715,8 +1715,8 @@ event.ET_UNIT_HURT_OTHER = {
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害前")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害前")
             return instance
         end,
     },
@@ -1794,8 +1794,8 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害时")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害时")
             return instance
         end,
     },
@@ -1873,8 +1873,8 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害时")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害时")
             return instance
         end,
     },
@@ -1961,8 +1961,8 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害后")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害后")
             return instance
         end,
     },
@@ -2049,8 +2049,8 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害后")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害后")
             return instance
         end,
     },
@@ -2085,8 +2085,8 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
         lua_name = "heal_instance",
         lua_type = "HealInstance",
         lua_desc = "治疗实例",
-        lua_code = function (data)
-            local instance = New 'HealInstance' (data, "治疗前")
+        lua_code = function(data)
+            local instance = New "HealInstance" (data, "治疗前")
             return instance
         end,
     },
@@ -2145,8 +2145,8 @@ event.ET_UNIT_GET_CURE = {
         lua_name = "heal_instance",
         lua_type = "HealInstance",
         lua_desc = "治疗实例",
-        lua_code = function (data)
-            local instance = New 'HealInstance' (data, "治疗时")
+        lua_code = function(data)
+            local instance = New "HealInstance" (data, "治疗时")
             return instance
         end,
     },
@@ -3380,9 +3380,9 @@ event.ET_ABILITY_CS_START = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3460,9 +3460,9 @@ event.ET_ABILITY_PS_START = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3507,9 +3507,9 @@ event.ET_ABILITY_PS_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3569,9 +3569,9 @@ event.ET_ABILITY_SP_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3616,9 +3616,9 @@ event.ET_ABILITY_CST_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3663,9 +3663,9 @@ event.ET_ABILITY_BS_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3743,9 +3743,9 @@ event.ET_ABILITY_PS_INTERRUPT = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3790,9 +3790,9 @@ event.ET_ABILITY_SP_INTERRUPT = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3837,9 +3837,9 @@ event.ET_ABILITY_CST_INTERRUPT = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -3917,9 +3917,9 @@ event.ET_ABILITY_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
+            local id = data._py_params["__ability_runtime_id"]
             local cast = y3.cast.get(ability, id)
             return cast
         end,
@@ -4788,8 +4788,8 @@ event.ET_PRODUCE_PROJECTILE = {
         lua_name = "projectile",
         lua_type = "Projectile",
         lua_desc = "投射物",
-        lua_code = function (data)
-            local py_proj = data._py_params['projectile']
+        lua_code = function(data)
+            local py_proj = data._py_params["projectile"]
             local projectile = y3.projectile.get_by_handle(py_proj)
             return projectile
         end,
@@ -4807,8 +4807,8 @@ event.ET_DEATH_PROJECTILE = {
         lua_name = "projectile",
         lua_type = "Projectile",
         lua_desc = "投射物",
-        lua_code = function (data)
-            local py_proj = data._py_params['projectile']
+        lua_code = function(data)
+            local py_proj = data._py_params["projectile"]
             local projectile = y3.projectile.get_by_handle(py_proj)
             return projectile
         end,
@@ -4909,8 +4909,8 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
         lua_name = "ui",
         lua_type = "UI",
         lua_desc = "ui",
-        lua_code = function (data)
-            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+        lua_code = function(data)
+            local ui = y3.ui.从handle获取(data.player, data.comp_name)
             return ui
         end,
     },
@@ -4920,7 +4920,7 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
         lua_name = "data",
         lua_type = "any",
         lua_desc = "自定义数据",
-        lua_code = function (data)
+        lua_code = function(data)
             local bin = data.str1
             local undumped = y3.dump.decode(bin)
             return undumped

@@ -71,7 +71,7 @@ function M:isValidName(name)
 end
 
 function M:fire()
-    -- log.info('=========== reload start ===========')
+    log.info("=========== 开始清理 ===========")
 
     local beforeReloadCallbacksNoReload = {}
     local afterReloadCallbacksNoReload  = {}

@@ -43,38 +43,39 @@ function M:__tostring()
 end
 
 ---转换玩家ID为玩家
+---@private
 ---@param id integer 玩家ID
 ---@return Player player 玩家
 function M:__alloc(id)
-    return M.get_by_id(id)
+    return M.从id获取(id)
 end
 
 ---转换玩家ID为玩家
 ---@param id integer 玩家ID
 ---@return Player player 玩家
-function M.get_by_id(id)
+function M.从id获取(id)
     local player = M.ref_manager:get(id)
     return player
 end
 
 y3.py_converter.register_type_alias("py.Role", "Player")
-y3.py_converter.register_py_to_lua("py.RoleID", M.get_by_id)
+y3.py_converter.register_py_to_lua("py.RoleID", M.从id获取)
 
 ---@param py_player py.Role
 ---@return Player
-function M.get_by_handle(py_player)
+function M.从句柄获取(py_player)
     local id = py_player:get_role_id_num()
-    return M.get_by_id(id)
+    return M.从id获取(id)
 end
 
-y3.py_converter.register_py_to_lua("py.Role", M.get_by_handle)
+y3.py_converter.register_py_to_lua("py.Role", M.从句柄获取)
 y3.py_converter.register_lua_to_py("py.Role", function(lua_value)
     return lua_value.handle
 end)
 
 -- 本地玩家，注意这可能会导致不同步！
 ---@private
-M.LOCAL_PLAYER = M.get_by_handle(GameAPI.get_client_role())
+M.LOCAL_PLAYER = M.从句柄获取(GameAPI.get_client_role())
 
 function M:get_camp()
     return self.handle:api_get_camp()
@@ -90,53 +91,53 @@ end
 
 ---玩家是否中途加入
 ---@return boolean is_middle_join 是否中途加入
-function M:is_middle_join()
+function M:是否为中途加入()
     return self.handle:is_middle_join()
 end
 
 ---玩家间是否是敌对关系
 ---@param player Player 玩家
 ---@return boolean is_enemy 是否是敌对关系
-function M:is_enemy(player)
+function M:是否为敌对关系(player)
     return self.handle:players_is_enemy(player.handle)
 end
 
 ---设置名字
 ---@param name string 名字
-function M:set_name(name)
+function M:设置名称(name)
     self.handle:set_role_name(name)
 end
 
 ---设置队伍ID
 ---@param id py.Camp
-function M:set_team(id)
+function M:设置队伍id(id)
     self.handle:api_set_camp(id)
 end
 
 ---设置属性值
 ---@param key py.RoleResKey 属性名
 ---@param value number 值
-function M:set(key, value)
+function M:设置属性值(key, value)
     self.handle:set_role_res(key, Fix32(value))
 end
 
 ---增加属性值
 ---@param key py.RoleResKey 属性名
 ---@param value number 值
-function M:add(key, value)
+function M:增加属性值(key, value)
     self.handle:change_role_res(key, Fix32(value))
 end
 
 ---设置经验获得率
 ---@param rate number 经验获得率
-function M:set_exp_rate(rate)
+function M:设置经验获得率(rate)
     self.handle:set_role_exp_rate(rate)
 end
 
 ---设置敌对关系
 ---@param player Player 玩家
 ---@param is_hostile boolean 是否敌视
-function M:set_hostility(player, is_hostile)
+function M:设置敌对关系(player, is_hostile)
     self.handle:set_role_hostility(player.handle, is_hostile)
 end
 
@@ -405,7 +406,7 @@ end
 ---@return UnitGroup unit_group 单位组
 function M:get_all_units()
     local py_unit_group = self.handle:get_all_unit_id()
-    return y3.unit_group.从句柄获取(py_unit_group)
+    return y3.unit_group.从handle获取(py_unit_group)
 end
 
 ---创建单位
@@ -414,7 +415,7 @@ end
 ---@param facing? number 朝向
 ---@return Unit
 function M:create_unit(unit_id, point, facing)
-    local unit = y3.unit.create_unit(self, unit_id, point or y3.point(0.0, 0.0), facing or 0.0)
+    local unit = y3.unit.创建(self, unit_id, point or y3.point(0.0, 0.0), facing or 0.0)
     return unit
 end
 
@@ -447,7 +448,7 @@ function M:get_mouse_pos()
     local py_point = GameAPI.get_player_pointing_pos(self.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_by_handle(py_point)
+    return y3.point.从handle获取(py_point)
 end
 
 ---获取玩家鼠标屏幕坐标X的占比。
@@ -496,13 +497,6 @@ end
 ---@return string name 属性名称
 function M:get_platform_name()
     return self.handle:get_role__unique_name()
-end
-
----向玩家发送提示
----@param msg string 消息
----@param localize? boolean 是否支持语言环境
-function M:display_info(msg, localize)
-    GameAPI.show_msg_to_role(self.handle, msg, localize)
 end
 
 ---获取玩家属性的货币图标
@@ -566,7 +560,7 @@ function M:set_vignetting_color(red, green, blue, time)
 end
 
 -- 退出游戏
-function M:exit_game()
+function M:退出游戏()
     GameAPI.exit_game(self.handle)
 end
 
@@ -576,7 +570,7 @@ end
 --> 已废弃：请改用 `y3.player.with_local`
 ---@deprecated
 ---@return Player
-function M.get_local()
+function M.获取本地玩家()
     return M.LOCAL_PLAYER
 end
 
@@ -591,7 +585,7 @@ end
 -- 对玩家显示文本消息
 ---@param message string # 消息
 ---@param localize boolean # 是否支持语言环境
-function M:display_message(message, localize)
+function M:发送文本消息(message, localize)
     GameAPI.show_msg_to_role(self.handle, message, localize)
 end
 

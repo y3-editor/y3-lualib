@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-return
 -- 此文件由 `tools/genGameAPI` 生成，请勿手动修改。
 ---@meta
 
@@ -81,7 +82,9 @@ function GameAPI.play_3d_sound_for_player(role, sid, position, height, fade_in_t
 ---@param offset_y? number # 偏移y
 ---@param offset_z? number # 偏移z
 ---@return py.SoundEntity # 声音对象
-function GameAPI.follow_object_play_3d_sound_for_player(role, sid, unit, fade_in_time, fade_out_time, ensure_play, loop, offset_x, offset_y, offset_z) end
+function GameAPI.follow_object_play_3d_sound_for_player(role, sid, unit, fade_in_time, fade_out_time, ensure_play, loop,
+                                                        offset_x, offset_y, offset_z)
+end
 
 --停止播放音乐
 ---@param role py.Role # 玩家
@@ -495,7 +498,9 @@ function GameAPI.get_fog_res_by_res_id(res_id) end
 ---@param color_b? number # 颜色b
 ---@param density? number # 浓度
 ---@param flow_speed? number # 流速
-function GameAPI.set_fog_attr(fog, op_flag, yaw, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, color_r, color_g, color_b, density, flow_speed) end
+function GameAPI.set_fog_attr(fog, op_flag, yaw, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, color_r, color_g,
+                              color_b, density, flow_speed)
+end
 
 --修改雾效属性新
 ---@param fog py.Fog # 雾
@@ -1543,7 +1548,7 @@ function GameAPI.set_ui_comp_bind_ability_cd(role, ui_comp, ui_comp_attr, abilit
 ---@param ui_comp string # 控件uid
 ---@param ui_comp_attr string # 控件属性字段
 ---@param modifier py.ModifierEntity # 技能实体对象
-function GameAPI.set_ui_comp_bind_modifier_cd(role, ui_comp, ui_comp_attr, modifier) end
+function GameAPI.endset_ui_comp_bind_modifier_cd(role, ui_comp, ui_comp_attr, modifier) end
 
 --开启/禁用发送聊天功能
 ---@param role py.Role # 玩家
@@ -2010,7 +2015,9 @@ function GameAPI.api_set_gravity(gravity) end
 ---@param duration? py.Fixed # 持续时间
 ---@param immediately? boolean # 是否播放完移除
 ---@return py.Sfx # 特效
-function GameAPI.api_create_sfx_on_rigid(entity, body_name, sfx_id, b_follow_rotate, b_follow_scale, position, scale, rotation, duration, immediately) end
+function GameAPI.api_create_sfx_on_rigid(entity, body_name, sfx_id, b_follow_rotate, b_follow_scale, position, scale,
+                                         rotation, duration, immediately)
+end
 
 --获取逻辑物理组件类型
 ---@param entity py.PhysicsEntity # 逻辑物理组件
@@ -2060,7 +2067,9 @@ function GameAPI.api_world_pos_to_screen_edge_pos(world_pos, delta_dis) end
 ---@param ignore_dynamic_rb boolean # 是否忽略动态刚体
 ---@param ignore_kinematic_rb boolean # 是否忽略运动学刚体
 ---@return py.PhysicsFilter # 过滤器
-function GameAPI.api_create_physics_filter(collision_category, collide_with_mask, ignore_trigger, ignore_non_trigger, ignore_static_rb, ignore_dynamic_rb, ignore_kinematic_rb) end
+function GameAPI.api_create_physics_filter(collision_category, collide_with_mask, ignore_trigger, ignore_non_trigger,
+                                           ignore_static_rb, ignore_dynamic_rb, ignore_kinematic_rb)
+end
 
 --获取单位的rigidBody
 ---@param unit py.Unit # 单位
@@ -2434,7 +2443,11 @@ function GameAPI.api_get_rigidbody_forward(body) end
 ---@param ignore_logic_body? boolean # 忽略逻辑物体
 ---@param ignore_non_logic_body? boolean # 忽略非逻辑物体
 ---@return py.RigidBodyGroup # 刚体组
-function GameAPI.api_get_rigid_body_group_in_range(position, radius, collision_category, collide_with_mask, ignore_trigger, ignore_non_trigger, ignore_non_rigid, ignore_dynamic, ignore_kinematic, ignore_static, ignore_logic_body, ignore_non_logic_body) end
+function GameAPI.api_get_rigid_body_group_in_range(position, radius, collision_category, collide_with_mask,
+                                                   ignore_trigger, ignore_non_trigger, ignore_non_rigid, ignore_dynamic,
+                                                   ignore_kinematic, ignore_static, ignore_logic_body,
+                                                   ignore_non_logic_body)
+end
 
 --替换刚体模型
 ---@param body py.RigidBody # 刚体
@@ -2738,7 +2751,9 @@ function GameAPI.get_illusion_caller_unit(illusion_unit) end
 ---@param immediately? boolean # 立即移除表现
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.ProjectileEntity # 创建出的投掷物
-function GameAPI.create_projectile_on_socket(p_key, socket_unit, socket_name, face, owner_unit_or_player, related_ability, visibility, duration, is_open_duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_projectile_on_socket(p_key, socket_unit, socket_name, face, owner_unit_or_player, related_ability,
+                                             visibility, duration, is_open_duration, immediately, use_sys_d_destroy_way)
+end
 
 --创建一个投掷物
 ---@param p_key py.ProjectileKey # 投掷物编号
@@ -2753,7 +2768,9 @@ function GameAPI.create_projectile_on_socket(p_key, socket_unit, socket_name, fa
 ---@param immediately? boolean # 立即移除表现
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.ProjectileEntity # 创建出的投掷物
-function GameAPI.create_projectile_in_scene(p_key, location, face, owner_unit_or_player, related_ability, duration, is_open_duration, height, visibility, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_projectile_in_scene(p_key, location, face, owner_unit_or_player, related_ability, duration,
+                                            is_open_duration, height, visibility, immediately, use_sys_d_destroy_way)
+end
 
 --创建一个投掷物
 ---@param p_key py.ProjectileKey # 投掷物编号
@@ -2768,7 +2785,9 @@ function GameAPI.create_projectile_in_scene(p_key, location, face, owner_unit_or
 ---@param immediately? boolean # 立即移除表现
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.ProjectileEntity # 创建出的投掷物
-function GameAPI.create_projectile_in_scene_new(p_key, location, owner_unit_or_player, face, related_ability, duration, is_open_duration, height, visibility, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_projectile_in_scene_new(p_key, location, owner_unit_or_player, face, related_ability, duration,
+                                                is_open_duration, height, visibility, immediately, use_sys_d_destroy_way)
+end
 
 --将玩家添加到玩家组
 ---@param role py.Role # 玩家
@@ -3024,7 +3043,10 @@ function GameAPI.filter_unit_id_list_in_area(pos, shape) end
 ---@param max_count? integer # 数量上限
 ---@param sort_type? py.SortType # 排序类型
 ---@return py.UnitGroup # 单位组
-function GameAPI.filter_unit_id_list_in_area_v2(pos, shape, belong_role_group, visible_role, invisible_role, exclude_unit_group, with_tag, without_tag, entity_no, exclude_unit, unit_type, in_state, not_in_state, include_dead, max_count, sort_type) end
+function GameAPI.filter_unit_id_list_in_area_v2(pos, shape, belong_role_group, visible_role, invisible_role,
+                                                exclude_unit_group, with_tag, without_tag, entity_no, exclude_unit,
+                                                unit_type, in_state, not_in_state, include_dead, max_count, sort_type)
+end
 
 --筛选范围内投射物
 ---@param pos py.Vector3 # 坐标
@@ -3703,7 +3725,10 @@ function GameAPI.set_damage_ratio(attack_idx, armor_idx, damage_ratio) end
 ---@param harm_text_enum string # 跳字枚举
 ---@param jump_word_track? integer # 跳字轨迹
 ---@param attack_type? integer # 攻击类型
-function GameAPI.apply_damage(source_unit, ability, target_unit, damage_type, damage, jump_word, extra_context, as_normal_hit, critical, no_miss, hit_sfx, hit_socket, harm_text_enum, jump_word_track, attack_type) end
+function GameAPI.apply_damage(source_unit, ability, target_unit, damage_type, damage, jump_word, extra_context,
+                              as_normal_hit, critical, no_miss, hit_sfx, hit_socket, harm_text_enum, jump_word_track,
+                              attack_type)
+end
 
 --攻击伤害绝对值
 ---@param damage py.Fixed # 伤害值

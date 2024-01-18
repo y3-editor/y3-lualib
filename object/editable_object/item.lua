@@ -3,25 +3,25 @@
 ---@field handle py.Item
 ---@field id py.ItemID
 ---@overload fun(id: py.ItemID, py_item: py.Item): self
-local M = Class 'Item'
+local M = Class "Item"
 
-M.type = 'item'
+M.type = "item"
 
 ---@class Item: Storage
-Extends('Item', 'Storage')
+Extends("Item", "Storage")
 ---@class Item: GCHost
-Extends('Item', 'GCHost')
+Extends("Item", "GCHost")
 ---@class Item: CustomEvent
-Extends('Item', 'CustomEvent')
+Extends("Item", "CustomEvent")
 ---@class Item: ObjectEvent
-Extends('Item', 'ObjectEvent')
+Extends("Item", "ObjectEvent")
 ---@class Item: KV
-Extends('Item', 'KV')
+Extends("Item", "KV")
 
 function M:__tostring()
-    return string.format('{item|%s|%s}'
-        , self:get_name()
-        , self.handle
+    return string.format("{item|%s|%s}"
+    , self:get_name()
+    , self.handle
     )
 end
 
@@ -41,12 +41,12 @@ end
 ---@package
 ---@param id py.ItemID
 ---@return Item?
-M.ref_manager = New 'Ref' ('Item', function (id)
+M.ref_manager = New "Ref" ("Item", function(id)
     local py_item = GameAPI.get_item(id)
     if not py_item then
         return nil
     end
-    return New 'Item' (id, py_item)
+    return New "Item" (id, py_item)
 end)
 
 ---通过py层的技能实例获取lua层的道具实例
@@ -57,8 +57,8 @@ function M.get_by_handle(py_item)
     return M.get_by_id(id)
 end
 
-y3.py_converter.register_py_to_lua('py.Item', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.Item', function (lua_value)
+y3.py_converter.register_py_to_lua("py.Item", M.get_by_handle)
+y3.py_converter.register_lua_to_py("py.Item", function(lua_value)
     return lua_value.handle
 end)
 
@@ -70,9 +70,9 @@ function M.get_by_id(id)
     return item
 end
 
-y3.py_converter.register_py_to_lua('py.ItemID', M.get_by_id)
+y3.py_converter.register_py_to_lua("py.ItemID", M.get_by_id)
 
-y3.game:event('物品-移除', function (trg, data)
+y3.game:event("物品-移除", function(trg, data)
     local item = data.item
     M.ref_manager:remove(item.id)
 end)
@@ -80,7 +80,7 @@ end)
 ---是否存在
 ---@return boolean is_exist 是否存在
 function M:is_exist()
-    return  GameAPI.item_is_exist(self.handle)
+    return GameAPI.item_is_exist(self.handle)
 end
 
 -- 获取唯一ID
@@ -154,7 +154,7 @@ function M:drop(point, count)
     self.handle:api_drop_self(point.handle, count)
 end
 
----移动到点 
+---移动到点
 ---@param point Point 点
 function M:set_point(point)
     -- TODO 见问题2
@@ -211,7 +211,7 @@ function M:add_charge(charge)
 end
 
 ---设置最大充能数
----@param charge integer 最大充能数 
+---@param charge integer 最大充能数
 function M:set_max_charge(charge)
     self.handle:api_set_max_charge(charge)
 end
@@ -269,6 +269,7 @@ end
 function M:get_bonus_attribute(key)
     return self.handle:api_get_attr("ATTR_BONUS", key):float()
 end
+
 ---设置生命值
 ---@param value number 生命值
 function M:set_hp(value)
@@ -344,7 +345,7 @@ function M:get_owner()
     if not py_owner then
         return nil
     end
-    return y3.unit.get_by_handle(py_owner)
+    return y3.unit.从句柄获取(py_owner)
 end
 
 ---物品所在点
@@ -353,7 +354,7 @@ function M:get_point()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_by_handle(py_point)
+    return y3.point.从handle获取(py_point)
 end
 
 ---物品堆叠数
@@ -444,7 +445,7 @@ end
 ---@return Player player 玩家
 function M:get_owner_player()
     local py_player = self.handle:api_get_creator()
-    return y3.player.get_by_handle(py_player)
+    return y3.player.从句柄获取(py_player)
 end
 
 ---获取物品在单位身上的背包槽类型
