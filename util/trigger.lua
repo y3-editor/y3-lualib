@@ -12,6 +12,7 @@ local M = Class "Trigger"
 
 ---@alias Trigger.CallBack fun(...): any, any, any, any
 
+---@private
 ---@param event Event
 ---@param event_args? any[]
 ---@param callback Trigger.CallBack
@@ -26,6 +27,7 @@ function M:__init(event, event_args, callback)
     return self
 end
 
+---@private
 function M:__del()
     self._event:remove_trigger(self)
     if self._on_remove then
@@ -39,21 +41,22 @@ M._enable = true
 ---@private
 M._id = 0
 
+---@private
 function M:__tostring()
     return ("{trigger|%d}"):format(self._id)
 end
 
 --禁用触发器
-function M:disable()
+function M:禁用()
     self._enable = false
 end
 
-function M:enable()
+function M:启用()
     self._enable = true
 end
 
 ---@return boolean
-function M:is_enable()
+function M:是否已启用()
     return self._enable
 end
 
@@ -105,12 +108,12 @@ function M:execute(...)
     end
 end
 
-function M:remove()
+function M:移除()
     Delete(self)
 end
 
 ---@return string?
-function M:get_include_name()
+function M:获取名称()
     return self._include_name
 end
 

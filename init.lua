@@ -96,6 +96,8 @@ y3.dump            = require "y3.util.dump"
 y3.develop         = {}
 y3.develop.command = include "y3.develop.command"
 
+include "y3.px.主文件"
+
 -- TODO 给目前的Lua垃圾回收过慢的问题打个临时补丁
 local function fixGC()
     local mem = collectgarbage "count"

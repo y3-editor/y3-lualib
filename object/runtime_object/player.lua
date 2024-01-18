@@ -405,7 +405,7 @@ end
 ---@return UnitGroup unit_group 单位组
 function M:get_all_units()
     local py_unit_group = self.handle:get_all_unit_id()
-    return y3.unit_group.get_by_handle(py_unit_group)
+    return y3.unit_group.从句柄获取(py_unit_group)
 end
 
 ---创建单位
