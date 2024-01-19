@@ -275,12 +275,9 @@ end
 ---@param obj ?Unit|Item|Ability|Buff 单位|物品|技能|魔法效果
 ---@return py.Texture texture
 function M.get_obj_icon(obj)
-    if not obj then
-        -- 如果为空返回空图片
-        return 999
-    end
+    -- 如果为空，返回空图片
     ---@type py.Texture
-    return GameAPI.get_icon_id(obj.handle)
+    return obj and GameAPI.get_icon_id(obj.handle) or 999
 end
 
 ---设置某点的地形纹理
