@@ -300,6 +300,12 @@ function M:get_id()
     return self.handle:get_role_id_num()
 end
 
+---获取玩家颜色
+---@return string HEX颜色
+function M:get_color()
+    return self.handle:api_get_role_color()
+end
+
 ---获取玩家游戏状态
 ---@return y3.Const.RoleStatus role_status 玩家游戏状态
 function M:get_state()
