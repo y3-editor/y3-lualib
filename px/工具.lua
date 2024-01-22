@@ -1,5 +1,6 @@
 调试输出 = log.debug
 调试警告 = log.warn
+调试错误 = log.error
 
 ---@param 文件地址 string
 ---@return string|nil

@@ -138,6 +138,7 @@ function M:getTimeStamp()
     return timeStamp
 end
 
+--- 标签 日志输出方式
 ---@private
 ---@param level string
 ---@param ... any
@@ -147,7 +148,7 @@ function M:build(level, ...)
     local t = table.pack(...)
     for i = 1, t.n do
         if type(t[i]) == "table" then
-            t[i] = y3.util.dump(t[i])
+            t[i] = y3.util.dump(t[i], { y3tostring = true })
         else
             t[i] = tostring(t[i])
         end

@@ -95,6 +95,34 @@ function m.玩家_加入游戏(回调)
     end)
 end
 
+---@class 参_事件.玩家_发送消息:参_事件
+---@field 触发玩家 Player
+---@field 消息文本 string
+
+---@param 回调 fun(参数:参_事件.玩家_发送消息)
+---@return Trigger
+function m.玩家_发送消息(回调)
+    return _缓存触发器(y3.game:event("玩家-发送消息", function(trg, data)
+        回调({
+            当前触发器 = trg,
+            触发玩家 = data.player,
+            消息文本 = data.str1
+        })
+    end))
+end
+
+---@param 回调 fun(参数:参_事件.玩家_发送消息)
+---@return Trigger
+function m.玩家_发送指定消息(消息, 回调)
+    return _缓存触发器(y3.game:event("玩家-发送指定消息", 消息, function(trg, data)
+        回调({
+            当前触发器 = trg,
+            触发玩家 = data.player,
+            消息文本 = data.msg
+        })
+    end))
+end
+
 ---@class 参_事件.键盘:参_事件
 ---@field 触发玩家 Player
 ---@field 触发按键  键盘按类型

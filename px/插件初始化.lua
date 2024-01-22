@@ -26,7 +26,8 @@ include "y3.px.字符串"
 include "y3.px.数学"
 include "y3.px.工具"
 
-全局事件 = include "y3.px.事件"
+全局事件 = include "y3.px.事件.事件"
+include "y3.px.事件.单位事件"
 
 
 include "src.模块.物编资源生成模块"

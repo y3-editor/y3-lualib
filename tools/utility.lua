@@ -85,9 +85,10 @@ local RESERVED = {
 
 local m = {}
 
+-- 标签 打印表的结构
 --- 打印表的结构
 ---@param tbl any
----@param option? table
+---@param option? {y3tostring:boolean,    alignment:unknown,    deep:unknown,    format:unknown,    longStringKey:unknown,    loop:unknown,    noArrayKey:unknown,    number:unknown,    sorter:unknown,}
 ---@return string
 function m.dump(tbl, option)
     if not option then
@@ -165,7 +166,7 @@ function m.dump(tbl, option)
                 tp    = type(value)
             end
             if tp == "table" then
-                if table_has_key(value, "__class__") then
+                if table_has_key(value, "__class__") and option.y3tostring then
                     lines[#lines + 1] = ("%s%s%q,"):format(TAB[deep + 1], keyWord, tostring(value))
                 elseif mark[value] and mark[value] > 0 then
                     lines[#lines + 1] = ("%s%s%s,"):format(TAB[deep + 1], keyWord, option["loop"] or '"<Loop>"')

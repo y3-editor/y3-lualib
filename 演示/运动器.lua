@@ -7,7 +7,7 @@ y3.game:event("玩家-发送消息", function(trg, data)
             angle = 90,
             distance = 1000,
             on_remove = function()
-                unit:kill_by(unit)
+                unit:杀死_单位(unit)
             end
         }
     end
@@ -28,7 +28,7 @@ y3.game:event("玩家-发送消息", function(trg, data)
                 dummy:remove()
             end,
             on_finish = function()
-                unit:kill_by(unit)
+                unit:杀死_单位(unit)
             end
         }
     end

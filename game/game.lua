@@ -798,7 +798,7 @@ function M.world_pos_to_camera_pos(world_pos)
     local x = GlobalAPI.get_fixed_coord_index(pos, 0):float() / 100
     ---@diagnostic disable-next-line: param-type-mismatch
     local y = GlobalAPI.get_fixed_coord_index(pos, 2):float() / 100
-    y = y - 2 * (y - y3.ui:get_window_height() / 2)
+    y = y - 2 * (y - y3.ui:获取_窗口高度() / 2)
     return x, y
 end
 
@@ -813,7 +813,7 @@ function M.world_pos_to_screen_edge_pos(world_pos, delta_dis)
     local x = GlobalAPI.get_fixed_coord_index(pos, 0):float() / 100
     ---@diagnostic disable-next-line: param-type-mismatch
     local y = GlobalAPI.get_fixed_coord_index(pos, 2):float() / 100
-    y = y - 2 * (y - y3.ui:get_window_height() / 2)
+    y = y - 2 * (y - y3.ui:获取_窗口高度() / 2)
     return x, y
 end
 

@@ -68,8 +68,9 @@ end
 
 ---表_到字符串
 ---@param 表 table
-function 表_到字符串(表)
-    return y3.util.dump(表)
+---@param 配置? table
+function 表_到字符串(表, 配置)
+    return y3.util.dump(表, 配置)
 end
 
 ---表_获取长度

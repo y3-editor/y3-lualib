@@ -132,12 +132,12 @@ end
 ---@param 模板 string
 ---@param 包含模板? boolean
 function 字符串_取文本左边(文本, 模板, 包含模板)
-    local s = 字符串_匹配(文本, '.-' .. 模板, 1)
+    local s = 字符串_匹配(文本, ".-" .. 模板, 1)
     if s then
         if 包含模板 then
             return s
         end
-        return 字符串_替换(s, 模板, '')
+        return 字符串_替换(s, 模板, "")
     end
     return nil
 end
@@ -146,12 +146,12 @@ end
 ---@param 模板 string
 ---@param 包含模板? boolean
 function 字符串_取文本右边(文本, 模板, 包含模板)
-    local s = 字符串_匹配(文本, 模板 .. '.*', 1)
+    local s = 字符串_匹配(文本, 模板 .. ".*", 1)
     if s then
         if 包含模板 then
             return s
         end
-        return 字符串_替换(s, 模板, '')
+        return 字符串_替换(s, 模板, "")
     end
     return nil
 end
@@ -161,13 +161,13 @@ end
 ---@param 右边文本 string
 ---@param 包含模板? boolean
 function 字符串_取文本中间(文本, 左边文本, 右边文本, 包含模板)
-    local s = 字符串_匹配(文本, 左边文本 .. '.*' .. 右边文本, 1)
+    local s = 字符串_匹配(文本, 左边文本 .. ".*" .. 右边文本, 1)
     if s then
         if 包含模板 then
             return s
         else
-            s = 字符串_替换(s, 左边文本, '')
-            s = 字符串_替换(s, 右边文本, '')
+            s = 字符串_替换(s, 左边文本, "")
+            s = 字符串_替换(s, 右边文本, "")
             return s
         end
     end

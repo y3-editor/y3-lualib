@@ -32,7 +32,8 @@ end
 ---@return self
 function M:__init(py_unit_id, py_unit)
     self.handle = py_unit
-    self.id     = py_unit_id
+    self.id = py_unit_id
+    self.触发器 = {}
     return self
 end
 
@@ -216,7 +217,7 @@ end
 ---@param type y3.Const.AbilityType | y3.Const.AbilityTypeAlias 技能类型
 ---@param id py.AbilityKey 物编id
 ---@return Ability? ability 技能
-function M:find_ability(type, id)
+function M:获取技能_通过技能类型(type, id)
     local py_ability = self.handle:api_get_ability_by_type(y3.const.AbilityType[type] or type, id)
     if not py_ability then
         return nil
@@ -228,7 +229,7 @@ end
 ---@param type y3.Const.AbilityType 技能类型
 ---@param slot y3.Const.AbilityIndex 技能位
 ---@return Ability? ability 技能
-function M:get_ability_by_slot(type, slot)
+function M:获取技能_通过槽位(type, slot)
     local py_ability = self.handle:api_get_ability(type, slot)
     if not py_ability then
         return nil
@@ -240,7 +241,7 @@ end
 ---@param type y3.Const.SlotType 槽位类型
 ---@param slot integer 位置
 ---@return Item? item 物品
-function M:get_item_by_slot(type, slot)
+function M:获取物品_通过槽位(type, slot)
     local py_item = self.handle:api_get_item_by_slot(type, slot)
     if not py_item then
         return nil
@@ -250,14 +251,14 @@ end
 
 ---单位的所有物品
 ---@return ItemGroup item_group 所有物品
-function M:get_all_items()
+function M:获取物品_所有()
     local py_item_group = self.handle:api_get_all_item_pids()
     return y3.item_group.create_lua_item_group_from_py(py_item_group)
 end
 
 ---单位获得科技
 ---@param tech_key py.TechKey 科技类型
-function M:unit_gains_tech(tech_key)
+function M:添加_科技(tech_key)
     self.handle:api_add_tech(tech_key)
 end
 
@@ -281,13 +282,13 @@ end
 
 ---杀死单位
 ---@param killer Unit 凶手单位
-function M:kill_by(killer)
+function M:杀死_单位(killer)
     self.handle:api_kill(killer and killer.handle or nil)
 end
 
 ---单位是否有正在释放的技能
 ---@return boolean
-function M:is_casting()
+function M:是否正在释放技能()
     return self.handle:api_unit_has_running_ability()
 end
 
@@ -298,7 +299,7 @@ end
 ---@param point Point 点
 ---@param direction number 方向
 ---@param clone_hp_mp boolean 复制当前的生命值和魔法值
-function M.create_illusion(illusion_unit, call_unit, player, point, direction, clone_hp_mp)
+function M.创建幻象(illusion_unit, call_unit, player, point, direction, clone_hp_mp)
     GameAPI.create_illusion(illusion_unit.handle, call_unit.handle, player.handle, point.handle, Fix32(direction),
                             clone_hp_mp)
 end
@@ -310,20 +311,20 @@ end
 
 ---传送到点
 ---@param point Point 点
-function M:blink(point)
+function M:移动_传送到点(point)
     self.handle:api_transmit(point.handle)
 end
 
 ---强制传送到点
 ---@param point Point 点
 ---@param isSmooth boolean 是否丝滑
-function M:set_point(point, isSmooth)
+function M:移动_强制传送到点(point, isSmooth)
     self.handle:api_force_transmit_new(point.handle, isSmooth)
 end
 
 ---复活单位
 ---@param point? Point 点
-function M:reborn(point)
+function M:复活单位(point)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     self.handle:api_revive(point and point.handle or nil)
@@ -334,7 +335,7 @@ end
 ---@param skill? Ability 技能
 ---@param source_unit? Unit 单位
 ---@param text_type? string 跳字类型
-function M:heals(value, skill, source_unit, text_type)
+function M:造成治疗(value, skill, source_unit, text_type)
     self.handle:api_heal(Fix32(value), text_type ~= nil, skill and skill.handle or nil,
                          source_unit and source_unit.handle or nil, text_type or "")
 end
@@ -357,35 +358,35 @@ end
 
 ---添加状态
 ---@param state_enum integer 状态名
-function M:add_state(state_enum)
+function M:添加状态(state_enum)
     self.handle:api_add_state(state_enum)
 end
 
 ---移除状态
 ---@param state_enum integer 状态名
-function M:remove_state(state_enum)
+function M:移除状态(state_enum)
     self.handle:api_remove_state(state_enum)
 end
 
 ---添加状态
 ---@param state_enum integer 状态名
 ---@return GCNode
-function M:add_state_gc(state_enum)
-    self:add_state(state_enum)
+function M:添加状态_gc(state_enum)
+    self:添加状态(state_enum)
     return New "GCNode" (function()
-        self:remove_state(state_enum)
+        self:移除状态(state_enum)
     end)
 end
 
 ---学习技能
 ---@param ability_key py.AbilityKey 技能id
-function M:learn(ability_key)
+function M:学习技能(ability_key)
     self.handle:api_unit_learn_ability(ability_key)
 end
 
 ---发布命令
 ---@param command py.UnitCommand 命令
-function M:command(command)
+function M:命令_发布(command)
     self.handle:api_release_command(command)
 end
 
@@ -393,26 +394,26 @@ end
 ---@param point Point 点
 ---@param range? number 范围
 ---@return py.UnitCommand # 命令
-function M:move_to_pos(point, range)
+function M:命令_移动(point, range)
     local command = GameAPI.create_unit_command_move_to_pos(point.handle, Fix32(range or 0))
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
 -- 命令停止
 ---@return py.UnitCommand # 命令
-function M:stop()
+function M:命令_停止()
     local command = GameAPI.create_unit_command_stop()
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
 -- 命令驻守
 ---@param point Point 点
 ---@return py.UnitCommand # 命令
-function M:hold(point)
+function M:命令_驻守(point)
     local command = GameAPI.create_unit_command_hold(point.handle)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -420,9 +421,9 @@ end
 ---@param point Point 点
 ---@param range? number 范围
 ---@return py.UnitCommand # 命令
-function M:attack_move(point, range)
+function M:命令_攻击移动(point, range)
     local command = GameAPI.create_unit_command_attack_move(point.handle, range and Fix32(range) or nil)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -430,9 +431,9 @@ end
 ---@param target Unit 目标
 ---@param range number 范围
 ---@return py.UnitCommand # 命令
-function M:attack_target(target, range)
+function M:命令_攻击目标(target, range)
     local command = GameAPI.create_unit_command_attack_target(target.handle, range and Fix32(range) or nil)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -443,10 +444,10 @@ end
 ---@param start_from_nearest boolean 就近选择起始点
 ---@param back_to_nearest boolean 偏离后就近返回
 ---@return py.UnitCommand # 命令
-function M:move_along_road(road, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
+function M:命令_沿路径移动(road, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
     local command = GameAPI.create_unit_command_move_along_road(road.handle, patrol_mode, can_attack, start_from_nearest,
                                                                 back_to_nearest)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -455,7 +456,7 @@ end
 ---@param target? Point|Unit|Item|Destructible # 目标
 ---@param extra_target? Point # 额外目标
 ---@return py.UnitCommand
-function M:cast(ability, target, extra_target)
+function M:命令_释放技能(ability, target, extra_target)
     local tar_pos_1, tar_pos_2, tar_unit, tar_item, tar_dest
     if target then
         if target.type == "point" then
@@ -479,16 +480,16 @@ function M:cast(ability, target, extra_target)
     ---@diagnostic disable-next-line: param-type-mismatch
     local command = GameAPI.create_unit_command_use_skill(ability.handle, tar_pos_1, tar_pos_2, tar_unit, tar_item,
                                                           tar_dest)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
 -- 命令拾取物品
 ---@param item Item
 ---@return py.UnitCommand
-function M:pick_item(item)
+function M:命令_拾取物品(item)
     local command = GameAPI.create_unit_command_pick_item(item.handle)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -496,9 +497,9 @@ end
 ---@param item Item
 ---@param point Point
 ---@return py.UnitCommand
-function M:drop_item(item, point)
+function M:命令_丢弃物品(item, point)
     local command = GameAPI.create_unit_command_drop_item(item.handle, point.handle)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -506,9 +507,9 @@ end
 ---@param item Item
 ---@param target Unit
 ---@return py.UnitCommand
-function M:give_item(item, target)
+function M:命令_给予物品(item, target)
     local command = GameAPI.create_unit_command_transfer_item(item.handle, target.handle)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -542,7 +543,7 @@ function M:use_item(item, target, extra_target)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     local command = GameAPI.create_unit_command_use_item(item.handle, tar_pos_1, tar_pos_2, tar_unit, tar_item, tar_dest)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -551,7 +552,7 @@ end
 ---@return py.UnitCommand
 function M:follow(target)
     local command = GameAPI.create_unit_command_follow(target.handle)
-    self:command(command)
+    self:命令_发布(command)
     return command
 end
 
@@ -586,7 +587,7 @@ end
 ---@param attr_name string 属性名
 ---@param value number 属性值
 ---@param attr_type string 属性类型
-function M:add_attr(attr_name, value, attr_type)
+function M:增加属性(attr_name, value, attr_type)
     self.handle:api_add_attr_by_attr_element(attr_name, Fix32(value), attr_type)
 end
 
@@ -595,40 +596,40 @@ end
 ---@param value number 属性值
 ---@param attr_type string 属性类型
 ---@return GCNode
-function M:add_attr_gc(attr_name, value, attr_type)
-    self:add_attr(attr_name, value, attr_type)
+function M:增加属性gc(attr_name, value, attr_type)
+    self:增加属性(attr_name, value, attr_type)
     return New "GCNode" (function()
-        self:add_attr(attr_name, -value, attr_type)
+        self:增加属性(attr_name, -value, attr_type)
     end)
 end
 
 ---设置等级
 ---@param level integer 等级
-function M:set_level(level)
+function M:设置等级(level)
     self.handle:api_set_level(level)
 end
 
 ---增加等级
 ---@param level integer 等级
-function M:add_level(level)
+function M:增加等级(level)
     self.handle:api_add_level(level)
 end
 
 ---设置经验
 ---@param exp number 经验
-function M:set_exp(exp)
+function M:设置_经验(exp)
     self.handle:api_set_exp(Fix32(exp))
 end
 
 ---增加经验值
 ---@param exp number 经验
-function M:add_exp(exp)
+function M:增加_经验(exp)
     self.handle:api_add_exp(Fix32(exp))
 end
 
 ---设置当前生命值
 ---@param hp number 当前生命值
-function M:set_hp(hp)
+function M:设置_当前生命值(hp)
     self.handle:api_set_attr("hp_cur", Fix32(hp))
 end
 
@@ -728,7 +729,7 @@ end
 
 ---设置被击杀的经验值奖励
 ---@param exp number 经验
-function M:set_reward_exp(exp)
+function M:设置_被击杀经验奖励(exp)
     self.handle:api_set_unit_reward_exp(Fix32(exp))
 end
 
@@ -992,14 +993,14 @@ end
 ---添加可贩卖的商品
 ---@param tag_name py.TabName 标签名
 ---@param item_key py.ItemKey 物品id
-function M:add_goods(tag_name, item_key)
+function M:添加可贩卖物品(tag_name, item_key)
     self.handle:api_add_shop_item(tag_name, item_key)
 end
 
 ---移除可贩卖的商品
 ---@param item_name py.TabName 物品名
 ---@param item_key py.ItemKey 物品id
-function M:remove_goods(item_name, item_key)
+function M:移除可贩卖物品(item_name, item_key)
     self.handle:api_remove_shop_item(item_name, item_key)
 end
 
@@ -1007,14 +1008,14 @@ end
 ---@param tag_name py.TabName 标签名
 ---@param item_key py.ItemKey 物品id
 ---@param number integer 物品库存
-function M:set_goods_stack(tag_name, item_key, number)
+function M:设置商品库存(tag_name, item_key, number)
     self.handle:api_set_shop_item_stock(tag_name, item_key, number)
 end
 
 ---单位向商店出售物品
 ---@param unit Unit 单位
 ---@param item Item 物品
-function M:sell(unit, item)
+function M:向商店出售物品(unit, item)
     self.handle:api_sell_item(unit.handle, item.handle)
 end
 
@@ -1022,7 +1023,7 @@ end
 ---@param unit Unit 单位
 ---@param tag_num py.TabIdx 页签id
 ---@param item_key py.ItemKey 物品id
-function M:buy(unit, tag_num, item_key)
+function M:从商店购买物品(unit, tag_num, item_key)
     self.handle:api_buy_item_with_tab_name(unit.handle, tag_num, item_key)
 end
 
@@ -1037,7 +1038,7 @@ end
 ---给单位添加魔法效果
 ---@param data Buff.AddData
 ---@return Buff?
-function M:add_buff(data)
+function M:添加_魔法效果(data)
     local py_buff = self.handle:api_add_modifier(
         data.key,
         data.source and data.source.handle or nil,
@@ -1288,13 +1289,13 @@ end
 
 ---获取单位当前的经验值
 ---@return integer exp 单位当前的经验值
-function M:get_exp()
+function M:获取_当前经验()
     return self.handle:api_get_exp()
 end
 
 ---获取单位当前升级所需经验
 ---@return number exp 单位当前升级所需经验
-function M:get_upgrade_exp()
+function M:获取_当前升级所需经验()
     return self.handle:api_get_upgrade_exp()
 end
 
@@ -1325,7 +1326,7 @@ end
 
 ---获取单位被击杀经验
 ---@return integer exp 单位被击杀经验
-function M:get_exp_reward()
+function M:获取_被击杀经验奖励()
     return self.handle:api_get_unit_reward_exp()
 end
 
@@ -1503,7 +1504,7 @@ end
 
 ---是否存活
 ---@return boolean alive 是否存活
-function M:is_alive()
+function M:是否存活()
     return GlobalAPI.is_unit_alive(self.handle)
 end
 
@@ -1518,7 +1519,7 @@ end
 
 ---是否正在移动
 ---@return boolean is_moving 正在移动
-function M:is_moving()
+function M:是否正在一移动()
     return self.handle:api_is_moving()
 end
 
@@ -1526,7 +1527,7 @@ end
 ---@param other Unit|Point 单位/点
 ---@param range number 范围
 ---@return boolean in_radius 在单位附近
-function M:is_in_radius(other, range)
+function M:是否在单位或点附近(other, range)
     if other.type == "unit" then
         ---@cast other Unit
         return self.handle:api_is_in_range(other.handle, range)
@@ -1540,54 +1541,54 @@ end
 
 ---是否是商店
 ---@return boolean is_shop 是商店
-function M:is_shop()
+function M:是否为商店()
     return self.handle:api_is_shop()
 end
 
 ---是否是幻象单位
 ---@return boolean illusion 是幻象单位
-function M:is_illusion()
+function M:是否为幻象()
     return GameAPI.is_unit_illusion(self.handle)
 end
 
 ---是否在单位组中
 ---@param group UnitGroup 单位组
 ---@return boolean in_group 在单位组中
-function M:is_in_group(group)
+function M:是否在单位组中(group)
     return GameAPI.judge_unit_in_group(self.handle, group.handle)
 end
 
 ---是否在战斗状态
 ---@return boolean in_battle 在战斗状态
-function M:is_in_battle()
+function M:是否在战斗状态()
     return self.handle:api_is_in_battle_state()
 end
 
 ---是否有指定状态
 ---@param state_name integer 状态
 ---@return boolean has_buff_status 有指定状态
-function M:has_buff_status(state_name)
+function M:是否有指定状态(state_name)
     return self.handle:api_has_state(state_name)
 end
 
 ---是否有指定id的技能
 ---@param ability_key py.AbilityKey 技能类型
 ---@return boolean has_ability_type 有指定类型的技能
-function M:has_ability_by_key(ability_key)
+function M:是否有指定类型技能(ability_key)
     return self.handle:api_check_has_ability_type(ability_key)
 end
 
 ---是否有指定物品
 ---@param item Item 物品
 ---@return boolean has_item 有物品
-function M:has_item(item)
+function M:是否有指定物品(item)
     return self.handle:api_has_item(item.handle)
 end
 
 ---是否有指定类型的物品
 ---@param item_key py.ItemKey 物品类型
 ---@return boolean has_item_name 有指定类型的物品
-function M:has_item_by_key(item_key)
+function M:是否有指定类型物品(item_key)
     return self.handle:api_has_item_key(item_key)
 end
 

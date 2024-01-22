@@ -398,7 +398,7 @@ end
 ---@param y number y轴
 ---@param z number z轴
 ---@return self
-function M:change_showroom_crotation(x, y, z)
+function M:设置_模型控件镜头旋转(x, y, z)
     GameAPI.change_showroom_crotation(self.player.handle, self.handle, x, y, z)
     return self
 end
@@ -418,7 +418,7 @@ end
 ---@param b number 蓝色
 ---@param a number 透明度
 ---@return self
-function M:set_show_room_background_color(r, g, b, a)
+function M:设置_模型控件背景色(r, g, b, a)
     GameAPI.set_show_room_background_color(self.player.handle, self.handle, r, g, b, a)
     return self
 end
@@ -426,7 +426,7 @@ end
 --设置控件相对旋转
 ---@param rot number 角度
 ---@return self
-function M:set_widget_relative_rotation(rot)
+function M:设置_相对旋转(rot)
     GameAPI.set_ui_comp_rotation(self.player.handle, self.handle, rot)
     return self
 end
@@ -435,7 +435,7 @@ end
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
-function M:set_widget_absolute_coordinates(x, y)
+function M:设置_绝对坐标(x, y)
     GameAPI.set_ui_comp_world_pos(self.player.handle, self.handle, x, y)
     return self
 end
@@ -443,7 +443,7 @@ end
 --设置控件绝对旋转
 ---@param rot number 角度
 ---@return self
-function M:set_widget_absolute_rotation(rot)
+function M:设置_绝对旋转(rot)
     GameAPI.set_ui_comp_world_rotation(self.player.handle, self.handle, rot)
     return self
 end
@@ -452,7 +452,7 @@ end
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
-function M:set_widget_absolute_scale(x, y)
+function M:设置_绝对缩放(x, y)
     GameAPI.set_ui_comp_world_scale(self.player.handle, self.handle, x, y)
     return self
 end
@@ -461,7 +461,7 @@ end
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
-function M:set_widget_relative_scale(x, y)
+function M:设置_相对缩放(x, y)
     GameAPI.set_ui_comp_scale(self.player.handle, self.handle, x, y)
     return self
 end
@@ -469,14 +469,14 @@ end
 --设置小地图显示模式
 ---@param player Player 玩家
 ---@param type integer 小地图显示模式
-function M.change_minimap_display_mode(player, type)
+function M.设置_小地图显示模式(player, type)
     GameAPI.change_mini_map_color_type(player.handle, type)
 end
 
 --设置滑动条的进度
 ---@param percent number 滑动条的进度
 ---@return self
-function M:set_slider_value(percent)
+function M:设置_滑动条当前进度(percent)
     GameAPI.set_slider_cur_percent(self.player.handle, self.handle, percent)
     return self
 end
@@ -524,7 +524,7 @@ end
 ---@param anim string 动画
 ---@param speed number 播放速度
 ---@param isloop boolean 是否循环
-function M.play_timeline_animation(player, anim, speed, isloop)
+function M.播放_动画_时间轴(player, anim, speed, isloop)
     -- TODO 见问题7
     ---@diagnostic disable-next-line: redundant-parameter
     GameAPI.play_ui_comp_anim(player.handle, anim, speed, isloop)
@@ -538,7 +538,7 @@ end
 ---@param duration number # 持续时间
 ---@param ease_type? integer # 曲线类型
 ---@return UI
-function M:set_anim_pos(start_x, start_y, end_x, end_y, duration, ease_type)
+function M:播放_动画_移动(start_x, start_y, end_x, end_y, duration, ease_type)
     GameAPI.set_ui_comp_anim_pos(self.player.handle, self.handle, start_x, start_y, end_x, end_y, duration, ease_type)
     return self
 end
@@ -548,7 +548,7 @@ end
 ---@param y number y轴
 ---@param z number z轴
 ---@return self
-function M:set_ui_model_focus_pos(x, y, z)
+function M:设置_模型控件观察点(x, y, z)
     GameAPI.set_ui_model_focus_pos(self.player.handle, self.handle, x, y, z)
     return self
 end
@@ -603,7 +603,7 @@ end
 --设置禁用图片(图片类型)
 ---@param img integer 图片id
 ---@return self
-function M:set_disable_image_type(img)
+function M:设置_禁用状态图片(img)
     GameAPI.set_ui_comp_disabled_image(self.player.handle, self.handle, img)
     return self
 end
@@ -611,7 +611,7 @@ end
 --设置悬浮图片(图片类型)
 ---@param img integer 图片id
 ---@return self
-function M:set_hover_image_type(img)
+function M:设置_悬浮状态图片(img)
     GameAPI.set_ui_comp_suspend_image(self.player.handle, self.handle, img)
     return self
 end
@@ -619,7 +619,7 @@ end
 --设置按下图片(图片类型)
 ---@param img integer 图片id
 ---@return self
-function M:set_press_image_type(img)
+function M:设置_按下状态图片(img)
     GameAPI.set_ui_comp_press_image(self.player.handle, self.handle, img)
     return self
 end
@@ -628,7 +628,7 @@ end
 ---@param h? y3.Const.UIHAlignmentType # 横向对齐方式
 ---@param v? y3.Const.UIVAlignmentType # 纵向对齐方式
 ---@return self
-function M:set_text_alignment(h, v)
+function M:设置_文本对齐方式(h, v)
     if h then
         GameAPI.set_ui_comp_align(self.player.handle, self.handle, y3.const.UIHAlignmentType[h])
     end
@@ -641,14 +641,14 @@ end
 --开启绘制单位路径线
 ---@param player Player 玩家
 ---@param unit Unit 单位
-function M.enable_drawing_unit_path(player, unit)
+function M.开启_回执单位路径线(player, unit)
     GameAPI.enable_unit_path_drawing(player.handle, unit.handle)
 end
 
 --关闭绘制单位路径线
 ---@param player Player 玩家
 ---@param unit Unit 单位
-function M.disable_drawing_unit_path(player, unit)
+function M.关闭_绘制单位路径线(player, unit)
     GameAPI.disable_unit_path_drawing(player.handle, unit.handle)
 end
 
@@ -718,7 +718,7 @@ end
 ---@param text_type y3.Const.HarmTextType 跳字类型
 ---@param str string 文字
 ---@param player_group PlayerGroup 玩家组
-function M.create_floating_text(point, text_type, str, player_group)
+function M.创建_悬浮文字(point, text_type, str, player_group)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.create_harm_text(point.handle, y3.const.HarmTextType[text_type] or text_type, str, player_group.handle)
@@ -727,14 +727,14 @@ end
 --设置窗口
 ---@param player Player 玩家
 ---@param window_mode string 窗口类型
-function M.set_window_mode(player, window_mode)
+function M.设置_窗口类型(player, window_mode)
     GameAPI.set_window_type(player.handle, window_mode)
 end
 
 --设置画质
 ---@param player Player 玩家
 ---@param quality string 画质
-function M.set_graphics_quality(player, quality)
+function M.设置_画质(player, quality)
     GameAPI.set_image_quality(player.handle, quality)
 end
 
@@ -742,79 +742,79 @@ end
 ---@param player Player 玩家
 ---@param x number x轴
 ---@param y number y轴
-function M.set_screen_resolution(player, x, y)
+function M.设置_屏幕分辨率(player, x, y)
     GameAPI.set_screen_resolution(player.handle, x, y)
 end
 
 --获取本地控件相对坐标的X
 ---@return number x x相对坐标
-function M:get_relative_x()
+function M:获取_本地相对坐标X()
     return GameAPI.get_ui_comp_pos_x(self.handle):float()
 end
 
 --获取本地控件相对坐标的Y
 ---@return number y y坐标
-function M:get_relative_y()
+function M:获取_本地相对坐标Y()
     return GameAPI.get_ui_comp_pos_y(self.handle):float()
 end
 
 --获取本地控件绝对坐标的X
 ---@return number x x绝对坐标
-function M:get_absolute_x()
+function M:获取_本地绝对坐标X()
     return GameAPI.get_ui_comp_world_pos_x(self.handle):float()
 end
 
 --获取本地控件绝对坐标的Y
 ---@return number y y绝对坐标
-function M:get_absolute_y()
+function M:获取_本地绝对坐标Y()
     return GameAPI.get_ui_comp_world_pos_y(self.handle):float()
 end
 
 --获取本地控件相对旋转
 ---@return number rot 相对旋转
-function M:get_relative_rotation()
+function M:获取_本地相对旋转()
     return GameAPI.get_ui_comp_rotation(self.handle):float()
 end
 
 --获取本地控件绝对旋转
 ---@return number rot 绝对旋转
-function M:get_absolute_rotation()
+function M:获取_本地绝对旋转()
     return GameAPI.get_ui_comp_world_rotation(self.handle):float()
 end
 
 --获取本地控件相对缩放的X
 ---@return number x x相对缩放
-function M:get_relative_scale_x()
+function M:获取_本地相对缩放X()
     return GameAPI.get_ui_comp_scale_x(self.handle):float()
 end
 
 --获取本地控件相对缩放的Y
 ---@return number y y绝对缩放
-function M:get_relative_scale_y()
+function M:获取_本地相对缩放Y()
     return GameAPI.get_ui_comp_scale_y(self.handle):float()
 end
 
 --获取本地控件绝对缩放的X
 ---@return number x x绝对缩放
-function M:get_absolute_scale_x()
+function M:获取本地绝对缩放X()
     return GameAPI.get_ui_comp_world_scale_x(self.handle):float()
 end
 
 --获取本地控件绝对缩放的Y
 ---@return number y y绝对缩放
-function M:get_absolute_scale_y()
+function M:获取_本地绝对缩放Y()
     return GameAPI.get_ui_comp_world_scale_y(self.handle):float()
 end
 
 --界面控件转化为字符串
 ---@return string str 字符串
-function M:to_string()
+function M:到字符串()
     return GlobalAPI.comp_to_str(self.handle)
 end
 
 --获取滑动条当前值
 ---@return number slider_value 滑动条当前值
-function M:get_slider_current_value()
+function M:获取_滑动条当前值()
     return GameAPI.get_slider_cur_percent(self.handle)
 end
 
@@ -837,19 +837,19 @@ end
 
 --获得控件宽度
 ---@return number width 控件宽度
-function M:get_width()
+function M:获取_宽度()
     return GameAPI.get_ui_comp_width(self.handle)
 end
 
 --获得控件高度
 ---@return number height 控件高度
-function M:get_height()
+function M:获取_高度()
     return GameAPI.get_ui_comp_height(self.handle)
 end
 
 --获得控件真实宽度
 ---@return number width 控件真实宽度
-function M:get_real_width()
+function M:获取_真实宽度()
     if self.player:get_state() ~= 1 then
         return 0
     end
@@ -859,7 +859,7 @@ end
 
 --获得控件真实高度
 ---@return number height 控件真实高度
-function M:get_real_height()
+function M:获取_真实高度()
     if self.player:get_state() ~= 1 then
         return 0
     end
@@ -876,7 +876,7 @@ end
 
 --获得玩家输入框文本内容
 ---@return string msg 文本内容
-function M:get_input_field_content()
+function M:获取_输入框文本内容()
     return GameAPI.get_input_field_content(self.player.handle, self.handle)
 end
 
@@ -890,7 +890,7 @@ end
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
-function M:set_pos(x, y)
+function M:设置_相对坐标(x, y)
     GameAPI.set_ui_comp_pos_no_trans(self.player.handle, self.handle, x, y)
     return self
 end
@@ -899,7 +899,7 @@ end
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
-function M:set_anchor(x, y)
+function M:设置_描点(x, y)
     GameAPI.set_ui_comp_anchor(self.player.handle, self.handle, x, y)
     return self
 end
@@ -907,39 +907,39 @@ end
 ---设置聊天频道
 ---@param switch boolean 开关
 ---@return self
-function M:set_nearby_micro_switch(switch)
+function M:设置_聊天框频道(switch)
     GameAPI.set_ui_comp_chat_channel(self.player.handle, self.handle, switch)
     return self
 end
 
 --获取屏幕横向分辨率
 ---@return integer horizontal_res 横向分辨率
-function M.get_screen_width()
+function M.获取_屏幕横向分辨率()
     return GameAPI.get_screen_x_resolution()
 end
 
 --获取屏幕纵向分辨率
 ---@return integer vertical_res 纵向分辨率
-function M.get_screen_height()
+function M.获取_屏幕纵向分辨率()
     return GameAPI.get_screen_y_resolution()
 end
 
 -- 获取窗口宽度
 ---@return integer
-function M:get_window_width()
+function M:获取_窗口宽度()
     return GameAPI.get_window_real_x_size()
 end
 
 -- 获取窗口高度
 ---@return integer
-function M:get_window_height()
+function M:获取_窗口高度()
     return GameAPI.get_window_real_y_size()
 end
 
 -- 设置控件跟随鼠标
 ---@param follow_mouse boolean
 ---@return self
-function M:set_follow_mouse(follow_mouse)
+function M:设置_控件跟随鼠标(follow_mouse)
     GameAPI.set_ui_comp_follow_mouse(self.player.handle, self.handle, follow_mouse)
     return self
 end
@@ -949,7 +949,7 @@ end
 ---@param state y3.Const.CursorState
 ---@param key py.CursorKey
 ---@return self
-function M:set_cursor(player, state, key)
+function M:设置_鼠标样式(player, state, key)
     player.handle:api_set_role_cursor(
         y3.const.CursorState[state],
         key
@@ -963,7 +963,7 @@ end
 ---@param start_frame? integer # 起始帧
 ---@param end_frame? integer # 结束帧
 ---@return self
-function M:play_ui_sequence(loop, space, start_frame, end_frame)
+function M:播放_序列帧(loop, space, start_frame, end_frame)
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.play_ui_comp_sequence(self.player.handle, self.handle, loop or false, space or 0.1, start_frame or 0,
                                   end_frame or -1)
@@ -980,7 +980,7 @@ local use_operation_map = {
 
 --设置使用物品操作方式
 ---@param use_operation Item.UseOperation # 操作方式
-function M:set_equip_slot_use_operation(use_operation)
+function M:设置_使用物品操作方式(use_operation)
     GameAPI.set_equip_slot_use_operation(self.player.handle, self.handle, use_operation_map[use_operation] or 0)
 end
 
@@ -993,8 +993,29 @@ local drag_operation_map = {
 
 --设置拖拽物品操作方式
 ---@param drag_operation Item.DrapOperation # 操作方式
-function M:set_equip_slot_drag_operation(drag_operation)
+function M:设置_物品拖拽方式(drag_operation)
     GameAPI.set_equip_slot_drag_operation(self.player.handle, self.handle, drag_operation_map[drag_operation] or 0)
 end
+
+M.控件数据 = {}
+
+
+---@param 参数名 string|integer
+---@param 参数值 any
+function M:设置_参数(参数名, 参数值)
+    M.控件数据[self.player.id][参数名] = 参数值
+end
+
+---@param 参数名 string|integer
+---@return any
+function M:获取_参数(参数名)
+    return M.控件数据[self.player.id][参数名]
+end
+
+y3.game:event("游戏-初始化", function(trg, data)
+    玩家组.获取所有玩家():遍历(function(索引, 遍历到的玩家)
+        M.控件数据[遍历到的玩家.id] = {}
+    end)
+end)
 
 return M
