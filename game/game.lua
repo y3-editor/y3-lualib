@@ -265,8 +265,19 @@ end
 ---根据图片ID获取图片
 ---@param id integer
 ---@return py.Texture texture
+---@deprecated 请直接使用图片ID
 function M.get_icon_id(id)
-    return GameAPI.get_texture_by_icon_id(id)
+    ---@type py.Texture
+    return id
+end
+
+---获取任意对象图片
+---@param obj ?Unit|Item|Ability|Buff 单位|物品|技能|魔法效果
+---@return py.Texture texture
+function M.get_obj_icon(obj)
+    -- 如果为空，返回空图片
+    ---@type py.Texture
+    return obj and GameAPI.get_icon_id(obj.handle) or 999
 end
 
 ---设置某点的地形纹理
