@@ -71,7 +71,7 @@ function M.create(data)
     local target    = data.target
     local angle     = data.angle or 0.0
     local scale     = data.scale or 1.0
-    local time      = data.time  or 1.0
+    local time      = data.time  or -1.0
     local immediate = data.immediate
     if target.type == 'unit' then
         ---@cast target Unit
