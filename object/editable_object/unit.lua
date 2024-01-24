@@ -276,6 +276,22 @@ function M.create_unit(owner, unit_id, point, direction)
     return M.get_by_handle(py_unit)
 end
 
+---随机创建单位至区域内
+---@param owner Player|Unit 玩家|单位
+---@param unit_id py.UnitKey 单位类型
+---@param area_id py.AreaID  区域id
+---@param area_type Area.Shape 区域类型
+---@param direction number 方向
+---@return Unit
+function M.create_unit_to_area(owner,unit_id,area_id,area_type,direction)
+    local unit
+    local area=y3.area.get_by_res_id(area_id,area_type)
+    if area then
+        unit=y3.unit.create_unit(owner,unit_id,area:random_point(),direction)
+    end
+    return unit
+end
+
 ---杀死单位
 ---@param killer Unit 凶手单位
 function M:kill_by(killer)
