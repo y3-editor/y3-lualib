@@ -1271,7 +1271,7 @@ end
 
 ---获取单位等级
 ---@return number unit_level 单位等级
-function M:get_level()
+function M:获取等级()
     return self.handle:api_get_level()
 end
 

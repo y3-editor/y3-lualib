@@ -274,7 +274,7 @@ end
 ---获取任意对象图片
 ---@param obj ?Unit|Item|Ability|Buff 单位|物品|技能|魔法效果
 ---@return py.Texture texture
-function M.get_obj_icon(obj)
+function M.获取任意对象图片(obj)
     -- 如果为空，返回空图片
     ---@type py.Texture
     return obj and GameAPI.get_icon_id(obj.handle) or 999

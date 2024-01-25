@@ -1,6 +1,7 @@
 ---@class 事件
 local m = {}
 
+
 ---@type Trigger[]
 m.触发器表 = {}
 
@@ -69,10 +70,10 @@ function m.自定义_带标识(名称, 标识, 回调)
     end))
 end
 
----@param 回调 fun(回调:参_事件)
+---@param 回调 fun()
 function m.游戏_初始化(回调)
     return m.自定义_带标识("游戏初始化", "游戏初始化", function(参数)
-        回调(参数)
+        回调()
     end)
 end
 
@@ -86,6 +87,15 @@ end
 ---@class 参_玩家加入游戏:参_事件
 ---@field 加入玩家 Player
 ---@field 是否中途加入 boolean
+
+
+---@param 回调 fun(参数:参_玩家加入游戏)
+function m.玩家_初始化(回调)
+    return m.自定义_带标识("玩家加入游戏", "玩家初始化", function(参数)
+        ---@cast 参数 + 参_玩家加入游戏
+        回调(参数)
+    end)
+end
 
 ---@param 回调 fun(参数:参_玩家加入游戏)
 function m.玩家_加入游戏(回调)

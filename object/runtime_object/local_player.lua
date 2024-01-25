@@ -242,7 +242,7 @@ local Player = Class "Player"
 --    print(local_player)
 --end)
 --```
----@param callback fun(local_player: Player)
+---@param callback fun(本地玩家: Player)
 function Player.执行本地代码(callback)
     if not can_use_debug
         or not y3.game.是否为调试模式() then

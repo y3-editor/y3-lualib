@@ -32,7 +32,7 @@ end)
 ---@return self
 function M:__init(py_player)
     self.handle = py_player
-    self.id     = py_player:get_role_id_num()
+    self.id = py_player:get_role_id_num()
     return self
 end
 
@@ -515,7 +515,7 @@ end
 --> 警告：如果你不确定这个函数在做什么，请不要使用它！
 --
 --> 已废弃：请改用 `y3.player.with_local`
----@deprecated
+-- ---@deprecated
 ---@return Player
 function M.获取本地玩家()
     return M.LOCAL_PLAYER
