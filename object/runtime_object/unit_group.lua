@@ -57,6 +57,11 @@ function M:remove_units_by_key(unit_key)
     GameAPI.remove_unit_in_group_by_key(self.handle, unit_key)
 end
 
+--清空单位组
+function M:clear()
+    GlobalAPI.clear_group(self.handle)
+end
+
 --单位组中随机整数个单位
 ---@param count integer
 ---@return UnitGroup unit_group  随机整数个单位

@@ -56,6 +56,11 @@ function M:remove_player(player)
     GameAPI.rem_role_from_group(player.handle, self.handle)
 end
 
+--清空玩家组
+function M:clear()
+    GlobalAPI.clear_group(self.handle)
+end
+
 ---获取所有玩家
 ---@return PlayerGroup player_group 单位组
 function M.get_all_players()

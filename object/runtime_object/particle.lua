@@ -55,9 +55,9 @@ end
 ---@class Particle.Param.Create
 ---@field type py.SfxKey 特效类型id
 ---@field target Point|Unit 点
----@field angle number 方向
----@field scale number 缩放
----@field time number 持续时间
+---@field angle? number 方向
+---@field scale? number 缩放
+---@field time? number 持续时间
 ---@field height? number 高度，只有当 `target` 的类型为点时有效
 ---@field socket? string 特效挂节点，只有当 `target` 的类型为单位时有效
 ---@field follow_rotation? integer 跟随单位旋转的模式，只有当 `target` 的类型为单位时有效
@@ -71,7 +71,7 @@ function M.create(data)
     local target    = data.target
     local angle     = data.angle or 0.0
     local scale     = data.scale or 1.0
-    local time      = data.time  or 1.0
+    local time      = data.time  or -1.0
     local immediate = data.immediate
     if target.type == 'unit' then
         ---@cast target Unit
