@@ -720,7 +720,7 @@ end
 
 --创建悬浮文字
 ---@param point Point 点
----@param text_type y3.Const.HarmTextType 跳字类型
+---@param text_type y3.Const.HarmTextType|integer 跳字类型
 ---@param str string 文字
 ---@param player_group PlayerGroup 玩家组
 function M.create_floating_text(point, text_type, str, player_group)
