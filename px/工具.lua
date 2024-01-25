@@ -25,7 +25,7 @@ function 多项选择(索引, ...)
 end
 
 ---@generic T
----@param 判断 boolean 判断为真返回结果1 否则返回结果2
+---@param 判断 any 判断为真返回结果1 否则返回结果2
 ---@param 结果1 T
 ---@param 结果2 T
 ---@return T

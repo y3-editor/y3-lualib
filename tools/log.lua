@@ -147,7 +147,7 @@ end
 function M:build(level, ...)
     local t = table.pack(...)
     for i = 1, t.n do
-        if type(t[i]) == "table" then
+        if type(t[i]) == "table" and not GameAPI.table_has_key(t[i], "__class__") then
             t[i] = y3.util.dump(t[i], { y3tostring = true })
         else
             t[i] = tostring(t[i])
