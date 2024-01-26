@@ -84,6 +84,10 @@ local function build_call_error_message(name)
 end
 
 function M:__close()
+    -- TODO
+    --目前无法判断本地环境内的局部变量被子函数修改的情况，
+    --暂时屏蔽此功能
+    do return end
     for i, old_value in ipairs(self.uv_values) do
         local name, value = getupvalue(self.func, i)
         --如果是没代理过的上值，则恢复原样；
