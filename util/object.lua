@@ -52,6 +52,13 @@ end)
 ---@field on_lose? fun(item: Item) # 物品失去后执行
 ---@field on_create? fun(item: Item) # 物品创建后执行
 ---@field on_remove? fun(item: Item) # 物品移除后执行
+---@field on_usage? fun(item: Item) # 物品使用后执行
+---@field on_in_pack? fun(item: Item) # 物品进入单位背包栏后执行
+---@field on_out_pack? fun(item: Item) # 物品离开单位背包栏后执行
+---@field on_in_bar? fun(item: Item) # 物品进入单位物品栏后执行
+---@field on_out_bar? fun(item: Item) # 物品离开单位物品栏后执行
+---@field on_stack_change? fun(item: Item) # 物品堆叠层数变化后执行
+---@field on_charging_change? fun(item: Item) # 物品充能层数变化后执行
 --物品的物编数据，你可以从里面读取或修改任意物编  
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此物品再修改数据，行为是未定义的
@@ -232,6 +239,34 @@ end)
 
 y3.game:event('物品-移除', function (trg, data)
     M.callMethod('item', 'on_remove', data.item:get_key(), data.item, data.item)
+end)
+
+y3.game:event('物品-使用', function (trg, data)
+    M.callMethod('item', 'on_usage', data.item:get_key(), data.item, data.item)
+end)
+
+y3.game:event('物品-进入背包', function (trg, data)
+    M.callMethod('item', 'on_in_pack', data.item:get_key(), data.item, data.item)
+end)
+
+y3.game:event('物品-离开背包', function (trg, data)
+    M.callMethod('item', 'on_out_pack', data.item:get_key(), data.item, data.item)
+end)
+
+y3.game:event('物品-进入物品栏', function (trg, data)
+    M.callMethod('item', 'on_in_bar', data.item:get_key(), data.item, data.item)
+end)
+
+y3.game:event('物品-离开物品栏', function (trg, data)
+    M.callMethod('item', 'on_out_bar', data.item:get_key(), data.item, data.item)
+end)
+
+y3.game:event('物品-充能变化', function (trg, data)
+    M.callMethod('item', 'on_charging_change', data.item:get_key(), data.item, data.item)
+end)
+
+y3.game:event('物品-堆叠变化', function (trg, data)
+    M.callMethod('item', 'on_stack_change', data.item:get_key(), data.item, data.item)
 end)
 
 y3.game:event('效果-即将获得', function (trg, data)
