@@ -52,7 +52,7 @@ function M:移除单位类型(unit_key)
 end
 
 --清空单位组
-function M:clear()
+function M:清空()
     GlobalAPI.clear_group(self.handle)
 end
 
