@@ -52,12 +52,12 @@ end)
 ---通过py层的技能实例获取lua层的道具实例
 ---@param  py_item py.Item py层的道具实例
 ---@return Item # 返回在lua层初始化后的lua层道具实例
-function M.get_by_handle(py_item)
+function M.从句柄获取(py_item)
     local id = py_item:api_get_id()
-    return M.get_by_id(id)
+    return M.从ID获取(id)
 end
 
-y3.py_converter.register_py_to_lua("py.Item", M.get_by_handle)
+y3.py_converter.register_py_to_lua("py.Item", M.从句柄获取)
 y3.py_converter.register_lua_to_py("py.Item", function(lua_value)
     return lua_value.handle
 end)
@@ -65,12 +65,12 @@ end)
 -- 通过id获取lua层的道具实例
 ---@param id py.ItemID
 ---@return Item # 返回在lua层初始化后的lua层道具实例
-function M.get_by_id(id)
+function M.从ID获取(id)
     local item = M.ref_manager:get(id)
     return item
 end
 
-y3.py_converter.register_py_to_lua("py.ItemID", M.get_by_id)
+y3.py_converter.register_py_to_lua("py.ItemID", M.从ID获取)
 
 y3.game:event("物品-移除", function(trg, data)
     local item = data.item
@@ -79,27 +79,27 @@ end)
 
 ---是否存在
 ---@return boolean is_exist 是否存在
-function M:is_exist()
+function M:是否存在()
     return GameAPI.item_is_exist(self.handle)
 end
 
 -- 获取唯一ID
 ---@return integer
-function M:get_id()
+function M:获取ID()
     return self.id
 end
 
 ---存在标签
 ---@param tag string 删除标签
 ---@return boolean is_has_tag 是否有标签
-function M:has_tag(tag)
+function M:是否存在标签(tag)
     return self.handle:api_has_tag(tag)
 end
 
 ---是否在场景中
 ---@return boolean is_in_scene 是否在场景中
-function M:is_in_scene()
-    if not self:is_exist() then
+function M:是否在场景中()
+    if not self:是否存在() then
         return false
     end
     return self.handle:api_is_in_scene()
@@ -107,19 +107,19 @@ end
 
 ---物品在物品栏
 ---@return boolean is_in_bar 是否在物品栏
-function M:is_in_bar()
+function M:是否在物品栏()
     return self.handle:api_is_in_bar()
 end
 
 ---物品在背包栏
 ---@return boolean is_in_bag 是否在背包栏
-function M:is_in_bag()
+function M:是否在背包栏()
     return self.handle:api_is_in_pkg()
 end
 
 ---遍历物品的单位属性
 ---@return string[] keys 属性key
-function M:attr_pick()
+function M:获取所有单位属性()
     -- 去掉首尾的方括号
     local tmp = tostring(GameAPI.iter_unit_attr_of_item(self.handle)):sub(2, -2)
     local result = {}
@@ -132,7 +132,7 @@ end
 ---遍历物品类型的单位属性
 ---@param item_key py.ItemKey 物品类型
 ---@return string[] keys 属性key
-function M.attr_pick_by_key(item_key)
+function M.获取所有单位属性_从类型(item_key)
     -- 去掉首尾的方括号
     local tmp = tostring(GameAPI.iter_unit_attr_of_item_name(item_key)):sub(2, -2)
     local result = {}
@@ -143,20 +143,20 @@ function M.attr_pick_by_key(item_key)
 end
 
 ---删除物品
-function M:remove()
+function M:移除()
     Delete(self)
 end
 
 ---丢弃物品到点
 ---@param point Point 目标点
 ---@param count integer 丢弃数量
-function M:drop(point, count)
+function M:丢弃到点(point, count)
     self.handle:api_drop_self(point.handle, count)
 end
 
 ---移动到点
 ---@param point Point 点
-function M:set_point(point)
+function M:移动到点(point)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     self.handle:api_transmit(point.handle)
@@ -164,109 +164,109 @@ end
 
 ---设置物品的名称
 ---@param name string 名字
-function M:set_name(name)
+function M:设置名称(name)
     self.handle:set_name(name)
 end
 
 ---设置物品的描述
 ---@param description string 描述
-function M:set_description(description)
+function M:设置描述(description)
     self.handle:api_set_desc(description)
 end
 
 ---设置物品的图标
 ---@param picture_id py.Texture 图片id
-function M:set_icon(picture_id)
+function M:设置图标(picture_id)
     self.handle:api_set_item_icon(picture_id)
 end
 
 ---获取物品的图标
 ---@return py.Texture
-function M:get_icon()
+function M:获取图标()
     return self.handle:api_get_item_icon()
 end
 
 ---设置所属玩家
 ---@param player Player 所属玩家
-function M:set_owner_player(player)
+function M:设置所属玩家(player)
     self.handle:api_set_creator(player.handle)
 end
 
 ---设置等级
 ---@param level integer 等级
-function M:set_level(level)
+function M:设置等级(level)
     self.handle:api_set_level(level)
 end
 
 ---设置充能数
 ---@param charge integer 充能数
-function M:set_charge(charge)
+function M:设置充能数(charge)
     self.handle:api_set_charge_cnt(charge)
 end
 
 ---增加充能数
 ---@param charge integer 充能数
-function M:add_charge(charge)
+function M:增加充能数(charge)
     self.handle:api_add_charge(charge)
 end
 
 ---设置最大充能数
 ---@param charge integer 最大充能数
-function M:set_max_charge(charge)
+function M:设置最大充能数(charge)
     self.handle:api_set_max_charge(charge)
 end
 
 ---设置堆叠数
 ---@param stack integer 堆叠数
-function M:set_stack(stack)
+function M:设置堆叠数(stack)
     self.handle:api_set_stack_cnt(stack)
 end
 
 ---增加堆叠数
 ---@param stack integer 堆叠数
-function M:add_stack(stack)
+function M:增加堆叠数(stack)
     self.handle:api_add_stack(stack)
 end
 
 ---设置基础属性
 ---@param key string 属性key
 ---@param value number 属性值
-function M:set_attribute(key, value)
+function M:设置基础属性(key, value)
     self.handle:api_set_attr("ATTR_BASE", key, value)
 end
 
 ---增加基础属性
 ---@param key string 属性key
 ---@param value number 属性值
-function M:add_attribute(key, value)
+function M:增加基础属性(key, value)
     self.handle:api_change_attr("ATTR_BASE", key, value)
 end
 
 ---获取物品的基础属性
 ---@param key string 属性key
 ---@return number
-function M:get_attribute(key)
+function M:获取基础属性(key)
     return self.handle:api_get_attr("ATTR_BASE", key):float()
 end
 
 ---设置增益属性
 ---@param key string 属性key
 ---@param value number 属性值
-function M:set_bonus_attribute(key, value)
+function M:设置增益属性(key, value)
     self.handle:api_set_attr("ATTR_BONUS", key, value)
 end
 
 ---增加增益属性
 ---@param key string 属性key
 ---@param value number 属性值
-function M:add_bonus_attribute(key, value)
+function M:增加增益属性(key, value)
     self.handle:api_change_attr("ATTR_BONUS", key, value)
 end
 
 ---获取物品的增益属性
 ---@param key string 属性key
 ---@return number
-function M:get_bonus_attribute(key)
+function M:获取增益属性(key)
     return self.handle:api_get_attr("ATTR_BONUS", key):float()
 end
 
@@ -477,7 +477,7 @@ function M.create_item(point, item_key, player)
         player = y3.player(31)
     end
     local py_item = GameAPI.create_item_by_id(point.handle, item_key, player.handle)
-    return M.get_by_handle(py_item)
+    return M.从句柄获取(py_item)
 end
 
 ---获取物品购买售价

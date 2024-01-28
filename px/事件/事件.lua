@@ -135,9 +135,9 @@ end
 
 ---@class 参_事件.键盘:参_事件
 ---@field 触发玩家 Player
----@field 触发按键  键盘按类型
+---@field 触发按键  枚举.键盘按类型
 
----@param 键名 键盘按类型
+---@param 键名 枚举.键盘按类型
 ---@param 回调 fun(参数:参_事件.键盘)
 function m.键盘_按下(键名, 回调)
     return _缓存触发器(y3.game:event("键盘-按下", 键名, function(trg, data)
@@ -149,7 +149,7 @@ function m.键盘_按下(键名, 回调)
     end))
 end
 
----@param 键名 键盘按类型
+---@param 键名 枚举.键盘按类型
 ---@param 回调 fun(参数:参_事件.键盘)
 function m.键盘_抬起(键名, 回调)
     return _缓存触发器(y3.game:event("键盘-抬起", 键名, function(trg, data)

@@ -400,7 +400,7 @@ function M:get_target(cast)
 
     local item = GameAPI.get_target_item_in_ability(self.handle, cast)
     if item then
-        return y3.item.get_by_handle(item)
+        return y3.item.从句柄获取(item)
     end
 
     local point = self.handle:api_get_release_position(cast)

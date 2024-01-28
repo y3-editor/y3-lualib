@@ -256,7 +256,7 @@ end
 
 ---@param 玩家 Player
 ---@param 过渡时间 number
----@param 移动类型 镜头移动类型
+---@param 移动类型 枚举.镜头移动类型
 function M:应用配置(玩家, 过渡时间, 移动类型)
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.apply_camera_conf(玩家.handle, self.handle, 过渡时间, 移动类型)

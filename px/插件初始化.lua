@@ -23,8 +23,15 @@ include "y3.px.常量"
 
 单位 = require "y3.object.editable_object.unit"
 单位组 = require "y3.object.runtime_object.unit_group"
+
 玩家 = require "y3.object.runtime_object.player"
 玩家组 = require "y3.object.runtime_object.player_group"
+
+物品 = require "y3.object.editable_object.item"
+物品组 = require "y3.object.runtime_object.item_group"
+
+
+
 场景 = require "y3.object.scene_object.scene_ui"
 控件 = require "y3.object.scene_object.ui"
 元件 = require "y3.object.scene_object.ui_prefab"
@@ -52,13 +59,11 @@ include "src.模块.界面操作模块"
 
 -- y3.ability = require "y3.object.editable_object.ability"
 -- y3.destructible = require "y3.object.editable_object.destructible"
--- y3.item = require "y3.object.editable_object.item"
 -- y3.buff = require "y3.object.editable_object.buff"
 -- y3.projectile = require "y3.object.editable_object.projectile"
 -- y3.technology = require "y3.object.editable_object.technology"
 
 -- y3.beam = require "y3.object.runtime_object.beam"
--- y3.item_group = require "y3.object.runtime_object.item_group"
 -- y3.mover = require "y3.object.runtime_object.mover"
 -- y3.particle = require "y3.object.runtime_object.particle"
 

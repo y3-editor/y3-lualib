@@ -113,34 +113,34 @@ end
 ---单位添加物品
 ---@param item_id py.ItemKey 物品id
 ---@return Item
-function M:添加_物品(item_id)
+function M:添加物品(item_id)
     local py_item = self.handle:api_add_item(item_id)
-    return y3.item.get_by_handle(py_item)
+    return y3.item.从句柄获取(py_item)
 end
 
 ---单位移除物品
 ---@param item_id py.ItemKey 物品id
 ---@param num integer 数量
-function M:移除_物品(item_id, num)
+function M:移除物品(item_id, num)
     self.handle:api_delete_item(item_id, num)
 end
 
 ---移动物品
 ---@param item Item 物品
----@param type y3.Const.ShiftSlotTypeAlias
+---@param 槽位类型 枚举.背包槽位类型
 ---@param index integer 槽位
 ---@param force boolean 是否强制移动，`true`: 如果目标有物品，则移动到另一个空格中；`false`: 如果目标有物品，则要移动的物品会掉落
-function M:移动_物品(item, type, index, force)
-    self.handle:api_shift_item_new(item.handle, y3.const.ShiftSlotType[type], index, force)
+function M:移动物品(item, 槽位类型, index, force)
+    self.handle:api_shift_item_new(item.handle, 槽位类型, index, force)
 end
 
 -- 交换物品
 -- 如果目标位置是空的，则相当于把物品移动了过去
 ---@param item Item 物品
----@param type y3.Const.ShiftSlotTypeAlias
+---@param type 枚举.背包槽位类型
 ---@param index integer 槽位
-function M:交换_物品(item, type, index)
-    self.handle:api_shift_item(item.handle, y3.const.ShiftSlotType[type], index)
+function M:交换物品(item, type, index)
+    self.handle:api_shift_item(item.handle, type, index)
 end
 
 ---获取指定类型的所有技能
@@ -238,7 +238,7 @@ function M:获取技能_通过槽位(type, slot)
 end
 
 ---获取单位背包槽位上的物品
----@param type y3.Const.SlotType 槽位类型
+---@param type 枚举.背包槽位类型
 ---@param slot integer 位置
 ---@return Item? item 物品
 function M:获取物品_通过槽位(type, slot)
@@ -246,7 +246,7 @@ function M:获取物品_通过槽位(type, slot)
     if not py_item then
         return nil
     end
-    return y3.item.get_by_handle(py_item)
+    return y3.item.从句柄获取(py_item)
 end
 
 ---单位的所有物品
@@ -702,13 +702,13 @@ end
 
 ---设置背包栏的槽位数
 ---@param number integer 槽位数
-function M:set_pkg_cnt(number)
+function M:设置_背包栏槽位数(number)
     self.handle:api_set_unit_pkg_cnt(number)
 end
 
 ---设置物品栏的槽位数
 ---@param number integer 槽位数
-function M:set_bar_cnt(number)
+function M:设置_物品栏槽位数(number)
     self.handle:api_set_unit_bar_cnt(number)
 end
 
@@ -1307,13 +1307,13 @@ end
 
 ---获取单位背包栏的槽位数
 ---@return integer slot_number 单位背包栏的槽位数
-function M:get_pkg_cnt()
+function M:获取背包栏槽位数()
     return self.handle:api_get_unit_pkg_cnt()
 end
 
 ---获取单位物品栏的槽位数
 ---@return integer slot_number 单位物品栏的槽位数
-function M:get_bar_cnt()
+function M:获取物品栏槽位数()
     return self.handle:api_get_unit_bar_cnt()
 end
 

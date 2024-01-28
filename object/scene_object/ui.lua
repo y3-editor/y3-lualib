@@ -4,8 +4,19 @@
 ---@overload fun(player: Player, ui_name: string): self
 local M = Class "UI"
 
+---@type UI[]
+M.缓存表 = {}
+
+---@param 当前控件 UI
+---@return UI
+local function 缓存动态创建的控件(当前控件)
+    table.insert(M.缓存表, 当前控件)
+    return 当前控件
+end
+
 M.type = "ui"
 
+---@private
 ---@param player Player
 ---@param handle string
 ---@return self
@@ -16,10 +27,12 @@ function M:__init(player, handle)
     return self
 end
 
+---@private
 function M:__del()
     GameAPI.del_ui_comp(self.player.handle, self.handle)
 end
 
+---@private
 function M:__tostring()
     return string.format("{UI|%s|%s} @ %s"
     , self.name
@@ -60,7 +73,7 @@ end
 ---@return UI 返回在lua层初始化后的lua层技能实例
 function M.创建(player, parent_ui, comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 7)
-    return y3.ui.从handle获取(player, py_ui)
+    return 缓存动态创建的控件(y3.ui.从handle获取(player, py_ui))
 end
 
 ---@param player Player 玩家
@@ -298,7 +311,7 @@ end
 
 --设置物品组件绑定单位
 ---@param unit Unit
----@param field y3.Const.SlotType 背包槽位类型名
+---@param field 枚举.背包槽位类型
 ---@param index integer 格子位置
 ---@return self
 function M:绑定物品组件到单位(unit, field, index)
@@ -554,7 +567,7 @@ function M:设置_模型控件观察点(x, y, z)
 end
 
 --绑定单位属性到玩家界面控件的属性
----@param uiAttr 控件界面属性
+---@param uiAttr 枚举.控件界面属性
 ---@param attr string 单位属性
 ---@param accuracy integer 小数精度
 ---@return self
@@ -1003,19 +1016,31 @@ M.控件数据 = {}
 ---@param 参数名 string|integer
 ---@param 参数值 any
 function M:设置_参数(参数名, 参数值)
-    M.控件数据[self.player.id][参数名] = 参数值
+    if M.控件数据[self.player.id][self.handle] == nil then
+        M.控件数据[self.player.id][self.handle] = {}
+    end
+    M.控件数据[self.player.id][self.handle][参数名] = 参数值
 end
 
 ---@param 参数名 string|integer
 ---@return any
 function M:获取_参数(参数名)
-    return M.控件数据[self.player.id][参数名]
+    if M.控件数据[self.player.id][self.handle] == nil then
+        return nil
+    end
+    return M.控件数据[self.player.id][self.handle][参数名]
 end
 
 y3.game:event("游戏-初始化", function(trg, data)
     玩家组.获取所有玩家():遍历(function(索引, 遍历到的玩家)
         M.控件数据[遍历到的玩家.id] = {}
     end)
+end)
+
+y3.reload.onBeforeReload(function(reload, willReload)
+    for index, value in ipairs(M.缓存表) do
+        value:移除()
+    end
 end)
 
 return M

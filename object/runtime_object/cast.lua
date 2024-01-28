@@ -76,7 +76,7 @@ function M:get_target_item()
     if not py_item then
         return nil
     end
-    return y3.item.get_by_handle(py_item)
+    return y3.item.从句柄获取(py_item)
 end
 
 -- 获取施法目标单位
