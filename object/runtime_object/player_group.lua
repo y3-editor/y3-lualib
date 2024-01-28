@@ -59,7 +59,7 @@ function M:移除玩家(player)
 end
 
 --清空玩家组
-function M:clear()
+function M:清空()
     GlobalAPI.clear_group(self.handle)
 end
 
