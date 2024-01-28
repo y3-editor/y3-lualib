@@ -13,7 +13,9 @@
         "include": "require"
     },
     "hover.expandAlias": false,
-    "doc.privateName": ["__*"],
+    "doc.privateName": [
+        "__*"
+    ],
     "diagnostics.groupFileStatus": {
         "ambiguity": "Any",
         "await": "Any",

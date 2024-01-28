@@ -1,3 +1,8 @@
+include "y3.px.基础.表"
+include "y3.px.基础.字符串"
+include "y3.px.基础.数学"
+include "y3.px.基础.工具"
+
 插件 = {}
 ---@param 回调 fun()
 function 插件.初始化(回调)
@@ -36,10 +41,7 @@ include "y3.px.常量"
 控件 = require "y3.object.scene_object.ui"
 元件 = require "y3.object.scene_object.ui_prefab"
 
-include "y3.px.表"
-include "y3.px.字符串"
-include "y3.px.数学"
-include "y3.px.工具"
+
 
 全局事件 = include "y3.px.事件.事件"
 include "y3.px.事件.单位事件"
