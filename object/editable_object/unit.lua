@@ -1671,7 +1671,7 @@ end
 
 -- 获取所属玩家
 ---@return Player
-function M:get_owner_player()
+function M:获取所属玩家()
     return y3.player.从id获取(self.handle:api_get_role_id())
 end
 
