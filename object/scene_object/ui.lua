@@ -842,7 +842,7 @@ end
 ---@return UI? ui_comp ui控件
 function M:获取子控件(name)
     local py_ui = GameAPI.get_comp_by_path(self.player.handle, self.handle, name)
-    if not py_ui then
+    if not py_ui or py_ui == '' then
         return nil
     end
     return y3.ui.从handle获取(self.player, py_ui)
