@@ -115,7 +115,7 @@ function M.wrap_callbacks(mover_data)
     if mover_data.on_hit then
         on_hit = function()
             local py_unit = GameAPI.get_mover_collide_unit()
-            local unit = y3.unit.从句柄获取(py_unit)
+            local unit = y3.单位.从句柄获取(py_unit)
             xpcall(mover_data.on_hit, log.error, mover, unit)
         end
     end

@@ -78,7 +78,7 @@ log = New "Log" {
                 table.remove(log_cache, 1)
             end
             ---@diagnostic disable-next-line: deprecated
-            y3.ui.display_message(y3.player.获取本地玩家(), remove_bad_utf8(table.concat(log_cache, "\n")), 60)
+            y3.控件.display_message(y3.玩家.获取本地玩家(), remove_bad_utf8(table.concat(log_cache, "\n")), 60)
         end
     end,
 }

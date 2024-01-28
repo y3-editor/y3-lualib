@@ -40,7 +40,7 @@ end
 ---@param  parent_ui UI 父控件
 ---@return UIPrefab
 function M.创建(player, prefab_name, parent_ui)
-    local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle, y3.ui.comp_id[prefab_name], parent_ui.handle)
+    local py_ui_prefab = GameAPI.create_ui_prefab_instance(player.handle, y3.控件.comp_id[prefab_name], parent_ui.handle)
     local 元件 = M.从handle获取(player, py_ui_prefab)
     table.insert(M.元件表, 元件)
     return 元件
@@ -56,7 +56,7 @@ end
 ---@return UI
 function M:获取子控件(path)
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.ui.从handle获取(self.player, GameAPI.get_ui_prefab_child_by_path(self.handle, path))
+    return y3.控件.从handle获取(self.player, GameAPI.get_ui_prefab_child_by_path(self.handle, path))
 end
 
 y3.reload.onBeforeReload(function(reload, willReload)

@@ -1,5 +1,5 @@
 ---@class Unit
-local m = 单位
+local m = y3.单位
 
 ---@class 参_单位事件
 ---@field 当前触发器 Trigger

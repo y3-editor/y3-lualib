@@ -351,9 +351,9 @@ end
 
 ---属于某玩家的所有单位
 ---@return UnitGroup unit_group 单位组
-function M:get_all_units()
+function M:获取所有单位()
     local py_unit_group = self.handle:get_all_unit_id()
-    return y3.unit_group.从handle获取(py_unit_group)
+    return y3.单位组.从handle获取(py_unit_group)
 end
 
 ---创建单位
@@ -361,14 +361,14 @@ end
 ---@param point? Point 单位
 ---@param facing? number 朝向
 ---@return Unit
-function M:create_unit(unit_id, point, facing)
-    local unit = y3.unit.创建(self, unit_id, point or y3.point(0.0, 0.0), facing or 0.0)
+function M:创建单位(unit_id, point, facing)
+    local unit = y3.单位.创建(self, unit_id, point or y3.点(0.0, 0.0), facing or 0.0)
     return unit
 end
 
 ---强制踢出
 ---@param reason string 踢出原因
-function M:kick(reason)
+function M:强制提出(reason)
     GameAPI.role_force_quit(self.handle, reason)
 end
 
@@ -395,7 +395,7 @@ function M:get_mouse_pos()
     local py_point = GameAPI.get_player_pointing_pos(self.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.从handle获取(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 ---获取玩家鼠标屏幕坐标X的占比。

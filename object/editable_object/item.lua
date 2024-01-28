@@ -345,7 +345,7 @@ function M:get_owner()
     if not py_owner then
         return nil
     end
-    return y3.unit.从句柄获取(py_owner)
+    return y3.单位.从句柄获取(py_owner)
 end
 
 ---物品所在点
@@ -354,7 +354,7 @@ function M:get_point()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.从handle获取(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 ---物品堆叠数
@@ -445,7 +445,7 @@ end
 ---@return Player player 玩家
 function M:get_owner_player()
     local py_player = self.handle:api_get_creator()
-    return y3.player.从句柄获取(py_player)
+    return y3.玩家.从句柄获取(py_player)
 end
 
 ---获取物品在单位身上的背包槽类型
@@ -474,7 +474,7 @@ end
 ---@return Item
 function M.create_item(point, item_key, player)
     if not player then
-        player = y3.player(31)
+        player = y3.玩家(31)
     end
     local py_item = GameAPI.create_item_by_id(point.handle, item_key, player.handle)
     return M.从句柄获取(py_item)

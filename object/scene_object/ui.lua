@@ -48,7 +48,7 @@ M.comp_id = y3.proxy.new({}, {
     cache = true,
     anyGetter = function(self, raw, key, config, custom)
         ---@diagnostic disable-next-line: deprecated
-        local id = GameAPI.get_ui_comp_id_by_name(y3.player.获取本地玩家().handle, key)
+        local id = GameAPI.get_ui_comp_id_by_name(y3.玩家.获取本地玩家().handle, key)
         if id == "" then
             return key
         else
@@ -73,7 +73,7 @@ end
 ---@return UI 返回在lua层初始化后的lua层技能实例
 function M.创建(player, parent_ui, comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 7)
-    return 缓存动态创建的控件(y3.ui.从handle获取(player, py_ui))
+    return 缓存动态创建的控件(y3.控件.从handle获取(player, py_ui))
 end
 
 ---@param player Player 玩家
@@ -82,7 +82,7 @@ end
 function M.从路径获取(player, ui_path)
     local py_ui = GameAPI.get_comp_by_absolute_path(player.handle, ui_path)
     assert(py_ui, string.format("UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。", ui_path))
-    return y3.ui.从handle获取(player, py_ui)
+    return y3.控件.从handle获取(player, py_ui)
 end
 
 ---@param comp_type y3.Const.UIComponentType ui控件
@@ -506,7 +506,7 @@ end
 function M:获取所有子控件()
     local py_list = GameAPI.get_ui_comp_children(self.player.handle, self.handle)
     local uis = y3.helper.unpack_list(py_list, function(py_object)
-        return y3.ui.从handle获取(self.player, py_object)
+        return y3.控件.从handle获取(self.player, py_object)
     end)
     return uis
 end
@@ -842,10 +842,10 @@ end
 ---@return UI? ui_comp ui控件
 function M:获取子控件(name)
     local py_ui = GameAPI.get_comp_by_path(self.player.handle, self.handle, name)
-    if not py_ui or py_ui == '' then
+    if not py_ui or py_ui == "" then
         return nil
     end
-    return y3.ui.从handle获取(self.player, py_ui)
+    return y3.控件.从handle获取(self.player, py_ui)
 end
 
 --获得控件宽度
@@ -884,7 +884,7 @@ end
 ---@return UI ui_comp ui控件
 function M:获取_父控件()
     local py_ui = GameAPI.get_ui_comp_parent(self.player.handle, self.handle)
-    return y3.ui.从handle获取(self.player, py_ui)
+    return y3.控件.从handle获取(self.player, py_ui)
 end
 
 --获得玩家输入框文本内容
@@ -993,7 +993,7 @@ local use_operation_map = {
 
 --设置使用物品操作方式
 ---@param use_operation Item.UseOperation # 操作方式
-function M:设置_使用物品操作方式(use_operation)
+function M:设置物品使用方式(use_operation)
     GameAPI.set_equip_slot_use_operation(self.player.handle, self.handle, use_operation_map[use_operation] or 0)
 end
 
@@ -1006,7 +1006,7 @@ local drag_operation_map = {
 
 --设置拖拽物品操作方式
 ---@param drag_operation Item.DrapOperation # 操作方式
-function M:设置_物品拖拽方式(drag_operation)
+function M:设置物品拖拽方式(drag_operation)
     GameAPI.set_equip_slot_drag_operation(self.player.handle, self.handle, drag_operation_map[drag_operation] or 0)
 end
 
@@ -1032,7 +1032,7 @@ function M:获取_参数(参数名)
 end
 
 y3.game:event("游戏-初始化", function(trg, data)
-    玩家组.获取所有玩家():遍历(function(索引, 遍历到的玩家)
+    y3.玩家组.获取所有玩家():遍历(function(索引, 遍历到的玩家)
         M.控件数据[遍历到的玩家.id] = {}
     end)
 end)

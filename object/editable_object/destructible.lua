@@ -380,7 +380,7 @@ function M:get_position()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.从handle获取(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 --------------------------------------------类的方法--------------------------------------------
@@ -400,7 +400,7 @@ function M.create_destructible(type_id, point, angle, scale_x, scale_y, scale_z,
     if not scale_z then scale_z = 1 end
     if not height then height = 0 end
     local py_destructible = GameAPI.create_destructible_new(type_id, point.handle, Fix32(angle), Fix32(scale_x),
-        Fix32(scale_y), Fix32(scale_z), Fix32(height))
+                                                            Fix32(scale_y), Fix32(scale_z), Fix32(height))
 
     return y3.destructible.get_by_handle(py_destructible)
 end

@@ -1,49 +1,11 @@
+include "y3.px.常量"
+include "y3.px.枚举"
 include "y3.px.基础.表"
 include "y3.px.基础.字符串"
 include "y3.px.基础.数学"
 include "y3.px.基础.工具"
 
-插件 = {}
----@param 回调 fun()
-function 插件.初始化(回调)
-    return 全局事件.自定义_带标识("游戏初始化", "插件加载", function(参数)
-        回调()
-    end)
-end
-
----@param 回调 fun(参数:参_玩家加入游戏)
-function 插件.玩家加入(回调)
-    return 全局事件.自定义_带标识("玩家加入游戏", "插件加载", function(参数)
-        ---@cast 参数 + 参_玩家加入游戏
-        回调(参数)
-    end)
-end
-
-include "y3.px.常量"
-
-游戏 = require "y3.game.game"
-存档 = require "y3.util.save_data"
-镜头 = require "y3.object.scene_object.camera"
-点 = require "y3.object.scene_object.point"
-
-单位 = require "y3.object.editable_object.unit"
-单位组 = require "y3.object.runtime_object.unit_group"
-
-玩家 = require "y3.object.runtime_object.player"
-玩家组 = require "y3.object.runtime_object.player_group"
-
-物品 = require "y3.object.editable_object.item"
-物品组 = require "y3.object.runtime_object.item_group"
-
-
-
-场景 = require "y3.object.scene_object.scene_ui"
-控件 = require "y3.object.scene_object.ui"
-元件 = require "y3.object.scene_object.ui_prefab"
-
-
-
-全局事件 = include "y3.px.事件.事件"
+y3.事件 = include "y3.px.事件.事件"
 include "y3.px.事件.单位事件"
 
 
@@ -97,29 +59,27 @@ include "src.模块.界面操作模块"
 
 
 function _预设数据初始化()
+    常量.中立友善玩家 = y3.玩家.从id获取(32)
+
     ---@diagnostic disable-next-line: inject-field
-    玩家.中立友善 = 玩家.从id获取(32)
+    常量.中立敌对玩家 = y3.玩家.从id获取(31)
     ---@diagnostic disable-next-line: inject-field
-    玩家.中立敌对 = 玩家.从id获取(31)
-    ---@diagnostic disable-next-line: inject-field
-    玩家组.空单位组 = 玩家组.获取所有玩家()
-    玩家组.空单位组:遍历(function(索引, 遍历到的玩家)
-        玩家组.空单位组:移除玩家(遍历到的玩家)
-    end)
+    常量.空玩家组 = y3.玩家组.获取所有玩家():清空()
+    常量.空单位组 = y3.玩家:获取所有单位():清空()
 end
 
 local function _游戏初始化()
     _预设数据初始化()
-    全局事件.发送_自定义_带标识("游戏初始化", "插件加载", {})
-    全局事件.发送_自定义_带标识("游戏初始化", "文件加载", {})
-    全局事件.发送_自定义_带标识("游戏初始化", "游戏初始化", {})
+    y3.事件.发送_自定义_带标识("游戏初始化", "插件加载", {})
+    y3.事件.发送_自定义_带标识("游戏初始化", "文件加载", {})
+    y3.事件.发送_自定义_带标识("游戏初始化", "游戏初始化", {})
 end
 
 ---@param 参数 参_玩家加入游戏
 local function _玩家加入(参数)
-    全局事件.发送_自定义_带标识("玩家加入游戏", "插件加载", 参数)
-    全局事件.发送_自定义_带标识("玩家加入游戏", "玩家初始化", 参数)
-    全局事件.发送_自定义_带标识("玩家加入游戏", "玩家加入游戏", 参数)
+    y3.事件.发送_自定义_带标识("玩家加入游戏", "插件加载", 参数)
+    y3.事件.发送_自定义_带标识("玩家加入游戏", "玩家初始化", 参数)
+    y3.事件.发送_自定义_带标识("玩家加入游戏", "玩家加入游戏", 参数)
 end
 
 
@@ -132,7 +92,7 @@ end)
 
 y3.reload.onAfterReload(function(reload, hasReloaded)
     _游戏初始化()
-    玩家组.获取所有非中立玩家():遍历(function(索引, 遍历到的玩家)
+    y3.玩家组.获取所有非中立玩家():遍历(function(索引, 遍历到的玩家)
         if 遍历到的玩家:get_state() == 1 then
             _玩家加入({ 加入玩家 = 遍历到的玩家, 是否中途加入 = false })
         end

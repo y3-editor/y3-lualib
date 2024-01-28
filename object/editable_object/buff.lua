@@ -214,7 +214,7 @@ end
 ---@return Unit provider 施加者
 function M:get_source()
     local py_unit = self.handle:api_get_releaser()
-    return y3.unit.从句柄获取(py_unit)
+    return y3.单位.从句柄获取(py_unit)
 end
 
 ---获取魔法效果的携带者
@@ -224,7 +224,7 @@ function M:get_owner()
     if not py_unit then
         return nil
     end
-    return y3.unit.从句柄获取(py_unit)
+    return y3.单位.从句柄获取(py_unit)
 end
 
 ---获取魔法效果对象的名称

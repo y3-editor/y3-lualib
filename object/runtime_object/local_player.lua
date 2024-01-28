@@ -135,7 +135,7 @@ function M:wrap_table_in_upvalue(func, i, name, value)
     return wrapped_table
 end
 
-M.LOCAL_PLAYER = y3.player.从句柄获取(GameAPI.get_client_role())
+M.LOCAL_PLAYER = y3.玩家.从句柄获取(GameAPI.get_client_role())
 
 M.dont_wrap_this = setmetatable({}, { __mode = "k" })
 

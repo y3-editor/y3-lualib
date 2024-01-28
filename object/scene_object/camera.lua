@@ -237,7 +237,7 @@ function M.获取_玩家摄像机朝向(player)
     local py_point = GameAPI.get_player_camera_direction(player.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.从handle获取(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 -- 获取玩家摄像机中心射线的碰撞点。
@@ -251,7 +251,7 @@ function M.获取_玩家摄像机射线碰撞点(player)
     local py_point = GameAPI.get_camera_center_raycast(player.handle)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.从handle获取(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 ---@param 玩家 Player

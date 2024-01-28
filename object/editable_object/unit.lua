@@ -192,13 +192,13 @@ function M:停止_所有技能()
 end
 
 ---添加技能
----@param type y3.Const.AbilityType | y3.Const.AbilityTypeAlias 技能类型
----@param id py.AbilityKey 物编id
----@param slot? y3.Const.AbilityIndex 技能位
----@param level? integer 等级
+---@param 类型 枚举.技能分类
+---@param 物编id py.AbilityKey 物编id
+---@param 槽位? y3.Const.AbilityIndex 技能位
+---@param 等级? integer 等级
 ---@return Ability?
-function M:添加_技能(type, id, slot, level)
-    local py_ability = self.handle:api_add_ability(y3.const.AbilityType[type] or type, id, slot or -1, level or 1)
+function M:添加_技能(类型, 物编id, 槽位, 等级)
+    local py_ability = self.handle:api_add_ability(类型, 物编id, 槽位 or -1, 等级 or 1)
     if not py_ability then
         return nil
     end
@@ -357,9 +357,11 @@ function M:移除标签(tag)
 end
 
 ---添加状态
----@param state_enum integer 状态名
+---@param state_enum 枚举.单位状态[] 状态名
 function M:添加状态(state_enum)
-    self.handle:api_add_state(state_enum)
+    for index, value in ipairs(state_enum) do
+        self.handle:api_add_state(value)
+    end
 end
 
 ---移除状态
@@ -372,7 +374,7 @@ end
 ---@param state_enum integer 状态名
 ---@return GCNode
 function M:添加状态_gc(state_enum)
-    self:添加状态(state_enum)
+    self:添加状态({ state_enum })
     return New "GCNode" (function()
         self:移除状态(state_enum)
     end)
@@ -559,7 +561,7 @@ end
 ---设置朝向
 ---@param direction number 朝向
 ---@param turn_time number 转向时间
-function M:set_facing(direction, turn_time)
+function M:设置朝向(direction, turn_time)
     self.handle:api_set_face_angle(Fix32(direction), math.floor(turn_time * 1000))
 end
 
@@ -1215,7 +1217,7 @@ end
 ---@return Player player 单位所属玩家
 function M:get_owner()
     local py_player = self.handle:api_get_role()
-    return y3.player.从句柄获取(py_player)
+    return y3.玩家.从句柄获取(py_player)
 end
 
 ---获取建造此单位消耗的资源（玩家属性）
@@ -1301,7 +1303,7 @@ end
 
 ---获取英雄的技能点数量
 ---@return integer hero_ability_point_number 英雄的技能点数量
-function M:get_ability_point()
+function M:获取技能点数量()
     return self.handle:api_get_ability_point()
 end
 
@@ -1410,7 +1412,7 @@ function M.get_last_created_unit()
     if not py_unit then
         return nil
     end
-    return y3.unit.从句柄获取(py_unit)
+    return y3.单位.从句柄获取(py_unit)
 end
 
 ---获取单位的拥有者（单位）
@@ -1420,7 +1422,7 @@ function M:get_parent_unit()
     if not py_unit then
         return nil
     end
-    return y3.unit.从句柄获取(py_unit)
+    return y3.单位.从句柄获取(py_unit)
 end
 
 ---获取幻象的召唤者
@@ -1430,12 +1432,12 @@ function M:get_illusion_owner()
     if not py_unit then
         return nil
     end
-    return y3.unit.从句柄获取(py_unit)
+    return y3.单位.从句柄获取(py_unit)
 end
 
 ---获取单位的朝向
 ---@return number angle 单位的朝向
-function M:get_facing()
+function M:获取朝向()
     return self.handle:get_face_angle():float()
 end
 
@@ -1473,20 +1475,20 @@ end
 
 ---获取单位所在点
 ---@return Point unit_point 单位所在点
-function M:get_point()
+function M:获取当前所在点()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.从handle获取(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 ---获取单位最近的可通行点
 ---@return Point point 单位最近的可通行点
-function M:get_nearest_valid_point()
+function M:获取最近可通行点()
     local py_point = self.handle:api_find_nearest_valid_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.从handle获取(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 ---获取单位的队伍
@@ -1672,7 +1674,7 @@ end
 -- 获取所属玩家
 ---@return Player
 function M:获取所属玩家()
-    return y3.player.从id获取(self.handle:api_get_role_id())
+    return y3.玩家.从id获取(self.handle:api_get_role_id())
 end
 
 ---玩家是否可以购买商店的物品

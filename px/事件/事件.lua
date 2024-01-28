@@ -182,6 +182,13 @@ function m.控件(名称, 回调)
     end))
 end
 
+---@param 回调 fun()
+function m.插件初始化(回调)
+    return y3.事件.自定义_带标识("游戏初始化", "插件加载", function(参数)
+        回调()
+    end)
+end
+
 y3.reload.onBeforeReload(function(reload, willReload)
     for index, value in ipairs(m.触发器表) do
         value:移除()

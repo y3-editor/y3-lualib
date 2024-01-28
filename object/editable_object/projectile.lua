@@ -94,7 +94,7 @@ end
 ---@return Unit unit 投射物的拥有者
 function M:get_owner()
     local py_unit = self.handle:api_get_owner()
-    return y3.unit.从句柄获取(py_unit)
+    return y3.单位.从句柄获取(py_unit)
 end
 
 ---获取投射物朝向
@@ -109,7 +109,7 @@ function M:get_point()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.从handle获取(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 ---是否拥有标签
@@ -148,7 +148,7 @@ end
 ---@return Projectile
 function M.create(data)
     if not data.owner then
-        data.owner = y3.player.从id获取(31)
+        data.owner = y3.玩家.从id获取(31)
     end
     local target = data.target
     if target.type == "point" then
