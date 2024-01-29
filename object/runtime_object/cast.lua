@@ -43,7 +43,7 @@ function M.get(ability, cast_id)
     return ability._castRef:get(cast_id)
 end
 
-y3.game:event("施法-结束", function(trg, data)
+y3.游戏:event("施法-结束", function(trg, data)
     local id = data.cast.cast_id
     local ability = data.cast.ability
     local castRef = ability._castRef

@@ -43,7 +43,7 @@ end
 ---@param 表名 string 表格编辑器中的名字
 ---@return table 获取到的表
 function 表_从编辑器获取(表名)
-    return y3.game.get_table(表名)
+    return y3.游戏.get_table(表名)
 end
 
 ---表_是否存在字段
@@ -51,19 +51,19 @@ end
 ---@param 字段 integer|string
 ---@return boolean
 function 表_是否存在字段(表, 字段)
-    return y3.game.table_has_key(表, 字段)
+    return y3.游戏.table_has_key(表, 字段)
 end
 
 ---表_清空
 ---@param 表 table
 function 表_清空(表)
-    y3.game.clear_table(表)
+    y3.游戏.clear_table(表)
 end
 
 ---表_加密
 ---@param 表 table
 function 表_加密(表)
-    y3.game.encrypt_table(表)
+    y3.游戏.encrypt_table(表)
 end
 
 ---表_到字符串

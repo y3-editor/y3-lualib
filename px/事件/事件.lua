@@ -15,14 +15,14 @@ end
 ---@param 名称 string
 ---@param 参数 table
 function m.发送_自定义(名称, 参数)
-    y3.game:event_notify(名称, 参数)
+    y3.游戏:event_notify(名称, 参数)
 end
 
 ---@param 名称 string
 ---@param 标识 string
 ---@param 参数 table
 function m.发送_自定义_带标识(名称, 标识, 参数)
-    y3.game:event_notify_with_args(名称, { 标识 }, 参数)
+    y3.游戏:event_notify_with_args(名称, { 标识 }, 参数)
 end
 
 ---@param 名称 string
@@ -32,7 +32,7 @@ end
 ---@return any
 ---@return any
 function m.发送_自定义_回执模式(名称, 参数)
-    return y3.game:event_dispatch(名称, 参数)
+    return y3.游戏:event_dispatch(名称, 参数)
 end
 
 ---@param 名称 string
@@ -43,7 +43,7 @@ end
 ---@return any
 ---@return any
 function m.发送_自定义_带标识_回执模式(名称, 标识, 参数)
-    return y3.game:event_dispatch_with_args(名称, { 标识 }, 参数)
+    return y3.游戏:event_dispatch_with_args(名称, { 标识 }, 参数)
 end
 
 ---@class 参_事件
@@ -53,7 +53,7 @@ end
 ---@param 回调 fun(参数:参_事件)
 ---@return Trigger
 function m.自定义(名称, 回调)
-    return _缓存触发器(y3.game:event_on(名称, function(触发器, 参数)
+    return _缓存触发器(y3.游戏:event_on(名称, function(触发器, 参数)
         参数.当前触发器 = 触发器
         回调(参数)
     end))
@@ -64,7 +64,7 @@ end
 ---@param 回调 fun(参数:参_事件)
 ---@return Trigger
 function m.自定义_带标识(名称, 标识, 回调)
-    return _缓存触发器(y3.game:event_on(名称, { 标识 }, function(触发器, 参数)
+    return _缓存触发器(y3.游戏:event_on(名称, { 标识 }, function(触发器, 参数)
         参数.当前触发器 = 触发器
         回调(参数)
     end))
@@ -112,7 +112,7 @@ end
 ---@param 回调 fun(参数:参_事件.玩家_发送消息)
 ---@return Trigger
 function m.玩家_发送消息(回调)
-    return _缓存触发器(y3.game:event("玩家-发送消息", function(trg, data)
+    return _缓存触发器(y3.游戏:event("玩家-发送消息", function(trg, data)
         回调({
             当前触发器 = trg,
             触发玩家 = data.player,
@@ -124,7 +124,7 @@ end
 ---@param 回调 fun(参数:参_事件.玩家_发送消息)
 ---@return Trigger
 function m.玩家_发送指定消息(消息, 回调)
-    return _缓存触发器(y3.game:event("玩家-发送指定消息", 消息, function(trg, data)
+    return _缓存触发器(y3.游戏:event("玩家-发送指定消息", 消息, function(trg, data)
         回调({
             当前触发器 = trg,
             触发玩家 = data.player,
@@ -140,7 +140,7 @@ end
 ---@param 键名 枚举.键盘按类型
 ---@param 回调 fun(参数:参_事件.键盘)
 function m.键盘_按下(键名, 回调)
-    return _缓存触发器(y3.game:event("键盘-按下", 键名, function(trg, data)
+    return _缓存触发器(y3.游戏:event("键盘-按下", 键名, function(trg, data)
         回调({
             当前触发器 = trg,
             触发按键 = data.current_key,
@@ -152,7 +152,7 @@ end
 ---@param 键名 枚举.键盘按类型
 ---@param 回调 fun(参数:参_事件.键盘)
 function m.键盘_抬起(键名, 回调)
-    return _缓存触发器(y3.game:event("键盘-抬起", 键名, function(trg, data)
+    return _缓存触发器(y3.游戏:event("键盘-抬起", 键名, function(trg, data)
         回调({
             当前触发器 = trg,
             触发按键 = data.current_key,
@@ -171,7 +171,7 @@ end
 ---@param 回调 fun(参数:参_事件.界面消息)
 ---@return Trigger
 function m.控件(名称, 回调)
-    return _缓存触发器(y3.game:event("界面-消息", 名称, function(trg, data)
+    return _缓存触发器(y3.游戏:event("界面-消息", 名称, function(trg, data)
         回调({
             当前触发器 = trg,
             触发事件名称 = data.ui_event_name,

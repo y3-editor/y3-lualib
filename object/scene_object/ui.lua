@@ -1031,7 +1031,7 @@ function M:获取_参数(参数名)
     return M.控件数据[self.player.id][self.handle][参数名]
 end
 
-y3.game:event("游戏-初始化", function(trg, data)
+y3.游戏:event("游戏-初始化", function(trg, data)
     y3.玩家组.获取所有玩家():遍历(function(索引, 遍历到的玩家)
         M.控件数据[遍历到的玩家.id] = {}
     end)

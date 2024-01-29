@@ -86,7 +86,7 @@ end
 
 y3.py_converter.register_py_to_lua("py.UnitID", M.从唯一id获取)
 
-y3.game:event("单位-移除后", function(trg, data)
+y3.游戏:event("单位-移除后", function(trg, data)
     local id = data.unit.id
     M.ref_manager:remove(id)
 end)

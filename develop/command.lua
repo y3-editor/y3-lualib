@@ -17,7 +17,7 @@ end
 
 ---@param reload Reload
 local function remove_all_triggers_in_include(reload)
-    local event_manager = y3.game:get_event_manager()
+    local event_manager = y3.游戏:get_event_manager()
     for trigger in event_manager:pairs() do
         local name = trigger:获取名称()
         if reload:isValidName(name) then
@@ -89,8 +89,8 @@ y3.reload.onBeforeReload(function(reload, willReload)
     remove_all_local_timers_in_include(reload)
 end)
 
-y3.game:event("玩家-发送消息", function(trg, data)
-    if not y3.game.是否为调试模式() then
+y3.游戏:event("玩家-发送消息", function(trg, data)
+    if not y3.游戏.是否为调试模式() then
         return
     end
     if not y3.util.stringStartWith(data.str1, ".") then

@@ -45,7 +45,7 @@ print = log.debug
 
 y3.const = require "y3.game.const"
 y3.math = require "y3.game.math"
-y3.game = require "y3.game.game"
+y3.游戏 = require "y3.game.game"
 y3.py_converter = require "y3.game.py_converter"
 y3.py_event_sub = require "y3.game.py_event_subscribe"
 y3.helper = require "y3.game.helper"

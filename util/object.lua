@@ -1,13 +1,13 @@
 -- 物体编辑器
 ---@class EditorObject
-local M = Class 'EditorObject'
+local M = Class "EditorObject"
 
 ---@class EditorObject.DataModule
 ---@field private data_key string
-local DataModule = Class 'EditorObject.DataModule'
+local DataModule = Class "EditorObject.DataModule"
 
 ---@diagnostic disable-next-line: undefined-field
-DataModule.__getter.data = function (self)
+DataModule.__getter.data = function(self)
     return GameAPI.api_get_editor_type_data(self.data_key, self.key), true
 end
 
@@ -16,19 +16,19 @@ end
 ---@field on_create? fun(unit: Unit) # 单位创建后执行
 ---@field on_remove? fun(unit: Unit) # 单位移除后执行
 ---@field on_dead? fun(unit: Unit) # 单位死亡后执行
---单位的物编数据，你可以从里面读取或修改任意物编  
---> 警告：请确保数据类型正确，否则可能导致崩溃  
+--单位的物编数据，你可以从里面读取或修改任意物编
+--> 警告：请确保数据类型正确，否则可能导致崩溃
 --> 警告：如果创建过此单位再修改数据，行为是未定义的
 ---@field data Object.Unit
-local Unit = Class 'EditorObject.Unit'
+local Unit = Class "EditorObject.Unit"
 
-Extends('EditorObject.Unit', 'EditorObject.DataModule')
+Extends("EditorObject.Unit", "EditorObject.DataModule")
 ---@class EditorObject.Unit: KV
-Extends('EditorObject.Unit', 'KV')
-Unit.kv_key = 'unit_key'
+Extends("EditorObject.Unit", "KV")
+Unit.kv_key = "unit_key"
 
 ---@private
-Unit.data_key = 'editor_unit'
+Unit.data_key = "editor_unit"
 
 function Unit:__init(key)
     self.key = key
@@ -42,8 +42,8 @@ function Unit:new()
 end
 
 ---@type table<integer, EditorObject.Unit>
-M.unit = y3.util.defaultTable(function (key)
-    return New 'EditorObject.Unit' (key)
+M.unit = y3.util.defaultTable(function(key)
+    return New "EditorObject.Unit" (key)
 end)
 
 ---@class EditorObject.Item: EditorObject.DataModule
@@ -52,19 +52,19 @@ end)
 ---@field on_lose? fun(item: Item) # 物品失去后执行
 ---@field on_create? fun(item: Item) # 物品创建后执行
 ---@field on_remove? fun(item: Item) # 物品移除后执行
---物品的物编数据，你可以从里面读取或修改任意物编  
---> 警告：请确保数据类型正确，否则可能导致崩溃  
+--物品的物编数据，你可以从里面读取或修改任意物编
+--> 警告：请确保数据类型正确，否则可能导致崩溃
 --> 警告：如果创建过此物品再修改数据，行为是未定义的
 ---@field data Object.Item
-local Item = Class 'EditorObject.Item'
+local Item = Class "EditorObject.Item"
 
-Extends('EditorObject.Item', 'EditorObject.DataModule')
+Extends("EditorObject.Item", "EditorObject.DataModule")
 ---@class EditorObject.Item: KV
-Extends('EditorObject.Item', 'KV')
-Item.kv_key = 'item_key'
+Extends("EditorObject.Item", "KV")
+Item.kv_key = "item_key"
 
 ---@private
-Item.data_key = 'editor_item'
+Item.data_key = "editor_item"
 
 function Item:__init(key)
     self.key = key
@@ -78,8 +78,8 @@ function Item:new()
 end
 
 ---@type table<integer, EditorObject.Item>
-M.item = y3.util.defaultTable(function (key)
-    return New 'EditorObject.Item' (key)
+M.item = y3.util.defaultTable(function(key)
+    return New "EditorObject.Item" (key)
 end)
 
 ---@class EditorObject.Buff: EditorObject.DataModule
@@ -88,19 +88,19 @@ end)
 ---@field on_add? fun(buff: Buff) # 效果获得后执行
 ---@field on_lose? fun(buff: Buff) # 效果失去后执行
 ---@field on_pulse? fun(buff: Buff) # 效果心跳后执行
---魔法效果的物编数据，你可以从里面读取或修改任意物编  
---> 警告：请确保数据类型正确，否则可能导致崩溃  
+--魔法效果的物编数据，你可以从里面读取或修改任意物编
+--> 警告：请确保数据类型正确，否则可能导致崩溃
 --> 警告：如果创建过此魔法效果再修改数据，行为是未定义的
 ---@field data Object.Buff
-local Buff = Class 'EditorObject.Buff'
+local Buff = Class "EditorObject.Buff"
 
-Extends('EditorObject.Buff', 'EditorObject.DataModule')
+Extends("EditorObject.Buff", "EditorObject.DataModule")
 ---@class EditorObject.Buff: KV
-Extends('EditorObject.Buff', 'KV')
-Buff.kv_key = 'modifier_key'
+Extends("EditorObject.Buff", "KV")
+Buff.kv_key = "modifier_key"
 
 ---@private
-Buff.data_key = 'modifier_all'
+Buff.data_key = "modifier_all"
 
 function Buff:__init(key)
     self.key = key
@@ -114,8 +114,8 @@ function Buff:new()
 end
 
 ---@type table<integer, EditorObject.Buff>
-M.buff = y3.util.defaultTable(function (key)
-    return New 'EditorObject.Buff' (key)
+M.buff = y3.util.defaultTable(function(key)
+    return New "EditorObject.Buff" (key)
 end)
 
 ---@class EditorObject.Ability: EditorObject.DataModule
@@ -130,19 +130,19 @@ end)
 ---@field on_cast_shot? fun(ability: Ability, cast: Cast) # 技能出手施法时执行
 ---@field on_cast_finish? fun(ability: Ability, cast: Cast) # 技能完成施法时执行
 ---@field on_cast_stop? fun(ability: Ability, cast: Cast) # 技能停止施法时执行
---技能的物编数据，你可以从里面读取或修改任意物编  
---> 警告：请确保数据类型正确，否则可能导致崩溃  
+--技能的物编数据，你可以从里面读取或修改任意物编
+--> 警告：请确保数据类型正确，否则可能导致崩溃
 --> 警告：如果创建过此技能再修改数据，行为是未定义的
 ---@field data Object.Ability: Class.Base
-local Ability = Class 'EditorObject.Ability'
+local Ability = Class "EditorObject.Ability"
 
-Extends('EditorObject.Ability', 'EditorObject.DataModule')
+Extends("EditorObject.Ability", "EditorObject.DataModule")
 ---@class EditorObject.Ability: KV
-Extends('EditorObject.Ability', 'KV')
-Ability.kv_key = 'ability_key'
+Extends("EditorObject.Ability", "KV")
+Ability.kv_key = "ability_key"
 
 ---@private
-Ability.data_key = 'ability_all'
+Ability.data_key = "ability_all"
 
 function Ability:__init(key)
     self.key = key
@@ -156,20 +156,20 @@ function Ability:new()
 end
 
 ---@type table<integer, EditorObject.Ability>
-M.ability = y3.util.defaultTable(function (key)
-    return New 'EditorObject.Ability' (key)
+M.ability = y3.util.defaultTable(function(key)
+    return New "EditorObject.Ability" (key)
 end)
 
 M.lock_count_map = setmetatable({}, {
-    __mode = 'k',
-    __index = function (t, k)
+    __mode = "k",
+    __index = function(t, k)
         t[k] = 0
         return 0
     end,
 })
 M.call_stack_map = setmetatable({}, {
-    __mode = 'k',
-    __index = function (t, k)
+    __mode = "k",
+    __index = function(t, k)
         t[k] = {}
         return t[k]
     end,
@@ -193,7 +193,7 @@ function M.callMethod(otype, mname, key, lock_obj, arg1, arg2)
     end
     local stack = M.call_stack_map[lock_obj]
     if M.lock_count_map[key] > 0 then
-        stack[#stack+1] = function ()
+        stack[#stack + 1] = function()
             M.callMethod(otype, mname, key, lock_obj, arg1, arg2)
         end
         return
@@ -206,88 +206,88 @@ function M.callMethod(otype, mname, key, lock_obj, arg1, arg2)
     end
 end
 
-y3.game:event('单位-创建', function (trg, data)
-    M.callMethod('unit', 'on_create', data.unit:get_key(), data.unit, data.unit)
+y3.游戏:event("单位-创建", function(trg, data)
+    M.callMethod("unit", "on_create", data.unit:get_key(), data.unit, data.unit)
 end)
 
-y3.game:event('单位-移除', function (trg, data)
-    M.callMethod('unit', 'on_remove', data.unit:get_key(), data.unit, data.unit)
+y3.游戏:event("单位-移除", function(trg, data)
+    M.callMethod("unit", "on_remove", data.unit:get_key(), data.unit, data.unit)
 end)
 
-y3.game:event('单位-死亡', function (trg, data)
-    M.callMethod('unit', 'on_dead', data.unit:get_key(), data.unit, data.unit)
+y3.游戏:event("单位-死亡", function(trg, data)
+    M.callMethod("unit", "on_dead", data.unit:get_key(), data.unit, data.unit)
 end)
 
-y3.game:event('物品-获得', function (trg, data)
-    M.callMethod('item','on_add', data.item_no, data.item, data.item)
+y3.游戏:event("物品-获得", function(trg, data)
+    M.callMethod("item", "on_add", data.item_no, data.item, data.item)
 end)
 
-y3.game:event('物品-失去', function (trg, data)
-    M.callMethod('item', 'on_lose', data.item_no, data.item, data.item)
+y3.游戏:event("物品-失去", function(trg, data)
+    M.callMethod("item", "on_lose", data.item_no, data.item, data.item)
 end)
 
-y3.game:event('物品-创建', function (trg, data)
-    M.callMethod('item', 'on_create', data.item:get_key(), data.item, data.item)
+y3.游戏:event("物品-创建", function(trg, data)
+    M.callMethod("item", "on_create", data.item:get_key(), data.item, data.item)
 end)
 
-y3.game:event('物品-移除', function (trg, data)
-    M.callMethod('item', 'on_remove', data.item:get_key(), data.item, data.item)
+y3.游戏:event("物品-移除", function(trg, data)
+    M.callMethod("item", "on_remove", data.item:get_key(), data.item, data.item)
 end)
 
-y3.game:event('效果-即将获得', function (trg, data)
-    M.callMethod('buff', 'on_can_add', data.buff:get_key(), nil, data.buff)
+y3.游戏:event("效果-即将获得", function(trg, data)
+    M.callMethod("buff", "on_can_add", data.buff:get_key(), nil, data.buff)
 end)
 
-y3.game:event('效果-获得', function (trg, data)
-    M.callMethod('buff', 'on_add', data.buff:get_key(), data.buff, data.buff)
+y3.游戏:event("效果-获得", function(trg, data)
+    M.callMethod("buff", "on_add", data.buff:get_key(), data.buff, data.buff)
 end)
 
-y3.game:event('效果-失去', function (trg, data)
-    M.callMethod('buff', 'on_lose', data.buff:get_key(), data.buff, data.buff)
+y3.游戏:event("效果-失去", function(trg, data)
+    M.callMethod("buff", "on_lose", data.buff:get_key(), data.buff, data.buff)
 end)
 
-y3.game:event('效果-心跳', function (trg, data)
-    M.callMethod('buff', 'on_pulse', data.buff:get_key(), data.buff, data.buff)
+y3.游戏:event("效果-心跳", function(trg, data)
+    M.callMethod("buff", "on_pulse", data.buff:get_key(), data.buff, data.buff)
 end)
 
-y3.game:event('技能-获得', function (trg, data)
-    M.callMethod('ability', 'on_add', data.ability:get_key(), data.ability, data.ability)
+y3.游戏:event("技能-获得", function(trg, data)
+    M.callMethod("ability", "on_add", data.ability:get_key(), data.ability, data.ability)
 end)
 
-y3.game:event('技能-失去', function (trg, data)
-    M.callMethod('ability', 'on_lose', data.ability:get_key(), data.ability, data.ability)
+y3.游戏:event("技能-失去", function(trg, data)
+    M.callMethod("ability", "on_lose", data.ability:get_key(), data.ability, data.ability)
 end)
 
-y3.game:event('技能-冷却结束', function (trg, data)
-    M.callMethod('ability', 'on_cooldown', data.ability:get_key(), data.ability, data.ability)
+y3.游戏:event("技能-冷却结束", function(trg, data)
+    M.callMethod("ability", "on_cooldown", data.ability:get_key(), data.ability, data.ability)
 end)
 
-y3.game:event('技能-升级', function (trg, data)
-    M.callMethod('ability', 'on_upgrade', data.ability:get_key(), data.ability, data.ability)
+y3.游戏:event("技能-升级", function(trg, data)
+    M.callMethod("ability", "on_upgrade", data.ability:get_key(), data.ability, data.ability)
 end)
 
-y3.game:event('施法-即将开始', function (trg, data)
-    M.callMethod('ability', 'on_can_cast', data.ability:get_key(), nil, data.ability, data.cast)
+y3.游戏:event("施法-即将开始", function(trg, data)
+    M.callMethod("ability", "on_can_cast", data.ability:get_key(), nil, data.ability, data.cast)
 end)
 
-y3.game:event('施法-开始', function (trg, data)
-    M.callMethod('ability', 'on_cast_start', data.ability:get_key(), data.ability, data.ability, data.cast)
+y3.游戏:event("施法-开始", function(trg, data)
+    M.callMethod("ability", "on_cast_start", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
-y3.game:event('施法-引导', function (trg, data)
-    M.callMethod('ability', 'on_cast_channel', data.ability:get_key(), data.ability, data.ability, data.cast)
+y3.游戏:event("施法-引导", function(trg, data)
+    M.callMethod("ability", "on_cast_channel", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
-y3.game:event('施法-出手', function (trg, data)
-    M.callMethod('ability', 'on_cast_shot', data.ability:get_key(), data.ability, data.ability, data.cast)
+y3.游戏:event("施法-出手", function(trg, data)
+    M.callMethod("ability", "on_cast_shot", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
-y3.game:event('施法-完成', function (trg, data)
-    M.callMethod('ability', 'on_cast_finish', data.ability:get_key(), data.ability, data.ability, data.cast)
+y3.游戏:event("施法-完成", function(trg, data)
+    M.callMethod("ability", "on_cast_finish", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
-y3.game:event('施法-停止', function (trg, data)
-    M.callMethod('ability', 'on_cast_stop', data.ability:get_key(), data.ability, data.ability, data.cast)
+y3.游戏:event("施法-停止", function(trg, data)
+    M.callMethod("ability", "on_cast_stop", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
 return M

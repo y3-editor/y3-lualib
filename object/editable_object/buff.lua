@@ -66,7 +66,7 @@ y3.py_converter.register_lua_to_py("py.ModifierEntity", function(lua_value)
     return lua_value.handle
 end)
 
-y3.game:event("效果-失去", function(trg, data)
+y3.游戏:event("效果-失去", function(trg, data)
     local id = data.buff.id
     M.ref_manager:remove(id)
 end)

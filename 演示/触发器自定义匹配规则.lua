@@ -1,4 +1,4 @@
-y3.game:event("键盘-按下", y3.const.KeyboardKey["F1"], function(trg, data)
+y3.游戏:event("键盘-按下", y3.const.KeyboardKey["F1"], function(trg, data)
     ---@param args any[]
     ---@param match_func fun(fire_args: any[]?, event_args: any[]?): boolean
     ---@return table
@@ -22,29 +22,29 @@ y3.game:event("键盘-按下", y3.const.KeyboardKey["F1"], function(trg, data)
     end
 
 
-    data.player:event_on('获得', function()
-        print('触发获得')
-        print('发起移除前')
-        data.player:event_notify('移除1', "000 1")
-        data.player:event_dispatch('移除1')
+    data.player:event_on("获得", function()
+        print("触发获得")
+        print("发起移除前")
+        data.player:event_notify("移除1", "000 1")
+        data.player:event_dispatch("移除1")
         -- 无法匹配
-        data.player:event_dispatch_with_args('移除2', { 123 }, "111 1")
+        data.player:event_dispatch_with_args("移除2", { 123 }, "111 1")
         -- 可以匹配
-        data.player:event_dispatch_with_args('移除2', creat_custom_match({ 123 }, custom_match_rule), "111 2")
-        data.player:event_notify('移除2', "000 2")
+        data.player:event_dispatch_with_args("移除2", creat_custom_match({ 123 }, custom_match_rule), "111 2")
+        data.player:event_notify("移除2", "000 2")
 
-        print('发起移除后')
+        print("发起移除后")
     end)
 
 
-    data.player:event_on('移除1', function(trg, key)
-        print('触发移除 1', key)
+    data.player:event_on("移除1", function(trg, key)
+        print("触发移除 1", key)
     end)
 
-    data.player:event_on('移除2', { 456 }, function(trg, key)
-        print('触发移除 2', key)
+    data.player:event_on("移除2", { 456 }, function(trg, key)
+        print("触发移除 2", key)
     end)
 
 
-    data.player:event_notify('获得')
+    data.player:event_notify("获得")
 end)

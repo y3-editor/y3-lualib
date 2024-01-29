@@ -60,7 +60,7 @@ y3.py_converter.register_lua_to_py("py.Projectile", function(lua_value)
 end)
 y3.py_converter.register_py_to_lua("py.ProjectileID", M.get_by_id)
 
-y3.game:event("投射物-死亡", function(trg, data)
+y3.游戏:event("投射物-死亡", function(trg, data)
     local id = data.projectile.id
     M.ref_manager:remove(id)
 end)

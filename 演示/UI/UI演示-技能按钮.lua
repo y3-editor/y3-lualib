@@ -23,6 +23,6 @@ local function init_ui()
     skill_image:set_image(106728)
 end
 
-y3.game:event("游戏-初始化", function()
+y3.游戏:event("游戏-初始化", function()
     init_ui()
 end)
