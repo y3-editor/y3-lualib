@@ -32,6 +32,15 @@ function M:到单位数组()
     return lua_table
 end
 
+---@param 回调 fun(索引:integer,遍历到的单位:Unit)
+function M:遍历(回调)
+    for index, value in ipairs(self:到单位数组()) do
+        if 回调(index, value) then
+            return
+        end
+    end
+end
+
 function M:选中组内单位()
     GameAPI.set_unit_group_selected(self.handle)
 end

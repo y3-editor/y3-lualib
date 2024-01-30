@@ -18,6 +18,9 @@ Extends("Unit", "ObjectEvent")
 ---@class Unit: KV
 Extends("Unit", "KV")
 
+---@type Unit[]
+local 已创建单位 = {}
+
 ---@private
 function M:__tostring()
     return string.format("{unit|%s|%s}"
@@ -33,7 +36,6 @@ end
 function M:__init(py_unit_id, py_unit)
     self.handle = py_unit
     self.id = py_unit_id
-    self.触发器 = {}
     return self
 end
 
@@ -277,7 +279,9 @@ function M.创建(owner, unit_id, point, direction)
         ---@diagnostic disable-next-line: param-type-mismatch
         owner.handle
     )
-    return M.从句柄获取(py_unit)
+    local re = M.从句柄获取(py_unit)
+    table.insert(已创建单位, re)
+    return re
 end
 
 ---杀死单位
@@ -841,32 +845,32 @@ end
 
 ---设置模型缩放
 ---@param scale number 模型缩放
-function M:set_scale(scale)
+function M:所在模型缩放(scale)
     self.handle:api_set_scale(scale)
 end
 
 ---设置转身速度
 ---@param speed number 转身速度
-function M:set_turning_speed(speed)
+function M:设置转身速度(speed)
     self.handle:api_set_turn_speed(Fix32(speed))
 end
 
 ---替换模型
----@param model_id py.ModelKey 模型id
-function M:replace_model(model_id)
+---@param model_id py.ModelKey|integer 模型id
+function M:替换模型(model_id)
     self.handle:api_replace_model(model_id)
 end
 
 ---取消模型替换
 ---@param model_id py.ModelKey 模型id
-function M:cancel_replace_model(model_id)
+function M:取消替换模型(model_id)
     self.handle:api_cancel_replace_model(model_id)
 end
 
 --**********************这是啥
 ---设置隐身可见时是否半透明
 ---@param is_visible boolean 是否半透明
-function M:set_transparent_when_invisible(is_visible)
+function M:设置隐身时是否为半透明(is_visible)
     self.handle:api_set_transparent_when_invisible(is_visible)
 end
 
@@ -1746,5 +1750,11 @@ end
 function M:获取_主属性()
     return self.handle:api_get_main_attr()
 end
+
+y3.reload.onBeforeReload(function(reload, willReload)
+    for index, value in ipairs(已创建单位) do
+        value:移除()
+    end
+end)
 
 return M

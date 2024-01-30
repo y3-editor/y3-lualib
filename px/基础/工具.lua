@@ -26,13 +26,13 @@ end
 
 ---@generic T
 ---@param 判断 any 判断为真返回结果1 否则返回结果2
----@param 结果1 T
----@param 结果2 T
+---@param true值 T
+---@param false值 T
 ---@return T
-function 判断选择(判断, 结果1, 结果2)
+function 判断选择(判断, true值, false值)
     if 判断 then
-        return 结果1
+        return true值
     else
-        return 结果2
+        return false值
     end
 end

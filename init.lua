@@ -10,6 +10,7 @@ y3.proxy = require "y3.tools.proxy"
 y3.class = require "y3.tools.class"
 y3.util  = require "y3.tools.utility"
 y3.json  = require "y3.tools.json"
+
 pcall(function()
     y3.doctor = require "y3.tools.doctor"
 end)
@@ -22,6 +23,8 @@ Super   = y3.class.super
 Extends = y3.class.extends
 Delete  = y3.class.delete
 IsValid = y3.class.isValid
+
+
 
 require "y3.util.log"
 y3.reload = require "y3.tools.reload"
