@@ -53,10 +53,10 @@ end)
 ---@field on_create? fun(item: Item) # 物品创建后执行
 ---@field on_remove? fun(item: Item) # 物品移除后执行
 ---@field on_usage? fun(item: Item) # 物品使用后执行
----@field on_in_pack? fun(item: Item) # 物品进入单位背包栏后执行
----@field on_out_pack? fun(item: Item) # 物品离开单位背包栏后执行
----@field on_in_bar? fun(item: Item) # 物品进入单位物品栏后执行
----@field on_out_bar? fun(item: Item) # 物品离开单位物品栏后执行
+---@field on_enter_pack? fun(item: Item) # 物品进入单位背包栏后执行
+---@field on_leave_pack? fun(item: Item) # 物品离开单位背包栏后执行
+---@field on_enter_bar? fun(item: Item) # 物品进入单位物品栏后执行
+---@field on_leave_bar? fun(item: Item) # 物品离开单位物品栏后执行
 ---@field on_stack_change? fun(item: Item) # 物品堆叠层数变化后执行
 ---@field on_charging_change? fun(item: Item) # 物品充能层数变化后执行
 --物品的物编数据，你可以从里面读取或修改任意物编  
