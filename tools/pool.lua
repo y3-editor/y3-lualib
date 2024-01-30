@@ -1,10 +1,11 @@
 ---@class Pool
 ---@field private pool table<any, integer>
 ---@overload fun(): self
-local M = Class 'Pool'
+local M = Class "Pool"
 
 function M:__init()
     self.pool = {}
+    调试输出("初始化", self.pool)
     return self
 end
 
@@ -65,7 +66,7 @@ function M:random(filter)
 
     for obj, w in pairs(self.pool) do
         if not filter or filter(obj) == true then
-            valid[#valid+1] = obj
+            valid[#valid + 1] = obj
             total = total + w
         end
     end
@@ -84,7 +85,7 @@ function M:random(filter)
         end
     end
 
-    error('unreachable')
+    error("unreachable")
 end
 
 -- 抽取多个随机对象，不重复
@@ -95,7 +96,7 @@ function M:random_n(num, filter)
     local results = {}
     local mark = {}
     for i = 1, num do
-        local obj = self:random(function (obj)
+        local obj = self:random(function(obj)
             if mark[obj] then
                 return false
             end
@@ -118,16 +119,16 @@ end
 function M:dump()
     local keys = {}
     for k in pairs(self.pool) do
-        keys[#keys+1] = k
+        keys[#keys + 1] = k
     end
-    table.sort(keys, function (a, b)
+    table.sort(keys, function(a, b)
         return tostring(a) < tostring(b)
     end)
     local buf = {}
     for i, k in ipairs(keys) do
-        buf[i] = ('%s: %d'):format(tostring(k), self.pool[k])
+        buf[i] = ("%s: %d"):format(tostring(k), self.pool[k])
     end
-    return table.concat(buf, '\n')
+    return table.concat(buf, "\n")
 end
 
 -- 遍历池的对象
@@ -135,15 +136,21 @@ end
 function M:pairs()
     local keys = {}
     for k in pairs(self.pool) do
-        keys[#keys+1] = k
+        keys[#keys + 1] = k
     end
-    table.sort(keys, function (a, b)
+    table.sort(keys, function(a, b)
         return tostring(a) < tostring(b)
     end)
     local i = 0
-    return function ()
+    return function()
         i = i + 1
         local k = keys[i]
         return k, self.pool[k]
     end
 end
+
+function M.create()
+    return New "Pool" ()
+end
+
+return M

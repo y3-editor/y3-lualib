@@ -370,7 +370,7 @@ end
 ---@return Unit owner 技能拥有者
 function M:get_owner()
     local py_unit = self.handle:api_get_owner()
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 ---获取当前冷却时间
@@ -390,7 +390,7 @@ end
 function M:get_target(cast)
     local unit = GameAPI.get_target_unit_in_ability(self.handle, cast)
     if unit then
-        return y3.单位.从句柄获取(unit)
+        return y3.单位.从handle获取(unit)
     end
 
     local dest = GameAPI.get_target_dest_in_ability(self.handle, cast)

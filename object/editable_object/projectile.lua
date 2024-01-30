@@ -94,7 +94,7 @@ end
 ---@return Unit unit 投射物的拥有者
 function M:get_owner()
     local py_unit = self.handle:api_get_owner()
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 ---获取投射物朝向

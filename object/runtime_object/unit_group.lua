@@ -93,19 +93,19 @@ end
 ---@return Unit unit 单位组内第一个单位
 function M:获取第一格单位()
     local py_unit = GameAPI.get_first_unit_in_group(self.handle)
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 ---@return Unit unit 单位组中随机一个单位
 function M:获取随机一个单位()
     local py_unit = GameAPI.get_random_unit_in_unit_group(self.handle)
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 ---@return Unit unit 最后一个单位
 function M:获取最后一个单位()
     local py_unit = GameAPI.get_last_unit_in_group(self.handle)
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 return M

@@ -86,7 +86,7 @@ function M:get_target_unit()
     if not py_unit then
         return nil
     end
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 -- 获取施法目标可破坏物

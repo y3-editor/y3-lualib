@@ -18,9 +18,6 @@ Extends("Unit", "ObjectEvent")
 ---@class Unit: KV
 Extends("Unit", "KV")
 
----@type Unit[]
-local 已创建单位 = {}
-
 ---@private
 function M:__tostring()
     return string.format("{unit|%s|%s}"
@@ -58,13 +55,13 @@ end)
 ---通过py层的单位实例获取lua层的单位实例
 ---@param py_unit py.Unit
 ---@return Unit
-function M.从句柄获取(py_unit)
+function M.从handle获取(py_unit)
     local id = py_unit:api_get_id()
     local unit = M.ref_manager:get(id)
     return unit
 end
 
-y3.py_converter.register_py_to_lua("py.Unit", M.从句柄获取)
+y3.py_converter.register_py_to_lua("py.Unit", M.从handle获取)
 y3.py_converter.register_lua_to_py("py.Unit", function(lua_value)
     return lua_value.handle
 end)
@@ -279,9 +276,7 @@ function M.创建(owner, unit_id, point, direction)
         ---@diagnostic disable-next-line: param-type-mismatch
         owner.handle
     )
-    local re = M.从句柄获取(py_unit)
-    table.insert(已创建单位, re)
-    return re
+    return M.从handle获取(py_unit)
 end
 
 ---杀死单位
@@ -1416,7 +1411,7 @@ function M.get_last_created_unit()
     if not py_unit then
         return nil
     end
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 ---获取单位的拥有者（单位）
@@ -1426,7 +1421,7 @@ function M:get_parent_unit()
     if not py_unit then
         return nil
     end
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 ---获取幻象的召唤者
@@ -1436,7 +1431,7 @@ function M:get_illusion_owner()
     if not py_unit then
         return nil
     end
-    return y3.单位.从句柄获取(py_unit)
+    return y3.单位.从handle获取(py_unit)
 end
 
 ---获取单位的朝向
@@ -1750,11 +1745,5 @@ end
 function M:获取_主属性()
     return self.handle:api_get_main_attr()
 end
-
-y3.reload.onBeforeReload(function(reload, willReload)
-    for index, value in ipairs(已创建单位) do
-        value:移除()
-    end
-end)
 
 return M

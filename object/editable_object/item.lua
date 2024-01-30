@@ -345,7 +345,7 @@ function M:get_owner()
     if not py_owner then
         return nil
     end
-    return y3.单位.从句柄获取(py_owner)
+    return y3.单位.从handle获取(py_owner)
 end
 
 ---物品所在点

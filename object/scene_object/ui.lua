@@ -4,16 +4,6 @@
 ---@overload fun(player: Player, ui_name: string): self
 local M = Class "UI"
 
----@type UI[]
-M.缓存表 = {}
-
----@param 当前控件 UI
----@return UI
-local function 缓存动态创建的控件(当前控件)
-    table.insert(M.缓存表, 当前控件)
-    return 当前控件
-end
-
 M.type = "ui"
 
 ---@private
@@ -73,7 +63,7 @@ end
 ---@return UI 返回在lua层初始化后的lua层技能实例
 function M.创建(player, parent_ui, comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 7)
-    return 缓存动态创建的控件(y3.控件.从handle获取(player, py_ui))
+    return y3.控件.从handle获取(player, py_ui)
 end
 
 ---@param player Player 玩家
@@ -1035,12 +1025,6 @@ y3.游戏:event("游戏-初始化", function(trg, data)
     y3.玩家组.获取所有玩家():遍历(function(索引, 遍历到的玩家)
         M.控件数据[遍历到的玩家.id] = {}
     end)
-end)
-
-y3.reload.onBeforeReload(function(reload, willReload)
-    for index, value in ipairs(M.缓存表) do
-        value:移除()
-    end
 end)
 
 return M
