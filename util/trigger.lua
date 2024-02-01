@@ -22,7 +22,7 @@ function M:__init(event, event_args, callback)
     self._callback = callback
     self._id = counter()
     self._event_args = event_args
-    self._include_name = y3.reload.getCurrentIncludeName()
+    self._include_name = y3.重载.getCurrentIncludeName()
     event:add_trigger(self)
     return self
 end

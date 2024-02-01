@@ -21,7 +21,7 @@ Extends("Unit", "KV")
 ---@private
 function M:__tostring()
     return string.format("{unit|%s|%s}"
-    , self:获取_名称()
+    , self:获取名称()
     , self.handle
     )
 end
@@ -85,7 +85,7 @@ end
 
 y3.py_converter.register_py_to_lua("py.UnitID", M.从唯一id获取)
 
-y3.游戏:event("单位-移除后", function(trg, data)
+y3.游戏:事件("单位-移除后", function(trg, data)
     local id = data.unit.id
     M.ref_manager:remove(id)
 end)
@@ -566,7 +566,7 @@ end
 
 ---设置名称
 ---@param name string 名称
-function M:设置_名称(name)
+function M:设置名称(name)
     self.handle:api_set_name(name)
 end
 
@@ -1354,7 +1354,7 @@ end
 
 ---获取单位名称
 ---@return string unit_name  单位名称
-function M:获取_名称()
+function M:获取名称()
     return self.handle:api_get_name()
 end
 
@@ -1462,13 +1462,13 @@ end
 
 ---获取单位的当前模型
 ---@return py.ModelKey model 当前模型
-function M:get_model()
+function M:获取当前模型()
     return self.handle:api_get_model()
 end
 
 ---获取单位的原本模型
 ---@return py.ModelKey model 原本模型
-function M:get_source_model()
+function M:获取原始模型()
     return self.handle:api_get_source_model()
 end
 

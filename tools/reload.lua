@@ -165,7 +165,7 @@ end
 
 -- 注册在重载之后的回调
 ---@param callback Reload.afterReloadCallback
-function M.onAfterReload(callback)
+function M.事件_重载之后(callback)
     M.afterReloadCallbacks[#M.afterReloadCallbacks + 1] = {
         name     = M.getCurrentIncludeName(),
         callback = callback,

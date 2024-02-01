@@ -325,21 +325,28 @@ function M:设置按钮组合快捷键(key)
     return self
 end
 
+---@alias y3.控件.按钮状态
+---| "常态"
+---| "悬浮"
+---| "按下"
+---| "禁用"
+
+
 --设置按钮不同状态下的文本
----@param status y3.Const.UIButtonStatus 状态
+---@param status y3.控件.按钮状态
 ---@param text string 文本
 ---@return self
 function M:设置按钮文本(status, text)
-    GameAPI.set_ui_btn_status_string(self.player.handle, self.handle, status, text)
+    GameAPI.set_ui_btn_status_string(self.player.handle, self.handle, y3.const.UIButtonStatus[status], text)
     return self
 end
 
 --设置按钮不同状态下的图片
----@param status y3.Const.UIButtonStatus 状态
+---@param status y3.控件.按钮状态
 ---@param img integer 图片id
 ---@return self
 function M:设置按钮图片(status, img)
-    GameAPI.set_ui_btn_status_image(self.player.handle, self.handle, status, img)
+    GameAPI.set_ui_btn_status_image(self.player.handle, self.handle, y3.const.UIButtonStatus[status], img)
     return self
 end
 
@@ -1021,7 +1028,7 @@ function M:获取_参数(参数名)
     return M.控件数据[self.player.id][self.handle][参数名]
 end
 
-y3.游戏:event("游戏-初始化", function(trg, data)
+y3.游戏:事件("游戏-初始化", function(trg, data)
     y3.玩家组.获取所有玩家():遍历(function(索引, 遍历到的玩家)
         M.控件数据[遍历到的玩家.id] = {}
     end)

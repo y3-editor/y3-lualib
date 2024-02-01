@@ -63,7 +63,7 @@ y3.py_converter.register_lua_to_py("py.Ability", function(lua_value)
     return lua_value.handle
 end)
 
-y3.游戏:event("技能-失去", function(trg, data)
+y3.游戏:事件("技能-失去", function(trg, data)
     local id = data.ability.id
     M.ref_manager:remove(id)
 end)

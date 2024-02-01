@@ -206,87 +206,87 @@ function M.callMethod(otype, mname, key, lock_obj, arg1, arg2)
     end
 end
 
-y3.游戏:event("单位-创建", function(trg, data)
+y3.游戏:事件("单位-创建", function(trg, data)
     M.callMethod("unit", "on_create", data.unit:get_key(), data.unit, data.unit)
 end)
 
-y3.游戏:event("单位-移除", function(trg, data)
+y3.游戏:事件("单位-移除", function(trg, data)
     M.callMethod("unit", "on_remove", data.unit:get_key(), data.unit, data.unit)
 end)
 
-y3.游戏:event("单位-死亡", function(trg, data)
+y3.游戏:事件("单位-死亡", function(trg, data)
     M.callMethod("unit", "on_dead", data.unit:get_key(), data.unit, data.unit)
 end)
 
-y3.游戏:event("物品-获得", function(trg, data)
+y3.游戏:事件("物品-获得", function(trg, data)
     M.callMethod("item", "on_add", data.item_no, data.item, data.item)
 end)
 
-y3.游戏:event("物品-失去", function(trg, data)
+y3.游戏:事件("物品-失去", function(trg, data)
     M.callMethod("item", "on_lose", data.item_no, data.item, data.item)
 end)
 
-y3.游戏:event("物品-创建", function(trg, data)
+y3.游戏:事件("物品-创建", function(trg, data)
     M.callMethod("item", "on_create", data.item:get_key(), data.item, data.item)
 end)
 
-y3.游戏:event("物品-移除", function(trg, data)
+y3.游戏:事件("物品-移除", function(trg, data)
     M.callMethod("item", "on_remove", data.item:get_key(), data.item, data.item)
 end)
 
-y3.游戏:event("效果-即将获得", function(trg, data)
+y3.游戏:事件("效果-即将获得", function(trg, data)
     M.callMethod("buff", "on_can_add", data.buff:get_key(), nil, data.buff)
 end)
 
-y3.游戏:event("效果-获得", function(trg, data)
+y3.游戏:事件("效果-获得", function(trg, data)
     M.callMethod("buff", "on_add", data.buff:get_key(), data.buff, data.buff)
 end)
 
-y3.游戏:event("效果-失去", function(trg, data)
+y3.游戏:事件("效果-失去", function(trg, data)
     M.callMethod("buff", "on_lose", data.buff:get_key(), data.buff, data.buff)
 end)
 
-y3.游戏:event("效果-心跳", function(trg, data)
+y3.游戏:事件("效果-心跳", function(trg, data)
     M.callMethod("buff", "on_pulse", data.buff:get_key(), data.buff, data.buff)
 end)
 
-y3.游戏:event("技能-获得", function(trg, data)
+y3.游戏:事件("技能-获得", function(trg, data)
     M.callMethod("ability", "on_add", data.ability:get_key(), data.ability, data.ability)
 end)
 
-y3.游戏:event("技能-失去", function(trg, data)
+y3.游戏:事件("技能-失去", function(trg, data)
     M.callMethod("ability", "on_lose", data.ability:get_key(), data.ability, data.ability)
 end)
 
-y3.游戏:event("技能-冷却结束", function(trg, data)
+y3.游戏:事件("技能-冷却结束", function(trg, data)
     M.callMethod("ability", "on_cooldown", data.ability:get_key(), data.ability, data.ability)
 end)
 
-y3.游戏:event("技能-升级", function(trg, data)
+y3.游戏:事件("技能-升级", function(trg, data)
     M.callMethod("ability", "on_upgrade", data.ability:get_key(), data.ability, data.ability)
 end)
 
-y3.游戏:event("施法-即将开始", function(trg, data)
+y3.游戏:事件("施法-即将开始", function(trg, data)
     M.callMethod("ability", "on_can_cast", data.ability:get_key(), nil, data.ability, data.cast)
 end)
 
-y3.游戏:event("施法-开始", function(trg, data)
+y3.游戏:事件("施法-开始", function(trg, data)
     M.callMethod("ability", "on_cast_start", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
-y3.游戏:event("施法-引导", function(trg, data)
+y3.游戏:事件("施法-引导", function(trg, data)
     M.callMethod("ability", "on_cast_channel", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
-y3.游戏:event("施法-出手", function(trg, data)
+y3.游戏:事件("施法-出手", function(trg, data)
     M.callMethod("ability", "on_cast_shot", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
-y3.游戏:event("施法-完成", function(trg, data)
+y3.游戏:事件("施法-完成", function(trg, data)
     M.callMethod("ability", "on_cast_finish", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 
-y3.游戏:event("施法-停止", function(trg, data)
+y3.游戏:事件("施法-停止", function(trg, data)
     M.callMethod("ability", "on_cast_stop", data.ability:get_key(), data.ability, data.ability, data.cast)
 end)
 

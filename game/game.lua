@@ -401,28 +401,28 @@ end
 ---@param player Player 玩家
 ---@param result string 结果
 ---@param is_show boolean 是否展示界面
-function M.end_player_game(player, result, is_show)
+function M.结束玩家游戏(player, result, is_show)
     GameAPI.set_melee_result_by_role(player.handle, result, is_show, false, 0, false)
 end
 
 ---暂停游戏
-function M.pause_game()
+function M.暂停游戏()
     GameAPI.pause_game()
 end
 
 ---开始新一轮游戏
 ---@param fast_restart boolean 快速重置
-function M.restart_game(fast_restart)
+function M.开启新一轮游戏(fast_restart)
     GameAPI.request_new_round(fast_restart)
 end
 
 ---开启软暂停
-function M.enable_soft_pause()
+function M.开启软暂停()
     GameAPI.api_soft_pause_game()
 end
 
 ---恢复软暂停
-function M.resume_soft_pause()
+function M.恢复软暂停()
     GameAPI.api_soft_resume_game()
 end
 
@@ -523,7 +523,7 @@ end
 
 ---获取本局游戏环境
 ---@return integer game_mode 游戏环境，1是编辑器，2是平台
-function M.get_start_mode()
+function M.获取游戏环境()
     return GameAPI.api_get_start_mode()
 end
 
@@ -537,7 +537,7 @@ function M.是否为调试模式()
         return false
     end
     if y3.config.debug == "auto" then
-        return M.get_start_mode() == 1
+        return M.获取游戏环境() == 1
     end
     return false
 end

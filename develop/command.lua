@@ -28,10 +28,10 @@ end
 
 ---@param reload Reload
 local function remove_all_timers_in_include(reload)
-    for timer in y3.timer.pairs() do
+    for timer in y3.计时器.pairs() do
         local name = timer:get_include_name()
         if reload:isValidName(name) then
-            timer:remove()
+            timer:移除()
         end
     end
 end
@@ -47,7 +47,8 @@ local function remove_all_local_timers_in_include(reload)
 end
 
 M.register("RD", function()
-    y3.reload.reload()
+    y3.重载.reload()
+    y3.游戏.开启新一轮游戏(false)
 end)
 
 M.register("SS", function()
@@ -68,6 +69,7 @@ M.register("SS", function()
     log.debug("快照已保存到 script/log/snapshot.txt")
 end)
 
+
 M.register("CT", function(...)
     collectgarbage()
     collectgarbage()
@@ -83,13 +85,13 @@ M.register("CT", function(...)
     log.debug("快照已保存到 script/log/catch.txt")
 end)
 
-y3.reload.onBeforeReload(function(reload, willReload)
+y3.重载.onBeforeReload(function(reload, willReload)
     remove_all_triggers_in_include(reload)
     remove_all_timers_in_include(reload)
     remove_all_local_timers_in_include(reload)
 end)
 
-y3.游戏:event("玩家-发送消息", function(trg, data)
+y3.游戏:事件("玩家-发送消息", function(trg, data)
     if not y3.游戏.是否为调试模式() then
         return
     end
@@ -109,6 +111,13 @@ y3.游戏:event("玩家-发送消息", function(trg, data)
         return
     end
     f(table.unpack(strs))
+end)
+
+y3.游戏:事件("键盘-抬起", y3.const.KeyboardKey["RSHIFT"], function(trg, data)
+    if y3.游戏.是否为调试模式() then
+        y3.重载.reload()
+        return
+    end
 end)
 
 -- 执行作弊指令

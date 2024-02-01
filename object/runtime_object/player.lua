@@ -17,7 +17,7 @@ Extends("Player", "ObjectEvent")
 ---@class Player: KV
 Extends("Player", "KV")
 
----@package
+---@private
 ---@param key py.RoleID
 ---@return Player?
 M.ref_manager = New "Ref" ("Player", function(key)
@@ -28,6 +28,7 @@ M.ref_manager = New "Ref" ("Player", function(key)
     return New "Player" (py_player)
 end)
 
+---@private
 ---@param py_player py.Role
 ---@return self
 function M:__init(py_player)
@@ -36,6 +37,7 @@ function M:__init(py_player)
     return self
 end
 
+---@private
 function M:__tostring()
     return string.format("{Player|%d}"
     , self.id
@@ -433,7 +435,7 @@ end
 ---玩家的按键是否被按下
 ---@param key y3.Const.KeyboardKey | y3.Const.MouseKey 按键
 ---@return boolean 是否被按下
-function M:is_key_pressed(key)
+function M:是否按下按键(key)
     if not y3.config.sync.key then
         error("必须先设置 `y3.config.sync.key = true`")
     end

@@ -1,4 +1,4 @@
-y3.游戏:event("玩家-发送消息", function(trg, data)
+y3.游戏:事件("玩家-发送消息", function(trg, data)
     if data.str1 == "1" then
         -- 创建一个单位，令其向右直线运动1000距离
         local unit = y3.玩家(1):创建单位(134274912, y3.点(0, 0), 0)

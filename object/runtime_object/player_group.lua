@@ -115,6 +115,11 @@ function M.获取所有非中立玩家()
     return M.从句柄获取(py_player_group)
 end
 
+---@return integer
+function M:获取玩家数量()
+    return GlobalAPI.get_player_group_num(self.handle)
+end
+
 ---@param 回调 fun(索引:integer,遍历到的玩家:Player)
 function M:遍历(回调)
     for index, value in ipairs(self:到数组()) do

@@ -477,7 +477,7 @@ M.config["技能-建造完成"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -522,7 +522,7 @@ M.config["技能-冷却变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -554,7 +554,7 @@ M.config["技能-层数变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -573,7 +573,7 @@ M.config["技能-学习"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -592,7 +592,7 @@ M.config["技能-充能进度变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -611,7 +611,7 @@ M.config["技能-可用状态变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -630,7 +630,7 @@ M.config["技能-沉默状态变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -649,7 +649,7 @@ M.config["技能-图标变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1583,7 +1583,7 @@ M.config["技能类型-前置条件成立"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1601,7 +1601,7 @@ M.config["技能类型-前置条件不成立"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1619,7 +1619,7 @@ M.config["科技类型-前置条件成立"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1637,7 +1637,7 @@ M.config["科技类型-前置条件不成立"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1655,7 +1655,7 @@ M.config["技能-升级"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1687,7 +1687,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1730,7 +1730,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1760,7 +1760,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1803,7 +1803,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1833,7 +1833,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1863,7 +1863,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1906,7 +1906,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1936,7 +1936,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -1966,7 +1966,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2009,7 +2009,7 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2027,7 +2027,7 @@ M.config["技能-获得"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2046,7 +2046,7 @@ M.config["技能-失去"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2065,7 +2065,7 @@ M.config["技能-交换"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2084,7 +2084,7 @@ M.config["技能-禁用"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2103,7 +2103,7 @@ M.config["技能-启用"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2122,7 +2122,7 @@ M.config["技能-冷却结束"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2141,7 +2141,7 @@ M.config["效果-获得"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2160,7 +2160,7 @@ M.config["效果-失去"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2179,7 +2179,7 @@ M.config["效果-心跳"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2198,7 +2198,7 @@ M.config["效果-叠加"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2217,7 +2217,7 @@ M.config["效果-层数变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2237,7 +2237,7 @@ M.config["效果-即将获得"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2257,7 +2257,7 @@ M.config["效果-覆盖"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2707,7 +2707,7 @@ M.config["技能-打开指示器"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -2726,7 +2726,7 @@ M.config["技能-关闭指示器"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function (self) return self:get_owner() end,
+            getter = function(self) return self:get_owner() end,
             luaType = "Unit",
         },
     },
@@ -3039,341 +3039,341 @@ M.config["对话框-点击按钮"] = {
 }
 
 ---@class Game
----@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
----@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
----@field event fun(self: self, event: "游戏-结束", callback: fun(trg: Trigger, data: EventParam.游戏-结束)): Trigger
----@field event fun(self: self, event: "游戏-暂停", callback: fun(trg: Trigger, data: EventParam.游戏-暂停)): Trigger
----@field event fun(self: self, event: "游戏-恢复", callback: fun(trg: Trigger, data: EventParam.游戏-恢复)): Trigger
----@field event fun(self: self, event: "游戏-昼夜变化", callback: fun(trg: Trigger, data: EventParam.游戏-昼夜变化)): Trigger
----@field event fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
----@field event fun(self: self, event: "区域-离开", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
----@field event fun(self: self, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
----@field event fun(self: self, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
----@field event fun(self: self, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
----@field event fun(self: self, event: "玩家-使用平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-使用平台道具)): Trigger
----@field event fun(self: self, event: "玩家-持有平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-持有平台道具)): Trigger
----@field event fun(self: self, event: "玩家-属性变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性变化)): Trigger
----@field event fun(self: self, event: "玩家-发送指定消息", msg: string, callback: fun(trg: Trigger, data: EventParam.玩家-发送指定消息)): Trigger
----@field event fun(self: self, event: "玩家-科技提升", callback: fun(trg: Trigger, data: EventParam.玩家-科技提升)): Trigger
----@field event fun(self: self, event: "玩家-科技降低", callback: fun(trg: Trigger, data: EventParam.玩家-科技降低)): Trigger
----@field event fun(self: self, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
----@field event fun(self: self, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
----@field event fun(self: self, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
----@field event fun(self: self, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
----@field event fun(self: self, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
----@field event fun(self: self, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
----@field event fun(self: self, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
----@field event fun(self: self, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
----@field event fun(self: self, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
----@field event fun(self: self, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
----@field event fun(self: self, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
----@field event fun(self: self, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
----@field event fun(self: self, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
----@field event fun(self: self, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
----@field event fun(self: self, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
----@field event fun(self: self, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
----@field event fun(self: self, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
----@field event fun(self: self, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
----@field event fun(self: self, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
----@field event fun(self: self, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
----@field event fun(self: self, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
----@field event fun(self: self, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
----@field event fun(self: self, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
----@field event fun(self: self, event: "单位-属性变化", unit: Unit, attr: string, callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
----@field event fun(self: self, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
----@field event fun(self: self, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
----@field event fun(self: self, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
----@field event fun(self: self, event: "单位-造成伤害前", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害前)): Trigger
----@field event fun(self: self, event: "单位-受到伤害时", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害时)): Trigger
----@field event fun(self: self, event: "单位-造成伤害时", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害时)): Trigger
----@field event fun(self: self, event: "单位-造成伤害后", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害后)): Trigger
----@field event fun(self: self, event: "单位-受到伤害后", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害后)): Trigger
----@field event fun(self: self, event: "单位-受到治疗前", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗前)): Trigger
----@field event fun(self: self, event: "单位-受到治疗后", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗后)): Trigger
----@field event fun(self: self, event: "单位-受到治疗时", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗时)): Trigger
----@field event fun(self: self, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
----@field event fun(self: self, event: "单位-施放技能", callback: fun(trg: Trigger, data: EventParam.单位-施放技能)): Trigger
----@field event fun(self: self, event: "单位-获得经验前", callback: fun(trg: Trigger, data: EventParam.单位-获得经验前)): Trigger
----@field event fun(self: self, event: "单位-获得经验后", callback: fun(trg: Trigger, data: EventParam.单位-获得经验后)): Trigger
----@field event fun(self: self, event: "单位-接收命令", callback: fun(trg: Trigger, data: EventParam.单位-接收命令)): Trigger
----@field event fun(self: self, event: "单位-击杀", callback: fun(trg: Trigger, data: EventParam.单位-击杀)): Trigger
----@field event fun(self: self, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
----@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
----@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
----@field event fun(self: self, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
----@field event fun(self: self, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
----@field event fun(self: self, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
----@field event fun(self: self, event: "商店-商品变化", callback: fun(trg: Trigger, data: EventParam.商店-商品变化)): Trigger
----@field event fun(self: self, event: "商店-库存变化", callback: fun(trg: Trigger, data: EventParam.商店-库存变化)): Trigger
----@field event fun(self: self, event: "商店-售价变化", callback: fun(trg: Trigger, data: EventParam.商店-售价变化)): Trigger
----@field event fun(self: self, event: "单位-物品合成", callback: fun(trg: Trigger, data: EventParam.单位-物品合成)): Trigger
----@field event fun(self: self, event: "单位-购买物品合成", callback: fun(trg: Trigger, data: EventParam.单位-购买物品合成)): Trigger
----@field event fun(self: self, event: "单位-复活", callback: fun(trg: Trigger, data: EventParam.单位-复活)): Trigger
----@field event fun(self: self, event: "单位-升级", callback: fun(trg: Trigger, data: EventParam.单位-升级)): Trigger
----@field event fun(self: self, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
----@field event fun(self: self, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
----@field event fun(self: self, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
----@field event fun(self: self, event: "单位类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件成立)): Trigger
----@field event fun(self: self, event: "单位类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件不成立)): Trigger
----@field event fun(self: self, event: "物品类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.物品类型-前置条件成立)): Trigger
----@field event fun(self: self, event: "物品类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.物品类型-前置条件不成立)): Trigger
----@field event fun(self: self, event: "技能类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件成立)): Trigger
----@field event fun(self: self, event: "技能类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件不成立)): Trigger
----@field event fun(self: self, event: "科技类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件成立)): Trigger
----@field event fun(self: self, event: "科技类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件不成立)): Trigger
----@field event fun(self: self, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
----@field event fun(self: self, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
----@field event fun(self: self, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
----@field event fun(self: self, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
----@field event fun(self: self, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
----@field event fun(self: self, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
----@field event fun(self: self, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
----@field event fun(self: self, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
----@field event fun(self: self, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
----@field event fun(self: self, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
----@field event fun(self: self, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
----@field event fun(self: self, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
----@field event fun(self: self, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
----@field event fun(self: self, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
----@field event fun(self: self, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
----@field event fun(self: self, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
----@field event fun(self: self, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
----@field event fun(self: self, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
----@field event fun(self: self, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
----@field event fun(self: self, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
----@field event fun(self: self, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
----@field event fun(self: self, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
----@field event fun(self: self, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
----@field event fun(self: self, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
----@field event fun(self: self, event: "可破坏物-创建", callback: fun(trg: Trigger, data: EventParam.可破坏物-创建)): Trigger
----@field event fun(self: self, event: "可破坏物-死亡", callback: fun(trg: Trigger, data: EventParam.可破坏物-死亡)): Trigger
----@field event fun(self: self, event: "可破坏物-复活", callback: fun(trg: Trigger, data: EventParam.可破坏物-复活)): Trigger
----@field event fun(self: self, event: "可破坏物-资源变化", callback: fun(trg: Trigger, data: EventParam.可破坏物-资源变化)): Trigger
----@field event fun(self: self, event: "可破坏物-采集", callback: fun(trg: Trigger, data: EventParam.可破坏物-采集)): Trigger
----@field event fun(self: self, event: "可破坏物-受到伤害", callback: fun(trg: Trigger, data: EventParam.可破坏物-受到伤害)): Trigger
----@field event fun(self: self, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
----@field event fun(self: self, event: "可破坏物-移除", callback: fun(trg: Trigger, data: EventParam.可破坏物-移除)): Trigger
----@field event fun(self: self, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
----@field event fun(self: self, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
----@field event fun(self: self, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
----@field event fun(self: self, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
----@field event fun(self: self, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
----@field event fun(self: self, event: "鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
----@field event fun(self: self, event: "鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
----@field event fun(self: self, event: "鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
----@field event fun(self: self, event: "鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
----@field event fun(self: self, event: "鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
----@field event fun(self: self, event: "鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
----@field event fun(self: self, event: "鼠标-移动", callback: fun(trg: Trigger, data: EventParam.鼠标-移动)): Trigger
----@field event fun(self: self, event: "鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
----@field event fun(self: self, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
----@field event fun(self: self, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
----@field event fun(self: self, event: "鼠标-双击物品", callback: fun(trg: Trigger, data: EventParam.鼠标-双击物品)): Trigger
----@field event fun(self: self, event: "鼠标-双击可破坏物", callback: fun(trg: Trigger, data: EventParam.鼠标-双击可破坏物)): Trigger
----@field event fun(self: self, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
----@field event fun(self: self, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
----@field event fun(self: self, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
----@field event fun(self: self, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
----@field event fun(self: self, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
----@field event fun(self: self, event: "物品-进入背包", callback: fun(trg: Trigger, data: EventParam.物品-进入背包)): Trigger
----@field event fun(self: self, event: "物品-失去", callback: fun(trg: Trigger, data: EventParam.物品-失去)): Trigger
----@field event fun(self: self, event: "物品-离开物品栏", callback: fun(trg: Trigger, data: EventParam.物品-离开物品栏)): Trigger
----@field event fun(self: self, event: "物品-离开背包", callback: fun(trg: Trigger, data: EventParam.物品-离开背包)): Trigger
----@field event fun(self: self, event: "物品-使用", callback: fun(trg: Trigger, data: EventParam.物品-使用)): Trigger
----@field event fun(self: self, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
----@field event fun(self: self, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
----@field event fun(self: self, event: "物品-堆叠变化", callback: fun(trg: Trigger, data: EventParam.物品-堆叠变化)): Trigger
----@field event fun(self: self, event: "物品-充能变化", callback: fun(trg: Trigger, data: EventParam.物品-充能变化)): Trigger
----@field event fun(self: self, event: "物品-创建", callback: fun(trg: Trigger, data: EventParam.物品-创建)): Trigger
----@field event fun(self: self, event: "物品-移除", callback: fun(trg: Trigger, data: EventParam.物品-移除)): Trigger
----@field event fun(self: self, event: "物品-出售", callback: fun(trg: Trigger, data: EventParam.物品-出售)): Trigger
----@field event fun(self: self, event: "物品-死亡", callback: fun(trg: Trigger, data: EventParam.物品-死亡)): Trigger
----@field event fun(self: self, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
----@field event fun(self: self, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
----@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
----@field event fun(self: self, event: "游戏-消息", event_id: integer, callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
----@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
----@field event fun(self: self, event: "对话框-点击", callback: fun(trg: Trigger, data: EventParam.对话框-点击)): Trigger
----@field event fun(self: self, event: "对话框-点击按钮", callback: fun(trg: Trigger, data: EventParam.对话框-点击按钮)): Trigger
+---@field 事件 fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
+---@field 事件 fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
+---@field 事件 fun(self: self, event: "游戏-结束", callback: fun(trg: Trigger, data: EventParam.游戏-结束)): Trigger
+---@field 事件 fun(self: self, event: "游戏-暂停", callback: fun(trg: Trigger, data: EventParam.游戏-暂停)): Trigger
+---@field 事件 fun(self: self, event: "游戏-恢复", callback: fun(trg: Trigger, data: EventParam.游戏-恢复)): Trigger
+---@field 事件 fun(self: self, event: "游戏-昼夜变化", callback: fun(trg: Trigger, data: EventParam.游戏-昼夜变化)): Trigger
+---@field 事件 fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
+---@field 事件 fun(self: self, event: "区域-离开", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
+---@field 事件 fun(self: self, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
+---@field 事件 fun(self: self, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
+---@field 事件 fun(self: self, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
+---@field 事件 fun(self: self, event: "玩家-使用平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-使用平台道具)): Trigger
+---@field 事件 fun(self: self, event: "玩家-持有平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-持有平台道具)): Trigger
+---@field 事件 fun(self: self, event: "玩家-属性变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性变化)): Trigger
+---@field 事件 fun(self: self, event: "玩家-发送指定消息", msg: string, callback: fun(trg: Trigger, data: EventParam.玩家-发送指定消息)): Trigger
+---@field 事件 fun(self: self, event: "玩家-科技提升", callback: fun(trg: Trigger, data: EventParam.玩家-科技提升)): Trigger
+---@field 事件 fun(self: self, event: "玩家-科技降低", callback: fun(trg: Trigger, data: EventParam.玩家-科技降低)): Trigger
+---@field 事件 fun(self: self, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
+---@field 事件 fun(self: self, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
+---@field 事件 fun(self: self, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
+---@field 事件 fun(self: self, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
+---@field 事件 fun(self: self, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
+---@field 事件 fun(self: self, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
+---@field 事件 fun(self: self, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
+---@field 事件 fun(self: self, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
+---@field 事件 fun(self: self, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
+---@field 事件 fun(self: self, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
+---@field 事件 fun(self: self, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
+---@field 事件 fun(self: self, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
+---@field 事件 fun(self: self, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
+---@field 事件 fun(self: self, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
+---@field 事件 fun(self: self, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
+---@field 事件 fun(self: self, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
+---@field 事件 fun(self: self, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
+---@field 事件 fun(self: self, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
+---@field 事件 fun(self: self, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
+---@field 事件 fun(self: self, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
+---@field 事件 fun(self: self, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
+---@field 事件 fun(self: self, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
+---@field 事件 fun(self: self, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
+---@field 事件 fun(self: self, event: "单位-属性变化", unit: Unit, attr: string, callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
+---@field 事件 fun(self: self, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
+---@field 事件 fun(self: self, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
+---@field 事件 fun(self: self, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
+---@field 事件 fun(self: self, event: "单位-造成伤害前", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害前)): Trigger
+---@field 事件 fun(self: self, event: "单位-受到伤害时", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害时)): Trigger
+---@field 事件 fun(self: self, event: "单位-造成伤害时", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害时)): Trigger
+---@field 事件 fun(self: self, event: "单位-造成伤害后", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害后)): Trigger
+---@field 事件 fun(self: self, event: "单位-受到伤害后", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害后)): Trigger
+---@field 事件 fun(self: self, event: "单位-受到治疗前", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗前)): Trigger
+---@field 事件 fun(self: self, event: "单位-受到治疗后", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗后)): Trigger
+---@field 事件 fun(self: self, event: "单位-受到治疗时", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗时)): Trigger
+---@field 事件 fun(self: self, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
+---@field 事件 fun(self: self, event: "单位-施放技能", callback: fun(trg: Trigger, data: EventParam.单位-施放技能)): Trigger
+---@field 事件 fun(self: self, event: "单位-获得经验前", callback: fun(trg: Trigger, data: EventParam.单位-获得经验前)): Trigger
+---@field 事件 fun(self: self, event: "单位-获得经验后", callback: fun(trg: Trigger, data: EventParam.单位-获得经验后)): Trigger
+---@field 事件 fun(self: self, event: "单位-接收命令", callback: fun(trg: Trigger, data: EventParam.单位-接收命令)): Trigger
+---@field 事件 fun(self: self, event: "单位-击杀", callback: fun(trg: Trigger, data: EventParam.单位-击杀)): Trigger
+---@field 事件 fun(self: self, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
+---@field 事件 fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
+---@field 事件 fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field 事件 fun(self: self, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
+---@field 事件 fun(self: self, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
+---@field 事件 fun(self: self, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
+---@field 事件 fun(self: self, event: "商店-商品变化", callback: fun(trg: Trigger, data: EventParam.商店-商品变化)): Trigger
+---@field 事件 fun(self: self, event: "商店-库存变化", callback: fun(trg: Trigger, data: EventParam.商店-库存变化)): Trigger
+---@field 事件 fun(self: self, event: "商店-售价变化", callback: fun(trg: Trigger, data: EventParam.商店-售价变化)): Trigger
+---@field 事件 fun(self: self, event: "单位-物品合成", callback: fun(trg: Trigger, data: EventParam.单位-物品合成)): Trigger
+---@field 事件 fun(self: self, event: "单位-购买物品合成", callback: fun(trg: Trigger, data: EventParam.单位-购买物品合成)): Trigger
+---@field 事件 fun(self: self, event: "单位-复活", callback: fun(trg: Trigger, data: EventParam.单位-复活)): Trigger
+---@field 事件 fun(self: self, event: "单位-升级", callback: fun(trg: Trigger, data: EventParam.单位-升级)): Trigger
+---@field 事件 fun(self: self, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
+---@field 事件 fun(self: self, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
+---@field 事件 fun(self: self, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
+---@field 事件 fun(self: self, event: "单位类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件成立)): Trigger
+---@field 事件 fun(self: self, event: "单位类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.单位类型-前置条件不成立)): Trigger
+---@field 事件 fun(self: self, event: "物品类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.物品类型-前置条件成立)): Trigger
+---@field 事件 fun(self: self, event: "物品类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.物品类型-前置条件不成立)): Trigger
+---@field 事件 fun(self: self, event: "技能类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件成立)): Trigger
+---@field 事件 fun(self: self, event: "技能类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件不成立)): Trigger
+---@field 事件 fun(self: self, event: "科技类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件成立)): Trigger
+---@field 事件 fun(self: self, event: "科技类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件不成立)): Trigger
+---@field 事件 fun(self: self, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
+---@field 事件 fun(self: self, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
+---@field 事件 fun(self: self, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
+---@field 事件 fun(self: self, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
+---@field 事件 fun(self: self, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
+---@field 事件 fun(self: self, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
+---@field 事件 fun(self: self, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
+---@field 事件 fun(self: self, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
+---@field 事件 fun(self: self, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
+---@field 事件 fun(self: self, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field 事件 fun(self: self, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
+---@field 事件 fun(self: self, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
+---@field 事件 fun(self: self, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
+---@field 事件 fun(self: self, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
+---@field 事件 fun(self: self, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
+---@field 事件 fun(self: self, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
+---@field 事件 fun(self: self, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field 事件 fun(self: self, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
+---@field 事件 fun(self: self, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
+---@field 事件 fun(self: self, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
+---@field 事件 fun(self: self, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
+---@field 事件 fun(self: self, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
+---@field 事件 fun(self: self, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
+---@field 事件 fun(self: self, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
+---@field 事件 fun(self: self, event: "可破坏物-创建", callback: fun(trg: Trigger, data: EventParam.可破坏物-创建)): Trigger
+---@field 事件 fun(self: self, event: "可破坏物-死亡", callback: fun(trg: Trigger, data: EventParam.可破坏物-死亡)): Trigger
+---@field 事件 fun(self: self, event: "可破坏物-复活", callback: fun(trg: Trigger, data: EventParam.可破坏物-复活)): Trigger
+---@field 事件 fun(self: self, event: "可破坏物-资源变化", callback: fun(trg: Trigger, data: EventParam.可破坏物-资源变化)): Trigger
+---@field 事件 fun(self: self, event: "可破坏物-采集", callback: fun(trg: Trigger, data: EventParam.可破坏物-采集)): Trigger
+---@field 事件 fun(self: self, event: "可破坏物-受到伤害", callback: fun(trg: Trigger, data: EventParam.可破坏物-受到伤害)): Trigger
+---@field 事件 fun(self: self, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
+---@field 事件 fun(self: self, event: "可破坏物-移除", callback: fun(trg: Trigger, data: EventParam.可破坏物-移除)): Trigger
+---@field 事件 fun(self: self, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
+---@field 事件 fun(self: self, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
+---@field 事件 fun(self: self, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field 事件 fun(self: self, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
+---@field 事件 fun(self: self, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-移动", callback: fun(trg: Trigger, data: EventParam.鼠标-移动)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
+---@field 事件 fun(self: self, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
+---@field 事件 fun(self: self, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-双击物品", callback: fun(trg: Trigger, data: EventParam.鼠标-双击物品)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-双击可破坏物", callback: fun(trg: Trigger, data: EventParam.鼠标-双击可破坏物)): Trigger
+---@field 事件 fun(self: self, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
+---@field 事件 fun(self: self, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field 事件 fun(self: self, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
+---@field 事件 fun(self: self, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
+---@field 事件 fun(self: self, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
+---@field 事件 fun(self: self, event: "物品-进入背包", callback: fun(trg: Trigger, data: EventParam.物品-进入背包)): Trigger
+---@field 事件 fun(self: self, event: "物品-失去", callback: fun(trg: Trigger, data: EventParam.物品-失去)): Trigger
+---@field 事件 fun(self: self, event: "物品-离开物品栏", callback: fun(trg: Trigger, data: EventParam.物品-离开物品栏)): Trigger
+---@field 事件 fun(self: self, event: "物品-离开背包", callback: fun(trg: Trigger, data: EventParam.物品-离开背包)): Trigger
+---@field 事件 fun(self: self, event: "物品-使用", callback: fun(trg: Trigger, data: EventParam.物品-使用)): Trigger
+---@field 事件 fun(self: self, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
+---@field 事件 fun(self: self, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
+---@field 事件 fun(self: self, event: "物品-堆叠变化", callback: fun(trg: Trigger, data: EventParam.物品-堆叠变化)): Trigger
+---@field 事件 fun(self: self, event: "物品-充能变化", callback: fun(trg: Trigger, data: EventParam.物品-充能变化)): Trigger
+---@field 事件 fun(self: self, event: "物品-创建", callback: fun(trg: Trigger, data: EventParam.物品-创建)): Trigger
+---@field 事件 fun(self: self, event: "物品-移除", callback: fun(trg: Trigger, data: EventParam.物品-移除)): Trigger
+---@field 事件 fun(self: self, event: "物品-出售", callback: fun(trg: Trigger, data: EventParam.物品-出售)): Trigger
+---@field 事件 fun(self: self, event: "物品-死亡", callback: fun(trg: Trigger, data: EventParam.物品-死亡)): Trigger
+---@field 事件 fun(self: self, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
+---@field 事件 fun(self: self, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
+---@field 事件 fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
+---@field 事件 fun(self: self, event: "游戏-消息", event_id: integer, callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
+---@field 事件 fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
+---@field 事件 fun(self: self, event: "对话框-点击", callback: fun(trg: Trigger, data: EventParam.对话框-点击)): Trigger
+---@field 事件 fun(self: self, event: "对话框-点击按钮", callback: fun(trg: Trigger, data: EventParam.对话框-点击按钮)): Trigger
 
 ---@class Ability
----@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
----@field event fun(self: Ability, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
----@field event fun(self: Ability, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
----@field event fun(self: Ability, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
----@field event fun(self: Ability, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
----@field event fun(self: Ability, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
----@field event fun(self: Ability, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
----@field event fun(self: Ability, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
----@field event fun(self: Ability, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
----@field event fun(self: Ability, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
----@field event fun(self: Ability, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
----@field event fun(self: Ability, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
----@field event fun(self: Ability, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
----@field event fun(self: Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
----@field event fun(self: Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
----@field event fun(self: Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
----@field event fun(self: Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field 事件 fun(self: Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 
 ---@class Area
----@field event fun(self: Area, event: "区域-进入", callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
----@field event fun(self: Area, event: "区域-离开", callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
+---@field 事件 fun(self: Area, event: "区域-进入", callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
+---@field 事件 fun(self: Area, event: "区域-离开", callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
 
 ---@class Buff
----@field event fun(self: Buff, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
----@field event fun(self: Buff, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
----@field event fun(self: Buff, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
----@field event fun(self: Buff, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
----@field event fun(self: Buff, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
----@field event fun(self: Buff, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
----@field event fun(self: Buff, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
+---@field 事件 fun(self: Buff, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
+---@field 事件 fun(self: Buff, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
+---@field 事件 fun(self: Buff, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
+---@field 事件 fun(self: Buff, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
+---@field 事件 fun(self: Buff, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
+---@field 事件 fun(self: Buff, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
+---@field 事件 fun(self: Buff, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
 
 ---@class Destructible
----@field event fun(self: Destructible, event: "可破坏物-创建", callback: fun(trg: Trigger, data: EventParam.可破坏物-创建)): Trigger
----@field event fun(self: Destructible, event: "可破坏物-死亡", callback: fun(trg: Trigger, data: EventParam.可破坏物-死亡)): Trigger
----@field event fun(self: Destructible, event: "可破坏物-复活", callback: fun(trg: Trigger, data: EventParam.可破坏物-复活)): Trigger
----@field event fun(self: Destructible, event: "可破坏物-资源变化", callback: fun(trg: Trigger, data: EventParam.可破坏物-资源变化)): Trigger
----@field event fun(self: Destructible, event: "可破坏物-采集", callback: fun(trg: Trigger, data: EventParam.可破坏物-采集)): Trigger
----@field event fun(self: Destructible, event: "可破坏物-受到伤害", callback: fun(trg: Trigger, data: EventParam.可破坏物-受到伤害)): Trigger
----@field event fun(self: Destructible, event: "可破坏物-移除", callback: fun(trg: Trigger, data: EventParam.可破坏物-移除)): Trigger
+---@field 事件 fun(self: Destructible, event: "可破坏物-创建", callback: fun(trg: Trigger, data: EventParam.可破坏物-创建)): Trigger
+---@field 事件 fun(self: Destructible, event: "可破坏物-死亡", callback: fun(trg: Trigger, data: EventParam.可破坏物-死亡)): Trigger
+---@field 事件 fun(self: Destructible, event: "可破坏物-复活", callback: fun(trg: Trigger, data: EventParam.可破坏物-复活)): Trigger
+---@field 事件 fun(self: Destructible, event: "可破坏物-资源变化", callback: fun(trg: Trigger, data: EventParam.可破坏物-资源变化)): Trigger
+---@field 事件 fun(self: Destructible, event: "可破坏物-采集", callback: fun(trg: Trigger, data: EventParam.可破坏物-采集)): Trigger
+---@field 事件 fun(self: Destructible, event: "可破坏物-受到伤害", callback: fun(trg: Trigger, data: EventParam.可破坏物-受到伤害)): Trigger
+---@field 事件 fun(self: Destructible, event: "可破坏物-移除", callback: fun(trg: Trigger, data: EventParam.可破坏物-移除)): Trigger
 
 ---@class Item
----@field event fun(self: Item, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
----@field event fun(self: Item, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
----@field event fun(self: Item, event: "物品-进入背包", callback: fun(trg: Trigger, data: EventParam.物品-进入背包)): Trigger
----@field event fun(self: Item, event: "物品-失去", callback: fun(trg: Trigger, data: EventParam.物品-失去)): Trigger
----@field event fun(self: Item, event: "物品-离开物品栏", callback: fun(trg: Trigger, data: EventParam.物品-离开物品栏)): Trigger
----@field event fun(self: Item, event: "物品-离开背包", callback: fun(trg: Trigger, data: EventParam.物品-离开背包)): Trigger
----@field event fun(self: Item, event: "物品-使用", callback: fun(trg: Trigger, data: EventParam.物品-使用)): Trigger
----@field event fun(self: Item, event: "物品-堆叠变化", callback: fun(trg: Trigger, data: EventParam.物品-堆叠变化)): Trigger
----@field event fun(self: Item, event: "物品-充能变化", callback: fun(trg: Trigger, data: EventParam.物品-充能变化)): Trigger
----@field event fun(self: Item, event: "物品-创建", callback: fun(trg: Trigger, data: EventParam.物品-创建)): Trigger
----@field event fun(self: Item, event: "物品-移除", callback: fun(trg: Trigger, data: EventParam.物品-移除)): Trigger
----@field event fun(self: Item, event: "物品-出售", callback: fun(trg: Trigger, data: EventParam.物品-出售)): Trigger
----@field event fun(self: Item, event: "物品-死亡", callback: fun(trg: Trigger, data: EventParam.物品-死亡)): Trigger
----@field event fun(self: Item, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
+---@field 事件 fun(self: Item, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
+---@field 事件 fun(self: Item, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
+---@field 事件 fun(self: Item, event: "物品-进入背包", callback: fun(trg: Trigger, data: EventParam.物品-进入背包)): Trigger
+---@field 事件 fun(self: Item, event: "物品-失去", callback: fun(trg: Trigger, data: EventParam.物品-失去)): Trigger
+---@field 事件 fun(self: Item, event: "物品-离开物品栏", callback: fun(trg: Trigger, data: EventParam.物品-离开物品栏)): Trigger
+---@field 事件 fun(self: Item, event: "物品-离开背包", callback: fun(trg: Trigger, data: EventParam.物品-离开背包)): Trigger
+---@field 事件 fun(self: Item, event: "物品-使用", callback: fun(trg: Trigger, data: EventParam.物品-使用)): Trigger
+---@field 事件 fun(self: Item, event: "物品-堆叠变化", callback: fun(trg: Trigger, data: EventParam.物品-堆叠变化)): Trigger
+---@field 事件 fun(self: Item, event: "物品-充能变化", callback: fun(trg: Trigger, data: EventParam.物品-充能变化)): Trigger
+---@field 事件 fun(self: Item, event: "物品-创建", callback: fun(trg: Trigger, data: EventParam.物品-创建)): Trigger
+---@field 事件 fun(self: Item, event: "物品-移除", callback: fun(trg: Trigger, data: EventParam.物品-移除)): Trigger
+---@field 事件 fun(self: Item, event: "物品-出售", callback: fun(trg: Trigger, data: EventParam.物品-出售)): Trigger
+---@field 事件 fun(self: Item, event: "物品-死亡", callback: fun(trg: Trigger, data: EventParam.物品-死亡)): Trigger
+---@field 事件 fun(self: Item, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
 
 ---@class Player
----@field event fun(self: Player, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
----@field event fun(self: Player, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
----@field event fun(self: Player, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
----@field event fun(self: Player, event: "玩家-使用平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-使用平台道具)): Trigger
----@field event fun(self: Player, event: "玩家-持有平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-持有平台道具)): Trigger
----@field event fun(self: Player, event: "玩家-属性变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性变化)): Trigger
----@field event fun(self: Player, event: "玩家-发送指定消息", msg: string, callback: fun(trg: Trigger, data: EventParam.玩家-发送指定消息)): Trigger
----@field event fun(self: Player, event: "玩家-科技提升", callback: fun(trg: Trigger, data: EventParam.玩家-科技提升)): Trigger
----@field event fun(self: Player, event: "玩家-科技降低", callback: fun(trg: Trigger, data: EventParam.玩家-科技降低)): Trigger
----@field event fun(self: Player, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
----@field event fun(self: Player, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
----@field event fun(self: Player, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
----@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
----@field event fun(self: Player, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
----@field event fun(self: Player, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
----@field event fun(self: Player, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
----@field event fun(self: Player, event: "鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
----@field event fun(self: Player, event: "鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
----@field event fun(self: Player, event: "鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
----@field event fun(self: Player, event: "鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
----@field event fun(self: Player, event: "鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
----@field event fun(self: Player, event: "鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
----@field event fun(self: Player, event: "鼠标-移动", callback: fun(trg: Trigger, data: EventParam.鼠标-移动)): Trigger
----@field event fun(self: Player, event: "鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
----@field event fun(self: Player, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
----@field event fun(self: Player, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
----@field event fun(self: Player, event: "鼠标-双击物品", callback: fun(trg: Trigger, data: EventParam.鼠标-双击物品)): Trigger
----@field event fun(self: Player, event: "鼠标-双击可破坏物", callback: fun(trg: Trigger, data: EventParam.鼠标-双击可破坏物)): Trigger
----@field event fun(self: Player, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
----@field event fun(self: Player, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
----@field event fun(self: Player, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
----@field event fun(self: Player, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-掉线", callback: fun(trg: Trigger, data: EventParam.玩家-掉线)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-使用平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-使用平台道具)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-持有平台道具", store_key: py.StoreKey, callback: fun(trg: Trigger, data: EventParam.玩家-持有平台道具)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-属性变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性变化)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-发送指定消息", msg: string, callback: fun(trg: Trigger, data: EventParam.玩家-发送指定消息)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-科技提升", callback: fun(trg: Trigger, data: EventParam.玩家-科技提升)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-科技降低", callback: fun(trg: Trigger, data: EventParam.玩家-科技降低)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
+---@field 事件 fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
+---@field 事件 fun(self: Player, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field 事件 fun(self: Player, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
+---@field 事件 fun(self: Player, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-移动", callback: fun(trg: Trigger, data: EventParam.鼠标-移动)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
+---@field 事件 fun(self: Player, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
+---@field 事件 fun(self: Player, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-双击物品", callback: fun(trg: Trigger, data: EventParam.鼠标-双击物品)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-双击可破坏物", callback: fun(trg: Trigger, data: EventParam.鼠标-双击可破坏物)): Trigger
+---@field 事件 fun(self: Player, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
+---@field 事件 fun(self: Player, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
+---@field 事件 fun(self: Player, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
 
 ---@class Projectile
----@field event fun(self: Projectile, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
----@field event fun(self: Projectile, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
+---@field 事件 fun(self: Projectile, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
+---@field 事件 fun(self: Projectile, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
 
 ---@class Unit
----@field event fun(self: Unit, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
----@field event fun(self: Unit, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
----@field event fun(self: Unit, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
----@field event fun(self: Unit, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
----@field event fun(self: Unit, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
----@field event fun(self: Unit, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
----@field event fun(self: Unit, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
----@field event fun(self: Unit, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
----@field event fun(self: Unit, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
----@field event fun(self: Unit, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
----@field event fun(self: Unit, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
----@field event fun(self: Unit, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
----@field event fun(self: Unit, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
----@field event fun(self: Unit, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
----@field event fun(self: Unit, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
----@field event fun(self: Unit, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
----@field event fun(self: Unit, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
----@field event fun(self: Unit, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
----@field event fun(self: Unit, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
----@field event fun(self: Unit, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
----@field event fun(self: Unit, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
----@field event fun(self: Unit, event: "单位-属性变化", attr: string, callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
----@field event fun(self: Unit, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
----@field event fun(self: Unit, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
----@field event fun(self: Unit, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
----@field event fun(self: Unit, event: "单位-造成伤害前", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害前)): Trigger
----@field event fun(self: Unit, event: "单位-受到伤害时", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害时)): Trigger
----@field event fun(self: Unit, event: "单位-造成伤害时", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害时)): Trigger
----@field event fun(self: Unit, event: "单位-造成伤害后", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害后)): Trigger
----@field event fun(self: Unit, event: "单位-受到伤害后", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害后)): Trigger
----@field event fun(self: Unit, event: "单位-受到治疗前", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗前)): Trigger
----@field event fun(self: Unit, event: "单位-受到治疗后", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗后)): Trigger
----@field event fun(self: Unit, event: "单位-受到治疗时", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗时)): Trigger
----@field event fun(self: Unit, event: "单位-施放技能", callback: fun(trg: Trigger, data: EventParam.单位-施放技能)): Trigger
----@field event fun(self: Unit, event: "单位-获得经验前", callback: fun(trg: Trigger, data: EventParam.单位-获得经验前)): Trigger
----@field event fun(self: Unit, event: "单位-获得经验后", callback: fun(trg: Trigger, data: EventParam.单位-获得经验后)): Trigger
----@field event fun(self: Unit, event: "单位-接收命令", callback: fun(trg: Trigger, data: EventParam.单位-接收命令)): Trigger
----@field event fun(self: Unit, event: "单位-击杀", callback: fun(trg: Trigger, data: EventParam.单位-击杀)): Trigger
----@field event fun(self: Unit, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
----@field event fun(self: Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
----@field event fun(self: Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
----@field event fun(self: Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
----@field event fun(self: Unit, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
----@field event fun(self: Unit, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
----@field event fun(self: Unit, event: "单位-物品合成", callback: fun(trg: Trigger, data: EventParam.单位-物品合成)): Trigger
----@field event fun(self: Unit, event: "单位-购买物品合成", callback: fun(trg: Trigger, data: EventParam.单位-购买物品合成)): Trigger
----@field event fun(self: Unit, event: "单位-复活", callback: fun(trg: Trigger, data: EventParam.单位-复活)): Trigger
----@field event fun(self: Unit, event: "单位-升级", callback: fun(trg: Trigger, data: EventParam.单位-升级)): Trigger
----@field event fun(self: Unit, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
----@field event fun(self: Unit, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
----@field event fun(self: Unit, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
----@field event fun(self: Unit, event: "技能类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件成立)): Trigger
----@field event fun(self: Unit, event: "技能类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件不成立)): Trigger
----@field event fun(self: Unit, event: "科技类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件成立)): Trigger
----@field event fun(self: Unit, event: "科技类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件不成立)): Trigger
----@field event fun(self: Unit, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
----@field event fun(self: Unit, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
----@field event fun(self: Unit, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
----@field event fun(self: Unit, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
----@field event fun(self: Unit, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
----@field event fun(self: Unit, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
----@field event fun(self: Unit, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
----@field event fun(self: Unit, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
----@field event fun(self: Unit, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
----@field event fun(self: Unit, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
----@field event fun(self: Unit, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
----@field event fun(self: Unit, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
----@field event fun(self: Unit, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
----@field event fun(self: Unit, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
----@field event fun(self: Unit, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
----@field event fun(self: Unit, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
----@field event fun(self: Unit, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
----@field event fun(self: Unit, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
----@field event fun(self: Unit, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
----@field event fun(self: Unit, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
----@field event fun(self: Unit, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
----@field event fun(self: Unit, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
----@field event fun(self: Unit, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
----@field event fun(self: Unit, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
----@field event fun(self: Unit, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
----@field event fun(self: Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
----@field event fun(self: Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
----@field event fun(self: Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-冷却变化", callback: fun(trg: Trigger, data: EventParam.技能-冷却变化)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-属性变化", attr: string, callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-造成伤害前", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害前)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-受到伤害时", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害时)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-造成伤害时", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害时)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-造成伤害后", callback: fun(trg: Trigger, data: EventParam.单位-造成伤害后)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-受到伤害后", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害后)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-受到治疗前", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗前)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-受到治疗后", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗后)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-受到治疗时", callback: fun(trg: Trigger, data: EventParam.单位-受到治疗时)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-施放技能", callback: fun(trg: Trigger, data: EventParam.单位-施放技能)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-获得经验前", callback: fun(trg: Trigger, data: EventParam.单位-获得经验前)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-获得经验后", callback: fun(trg: Trigger, data: EventParam.单位-获得经验后)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-接收命令", callback: fun(trg: Trigger, data: EventParam.单位-接收命令)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-击杀", callback: fun(trg: Trigger, data: EventParam.单位-击杀)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-物品合成", callback: fun(trg: Trigger, data: EventParam.单位-物品合成)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-购买物品合成", callback: fun(trg: Trigger, data: EventParam.单位-购买物品合成)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-复活", callback: fun(trg: Trigger, data: EventParam.单位-复活)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-升级", callback: fun(trg: Trigger, data: EventParam.单位-升级)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-进入草丛", callback: fun(trg: Trigger, data: EventParam.单位-进入草丛)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-离开草丛", callback: fun(trg: Trigger, data: EventParam.单位-离开草丛)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-改变所属", callback: fun(trg: Trigger, data: EventParam.单位-改变所属)): Trigger
+---@field 事件 fun(self: Unit, event: "技能类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件成立)): Trigger
+---@field 事件 fun(self: Unit, event: "技能类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.技能类型-前置条件不成立)): Trigger
+---@field 事件 fun(self: Unit, event: "科技类型-前置条件成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件成立)): Trigger
+---@field 事件 fun(self: Unit, event: "科技类型-前置条件不成立", callback: fun(trg: Trigger, data: EventParam.科技类型-前置条件不成立)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field 事件 fun(self: Unit, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field 事件 fun(self: Unit, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
+---@field 事件 fun(self: Unit, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
+---@field 事件 fun(self: Unit, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
+---@field 事件 fun(self: Unit, event: "效果-叠加", callback: fun(trg: Trigger, data: EventParam.效果-叠加)): Trigger
+---@field 事件 fun(self: Unit, event: "效果-层数变化", callback: fun(trg: Trigger, data: EventParam.效果-层数变化)): Trigger
+---@field 事件 fun(self: Unit, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
+---@field 事件 fun(self: Unit, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field 事件 fun(self: Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
+---@field 事件 fun(self: Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
 
 return M

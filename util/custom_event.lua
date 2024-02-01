@@ -1,7 +1,7 @@
 ---@class CustomEvent
 ---@field private custom_event_manager? EventManager
 ---@overload fun(): self
-local M = Class 'CustomEvent'
+local M = Class "CustomEvent"
 
 --[[
 注册自定义事件，当触发时，会执行回调函数。
@@ -37,17 +37,17 @@ Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 ]]
 ---@overload fun(self: self, event_name:string, callback:Trigger.CallBack):Trigger
 ---@overload fun(self: self, event_name:string, args:any[], callback:Trigger.CallBack):Trigger
-function M:event_on(...)
+function M:自定义事件(...)
     if not self.custom_event_manager then
-        self.custom_event_manager = New 'EventManager' (self)
+        self.custom_event_manager = New "EventManager" (self)
     end
     local event_name, args, callback = ...
     if not callback then
         callback = args
         args = nil
     end
-    assert(event_name, '缺少事件名')
-    assert(type(callback) == 'function', '缺少回调函数')
+    assert(event_name, "缺少事件名")
+    assert(type(callback) == "function", "缺少回调函数")
     local trigger = self.custom_event_manager:event(event_name, args, callback)
     return trigger
 end
@@ -82,7 +82,7 @@ Obj:event_notify('获得')
 ]]
 ---@param event_name string
 ---@param ... any
-function M:event_notify(event_name, ...)
+function M:发起自定义事件(event_name, ...)
     if not self.custom_event_manager then
         return
     end
@@ -93,7 +93,7 @@ end
 ---@param event_name string
 ---@param args any[]
 ---@param ... any
-function M:event_notify_with_args(event_name, args, ...)
+function M:发起带参数自定义事件(event_name, args, ...)
     if not self.custom_event_manager then
         return
     end
@@ -130,7 +130,7 @@ print('结果为：', result)
 ---@param event_name string
 ---@param ... any
 ---@return any, any, any, any
-function M:event_dispatch(event_name, ...)
+function M:发起自定义事件dis(event_name, ...)
     if not self.custom_event_manager then
         return
     end
@@ -142,7 +142,7 @@ end
 ---@param args any[]
 ---@param ... any
 ---@return any, any, any, any
-function M:event_dispatch_with_args(event_name, args, ...)
+function M:发起带参数自定义事件dis(event_name, args, ...)
     if not self.custom_event_manager then
         return
     end

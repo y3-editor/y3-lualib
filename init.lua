@@ -27,13 +27,13 @@ IsValid = y3.class.isValid
 
 
 require "y3.util.log"
-y3.reload = require "y3.tools.reload"
+y3.重载 = require "y3.tools.reload"
 
 ---@diagnostic disable-next-line: lowercase-global
-include   = y3.reload.include
+include = y3.重载.include
 
 require "y3.tools.linked_table"
-require "y3.tools.pool"
+y3.随机池 = require "y3.tools.pool"
 require "y3.tools.gc"
 
 require "y3.util.eca_function"
@@ -78,7 +78,7 @@ y3.item_group = require "y3.object.runtime_object.item_group"
 y3.mover = require "y3.object.runtime_object.mover"
 y3.particle = require "y3.object.runtime_object.particle"
 
-y3.timer = require "y3.object.runtime_object.timer"
+y3.计时器 = require "y3.object.runtime_object.timer"
 y3.projectile_group = require "y3.object.runtime_object.projectile_group"
 y3.selector = require "y3.object.runtime_object.selector"
 y3.cast = require "y3.object.runtime_object.cast"
@@ -104,7 +104,13 @@ y3.dump = require "y3.util.dump"
 y3.develop = {}
 y3.develop.command = include "y3.develop.command"
 
-include "y3.px.插件初始化"
+include "y3.px.常量枚举"
+include "y3.px.基础.表"
+include "y3.px.基础.字符串"
+include "y3.px.基础.数学"
+include "y3.px.基础.工具"
+require "y3.px.重载扩展"
+
 
 -- TODO 给目前的Lua垃圾回收过慢的问题打个临时补丁
 local function fixGC()
