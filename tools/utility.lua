@@ -166,7 +166,7 @@ function m.dump(tbl, option)
                 tp    = type(value)
             end
             if tp == "table" then
-                if table_has_key(value, "__class__") and option.y3tostring then
+                if value["__class__"] and option.y3tostring then
                     lines[#lines + 1] = ("%s%s%q,"):format(TAB[deep + 1], keyWord, tostring(value))
                 elseif mark[value] and mark[value] > 0 then
                     lines[#lines + 1] = ("%s%s%s,"):format(TAB[deep + 1], keyWord, option["loop"] or '"<Loop>"')

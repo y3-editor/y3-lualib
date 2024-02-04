@@ -2,29 +2,32 @@ pcall(function()
     LDBG = require "y3.debugger":start "127.0.0.1:12399"
 end)
 
+
+
 -- 全局方法类，提供各种全局方法
 ---@class Y3
-y3       = {}
+y3 = {}
 
 y3.proxy = require "y3.tools.proxy"
 y3.class = require "y3.tools.class"
-y3.util  = require "y3.tools.utility"
-y3.json  = require "y3.tools.json"
+y3.util = require "y3.tools.utility"
+y3.json = require "y3.tools.json"
 
 pcall(function()
     y3.doctor = require "y3.tools.doctor"
 end)
 
-Class   = y3.class.declare
-New     = y3.class.new
+---@enum classType
+ClassType = {}
+
+Class     = y3.class.declare
+New       = y3.class.new
 ---@deprecated
 ---@diagnostic disable-next-line: deprecated
-Super   = y3.class.super
-Extends = y3.class.extends
-Delete  = y3.class.delete
-IsValid = y3.class.isValid
-
-
+Super     = y3.class.super
+Extends   = y3.class.extends
+Delete    = y3.class.delete
+IsValid   = y3.class.isValid
 
 require "y3.util.log"
 y3.重载 = require "y3.tools.reload"
@@ -66,9 +69,9 @@ y3.场景 = require "y3.object.scene_object.scene_ui"
 y3.控件 = require "y3.object.scene_object.ui"
 y3.元件 = require "y3.object.scene_object.ui_prefab"
 
-y3.ability = require "y3.object.editable_object.ability"
+y3.技能 = require "y3.object.editable_object.ability"
 y3.destructible = require "y3.object.editable_object.destructible"
-y3.item = require "y3.object.editable_object.item"
+y3.物品 = require "y3.object.editable_object.item"
 y3.buff = require "y3.object.editable_object.buff"
 y3.projectile = require "y3.object.editable_object.projectile"
 y3.technology = require "y3.object.editable_object.technology"
@@ -96,7 +99,7 @@ y3.点 = require "y3.object.scene_object.point"
 
 y3.shape = require "y3.object.scene_object.shape"
 
-y3.object = require "y3.util.object"
+y3.物编 = require "y3.util.object"
 y3.ltimer = require "y3.util.local_timer"
 y3.存档 = require "y3.util.save_data"
 y3.dump = require "y3.util.dump"

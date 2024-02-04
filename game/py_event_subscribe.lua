@@ -1,11 +1,11 @@
-local event_datas   = require 'y3.meta.event'
-local event_configs = require 'y3.meta.eventconfig'
-local game_event    = require 'y3.game.game_event'
-local object_event  = require 'y3.game.object_event'
+local event_datas    = require "y3.meta.event"
+local event_configs  = require "y3.meta.eventconfig"
+local game_event     = require "y3.game.game_event"
+local object_event   = require "y3.game.object_event"
 
 ---@class PYEventRegister
 ---@field package need_enable_trigger_manualy boolean
-local M = Class 'PYEventRegister'
+local M              = Class "PYEventRegister"
 
 ---@private
 M.trigger_id_counter = y3.util.counter()
@@ -16,7 +16,7 @@ M.trigger_id_counter = y3.util.counter()
 ---@return table
 function M.convert_py_params(event_key, event_params)
     local event_data = event_datas[event_key]
-    assert(event_data, string.format('event %s not found', event_key))
+    assert(event_data, string.format("event %s not found", event_key))
     -- TODO 见问题10，改为用户访问时才会实际访问py层的字段
     --local lua_params = M.convert_py_params_instant(event_name, event_config, event_params)
     local lua_params = M.convert_py_params_lazy(event_key, event_data, event_params)
@@ -31,11 +31,11 @@ end
 function M.convert_py_params_instant(event_name, event_data, event_params)
     local lua_params = {}
     for _, param in ipairs(event_data) do
-        local lua_name  = param.lua_name
-        local py_name   = param.name
-        local py_type   = param.type
-        local py_value  = event_params[py_name]
-        local lua_value = y3.py_converter.py_to_lua(py_type, py_value)
+        local lua_name       = param.lua_name
+        local py_name        = param.name
+        local py_type        = param.type
+        local py_value       = event_params[py_name]
+        local lua_value      = y3.py_converter.py_to_lua(py_type, py_value)
         lua_params[lua_name] = lua_value
     end
     return lua_params
@@ -71,7 +71,7 @@ function M.build_params_lazy_mt(event_data)
                 local py_name  = param.name
                 local py_type  = param.type
                 local py_value = params[py_name]
-                lua_value = y3.py_converter.py_to_lua(py_type, py_value)
+                lua_value      = y3.py_converter.py_to_lua(py_type, py_value)
             end
             data[k] = lua_value
             if lua_value == nil then
@@ -102,8 +102,8 @@ function M.convert_py_params_lazy(event_key, event_data, event_params)
         M.params_metatable_cache[event_key] = mt
     end
     local lua_params = setmetatable({
-        _py_params = event_params
-    }, mt)
+                                        _py_params = event_params
+                                    }, mt)
     return lua_params
 end
 
@@ -139,11 +139,11 @@ local function extract_addition(event_name, extra_args)
 
     for i, param in ipairs(config.params) do
         if param.call then
-            local lua_value = extra_args[i]
-            local lua_type  = param.type
-            local py_type   = y3.py_converter.get_py_type(lua_type)
-            local py_value  = y3.py_converter.lua_to_py(py_type, lua_value)
-            local py_addition = function ()
+            local lua_value   = extra_args[i]
+            local lua_type    = param.type
+            local py_type     = y3.py_converter.get_py_type(lua_type)
+            local py_value    = y3.py_converter.lua_to_py(py_type, lua_value)
+            local py_addition = function()
                 return py_value
             end
             table.remove(py_args, i)
@@ -196,7 +196,7 @@ function M.ref_args(name, args)
         count = 1,
         args  = args,
     }
-    refs[#refs+1] = ref
+    refs[#refs + 1] = ref
 
     return ref
 end
@@ -219,7 +219,7 @@ function M.unref_args(name, args)
         end
     end
 
-    error('未找到事件的引用！' .. tostring(name))
+    error("未找到事件的引用！" .. tostring(name))
 end
 
 --引擎没有提供移除触发器的接口，但是使用已有id注册事件时会移除之前
@@ -240,7 +240,7 @@ end
 
 ---@private
 function M.remove_py_trigger(trigger_id)
-    M.removed_ids[#M.removed_ids+1] = trigger_id
+    M.removed_ids[#M.removed_ids + 1] = trigger_id
 end
 
 ---@param event_name y3.Const.EventType # 注册给引擎的事件名
@@ -265,7 +265,7 @@ function M.event_register(event_name, extra_args)
     ref.trg_id = trigger_id
     local py_trigger = new_global_trigger(trigger_id, event_name, py_event, true, py_addition)
 
-    py_trigger.on_event = function (trigger, event, actor, data)
+    py_trigger.on_event = function(trigger, event, actor, data)
         local lua_params = M.convert_py_params(py_event_name, data)
         game_event.event_notify(event_name, extra_args, lua_params)
         object_event.event_notify(event_name, extra_args, lua_params)
@@ -289,13 +289,13 @@ function M.event_unregister(event_name, extra_args)
     table.insert(M.removed_ids, trigger_id)
 
     -- 建一个占位的触发器，以尽快释放引用
-    local dummy_trigger = new_global_trigger(trigger_id, 'GAME_INIT', 'ET_GAME_INIT', false)
+    local dummy_trigger = new_global_trigger(trigger_id, "GAME_INIT", "ET_GAME_INIT", false)
     if M.need_enable_trigger_manualy then
         GameAPI.enable_global_lua_trigger(dummy_trigger)
     end
 end
 
-new_global_trigger(M.next_id(), 'GAME_INIT', 'ET_GAME_INIT', true).on_event = function ()
+new_global_trigger(M.next_id(), "GAME_INIT", "ET_GAME_INIT", true).on_event = function()
     M.need_enable_trigger_manualy = true
 end
 

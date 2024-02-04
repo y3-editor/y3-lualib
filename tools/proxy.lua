@@ -1,9 +1,9 @@
 ---@class Proxy
-local M = {}
+local M             = {}
 
-local RAW    = {'<RAW>'}
-local CONFIG = {'<CONFIG>'}
-local CUSTOM = {'<CUSTOM>'}
+local RAW           = { "<RAW>" }
+local CONFIG        = { "<CONFIG>" }
+local CUSTOM        = { "<CUSTOM>" }
 
 ---@alias Proxy.Setter fun(self: table, raw: any, key: any, value: any, config: Proxy.Config, custom: any): any
 ---@alias Proxy.Getter fun(self: table, raw: any, key: any, config: Proxy.Config, custom: any): any
@@ -16,11 +16,11 @@ local CUSTOM = {'<CUSTOM>'}
 ---@field anySetter? Proxy.Setter # 只有没有对应的 `setter` 才会触发 `anySetter`
 ---@field anyGetter? Proxy.Getter # 只有没有对应的 `getter` 才会触发 `anyGetter`
 local defaultConfig = {
-    cache     = true,
+    cache = true,
 }
 
-local metatable = {
-    __newindex = function (self, key, value)
+local metatable     = {
+    __newindex = function(self, key, value)
         local raw    = rawget(self, RAW)
         ---@type Proxy.Config
         local config = rawget(self, CONFIG)
@@ -41,7 +41,7 @@ local metatable = {
             raw[key] = nvalue
         end
     end,
-    __index = function (self, key)
+    __index = function(self, key)
         local raw    = rawget(self, RAW)
         ---@type Proxy.Config
         local config = rawget(self, CONFIG)
@@ -60,11 +60,11 @@ local metatable = {
         end
         return value
     end,
-    __pairs = function (self)
+    __pairs = function(self)
         local raw = rawget(self, RAW)
         return pairs(raw)
     end,
-    __len = function (self)
+    __len = function(self)
         local raw = rawget(self, RAW)
         return #raw
     end
@@ -78,10 +78,10 @@ local metatable = {
 function M.new(obj, config, custom)
     config = config or defaultConfig
     local proxy = setmetatable({
-        [RAW]    = obj,
-        [CONFIG] = config,
-        [CUSTOM] = custom,
-    }, metatable)
+                                   [RAW]    = obj,
+                                   [CONFIG] = config,
+                                   [CUSTOM] = custom,
+                               }, metatable)
     return proxy
 end
 

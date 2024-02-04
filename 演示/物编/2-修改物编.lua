@@ -1,4 +1,4 @@
-local M = y3.object.unit[134274912] -- 关羽
+local M = y3.物编.unit[134274912] -- 关羽
 
 M.data.name = "这是修改过的名字"
 

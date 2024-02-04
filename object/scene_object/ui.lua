@@ -153,10 +153,11 @@ end
 ---@param start_alpha number # 开始alpha
 ---@param end_alpha number # 结束alpha
 ---@param duration number # 持续时间
----@param ease_type? y3.Const.EaseType # 曲线类型
+---@param ease_type? 枚举.曲线类型
 ---@return self
-function M:设置动画透明度(start_alpha, end_alpha, duration, ease_type)
-    GameAPI.set_ui_comp_anim_opacity(self.player.handle, self.handle, start_alpha, end_alpha, duration, ease_type)
+function M:播放透明度动画(start_alpha, end_alpha, duration, ease_type)
+    GameAPI.set_ui_comp_anim_opacity(self.player.handle, self.handle, start_alpha, end_alpha, duration,
+                                     y3.const.曲线类型[ease_type])
     return self
 end
 
@@ -534,7 +535,7 @@ end
 ---@param anim string 动画
 ---@param speed number 播放速度
 ---@param isloop boolean 是否循环
-function M.播放_动画_时间轴(player, anim, speed, isloop)
+function M.播放时间轴动画(player, anim, speed, isloop)
     -- TODO 见问题7
     ---@diagnostic disable-next-line: redundant-parameter
     GameAPI.play_ui_comp_anim(player.handle, anim, speed, isloop)
@@ -548,7 +549,7 @@ end
 ---@param duration number # 持续时间
 ---@param ease_type? integer # 曲线类型
 ---@return UI
-function M:播放_动画_移动(start_x, start_y, end_x, end_y, duration, ease_type)
+function M:播放移动动画(start_x, start_y, end_x, end_y, duration, ease_type)
     GameAPI.set_ui_comp_anim_pos(self.player.handle, self.handle, start_x, start_y, end_x, end_y, duration, ease_type)
     return self
 end
@@ -1026,6 +1027,12 @@ function M:获取_参数(参数名)
         return nil
     end
     return M.控件数据[self.player.id][self.handle][参数名]
+end
+
+---@return UIPrefab
+function M:获取所属元件()
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return y3.元件.从handle获取(self.player, GameAPI.get_ui_comp_prefab(self.player.handle, self.handle))
 end
 
 y3.游戏:事件("游戏-初始化", function(trg, data)

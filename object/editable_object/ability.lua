@@ -19,7 +19,7 @@ function M:__tostring()
     return string.format("{ability|%s|%s} @ %s"
     , self:get_name()
     , self.handle
-    , self:get_owner()
+    , self:获取拥有者_单位()
     )
 end
 
@@ -47,18 +47,18 @@ end)
 ---通过py层的技能实例获取lua层的技能实例
 ---@param py_ability py.Ability # py层的技能实例
 ---@return Ability ability # 返回在lua层初始化后的lua层技能实例
-function M.get_by_handle(py_ability)
+function M.获取_通过handle(py_ability)
     local id = py_ability:api_get_ability_global_id()
     return M.ref_manager:get(id, py_ability)
 end
 
 ---@param id integer
 ---@return Ability
-function M.get_by_id(id)
+function M.获取_通过id(id)
     return M.ref_manager:get(id)
 end
 
-y3.py_converter.register_py_to_lua("py.Ability", M.get_by_handle)
+y3.py_converter.register_py_to_lua("py.Ability", M.获取_通过handle)
 y3.py_converter.register_lua_to_py("py.Ability", function(lua_value)
     return lua_value.handle
 end)
@@ -68,19 +68,19 @@ y3.游戏:事件("技能-失去", function(trg, data)
     M.ref_manager:remove(id)
 end)
 
-function M:get_key()
+function M:获取_技能类型id()
     return self.handle:api_get_ability_id()
 end
 
 ---是否受冷却缩减影响
 ---@return boolean is_influenced 是否受冷却缩减影响
-function M:is_cd_reduce()
+function M:判断_是否受冷却影响()
     return self.handle:api_get_influenced_by_cd_reduce()
 end
 
 ---消耗生命是否会死亡
 ---@return boolean is_cost 消耗生命是否会死亡
-function M:is_cost_hp_can_die()
+function M:判断_消耗生命是否会死亡()
     return self.handle:api_get_cost_hp_can_die()
 end
 
@@ -93,7 +93,7 @@ end
 ---是否具有标签
 ---@param tag string 标签
 ---@return boolean
-function M:has_tag(tag)
+function M:判断_是否具有标签(tag)
     return GlobalAPI.has_tag(self.handle, tag)
 end
 
@@ -124,13 +124,13 @@ end
 
 ---设置技能等级
 ---@param level integer 等级
-function M:set_level(level)
+function M:设置等级(level)
     self.handle:api_set_level(level)
 end
 
 -- 获取技能等级
 ---@return integer level 等级
-function M:get_level()
+function M:获取等级()
     return self.handle:api_get_level()
 end
 
@@ -368,7 +368,7 @@ end
 
 ---获取技能的拥有者
 ---@return Unit owner 技能拥有者
-function M:get_owner()
+function M:获取拥有者_单位()
     local py_unit = self.handle:api_get_owner()
     return y3.单位.从handle获取(py_unit)
 end
@@ -400,7 +400,7 @@ function M:get_target(cast)
 
     local item = GameAPI.get_target_item_in_ability(self.handle, cast)
     if item then
-        return y3.item.从句柄获取(item)
+        return y3.物品.从句柄获取(item)
     end
 
     local point = self.handle:api_get_release_position(cast)
@@ -506,32 +506,32 @@ end
 
 ---设置技能图标
 ---@param icon_id integer 图片id
-function M:set_icon(icon_id)
+function M:设置图标(icon_id)
     self.handle:api_set_ability_icon(icon_id)
 end
 
 ---设置技能的建造朝向
 ---@param angle number 角度
-function M:set_build_rotate(angle)
+function M:设置建造方向(angle)
     self.handle:api_set_ability_build_rotate(Fix32(angle))
 end
 
 ---获取技能的指示器类型
 ---@return y3.Const.AbilityPointerType
-function M:get_skill_pointer()
+function M:获取指示器类型()
     return self.handle:api_get_ability_skill_pointer()
 end
 
 ---获取技能类型的指示器类型
 ---@param name py.AbilityKey
 ---@return y3.Const.AbilityPointerType
-function M.get_skill_type_pointer(name)
+function M.类型获取指示器类型(name)
     return GameAPI.get_ability_key_skill_pointer(name)
 end
 
 ---设置技能最大CD
 ---@param value number
-function M:set_max_cd(value)
+function M:设置最大CD(value)
     self:set_float_attr("cold_down_time", value)
 end
 

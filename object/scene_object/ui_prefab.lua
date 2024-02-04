@@ -47,7 +47,7 @@ function M:移除()
 end
 
 -- 获取 UIPrefab 的 UI 实例
----@param path string 路径
+---@param path? string 路径
 ---@return UI
 function M:获取子控件(path)
     ---@diagnostic disable-next-line: param-type-mismatch

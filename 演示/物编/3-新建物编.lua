@@ -1,7 +1,9 @@
-local template = y3.object.unit[134274912] -- 以关羽作为模板
+local template = y3.物编.unit[134274912].data.dodge_rate -- 以关羽作为模板
 
 ---@type EditorObject.Unit[]
 local new_units = {}
+
+
 
 for i = 1, 5 do
     new_units[i] = template:new()

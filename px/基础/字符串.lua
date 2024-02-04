@@ -8,7 +8,8 @@ end
 ---@param 被替换的字符串 string
 ---@param 要替换的字符串 string
 ---@param 替换次数? integer
----@return string @ 第二个返回值 替换次数 integer
+---@return string 返回结果
+---@return integer 替换次数
 function 字符串_替换(原字符串, 被替换的字符串, 要替换的字符串, 替换次数)
     return string.gsub(原字符串, 被替换的字符串, 要替换的字符串, 替换次数)
 end
@@ -201,4 +202,19 @@ end
 ---@return string
 function 字符串格式化(s, ...)
     return string.format(s, ...)
+end
+
+---@param 内容 string  格式化文本 =  获得经验{经验} {150}
+---@param ... table <string, 枚举.颜色>
+---@return string
+字符串格式化_彩色 = function(内容, ...)
+    local 颜色数组 = 表_组包(...)
+    local 返回内容
+    for index, value in ipairs(颜色数组) do
+        if value then
+            local 替换文本 = " <span style = 'color:" .. value[2] .. ";'> " .. 到字符串(value[1]) .. " </span>"
+            返回内容 = 字符串_替换(内容, "{}", 替换文本, 1)
+        end
+    end
+    return "<p> " .. 返回内容 .. " </p>"
 end

@@ -277,7 +277,7 @@ end
 function M:get_ability()
     local py_ability = GlobalAPI.get_related_ability(self.handle)
     if py_ability then
-        return y3.ability.get_by_handle(py_ability)
+        return y3.技能.获取_通过handle(py_ability)
     end
     return nil
 end

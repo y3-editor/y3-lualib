@@ -85,7 +85,7 @@ M.register("CT", function(...)
     log.debug("快照已保存到 script/log/catch.txt")
 end)
 
-y3.重载.onBeforeReload(function(reload, willReload)
+y3.重载.事件_重载之前(function(reload, willReload)
     remove_all_triggers_in_include(reload)
     remove_all_timers_in_include(reload)
     remove_all_local_timers_in_include(reload)

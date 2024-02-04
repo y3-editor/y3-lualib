@@ -34,11 +34,11 @@ local Config = {}
 function M.getConfig(name)
     if not M._classConfig[name] then
         M._classConfig[name] = setmetatable({
-            name         = name,
-            extendsMap   = {},
-            superCache   = {},
-            extendsCalls = {},
-        }, { __index = Config })
+                                                name         = name,
+                                                extendsMap   = {},
+                                                superCache   = {},
+                                                extendsCalls = {},
+                                            }, { __index = Config })
     end
     return M._classConfig[name]
 end
@@ -54,8 +54,8 @@ function M.declare(name, super)
     if M._classes[name] then
         return M._classes[name], config
     end
-    local class  = {}
-    local getter = {}
+    local class    = {}
+    local getter   = {}
     class.__name   = name
     class.__getter = getter
 
@@ -99,7 +99,7 @@ function M.declare(name, super)
     M._classes[name] = class
 
     local mt = {
-        __call = function (self, ...)
+        __call = function(self, ...)
             if not self.__alloc then
                 return self
             end
@@ -111,11 +111,11 @@ function M.declare(name, super)
     local superClass = M._classes[super]
     if superClass then
         if class == superClass then
-            M._errorHandler(('class %q can not inherit itself'):format(name))
+            M._errorHandler(("class %q can not inherit itself"):format(name))
         end
 
         config.superClass = superClass
-        config:extends(super, function () end)
+        config:extends(super, function() end)
     end
 
     return class, config
@@ -137,7 +137,7 @@ end
 function M.new(name, tbl)
     local class = M._classes[name]
     if not class then
-        M._errorHandler(('class %q not found'):format(name))
+        M._errorHandler(("class %q not found"):format(name))
     end
 
     if not tbl then
@@ -159,7 +159,7 @@ function M.delete(obj)
     obj.__deleted__ = true
     local name = obj.__class__
     if not name then
-        M._errorHandler('can not delete undeclared class : ' .. tostring(obj))
+        M._errorHandler("can not delete undeclared class : " .. tostring(obj))
     end
 
     M.runDel(obj, name)
@@ -177,7 +177,7 @@ end
 ---@return boolean
 function M.isValid(obj)
     return obj.__class__
-       and not obj.__deleted__
+        and not obj.__deleted__
 end
 
 --推荐使用“扩展语义”而不是“继承”语义 。
@@ -207,7 +207,7 @@ end
 ---@param name string
 ---@param ... any
 function M.runInit(obj, name, ...)
-    local data  = M.getConfig(name)
+    local data = M.getConfig(name)
     if data.initCalls == false then
         return
     end
@@ -215,16 +215,16 @@ function M.runInit(obj, name, ...)
         local initCalls = {}
 
         local function collectInitCalls(cname)
-            local class = M._classes[cname]
-            local cdata  = M.getConfig(cname)
+            local class        = M._classes[cname]
+            local cdata        = M.getConfig(cname)
             local extendsCalls = cdata.extendsCalls
             if extendsCalls then
                 for _, call in ipairs(extendsCalls) do
                     if call.init then
-                        initCalls[#initCalls+1] = function (cobj, ...)
-                            call.init(cobj, function (...)
-                                M.runInit(cobj, call.name, ...)
-                            end, ...)
+                        initCalls[#initCalls + 1] = function(cobj, ...)
+                            call.init(cobj, function(...)
+                                          M.runInit(cobj, call.name, ...)
+                                      end, ...)
                         end
                     else
                         collectInitCalls(call.name)
@@ -232,7 +232,7 @@ function M.runInit(obj, name, ...)
                 end
             end
             if class.__init then
-                initCalls[#initCalls+1] = class.__init
+                initCalls[#initCalls + 1] = class.__init
             end
         end
 
@@ -255,8 +255,8 @@ end
 ---@param obj table
 ---@param name string
 function M.runDel(obj, name)
-    local class = M._classes[name]
-    local data  = M.getConfig(name)
+    local class        = M._classes[name]
+    local data         = M.getConfig(name)
     local extendsCalls = data.extendsCalls
     if extendsCalls then
         for _, call in ipairs(extendsCalls) do
@@ -279,19 +279,19 @@ function Config:super(name)
     if not self.superCache[name] then
         local class = M._classes[name]
         if not class then
-            M._errorHandler(('class %q not found'):format(name))
+            M._errorHandler(("class %q not found"):format(name))
         end
         local super = self.superClass
         if not super then
-            M._errorHandler(('class %q not inherit from any class'):format(name))
+            M._errorHandler(("class %q not inherit from any class"):format(name))
         end
         ---@cast super -?
-        self.superCache[name] = function (...)
+        self.superCache[name] = function(...)
             local k, obj = debug.getlocal(2, 1)
-            if k ~= 'self' then
-                M._errorHandler(('`%s()` must be called by the class'):format(name))
+            if k ~= "self" then
+                M._errorHandler(("`%s()` must be called by the class"):format(name))
             end
-            super.__call(obj,...)
+            super.__call(obj, ...)
         end
     end
     return self.superCache[name]
@@ -304,15 +304,15 @@ function Config:extends(extendsName, init)
     local class   = M._classes[self.name]
     local extends = M._classes[extendsName]
     if not extends then
-        M._errorHandler(('class %q not found'):format(extendsName))
+        M._errorHandler(("class %q not found"):format(extendsName))
     end
-    if type(init) ~= 'nil' and type(init) ~= 'function' then
-        M._errorHandler(('init must be nil or function'))
+    if type(init) ~= "nil" and type(init) ~= "function" then
+        M._errorHandler(("init must be nil or function"))
     end
     if not self.extendsMap[extendsName] then
         self.extendsMap[extendsName] = true
         for k, v in pairs(extends) do
-            if not class[k] and not k:match '^__' then
+            if not class[k] and not k:match "^__" then
                 class[k] = v
             end
         end
@@ -331,7 +331,7 @@ function Config:extends(extendsName, init)
         if not extends.__init then
             return
         end
-        local info = debug.getinfo(extends.__init, 'u')
+        local info = debug.getinfo(extends.__init, "u")
         if info.nparams <= 1 then
             return
         end

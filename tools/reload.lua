@@ -156,7 +156,7 @@ end
 
 -- 注册在重载之前的回调
 ---@param callback Reload.beforeReloadCallback
-function M.onBeforeReload(callback)
+function M.事件_重载之前(callback)
     M.beforeReloadCallbacks[#M.beforeReloadCallbacks + 1] = {
         name     = M.getCurrentIncludeName(),
         callback = callback,

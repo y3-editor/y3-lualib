@@ -1,5 +1,4 @@
 -- 此文件由 `tools/genGameAPI` 生成，请勿手动修改。
----@meta
 
 ---@class py.Event
 local event = {}
@@ -412,15 +411,15 @@ event.ET_CAMERA_SHOOT_RAYCAST_HIT = {
 }
 
 ---@class EventParam.ET_ROLE_JOIN_BATTLE
----@field player Player # 玩家
----@field is_middle_join boolean # 是否中途加入
+---@field 加入玩家 Player # 玩家
+---@field 是否中途加入 boolean # 是否中途加入
 
 --玩家加入战斗
 event.ET_ROLE_JOIN_BATTLE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "加入玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -428,7 +427,7 @@ event.ET_ROLE_JOIN_BATTLE = {
     [2] = {
         name = "__is_middle_join",
         type = "boolean",
-        lua_name = "is_middle_join",
+        lua_name = "是否中途加入",
         lua_type = "boolean",
         desc = "是否中途加入",
         lua_desc = "是否中途加入",
@@ -436,14 +435,14 @@ event.ET_ROLE_JOIN_BATTLE = {
 }
 
 ---@class EventParam.ET_ROLE_ACTIVE_EXIT_GAME_EVENT
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --玩家主动退出游戏
 event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -451,14 +450,14 @@ event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
 }
 
 ---@class EventParam.ET_ROLE_LOSE_CONNECT
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --玩家断开服务器连接
 event.ET_ROLE_LOSE_CONNECT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",

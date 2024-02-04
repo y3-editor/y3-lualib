@@ -46,6 +46,7 @@ M.unit = y3.util.defaultTable(function(key)
     return New "EditorObject.Unit" (key)
 end)
 
+
 ---@class EditorObject.Item: EditorObject.DataModule
 ---@field key py.ItemKey
 ---@field on_add? fun(item: Item) # 物品获得后执行
@@ -227,11 +228,11 @@ y3.游戏:事件("物品-失去", function(trg, data)
 end)
 
 y3.游戏:事件("物品-创建", function(trg, data)
-    M.callMethod("item", "on_create", data.item:get_key(), data.item, data.item)
+    M.callMethod("item", "on_create", data.item:获取类型id(), data.item, data.item)
 end)
 
 y3.游戏:事件("物品-移除", function(trg, data)
-    M.callMethod("item", "on_remove", data.item:get_key(), data.item, data.item)
+    M.callMethod("item", "on_remove", data.item:获取类型id(), data.item, data.item)
 end)
 
 y3.游戏:事件("效果-即将获得", function(trg, data)
@@ -251,43 +252,43 @@ y3.游戏:事件("效果-心跳", function(trg, data)
 end)
 
 y3.游戏:事件("技能-获得", function(trg, data)
-    M.callMethod("ability", "on_add", data.ability:get_key(), data.ability, data.ability)
+    M.callMethod("ability", "on_add", data.ability:获取_技能类型id(), data.ability, data.ability)
 end)
 
 y3.游戏:事件("技能-失去", function(trg, data)
-    M.callMethod("ability", "on_lose", data.ability:get_key(), data.ability, data.ability)
+    M.callMethod("ability", "on_lose", data.ability:获取_技能类型id(), data.ability, data.ability)
 end)
 
 y3.游戏:事件("技能-冷却结束", function(trg, data)
-    M.callMethod("ability", "on_cooldown", data.ability:get_key(), data.ability, data.ability)
+    M.callMethod("ability", "on_cooldown", data.ability:获取_技能类型id(), data.ability, data.ability)
 end)
 
 y3.游戏:事件("技能-升级", function(trg, data)
-    M.callMethod("ability", "on_upgrade", data.ability:get_key(), data.ability, data.ability)
+    M.callMethod("ability", "on_upgrade", data.ability:获取_技能类型id(), data.ability, data.ability)
 end)
 
 y3.游戏:事件("施法-即将开始", function(trg, data)
-    M.callMethod("ability", "on_can_cast", data.ability:get_key(), nil, data.ability, data.cast)
+    M.callMethod("ability", "on_can_cast", data.ability:获取_技能类型id(), nil, data.ability, data.cast)
 end)
 
 y3.游戏:事件("施法-开始", function(trg, data)
-    M.callMethod("ability", "on_cast_start", data.ability:get_key(), data.ability, data.ability, data.cast)
+    M.callMethod("ability", "on_cast_start", data.ability:获取_技能类型id(), data.ability, data.ability, data.cast)
 end)
 
 y3.游戏:事件("施法-引导", function(trg, data)
-    M.callMethod("ability", "on_cast_channel", data.ability:get_key(), data.ability, data.ability, data.cast)
+    M.callMethod("ability", "on_cast_channel", data.ability:获取_技能类型id(), data.ability, data.ability, data.cast)
 end)
 
 y3.游戏:事件("施法-出手", function(trg, data)
-    M.callMethod("ability", "on_cast_shot", data.ability:get_key(), data.ability, data.ability, data.cast)
+    M.callMethod("ability", "on_cast_shot", data.ability:获取_技能类型id(), data.ability, data.ability, data.cast)
 end)
 
 y3.游戏:事件("施法-完成", function(trg, data)
-    M.callMethod("ability", "on_cast_finish", data.ability:get_key(), data.ability, data.ability, data.cast)
+    M.callMethod("ability", "on_cast_finish", data.ability:获取_技能类型id(), data.ability, data.ability, data.cast)
 end)
 
 y3.游戏:事件("施法-停止", function(trg, data)
-    M.callMethod("ability", "on_cast_stop", data.ability:get_key(), data.ability, data.ability, data.cast)
+    M.callMethod("ability", "on_cast_stop", data.ability:获取_技能类型id(), data.ability, data.ability, data.cast)
 end)
 
 return M

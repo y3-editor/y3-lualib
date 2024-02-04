@@ -97,7 +97,7 @@ end
 ---@param on_timer fun(timer: Timer)
 ---@param desc? string # 描述
 ---@return Timer
-function M.等待一定时间执行(timeout, on_timer, desc)
+function M.单次执行(timeout, on_timer, desc)
     desc = desc or make_timer_reason(on_timer)
     ---@type Timer
     local timer

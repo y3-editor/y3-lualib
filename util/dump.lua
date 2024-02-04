@@ -1,11 +1,11 @@
-local seri = require 'y3.tools.serialization'
+local seri = require "y3.tools.serialization"
 
 ---@class Dump
-local M = Class 'Dump'
+local M = Class "Dump"
 
 ---@private
 function M.encodeHook(value)
-    if type(value) ~= 'table' then
+    if type(value) ~= "table" then
         return
     end
     local luaType = y3.class.type(value)

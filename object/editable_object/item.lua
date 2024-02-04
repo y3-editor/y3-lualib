@@ -20,7 +20,7 @@ Extends("Item", "KV")
 
 function M:__tostring()
     return string.format("{item|%s|%s}"
-    , self:get_name()
+    , self:获取名称()
     , self.handle
     )
 end
@@ -272,61 +272,65 @@ end
 
 ---设置生命值
 ---@param value number 生命值
-function M:set_hp(value)
+function M:设置生命值(value)
     self.handle:api_set_hp(value)
 end
 
 ---给物品添加被动技能
 ---@param ability_id py.AbilityKey 技能id
 ---@param level integer 等级
-function M:add_passive_ability(ability_id, level)
+function M:添加被动技能(ability_id, level)
     self.handle:api_item_add_passive_ability(ability_id, level)
 end
 
 ---设置丢弃状态
 ---@param dropable boolean 状态
-function M:set_droppable(dropable)
+function M:设置是否可丢弃(dropable)
     self.handle:api_set_droppable(dropable)
 end
 
 ---添加标签
----@param tag string 标签
-function M:add_tag(tag)
-    self.handle:api_add_tag(tag)
+---@param tag string[] 标签
+function M:添加标签(tag)
+    for index, value in ipairs(tag) do
+        self.handle:api_add_tag(value)
+    end
 end
 
----@param tag string 标签
-function M:remove_tag(tag)
-    self.handle:api_remove_tag(tag)
+---@param tag string[] 标签
+function M:移除标签(tag)
+    for index, value in ipairs(tag) do
+        self.handle:api_remove_tag(value)
+    end
 end
 
 ---设置物品可否出售
 ---@param state boolean 是否可出售
-function M:set_sale_state(state)
+function M:设置是否可出售(state)
     self.handle:api_set_sale_state(state)
 end
 
 ---设置物品缩放
 ---@param scale number 缩放
-function M:set_scale(scale)
+function M:设置缩放(scale)
     self.handle:api_set_scale(scale)
 end
 
 --设置物品可见性
 ---@param is_visible boolean # 是否可见
-function M:set_visible(is_visible)
+function M:设置是否可见(is_visible)
     self.handle:api_set_item_visible(is_visible)
 end
 
 ---设置物品朝向
 ---@param facing number 朝向
-function M:set_facing(facing)
+function M:设置朝向(facing)
     self.handle:api_set_face_angle(facing)
 end
 
 ---获取物品类型id
 ---@return py.ItemKey key 类型
-function M:get_key()
+function M:获取类型id()
     return self.handle:api_get_key()
 end
 
@@ -334,13 +338,13 @@ end
 ---@param id py.ItemKey 物品id
 ---@param player_attr_name py.RoleResKey 玩家属性
 ---@param price number 价格
-function M.set_shop_price(id, player_attr_name, price)
+function M.设置出售价格(id, player_attr_name, price)
     GameAPI.set_item_buy_price(id, player_attr_name, price)
 end
 
 ---物品持有者
 ---@return Unit? owner 持有者
-function M:get_owner()
+function M:获取拥有者_单位()
     local py_owner = self.handle:api_get_owner()
     if not py_owner then
         return nil
@@ -350,7 +354,7 @@ end
 
 ---物品所在点
 ---@return Point position 物品所在点
-function M:get_point()
+function M:获取所在点()
     local py_point = self.handle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
@@ -359,82 +363,82 @@ end
 
 ---物品堆叠数
 ---@return integer stacks 堆叠数
-function M:get_stack()
+function M:获取堆叠数()
     return self.handle:api_get_stack_cnt()
 end
 
 ---物品充能数
 ---@return integer charges 充能数
-function M:get_charge()
+function M:获取充能数()
     return self.handle:api_get_charge_cnt()
 end
 
 ---获取最大充能数
 ---@return integer max_charge 最大充能数
-function M:get_max_charge()
+function M:获取最大充能数()
     return self.handle:api_get_max_charge()
 end
 
 ---获取物品等级
 ---@return integer level 物品等级
-function M:get_level()
+function M:获取等级()
     return self.handle:api_get_level()
 end
 
 ---获取物品的生命值
 ---@return number hp 物品的生命值
-function M:get_hp()
+function M:获取生命值()
     return self.handle:api_get_hp():float()
 end
 
 ---获取物品名
 ---@return string name 物品名字
-function M:get_name()
+function M:获取名称()
     return self.handle:get_name()
 end
 
 ---获取物品描述
 ---@return string description 物品描述
-function M:get_description()
+function M:获取描述()
     return self.handle:api_get_desc()
 end
 
 ---获取物品缩放
 ---@return number scale 物品缩放
-function M:get_scale()
+function M:获取缩放()
     return self.handle:api_get_scale():float()
 end
 
 ---获取物品的朝向
 ---@return number angel 朝向
-function M:get_facing()
+function M:获取朝向()
     return self.handle:api_get_face_angle():float()
 end
 
 ---获取物品的主动技能
 ---@return Ability? ability 主动技能
-function M:get_ability()
+function M:获取主动技能()
     local py_ability = self.handle:api_get_positive_ability()
     if not py_ability then
         return nil
     end
-    return y3.ability.get_by_handle(py_ability)
+    return y3.技能.获取_通过handle(py_ability)
 end
 
 ---获取物品的被动技能
 ---@param index integer
 ---@return Ability? ability 被动技能
-function M:get_passive_ability(index)
+function M:获取被动技能(index)
     local py_ability = self.handle:api_get_passive_ability(index)
     if not py_ability then
         return nil
     end
-    return y3.ability.get_by_handle(py_ability)
+    return y3.技能.获取_通过handle(py_ability)
 end
 
 ---获取物品在单位身上的格子位置
 ---@return integer index 格子位置
-function M:get_slot()
+function M:获取槽位索引()
     if not self.handle:api_get_owner() then
         return -1
     end
@@ -443,14 +447,14 @@ end
 
 ---获取物品的拥有玩家
 ---@return Player player 玩家
-function M:get_owner_player()
+function M:获取拥有者_玩家()
     local py_player = self.handle:api_get_creator()
     return y3.玩家.从句柄获取(py_player)
 end
 
 ---获取物品在单位身上的背包槽类型
 ---@return py.SlotType 背包槽类型
-function M:get_slot_type()
+function M:获取槽位类型()
     if not self.handle:api_get_owner() then
         return -1
     end
@@ -463,16 +467,16 @@ end
 ---@param player Player 玩家
 ---@param item_key py.ItemKey 物品类型ID
 ---@return boolean
-function M.check_precondition_by_key(player, item_key)
+function M.判断是否符合前置条件(player, item_key)
     return GameAPI.check_item_key_precondition(player.handle, item_key)
 end
 
 ---创建物品到点
 ---@param point Point 点
----@param item_key py.ItemKey 道具类型
+---@param item_key py.ItemKey|integer 道具类型
 ---@param player? Player 玩家
 ---@return Item
-function M.create_item(point, item_key, player)
+function M.创建到点(point, item_key, player)
     if not player then
         player = y3.玩家(31)
     end
@@ -484,7 +488,7 @@ end
 ---@param item_key py.ItemKey 类型
 ---@param key py.RoleResKey 玩家属性
 ---@return number price 价格
-function M.get_item_buy_price_by_key(item_key, key)
+function M.获取购买价格(item_key, key)
     return GameAPI.get_item_buy_price(item_key, key):float()
 end
 
@@ -492,14 +496,14 @@ end
 ---@param item_key py.ItemKey 类型
 ---@param key py.RoleResKey 玩家属性
 ---@return number price 价格
-function M.get_item_sell_price_by_key(item_key, key)
+function M.获取出售价格(item_key, key)
     return GameAPI.get_item_sell_price(item_key, key):float()
 end
 
 ---获得区域内所有物品
 ---@param area Area 区域
 ---@return ItemGroup
-function M.get_item_group_in_area(area)
+function M.获取区域内所有物品(area)
     local py_item_group = GameAPI.get_item_group_in_area(area.handle)
     return y3.item_group.create_lua_item_group_from_py(py_item_group)
 end
@@ -507,34 +511,34 @@ end
 ---获取物品类型名
 ---@param item_key py.ItemKey 物品类型
 ---@return string
-function M.get_name_by_key(item_key)
+function M.获取类型的名称(item_key)
     return GameAPI.get_item_conf_name(item_key)
 end
 
 ---获取物品类型的icon的图片id
 ---@param item_key py.ItemKey 物品类型
 ---@return integer
-function M.get_icon_id_by_key(item_key)
+function M.类型获取图片(item_key)
     return GameAPI.get_icon_id_by_item_type(item_key)
 end
 
 ---获取物品类型的描述
 ---@param item_key py.ItemKey 物品类型
 ---@return string
-function M.get_description_by_key(item_key)
+function M.类型获取描述(item_key)
     return GameAPI.get_item_desc_by_type(item_key)
 end
 
 ---获取物品模型
 ---@return py.ModelKey model_key 模型类型
-function M:get_model()
+function M:获取模型()
     return self.handle:api_get_item_model()
 end
 
 ---获取物品类型的模型
 ---@param item_key py.ItemKey 物品类型
 ---@return py.ModelKey model_key 模型类型
-function M.get_model_by_key(item_key)
+function M.类型获取模型(item_key)
     return GameAPI.api_get_item_type_model(item_key)
 end
 
@@ -542,7 +546,7 @@ end
 ---@param item_key py.ItemKey
 ---@param comp_item_key py.ItemKey
 ---@return integer
-function M.get_num_of_item_mat(item_key, comp_item_key)
+function M.类型获取合成所需类型的数量(item_key, comp_item_key)
     return GameAPI.api_get_value_of_item_name_comp_mat(item_key, comp_item_key)
 end
 
@@ -550,7 +554,7 @@ end
 ---@param item_key py.ItemKey
 ---@param role_res_key py.RoleResKey
 ---@return number
-function M.get_num_of_player_attr(item_key, role_res_key)
+function M.类型获取合成所需玩家属性数量(item_key, role_res_key)
     return GameAPI.api_get_value_of_item_name_comp_res(item_key, role_res_key)
 end
 
@@ -558,7 +562,7 @@ end
 ---@param key string 属性key
 ---@param item_key py.ItemKey 物品类型
 ---@return number
-function M.get_attribute_by_key(item_key, key)
+function M.类型获取基础属性(item_key, key)
     ---@diagnostic disable-next-line: return-type-mismatch
     return GameAPI.api_get_attr_of_item_key(item_key, "ATTR_BASE", key)
 end
@@ -567,7 +571,7 @@ end
 ---@param tag string 标签
 ---@param item_key py.ItemKey 物品类型
 ---@return boolean is_has_tag 是否有标签
-function M.has_tag_by_key(tag, item_key)
+function M.类型是否存在标签(tag, item_key)
     return GameAPI.item_key_has_tag(item_key, tag)
 end
 

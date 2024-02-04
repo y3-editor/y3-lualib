@@ -1,15 +1,15 @@
 --粒子特效
 ---@class Particle
 ---@field handle py.Sfx
----@field private _removed? boolean 
+---@field private _removed? boolean
 ---@overload fun(sfx:py.Sfx): self
-local M = Class 'Particle'
+local M = Class "Particle"
 
-M.type = 'particle'
+M.type = "particle"
 
 function M:__tostring()
-    return string.format('{Particle|%s}'
-        , self.handle
+    return string.format("{Particle|%s}"
+    , self.handle
     )
 end
 
@@ -27,12 +27,12 @@ end
 ---@param py_sfx py.Sfx
 ---@return Particle
 function M.get_by_handle(py_sfx)
-    local particle = New 'Particle' (py_sfx)
+    local particle = New "Particle" (py_sfx)
     return particle
 end
 
-y3.py_converter.register_py_to_lua('py.Sfx', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.Sfx', function (lua_value)
+y3.py_converter.register_py_to_lua("py.Sfx", M.get_by_handle)
+y3.py_converter.register_lua_to_py("py.Sfx", function(lua_value)
     return lua_value.handle
 end)
 
@@ -48,7 +48,7 @@ end)
 function M.create_screen(data)
     local py_player = data.target and data.target.handle
     local py_sfx = GameAPI.add_sfx_to_camera_with_return(data.type, data.time, py_player, data.is_on_fog)
-    local ptc = New 'Particle' (py_sfx)
+    local ptc = New "Particle" (py_sfx)
     return ptc
 end
 
@@ -71,14 +71,14 @@ function M.create(data)
     local target    = data.target
     local angle     = data.angle or 0.0
     local scale     = data.scale or 1.0
-    local time      = data.time  or -1.0
+    local time      = data.time or -1.0
     local immediate = data.immediate
-    if target.type == 'unit' then
+    if target.type == "unit" then
         ---@cast target Unit
-        local socket          = data.socket or 'origin'
+        local socket          = data.socket or "origin"
         local follow_rotation = data.follow_rotation
-        local follow_scale    = data.follow_scale    and true or false
-        local py_sfx = GameAPI.create_sfx_on_unit_new(
+        local follow_scale    = data.follow_scale and true or false
+        local py_sfx          = GameAPI.create_sfx_on_unit_new(
             data.type,
             target.handle,
             socket,
@@ -90,7 +90,7 @@ function M.create(data)
             immediate,
             immediate == nil
         )
-        local ptc = New 'Particle' (py_sfx)
+        local ptc             = New "Particle" (py_sfx)
         return ptc
     else
         ---@cast target Point
@@ -107,7 +107,7 @@ function M.create(data)
             immediate,
             immediate == nil
         )
-        local ptc = New 'Particle' (py_sfx)
+        local ptc = New "Particle" (py_sfx)
         return ptc
     end
 end
@@ -135,7 +135,6 @@ end
 function M:set_facing(direction)
     GameAPI.set_sfx_angle(self.handle, direction)
 end
-
 
 --设置缩放比例
 ---@param x number X轴缩放

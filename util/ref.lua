@@ -9,7 +9,7 @@
 
 ---@class Ref
 ---@overload fun(className: string, new: (fun(key: Ref.ValidKeyType, ...): any)): self
-local M = Class 'Ref'
+local M = Class "Ref"
 
 ---@alias Ref.ValidKeyType any
 
@@ -74,7 +74,7 @@ function M:remove(key)
     -- 只有在第一次移除引用时才会开始计时，这样可以错峰（大概？）
     if not self.updateTimer then
         ---@private
-        self.updateTimer = y3.ltimer.loop(self.unrefTimeAtLeast, function ()
+        self.updateTimer = y3.ltimer.loop(self.unrefTimeAtLeast, function()
             self:updateWaitingList()
         end)
     end
