@@ -132,7 +132,8 @@ end
 ---@return string
 function M:getTimeStamp()
     local deltaClock = self.clock() - self.startClock
-    local sec, ms = math.modf(self.startTime + deltaClock)
+    local deltaSec, ms = math.modf(deltaClock)
+    local sec = self.startTime + deltaSec
     local timeStamp = os.date('%m-%d %H:%M:%S', sec) --[[@as string]]
     timeStamp = ('%s.%03.f'):format(timeStamp, ms * 1000)
     return timeStamp
