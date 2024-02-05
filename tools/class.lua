@@ -339,4 +339,35 @@ function Config:extends(extendsName, init)
     end
 end
 
+---检查一个对象是否是某个类的实例
+---@param obj? table
+---@param parentName string
+---@return boolean
+function M.IsInstanceOf(obj, parentName)
+    if not obj then
+        return false
+    end
+    ---@param name string
+    ---@return boolean
+    local function checkParent(name)
+        if name == parentName then
+            return true
+        end
+        for pname in pairs(M.getConfig(name).extendsMap) do
+            ---@cast pname string
+            if pname == parentName then
+                return true
+            end
+            if checkParent(pname) then
+                return true
+            end
+        end
+        return false
+    end
+    if checkParent(M.type(obj)--[[@as string]]) then
+        return true
+    end
+
+    return false
+end
 return M
