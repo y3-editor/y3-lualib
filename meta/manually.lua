@@ -166,3 +166,11 @@ function Projectile:create_mover_trigger(mover_data, mode, unit_collide, mover_f
 
 ---@param ... any
 function consoleprint(...) end
+
+---@class GameAPI
+GameAPI = {}
+
+---@param comp_uid string
+---@param event_type integer
+---@param callback function
+function GameAPI.bind_local_listener(comp_uid, event_type, callback) end
