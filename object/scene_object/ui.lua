@@ -87,6 +87,21 @@ function M:add_event(event, name, data)
     return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name, y3.dump.encode(data))
 end
 
+--创建本地界面事件  
+--触发事件后立即调用回调函数，不会与其他玩家同步。
+--
+-->警告：回调函数是在本地玩家的客户端上执行的，注意避免产生不同步的问题。
+---@param event y3.Const.UIEvent # 界面事件类型
+---@param callback fun(local_player: Player) # 回调函数
+function M:add_local_event(event, callback)
+    assert(y3.const.UIEventMap[event], '无效的事件类型')
+    GameAPI.bind_local_listener(self.handle, y3.const.UIEventMap[event], function ()
+        y3.player.with_local(function (local_player)
+            callback(local_player)
+        end)
+    end)
+end
+
 -- 设置相对父级位置. 目前不建议使用, 引擎层存在 bug, 建议手动计算位置赋值.
 ---@param direction y3.Const.UIRelativeParentPosType
 ---@param offset number # 相对父级位置
