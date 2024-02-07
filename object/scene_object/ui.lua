@@ -34,9 +34,11 @@ M.map = {}
 M.comp_id = y3.proxy.new({}, {
     cache = true,
     anyGetter = function (self, raw, key, config, custom)
-        ---@diagnostic disable-next-line: deprecated
-        local id = GameAPI.get_ui_comp_id_by_name(y3.player.get_local().handle, key)
-        if id == '' then
+        if not GameAPI.get_prefab_ins_id_by_name then
+            return key
+        end
+        local id = GameAPI.get_prefab_ins_id_by_name(key)
+        if id == '' or id == nil then
             return key
         else
             return id
