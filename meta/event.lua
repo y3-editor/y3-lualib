@@ -4843,21 +4843,21 @@ event.ET_COLLIDE_OBSTACLE_PROJECTILE = {
 event.ET_UNIT_PRODUCE_PROJECTILE = {}
 
 ---@class EventParam.ET_TRIGGER_COMPONENT_EVENT
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
 ---@field pos py.Vector2 # 触碰坐标
 ---@field touch_id integer # 触碰ID
 ---@field str1 string # 自定义信息
----@field ui UI # ui
----@field data any # 自定义数据
+---@field 触发控件 UI # ui
+---@field 自定义数据 any # 自定义数据
 
 --ui编辑器事件
 event.ET_TRIGGER_COMPONENT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4905,18 +4905,18 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
     [7] = {
         name = nil,
         type = nil,
-        lua_name = "ui",
+        lua_name = "触发控件",
         lua_type = "UI",
         lua_desc = "ui",
         lua_code = function(data)
-            local ui = y3.控件.从handle获取(data.player, data.comp_name)
+            local ui = y3.控件.从handle获取(data.触发玩家, data.comp_name)
             return ui
         end,
     },
     [8] = {
         name = nil,
         type = nil,
-        lua_name = "data",
+        lua_name = "自定义数据",
         lua_type = "any",
         lua_desc = "自定义数据",
         lua_code = function(data)

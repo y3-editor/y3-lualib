@@ -92,27 +92,36 @@ function 表_复制(旧表)
     return y3.util.deepCopy(旧表, 新表)
 end
 
+local 获取键 = function(键)
+    local 返回键
+    返回键 = 字符串_匹配(键, "^%[(%d+)%]$")
+    if 返回键 then
+        return 到数值(返回键)
+    end
+    return 键
+end
+
 ---表_设置路径字段值
 ---@param 表 table
 ---@param 路径 string  字段1.字段2.字段3
 ---@param 值 any
 function 表_设置路径字段值(表, 路径, 值)
-    local 当前字段 = 路径
     local 字段数组 = 字符串_分割(路径, ".")
     local 字段数 = 表_获取长度(字段数组)
     local 当前表 = 表
+    local 当前字段 = 获取键(路径)
     if type(当前表) ~= "table" then
         调试警告("设置表路径值, 必须输入表参数", 路径, 值)
     end
     if 字段数 > 0 then
         for i = 1, 字段数 - 1, 1 do
-            当前字段 = 字段数组[i]
+            当前字段 = 获取键(字段数组[i])
             if 表_是否存在字段(当前表, 当前字段) == false then
                 当前表[当前字段] = {}
             end
             当前表 = 当前表[当前字段]
         end
-        当前字段 = 字段数组[字段数]
+        当前字段 = 获取键(字段数组[字段数])
         当前表[当前字段] = 值
     else
         log.error("表_设置路径字段值, 路径不能为空")
@@ -124,23 +133,23 @@ end
 ---@param 路径 string  字段1.字段2.字段3
 ---@return any
 function 表_获取路径字段值(表, 路径)
-    local 当前字段 = 路径
     local 字段数组 = 字符串_分割(路径, ".")
     local 字段数 = 表_获取长度(字段数组)
     local 当前表 = 表
+    local 当前字段 = 获取键(路径)
     if type(当前表) ~= "table" then
         调试警告("获取表路径值, 必须输入表参数", 路径)
     end
     if 字段数 > 0 then
         for i = 1, 字段数 - 1, 1 do
-            当前字段 = 字段数组[i]
+            当前字段 = 获取键(字段数组[i])
             if 表_是否存在字段(当前表, 当前字段) == false then
                 return nil
             end
             -- print(表_到字符串(当前表))
             当前表 = 当前表[当前字段]
         end
-        当前字段 = 字段数组[字段数]
+        当前字段 = 获取键(字段数组[字段数])
         return 当前表[当前字段]
     else
         log.error("表_设置路径字段值, 路径不能为空")
@@ -281,7 +290,7 @@ function 表_排序后遍历(参数, 回调函数)
 end
 
 ---@param 表 table
----@param 数值回调 fun(k:integer|string,v:any):number
+---@param 数值回调 fun(k:integer|string,v:any):number|nil
 ---@param 遍历回调 fun(i:integer,k:integer|string,v:any)
 ---@param 降序? boolean 默认升序
 ---@return integer 表长度
@@ -311,7 +320,9 @@ function 表_排序后遍历2(表, 数值回调, 遍历回调, 降序)
 
     for key, value in pairs(表) do
         local 对比值 = 数值回调(key, value)
-        插入值(key, 对比值)
+        if 对比值 then
+            插入值(key, 对比值)
+        end
     end
     table.remove(临时表)
 

@@ -17,5 +17,5 @@ end)
 
 -- 接收UI事件
 y3.游戏:事件("界面-消息", "测试事件", function(trg, data)
-    print("界面消息：", data.data.custom)
+    print("界面消息：", data.自定义数据.custom)
 end)

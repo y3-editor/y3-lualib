@@ -43,13 +43,6 @@ function 字符串_查找文本(原数据, 查找数据)
     return string.find(原数据, 查找数据)
 end
 
----@param 原数据 string|number
----@param 查找数据 string|number
----@return...any|nil
-function 字符串_正则匹配文本(原数据, 查找数据)
-    return string.match(原数据, 查找数据)
-end
-
 function 字符串_获取字节长度(str)
     local curIndex = 0;
     local i = 1;
@@ -125,6 +118,7 @@ function 字符串_分割(待处理字符串, 分隔符)
         table.insert(arr, string.sub(待处理字符串, start, pos - 1))
         start = pos + string.len(分隔符)
     end
+
     table.insert(arr, string.sub(待处理字符串, start))
     return arr
 end

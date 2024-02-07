@@ -1,11 +1,11 @@
 ---@class Storage
 ---@overload fun(): self
-local M = Class 'Storage'
+local M = Class "Storage"
 
 -- 存储任意值
 ---@param key any
 ---@param value any
-function M:storage_set(key, value)
+function M:设置存储值(key, value)
     if not self.storage_table then
         ---@private
         self.storage_table = {}
@@ -16,7 +16,7 @@ end
 -- 获取存储的值
 ---@param key any
 ---@return any
-function M:storage_get(key)
+function M:获取存储值(key)
     if not self.storage_table then
         return nil
     end

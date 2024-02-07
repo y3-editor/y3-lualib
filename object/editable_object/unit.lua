@@ -1111,62 +1111,62 @@ end
 
 ---获取当前生命值
 ---@return number current_unit_hp 当前生命值
-function M:get_hp()
+function M:获取当前生命值()
     return self.handle:api_get_float_attr("hp_cur"):float()
 end
 
 ---获取当前魔法值
 ---@return number current_mp 当前魔法值
-function M:get_mp()
+function M:获取当前魔法值()
     return self.handle:api_get_float_attr("mp_cur"):float()
 end
 
 ---获取最终属性
 ---@param attr_name string 属性名
 ---@return number
-function M:get_final_attr(attr_name)
+function M:获取最终属性(attr_name)
     return self.handle:api_get_float_attr(attr_name):float()
 end
 
 ---获取属性（额外）
 ---@param attr_name string 属性名
 ---@return number
-function M:get_attr_other(attr_name)
+function M:获取额外属性(attr_name)
     return self.handle:api_get_attr_other(attr_name):float()
 end
 
 ---获取单属性（基础）
 ---@param attr_name string
 ---@return number attr_base 单位基础属性类型的属性
-function M:get_attr_base(attr_name)
+function M:获取基础属性(attr_name)
     return self.handle:api_get_attr_base(attr_name):float()
 end
 
 ---获取属性（基础加成）
 ---@param attr_name string
 ---@return number
-function M:get_attr_base_ratio(attr_name)
+function M:获取基础加成属性(attr_name)
     return self.handle:api_get_attr_base_ratio(attr_name):float()
 end
 
 ---获取属性（增益）
 ---@param attr_name string
 ---@return number
-function M:get_attr_bonus(attr_name)
+function M:获取增益属性(attr_name)
     return self.handle:api_get_attr_bonus(attr_name):float()
 end
 
 ---获取属性（最终加成）
 ---@param attr_name string
 ---@return number
-function M:get_attr_all_ratio(attr_name)
+function M:获取最终加成属性(attr_name)
     return self.handle:api_get_attr_all_ratio(attr_name):float()
 end
 
 ---获取属性（增益加成）
 ---@param attr_name string
 ---@return number
-function M:get_attr_bonus_ratio(attr_name)
+function M:获取增益加成属性(attr_name)
     return self.handle:api_get_attr_bonus_ratio(attr_name):float()
 end
 
@@ -1174,7 +1174,7 @@ end
 ---@param unit_key py.UnitKey
 ---@param attr_name any
 ---@return number unit_attribute_growth 单位属性成长
-function M.get_attr_growth_by_key(unit_key, attr_name)
+function M.获取属性成长(unit_key, attr_name)
     return GameAPI.api_get_attr_growth(unit_key, attr_name):float()
 end
 

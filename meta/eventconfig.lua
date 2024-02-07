@@ -2420,6 +2420,7 @@ end\
     },
 }
 
+-- 标签 界面有文本代码, 不知道对重命名有影响没,日后如果有bug,排查下
 ---@alias EventParam.界面-消息 EventParam.ET_TRIGGER_COMPONENT_EVENT
 M.config["界面-消息"] = {
     __class__ = "EventConfigBuilder",
@@ -2427,7 +2428,7 @@ M.config["界面-消息"] = {
     extraArgs = {
         [1] = {
             code = "function (data)\
-    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    local ui = y3.控件.从handle获取(data.触发玩家, data.comp_name)\
     return ui\
 end\
 ",

@@ -603,7 +603,8 @@ function Unit:api_set_animation_speed(speed) end
 ---@param role? py.Role # 所属单位
 ---@param visible_type? py.SfxVisibleType # 可见性规则
 ---@param rotation? number # 初始旋转 角度制
-function Unit:api_play_sfx(socket_name, sfx_res_id, keep_time, scale, inherit_pos, inherit_rotate, inherit_scale, role, visible_type, rotation) end
+function Unit:api_play_sfx(socket_name, sfx_res_id, keep_time, scale, inherit_pos, inherit_rotate, inherit_scale, role,
+                           visible_type, rotation) end
 
 --在单位挂接点播放特效
 ---@param socket_name string # 挂节点名字
@@ -614,7 +615,8 @@ function Unit:api_play_sfx(socket_name, sfx_res_id, keep_time, scale, inherit_po
 ---@param inherit_scale? boolean # 是否跟随缩放
 ---@param role? py.Role # 所属玩家
 ---@param visible_type? py.SfxVisibleType # 可见性规则
-function Unit:api_unit_play_sfx_on_socket(socket_name, sfx_id, keep_time, scale, inherit_rotate, inherit_scale, role, visible_type) end
+function Unit:api_unit_play_sfx_on_socket(socket_name, sfx_id, keep_time, scale, inherit_rotate, inherit_scale, role,
+                                          visible_type) end
 
 --在单位上播放特效并返回特效实体
 ---@param socket_name string # 挂节点名字
@@ -628,7 +630,8 @@ function Unit:api_unit_play_sfx_on_socket(socket_name, sfx_id, keep_time, scale,
 ---@param visible_type? py.SfxVisibleType # 可见性规则
 ---@param rotation? number # 初始旋转 角度制
 ---@return py.Sfx # 特效
-function Unit:api_play_sfx_with_return(socket_name, sfx_res_id, keep_time, scale, inherit_pos, inherit_rotate, inherit_scale, role, visible_type, rotation) end
+function Unit:api_play_sfx_with_return(socket_name, sfx_res_id, keep_time, scale, inherit_pos, inherit_rotate,
+                                       inherit_scale, role, visible_type, rotation) end
 
 --单位替换播放动画
 ---@param target_ani string # 目标动画名字
