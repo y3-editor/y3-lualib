@@ -10,7 +10,7 @@ local M             = Class "ObjectEvent"
 ---@param event_name string
 ---@param ... any
 ---@return Trigger
-function M:event(event_name, ...)
+function M:事件(event_name, ...)
     if not self.object_event_manager then
         self.object_event_manager = New "EventManager" (self)
     end
@@ -111,7 +111,7 @@ local function getMaster(datas, config, lua_params)
     end
 end
 
-local function event_notify(event_name, extra_args, lua_params)
+local function 发起事件(event_name, extra_args, lua_params)
     local config = event_configs.config[event_name]
     if not config or not config.object then
         return
@@ -150,5 +150,5 @@ local function event_notify(event_name, extra_args, lua_params)
 end
 
 return {
-    event_notify = event_notify,
+    event_notify = 发起事件,
 }

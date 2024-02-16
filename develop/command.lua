@@ -47,7 +47,6 @@ local function remove_all_local_timers_in_include(reload)
 end
 
 M.register("RD", function()
-    y3.重载.reload()
     y3.游戏.开启新一轮游戏(false)
 end)
 

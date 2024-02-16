@@ -30,6 +30,7 @@ M.afterReloadCallbacks = {}
 ---@class Reload.Optional
 ---@field list? string[] -- 要重载的模块列表
 ---@field filter? fun(name: string, reload: Reload): boolean -- 过滤函数
+---@field 移除对象? {触发器:boolean, 计时器:boolean}
 
 ---@private
 ---@type Reload.Optional?
@@ -46,6 +47,108 @@ function M:__init(optional)
     ---@private
     self.filter = self.optional and self.optional.filter
 end
+
+---@class Reload.重写函数配置
+---@field 缓存 table<integer,any>
+---@field 类名 string
+---@field 成员名 string
+---@field 新方法? fun(缓存:table)
+---@field 移除方法 fun(缓存对象:any)
+---@field 原函数? fun(...)
+
+---@type table < string, Reload.重写函数配置>
+local 重写函数配置 = {
+    事件 = {
+        缓存 = {},
+        类名 = "游戏",
+        成员名 = "事件",
+        移除方法 = function(缓存对象)
+            缓存对象:移除()
+        end
+    },
+    自定义事件 = {
+        缓存 = {},
+        类名 = "游戏",
+        成员名 = "自定义事件",
+        移除方法 = function(缓存对象)
+            缓存对象:移除()
+        end
+    },
+
+
+    计时器_循环执行 = {
+        缓存 = {},
+        类名 = "计时器",
+        成员名 = "循环执行",
+        移除方法 = function(缓存对象)
+            缓存对象:移除()
+        end
+    },
+    计时器_计次执行 = {
+        缓存 = {},
+        类名 = "计时器",
+        成员名 = "计次执行",
+        移除方法 = function(缓存对象)
+            缓存对象:移除()
+        end
+    },
+
+}
+
+---@param 配置 Reload.重写函数配置
+local function 函数覆盖(配置)
+    y3[配置.类名][配置.成员名] = function(...)
+        local 缓存对象 = 配置.原函数(...)
+        local _include_name = 缓存对象._include_name
+        if _include_name then
+            if 配置.缓存[_include_name] == nil then
+                配置.缓存[_include_name] = {}
+            end
+            表_插入指定位置值(配置.缓存[_include_name], 缓存对象)
+        end
+        return 缓存对象
+    end
+end
+
+---@param 重载配置 Reload.Optional
+local function 应用覆盖函数配置(重载配置)
+    if y3.游戏.是否为调试模式() then
+        for _, 配置 in pairs(重写函数配置) do
+            if 配置.原函数 == nil then
+                配置.原函数 = y3[配置.类名][配置.成员名]
+            end
+        end
+
+        local 对象重载配置 = 重载配置.移除对象
+        if 对象重载配置.触发器 then
+            函数覆盖(重写函数配置.事件)
+            函数覆盖(重写函数配置.自定义事件)
+        end
+        if 对象重载配置.计时器 then
+            函数覆盖(重写函数配置.计时器_循环执行)
+            函数覆盖(重写函数配置.计时器_计次执行)
+        end
+    end
+end
+
+local function 移除对象(重载名称)
+    for _, 配置 in pairs(重写函数配置) do
+        local 需要移除的对象 = 配置.缓存[重载名称]
+        if 需要移除的对象 then
+            if #需要移除的对象 > 0 then
+                调试输出(字符串格式化("移除缓存 %s %s - %d", 重载名称, 配置.类名 .. "." .. 配置.成员名, #需要移除的对象))
+            end
+            for index, 缓存对象 in ipairs(需要移除的对象) do
+                -- 调试输出(表_到字符串(缓存对象))
+                if 配置.移除方法 then
+                    配置.移除方法(缓存对象)
+                end
+            end
+            配置.缓存[重载名称] = {}
+        end
+    end
+end
+
 
 -- 模块名是否会被重载
 ---@param name? string
@@ -101,13 +204,17 @@ function M:fire()
         end
     end
 
+
+
     for _, name in ipairs(needReload) do
         package.loaded[name] = nil
+        移除对象(name)
     end
 
     for _, name in ipairs(needReload) do
         M.include(name)
     end
+
 
     log.info("=========== 开始重载 ===========")
     for _, data in ipairs(M.afterReloadCallbacks) do
@@ -144,6 +251,7 @@ end
 ---@param optional? Reload.Optional
 function M.setDefaultOptional(optional)
     M.defaultReloadOptional = optional
+    应用覆盖函数配置(optional)
 end
 
 -- 进行重载
