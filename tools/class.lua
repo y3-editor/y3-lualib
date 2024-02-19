@@ -343,7 +343,7 @@ end
 ---@param obj? table
 ---@param parentName string
 ---@return boolean
-function M.IsInstanceOf(obj, parentName)
+function M.isInstanceOf(obj, parentName)
     if not obj then
         return false
     end

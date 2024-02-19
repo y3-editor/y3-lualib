@@ -67,5 +67,5 @@ end
 
 return {
     FuncUtil = FuncUtil,
-    OrderedTable = OrderedTable
+    OrderedTable = OrderedTable,
 }

@@ -86,13 +86,13 @@ function ObservingDecorator:Evaluate()
             ---@type NPBehave.Node
             local childNode = self
             
-            while parentNode ~= nil and not ClassTool.IsInstanceOf(parentNode, NPBehaveClassName.Composite) do
+            while parentNode ~= nil and not ClassTool.isInstanceOf(parentNode, NPBehaveClassName.Composite) do
                 childNode = parentNode
                 parentNode = parentNode.ParentNode
             end
             assert(parentNode ~= nil, "Stops 仅在附加到父组合时才有效.")
             assert(childNode ~= nil)
-            if ClassTool.IsInstanceOf(parentNode, NPBehaveClassName.Parallel) then
+            if ClassTool.isInstanceOf(parentNode, NPBehaveClassName.Parallel) then
                 assert(self.StopsOnChange == NPBehaveStops.ImmediateRestart, "在并行节点上，所有子节点具有相同的优先级，因此在这种情况下不支持 Stops.LowerPriority 或 Stops.Both!")
             end
             if self.StopsOnChange == NPBehaveStops.ImmediateRestart or self.StopsOnChange == NPBehaveStops.LowerPriorityImmediateRestart then
@@ -101,7 +101,7 @@ function ObservingDecorator:Evaluate()
                     self:StopObserving()
                 end
             end
-            local parentComposite = ClassTool.IsInstanceOf(parentNode, NPBehaveClassName.Composite) and parentNode or nil
+            local parentComposite = ClassTool.isInstanceOf(parentNode, NPBehaveClassName.Composite) and parentNode or nil
             if parentComposite ~= nil then
                 ---@cast parentComposite NPBehave.Composite.Composite
                 parentComposite:StopLowerPriorityChildrenForChild(childNode, self.StopsOnChange == NPBehaveStops.ImmediateRestart or self.StopsOnChange == NPBehaveStops.LowerPriorityImmediateRestart)
