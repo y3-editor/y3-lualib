@@ -7,7 +7,7 @@ M.syncMap = {}
 
 -- 发送本地的信息，使用 `onSync` 来同步接受数据  
 -- 请在本地环境中使用此函数
----@param id string
+---@param id string # 以 `$` 开头的 id 保留为内部使用
 ---@param data Serialization.SupportTypes
 function M.send(id, data)
     local bin = y3.dump.encode(data)
