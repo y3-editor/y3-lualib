@@ -198,17 +198,37 @@ function 字符串格式化(s, ...)
     return string.format(s, ...)
 end
 
----@param 内容 string  格式化文本 =  获得经验{经验} {150}
----@param ... table <string, 枚举.颜色>
+-- ---@param 内容 string  格式化文本 =  获得经验{经验} {150}
+-- ---@param ... table <string, 枚举.颜色>[]
+-- ---@return string
+-- 字符串格式化_彩色 = function(内容, ...)
+--     local 颜色数组 = 表_组包(...)
+--     local 返回内容
+--     for index, value in ipairs(颜色数组) do
+--         if value then
+--             local 替换文本 = " <span style = 'color: " .. value[2] .. ";'> " .. 到字符串(value[1]) .. " </span> "
+--             返回内容 = 字符串_替换(内容, "{}", 替换文本, 1)
+--         end
+--     end
+--     -- if not 返回内容 then
+--     --     返回内容 = "<span> " .. 内容 .. " </span>"
+--     -- end
+
+--     调试输出(返回内容)
+--     return "<p> " .. 返回内容 .. " </p>"
+-- end
+
+---@param str string  格式化文本 =  获得经验{经验} {150}
+---@param ... table <string, 枚举.颜色>[]
 ---@return string
-字符串格式化_彩色 = function(内容, ...)
+字符串格式化_彩色 = function(str, ...)
     local 颜色数组 = 表_组包(...)
-    local 返回内容
+    local 返回内容 = str
     for index, value in ipairs(颜色数组) do
-        if value then
-            local 替换文本 = " <span style = 'color:" .. value[2] .. ";'> " .. 到字符串(value[1]) .. " </span>"
-            返回内容 = 字符串_替换(内容, "{}", 替换文本, 1)
+        if value and value[1] and value[2] then
+            local 替换文本 = value[2] .. 到字符串(value[1]) .. "#ffffff"
+            返回内容 = 字符串_替换(str, "{}", 替换文本, 1)
         end
     end
-    return "<p> " .. 返回内容 .. " </p>"
+    return 返回内容
 end

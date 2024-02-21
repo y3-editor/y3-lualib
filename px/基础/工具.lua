@@ -16,12 +16,13 @@ function 文件_读取(文件地址)
     return nil
 end
 
+---如果 index 是个数字， 那么返回参数中第 index 个之后的部分； 负的数字会从后向前索引（-1 指最后一个参数）。 否则，index 必须是字符串 "#"， 此时 select 返回参数的个数。
 ---@generic T
 ---@param 索引 integer
 ---@param ... T
 ---@return T
 function 多项选择(索引, ...)
-    return 表_组包(...)[索引]
+    return select(索引, ...)
 end
 
 ---@generic T
@@ -101,6 +102,15 @@ function 数据反id化(数据)
     end
     遍历数据(返回数据, 数据)
     return 返回数据
+end
+
+---@param 数据 table 只支持一级映射 , 关键字id =integer
+function 创建id映射表(数据)
+    local 返回表 = {}
+    for _, value in pairs(数据) do
+        返回表[value.id] = value
+    end
+    return 返回表
 end
 
 --- ---@field [any] {a:integer}

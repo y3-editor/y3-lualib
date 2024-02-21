@@ -208,19 +208,19 @@ function M.callMethod(otype, mname, key, lock_obj, arg1, arg2)
 end
 
 y3.游戏:事件("单位-创建", function(trg, data)
-    M.callMethod("unit", "on_create", data.unit:get_key(), data.unit, data.unit)
+    M.callMethod("unit", "on_create", data.触发单位:get_key(), data.触发单位, data.触发单位)
 end)
 
 y3.游戏:事件("单位-移除", function(trg, data)
-    M.callMethod("unit", "on_remove", data.unit:get_key(), data.unit, data.unit)
+    M.callMethod("unit", "on_remove", data.触发单位:get_key(), data.触发单位, data.触发单位)
 end)
 
 y3.游戏:事件("单位-死亡", function(trg, data)
-    M.callMethod("unit", "on_dead", data.unit:get_key(), data.unit, data.unit)
+    M.callMethod("unit", "on_dead", data.触发单位:get_key(), data.触发单位, data.触发单位)
 end)
 
 y3.游戏:事件("物品-获得", function(trg, data)
-    M.callMethod("item", "on_add", data.item_no, data.item, data.item)
+    M.callMethod("item", "on_add", data.物品编号, data.触发物品, data.触发物品)
 end)
 
 y3.游戏:事件("物品-失去", function(trg, data)

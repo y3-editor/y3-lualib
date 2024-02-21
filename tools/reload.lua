@@ -136,7 +136,7 @@ local function 移除对象(重载名称)
         local 需要移除的对象 = 配置.缓存[重载名称]
         if 需要移除的对象 then
             if #需要移除的对象 > 0 then
-                调试输出(字符串格式化("移除缓存 %s %s - %d", 重载名称, 配置.类名 .. "." .. 配置.成员名, #需要移除的对象))
+                -- 调试输出(字符串格式化("移除缓存 %s %s - %d", 重载名称, 配置.类名 .. "." .. 配置.成员名, #需要移除的对象))
             end
             for index, 缓存对象 in ipairs(需要移除的对象) do
                 -- 调试输出(表_到字符串(缓存对象))
@@ -211,12 +211,14 @@ function M:fire()
         移除对象(name)
     end
 
+    log.info("=========== 开始重载 ===========")
+
     for _, name in ipairs(needReload) do
+        -- 调试输出("重载文件:", name)
         M.include(name)
     end
 
 
-    log.info("=========== 开始重载 ===========")
     for _, data in ipairs(M.afterReloadCallbacks) do
         xpcall(data.callback, log.error, self, self:isValidName(data.name))
     end

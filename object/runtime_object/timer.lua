@@ -269,13 +269,13 @@ function M:获取设置的时间()
     return y3.helper.tonumber(GameAPI.get_timer_time_out_time(self.handle))
 end
 
----@package
 ---@return string?
 function M:get_include_name()
     return self.include_name
 end
 
 -- 遍历所有的计时器，仅用于调试（可能会遍历到已经失效的）
+---@private
 ---@return fun():Timer?
 function M.pairs()
     local timers = {}

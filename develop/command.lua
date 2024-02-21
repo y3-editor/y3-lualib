@@ -28,6 +28,7 @@ end
 
 ---@param reload Reload
 local function remove_all_timers_in_include(reload)
+    ---@diagnostic disable-next-line: invisible
     for timer in y3.计时器.pairs() do
         local name = timer:get_include_name()
         if reload:isValidName(name) then
@@ -38,7 +39,7 @@ end
 
 ---@param reload Reload
 local function remove_all_local_timers_in_include(reload)
-    for timer in y3.ltimer.pairs() do
+    for timer in y3.本地计时器.pairs() do
         local name = timer:get_include_name()
         if reload:isValidName(name) then
             timer:remove()

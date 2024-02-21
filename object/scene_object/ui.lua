@@ -115,7 +115,7 @@ function M:设置是否可见(visible)
 end
 
 --设置图片
----@param img py.Texture 图片id
+---@param img py.Texture|integer 图片id
 ---@return self
 function M:设置图片(img)
     GameAPI.set_ui_comp_image_with_icon(self.player.handle, self.handle, img)
@@ -139,6 +139,21 @@ end
 function M:设置文本(str)
     GameAPI.set_ui_comp_text(self.player.handle, self.handle, str)
     return self
+end
+
+--设置文本
+---@param str string 文本
+---@param ...table<integer, 枚举.颜色>[]
+---@return self
+function M:设置文本_颜色格式化(str, ...)
+    local 返回内容 = str
+    for index, value in ipairs(...) do
+        if value then
+            local 替换文本 = value[2] .. 到字符串(value[1]) .. "#ffffff"
+            返回内容 = 字符串_替换(str, "{}", 替换文本, 1)
+        end
+    end
+    return self:设置文本(返回内容)
 end
 
 --设置控件透明度
@@ -1011,22 +1026,22 @@ end
 M.控件数据 = {}
 
 
----@param 参数名 string|integer
----@param 参数值 any
-function M:设置_参数(参数名, 参数值)
+---@param 名 string|integer
+---@param 值 any
+function M:设置存储值(名, 值)
     if M.控件数据[self.player.id][self.handle] == nil then
         M.控件数据[self.player.id][self.handle] = {}
     end
-    M.控件数据[self.player.id][self.handle][参数名] = 参数值
+    M.控件数据[self.player.id][self.handle][名] = 值
 end
 
----@param 参数名 string|integer
+---@param 名 string|integer
 ---@return any
-function M:获取_参数(参数名)
+function M:获取存储值(名)
     if M.控件数据[self.player.id][self.handle] == nil then
         return nil
     end
-    return M.控件数据[self.player.id][self.handle][参数名]
+    return M.控件数据[self.player.id][self.handle][名]
 end
 
 ---@return UIPrefab

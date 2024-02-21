@@ -86,7 +86,7 @@ end
 y3.py_converter.register_py_to_lua("py.UnitID", M.从唯一id获取)
 
 y3.游戏:事件("单位-移除后", function(trg, data)
-    local id = data.unit.id
+    local id = data.触发单位.id
     M.ref_manager:remove(id)
 end)
 
@@ -129,7 +129,7 @@ end
 ---@param 槽位类型 枚举.背包槽位类型
 ---@param index integer 槽位
 ---@param force boolean 是否强制移动，`true`: 如果目标有物品，则移动到另一个空格中；`false`: 如果目标有物品，则要移动的物品会掉落
-function M:移动物品(item, 槽位类型, index, force)
+function M:移动_物品(item, 槽位类型, index, force)
     self.handle:api_shift_item_new(item.handle, 槽位类型, index, force)
 end
 
@@ -138,7 +138,7 @@ end
 ---@param item Item 物品
 ---@param type 枚举.背包槽位类型
 ---@param index integer 槽位
-function M:交换物品(item, type, index)
+function M:交换_物品(item, type, index)
     self.handle:api_shift_item(item.handle, type, index)
 end
 

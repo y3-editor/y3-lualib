@@ -175,7 +175,7 @@ function M:设置描述(description)
 end
 
 ---设置物品的图标
----@param picture_id py.Texture 图片id
+---@param picture_id py.Texture|integer 图片id
 function M:设置图标(picture_id)
     self.handle:api_set_item_icon(picture_id)
 end
