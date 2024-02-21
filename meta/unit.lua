@@ -287,6 +287,9 @@ function Unit:api_add_attr_all_ratio(key, delta) end
 ---@param val py.Fixed # 设置值
 function Unit:api_set_attr_base_ratio(key, val) end
 
+--开启单位属性作弊检查
+function Unit:api_open_attr_cheating_detected() end
+
 --增加单位属性基础值百分比加成
 ---@param key string # 属性名
 ---@param delta py.Fixed # 加成比例
@@ -919,6 +922,16 @@ function Unit:api_set_disk_shadow_open(is_open) end
 --设置单位圆盘阴影大小
 ---@param shadow_size number # 大小
 function Unit:api_set_unit_disk_shadow_size(shadow_size) end
+
+--设置单位的描边颜色
+---@param color_r number # R
+---@param color_g number # G
+---@param color_b number # B
+function Unit:set_unit_outlined_color(color_r, color_g, color_b) end
+
+--开关单位描边效果
+---@param flag boolean # 开关
+function Unit:set_unit_outlined_enable(flag) end
 
 --单位添加指定编号的效果
 ---@param modifier_key py.ModifierKey # 效果编号

@@ -103,6 +103,7 @@ y3.物编 = require "y3.util.object"
 y3.本地计时器 = require "y3.util.local_timer"
 y3.存档 = require "y3.util.save_data"
 y3.dump = require "y3.util.dump"
+y3.sync = require "y3.util.sync"
 
 y3.develop = {}
 y3.develop.command = require "y3.develop.command"

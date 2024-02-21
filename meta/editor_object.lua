@@ -242,7 +242,7 @@
 --ID
 ---@field key number
 ---@field kv Object.Buff.Kv
---不变会保留旧的魔法效果对象（事件中获取），覆盖会保留新的对象。
+--不变会保留旧的魔法效果对象（事件中获取），覆盖会保留新的对象。 
 ---@field layer_change_of_cover number
 --魔法效果的最大层数，如果最大层数为1则魔法效果在局内的属性面板中不会显示层数
 ---@field layer_max number

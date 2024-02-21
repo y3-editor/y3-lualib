@@ -5838,6 +5838,57 @@ event.ET_SELECT_ITEM = {
     },
 }
 
+---@class EventParam.ET_ATTR_CHEATING_DETECTED
+---@field player Player # 作弊玩家
+---@field unit Unit # 作弊单位
+---@field attr_key string # 作弊属性名
+---@field cheating_value number # 作弊值
+---@field real_value number # 真实值
+
+--玩家作弊
+event.ET_ATTR_CHEATING_DETECTED = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "作弊玩家ID",
+        lua_desc = "作弊玩家",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "作弊单位id",
+        lua_desc = "作弊单位",
+    },
+    [3] = {
+        name = "__attr_key",
+        type = "string",
+        lua_name = "attr_key",
+        lua_type = "string",
+        desc = "作弊属性名",
+        lua_desc = "作弊属性名",
+    },
+    [4] = {
+        name = "__cheating_value",
+        type = "py.Fixed",
+        lua_name = "cheating_value",
+        lua_type = "number",
+        desc = "作弊值",
+        lua_desc = "作弊值",
+    },
+    [5] = {
+        name = "__real_value",
+        type = "py.Fixed",
+        lua_name = "real_value",
+        lua_type = "number",
+        desc = "真实值",
+        lua_desc = "真实值",
+    },
+}
+
 ---@class EventParam.ET_DOUBLE_CLICK_ITEM
 ---@field 触发玩家 Player # 玩家
 ---@field item Item # 双击到物品

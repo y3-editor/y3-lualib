@@ -1773,6 +1773,11 @@ function GameAPI.convert_unit_attr_m2cm(attr, value) end
 ---@return py.AbilityKey # 技能物编
 function GameAPI.create_ability_editor_data(old_entity_no) end
 
+--获取技能类型的释放技能
+---@param old_entity_no py.AbilityKey # 技能物编
+---@return py.AbilityCastType # 技能释放类型
+function GameAPI.api_get_ability_type_cast_type(old_entity_no) end
+
 --创建新投射物物编
 ---@param old_entity_no py.ProjectileKey # 投射物物编
 ---@return py.ProjectileKey # 投射物物编

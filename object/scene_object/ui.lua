@@ -37,9 +37,11 @@ M.map = {}
 M.comp_id = y3.proxy.new({}, {
     cache = true,
     anyGetter = function(self, raw, key, config, custom)
-        ---@diagnostic disable-next-line: deprecated
-        local id = GameAPI.get_ui_comp_id_by_name(y3.玩家.获取本地玩家().handle, key)
-        if id == "" then
+        if not GameAPI.get_prefab_ins_id_by_name then
+            return key
+        end
+        local id = GameAPI.get_prefab_ins_id_by_name(key)
+        if id == "" or id == nil then
             return key
         else
             return id
@@ -89,6 +91,21 @@ end
 function M:添加事件(event, name, data)
     return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name,
                                               y3.dump.encode(data))
+end
+
+--创建本地界面事件
+--触发事件后立即调用回调函数，不会与其他玩家同步。
+--
+-->警告：回调函数是在本地玩家的客户端上执行的，注意避免产生不同步的问题。
+---@param event y3.Const.UIEvent # 界面事件类型
+---@param callback fun(local_player: Player) # 回调函数
+function M:add_local_event(event, callback)
+    assert(y3.const.UIEventMap[event], "无效的事件类型")
+    GameAPI.bind_local_listener(self.handle, y3.const.UIEventMap[event], function()
+        y3.玩家.执行本地代码(function(local_player)
+            callback(local_player)
+        end)
+    end)
 end
 
 -- 设置相对父级位置. 目前不建议使用, 引擎层存在 bug, 建议手动计算位置赋值.
