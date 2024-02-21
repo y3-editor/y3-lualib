@@ -34,15 +34,21 @@ M.map = {}
 M.comp_id = y3.proxy.new({}, {
     cache = true,
     anyGetter = function (self, raw, key, config, custom)
-        if not GameAPI.get_prefab_ins_id_by_name then
+        local suc, res = pcall(function ()
+            if not GameAPI.get_prefab_ins_id_by_name then
+                return key
+            end
+            local id = GameAPI.get_prefab_ins_id_by_name(key)
+            if id == '' or id == nil then
+                return key
+            else
+                return id
+            end
+        end)
+        if not suc then
             return key
         end
-        local id = GameAPI.get_prefab_ins_id_by_name(key)
-        if id == '' or id == nil then
-            return key
-        else
-            return id
-        end
+        return res
     end
 })
 
