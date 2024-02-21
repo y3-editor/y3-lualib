@@ -111,4 +111,30 @@ local function fixGC()
     end)
 end
 
+-- TODO 访问不存在的 GameAPI 和 GlobalAPI 不要报错，返回 nil
+local function safeGetter(t)
+    local nilMap = {}
+    return setmetatable({}, { __index = function (self, k)
+        if nilMap[k] then
+            return nil
+        end
+        local suc, res = pcall(function ()
+            return t[k]
+        end)
+        if not suc or res == nil then
+            nilMap[k] = true
+            return nil
+        else
+            self[k] = res
+            return res
+        end
+    end })
+end
+
 fixGC()
+
+-- TODO 临时补丁，防止访问不存在的 GameAPI 和 GlobalAPI 时报错。预计3月7号版本修复。
+---@class py.GameAPI
+GameAPI = safeGetter(GameAPI)
+---@class py.GlobalAPI
+GlobalAPI = safeGetter(GlobalAPI)
