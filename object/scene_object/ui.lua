@@ -173,7 +173,7 @@ function M:设置文本_颜色格式化(str, ...)
     for index, value in ipairs(...) do
         if value then
             local 替换文本 = value[2] .. 到字符串(value[1]) .. "#ffffff"
-            返回内容 = 字符串_替换(str, "{}", 替换文本, 1)
+            返回内容 = 字符串.替换(str, "{}", 替换文本, 1)
         end
     end
     return self:设置文本(返回内容)
@@ -340,11 +340,11 @@ end
 
 --设置物品组件绑定单位
 ---@param unit Unit
----@param field 枚举.背包槽位类型
+---@param field y3.Const.物品槽位类型
 ---@param index integer 格子位置
 ---@return self
 function M:绑定物品组件到单位(unit, field, index)
-    GameAPI.set_ui_comp_unit_slot(self.player.handle, self.handle, unit.handle, field, index)
+    GameAPI.set_ui_comp_unit_slot(self.player.handle, self.handle, unit.handle, y3.const.背包槽位类型[field], index)
     return self
 end
 
@@ -561,7 +561,7 @@ function M:遍历父控件(回调)
         if 回调(i, 父控件) then
             return
         end
-        if 字符串_查找文本(父控件:获取_名称(), "画板_") then
+        if 字符串.查找(父控件:获取_名称(), "画板_") then
             break
         end
         父控件 = 父控件:获取_父控件()
@@ -603,41 +603,42 @@ function M:设置_模型控件观察点(x, y, z)
 end
 
 --绑定单位属性到玩家界面控件的属性
----@param uiAttr 枚举.控件界面属性
+---@param uiAttr y3.Const.控件界面属性
 ---@param attr string 单位属性
 ---@param accuracy integer 小数精度
 ---@return self
 function M:绑定_单位属性(uiAttr, attr, accuracy)
-    GameAPI.set_ui_comp_bind_attr(self.player.handle, self.handle, uiAttr, attr, accuracy)
+    GameAPI.set_ui_comp_bind_attr(self.player.handle, self.handle, y3.const.控件属性[uiAttr], attr, accuracy)
     return self
 end
 
 --绑定玩家属性到玩家界面控件的属性
----@param uiAttr string 界面控件属性
+---@param uiAttr y3.Const.控件界面属性 界面控件属性
 ---@param player Player # 玩家
 ---@param attr_or_var string # 玩家属性key
 ---@param accuracy integer 小数精度
 ---@return self
 function M:绑定_玩家属性(uiAttr, player, attr_or_var, accuracy)
-    GameAPI.set_ui_comp_bind_player_prop(self.player.handle, self.handle, uiAttr, player.handle, attr_or_var, accuracy)
+    GameAPI.set_ui_comp_bind_player_prop(self.player.handle, self.handle, y3.const.控件属性[uiAttr], player.handle,
+                                         attr_or_var, accuracy)
     return self
 end
 
 --绑定全局变量到玩家界面控件的属性
----@param uiAttr string 界面控件属性
+---@param uiAttr y3.Const.控件界面属性
 ---@param globalVar string 全局属性
 ---@param accuracy integer 小数精度
 ---@return self
 function M:绑定_全局变量(uiAttr, globalVar, accuracy)
-    GameAPI.set_ui_comp_bind_var(self.player.handle, self.handle, uiAttr, globalVar, accuracy)
+    GameAPI.set_ui_comp_bind_var(self.player.handle, self.handle, y3.const.控件属性[uiAttr], globalVar, accuracy)
     return self
 end
 
 --解绑界面控件属性绑定
----@param uiAttr string 界面控件属性
+---@param uiAttr y3.Const.控件界面属性
 ---@return self
 function M:解绑_单位属性(uiAttr)
-    GameAPI.ui_comp_unbind(self.player.handle, self.handle, uiAttr)
+    GameAPI.ui_comp_unbind(self.player.handle, self.handle, y3.const.控件属性[uiAttr])
     return self
 end
 
@@ -712,20 +713,20 @@ function M:是否被移除()
 end
 
 --绑定技能冷却时间到玩家界面控件的属性
----@param uiAttr string 界面控件属性
+---@param uiAttr y3.Const.控件界面属性 界面控件属性
 ---@param skill Ability 技能
 ---@return self
 function M:绑定_技能冷却(uiAttr, skill)
-    GameAPI.set_ui_comp_bind_ability_cd(self.player.handle, self.handle, uiAttr, skill.handle)
+    GameAPI.set_ui_comp_bind_ability_cd(self.player.handle, self.handle, y3.const.控件属性[uiAttr], skill.handle)
     return self
 end
 
 --绑定魔法效果剩余时间到玩家界面控件的属性
----@param uiAttr string 界面控件属性
----@param buff Buff 魔法效果
+---@param uiAttr y3.Const.控件界面属性 界面控件属性
+---@param buff Buff 魔法效果S
 ---@return self
 function M:绑定_魔法效果剩余时间(uiAttr, buff)
-    GameAPI.endset_ui_comp_bind_modifier_cd(self.player.handle, self.handle, uiAttr, buff.handle)
+    GameAPI.endset_ui_comp_bind_modifier_cd(self.player.handle, self.handle, y3.const.控件属性[uiAttr], buff.handle)
     return self
 end
 

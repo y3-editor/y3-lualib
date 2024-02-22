@@ -104,7 +104,7 @@ local function 函数覆盖(配置)
             if 配置.缓存[_include_name] == nil then
                 配置.缓存[_include_name] = {}
             end
-            表_插入指定位置值(配置.缓存[_include_name], 缓存对象)
+            表.插入(配置.缓存[_include_name], 缓存对象)
         end
         return 缓存对象
     end

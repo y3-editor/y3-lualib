@@ -8,6 +8,15 @@ end)
 ---@class Y3
 y3 = {}
 
+---@class 类_
+类_ = {}
+
+---@class 框架
+框架 = {}
+
+---@class 枚举
+枚举 = {}
+
 y3.proxy = require "y3.tools.proxy"
 y3.class = require "y3.tools.class"
 y3.util = require "y3.tools.utility"
@@ -30,6 +39,9 @@ Delete    = y3.class.delete
 IsValid   = y3.class.isValid
 
 require "y3.util.log"
+
+
+
 y3.重载 = require "y3.tools.reload"
 
 ---@diagnostic disable-next-line: lowercase-global
@@ -47,10 +59,9 @@ require "y3.util.custom_event"
 require "y3.util.ref"
 require "y3.util.storage"
 
-print = log.debug
+
 
 y3.const = require "y3.game.const"
-y3.math = require "y3.game.math"
 y3.游戏 = require "y3.game.game"
 y3.py_converter = require "y3.game.py_converter"
 y3.py_event_sub = require "y3.game.py_event_subscribe"
@@ -64,6 +75,7 @@ y3.单位组 = require "y3.object.runtime_object.unit_group"
 
 y3.玩家 = require "y3.object.runtime_object.player"
 y3.玩家组 = require "y3.object.runtime_object.player_group"
+require "y3.object.runtime_object.local_player"
 
 y3.场景 = require "y3.object.scene_object.scene_ui"
 y3.控件 = require "y3.object.scene_object.ui"
@@ -89,7 +101,6 @@ y3.damage_instance = require "y3.object.runtime_object.damage_instance"
 y3.heal_instance = require "y3.object.runtime_object.heal_instance"
 y3.sound = require "y3.object.runtime_object.sound"
 
-require "y3.object.runtime_object.local_player"
 
 y3.area = require "y3.object.scene_object.area"
 y3.镜头 = require "y3.object.scene_object.camera"
@@ -108,12 +119,16 @@ y3.sync = require "y3.util.sync"
 y3.develop = {}
 y3.develop.command = require "y3.develop.command"
 
-require "y3.px.常量枚举"
-require "y3.px.基础.表"
-require "y3.px.基础.字符串"
-require "y3.px.基础.数学"
-require "y3.px.基础.工具"
+调试输出 = log.debug
+调试警告 = log.warn
+调试错误 = log.error
 
+require "y3.game.常量枚举"
+require "y3.game.工具"
+
+表 = require "y3.game.表"
+字符串 = require "y3.game.字符串"
+数学 = require "y3.game.math"
 
 -- TODO 给目前的Lua垃圾回收过慢的问题打个临时补丁
 local function fixGC()

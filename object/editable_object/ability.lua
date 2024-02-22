@@ -314,7 +314,7 @@ function M:get_charge_time()
 end
 
 ---获取技能种类
----@return y3.Const.AbilityType type 技能种类
+---@return y3.Const.技能分类 type 技能种类
 function M:get_type()
     return self.handle:api_get_type()
 end

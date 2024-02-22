@@ -103,7 +103,7 @@ function M:获取_唯一id()
 end
 
 ---移除技能(指定类型)
----@param type y3.Const.AbilityType 技能类型
+---@param type y3.Const.技能分类 技能类型
 ---@param ability_key py.AbilityKey 物编id
 function M:移除_指定类型技能(type, ability_key)
     self.handle:api_remove_abilities_in_type(y3.const.技能类型[type], ability_key)
@@ -126,24 +126,24 @@ end
 
 ---移动物品
 ---@param item Item 物品
----@param 槽位类型 枚举.背包槽位类型
+---@param 槽位类型 y3.Const.物品槽位类型
 ---@param index integer 槽位
 ---@param force boolean 是否强制移动，`true`: 如果目标有物品，则移动到另一个空格中；`false`: 如果目标有物品，则要移动的物品会掉落
 function M:移动_物品(item, 槽位类型, index, force)
-    self.handle:api_shift_item_new(item.handle, 槽位类型, index, force)
+    self.handle:api_shift_item_new(item.handle, y3.const.背包槽位类型[槽位类型], index, force)
 end
 
 -- 交换物品
 -- 如果目标位置是空的，则相当于把物品移动了过去
 ---@param item Item 物品
----@param type 枚举.背包槽位类型
+---@param type y3.Const.物品槽位类型
 ---@param index integer 槽位
 function M:交换_物品(item, type, index)
-    self.handle:api_shift_item(item.handle, type, index)
+    self.handle:api_shift_item(item.handle, y3.const.背包槽位类型[type], index)
 end
 
 ---获取指定类型的所有技能
----@param type y3.Const.AbilityType
+---@param type y3.Const.技能分类
 ---@return Ability[]
 function M:获取_指定类型所有技能(type)
     ---@type Ability[]
@@ -177,9 +177,9 @@ function M:交换_技能位置(ability_1, ability_2)
 end
 
 ---根据坑位交换技能
----@param type_1 y3.Const.AbilityType 第一个技能类型
+---@param type_1 y3.Const.技能分类 第一个技能类型
 ---@param slot_1 y3.Const.AbilityIndex 第一个技能坑位
----@param type_2 y3.Const.AbilityType 第二个技能类型
+---@param type_2 y3.Const.技能分类 第二个技能类型
 ---@param slot_2 y3.Const.AbilityIndex 第二个技能坑位
 function M:交换_技能_根据槽位(type_1, slot_1, type_2, slot_2)
     self.handle:api_switch_ability_by_index(y3.const.技能类型[type_1], slot_1, y3.const.技能类型[type_2], slot_2)
@@ -191,13 +191,13 @@ function M:停止_所有技能()
 end
 
 ---添加技能
----@param 类型 枚举.技能分类
+---@param 类型 y3.Const.技能分类
 ---@param 物编id py.AbilityKey|integer 物编id
 ---@param 槽位? y3.Const.AbilityIndex 技能位
 ---@param 等级? integer 等级
 ---@return Ability?
 function M:添加_技能(类型, 物编id, 槽位, 等级)
-    local py_ability = self.handle:api_add_ability(类型, 物编id, 槽位 or -1, 等级 or 1)
+    local py_ability = self.handle:api_add_ability(y3.const.技能类型[类型], 物编id, 槽位 or -1, 等级 or 1)
     if not py_ability then
         return nil
     end
@@ -206,14 +206,14 @@ function M:添加_技能(类型, 物编id, 槽位, 等级)
 end
 
 ---移除技能
----@param type y3.Const.AbilityType 技能类型
+---@param type y3.Const.技能分类 技能类型
 ---@param slot y3.Const.AbilityIndex 技能位
 function M:移除_技能(type, slot)
     self.handle:api_remove_ability_by_index(y3.const.技能类型[type], slot)
 end
 
 ---通过技能名寻找技能
----@param type y3.Const.AbilityType 技能类型
+---@param type y3.Const.技能分类 技能类型
 ---@param id py.AbilityKey 物编id
 ---@return Ability? ability 技能
 function M:获取技能_通过技能类型(type, id)
@@ -225,7 +225,7 @@ function M:获取技能_通过技能类型(type, id)
 end
 
 ---获得某个技能位的的技能
----@param type y3.Const.AbilityType 技能类型
+---@param type y3.Const.技能分类 技能类型
 ---@param slot y3.Const.AbilityIndex 技能位
 ---@return Ability? ability 技能
 function M:获取技能_通过槽位(type, slot)
@@ -237,11 +237,11 @@ function M:获取技能_通过槽位(type, slot)
 end
 
 ---获取单位背包槽位上的物品
----@param type 枚举.背包槽位类型
+---@param type y3.Const.物品槽位类型
 ---@param slot integer 位置
 ---@return Item? item 物品
 function M:获取物品_通过槽位(type, slot)
-    local py_item = self.handle:api_get_item_by_slot(type, slot)
+    local py_item = self.handle:api_get_item_by_slot(y3.const.背包槽位类型[type], slot)
     if not py_item then
         return nil
     end
@@ -356,28 +356,29 @@ function M:移除标签(tag)
 end
 
 ---添加状态
----@param state_enum 枚举.单位状态[] 状态名
-function M:添加状态(state_enum)
+---@type y3.Const.单位状态[]
+---@param state_enum y3.Const.单位状态[]
+function M:添加状态(state_enum --[[@as y3.Const.单位状态]])
     for index, value in ipairs(state_enum) do
-        self.handle:api_add_state(value)
+        self.handle:api_add_state(y3.const.单位状态[value])
     end
 end
 
 ---移除状态
----@param state_enum 枚举.单位状态[] 状态名
+---@param state_enum y3.Const.单位状态[]
 function M:移除状态(state_enum)
     for index, value in ipairs(state_enum) do
-        self.handle:api_remove_state(value)
+        self.handle:api_remove_state(y3.const.单位状态[value])
     end
 end
 
 ---添加状态
----@param state_enum 枚举.单位状态 状态名
+---@param state_enum y3.Const.单位状态[]
 ---@return GCNode
 function M:添加状态_gc(state_enum)
-    self:添加状态({ state_enum })
+    self:添加状态(state_enum)
     return New "GCNode" (function()
-        self:移除状态({ state_enum })
+        self:移除状态(state_enum)
     end)
 end
 
@@ -581,23 +582,23 @@ end
 ---设置属性
 ---@param attr_name string 属性名
 ---@param value number 属性值
----@param attr_type 枚举.单位属性类型
-function M:set_attr(attr_name, value, attr_type)
-    self.handle:api_set_attr_by_attr_element(attr_name, Fix32(value), attr_type)
+---@param attr_type y3.Const.单位属性类型
+function M:设置属性(attr_name, value, attr_type)
+    self.handle:api_set_attr_by_attr_element(attr_name, Fix32(value), y3.const.单位属性类型[attr_type])
 end
 
 ---增加属性
 ---@param attr_name string 属性名
 ---@param value number 属性值
----@param attr_type 枚举.单位属性类型
+---@param attr_type y3.Const.单位属性类型
 function M:增加属性(attr_name, value, attr_type)
-    self.handle:api_add_attr_by_attr_element(attr_name, Fix32(value), attr_type)
+    self.handle:api_add_attr_by_attr_element(attr_name, Fix32(value), y3.const.单位属性类型[attr_type])
 end
 
 ---增加属性
 ---@param attr_name string 属性名
 ---@param value number 属性值
----@param attr_type 枚举.单位属性类型
+---@param attr_type y3.Const.单位属性类型
 ---@return GCNode
 function M:增加属性gc(attr_name, value, attr_type)
     self:增加属性(attr_name, value, attr_type)
@@ -1568,10 +1569,10 @@ function M:是否在战斗状态()
 end
 
 ---是否有指定状态
----@param state_name integer 状态
+---@param state_name y3.Const.单位状态 []
 ---@return boolean has_buff_status 有指定状态
 function M:是否有指定状态(state_name)
-    return self.handle:api_has_state(state_name)
+    return self.handle:api_has_state(y3.const.单位状态[state_name])
 end
 
 ---是否有指定id的技能

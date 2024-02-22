@@ -109,10 +109,11 @@ end
 ---线性移动（时间）
 ---@param player Player 玩家
 ---@param point Point 目标点
----@param time number 过渡时间
----@param move_type integer 移动模式
-function M.线性移动(player, point, time, move_type)
-    GameAPI.camera_linear_move_duration(player.handle, point.handle, Fix32(time), move_type)
+---@param time? number 过渡时间
+---@param 移动类型? y3.Const.镜头移动类型
+function M.线性移动(player, point, time, 移动类型)
+    GameAPI.camera_linear_move_duration(player.handle, point.handle, Fix32(time or 0),
+                                        y3.const.镜头移动类型[移动类型] or y3.const.镜头移动类型.匀速)
 end
 
 ---设置镜头跟随单位
@@ -255,11 +256,11 @@ function M.获取_玩家摄像机射线碰撞点(player)
 end
 
 ---@param 玩家 Player
----@param 过渡时间 number
----@param 移动类型 枚举.镜头移动类型
+---@param 过渡时间? number
+---@param 移动类型? y3.Const.镜头移动类型
 function M:应用配置(玩家, 过渡时间, 移动类型)
     ---@diagnostic disable-next-line: param-type-mismatch
-    GameAPI.apply_camera_conf(玩家.handle, self.handle, 过渡时间, 移动类型)
+    GameAPI.apply_camera_conf(玩家.handle, self.handle, 过渡时间 or 0, y3.const.镜头移动类型[移动类型] or y3.const.镜头移动类型.匀速)
 end
 
 return M
