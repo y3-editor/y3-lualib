@@ -833,8 +833,16 @@ end
 -->警告：回调函数是在本地玩家的客户端上执行的，注意避免产生不同步的问题。
 ---@param callback fun(local_player: Player)
 function M.on_client_tick(callback)
-    _G['OnTick'] = function ()
-        y3.player.with_local(callback)
+    if type(callback) ~= 'function' then
+        error('on_client_tick: callback must be a function')
+    end
+    ---@private
+    M._client_tick_callback = callback
+end
+
+_G['OnTick'] = function ()
+    if M._client_tick_callback then
+        y3.player.with_local(M._client_tick_callback)
     end
 end
 
