@@ -24,7 +24,8 @@ Delete  = y3.class.delete
 IsValid = y3.class.isValid
 
 require 'y3.util.log'
-y3.reload = require 'y3.tools.reload'
+y3.reload  = require 'y3.tools.reload'
+y3.sandbox = require 'y3.tools.sandbox'
 
 ---@diagnostic disable-next-line: lowercase-global
 include  = y3.reload.include
