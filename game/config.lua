@@ -43,19 +43,26 @@ M.debug = 'auto'
 
 ---@class Config.Log
 ---@field level Log.Level # 日志等级，默认为 `debug`
+---@field toFile boolean # 是否打印到文件中，默认为 `true`
 ---@field toDialog boolean # 是否打印到Dialog窗口，默认为 `true`
+---@field toConsole boolean # 是否打印到控制台中，默认为 `true`
 ---@field toGame boolean # 是否打印到游戏窗口中，默认为 `false`
 ---@field logger fun(level: Log.Level, message: string, timeStamp: string): boolean # 自定义的日志处理函数，返回 `true` 将阻止默认的日志处理。在处理函数的执行过程中会屏蔽此函数。
 -- 日志相关的配置
 M.log = y3.proxy.new({
-    level    = 'debug',
-    toDialog = true,
-    toGmae   = false,
+    level     = 'debug',
+    toFile    = true,
+    toDialog  = true,
+    toConsole = true,
+    toGmae    = false,
 }, {
     updateRaw = true,
     setter = {
         level = function (self, raw, key, value, config)
             log.level = value
+        end,
+        toFile = function (self, raw, key, value, config)
+            log.enable = value
         end,
     }
 })
