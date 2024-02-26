@@ -1,6 +1,17 @@
 pcall(function ()
     LDBG = require "y3.debugger":start "127.0.0.1:12399"
 end)
+pcall(function ()
+    io.popen(('mkdir "%s"'):format(lua_script_path .. '\\log'))
+    local waitdbg = io.open(lua_script_path .. '\\log\\waitdbg')
+    if waitdbg then
+        waitdbg:close()
+        io.popen(('del "%s"'):format(lua_script_path .. '\\log\\waitdbg'))
+    end
+    if LDBG and waitdbg then
+        LDBG:event 'wait'
+    end
+end)
 
 -- 全局方法类，提供各种全局方法
 ---@class Y3
