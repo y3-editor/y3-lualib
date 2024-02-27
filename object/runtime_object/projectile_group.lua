@@ -52,7 +52,7 @@ function M:pick()
     local lua_table = {}
     for i = 0, python_len(self.handle) - 1 do
         local id = python_index(self.handle, i)
-        table.insert(lua_table, y3.projectile.get_by_id(id))
+        table.insert(lua_table, y3.投射物.get_by_id(id))
     end
     return lua_table
 end

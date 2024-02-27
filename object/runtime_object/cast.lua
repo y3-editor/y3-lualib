@@ -96,7 +96,7 @@ function M:get_target_destructible()
     if not py_destructible then
         return nil
     end
-    return y3.destructible.get_by_handle(py_destructible)
+    return y3.可破坏物.get_by_handle(py_destructible)
 end
 
 -- 获取施法目标点

@@ -41,7 +41,7 @@ M.map = {}
 
 ---@param res_id integer
 ---@return Point
-function M.从资源id获取(res_id)
+function M.从场景id获取(res_id)
     if not M.map[res_id] then
         local py_point = GameAPI.get_point_by_res_id(res_id)
         local point = M.从handle获取(py_point)

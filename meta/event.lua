@@ -184,7 +184,7 @@ event.ET_ACTOR_ATTR_UPDATED = {
 
 ---@class EventParam.ET_AREA_ENTER
 ---@field 触发单位 Unit # 单位
----@field area Area # 区域
+---@field 触发区域 Area # 区域
 ---@field trigger_id py.TriggerID # 触发器ID
 
 --单位进入区域
@@ -200,7 +200,7 @@ event.ET_AREA_ENTER = {
     [2] = {
         name = "__area_id",
         type = "py.AreaID",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "区域ID",
         lua_desc = "区域",
@@ -217,7 +217,7 @@ event.ET_AREA_ENTER = {
 
 ---@class EventParam.ET_AREA_LEAVE
 ---@field 触发单位 Unit # 单位
----@field area Area # 区域
+---@field 触发区域 Area # 区域
 ---@field trigger_id py.TriggerID # 触发器ID
 
 --单位离开区域
@@ -233,7 +233,7 @@ event.ET_AREA_LEAVE = {
     [2] = {
         name = "__area_id",
         type = "py.AreaID",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "区域ID",
         lua_desc = "区域",
@@ -4453,7 +4453,7 @@ event.ET_DEST_COLLECTED = {
 }
 
 ---@class EventParam.ET_DEST_AREA_DIE
----@field area Area # 可破坏物死亡的区域
+---@field 触发区域 Area # 可破坏物死亡的区域
 ---@field destructible Destructible # 死亡的可破坏物
 ---@field unit_for_dest Unit # 杀手单位
 
@@ -4462,7 +4462,7 @@ event.ET_DEST_AREA_DIE = {
     [1] = {
         name = "__area",
         type = "py.Area",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "可破坏物死亡的区域",
         lua_desc = "可破坏物死亡的区域",
@@ -4486,7 +4486,7 @@ event.ET_DEST_AREA_DIE = {
 }
 
 ---@class EventParam.ET_DEST_AREA_DRY
----@field area Area # 可破坏物被采集枯竭的区域
+---@field 触发区域 Area # 可破坏物被采集枯竭的区域
 ---@field destructible Destructible # 资源枯竭的可破坏物
 ---@field unit_for_dest Unit # 采集单位
 
@@ -4495,7 +4495,7 @@ event.ET_DEST_AREA_DRY = {
     [1] = {
         name = "__area",
         type = "py.Area",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "可破坏物被采集枯竭的区域",
         lua_desc = "可破坏物被采集枯竭的区域",
@@ -4519,7 +4519,7 @@ event.ET_DEST_AREA_DRY = {
 }
 
 ---@class EventParam.ET_DEST_AREA_ATTACKED
----@field area Area # 可破坏物被攻击的区域
+---@field 触发区域 Area # 可破坏物被攻击的区域
 ---@field destructible Destructible # 被攻击的可破坏物
 ---@field unit_for_dest Unit # 攻击单位
 
@@ -4528,7 +4528,7 @@ event.ET_DEST_AREA_ATTACKED = {
     [1] = {
         name = "__area",
         type = "py.Area",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "可破坏物被攻击的区域",
         lua_desc = "可破坏物被攻击的区域",
@@ -4552,7 +4552,7 @@ event.ET_DEST_AREA_ATTACKED = {
 }
 
 ---@class EventParam.ET_DEST_AREA_COLLECTED
----@field area Area # 可破坏物被采集的区域
+---@field 触发区域 Area # 可破坏物被采集的区域
 ---@field destructible Destructible # 被采集的可破坏物
 ---@field unit_for_dest Unit # 采集单位
 
@@ -4561,7 +4561,7 @@ event.ET_DEST_AREA_COLLECTED = {
     [1] = {
         name = "__area",
         type = "py.Area",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "可破坏物被采集的区域",
         lua_desc = "可破坏物被采集的区域",
@@ -4789,7 +4789,7 @@ event.ET_PRODUCE_PROJECTILE = {
         lua_desc = "投射物",
         lua_code = function(data)
             local py_proj = data._py_params["projectile"]
-            local projectile = y3.projectile.get_by_handle(py_proj)
+            local projectile = y3.投射物.从handle获取(py_proj)
             return projectile
         end,
     },
@@ -4808,7 +4808,7 @@ event.ET_DEATH_PROJECTILE = {
         lua_desc = "投射物",
         lua_code = function(data)
             local py_proj = data._py_params["projectile"]
-            local projectile = y3.projectile.get_by_handle(py_proj)
+            local projectile = y3.投射物.从handle获取(py_proj)
             return projectile
         end,
     },
@@ -5106,7 +5106,7 @@ event.ET_GLOBAL_EVENT_TO_UI_WITH_DICT = {
 
 ---@class EventParam.ET_KEYBOARD_KEY_DOWN_EVENT
 ---@field 触发玩家 Player # 触发按键的玩家
----@field current_key py.KeyboardKey # 当前键盘按键
+---@field 触发按键 py.KeyboardKey # 当前键盘按键
 
 --键盘按键按下
 event.ET_KEYBOARD_KEY_DOWN_EVENT = {
@@ -5121,7 +5121,7 @@ event.ET_KEYBOARD_KEY_DOWN_EVENT = {
     [2] = {
         name = "__current_key",
         type = "py.KeyboardKey",
-        lua_name = "current_key",
+        lua_name = "触发按键",
         lua_type = "py.KeyboardKey",
         desc = "当前键盘按键",
         lua_desc = "当前键盘按键",
@@ -5130,7 +5130,7 @@ event.ET_KEYBOARD_KEY_DOWN_EVENT = {
 
 ---@class EventParam.ET_KEYBOARD_KEY_UP_EVENT
 ---@field 触发玩家 Player # 触发按键的玩家
----@field current_key py.KeyboardKey # 当前键盘按键
+---@field 触发按键 py.KeyboardKey # 当前键盘按键
 
 --键盘按键抬起
 event.ET_KEYBOARD_KEY_UP_EVENT = {
@@ -5145,7 +5145,7 @@ event.ET_KEYBOARD_KEY_UP_EVENT = {
     [2] = {
         name = "__current_key",
         type = "py.KeyboardKey",
-        lua_name = "current_key",
+        lua_name = "触发按键",
         lua_type = "py.KeyboardKey",
         desc = "当前键盘按键",
         lua_desc = "当前键盘按键",

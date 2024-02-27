@@ -15,7 +15,7 @@ y3.游戏:事件("玩家-发送消息", function(trg, data)
         -- 创建一个单位，然后在其右侧1000距离创建一个投射物，令投射物追踪单位
         -- 投射物追踪到单位后会杀死单位
         local unit = y3.玩家(1):创建单位(134274912, y3.点(0, 0), 0)
-        local dummy = y3.projectile.create {
+        local dummy = y3.投射物.创建 {
             key    = 134267518,
             target = unit:获取当前所在点():移动(1000, 0),
             height = 100,
@@ -25,7 +25,7 @@ y3.游戏:事件("玩家-发送消息", function(trg, data)
             speed = 100,
             target = unit,
             on_remove = function()
-                dummy:remove()
+                dummy:移除()
             end,
             on_finish = function()
                 unit:杀死_单位(unit)

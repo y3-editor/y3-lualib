@@ -395,7 +395,7 @@ function M:get_target(cast)
 
     local dest = GameAPI.get_target_dest_in_ability(self.handle, cast)
     if dest then
-        return y3.destructible.get_by_handle(dest)
+        return y3.可破坏物.get_by_handle(dest)
     end
 
     local item = GameAPI.get_target_item_in_ability(self.handle, cast)

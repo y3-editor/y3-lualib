@@ -505,7 +505,7 @@ end
 ---@return ItemGroup
 function M.获取区域内所有物品(area)
     local py_item_group = GameAPI.get_item_group_in_area(area.handle)
-    return y3.item_group.create_lua_item_group_from_py(py_item_group)
+    return y3.物品组.create_lua_item_group_from_py(py_item_group)
 end
 
 ---获取物品类型名

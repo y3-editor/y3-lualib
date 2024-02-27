@@ -163,7 +163,7 @@ function M:获取_所有魔法效果()
     local buffs = {}
     local py_list = self.handle:api_get_all_modifiers()
     for i = 0, python_len(py_list) - 1 do
-        local lua_buff = y3.buff.get_by_handle(python_index(py_list, i))
+        local lua_buff = y3.魔法效果.get_by_handle(python_index(py_list, i))
         buffs[#buffs + 1] = lua_buff
     end
     return buffs
@@ -252,7 +252,7 @@ end
 ---@return ItemGroup item_group 所有物品
 function M:获取物品_所有()
     local py_item_group = self.handle:api_get_all_item_pids()
-    return y3.item_group.create_lua_item_group_from_py(py_item_group)
+    return y3.物品组.create_lua_item_group_from_py(py_item_group)
 end
 
 ---单位获得科技
@@ -1054,7 +1054,7 @@ function M:添加_魔法效果(data)
     if not py_buff then
         return nil
     end
-    return y3.buff.get_by_handle(py_buff)
+    return y3.魔法效果.get_by_handle(py_buff)
 end
 
 ---单位移除所有指定id的魔法效果
@@ -1078,7 +1078,7 @@ function M:find_buff(buff_key, index)
     if not py_modifier then
         return nil
     end
-    return y3.buff.get_by_handle(py_modifier)
+    return y3.魔法效果.get_by_handle(py_modifier)
 end
 
 ---获取商店商品的库存间隔
