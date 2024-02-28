@@ -171,4 +171,20 @@ function M:set_time(duration)
     GameAPI.set_sfx_duration(self.handle, duration)
 end
 
+--设置特效颜色
+---@param x number # x
+---@param y number # y
+---@param z number # z
+---@param w number # w
+function M:set_color(x, y, z, w)
+    GameAPI.set_sfx_color(self.handle, x, y, z, w)
+end
+
+--设置特效显示
+---@param visible boolean # 开关
+function M:set_visible(visible)
+    local role = GameAPI.get_client_role()
+    GameAPI.enable_sfx_visible(self.handle, role, visible)
+end
+
 return M

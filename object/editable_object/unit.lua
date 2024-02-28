@@ -831,6 +831,14 @@ function M:set_scale(scale)
     self.handle:api_set_scale(scale)
 end
 
+---设置单位三轴缩放
+---@param sx number X轴缩放
+---@param sy number Y轴缩放
+---@param sz number Z轴缩放
+function M:set_unit_scale(sx, sy, sz)
+    self.handle:api_set_unit_scale(sx, sy, sz)
+end
+
 ---设置转身速度
 ---@param speed number 转身速度
 function M:set_turning_speed(speed)
@@ -1658,6 +1666,13 @@ function M:has_move_collision(collision_type)
     return self.handle:api_get_move_collision(collision_type)
 end
 
+---设置单位是否计算某种碰撞类型
+---@param collision_layer integer # 碰撞mask
+---@param enable boolean # 开启状态
+function M:set_move_collision(collision_layer, enable)
+    self.handle:api_set_move_collision(collision_layer, enable)
+end
+
 -- 获取所属玩家
 ---@return Player
 function M:get_owner_player()
@@ -1732,6 +1747,20 @@ end
 ---@return string
 function M:get_main_attr()
     return self.handle:api_get_main_attr()
+end
+
+---设置单位的移动类型为地面
+---@param land_limitation? boolean # 陆地限制
+---@param item_limitation? boolean # 物件限制
+---@param water_limitation? boolean # 海洋限制
+function M:set_move_channel_land(land_limitation, item_limitation, water_limitation)
+    self.handle:set_move_channel_land(land_limitation, item_limitation, water_limitation)
+end
+
+---设置单位的移动类型为空中
+---@param air_limitation? boolean # 空中限制
+function M:set_move_channel_air(air_limitation)
+    self.handle:set_move_channel_air(air_limitation)
 end
 
 return M
