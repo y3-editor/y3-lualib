@@ -19,15 +19,6 @@ end)
 ---@class Y3
 y3 = {}
 
----@class 类_
-类_ = {}
-
----@class 框架
-框架 = {}
-
----@class 枚举
-枚举 = {}
-
 y3.proxy = require "y3.tools.proxy"
 y3.class = require "y3.tools.class"
 y3.util = require "y3.tools.utility"
@@ -50,8 +41,6 @@ Delete    = y3.class.delete
 IsValid   = y3.class.isValid
 
 require "y3.util.log"
-
-
 
 y3.重载 = require "y3.tools.reload"
 y3.sandbox = require "y3.tools.sandbox"

@@ -54,7 +54,7 @@ end)
 ---@return Beam
 function M.创建(参数)
     ---@type Beam.CreateData
-    data = {
+    local data          = {
         key = 参数.特效类型,
         source = 参数.开始目标,
         target = 参数.结束目标,
@@ -65,8 +65,6 @@ function M.创建(参数)
         immediate = 参数.销毁过渡,
         time = 参数.存在时间
     }
-
-    调试输出(data)
 
     ---@type py.LinkSfx
     local link_sfx

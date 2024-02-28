@@ -160,7 +160,7 @@ end
 
 --设置文本
 ---@param str string 文本
----@param ...table<integer, 枚举.颜色>[]
+---@param ...table<integer, 资源.颜色>[]
 ---@return self
 function M:设置文本_颜色格式化(str, ...)
     local 返回内容 = str

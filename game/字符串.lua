@@ -222,7 +222,7 @@ end
 -- end
 
 ---@param str string  格式化文本 =  获得经验{经验} {150}
----@param ... table <string, 枚举.颜色>[]
+---@param ... table <string, 资源.颜色>[]
 ---@return string
 格式化文本彩色 = function(str, ...)
     local 颜色数组 = 表.组包(...)
