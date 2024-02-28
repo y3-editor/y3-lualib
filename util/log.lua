@@ -72,6 +72,9 @@ log = New "Log" {
                 GameAPI.print_to_dialog(3, message)
             end
         end
+        if y3.config.log.toConsole then
+            consoleprint(message)
+        end
         if y3.config.log.toGame then
             log_cache[#log_cache + 1] = message
             if #log_cache > 10 then

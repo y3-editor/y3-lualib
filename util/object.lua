@@ -134,7 +134,7 @@ end)
 --技能的物编数据，你可以从里面读取或修改任意物编
 --> 警告：请确保数据类型正确，否则可能导致崩溃
 --> 警告：如果创建过此技能再修改数据，行为是未定义的
----@field data Object.Ability: Class.Base
+---@field data Object.Ability
 local Ability = Class "EditorObject.Ability"
 
 Extends("EditorObject.Ability", "EditorObject.DataModule")

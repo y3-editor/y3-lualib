@@ -43,6 +43,9 @@ M.needTraceBack = {
     fatal = true,
 }
 
+--是否打印到日志文件中
+M.enable = true
+
 ---@param a  table
 ---@param b? table
 ---@return table
@@ -181,6 +184,10 @@ function M:build(level, ...)
     end
 
     if not self.file then
+        return message, timeStamp
+    end
+
+    if not self.enable then
         return message, timeStamp
     end
 

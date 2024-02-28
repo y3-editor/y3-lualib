@@ -3,6 +3,17 @@ pcall(function()
 end)
 
 
+pcall(function()
+    io.popen(('mkdir "%s"'):format(lua_script_path .. "\\log"))
+    local waitdbg = io.open(lua_script_path .. "\\log\\waitdbg")
+    if waitdbg then
+        waitdbg:close()
+        io.popen(('del "%s"'):format(lua_script_path .. "\\log\\waitdbg"))
+    end
+    if LDBG and waitdbg then
+        LDBG:event "wait"
+    end
+end)
 
 -- 全局方法类，提供各种全局方法
 ---@class Y3
@@ -43,6 +54,7 @@ require "y3.util.log"
 
 
 y3.重载 = require "y3.tools.reload"
+y3.sandbox = require "y3.tools.sandbox"
 
 ---@diagnostic disable-next-line: lowercase-global
 include = y3.重载.include
@@ -144,4 +156,32 @@ local function fixGC()
     end)
 end
 
+-- TODO 访问不存在的 GameAPI 和 GlobalAPI 不要报错，返回 nil
+local function safeGetter(t)
+    local nilMap = {}
+    return setmetatable({}, {
+        __index = function(self, k)
+            if nilMap[k] then
+                return nil
+            end
+            local suc, res = pcall(function()
+                return t[k]
+            end)
+            if not suc or res == nil then
+                nilMap[k] = true
+                return nil
+            else
+                self[k] = res
+                return res
+            end
+        end
+    })
+end
+
 fixGC()
+
+-- TODO 临时补丁，防止访问不存在的 GameAPI 和 GlobalAPI 时报错。预计3月7号版本修复。
+---@class py.GameAPI
+GameAPI = safeGetter(GameAPI)
+---@class py.GlobalAPI
+GlobalAPI = safeGetter(GlobalAPI)
