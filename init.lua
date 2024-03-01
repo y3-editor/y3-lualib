@@ -2,7 +2,6 @@ pcall(function()
     LDBG = require "y3.debugger":start "127.0.0.1:12399"
 end)
 
-
 pcall(function()
     io.popen(('mkdir "%s"'):format(lua_script_path .. "\\log"))
     local waitdbg = io.open(lua_script_path .. "\\log\\waitdbg")
