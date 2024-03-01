@@ -262,6 +262,12 @@ function GameAPI.api_soft_pause_game() end
 --关闭软暂停
 function GameAPI.api_soft_resume_game() end
 
+--上传埋点数据
+---@param role py.Role # 玩家
+---@param op_key string # 埋点Key
+---@param op_cnt integer # 次数
+function GameAPI.api_upload_user_tracking_data(role, op_key, op_cnt) end
+
 --本地玩家编号
 ---@return py.RoleID # 玩家编号
 function GameAPI.get_owner_role_id() end
@@ -583,6 +589,11 @@ function GameAPI.replace_point_texture(area, texture_type, new_texture_type) end
 ---@param position py.Point # 点
 ---@return integer # 纹理类型
 function GameAPI.get_texture_type(position) end
+
+--获取指定点的纹理类型
+---@param position py.Point # 点
+---@return integer # 纹理类型
+function GameAPI.get_point_texture(position) end
 
 --修改玩家的地表纹理
 ---@param role py.Role # 玩家
@@ -1769,9 +1780,9 @@ function GameAPI.convert_unit_attr_m2cm(attr, value) end
 function GameAPI.create_ability_editor_data(old_entity_no) end
 
 --获取技能类型的释放技能
----@param old_entity_no py.AbilityKey # 技能物编
+---@param ability_key py.AbilityKey # 技能物编
 ---@return py.AbilityCastType # 技能释放类型
-function GameAPI.api_get_ability_type_cast_type(old_entity_no) end
+function GameAPI.api_get_ability_type_cast_type(ability_key) end
 
 --创建新投射物物编
 ---@param old_entity_no py.ProjectileKey # 投射物物编
@@ -2661,8 +2672,9 @@ function GameAPI.get_random_seed() end
 ---@param pos py.FVector3 # 位置
 ---@param angle py.Fixed # 朝向
 ---@param role_or_unit py.Role # 所属玩家
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.Unit # 创建出的单位
-function GameAPI.create_unit(key, pos, angle, role_or_unit) end
+function GameAPI.create_unit(key, pos, angle, role_or_unit, lua_table) end
 
 --改变单位所属玩家
 ---@param unit py.Unit # 单位
@@ -3168,8 +3180,9 @@ function GameAPI.get_item_conf_name(key) end
 ---@param position py.FVector3 # 位置
 ---@param item_key py.ItemKey # 物品编号
 ---@param player py.Role # 所属玩家
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.Item # 创建出的物品
-function GameAPI.create_item_by_id(position, item_key, player) end
+function GameAPI.create_item_by_id(position, item_key, player, lua_table) end
 
 --根据ID获取图片
 ---@param icon_id integer # 图片ID
@@ -3220,8 +3233,9 @@ function GameAPI.create_destructible(location, dest_key, angle, size) end
 ---@param scale_y? py.Fixed # 缩放y
 ---@param scale_z? py.Fixed # 缩放z
 ---@param height_offset? py.Fixed # 高度
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.Destructible # 创建出的可破坏物
-function GameAPI.create_destructible_new(dest_key, location, angle, scale_x, scale_y, scale_z, height_offset) end
+function GameAPI.create_destructible_new(dest_key, location, angle, scale_x, scale_y, scale_z, height_offset, lua_table) end
 
 --获取区域内的可破坏物列表
 ---@param area py.Area # 区域对象
@@ -3399,7 +3413,8 @@ function GameAPI.camera_shake_with_decay(role, amplitude, decay, frequency, dura
 --镜头限制移动区域
 ---@param role py.Role # 玩家
 ---@param area py.Area # 限制区域
-function GameAPI.camera_limit_area(role, area) end
+---@param clear_mover? boolean # 超出区域是否停止mover
+function GameAPI.camera_limit_area(role, area, clear_mover) end
 
 --镜头限制移动区域
 ---@param role py.Role # 玩家
@@ -4647,6 +4662,16 @@ function GameAPI.create_scene_node_on_point(comp_name, point, visible_dis, heigh
 ---@return py.SceneNode # 场景点
 function GameAPI.create_scene_node_on_unit(comp_name, player, unit, socket_name, visible_dis) end
 
+--创建场景点并绑定UI到单位
+---@param comp_name string # 控件名
+---@param player py.Role # 玩家
+---@param unit py.Unit # 单位
+---@param socket_name string # 挂接点
+---@param socket_offset_follow_model_scale boolean # 挂接点偏移跟随模型缩放
+---@param visible_dis? number # 可见距离
+---@return py.SceneNode # 场景点
+function GameAPI.create_scene_node_on_unit_ex(comp_name, player, unit, socket_name, socket_offset_follow_model_scale, visible_dis) end
+
 --创建场景点并绑定UI到三维坐标
 ---@param comp_name string # 控件名
 ---@param position py.Vector3 # 三维坐标
@@ -5052,3 +5077,22 @@ function GameAPI.api_world_pos_to_camera_pos_2d(world_pos) end
 ---@param delta_dis py.Fixed # 定点数
 ---@return py.Point # 屏幕坐标
 function GameAPI.api_world_pos_to_screen_edge_pos_2d(world_pos, delta_dis) end
+
+--平台外部服务器设置接口
+---@param aes_key string # AESKey
+---@param public_key string # PublicKey
+---@param external_url string # ExternalUrl
+function GameAPI.init_external_http_config(aes_key, public_key, external_url) end
+
+--平台外部连接登录
+---@param api_path string # 外部API路径
+---@param external_data string # 自定义数据
+---@return boolean # 调用结果
+function GameAPI.platform_http_login(api_path, external_data) end
+
+--平台外部http请求
+---@param api string # 外部API路径
+---@param is_post boolean # 是否是post请求
+---@param data string # body数据
+---@return string # 调用结果
+function GameAPI.platform_http_request(api, is_post, data) end

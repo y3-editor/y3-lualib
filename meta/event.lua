@@ -2552,6 +2552,7 @@ event.ET_KILL_UNIT = {
 
 ---@class EventParam.ET_UNIT_BORN
 ---@field unit Unit # 无描述
+---@field lua_table py.Table # 用户自定义配置表
 
 --单位出生
 event.ET_UNIT_BORN = {
@@ -2560,6 +2561,14 @@ event.ET_UNIT_BORN = {
         type = "py.UnitID",
         lua_name = "unit",
         lua_type = "Unit",
+    },
+    [2] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
@@ -3929,6 +3938,7 @@ event.ET_ABILITY_END = {
 ---@class EventParam.ET_ABILITY_OBTAIN
 ---@field ability Ability # 技能对象
 ---@field unit Unit # 单位
+---@field lua_table py.Table # 用户自定义配置表
 
 --获得技能
 event.ET_ABILITY_OBTAIN = {
@@ -3947,6 +3957,14 @@ event.ET_ABILITY_OBTAIN = {
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
+    },
+    [3] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
@@ -4086,6 +4104,7 @@ event.ET_ABILITY_AUTOCAST_CHANGED = {
 ---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
+---@field lua_table py.Table # 用户自定义配置表
 
 --获得效果
 event.ET_OBTAIN_MODIFIER = {
@@ -4112,6 +4131,14 @@ event.ET_OBTAIN_MODIFIER = {
         lua_type = "Unit",
         desc = "效果施加者",
         lua_desc = "效果施加者",
+    },
+    [4] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
@@ -4587,6 +4614,7 @@ event.ET_DEST_AREA_COLLECTED = {
 
 ---@class EventParam.ET_DEST_CREATE_NEW
 ---@field destructible Destructible # 可破坏物
+---@field lua_table py.Table # 用户自定义配置表
 
 --可破坏物创建
 event.ET_DEST_CREATE_NEW = {
@@ -4597,6 +4625,14 @@ event.ET_DEST_CREATE_NEW = {
         lua_type = "Destructible",
         desc = "可破坏物ID",
         lua_desc = "可破坏物",
+    },
+    [2] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
@@ -6729,6 +6765,7 @@ event.ET_ITEM_CHARGE_CHANGED = {
 
 ---@class EventParam.ET_ITEM_ON_CREATE
 ---@field item Item # 被创建的物品
+---@field lua_table py.Table # 用户自定义配置表
 
 --物品创建
 event.ET_ITEM_ON_CREATE = {
@@ -6739,6 +6776,14 @@ event.ET_ITEM_ON_CREATE = {
         lua_type = "Item",
         desc = "被创建的物品",
         lua_desc = "被创建的物品",
+    },
+    [2] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
