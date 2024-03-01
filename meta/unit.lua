@@ -940,8 +940,9 @@ function Unit:set_unit_outlined_enable(flag) end
 ---@param time? py.Fixed # 持续时间
 ---@param cycle_time? py.Fixed # 循环周期
 ---@param stack_count? integer # 效果层数
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.ModifierEntity # 魔法效果
-function Unit:api_add_modifier(modifier_key, from_unit, from_ability, time, cycle_time, stack_count) end
+function Unit:api_add_modifier(modifier_key, from_unit, from_ability, time, cycle_time, stack_count, lua_table) end
 
 --获取单位身上指定编号的的效果层数
 ---@param modifier_key py.ModifierKey # 效果编号
@@ -993,8 +994,9 @@ function Unit:api_get_all_modifiers() end
 ---@param ability_id py.AbilityKey # 技能编号
 ---@param ability_index? py.AbilityIndex # 技能槽位编号
 ---@param ability_level? integer # 技能等级
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.Ability # 技能
-function Unit:api_add_ability(ability_type, ability_id, ability_index, ability_level) end
+function Unit:api_add_ability(ability_type, ability_id, ability_index, ability_level, lua_table) end
 
 --单位根据槽位移除技能
 ---@param ability_type integer # 技能类型
