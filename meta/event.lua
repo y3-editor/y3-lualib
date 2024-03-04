@@ -2385,7 +2385,7 @@ event.ET_UNIT_EXP_CHANGE = {}
 
 ---@class EventParam.ET_UNIT_PRE_ADD_EXP
 ---@field 触发单位 Unit # 获得经验的单位
----@field add_exp number # 增加的经验
+---@field 经验数值 number # 增加的经验
 
 --单位即将获得经验
 event.ET_UNIT_PRE_ADD_EXP = {
@@ -2400,7 +2400,7 @@ event.ET_UNIT_PRE_ADD_EXP = {
     [2] = {
         name = "__add_exp",
         type = "py.Fixed",
-        lua_name = "add_exp",
+        lua_name = "经验数值",
         lua_type = "number",
         desc = "增加的经验",
         lua_desc = "增加的经验",
@@ -2409,7 +2409,7 @@ event.ET_UNIT_PRE_ADD_EXP = {
 
 ---@class EventParam.ET_UNIT_ON_ADD_EXP
 ---@field 触发单位 Unit # 获得经验的单位
----@field add_exp integer # 增加的经验
+---@field 经验数值 integer # 增加的经验
 
 --单位获得经验
 event.ET_UNIT_ON_ADD_EXP = {
@@ -2424,7 +2424,7 @@ event.ET_UNIT_ON_ADD_EXP = {
     [2] = {
         name = "__add_exp",
         type = "integer",
-        lua_name = "add_exp",
+        lua_name = "经验数值",
         lua_type = "integer",
         desc = "增加的经验",
         lua_desc = "增加的经验",

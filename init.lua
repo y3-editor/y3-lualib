@@ -32,20 +32,17 @@ ClassType = {}
 
 Class     = y3.class.declare
 New       = y3.class.new
----@deprecated
----@diagnostic disable-next-line: deprecated
-Super     = y3.class.super
 Extends   = y3.class.extends
 Delete    = y3.class.delete
 IsValid   = y3.class.isValid
 
+---@diagnostic disable-next-line: lowercase-global
+include   = y3.重载.include
 require "y3.util.log"
 
 y3.重载 = require "y3.tools.reload"
 y3.sandbox = require "y3.tools.sandbox"
 
----@diagnostic disable-next-line: lowercase-global
-include = y3.重载.include
 
 require "y3.tools.linked_table"
 y3.随机池 = require "y3.tools.pool"
@@ -162,7 +159,7 @@ local function safeGetter(t)
                 self[k] = res
                 return res
             end
-        end
+        end,
     })
 end
 

@@ -109,11 +109,12 @@ function M:execute(...)
 end
 
 function M:移除()
+    调试输出("移除", self._include_name, self)
     Delete(self)
 end
 
 ---@return string?
-function M:获取名称()
+function M:获取载入名称()
     return self._include_name
 end
 

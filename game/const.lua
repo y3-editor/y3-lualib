@@ -169,13 +169,13 @@ M.RoleType = {
     ["OBSERVER"] = 10,
 }
 
----@enum y3.Const.RoleStatus
-M.RoleStatus = {
-    ["PLAYING"] = 1,
-    ["NONE"] = 2,
+---@enum y3.Const.玩家状态
+M.玩家状态 = {
+    游戏中 = 1,
+    不存在 = 2,
     ["LOST"] = 3,
     ["LEFT"] = 4,
-    ["WATCHING"] = 5,
+    观战 = 5,
 }
 
 M.MovementObstacleProcessType = {
@@ -361,7 +361,7 @@ M.SfxRotateType = {
 M.背包槽位类型 = {
     物品栏 = 1,
     背包栏 = 0,
-    栏位外 = -1
+    栏位外 = -1,
 }
 
 ---@enum y3.Const.EffectType
@@ -824,14 +824,14 @@ M.UIButtonStatus = {
 M.镜头移动类型 = {
     匀速 = 0,
     匀加速 = 1,
-    匀减速 = 2
+    匀减速 = 2,
 }
 
 ---@enum (key) y3.Const.镜头角度类型
 M.镜头角度类型 = {
     俯视角 = 1,
     滚角 = 2,
-    导航角 = 3
+    导航角 = 3,
 }
 
 

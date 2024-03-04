@@ -19,7 +19,7 @@ end
 local function remove_all_triggers_in_include(reload)
     local event_manager = y3.游戏:get_event_manager()
     for trigger in event_manager:pairs() do
-        local name = trigger:获取名称()
+        local name = trigger:获取载入名称()
         if reload:isValidName(name) then
             trigger:移除()
         end

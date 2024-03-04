@@ -316,6 +316,7 @@ function Config:extends(extendsName, init)
                 class[k] = v
             end
         end
+
         for k, v in pairs(extends.__getter) do
             if not class.__getter[k] then
                 class.__getter[k] = v

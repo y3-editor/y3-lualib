@@ -18,6 +18,7 @@ Extends("Unit", "ObjectEvent")
 ---@class Unit: KV
 Extends("Unit", "KV")
 
+
 ---@private
 function M:__tostring()
     return string.format("{unit|%s|%s}"
@@ -1690,7 +1691,7 @@ end
 
 -- 获取所属玩家
 ---@return Player
-function M:获取所属玩家()
+function M:获取_所属_玩家()
     return y3.玩家.从id获取(self.handle:api_get_role_id())
 end
 

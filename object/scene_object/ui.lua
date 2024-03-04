@@ -46,7 +46,7 @@ M.comp_id = y3.proxy.new({}, {
         else
             return id
         end
-    end
+    end,
 })
 
 ---通过py层的界面实例获取lua层的界面实例
@@ -160,7 +160,7 @@ end
 
 --设置文本
 ---@param str string 文本
----@param ...table<integer, 资源.颜色>[]
+---@param ...table<integer, 枚举.颜色>[]
 ---@return self
 function M:设置文本_颜色格式化(str, ...)
     local 返回内容 = str
@@ -894,7 +894,7 @@ end
 --获得控件真实宽度
 ---@return number width 控件真实宽度
 function M:获取_真实宽度()
-    if self.player:get_state() ~= 1 then
+    if self.player:获取_游戏_状态() ~= 1 then
         return 0
     end
     ---@diagnostic disable-next-line: return-type-mismatch
@@ -904,7 +904,7 @@ end
 --获得控件真实高度
 ---@return number height 控件真实高度
 function M:获取_真实高度()
-    if self.player:get_state() ~= 1 then
+    if self.player:获取_游戏_状态() ~= 1 then
         return 0
     end
     ---@diagnostic disable-next-line: return-type-mismatch

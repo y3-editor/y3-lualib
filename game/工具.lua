@@ -19,14 +19,3 @@ function 判断选择(判断, true值, false值)
         return false值
     end
 end
-
---- ---@field [any] {a:integer}
----@return 模块.玩家数据
-function 创建玩家数据表()
-    ---@class 模块.玩家数据
-    local 返回数据 = {}
-    y3.玩家组.获取所有玩家():遍历(function(索引, 遍历到的玩家)
-        返回数据[遍历到的玩家] = {}
-    end)
-    return 返回数据
-end

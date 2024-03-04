@@ -85,20 +85,20 @@ end
 
 ---玩家是否中途加入
 ---@return boolean is_middle_join 是否中途加入
-function M:是否为中途加入()
+function M:是否_中途_加入()
     return self.handle:is_middle_join()
 end
 
 ---玩家间是否是敌对关系
 ---@param player Player 玩家
 ---@return boolean is_enemy 是否是敌对关系
-function M:是否为敌对关系(player)
+function M:是否_敌对_关系(player)
     return self.handle:players_is_enemy(player.handle)
 end
 
 ---设置名字
 ---@param name string 名字
-function M:设置名称(name)
+function M:设置_名称(name)
     self.handle:set_role_name(name)
 end
 
@@ -149,25 +149,25 @@ end
 
 ---设置跟随距离
 ---@param distance number 距离
-function M:set_follow_distance(distance)
+function M:设置_跟随_距离(distance)
     self.handle:api_set_follow_distance(Fix32(distance))
 end
 
 ---为玩家开/关鼠标点选
 ---@param is_enable boolean 是否开鼠标点选
-function M:set_mouse_click_selection(is_enable)
+function M:设置_是否_开启_鼠标_点选(is_enable)
     self.handle:set_role_mouse_left_click(is_enable)
 end
 
 ---为玩家开/关鼠标框选
 ---@param is_enable boolean 是否开鼠标框选
-function M:set_mouse_drag_selection(is_enable)
+function M:设置_是否_开启_鼠标_框选(is_enable)
     self.handle:set_role_mouse_move_select(is_enable)
 end
 
 ---为玩家开/关鼠标滚轮
 ---@param is_enable boolean 是否开鼠标滚轮
-function M:set_mouse_wheel(is_enable)
+function M:设置_是否_开启_鼠标_滚轮(is_enable)
     self.handle:set_role_mouse_wheel(is_enable)
 end
 
@@ -284,37 +284,37 @@ end
 
 ---获取玩家颜色
 ---@return string HEX颜色
-function M:get_color()
+function M:获取颜色()
     return self.handle:api_get_role_color()
 end
 
 ---获取玩家游戏状态
----@return y3.Const.RoleStatus role_status 玩家游戏状态
-function M:get_state()
+---@return y3.Const.玩家状态 role_status 玩家游戏状态
+function M:获取_游戏_状态()
     return self.handle:get_role_status()
 end
 
 ---获取玩家控制者类型
 ---@return y3.Const.RoleType role_type 玩家控制者类型
-function M:get_controller()
+function M:获取_控制者_类型()
     return self.handle:get_role_type()
 end
 
 ---获取玩家名字
 ---@return string role_name 玩家名字
-function M:get_name()
+function M:获取名称()
     return self.handle:get_role_name()
 end
 
 ---获取经验获得率
 ---@return number exp_rate 经验获得率
-function M:get_exp_rate()
+function M:获取经验获得率()
     return self.handle:get_role_exp_rate():float()
 end
 
 ---获取队伍ID
 ---@return integer camp_id 队伍ID
-function M:get_team_id()
+function M:获取队伍ID()
     return self.handle:get_camp_id_num()
 end
 
@@ -377,7 +377,7 @@ end
 ---设置玩家属性图标
 ---@param key py.RoleResKey 属性名
 ---@param id py.Texture 图标id
-function y3.set_res_icon(key, id)
+function y3.设置属性图标(key, id)
     GameAPI.change_role_res_icon_with_icon(key, id)
 end
 

@@ -64,7 +64,7 @@ function M:清空()
 end
 
 ---获取所有玩家
----@return PlayerGroup player_group 单位组
+---@return PlayerGroup player_group
 function M.获取所有玩家()
     local py_player_group = GameAPI.get_all_role_ids()
     return M.从句柄获取(py_player_group)
@@ -72,7 +72,7 @@ end
 
 ---阵营內所有玩家
 ---@param camp py.Camp 阵营
----@return PlayerGroup player_group 单位组
+---@return PlayerGroup player_group
 function M.获取阵营内所有玩家(camp)
     local py_player_group = GameAPI.get_role_ids_by_camp(camp)
     return M.从句柄获取(py_player_group)
@@ -80,7 +80,7 @@ end
 
 ---玩家的所有敌对玩家
 ---@param player Player 玩家
----@return PlayerGroup player_group 单位组
+---@return PlayerGroup player_group
 function M.获取所有敌对玩家(player)
     local py_player_group = GameAPI.get_enemy_ids_by_role(player.handle)
     return M.从句柄获取(py_player_group)
@@ -88,31 +88,42 @@ end
 
 ---玩家的所有同盟玩家
 ---@param player Player 玩家
----@return PlayerGroup player_group 单位组
+---@return PlayerGroup player_group
 function M.获取所有同盟玩家(player)
     local py_player_group = GameAPI.get_ally_ids_by_role(player.handle)
     return M.从句柄获取(py_player_group)
 end
 
 ---获取所有胜利的玩家
----@return PlayerGroup player_group 单位组
+---@return PlayerGroup player_group
 function M.获取所有胜利玩家()
     local py_player_group = GameAPI.get_victorious_role_ids()
     return M.从句柄获取(py_player_group)
 end
 
 ---获取所有失败的玩家
----@return PlayerGroup player_group 单位组
+---@return PlayerGroup player_group
 function M.获取所有失败玩家()
     local py_player_group = GameAPI.get_defeated_role_ids()
     return M.从句柄获取(py_player_group)
 end
 
 ---所有非中立玩家
----@return PlayerGroup player_group 单位组
+---@return PlayerGroup player_group
 function M.获取所有非中立玩家()
     local py_player_group = GameAPI.get_role_ids_by_type(1)
     return M.从句柄获取(py_player_group)
+end
+
+---@return PlayerGroup player_group
+function M.获取所有_非中立_在线玩家()
+    local 玩家组 = M.获取所有非中立玩家()
+    玩家组:遍历(function(索引, 遍历到的玩家)
+        if 遍历到的玩家:获取_游戏_状态() ~= y3.const.玩家状态.游戏中 then
+            玩家组:移除玩家(遍历到的玩家)
+        end
+    end)
+    return 玩家组
 end
 
 ---@return integer
