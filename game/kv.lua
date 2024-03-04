@@ -106,6 +106,20 @@ end
 
 ---@param handle unknown
 ---@param key string
+local function kv_remove_from_handle(handle, key)
+    GameAPI.del_prefab_key_kv(handle, key, 100003)
+end
+
+---@param kv_key string
+---@param object_key integer
+---@param key string
+local function kv_remove_from_key(kv_key, object_key, key)
+    local api = GameAPI['del_' .. kv_key .. '_kv']
+    api(object_key, key)
+end
+
+---@param handle unknown
+---@param key string
 ---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | KV.SupportTypeEnum
 ---@return any
 local function kv_load_from_handle(handle, key, lua_type)
@@ -179,6 +193,15 @@ function M:kv_has(key)
         return kv_has_from_key(self.kv_key, self.key, key)
     end
     return false
+end
+
+function M:kv_remove(key)
+    if self.handle then
+        kv_remove_from_handle(self.handle, key)
+    end
+    if self.kv_key then
+        kv_remove_from_key(self.kv_key, self.key, key)
+    end
 end
 
 ---@param key string
