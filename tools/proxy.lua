@@ -96,6 +96,11 @@ function M.new(obj, config, custom)
                                    [CONFIG] = config,
                                    [CUSTOM] = custom,
                                }, metatable)
+
+    if config.recursive then
+        config._recursiveState[obj] = proxy
+    end
+
     return proxy
 end
 
