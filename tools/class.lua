@@ -18,6 +18,7 @@ M._errorHandler = error
 ---@field public  __alloc? fun(self: any)
 ---@field package __call   fun(self: any, ...)
 ---@field public  __getter table
+---@field public  __super  Class.Base
 
 ---@class Class.Config
 ---@field private name         string
@@ -114,6 +115,7 @@ function M.declare(name, super)
             M._errorHandler(('class %q can not inherit itself'):format(name))
         end
 
+        class.__super = superClass
         config.superClass = superClass
         config:extends(super, function () end)
     end
