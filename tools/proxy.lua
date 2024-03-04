@@ -1,15 +1,9 @@
 ---@class Proxy
 local M             = {}
 
-<<<<<<< HEAD
 local RAW           = { "<RAW>" }
 local CONFIG        = { "<CONFIG>" }
 local CUSTOM        = { "<CUSTOM>" }
-=======
-local RAW       = {'<RAW>'}
-local CONFIG    = {'<CONFIG>'}
-local CUSTOM    = {'<CUSTOM>'}
->>>>>>> upstream/main
 
 ---@alias Proxy.Setter fun(self: table, raw: any, key: any, value: any, config: Proxy.Config, custom: any): any
 ---@alias Proxy.Getter fun(self: table, raw: any, key: any, config: Proxy.Config, custom: any): any
@@ -75,10 +69,10 @@ local metatable     = {
     __len = function(self)
         local raw = rawget(self, RAW)
         return #raw
-    end
+    end,
 }
 
-local metaKV = { __mode = 'kv' }
+local metaKV        = { __mode = "kv" }
 
 ---@generic T
 ---@param obj T # 要代理的对象
@@ -98,10 +92,10 @@ function M.new(obj, config, custom)
     end
 
     local proxy = setmetatable({
-        [RAW]    = obj,
-        [CONFIG] = config,
-        [CUSTOM] = custom,
-    }, metatable)
+                                   [RAW]    = obj,
+                                   [CONFIG] = config,
+                                   [CUSTOM] = custom,
+                               }, metatable)
     return proxy
 end
 
