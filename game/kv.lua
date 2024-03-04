@@ -52,7 +52,7 @@ local function get_py_value_and_type(value)
             local py_value = y3.py_converter.lua_to_py(py_type, value)
             return py_value, alias
         else
-            return nil, tp
+            return value, tp
         end
     end
     return value, tp
@@ -106,7 +106,21 @@ end
 
 ---@param handle unknown
 ---@param key string
----@param lua_type 'boolean' | 'number' | 'integer' | 'string' | KV.SupportTypeEnum
+local function kv_remove_from_handle(handle, key)
+    GameAPI.del_prefab_key_kv(handle, key, 100003)
+end
+
+---@param kv_key string
+---@param object_key integer
+---@param key string
+local function kv_remove_from_key(kv_key, object_key, key)
+    local api = GameAPI['del_' .. kv_key .. '_kv']
+    api(object_key, key)
+end
+
+---@param handle unknown
+---@param key string
+---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum
 ---@return any
 local function kv_load_from_handle(handle, key, lua_type)
     if lua_type == "boolean" then
@@ -120,6 +134,9 @@ local function kv_load_from_handle(handle, key, lua_type)
     end
     if lua_type == "string" then
         return GameAPI.get_kv_pair_value_string(handle, key)
+    end
+    if lua_type == 'table' then
+        return GameAPI.get_kv_pair_value_table(handle, key)
     end
     local alias = apiAlias[lua_type]
     if alias then
@@ -137,7 +154,7 @@ end
 ---@param kv_key string
 ---@param object_key integer
 ---@param key string
----@param lua_type 'boolean' | 'number' | 'integer' | 'string' | KV.SupportTypeEnum
+---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum
 ---@return any
 local function kv_load_from_key(kv_key, object_key, key, lua_type)
     ---@type string
@@ -181,8 +198,17 @@ function M:是否拥有自定义键(key)
     return false
 end
 
+function M:kv_remove(key)
+    if self.handle then
+        kv_remove_from_handle(self.handle, key)
+    end
+    if self.kv_key then
+        kv_remove_from_key(self.kv_key, self.key, key)
+    end
+end
+
 ---@param key string
----@param lua_type 'boolean' | 'number' | 'integer' | 'string' | KV.SupportTypeEnum
+---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum
 ---@return any
 function M:获取自定义值(key, lua_type)
     if self.handle then

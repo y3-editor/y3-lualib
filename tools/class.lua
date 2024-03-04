@@ -18,6 +18,7 @@ M._errorHandler = error
 ---@field public  __alloc? fun(self: any)
 ---@field package __call   fun(self: any, ...)
 ---@field public  __getter table
+---@field public  __super  Class.Base
 
 ---@class Class.Config
 ---@field private name         string
@@ -114,6 +115,7 @@ function M.declare(name, super)
             M._errorHandler(("class %q can not inherit itself"):format(name))
         end
 
+        class.__super = superClass
         config.superClass = superClass
         config:extends(super, function() end)
     end
@@ -190,7 +192,7 @@ function M.super(name)
     return config:super(name)
 end
 
----@alias Class.Extends.CallData { name: string, init?: fun(self: any, super: fun(...), ...) }
+---@alias Class.Extends.CallData { name: string, init?: fun(self: any, super: (fun(...): Class.Base), ...) }
 
 ---@generic Class: string
 ---@generic Extends: string
@@ -213,8 +215,13 @@ function M.runInit(obj, name, ...)
     end
     if not data.initCalls then
         local initCalls = {}
+        local collected = {}
 
         local function collectInitCalls(cname)
+            if collected[cname] then
+                error(("class %q has circular inheritance"):format(cname))
+            end
+            collected[cname]   = true
             local class        = M._classes[cname]
             local cdata        = M.getConfig(cname)
             local extendsCalls = cdata.extendsCalls
@@ -222,8 +229,13 @@ function M.runInit(obj, name, ...)
                 for _, call in ipairs(extendsCalls) do
                     if call.init then
                         initCalls[#initCalls + 1] = function(cobj, ...)
+                            local firstCall = true
                             call.init(cobj, function(...)
-                                          M.runInit(cobj, call.name, ...)
+                                          if firstCall then
+                                              firstCall = false
+                                              M.runInit(cobj, call.name, ...)
+                                          end
+                                          return M._classes[call.name]
                                       end, ...)
                         end
                     else
