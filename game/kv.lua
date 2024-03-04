@@ -52,7 +52,7 @@ local function get_py_value_and_type(value)
             local py_value = y3.py_converter.lua_to_py(py_type, value)
             return py_value, alias
         else
-            return nil, tp
+            return value, tp
         end
     end
     return value, tp
@@ -120,7 +120,7 @@ end
 
 ---@param handle unknown
 ---@param key string
----@param lua_type 'boolean' | 'number' | 'integer' | 'string' | KV.SupportTypeEnum
+---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum
 ---@return any
 local function kv_load_from_handle(handle, key, lua_type)
     if lua_type == 'boolean' then
@@ -134,6 +134,9 @@ local function kv_load_from_handle(handle, key, lua_type)
     end
     if lua_type == 'string' then
         return GameAPI.get_kv_pair_value_string(handle, key)
+    end
+    if lua_type == 'table' then
+        return GameAPI.get_kv_pair_value_table(handle, key)
     end
     local alias = apiAlias[lua_type]
     if alias then
@@ -151,7 +154,7 @@ end
 ---@param kv_key string
 ---@param object_key integer
 ---@param key string
----@param lua_type 'boolean' | 'number' | 'integer' | 'string' | KV.SupportTypeEnum
+---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum
 ---@return any
 local function kv_load_from_key(kv_key, object_key, key, lua_type)
     ---@type string
@@ -205,7 +208,7 @@ function M:kv_remove(key)
 end
 
 ---@param key string
----@param lua_type 'boolean' | 'number' | 'integer' | 'string' | KV.SupportTypeEnum
+---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum
 ---@return any
 function M:kv_load(key, lua_type)
     if self.handle then
