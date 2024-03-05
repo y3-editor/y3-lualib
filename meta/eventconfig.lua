@@ -489,7 +489,8 @@ M.config["技能-建造完成"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -534,7 +535,8 @@ M.config["技能-冷却变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -566,7 +568,8 @@ M.config["技能-层数变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -585,7 +588,8 @@ M.config["技能-学习"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -604,7 +608,8 @@ M.config["技能-充能进度变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -623,7 +628,8 @@ M.config["技能-可用状态变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -642,7 +648,8 @@ M.config["技能-沉默状态变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -661,7 +668,8 @@ M.config["技能-图标变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1595,7 +1603,8 @@ M.config["技能类型-前置条件成立"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1613,7 +1622,8 @@ M.config["技能类型-前置条件不成立"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1631,7 +1641,8 @@ M.config["科技类型-前置条件成立"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1649,7 +1660,8 @@ M.config["科技类型-前置条件不成立"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1667,7 +1679,8 @@ M.config["技能-升级"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1699,7 +1712,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1742,7 +1756,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1772,7 +1787,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1815,7 +1831,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1845,7 +1862,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1875,7 +1893,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1918,7 +1937,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1948,7 +1968,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -1978,7 +1999,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2021,7 +2043,8 @@ end\
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2039,7 +2062,8 @@ M.config["技能-获得"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2058,7 +2082,8 @@ M.config["技能-失去"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2077,7 +2102,8 @@ M.config["技能-交换"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2096,7 +2122,8 @@ M.config["技能-禁用"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2115,7 +2142,8 @@ M.config["技能-启用"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2134,7 +2162,8 @@ M.config["技能-冷却结束"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2153,7 +2182,8 @@ M.config["效果-获得"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2172,7 +2202,8 @@ M.config["效果-失去"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2191,7 +2222,8 @@ M.config["效果-心跳"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2210,7 +2242,8 @@ M.config["效果-叠加"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2229,7 +2262,8 @@ M.config["效果-层数变化"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2249,7 +2283,8 @@ M.config["效果-即将获得"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2269,7 +2304,8 @@ M.config["效果-覆盖"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2720,7 +2756,8 @@ M.config["技能-打开指示器"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },
@@ -2739,7 +2776,8 @@ M.config["技能-关闭指示器"] = {
     },
     extraObjs = {
         [1] = {
-            getter = function(self) return self:get_owner() end,
+            ---@param self Ability
+            getter = function(self) return self:获取_拥有者_单位() end,
             luaType = "Unit",
         },
     },

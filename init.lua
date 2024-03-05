@@ -36,10 +36,18 @@ Extends   = y3.class.extends
 Delete    = y3.class.delete
 IsValid   = y3.class.isValid
 
----@diagnostic disable-next-line: lowercase-global
-include   = y3.重载.include
 require "y3.util.log"
+调试输出 = log.debug
+调试警告 = log.warn
+调试错误 = log.error
 
+require "y3.game.工具"
+数学 = require "y3.game.math"
+表 = require "y3.game.表"
+字符串 = require "y3.game.字符串"
+
+---@diagnostic disable-next-line: lowercase-global
+include = require "y3.tools.reload".include
 y3.重载 = require "y3.tools.reload"
 y3.sandbox = require "y3.tools.sandbox"
 
@@ -55,7 +63,7 @@ require "y3.util.event_manager"
 require "y3.util.custom_event"
 require "y3.util.ref"
 require "y3.util.storage"
-
+require "模块.重载扩展"
 
 
 y3.const = require "y3.game.const"
@@ -115,17 +123,6 @@ y3.sync = require "y3.util.sync"
 
 y3.develop = {}
 y3.develop.command = require "y3.develop.command"
-
-调试输出 = log.debug
-调试警告 = log.warn
-调试错误 = log.error
-
-require "y3.game.常量枚举"
-require "y3.game.工具"
-
-表 = require "y3.game.表"
-字符串 = require "y3.game.字符串"
-数学 = require "y3.game.math"
 
 -- TODO 给目前的Lua垃圾回收过慢的问题打个临时补丁
 local function fixGC()

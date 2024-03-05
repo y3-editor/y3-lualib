@@ -828,23 +828,23 @@ function M.world_pos_to_screen_edge_pos(world_pos, delta_dis)
     return x, y
 end
 
---本地客户端每帧回调此函数  
+--本地客户端每帧回调此函数
 --只能注册一个回调，后注册的会覆盖之前的，
 --如有需要请自己在回调中分发
 --
 -->警告：回调函数是在本地玩家的客户端上执行的，注意避免产生不同步的问题。
 ---@param callback fun(local_player: Player)
 function M.on_client_tick(callback)
-    if type(callback) ~= 'function' then
-        error('on_client_tick: callback must be a function')
+    if type(callback) ~= "function" then
+        error("on_client_tick: callback must be a function")
     end
     ---@private
     M._client_tick_callback = callback
 end
 
-_G['OnTick'] = function ()
+_G["OnTick"] = function()
     if M._client_tick_callback then
-        y3.player.with_local(M._client_tick_callback)
+        y3.玩家.执行本地代码(M._client_tick_callback)
     end
 end
 

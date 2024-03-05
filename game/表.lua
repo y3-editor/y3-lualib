@@ -191,7 +191,7 @@ end
 ---表_获取最小可用索引
 ---@param 表 table
 ---@param 最大值? integer|nil 查找最大值以下的
----@return integer 没找到返回-1
+---@return integer|nil
 function m.获取最小可用索引(表, 最大值)
     最大值 = 最大值 or 100
     for i = 1, 最大值, 1 do
@@ -199,7 +199,7 @@ function m.获取最小可用索引(表, 最大值)
             return i
         end
     end
-    return -1
+    return nil
 end
 
 ---@param 待排序表 table

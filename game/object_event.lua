@@ -11,7 +11,6 @@ local M             = Class "ObjectEvent"
 ---@param ... any
 ---@return Trigger
 function M:事件(event_name, ...)
-    log.debug(event_name, "1111111111111111111")
     if not self.object_event_manager then
         self.object_event_manager = New "EventManager" (self)
     end

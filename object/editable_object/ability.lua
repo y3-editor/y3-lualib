@@ -19,7 +19,7 @@ function M:__tostring()
     return string.format("{ability|%s|%s} @ %s"
     , self:get_name()
     , self.handle
-    , self:获取拥有者_单位()
+    , self:获取_拥有者_单位()
     )
 end
 
@@ -314,7 +314,7 @@ function M:get_charge_time()
 end
 
 ---获取技能种类
----@return y3.Const.技能分类 type 技能种类
+---@return py.AbilityType type 技能种类
 function M:get_type()
     return self.handle:api_get_type()
 end
@@ -368,7 +368,7 @@ end
 
 ---获取技能的拥有者
 ---@return Unit owner 技能拥有者
-function M:获取拥有者_单位()
+function M:获取_拥有者_单位()
     local py_unit = self.handle:api_get_owner()
     return y3.单位.从handle获取(py_unit)
 end
