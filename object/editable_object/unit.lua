@@ -19,9 +19,9 @@ Extends('Unit', 'ObjectEvent')
 Extends('Unit', 'KV')
 
 function M:__tostring()
-    return string.format('{unit|%s|%s}'
+    return string.format('{unit|%s|%d}'
         , self:get_name()
-        , self.handle
+        , self.id
     )
 end
 
@@ -78,6 +78,20 @@ function M.get_by_res_id(res_id)
     local u = M.get_by_id(res_id--[[@as py.UnitID]])
     assert(u, ('无法找到ID为%d的单位'):format(res_id))
     return u
+end
+
+--根据字符串获取单位，字符串是通过 `tostring(Unit)`
+--或是使用ECA中的“任意变量转化为字符串”获得的。
+---@param str string
+---@return Unit?
+function M.get_by_string(str)
+    local id = str:match('^{unit|.+|(%d+)}$')
+            or str:match('<LCreature%((%d+)%)>')
+            or str:match('^Unit:(%d+)')
+    if not id then
+        return nil
+    end
+    return M.get_by_id(tonumber(id)--[[@as py.UnitID]])
 end
 
 y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)
