@@ -33,6 +33,7 @@ Super   = y3.class.super
 Extends = y3.class.extends
 Delete  = y3.class.delete
 IsValid = y3.class.isValid
+IsInstanceOf = y3.class.isInstanceOf
 
 require 'y3.util.log'
 y3.reload  = require 'y3.tools.reload'

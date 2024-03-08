@@ -46,11 +46,13 @@ end
 
 -- 定义一个类
 ---@generic T: string
+---@generic Super: string
 ---@param name  `T`
----@param super? string
+---@param super? `Super`
+---@param super_init? fun(self: Class, super: Super, ...)
 ---@return T
 ---@return Class.Config
-function M.declare(name, super)
+function M.declare(name, super, super_init)
     local config = M.getConfig(name)
     if M._classes[name] then
         return M._classes[name], config
@@ -117,7 +119,11 @@ function M.declare(name, super)
 
         class.__super = superClass
         config.superClass = superClass
-        config:extends(super, function () end)
+        if super_init then
+            config:extends(super, super_init)
+        else
+            config:extends(super, function () end)
+        end
     end
 
     return class, config
