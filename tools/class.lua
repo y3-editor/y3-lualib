@@ -49,10 +49,10 @@ end
 ---@generic Super: string
 ---@param name  `T`
 ---@param super? `Super`
----@param super_init? fun(self: Class, super: Super, ...)
+---@param superInit? fun(self: Class, super: Super, ...)
 ---@return T
 ---@return Class.Config
-function M.declare(name, super, super_init)
+function M.declare(name, super, superInit)
     local config = M.getConfig(name)
     if M._classes[name] then
         return M._classes[name], config
@@ -119,8 +119,8 @@ function M.declare(name, super, super_init)
 
         class.__super = superClass
         config.superClass = superClass
-        if super_init then
-            config:extends(super, super_init)
+        if superInit then
+            config:extends(super, superInit)
         else
             config:extends(super, function () end)
         end
