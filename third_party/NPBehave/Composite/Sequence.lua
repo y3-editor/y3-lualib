@@ -1,12 +1,12 @@
----@class NPBehave.Composite.Sequence
----@overload fun(...: NPBehave.Node): self
-local Sequence = Class(NPBehaveClassName.Sequence)
-local superName = NPBehaveClassName.Composite
+local superName = NPBehave.ClassName.Composite
 
 ---@class NPBehave.Composite.Sequence: NPBehave.Composite.Composite
-Extends(NPBehaveClassName.Sequence, superName, function(self, super, ...)
+---@field package __super NPBehave.Composite.Composite
+---@overload fun(...: NPBehave.Node): self
+local Sequence = Class(NPBehave.ClassName.Sequence, superName, function(self, super, ...)
     super("Sequence", ...)
 end)
+
 
 function Sequence:__init(children)
     self._currentIndex = 0
@@ -17,7 +17,7 @@ end
 ---@protected
 function Sequence:DoStart()
     for _, child in ipairs(self.Children) do
-        assert(child.CurrentState == NPBehaveNodeState.Inactive)
+        assert(child.CurrentState == NPBehave.Enum.NodeState.Inactive)
     end
 
     self._currentIndex = 0
@@ -82,5 +82,6 @@ end
 ---@override
 ---@return string
 function Sequence:__tostring()
-    return ClassGet(superName):__tostring() .. "[" .. self._currentIndex .. "]"
+    ---@diagnostic disable-next-line: invisible
+    return Sequence.__super:__tostring() .. "[" .. self._currentIndex .. "]"
 end

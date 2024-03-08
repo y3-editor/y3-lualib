@@ -1,10 +1,10 @@
 ---@class NPBehave.Decorator.Random : NPBehave.Decorator.Decorator
 ---@overload fun(probability: number, decoratee: NPBehave.Node): self
-local Random = Class(NPBehaveClassName.Random)
-local superName = NPBehaveClassName.Decorator
+local Random = Class(NPBehave.ClassName.Random)
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Decorator.Random: NPBehave.Decorator.Decorator
-Extends(NPBehaveClassName.Random, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Random, superName, function(self, super, ...)
     local probability, decoratee = ...
     super("Random", decoratee)
 end)

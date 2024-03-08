@@ -1,20 +1,17 @@
+local superName = "NPBehave.Decorator.Decorator"
 
 ---@class NPBehave.Root: NPBehave.Decorator.Decorator
 ---@field private _blackboard NPBehave.Blackboard
 ---@field Blackboard NPBehave.Blackboard `__getter`
 ---@field private _clock NPBehave.Clock
 ---@field Clock NPBehave.Clock `__getter`
+---@field package __super NPBehave.Decorator.Decorator
 ---@overload fun(mainNode: NPBehave.Node, blackboard: NPBehave.Blackboard, clock: NPBehave.Clock): self
-local Root = Class("NPBehave.Root")
-local superName = "NPBehave.Decorator.Decorator"
----@class NPBehave.Root: NPBehave.Decorator.Decorator
-Extends('NPBehave.Root', superName, function(self, super, ...)
+local Root = Class("NPBehave.Root", superName, function (self, super, ...)
     local mainNode = ...
     super("Root", mainNode)
 end)
 
----@class NPBehave.Root: FuncUtil
-Extends('NPBehave.Root', "FuncUtil")
 
 
 ---@diagnostic disable-next-line: undefined-field
@@ -48,8 +45,7 @@ end
 ---@param rootNode NPBehave.Root
 function Root:SetRoot(rootNode)
     assert(self == rootNode, "Root节点只能设置为自己的根节点")
-    ClassGet(superName)
-        .SetRoot(self, rootNode)
+    Root.__super.SetRoot(self, rootNode)
 end
 
 ---override<br>

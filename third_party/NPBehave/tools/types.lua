@@ -1,5 +1,5 @@
 ---@enum NPBehaveClassName
-NPBehaveClassName = {
+local NPBehaveClassName = {
     Node = "NPBehave.Node",
     Root = "NPBehave.Root",
 
@@ -33,3 +33,5 @@ NPBehaveClassName = {
     WaitUntilStopped = "NPBehave.Task.WaitUntilStopped",
     Wait = "NPBehave.Task.Wait",
 }
+
+return NPBehaveClassName

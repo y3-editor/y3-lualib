@@ -1,10 +1,10 @@
 ---@class NPBehave.Decorator.WaitForCondition : NPBehave.Decorator.Decorator
 ---@overload fun(condition: fun():boolean, checkInterval: number, randomVariance: number, decoratee: NPBehave.Node): self
-local WaitForCondition = Class(NPBehaveClassName.WaitForCondition)
-local superName = NPBehaveClassName.Decorator
+local WaitForCondition = Class(NPBehave.ClassName.WaitForCondition)
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Decorator.WaitForCondition: NPBehave.Decorator.Decorator
-Extends(NPBehaveClassName.WaitForCondition, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.WaitForCondition, superName, function(self, super, ...)
     local condition, checkInterval, randomVariance, decoratee = ...
     super("WaitForCondition", decoratee)
 
@@ -54,6 +54,6 @@ end
 ---override<br>
 ---@protected
 function WaitForCondition:DoChildStopped(child, result)
-    assert(self.CurrentState ~= NPBehaveNodeState.Inactive)
+    assert(self.CurrentState ~= NPBehave.Enum.NodeState.Inactive)
     self:Stopped(result)
 end

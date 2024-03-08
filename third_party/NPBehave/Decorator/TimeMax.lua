@@ -1,10 +1,10 @@
 ---@class NPBehave.Decorator.TimeMax : NPBehave.Decorator.Decorator
 ---@overload fun(limit: number, randomVariation: number, waitForChildButFailOnLimitReached: boolean, decoratee: NPBehave.Node): self
-local TimeMax = Class(NPBehaveClassName.TimeMax)
-local superName = NPBehaveClassName.Decorator
+local TimeMax = Class(NPBehave.ClassName.TimeMax)
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Decorator.TimeMax: NPBehave.Decorator.Decorator
-Extends(NPBehaveClassName.TimeMax, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.TimeMax, superName, function(self, super, ...)
     local limit, randomVariation, waitForChildButFailOnLimitReached, decoratee = ...
     super("TimeMax", decoratee)
 end)

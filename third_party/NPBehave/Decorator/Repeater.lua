@@ -1,10 +1,10 @@
 ---@class NPBehave.Decorator.Repeater : NPBehave.Decorator.Decorator
 ---@overload fun(loopCount: number, decoratee: NPBehave.Node): self
-local Repeater = Class(NPBehaveClassName.Repeater)
-local superName = NPBehaveClassName.Decorator
+local Repeater = Class(NPBehave.ClassName.Repeater)
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Decorator.Repeater: NPBehave.Decorator.Decorator
-Extends(NPBehaveClassName.Repeater, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Repeater, superName, function(self, super, ...)
     local loopCount, decoratee = ...
     super("Repeater", decoratee)
 end)

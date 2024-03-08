@@ -1,10 +1,10 @@
 ---@class NPBehave.Composite.Parallel
----@overload fun(successPolicy: NPBehaveParallelPolicy, failurePolicy: NPBehaveParallelPolicy, ...: NPBehave.Node): self
-local Parallel = Class(NPBehaveClassName.Parallel)
-local superName = NPBehaveClassName.Composite
+---@overload fun(successPolicy: NPBehave.Enum.ParallelPolicy, failurePolicy: NPBehave.Enum.ParallelPolicy, ...: NPBehave.Node): self
+local Parallel = Class(NPBehave.ClassName.Parallel)
+local superName = NPBehave.ClassName.Composite
 
 ---@class NPBehave.Composite.Parallel: NPBehave.Composite.Composite
-Extends(NPBehaveClassName.Parallel, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Parallel, superName, function(self, super, ...)
     local args = { select(3, ...) }
     super("Parallel", args)
 end)
@@ -12,8 +12,8 @@ end)
 --TODO 待验证
 
 
----@param successPolicy NPBehaveParallelPolicy
----@param failurePolicy NPBehaveParallelPolicy
+---@param successPolicy NPBehave.Enum.ParallelPolicy
+---@param failurePolicy NPBehave.Enum.ParallelPolicy
 ---@param ... NPBehave.Node[]
 ---@return self
 function Parallel:__init(successPolicy, failurePolicy, ...)
@@ -35,7 +35,7 @@ end
 ---@protected
 function Parallel:DoStart()
     for _, child in ipairs(self.Children) do
-        assert(child.CurrentState == NPBehaveNodeState.Inactive)
+        assert(child.CurrentState == NPBehave.Enum.NodeState.Inactive)
     end
 
     self._childrenAborted = false
@@ -77,11 +77,11 @@ function Parallel:DoChildStopped(child, result)
     if allChildrenStarted then
         if self._runningCount == 0 then
             if not self._childrenAborted then
-                if self._failurePolicy == NPBehaveParallelPolicy.One and self._failedCount > 0 then
+                if self._failurePolicy == NPBehave.Enum.ParallelPolicy.One and self._failedCount > 0 then
                     self._successState = false
-                elseif self._successPolicy == NPBehaveParallelPolicy.One and self._succeededCount > 0 then
+                elseif self._successPolicy == NPBehave.Enum.ParallelPolicy.One and self._succeededCount > 0 then
                     self._successState = true
-                elseif self._successPolicy == NPBehaveParallelPolicy.All and self._succeededCount == self._childrenCount then
+                elseif self._successPolicy == NPBehave.Enum.ParallelPolicy.All and self._succeededCount == self._childrenCount then
                     self._successState = true
                 else
                     self._successState = false
@@ -92,10 +92,10 @@ function Parallel:DoChildStopped(child, result)
             assert(self._succeededCount ~= self._childrenCount)
             assert(self._failedCount ~= self._childrenCount)
 
-            if self._failurePolicy == NPBehaveParallelPolicy.One and self._failedCount > 0 then
+            if self._failurePolicy == NPBehave.Enum.ParallelPolicy.One and self._failedCount > 0 then
                 self._successState = false
                 self._childrenAborted = true
-            elseif self._successPolicy == NPBehaveParallelPolicy.One and self._succeededCount > 0 then
+            elseif self._successPolicy == NPBehave.Enum.ParallelPolicy.One and self._succeededCount > 0 then
                 self._successState = true
                 self._childrenAborted = true
             end

@@ -1,18 +1,17 @@
 ---@class NPBehave.Decorator.BlackboardQuery : NPBehave.Decorator.ObservingDecorator
----@overload fun(keys: string[], stopsOnChange: NPBehaveStops, query: fun():boolean, decoratee: NPBehave.Node): self
-local BlackboardQuery = Class(NPBehaveClassName.BlackboardQuery)
-local superName = NPBehaveClassName.ObservingDecorator
+---@overload fun(keys: string[], stopsOnChange: NPBehave.Enum.Stops, query: fun():boolean, decoratee: NPBehave.Node): self
+local BlackboardQuery = Class(NPBehave.ClassName.BlackboardQuery)
+local superName = NPBehave.ClassName.ObservingDecorator
 
 ---@class NPBehave.Decorator.BlackboardQuery: NPBehave.Decorator.ObservingDecorator
-Extends(NPBehaveClassName.BlackboardQuery, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.BlackboardQuery, superName, function(self, super, ...)
     local keys, stopsOnChange, query, decoratee = ...
     super("BlackboardQuery", stopsOnChange, decoratee)
 end)
----@class NPBehave.Decorator.BlackboardQuery: FuncUtil
-Extends(NPBehaveClassName.BlackboardQuery, "FuncUtil")
+
 
 ---@param keys string[]
----@param stopsOnChange NPBehaveStops
+---@param stopsOnChange NPBehave.Enum.Stops
 ---@param query fun():boolean
 ---@param decoratee NPBehave.Node
 ---@return self

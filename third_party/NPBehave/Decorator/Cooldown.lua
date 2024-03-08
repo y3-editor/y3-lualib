@@ -1,15 +1,13 @@
 ---@class NPBehave.Decorator.Cooldown : NPBehave.Decorator.Decorator
 ---@overload fun(cooldownTime: number, randomVariation: number, startAfterDecoratee: boolean, resetOnFailure: boolean, failOnCooldown: boolean, decoratee: NPBehave.Node): self
-local Cooldown = Class(NPBehaveClassName.Cooldown)
-local superName = NPBehaveClassName.Decorator
+local Cooldown = Class(NPBehave.ClassName.Cooldown)
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Decorator.Cooldown: NPBehave.Decorator.Decorator
-Extends(NPBehaveClassName.Cooldown, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Cooldown, superName, function(self, super, ...)
     local cooldownTime, randomVariation, startAfterDecoratee, resetOnFailure, failOnCooldown, decoratee = ...
     super("TimeCooldown", decoratee)
 end)
----@class NPBehave.Decorator.Cooldown: FuncUtil
-Extends(NPBehaveClassName.Cooldown, "FuncUtil")
 
 ---@param cooldownTime number
 ---@param randomVariation number

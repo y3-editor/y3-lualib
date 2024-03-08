@@ -1,19 +1,18 @@
 ---@class NPBehave.Decorator.Condition : NPBehave.Decorator.ObservingDecorator
----@overload fun(condition: fun():boolean, stopsOnChange: NPBehaveStops, decoratee: NPBehave.Node, checkInterval: number, randomVariance: number): self
-local Condition = Class(NPBehaveClassName.Condition)
-local superName = NPBehaveClassName.ObservingDecorator
+---@overload fun(condition: fun():boolean, stopsOnChange: NPBehave.Enum.Stops, decoratee: NPBehave.Node, checkInterval: number, randomVariance: number): self
+local Condition = Class(NPBehave.ClassName.Condition)
+local superName = NPBehave.ClassName.ObservingDecorator
 
 ---@class NPBehave.Decorator.Condition: NPBehave.Decorator.ObservingDecorator
-Extends(NPBehaveClassName.Condition, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Condition, superName, function(self, super, ...)
     local condition, stopsOnChange, decoratee, checkInterval, randomVariance = ...
     super("Condition", stopsOnChange, decoratee)
 end)
----@class NPBehave.Decorator.BlackboardQuery: FuncUtil
-Extends(NPBehaveClassName.Condition, "FuncUtil")
+
 
 
 ---@param condition fun():boolean
----@param stopsOnChange NPBehaveStops
+---@param stopsOnChange NPBehave.Enum.Stops
 ---@param decoratee NPBehave.Node
 ---@param checkInterval? number
 ---@param randomVariance? number

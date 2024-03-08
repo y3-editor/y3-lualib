@@ -1,10 +1,10 @@
 ---@class NPBehave.Decorator.Observer : NPBehave.Decorator.Decorator
 ---@overload fun(onStart: fun(), onStop: fun(result: boolean), decoratee: NPBehave.Node): self
-local Observer = Class(NPBehaveClassName.Observer)
-local superName = NPBehaveClassName.Decorator
+local Observer = Class(NPBehave.ClassName.Observer)
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Decorator.Observer: NPBehave.Decorator.Decorator
-Extends(NPBehaveClassName.Observer, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Observer, superName, function(self, super, ...)
     local onStart, onStop, decoratee = ...
     super("Observer", decoratee)
 end)

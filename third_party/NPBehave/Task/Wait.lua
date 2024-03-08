@@ -1,10 +1,10 @@
 ---@class NPBehave.Task.Wait : NPBehave.Task.Task
 ---@overload fun(name: string): self
-local Wait = Class(NPBehaveClassName.Wait)
-local superName = NPBehaveClassName.Task
+local Wait = Class(NPBehave.ClassName.Wait)
+local superName = NPBehave.ClassName.Task
 
 ---@class NPBehave.Task.Wait: NPBehave.Task.Task
-Extends(NPBehaveClassName.Wait, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Wait, superName, function(self, super, ...)
     super("Wait")
 end)
 

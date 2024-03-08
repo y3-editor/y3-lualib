@@ -9,7 +9,7 @@ Extends('NPBehave.Task.Action', superName, function(self, super, ...)
 end)
 
 ---@enum NPBehaveTaskActionResult
-NPBehaveTaskActionResult = {
+local NPBehaveTaskActionResult = {
     Success = "Success",
     Failed = "Failed",
     Blocked = "Blocked",
@@ -17,7 +17,7 @@ NPBehaveTaskActionResult = {
 }
 
 ---@enum NPBehaveTaskActionRequest
-NPBehaveTaskActionRequest = {
+local NPBehaveTaskActionRequest = {
     Start = "Start",
     Update = "Update",
     Cancel = "Cancel"

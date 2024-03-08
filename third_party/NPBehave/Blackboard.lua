@@ -7,7 +7,7 @@ local Blackboard = Class("NPBehave.Blackboard")
 Extends('NPBehave.Blackboard', "FuncUtil")
 
 ---@enum NPBehaveBlackboardType
-NPBehaveBlackboardType = {
+local NPBehaveBlackboardType = {
     Add = "Add",
     Remove = "Remove",
     Change = "Change",

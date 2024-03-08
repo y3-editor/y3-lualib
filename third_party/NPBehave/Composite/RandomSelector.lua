@@ -1,10 +1,9 @@
----@class NPBehave.Composite.RandomSelector
----@overload fun(...: NPBehave.Node): self
-local RandomSelector = Class(NPBehaveClassName.RandomSelector)
-local superName = NPBehaveClassName.Composite
+local superName = NPBehave.ClassName.Composite
 
 ---@class NPBehave.Composite.RandomSelector: NPBehave.Composite.Composite
-Extends(NPBehaveClassName.RandomSelector, superName, function(self, super, ...)
+---@field package __super NPBehave.Composite.Composite
+---@overload fun(...: NPBehave.Node): self
+local RandomSelector = Class(NPBehave.ClassName.RandomSelector, superName, function(self, super, ...)
     super("Random Selector", ...)
 end)
 
@@ -23,7 +22,7 @@ end
 ---@protected
 function RandomSelector:DoStart()
     for _, child in ipairs(self.Children) do
-        assert(child.CurrentState == NPBehaveNodeState.Inactive)
+        assert(child.CurrentState == NPBehave.Enum.NodeState.Inactive)
     end
 
     self._currentIndex = 0
@@ -96,5 +95,6 @@ end
 ---@override
 ---@return string
 function RandomSelector:__tostring()
-    return ClassGet(superName):__tostring() .. "[" .. self._currentIndex .. "]"
+    ---@diagnostic disable-next-line: invisible
+    return RandomSelector.__super:__tostring() .. "[" .. self._currentIndex .. "]"
 end

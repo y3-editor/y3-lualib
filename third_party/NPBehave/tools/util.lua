@@ -2,7 +2,6 @@
 ---@overload fun(): self
 local FuncUtil = Class 'FuncUtil'
 
-
 ---函数绑定到对象
 ---@param func fun(...)
 ---@return function
@@ -16,8 +15,9 @@ function FuncUtil:bind(func)
     return self.funcBindCache[func]
 end
 
+-- 有序表
 ---@return table
-function OrderedTable()
+local function OrderedTable()
     local mt = {}
     local first = {}
     local last = first
@@ -66,6 +66,5 @@ function OrderedTable()
 end
 
 return {
-    FuncUtil = FuncUtil,
     OrderedTable = OrderedTable,
 }

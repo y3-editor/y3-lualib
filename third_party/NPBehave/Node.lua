@@ -1,6 +1,6 @@
 ---@class NPBehave.Node `abstract`, 不应该直接实例化, 请使用子类<br>
----@field protected currentState NPBehaveNodeState
----@field CurrentState NPBehaveNodeState `__getter`
+---@field protected currentState NPBehave.Enum.NodeState
+---@field CurrentState NPBehave.Enum.NodeState `__getter`
 ---@field RootNode NPBehave.Root
 ---@field ParentNode? NPBehave.Container
 ---@field Label string 显示标签
@@ -14,6 +14,9 @@ local Node = Class("NPBehave.Node")
 
 ---@class NPBehave.Node: FuncUtil
 Extends('NPBehave.Node', "FuncUtil")
+
+
+
 
 ---@diagnostic disable-next-line: undefined-field
 Node.__getter.CurrentState = function(self)
@@ -40,21 +43,21 @@ end
 Node.__getter.IsStopRequested = function(self)
     ---@cast self NPBehave.Node
     ---@diagnostic disable-next-line: invisible
-    return self.currentState == NPBehaveNodeState.StopRequested
+    return self.currentState == NPBehave.Enum.NodeState.StopRequested
 end
 
 ---@diagnostic disable-next-line: undefined-field
 Node.__getter.IsActive = function(self)
     ---@cast self NPBehave.Node
     ---@diagnostic disable-next-line: invisible
-    return self.currentState == NPBehaveNodeState.Active
+    return self.currentState == NPBehave.Enum.NodeState.Active
 end
 
 ---@param name string
 ---@return self
 function Node:__init(name)
     self.name = name
-    self.currentState = NPBehaveNodeState.Inactive
+    self.currentState = NPBehave.Enum.NodeState.Inactive
     return self
 end
 
@@ -70,14 +73,14 @@ function Node:SetParent(parentNode)
 end
 
 function Node:Start()
-    assert(self.currentState == NPBehaveNodeState.Inactive, "只能启动非活动节点")
-    self.currentState = NPBehaveNodeState.Active
+    assert(self.currentState == NPBehave.Enum.NodeState.Inactive, "只能启动非活动节点")
+    self.currentState = NPBehave.Enum.NodeState.Active
     self:DoStart()
 end
 
 function Node:CancelWithoutReturnResult()
-    assert(self.currentState == NPBehaveNodeState.Active, "只能停止活动节点，试图停止")
-    self.currentState = NPBehaveNodeState.StopRequested
+    assert(self.currentState == NPBehave.Enum.NodeState.Active, "只能停止活动节点，试图停止")
+    self.currentState = NPBehave.Enum.NodeState.StopRequested
     self:DoCancel()
 end
 
@@ -94,8 +97,8 @@ end
 ---virtual<br>
 ---这绝对必须是函数中的最后一个调用, 调用停止后切勿修改任何状态!!! 
 function Node:Stopped(success)
-    assert(self.currentState ~= NPBehaveNodeState.Inactive, "在 `INACTIVE` 状态下调用了 `Stopped`, 说明出了问题")
-    self.currentState = NPBehaveNodeState.Inactive
+    assert(self.currentState ~= NPBehave.Enum.NodeState.Inactive, "在 `INACTIVE` 状态下调用了 `Stopped`, 说明出了问题")
+    self.currentState = NPBehave.Enum.NodeState.Inactive
     if self.ParentNode ~= nil then
         self.ParentNode:ChildStopped(self, success)
     end

@@ -1,20 +1,19 @@
 ---@class NPBehave.Decorator.BlackboardCondition
----@overload fun(key: string, op: NPBehaveOperator, value: any, stopsOnChange: NPBehaveStops, decoratee: NPBehave.Node): self
-local BlackboardCondition = Class(NPBehaveClassName.BlackboardCondition)
-local superName = NPBehaveClassName.ObservingDecorator
+---@overload fun(key: string, op: NPBehave.Enum.Operator, value: any, stopsOnChange: NPBehave.Enum.Stops, decoratee: NPBehave.Node): self
+local BlackboardCondition = Class(NPBehave.ClassName.BlackboardCondition)
+local superName = NPBehave.ClassName.ObservingDecorator
 
 ---@class NPBehave.Decorator.BlackboardCondition: NPBehave.Decorator.ObservingDecorator
-Extends(NPBehaveClassName.BlackboardCondition, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.BlackboardCondition, superName, function(self, super, ...)
     local key, op, value, stopsOnChange, decoratee = ...
     super("BlackboardCondition", stopsOnChange, decoratee)
 end)
----@class NPBehave.Decorator.BlackboardCondition: FuncUtil
-Extends(NPBehaveClassName.BlackboardCondition, "FuncUtil")
+
 
 ---@param key string
----@param op NPBehaveOperator
+---@param op NPBehave.Enum.Operator
 ---@param value? any
----@param stopsOnChange NPBehaveStops
+---@param stopsOnChange NPBehave.Enum.Stops
 ---@param decoratee NPBehave.Node
 ---@return unknown
 function BlackboardCondition:__init(key, op, value, stopsOnChange, decoratee)
@@ -48,44 +47,44 @@ end
 ---@protected
 ---@return boolean
 function BlackboardCondition:IsConditionMet()
-    if self._op == NPBehaveOperator.AlwaysTrue then
+    if self._op == NPBehave.Enum.Operator.AlwaysTrue then
         return true
     end
 
     if not self.RootNode.Blackboard:IsSet(self._key) then
-        return self._op == NPBehaveOperator.IsNotSet
+        return self._op == NPBehave.Enum.Operator.IsNotSet
     end
 
     local o = self.RootNode.Blackboard:Get(self._key)
 
-    if self._op == NPBehaveOperator.IsSet then
+    if self._op == NPBehave.Enum.Operator.IsSet then
         return true
-    elseif self._op == NPBehaveOperator.IsEqual then
+    elseif self._op == NPBehave.Enum.Operator.IsEqual then
         return o == self._value
-    elseif self._op == NPBehaveOperator.IsNotEqual then
+    elseif self._op == NPBehave.Enum.Operator.IsNotEqual then
         return o ~= self._value
-    elseif self._op == NPBehaveOperator.IsGreaterOrEqual then
+    elseif self._op == NPBehave.Enum.Operator.IsGreaterOrEqual then
         if type(o) == "number" then
             return o >= self._value
         else
             assert(false, "Type not comparable: " .. type(o))
             return false
         end
-    elseif self._op == NPBehaveOperator.IsGreater then
+    elseif self._op == NPBehave.Enum.Operator.IsGreater then
         if type(o) == "number" then
             return o > self._value
         else
             assert(false, "Type not comparable: " .. type(o))
             return false
         end
-    elseif self._op == NPBehaveOperator.IsSmallerOrEqual then
+    elseif self._op == NPBehave.Enum.Operator.IsSmallerOrEqual then
         if type(o) == "number" then
             return o <= self._value
         else
             assert(false, "Type not comparable: " .. type(o))
             return false
         end
-    elseif self._op == NPBehaveOperator.IsSmaller then
+    elseif self._op == NPBehave.Enum.Operator.IsSmaller then
         if type(o) == "number" then
             return o < self._value
         else

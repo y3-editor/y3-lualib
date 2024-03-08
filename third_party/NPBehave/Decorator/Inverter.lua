@@ -1,10 +1,10 @@
 ---@class NPBehave.Decorator.Inverter : NPBehave.Decorator.Decorator
 ---@overload fun(decoratee: NPBehave.Node): self
-local Inverter = Class(NPBehaveClassName.Inverter)
-local superName = NPBehaveClassName.Decorator
+local Inverter = Class(NPBehave.ClassName.Inverter)
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Decorator.Inverter: NPBehave.Decorator.Decorator
-Extends(NPBehaveClassName.Inverter, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Inverter, superName, function(self, super, ...)
     local decoratee = ...
     super("Inverter", decoratee)
 end)

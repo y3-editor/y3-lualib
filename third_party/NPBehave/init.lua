@@ -1,9 +1,7 @@
-ClassGet = y3.class.get
-ClassTool = y3.class
 NPBehave = {}
 
-require("y3.third_party.NPBehave.enum")
-require("y3.third_party.NPBehave.tools.types")
+NPBehave.Enum = require("y3.third_party.NPBehave.enum")
+NPBehave.ClassName = require("y3.third_party.NPBehave.tools.types")
 NPBehave.Util = require("y3.third_party.NPBehave.tools.util")
 require("y3.third_party.NPBehave.Node")
 require("y3.third_party.NPBehave.Container")

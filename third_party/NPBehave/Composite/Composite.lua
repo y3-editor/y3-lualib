@@ -1,11 +1,11 @@
----@class NPBehave.Composite.Composite
+local superName = "NPBehave.Container"
+
+---@class NPBehave.Composite.Composite: NPBehave.Container
 ---@field protected Children? NPBehave.Node[]
 ---@field StopLowerPriorityChildrenForChild fun(self: self, child: NPBehave.Node, immediateRestart: boolean) abstract<br>
+---@field package __super NPBehave.Container
 ---@overload fun(name: string, children: NPBehave.Node[]): self
-local Composite = Class("NPBehave.Composite.Composite")
-local superName = "NPBehave.Container"
----@class NPBehave.Composite.Composite: NPBehave.Container
-Extends('NPBehave.Composite.Composite', superName, function(self, super, ...)
+local Composite = Class("NPBehave.Composite.Composite", superName, function (self, super, ...)
     local name = ...
     super(name)
 end)
@@ -25,8 +25,7 @@ end
 ---override<br>
 ---@param rootNode NPBehave.Root
 function Composite:SetRoot(rootNode)
-    ClassGet(superName)
-        .SetRoot(self, rootNode)
+    Composite.__super.SetRoot(self, rootNode)
     for _, node in ipairs(self.Children) do
         node:SetRoot(rootNode)
     end
@@ -39,8 +38,7 @@ function Composite:Stopped(success)
     for _, child in ipairs(self.Children) do
         child:ParentCompositeStopped(self)
     end
-    ClassGet(superName)
-        .Stopped(self, success)
+    Composite.__super.Stopped(self, success)
 end
 
 return Composite

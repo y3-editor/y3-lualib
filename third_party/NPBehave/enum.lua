@@ -1,12 +1,13 @@
----@enum NPBehaveNodeState
-NPBehaveNodeState = {
+local m = {}
+---@enum NPBehave.Enum.NodeState
+m.NodeState = {
     Inactive = "Inactive",
     Active = "Active",
     StopRequested = "StopRequested",
 }
 
----@enum NPBehaveStops
-NPBehaveStops = {
+---@enum NPBehave.Enum.Stops
+m.Stops = {
     None = "None",
     Self = "Self",
     LowerPriority = "LowerPriority",
@@ -15,8 +16,8 @@ NPBehaveStops = {
     LowerPriorityImmediateRestart = "LowerPriorityImmediateRestart"
 }
 
----@enum NPBehaveOperator
-NPBehaveOperator = {
+---@enum NPBehave.Enum.Operator
+m.Operator = {
     IsSet = "IsSet",
     IsNotSet = "IsNotSet",
     IsEqual = "IsEqual",
@@ -28,8 +29,9 @@ NPBehaveOperator = {
     AlwaysTrue = "AlwaysTrue"
 }
 
----@enum NPBehaveParallelPolicy
-NPBehaveParallelPolicy = {
+---@enum NPBehave.Enum.ParallelPolicy
+m.ParallelPolicy = {
     One = "One",
     All = "All",
 }
+return m

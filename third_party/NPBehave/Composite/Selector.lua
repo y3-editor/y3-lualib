@@ -1,10 +1,9 @@
----@class NPBehave.Composite.Selector
----@overload fun(...: NPBehave.Node): self
-local Selector = Class(NPBehaveClassName.Selector)
-local superName = NPBehaveClassName.Composite
+local superName = NPBehave.ClassName.Composite
 
 ---@class NPBehave.Composite.Selector: NPBehave.Composite.Composite
-Extends(NPBehaveClassName.Selector, superName, function(self, super, ...)
+---@field package __super NPBehave.Composite.Composite
+---@overload fun(...: NPBehave.Node): self
+local Selector = Class(NPBehave.ClassName.Selector, superName, function(self, super, ...)
     super("Selector", ...)
 end)
 
@@ -17,7 +16,7 @@ end
 ---@protected
 function Selector:DoStart()
     for _, child in ipairs(self.Children) do
-        assert(child.CurrentState == NPBehaveNodeState.Inactive)
+        assert(child.CurrentState == NPBehave.Enum.NodeState.Inactive)
     end
 
     self._currentIndex = 0
@@ -82,5 +81,6 @@ end
 ---@override
 ---@return string
 function Selector:__tostring()
-    return ClassGet(superName):__tostring() .. "[" .. self._currentIndex .. "]"
+    ---@diagnostic disable-next-line: invisible
+    return Selector.__super:__tostring() .. "[" .. self._currentIndex .. "]"
 end

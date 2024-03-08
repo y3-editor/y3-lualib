@@ -1,10 +1,9 @@
----@class NPBehave.Composite.RandomSequence
----@overload fun(...: NPBehave.Node): self
-local RandomSequence = Class(NPBehaveClassName.RandomSequence)
-local superName = NPBehaveClassName.Composite
+local superName = NPBehave.ClassName.Composite
 
 ---@class NPBehave.Composite.RandomSequence: NPBehave.Composite.Composite
-Extends(NPBehaveClassName.RandomSequence, superName, function(self, super, ...)
+---@field package __super NPBehave.Composite.Composite
+---@overload fun(...: NPBehave.Node): self
+local RandomSequence = Class(NPBehave.ClassName.RandomSequence, superName, function (self, super, ...)
     super("Random Sequence", ...)
 end)
 
@@ -23,7 +22,7 @@ end
 ---@protected
 function RandomSequence:DoStart()
     for _, child in ipairs(self.Children) do
-        assert(child.CurrentState == NPBehaveNodeState.Inactive)
+        assert(child.CurrentState == NPBehave.Enum.NodeState.Inactive)
     end
 
     self._currentIndex = 0
@@ -96,5 +95,6 @@ end
 ---@override
 ---@return string
 function RandomSequence:__tostring()
-    return ClassGet(superName):__tostring() .. "[" .. self._currentIndex .. "]"
+    ---@diagnostic disable-next-line: invisible
+    return RandomSequence.__super:__tostring() .. "[" .. self._currentIndex .. "]"
 end

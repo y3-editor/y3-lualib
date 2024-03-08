@@ -1,10 +1,10 @@
 ---@class NPBehave.Decorator.Hook : NPBehave.Decorator.Decorator
 ---@overload fun(onStart: fun(), decoratee: NPBehave.Node): self
-local Hook = Class(NPBehaveClassName.Hook)
-local superName = NPBehaveClassName.Decorator
+local Hook = Class(NPBehave.ClassName.Hook)
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Decorator.Hook: NPBehave.Decorator.Decorator
-Extends(NPBehaveClassName.Hook, superName, function(self, super, ...)
+Extends(NPBehave.ClassName.Hook, superName, function(self, super, ...)
     local onStart, decoratee = ...
     super("Hook", decoratee)
 end)
