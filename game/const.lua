@@ -602,6 +602,7 @@ M.DestructibleEventType = {
 ---| '右键-抬起'
 ---| '右键-点击'
 ---| '右键-双击'
+---| '空'
 
 M.UIEventMap = {
     -- 旧
@@ -844,7 +845,7 @@ M.控件属性 = {
     当前值 = "current_value_bind",
 }
 
----@alias y3.Const.单位属性类型
+---@alias y3.Const.单位属性分类
 ---| "基础属性"
 ---| "基础属性加成"
 ---| "增益属性"

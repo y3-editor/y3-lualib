@@ -59,8 +59,10 @@ function M:移除玩家(player)
 end
 
 --清空玩家组
+---@return self
 function M:清空()
     GlobalAPI.clear_group(self.handle)
+    return self
 end
 
 ---获取所有玩家
@@ -136,6 +138,11 @@ function M:遍历(回调)
     for index, value in ipairs(self:到数组()) do
         回调(index, value)
     end
+end
+
+---@return PlayerGroup
+function M.获取空玩家组()
+    return M.获取所有失败玩家():清空()
 end
 
 ---@param 控件handle string

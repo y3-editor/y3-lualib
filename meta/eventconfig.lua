@@ -2492,7 +2492,7 @@ end\
 end\
 ",
             desc = "自定义数据",
-            name = "data",
+            name = "自定义数据",
             type = "any",
         },
     },

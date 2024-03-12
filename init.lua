@@ -40,22 +40,19 @@ require "y3.util.log"
 调试输出 = log.debug
 调试警告 = log.warn
 调试错误 = log.error
-
-require "y3.game.工具"
-数学 = require "y3.game.math"
-表 = require "y3.game.表"
-字符串 = require "y3.game.字符串"
-
 ---@diagnostic disable-next-line: lowercase-global
 include = require "y3.tools.reload".include
+
 y3.重载 = require "y3.tools.reload"
 y3.sandbox = require "y3.tools.sandbox"
 
+require "y3.game.工具"
+数学 = include "y3.game.math"
+表 = include "y3.game.表"
+字符串 = include "y3.game.字符串"
 
 require "y3.tools.linked_table"
-y3.随机池 = require "y3.tools.pool"
 require "y3.tools.gc"
-
 require "y3.util.eca_function"
 require "y3.util.trigger"
 require "y3.util.event"
@@ -63,9 +60,10 @@ require "y3.util.event_manager"
 require "y3.util.custom_event"
 require "y3.util.ref"
 require "y3.util.storage"
-require "模块.重载扩展"
+include "模块.重载扩展"
 
 
+y3.随机池 = require "y3.tools.pool"
 y3.const = require "y3.game.const"
 y3.游戏 = require "y3.game.game"
 y3.py_converter = require "y3.game.py_converter"
@@ -108,12 +106,12 @@ y3.声音 = require "y3.object.runtime_object.sound"
 
 
 y3.区域 = require "y3.object.scene_object.area"
-y3.镜头 = require "y3.object.scene_object.camera"
-y3.光照 = require "y3.object.scene_object.light"
+y3.形状 = require "y3.object.scene_object.shape"
 y3.路径 = require "y3.object.scene_object.road"
 y3.点 = require "y3.object.scene_object.point"
 
-y3.形状 = require "y3.object.scene_object.shape"
+y3.镜头 = require "y3.object.scene_object.camera"
+y3.光照 = require "y3.object.scene_object.light"
 
 y3.物编 = require "y3.util.object"
 y3.本地计时器 = require "y3.util.local_timer"
@@ -122,7 +120,7 @@ y3.dump = require "y3.util.dump"
 y3.sync = require "y3.util.sync"
 
 y3.develop = {}
-y3.develop.command = require "y3.develop.command"
+y3.develop.command = include "y3.develop.command"
 
 -- TODO 给目前的Lua垃圾回收过慢的问题打个临时补丁
 local function fixGC()

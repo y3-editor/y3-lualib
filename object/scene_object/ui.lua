@@ -541,10 +541,14 @@ function M:获取所有子控件()
     return uis
 end
 
----@param 回调 fun(索引:integer,遍历到的控件:UI)
+---@param 回调 fun(索引:integer,遍历到的控件:UI):any?
+---@return any? return 当前回调返回值
 function M:遍历子控件(回调)
     for index, value in ipairs(self:获取所有子控件()) do
-        回调(index, value)
+        local r = 回调(index, value)
+        if r then
+            return r
+        end
     end
 end
 

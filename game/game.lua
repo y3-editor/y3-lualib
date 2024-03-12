@@ -502,8 +502,8 @@ function M.get_current_game_mode()
 end
 
 ---游戏已运行的时间
----@return number time  时间
-function M.current_game_run_time()
+---@return number time  时间 约等于秒
+function M.获取游戏已运行时间()
     return GameAPI.get_cur_game_time():float()
 end
 

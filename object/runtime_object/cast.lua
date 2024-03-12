@@ -55,13 +55,13 @@ end)
 
 -- 获取技能
 ---@return Ability
-function M:get_ability()
+function M:获取技能()
     return self.ability
 end
 
 -- 获取施法方向
 ---@return number
-function M:get_angle()
+function M:获取方向()
     local angle = self.ability.handle:api_get_release_direction(self.cast_id)
     if not angle then
         return 0.0
@@ -71,7 +71,7 @@ end
 
 -- 获取施法目标物品
 ---@return Item?
-function M:get_target_item()
+function M:获取目标物品()
     local py_item = GameAPI.get_target_item_in_ability(self.ability.handle, self.cast_id)
     if not py_item then
         return nil
@@ -81,7 +81,7 @@ end
 
 -- 获取施法目标单位
 ---@return Unit?
-function M:get_target_unit()
+function M:获取目标单位()
     local py_unit = GameAPI.get_target_unit_in_ability(self.ability.handle, self.cast_id)
     if not py_unit then
         return nil
@@ -91,7 +91,7 @@ end
 
 -- 获取施法目标可破坏物
 ---@return Destructible?
-function M:get_target_destructible()
+function M:获取目标可破坏物()
     local py_destructible = GameAPI.get_target_dest_in_ability(self.ability.handle, self.cast_id)
     if not py_destructible then
         return nil
@@ -101,7 +101,7 @@ end
 
 -- 获取施法目标点
 ---@return Point?
-function M:get_target_point()
+function M:获取目标点()
     local py_point = self.ability.handle:api_get_release_position(self.cast_id)
     if not py_point then
         return nil

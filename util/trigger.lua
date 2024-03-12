@@ -43,7 +43,8 @@ M._id = 0
 
 ---@private
 function M:__tostring()
-    return ("{trigger|%d}"):format(self._id)
+    ---@diagnostic disable-next-line: invisible
+    return ("{trigger|%d|%s|%s}"):format(self._id, self._event.event_name, self._include_name)
 end
 
 --禁用触发器
@@ -109,7 +110,6 @@ function M:execute(...)
 end
 
 function M:移除()
-    调试输出("移除", self._include_name, self)
     Delete(self)
 end
 

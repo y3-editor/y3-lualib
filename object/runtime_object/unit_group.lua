@@ -10,6 +10,10 @@ function M:__init(py_unit_group)
     return self
 end
 
+function M:__tostring()
+    return string.format("{单位组|%d}", self:获取单位数量())
+end
+
 ---@param py_unit_group py.UnitGroup
 ---@return UnitGroup
 function M.从handle获取(py_unit_group)
@@ -61,8 +65,10 @@ function M:移除单位类型(unit_key)
 end
 
 --清空单位组
+---@return self
 function M:清空()
     GlobalAPI.clear_group(self.handle)
+    return self
 end
 
 ---@param count integer
@@ -91,7 +97,7 @@ function M:获取指定单位类型单位数量(unit_key)
 end
 
 ---@return Unit unit 单位组内第一个单位
-function M:获取第一格单位()
+function M:获取第一个单位()
     local py_unit = GameAPI.get_first_unit_in_group(self.handle)
     return y3.单位.从handle获取(py_unit)
 end
@@ -106,6 +112,27 @@ end
 function M:获取最后一个单位()
     local py_unit = GameAPI.get_last_unit_in_group(self.handle)
     return y3.单位.从handle获取(py_unit)
+end
+
+---@param 属性 string
+---@param 数量? integer 默认 1
+---@param 是否升序? boolean 默认 true
+function M:获取属性值排序前几个单位(属性, 数量, 是否升序)
+    local py_unit = GameAPI.get_unit_sort_by_attr(self.handle, 属性, 是否升序 or true, 数量 or 1)
+    return y3.单位组.从handle获取(py_unit)
+end
+
+---@param 目标点 Point
+---@param 数量? integer 默认 1
+---@param 是否升序? boolean 默认true
+function M:获取距离点排序前几个单位(目标点, 数量, 是否升序)
+    local py_unit = GameAPI.get_unit_sort_by_position(self.handle, 目标点.handle, 是否升序 or true, 数量 or 1)
+    return y3.单位组.从handle获取(py_unit)
+end
+
+---@return UnitGroup
+function M:获取空单位组()
+    return y3.玩家(32):获取所有单位()
 end
 
 return M

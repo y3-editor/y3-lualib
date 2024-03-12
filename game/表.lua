@@ -104,31 +104,26 @@ local 获取键 = function(键)
     return 键
 end
 
+
 ---表_设置路径字段值
 ---@param 表 table
----@param 路径 string  字段1.字段2.字段3
+---@param 路径 string  字段2.[1].字段2
 ---@param 值 any
 function m.设置路径值(表, 路径, 值)
     local 字段数组 = 字符串.分割(路径, ".")
-    local 字段数 = 表.获取真实长度(字段数组)
+    local 字段数 = m.获取真实长度(字段数组)
     local 当前表 = 表
     local 当前字段 = 获取键(路径)
-    if type(当前表) ~= "table" then
-        调试警告("设置表路径值, 必须输入表参数", 路径, 值)
-    end
-    if 字段数 > 0 then
-        for i = 1, 字段数 - 1, 1 do
-            当前字段 = 获取键(字段数组[i])
-            if 表.是否存在字段(当前表, 当前字段) == false then
-                当前表[当前字段] = {}
-            end
-            当前表 = 当前表[当前字段]
+
+    for i = 1, 字段数 - 1, 1 do
+        当前字段 = 获取键(字段数组[i])
+        if 当前表[当前字段] == nil then
+            当前表[当前字段] = {}
         end
-        当前字段 = 获取键(字段数组[字段数])
-        当前表[当前字段] = 值
-    else
-        log.error("表_设置路径字段值, 路径不能为空")
+        当前表 = 当前表[当前字段]
     end
+    当前字段 = 获取键(字段数组[字段数])
+    当前表[当前字段] = 值
 end
 
 ---表_获取路径字段值
@@ -137,26 +132,18 @@ end
 ---@return any
 function m.获取路径值(表, 路径)
     local 字段数组 = 字符串.分割(路径, ".")
-    local 字段数 = 表.获取真实长度(字段数组)
+    local 字段数 = m.获取真实长度(字段数组)
     local 当前表 = 表
     local 当前字段 = 获取键(路径)
-    if type(当前表) ~= "table" then
-        调试警告("获取表路径值, 必须输入表参数", 路径)
-    end
-    if 字段数 > 0 then
-        for i = 1, 字段数 - 1, 1 do
-            当前字段 = 获取键(字段数组[i])
-            if 表.是否存在字段(当前表, 当前字段) == false then
-                return nil
-            end
-            -- print(表_到字符串(当前表))
-            当前表 = 当前表[当前字段]
+    for i = 1, 字段数 - 1, 1 do
+        当前字段 = 获取键(字段数组[i])
+        if 当前表[当前字段] == nil then
+            return nil
         end
-        当前字段 = 获取键(字段数组[字段数])
-        return 当前表[当前字段]
-    else
-        log.error("表_设置路径字段值, 路径不能为空")
+        当前表 = 当前表[当前字段]
     end
+    当前字段 = 获取键(字段数组[字段数])
+    return 当前表[当前字段]
 end
 
 ---提供一个列表，其所有元素都是字符串或数字，返回字符串 list[i]..sep..list[i+1] ··· sep..list[j]。
@@ -206,7 +193,7 @@ end
 ---@param 数值回调 fun(k:integer|string,v:any):number|nil
 ---@param 遍历回调 fun(i:integer,k:integer|string,v:any)
 ---@param 降序? boolean 默认升序
----@return integer 表长度
+---@return any any
 function m.排序遍历(待排序表, 数值回调, 遍历回调, 降序)
     local 临时表, 插入值
     if 降序 then
@@ -240,9 +227,51 @@ function m.排序遍历(待排序表, 数值回调, 遍历回调, 降序)
     table.remove(临时表)
 
     for index, value in ipairs(临时表) do
-        遍历回调(index, value.原字段, 待排序表[value.原字段])
+        if 遍历回调(index, value.原字段, 待排序表[value.原字段]) then return 待排序表[value.原字段] end
     end
-    return #临时表
+    return nil
+end
+
+---@param 待排序表 table
+---@param 数值回调 fun(k:integer|string,v:any):number|nil
+---@param 降序? boolean 默认升序
+---@return any[]
+function m.排序P(待排序表, 数值回调, 降序)
+    local 临时表, 插入值, 返回表
+    返回表 = { "占位" }
+    if 降序 then
+        临时表 = { { 对比值 = -9999999999 } }
+        插入值 = function(key, 对比值)
+            for index, value in ipairs(临时表) do
+                if 对比值 > value.对比值 then
+                    m.插入(临时表, index, { 原字段 = key, 对比值 = 对比值 })
+                    table.insert(返回表, index, key)
+                    break
+                end
+            end
+        end
+    else
+        临时表 = { { 对比值 = 9999999999 } }
+        插入值 = function(key, 对比值)
+            for index, value in ipairs(临时表) do
+                if 对比值 <= value.对比值 then
+                    m.插入(临时表, index, { 原字段 = key, 对比值 = 对比值 })
+                    table.insert(返回表, index, key)
+                    break
+                end
+            end
+        end
+    end
+
+    for key, value in pairs(待排序表) do
+        local 对比值 = 数值回调(key, value)
+        if 对比值 then
+            插入值(key, 对比值)
+        end
+    end
+    table.remove(临时表)
+    table.remove(返回表)
+    return 返回表
 end
 
 return m

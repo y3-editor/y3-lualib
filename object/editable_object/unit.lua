@@ -583,7 +583,7 @@ end
 ---设置属性
 ---@param attr_name string 属性名
 ---@param value number 属性值
----@param attr_type y3.Const.单位属性类型
+---@param attr_type y3.Const.单位属性分类
 function M:设置属性(attr_name, value, attr_type)
     self.handle:api_set_attr_by_attr_element(attr_name, Fix32(value), y3.const.单位属性类型[attr_type])
 end
@@ -591,7 +591,7 @@ end
 ---增加属性
 ---@param attr_name string 属性名
 ---@param value number 属性值
----@param attr_type y3.Const.单位属性类型
+---@param attr_type y3.Const.单位属性分类
 function M:增加属性(attr_name, value, attr_type)
     self.handle:api_add_attr_by_attr_element(attr_name, Fix32(value), y3.const.单位属性类型[attr_type])
 end
@@ -599,7 +599,7 @@ end
 ---增加属性
 ---@param attr_name string 属性名
 ---@param value number 属性值
----@param attr_type y3.Const.单位属性类型
+---@param attr_type y3.Const.单位属性分类
 ---@return GCNode
 function M:增加属性gc(attr_name, value, attr_type)
     self:增加属性(attr_name, value, attr_type)
@@ -670,7 +670,7 @@ end
 
 ---改变所属玩家
 ---@param player Player 所属玩家
-function M:change_owner(player)
+function M:设置所属玩家(player)
     GameAPI.change_unit_role(self.handle, player.handle)
 end
 
@@ -1109,7 +1109,7 @@ end
 ---获取所有的商店物品
 ---@param page py.TabIdx 页签
 ---@return py.ItemKey[]
-function M:get_shop_item_list(page)
+function M:获取商店所有物品(page)
     local lua_table = {}
     local py_list = self.handle:api_get_shop_item_list(page)
     for i = 0, python_len(py_list) - 1 do
@@ -1214,19 +1214,19 @@ end
 
 ---获取单位取消警戒的范围
 ---@return number cancel_alert_range 单位取消警戒的范围
-function M:get_cancel_alert_range()
+function M:获取取消警戒范围()
     return self.handle:api_get_unit_cancel_alarm_range():float()
 end
 
 ---获取单位碰撞半径
 ---@return number collision_radius 单位碰撞半径
-function M:get_collision_radius()
+function M:获取碰撞半径()
     return self.handle:api_get_unit_collision_radius():float()
 end
 
 ---获取单位所属玩家
 ---@return Player player 单位所属玩家
-function M:get_owner()
+function M:获取所属玩家()
     local py_player = self.handle:api_get_role()
     return y3.玩家.从句柄获取(py_player)
 end
@@ -1687,12 +1687,6 @@ end
 ---@param enable boolean # 开启状态
 function M:set_move_collision(collision_layer, enable)
     self.handle:api_set_move_collision(collision_layer, enable)
-end
-
--- 获取所属玩家
----@return Player
-function M:获取_所属_玩家()
-    return y3.玩家.从id获取(self.handle:api_get_role_id())
 end
 
 ---玩家是否可以购买商店的物品
