@@ -22,7 +22,7 @@ Extends("Unit", "KV")
 ---@private
 function M:__tostring()
     return string.format("{unit|%s|%s}"
-    , self:获取名称()
+    , self:get_name()
     , self.handle
     )
 end
@@ -82,6 +82,20 @@ function M.从场景获取(res_id)
     local u = M.从唯一id获取(res_id --[[@as py.UnitID]])
     assert(u, ("无法找到ID为%d的单位"):format(res_id))
     return u
+end
+
+--根据字符串获取单位，字符串是通过 `tostring(Unit)`
+--或是使用ECA中的“任意变量转化为字符串”获得的。
+---@param str string
+---@return Unit?
+function M.获取于字符串(str)
+    local id = str:match("^{unit|.+|(%d+)}$")
+        or str:match("<LCreature%((%d+)%)>")
+        or str:match("^Unit:(%d+)")
+    if not id then
+        return nil
+    end
+    return M.从唯一id获取(tonumber(id) --[[@as py.UnitID]])
 end
 
 y3.py_converter.register_py_to_lua("py.UnitID", M.从唯一id获取)

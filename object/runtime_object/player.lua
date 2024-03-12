@@ -39,7 +39,8 @@ end
 
 ---@private
 function M:__tostring()
-    return string.format("{Player|%d}"
+    return string.format("{player|%s|%d}"
+    , self:获取名称()
     , self.id
     )
 end
@@ -58,6 +59,20 @@ end
 function M.从id获取(id)
     local player = M.ref_manager:get(id)
     return player
+end
+
+--根据字符串获取玩家，字符串是通过 `tostring(Player)`
+--或是使用ECA中的“任意变量转化为字符串”获得的。
+---@param str string
+---@return Player?
+function M.get_by_string(str)
+    local id = str:match("^{player|.+|(%d+)}$")
+        or str:match("<Camp.-%(%d+%),id%((%d+)%)")
+        or str:match("^Player:(%d+)")
+    if not id then
+        return nil
+    end
+    return M.从id获取(tonumber(id) --[[@as integer]])
 end
 
 y3.py_converter.register_type_alias("py.Role", "Player")

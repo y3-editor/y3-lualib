@@ -360,9 +360,10 @@ function M:get_int_attr(key)
 end
 
 ---获取字符串属性
----@param key py.AbilityStrAttr 键值key
+---@param key string 键值key
 ---@return string value 值
 function M:get_string_attr(key)
+    ---@diagnostic disable-next-line: param-type-mismatch
     return self.handle:api_get_str_attr(key)
 end
 

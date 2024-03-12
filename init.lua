@@ -28,13 +28,14 @@ pcall(function()
 end)
 
 ---@enum classType
-ClassType = {}
+ClassType    = {}
 
-Class     = y3.class.declare
-New       = y3.class.new
-Extends   = y3.class.extends
-Delete    = y3.class.delete
-IsValid   = y3.class.isValid
+Class        = y3.class.declare
+New          = y3.class.new
+Extends      = y3.class.extends
+Delete       = y3.class.delete
+IsValid      = y3.class.isValid
+IsInstanceOf = y3.class.isInstanceOf
 
 require "y3.util.log"
 调试输出 = log.debug

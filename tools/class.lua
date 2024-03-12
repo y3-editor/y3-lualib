@@ -46,11 +46,13 @@ end
 
 -- 定义一个类
 ---@generic T: string
+---@generic Super: string
 ---@param name  `T`
----@param super? string
+---@param super? `Super`
+---@param superInit? fun(self: Class, super: Super, ...)
 ---@return T
 ---@return Class.Config
-function M.declare(name, super)
+function M.declare(name, super, superInit)
     local config = M.getConfig(name)
     if M._classes[name] then
         return M._classes[name], config
@@ -117,7 +119,11 @@ function M.declare(name, super)
 
         class.__super = superClass
         config.superClass = superClass
-        config:extends(super, function() end)
+        if superInit then
+            config:extends(super, superInit)
+        else
+            config:extends(super, function() end)
+        end
     end
 
     return class, config
@@ -219,7 +225,7 @@ function M.runInit(obj, name, ...)
 
         local function collectInitCalls(cname)
             if collected[cname] then
-                -- error(("class %q has circular inheritance"):format(cname))
+                error(("class %q has circular inheritance"):format(cname))
             end
             collected[cname]   = true
             local class        = M._classes[cname]
@@ -350,6 +356,38 @@ function Config:extends(extendsName, init)
         end
         M._errorHandler(('must call super for extends "%s"'):format(extendsName))
     end
+end
+
+---检查一个对象是否是某个类的实例
+---@param obj? table
+---@param parentName string
+---@return boolean
+function M.isInstanceOf(obj, parentName)
+    if not obj then
+        return false
+    end
+    ---@param name string
+    ---@return boolean
+    local function checkParent(name)
+        if name == parentName then
+            return true
+        end
+        for pname in pairs(M.getConfig(name).extendsMap) do
+            ---@cast pname string
+            if pname == parentName then
+                return true
+            end
+            if checkParent(pname) then
+                return true
+            end
+        end
+        return false
+    end
+    if checkParent(M.type(obj) --[[@as string]]) then
+        return true
+    end
+
+    return false
 end
 
 return M
