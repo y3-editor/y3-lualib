@@ -1,4 +1,4 @@
-local require = require
+local originRequire = require
 
 --热重载
 --
@@ -127,7 +127,7 @@ function M.include(name)
         M.includedNames[#M.includedNames+1] = name
     end
     M.includeStack[#M.includeStack+1] = name
-    local suc, result = xpcall(require, log.error, name)
+    local suc, result = xpcall(originRequire, log.error, name)
     M.includeStack[#M.includeStack] = nil
     if not suc then
         return false
@@ -135,9 +135,22 @@ function M.include(name)
     return result
 end
 
+---@param modname string
+---@return unknown
+---@return unknown loaderdata
+function require(modname)
+    M.includeStack[#M.includeStack+1] = false
+    local suc, result, loaderdata = xpcall(originRequire, log.error, modname)
+    M.includeStack[#M.includeStack] = nil
+    if not suc then
+        return false, nil
+    end
+    return result, loaderdata
+end
+
 ---@return string?
 function M.getCurrentIncludeName()
-    return M.includeStack[#M.includeStack]
+    return M.includeStack[#M.includeStack] or nil
 end
 
 -- 设置默认的重载选项
