@@ -339,6 +339,12 @@ function M:get_cast_type()
     return self.handle:api_get_ability_cast_type()
 end
 
+---自动施法是否开启
+---@return boolean is_enabled 是否开启
+function M:is_autocast_enabled()
+    return self.handle:api_is_autocast_enabled()
+end
+
 ---获取技能公式类型的kv
 ---@param key string 键值key
 ---@return number value 值
