@@ -56,6 +56,12 @@ function python_len(obj) end
 ---@return any
 function python_index(obj, index) end
 
+-- 设置容器元素
+---@param obj py.DynamicTypeMeta
+---@param index integer
+---@param value any
+function set_py_index(obj, index, value) end
+
 python = {}
 
 --------------- 运动器构造 ------------------
