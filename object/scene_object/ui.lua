@@ -62,7 +62,7 @@ end
 ---@param player Player 玩家
 ---@param parent_ui UI ui控件
 ---@param comp_type y3.Const.UIComponentType ui控件
----@return UI 返回在lua层初始化后的lua层技能实例
+---@return UI
 function M.创建(player, parent_ui, comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 7)
     return y3.控件.从handle获取(player, py_ui)
@@ -78,7 +78,7 @@ function M.从路径获取(player, ui_path)
 end
 
 ---@param comp_type y3.Const.UIComponentType ui控件
----@return UI 返回在lua层初始化后的lua层技能实例
+---@return UI
 function M:创建子控件(comp_type)
     return M.创建(self.player, self, comp_type)
 end

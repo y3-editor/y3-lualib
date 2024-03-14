@@ -184,7 +184,8 @@ end
 ---@param obj table
 ---@return boolean
 function M.isValid(obj)
-    return obj.__class__
+    return obj
+        and obj.__class__
         and not obj.__deleted__
 end
 

@@ -22,7 +22,7 @@ Extends("Unit", "KV")
 ---@private
 function M:__tostring()
     return string.format("{unit|%s|%s}"
-    , self:get_name()
+    , self:获取名称()
     , self.handle
     )
 end
@@ -357,7 +357,8 @@ end
 ---添加标签
 ---@param tag string[] 标签
 function M:添加标签(tag)
-    for index, value in ipairs(tag) do
+    for _, value in ipairs(tag) do
+        调试输出(value)
         self.handle:api_add_tag(value)
     end
 end
@@ -372,23 +373,25 @@ end
 
 ---添加状态
 ---@type y3.Const.单位状态[]
----@param state_enum y3.Const.单位状态[]
-function M:添加状态(state_enum --[[@as y3.Const.单位状态]])
-    for index, value in ipairs(state_enum) do
+---@param ... y3.Const.单位状态
+function M:添加状态(...)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    for index, value in ipairs(table.pack(...)) do
         self.handle:api_add_state(y3.const.单位状态[value])
     end
 end
 
 ---移除状态
----@param state_enum y3.Const.单位状态[]
-function M:移除状态(state_enum)
-    for index, value in ipairs(state_enum) do
+---@param ... y3.Const.单位状态
+function M:移除状态(...)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    for index, value in ipairs(table.pack(...)) do
         self.handle:api_remove_state(y3.const.单位状态[value])
     end
 end
 
 ---添加状态
----@param state_enum y3.Const.单位状态[]
+---@param state_enum y3.Const.单位状态
 ---@return GCNode
 function M:添加状态_gc(state_enum)
     self:添加状态(state_enum)
@@ -1733,20 +1736,34 @@ end
 
 --- 造成伤害
 ---@class Unit.DamageData
----@field target Unit|Item|Destructible
----@field type y3.Const.DamageType
----@field damage number
----@field ability? Ability # 关联技能
----@field text_type? y3.Const.DamageTextType # 跳字类型
----@field text_track? integer # 跳字轨迹类型
----@field common_attack? boolean # 视为普攻
----@field critical? boolean # 必定暴击
----@field no_miss? boolean # 必定命中
----@field particle? py.SfxKey # 特效
----@field socket? string # 特效挂点
+---@field 目标 Unit|Item|Destructible
+---@field 伤害类型 y3.Const.DamageType
+---@field 伤害值 number
+---@field 关联技能? Ability # 关联技能
+---@field 跳字类型? y3.Const.DamageTextType # 跳字类型
+---@field 跳字轨迹类型? integer # 跳字轨迹类型
+---@field 视为普攻? boolean # 视为普攻
+---@field 必定暴击? boolean # 必定暴击
+---@field 必定命中? boolean # 必定命中
+---@field 特效? py.SfxKey # 特效
+---@field 特效挂接点? string # 特效挂点
 
----@param data Unit.DamageData
-function M:造成伤害(data)
+---@param 参数 Unit.DamageData
+function M:造成伤害(参数)
+    local data = {
+        target = 参数.目标,
+        type = 参数.伤害类型,
+        damage = 参数.伤害值,
+        ability = 参数.关联技能,
+        text_type = 参数.跳字类型,
+        text_track = 参数.跳字轨迹类型,
+        common_attack = 参数.视为普攻,
+        critical = 参数.必定暴击,
+        no_miss = 参数.必定命中,
+        particle = 参数.特效,
+        socket = 参数.特效挂接点,
+    }
+
     GameAPI.apply_damage(
         self.handle,
         data.ability and data.ability.handle or nil,

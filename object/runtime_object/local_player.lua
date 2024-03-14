@@ -190,7 +190,7 @@ M.proxy_config = {
     anySetter = function(self, raw, key, value, config, parent_path)
         build_variable_error_message(self, parent_path .. "." .. tostring(key), self[key], value)
         return value
-    end
+    end,
 }
 
 ---@param name string

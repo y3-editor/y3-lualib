@@ -72,8 +72,8 @@ local function run_timer_by_frame(frame, count, callback)
         _rt = {
             call_with_frame = function(f)
                 f()
-            end
-        }
+            end,
+        },
     }
     ---@diagnostic disable-next-line: undefined-field
     return GameAPI.run_timer_by_frame(frame, count, false, timer_node, {})

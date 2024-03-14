@@ -4,6 +4,8 @@
 ---@overload fun(id: integer, py_ability: py.Ability): self
 local M = Class "Ability"
 
+M.type = "ability"
+
 ---@class Ability: GCHost
 Extends("Ability", "GCHost")
 ---@class Ability: Storage
@@ -91,7 +93,7 @@ function M:生命_不足_是否_可以_释放()
 end
 
 ---是否具有标签
----@param tag string 标签
+---@param tag 别名.技能.标签
 ---@return boolean
 function M:是否_具有_标签(tag)
     return GlobalAPI.has_tag(self.handle, tag)

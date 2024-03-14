@@ -10,7 +10,7 @@ end
 ---@param 表 table
 ---@param 位置? integer
 ---@return any 被移除的值
-function m.移除(表, 位置)
+function m.移除索引(表, 位置)
     return table.remove(表, 位置)
 end
 
@@ -49,20 +49,6 @@ function m.从编辑器获取(表名)
     return y3.游戏.get_table(表名)
 end
 
----表_是否存在字段
----@param 表 table
----@param 字段 integer|string
----@return boolean
-function m.是否存在字段(表, 字段)
-    return y3.游戏.table_has_key(表, 字段)
-end
-
----表_清空
----@param 表 table
-function m.清空(表)
-    y3.游戏.clear_table(表)
-end
-
 ---表_加密
 ---@param 表 table
 function m.加密(表)
@@ -76,7 +62,6 @@ function m.到字符串(表, 配置)
     return y3.util.dump(表, 配置)
 end
 
----表_获取长度
 ---@param 表 table
 ---@return integer 长度
 function m.获取真实长度(表)
@@ -89,9 +74,9 @@ end
 
 ---深度拷贝表,复制表,不处理元素,
 ---@param 旧表 table
+---@param 新表? table
 ---@return table 返回的新表
-function m.赋值(旧表)
-    local 新表
+function m.复制(旧表, 新表)
     return y3.util.deepCopy(旧表, 新表)
 end
 
@@ -272,6 +257,39 @@ function m.排序P(待排序表, 数值回调, 降序)
     table.remove(临时表)
     table.remove(返回表)
     return 返回表
+end
+
+function m.存在值(array, value)
+    for i = 1, #array do
+        if array[i] == value then
+            return true
+        end
+    end
+    return false
+end
+
+function m.查找值(array, value)
+    for i = 1, #array do
+        if array[i] == value then
+            return i
+        end
+    end
+    return nil
+end
+
+function m.插入值_非重复(array, value)
+    if not m.存在值(array, value) then
+        table.insert(array, value)
+    end
+end
+
+function m.移除值(array, value)
+    for i = 1, #array do
+        if array[i] == value then
+            table.remove(array, i)
+            return
+        end
+    end
 end
 
 return m

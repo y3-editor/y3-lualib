@@ -52,11 +52,11 @@ M.PatrolType = {
     ["BACK_AND_FORTH"] = 1,
     ["LOOP"] = 2,
 }
-
-M.UnitState = {
-    ["ALIVE"] = "Alive",
-    ["DEAD"] = "Dead",
-    ["DISSOLVE"] = "Dissolve",
+---@alias y3.Const.单位存活状态 "存活"|"阵亡"|"消散"
+M.单位存活状态 = {
+    ["存活"] = "Alive",
+    ["阵亡"] = "Dead",
+    ["消散"] = "Dissolve",
 }
 
 M.UnitKeyFloatAttr = {

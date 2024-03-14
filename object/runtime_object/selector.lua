@@ -59,7 +59,7 @@ function M:不在单位组(ug)
 end
 
 -- 条件 - 拥有特定标签
----@param tag string
+---@param tag 别名.单位.标签
 ---@return self
 function M:拥有标签(tag)
     ---@private
@@ -68,7 +68,7 @@ function M:拥有标签(tag)
 end
 
 -- 条件 - 不拥有特定标签
----@param tag string
+---@param tag 别名.单位.标签
 ---@return self
 function M:排除标签(tag)
     ---@private
@@ -139,6 +139,23 @@ function M:选取数量(count)
     return self
 end
 
+---@alias y3.Const.选择器筛选方式 "由近到远"|"由远到近"|"随机筛选"
+
+local 选择器筛选方式 = {
+    由近到远 = 0,
+    由远到近 = 1,
+    随机筛选 = 2,
+}
+
+
+---@param 筛选方式 y3.Const.选择器筛选方式
+---@return self
+function M:筛选方式(筛选方式)
+    ---@private
+    self.sort_type = 选择器筛选方式[筛选方式]
+    return self
+end
+
 -- 进行选取
 ---@return UnitGroup
 function M:获取()
@@ -163,7 +180,8 @@ function M:获取()
         self._in_state or 0,
         self._not_in_state or 0,
         self._include_dead,
-        self._count or -1
+        self._count or -1,
+        self.sort_type or 2
     )
     return New "UnitGroup" (py_unit_group)
 end

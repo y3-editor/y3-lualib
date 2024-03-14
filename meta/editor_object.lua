@@ -184,7 +184,7 @@
 ---@field suffix string
 --标签
 --用于对技能的分类处理。为技能贴上标签后可以对其进行更方便的关系，例如编写游戏逻辑：所有拥有XX标签的技能等级+1
----@field tags any[]
+---@field tags 别名.技能.标签[]
 --特殊筛选（只有尸体有效）
 --特殊的技能目标筛选规则
 ---@field target_attribute number
@@ -242,7 +242,7 @@
 --ID
 ---@field key number
 ---@field kv Object.Buff.Kv
---不变会保留旧的魔法效果对象（事件中获取），覆盖会保留新的对象。 
+--不变会保留旧的魔法效果对象（事件中获取），覆盖会保留新的对象。
 ---@field layer_change_of_cover number
 --魔法效果的最大层数，如果最大层数为1则魔法效果在局内的属性面板中不会显示层数
 ---@field layer_max number

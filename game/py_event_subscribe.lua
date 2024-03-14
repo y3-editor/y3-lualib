@@ -102,7 +102,7 @@ function M.convert_py_params_lazy(event_key, event_data, event_params)
         M.params_metatable_cache[event_key] = mt
     end
     local lua_params = setmetatable({
-                                        _py_params = event_params
+                                        _py_params = event_params,
                                     }, mt)
     return lua_params
 end

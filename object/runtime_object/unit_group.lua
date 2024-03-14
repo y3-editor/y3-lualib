@@ -90,6 +90,11 @@ function M:获取单位数量()
     return GameAPI.get_unit_group_num(self.handle)
 end
 
+---@param 状态 y3.Const.单位存活状态
+function M:获取指定状态单位数量(状态)
+    return GameAPI.get_state_unit_num_in_group(self.handle, y3.const.单位存活状态[状态])
+end
+
 ---@param unit_key py.UnitKey
 ---@return integer num_of_unit 单位类型的数量
 function M:获取指定单位类型单位数量(unit_key)
