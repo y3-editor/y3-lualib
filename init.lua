@@ -2,18 +2,6 @@ pcall(function()
     LDBG = require "y3.debugger":start "127.0.0.1:12399"
 end)
 
-pcall(function()
-    io.popen(('mkdir "%s"'):format(lua_script_path .. "\\log"))
-    local waitdbg = io.open(lua_script_path .. "\\log\\waitdbg")
-    if waitdbg then
-        waitdbg:close()
-        io.popen(('del "%s"'):format(lua_script_path .. "\\log\\waitdbg"))
-    end
-    if LDBG and waitdbg then
-        LDBG:event "wait"
-    end
-end)
-
 -- 全局方法类，提供各种全局方法
 ---@class Y3
 y3 = {}
@@ -44,16 +32,10 @@ require "y3.util.log"
 ---@diagnostic disable-next-line: lowercase-global
 include = require "y3.tools.reload".include
 
-y3.重载 = require "y3.tools.reload"
-y3.sandbox = require "y3.tools.sandbox"
-
-require "y3.game.工具"
-数学 = include "y3.game.math"
-表 = include "y3.game.表"
-字符串 = include "y3.game.字符串"
-
 require "y3.tools.linked_table"
+require "y3.tools.pool"
 require "y3.tools.gc"
+
 require "y3.util.eca_function"
 require "y3.util.trigger"
 require "y3.util.event"
@@ -61,16 +43,17 @@ require "y3.util.event_manager"
 require "y3.util.custom_event"
 require "y3.util.ref"
 require "y3.util.storage"
-include "模块.重载扩展"
+require "y3.util.gc_buffer"
 
+print = log.debug
 
-y3.随机池 = require "y3.tools.pool"
 y3.const = require "y3.game.const"
-y3.游戏 = require "y3.game.game"
+y3.math = require "y3.game.math"
+y3.game = require "y3.game.game"
 y3.py_converter = require "y3.game.py_converter"
 y3.py_event_sub = require "y3.game.py_event_subscribe"
 y3.helper = require "y3.game.helper"
-y3.地面 = require "y3.game.ground"
+y3.ground = require "y3.game.ground"
 y3.config = require "y3.game.config"
 y3.kv = require "y3.game.kv"
 
