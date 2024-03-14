@@ -42,6 +42,7 @@ require 'y3.util.event_manager'
 require 'y3.util.custom_event'
 require 'y3.util.ref'
 require 'y3.util.storage'
+require 'y3.util.gc_buffer'
 
 print = log.debug
 
