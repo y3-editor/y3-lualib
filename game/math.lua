@@ -70,7 +70,7 @@ function 数学.创建矩阵(参数, 回调)
             y = (行 - 1) * 高度
             回调(i, x, y)
             -- print(i, x, y)
-            表.插入(返回矩阵, { x = x, y = y })
+            表.数组_插入值(返回矩阵, { x = x, y = y })
         end
     end
     return 返回矩阵

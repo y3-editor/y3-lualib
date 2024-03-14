@@ -230,7 +230,7 @@ end
 ---@param ... table <string, 枚举.颜色>[]
 ---@return string
 格式化文本彩色 = function(str, ...)
-    local 颜色数组 = 表.组包(...)
+    local 颜色数组 = 表.数组_创建于不定长参数(...)
     local 返回内容 = str
     调试输出(颜色数组)
     for index, value in ipairs(颜色数组) do
