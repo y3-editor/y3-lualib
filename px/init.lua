@@ -3,5 +3,5 @@
 调试错误 = log.error
 
 数学 = include "y3.game.math"
-表 = include "y3.px.工具"
-字符串 = include "y3.px.字符串"
+表 = include "y3.px.tool"
+字符串 = include "y3.px.string"
