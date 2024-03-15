@@ -855,10 +855,10 @@ end
 ---@param options? HttpRequestOptions
 function M:request_url(url, body, callback, options)
     request_url(url
-        , options and options.post
+        , options and options.post or false
         , body
         , options and options.port
-        , options and options.timeout
+        , options and options.timeout or 2
         , options and options.headers
         , callback
     )
