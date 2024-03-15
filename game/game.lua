@@ -840,6 +840,30 @@ function M.on_client_tick(callback)
     M._client_tick_callback = callback
 end
 
+
+---@class HttpRequestOptions
+---@field post? boolean # post 请求还是 get 请求
+---@field port? integer # 端口号
+---@field timeout? number # 超时时间，默认为2秒
+---@field headers? table # 请求头
+
+--发送 http 请求，成功或失败都会触发回调，
+--成功时回调的参数是 http 返回的 body，失败时回调的参数是 `nil`
+---@param url string
+---@param body? string
+---@param callback? fun(body?: string)
+---@param options? HttpRequestOptions
+function M:request_url(url, body, callback, options)
+    request_url(url
+        , options and options.post
+        , body
+        , options and options.port
+        , options and options.timeout
+        , options and options.headers
+        , callback
+    )
+end
+
 _G['OnTick'] = function ()
     if M._client_tick_callback then
         y3.player.with_local(M._client_tick_callback)
