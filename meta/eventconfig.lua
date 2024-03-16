@@ -220,6 +220,18 @@ M.config["区域-离开"] = {
     },
 }
 
+---@alias EventParam.游戏-http返回 EventParam.ET_HTTP_RESPONSE
+M.config["游戏-http返回"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_HTTP_RESPONSE",
+    name = "游戏-http返回",
+    params = {
+    },
+}
+
 ---@alias EventParam.游戏-接收广播信息 EventParam.ET_BROADCAST_LUA_MSG
 M.config["游戏-接收广播信息"] = {
     __class__ = "EventConfigBuilder",
@@ -3098,6 +3110,7 @@ M.config["对话框-点击按钮"] = {
 ---@field 事件 fun(self: self, event: "游戏-昼夜变化", callback: fun(trg: Trigger, data: EventParam.游戏-昼夜变化)): Trigger
 ---@field 事件 fun(self: self, event: "区域-进入", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-进入)): Trigger
 ---@field 事件 fun(self: self, event: "区域-离开", area: Area, callback: fun(trg: Trigger, data: EventParam.区域-离开)): Trigger
+---@field event fun(self: self, event: "游戏-http返回", callback: fun(trg: Trigger, data: EventParam.游戏-http返回)): Trigger
 ---@field 事件 fun(self: self, event: "游戏-接收广播信息", callback: fun(trg: Trigger, data: EventParam.游戏-接收广播信息)): Trigger
 ---@field 事件 fun(self: self, event: "玩家-加入游戏", callback: fun(trg: Trigger, data: EventParam.玩家-加入游戏)): Trigger
 ---@field 事件 fun(self: self, event: "玩家-离开游戏", callback: fun(trg: Trigger, data: EventParam.玩家-离开游戏)): Trigger

@@ -188,3 +188,13 @@ function GameAPI.get_prefab_ins_id_by_name(prefab_name) end
 ---@param id string
 ---@param data string
 function broadcast_lua_msg(id, data) end
+
+---@param url string
+---@param post? boolean
+---@param body? string
+---@param port? integer
+---@param timeout? number
+---@param headers? table
+---@param callback? fun(body?: string)
+function request_url(url, post, body, port, timeout, headers, callback)
+end
