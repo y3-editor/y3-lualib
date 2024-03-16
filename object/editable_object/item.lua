@@ -228,6 +228,14 @@ function M:add_stack(stack)
     self.handle:api_add_stack(stack)
 end
 
+---设置属性
+---@param attr_name string 属性名
+---@param value number 属性值
+---@param attr_type string 属性类型
+function M:set_attr(attr_name, value, attr_type)
+    self.handle:api_set_attr(attr_type, attr_name, value)
+end
+
 ---设置基础属性
 ---@param key string 属性key
 ---@param value number 属性值
