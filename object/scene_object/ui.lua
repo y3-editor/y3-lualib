@@ -1045,6 +1045,12 @@ function M:设置物品拖拽方式(drag_operation)
     GameAPI.set_equip_slot_drag_operation(self.player.handle, self.handle, drag_operation_map[drag_operation] or 0)
 end
 
+---@param 公式 string
+function M:设置_绑定_公式(公式)
+    GameAPI.set_ui_comp_bind_format(self.player.handle, self.handle, 公式)
+    return self
+end
+
 M.控件数据 = {}
 
 

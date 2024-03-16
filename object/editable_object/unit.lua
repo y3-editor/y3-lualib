@@ -1595,7 +1595,7 @@ function M:是否在战斗状态()
 end
 
 ---是否有指定状态
----@param state_name y3.Const.单位状态 []
+---@param state_name y3.Const.单位状态
 ---@return boolean has_buff_status 有指定状态
 function M:是否有指定状态(state_name)
     return self.handle:api_has_state(y3.const.单位状态[state_name])
@@ -1730,7 +1730,7 @@ end
 ---单位属性转单位属性名字
 ---@param key string 属性key
 ---@return string 属性名字
-function M.attr_to_name(key)
+function M.属性_转_名称(key)
     return GameAPI.unit_attr_to_str(key):match("%((.-)%)")
 end
 

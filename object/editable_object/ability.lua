@@ -269,55 +269,55 @@ end
 
 ---设置生命不足时是否可以释放技能
 ---@param can_cast boolean 是否可以释放
-function M:set_can_cast_when_hp_insufficient(can_cast)
+function M:设置_生命_不足_是否_可以_释放(can_cast)
     self.handle:api_set_can_cast_when_hp_insufficient(can_cast)
 end
 
 ---设置扇形指示器半径
 ---@param value number 半径
-function M:set_sector_radius(value)
+function M:设置_扇形_指示器_半径(value)
     self.handle:api_set_ability_sector_radius(Fix32(value))
 end
 
 ---设置扇形指示器夹角
 ---@param value number 角度
-function M:set_sector_angle(value)
+function M:设置_扇形_指示器_夹角(value)
     self.handle:api_set_ability_sector_angle(Fix32(value))
 end
 
 ---设置箭头/多段指示器长度
 ---@param value number 长度
-function M:set_arrow_length(value)
+function M:设置_箭头_多段_指示器_长度(value)
     self.handle:api_set_ability_arrow_length(Fix32(value))
 end
 
 ---设置箭头/多段指示器宽度
 ---@param value number 宽度
-function M:set_arrow_width(value)
+function M:设置_箭头_多段_指示器_宽度(value)
     self.handle:api_set_ability_arrow_width(Fix32(value))
 end
 
 ---设置箭圆形指示器半径
 ---@param value number 半径
-function M:set_circle_radius(value)
+function M:设置_箭圆形_指示器_半径(value)
     self.handle:api_set_ability_circle_radius(Fix32(value))
 end
 
 ---设置技能指示器类型
 ---@param type y3.Const.AbilityPointerType 技能指示器类型
-function M:set_pointer_type(type)
+function M:设置_技能_指示器_类型(type)
     self.handle:api_set_ability_pointer_type(type)
 end
 
 ---获取技能当前剩余充能时间
 ---@return number
-function M:get_charge_time()
+function M:获取_当前_充能_剩余_时间()
     return self.handle:api_get_stack_cd_left_time():float()
 end
 
 ---获取技能种类
 ---@return py.AbilityType type 技能种类
-function M:get_type()
+function M:获取_种类()
     return self.handle:api_get_type()
 end
 
@@ -361,16 +361,16 @@ function M:get_float_attr(key)
 end
 
 ---获取整数属性
----@param key string 键值key
+---@param key y3.Const.技能整数属性
 ---@return number value 值
-function M:get_int_attr(key)
+function M:获取_整数_属性(key)
     return self.handle:api_get_int_attr(key)
 end
 
 ---获取字符串属性
----@param key string 键值key
+---@param key y3.Const.技能字符串属性
 ---@return string value 值
-function M:get_string_attr(key)
+function M:获取_字符串_属性(key)
     ---@diagnostic disable-next-line: param-type-mismatch
     return self.handle:api_get_str_attr(key)
 end

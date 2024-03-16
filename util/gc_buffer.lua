@@ -1,6 +1,6 @@
 ---@overload fun(atLeast: number, gcObject: Class.Base):GCBuffer
 ---@class GCBuffer
-local M = Class 'GCBuffer'
+local M = Class "GCBuffer"
 
 ---@package
 M.passedTime = 0
@@ -16,7 +16,7 @@ end
 
 function M:__del()
     M.startTimer()
-    self.queue[#self.queue+1] = self
+    self.queue[#self.queue + 1] = self
 end
 
 ---@package
@@ -28,16 +28,16 @@ function M.startTimer()
     ---@package
     M.queue = {}
     ---@private
-    M.timer = y3.ltimer.loop(1, function ()
+    M.timer = y3.本地计时器.loop(1, function()
         for i, buffer in pairs(M.queue) do
             buffer.passedTime = buffer.passedTime + 1
             if buffer.passedTime > buffer.atLeast then
                 M.queue[i] = nil
-                needDelete[#needDelete+1] = buffer.gcObject
+                needDelete[#needDelete + 1] = buffer.gcObject
             end
         end
         for i, gcObject in ipairs(needDelete) do
-            gcObject:remove()
+            gcObject:移除()
             needDelete[i] = nil
         end
     end)

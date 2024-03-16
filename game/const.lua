@@ -915,4 +915,19 @@ M.单位状态 = {
     真实伤害免疫 = 4194304,
     禁止使用道具 = 8388608,
 }
+
+---@enum y3.Const.技能整数属性
+M.技能整数属性 = {
+    最大等级 = "ability_max_level",
+    最大充能数 = "ability_max_stack_count",
+    当前等级 = "ability_level",
+    当前充能数 = "cur_stack_count",
+}
+
+---@enum y3.Const.技能字符串属性
+M.技能字符串属性 = {
+    名称 = "name",
+    描述 = "description",
+}
+
 return M
