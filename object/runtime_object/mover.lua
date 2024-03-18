@@ -90,8 +90,71 @@ end)
 ---@field round_time? number # 环绕时间
 ---@field radius_speed? number # 半径变化速度
 ---@field lifting_speed? number # 提升速度
----@field height? number # 环绕高度
+---@field height? number # 高度
 ---@field target_point? Point # 目标点
+
+---@class Mover.CreateData.BaseCn
+---@field 碰撞单位回调? fun(self: Mover, unit: Unit)
+---@field 碰撞地形回调? fun(self: Mover)
+---@field 运动结束回调? fun(self: Mover)
+---@field 运动打断回调? fun(self: Mover)
+---@field 运动移除回调? fun(self: Mover)
+---@field 碰撞类型? integer  0： 敌人；1： 盟友；2： 全部
+---@field 碰撞范围? number
+---@field 能否重复碰撞同一单位? boolean
+---@field 碰撞同一个单位的间隔? number
+---@field 是否会被地形阻挡? boolean
+---@field 触发地形阻挡事件的间隔? number
+---@field 优先级? integer
+---@field 是否使用绝对高度? boolean
+---@field 是否始终面向运动方向? boolean
+---@field 关联技能? Ability
+---@field 关联单位? Unit
+
+---@class Mover.CreateData.LineCn: Mover.CreateData.BaseCn
+---@field 运动方向 number # 运动方向
+---@field 运动距离 number
+---@field 初始速度 number # 初始速度
+---@field 加速度? number # 加速度
+---@field 最大速度? number # 最大速度
+---@field 最小速度? number # 最小速度
+---@field 初始高度? number # 初始高度
+---@field 终点高度? number # 终点高度
+---@field 抛物线顶点高度? number # 抛物线顶点高度
+
+---@class Mover.CreateData.TargetCn: Mover.CreateData.BaseCn
+---@field 追踪目标 Unit|Destructible|Item # 追踪目标
+---@field 初始速度 number # 初始速度
+---@field 增加目标的距离 number # 撞击目标的距离
+---@field 加速度? number # 加速度
+---@field 最大速度? number # 最大速度
+---@field 最小速度? number # 最小速度
+---@field 高度? number # 高度
+---@field 抛物线顶点高度? number # 抛物线顶点高度
+---@field 绑定点? string # 绑定点
+
+---@class Mover.CreateData.CurveCn: Mover.CreateData.BaseCn
+---@field 运动方向 number # 运动方向
+---@field 运动距离 number
+---@field 初始速度 number # 初始速度
+---@field 路径点 (Point|py.FixedVec2)[] # 路径点
+---@field 加速度? number # 加速度
+---@field 最大速度? number # 最大速度
+---@field 最小速度? number # 最小速度
+---@field 初始高度? number # 初始高度
+---@field 终点高度? number # 终点高度
+
+---@class Mover.CreateData.RoundCn: Mover.CreateData.BaseCn
+---@field 环绕目标 Unit|Point # 环绕目标
+---@field 环绕半径? number # 环绕半径
+---@field 环绕速度? number # 环绕速度
+---@field 初始角度? number # 初始角度
+---@field 是否顺时针? boolean # 是否顺时针
+---@field 环绕时间? number # 环绕时间
+---@field 半径变化速度? number # 半径变化速度
+---@field 提升速度? number # 提升速度
+---@field 高度? number # 环绕高度
+---@field 目标点? Point # 目标点
 
 ---@private
 ---@param mover_data Mover.CreateData.Base
@@ -288,12 +351,12 @@ function M:init(mover_data)
 end
 
 -- 打断运动器
-function M:stop()
+function M:打断()
     GameAPI.break_mover(self.handle)
 end
 
 -- 移除运动器
-function M:remove()
+function M:移除()
     Delete(self)
 end
 
@@ -302,7 +365,7 @@ local DUMMY_FUNCTION = function() end
 ---@param mover_unit Unit|Projectile
 ---@param mover_data Mover.CreateData.Line
 ---@return Mover
-function M.mover_line(mover_unit, mover_data)
+function M.创建直线运动器(mover_unit, mover_data)
     assert(mover_data.speed, "缺少字段：speed")
     assert(mover_data.angle, "缺少字段：angle")
     assert(mover_data.distance, "缺少字段：distance")
@@ -326,7 +389,7 @@ end
 ---@param mover_unit Unit|Projectile
 ---@param mover_data Mover.CreateData.Target
 ---@return Mover
-function M.mover_target(mover_unit, mover_data)
+function M.创建追踪运动器(mover_unit, mover_data)
     assert(mover_data.speed, "缺少字段：speed")
     assert(mover_data.target_distance, "缺少字段：target_distance")
     assert(mover_data.target, "缺少字段：target")
@@ -350,7 +413,7 @@ end
 ---@param mover_unit Unit|Projectile
 ---@param mover_data Mover.CreateData.Curve
 ---@return Mover
-function M.mover_curve(mover_unit, mover_data)
+function M.创建曲线运动器(mover_unit, mover_data)
     assert(mover_data.speed, "缺少字段：speed")
     assert(mover_data.angle, "缺少字段：angle")
     assert(mover_data.distance, "缺少字段：distance")
@@ -374,7 +437,7 @@ end
 ---@param mover_unit Unit|Projectile
 ---@param mover_data Mover.CreateData.Round
 ---@return Mover
-function M.mover_round(mover_unit, mover_data)
+function M.创建环绕运动器(mover_unit, mover_data)
     assert(mover_data.target, "缺少字段：target")
     local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
     local wrapped_args = M.wrap_round_args(mover_data)
@@ -400,91 +463,141 @@ local Unit = Class "Unit"
 local Projectile = Class "Projectile"
 
 ---创建直线运动器
----@param mover_data Mover.CreateData.Line
+---@param mover_data Mover.CreateData.LineCn
 ---@return Mover
-function Unit:mover_line(mover_data)
-    local mover = M.mover_line(self, mover_data)
+function Unit:创建直线运动器(mover_data)
+    local mover = M.创建直线运动器(self, M.局_参数转换(mover_data))
     return mover
 end
 
 ---创建直线运动器
----@param mover_data Mover.CreateData.Line
+---@param mover_data Mover.CreateData.LineCn
 ---@return Mover
-function Projectile:mover_line(mover_data)
-    local mover = M.mover_line(self, mover_data)
+function Projectile:创建直线运动器(mover_data)
+    local mover = M.创建直线运动器(self, M.局_参数转换(mover_data))
     return mover
 end
 
 ---创建追踪运动器
----@param mover_data Mover.CreateData.Target
+---@param mover_data Mover.CreateData.TargetCn
 ---@return Mover
-function Unit:mover_target(mover_data)
-    local mover = M.mover_target(self, mover_data)
+function Unit:创建追踪运动器(mover_data)
+    local mover = M.创建追踪运动器(self, M.局_参数转换(mover_data))
     return mover
 end
 
 ---创建追踪运动器
----@param mover_data Mover.CreateData.Target
+---@param mover_data Mover.CreateData.TargetCn
 ---@return Mover
-function Projectile:mover_target(mover_data)
-    local mover = M.mover_target(self, mover_data)
+function Projectile:创建追踪运动器(mover_data)
+    local mover = M.创建追踪运动器(self, M.局_参数转换(mover_data))
     return mover
 end
 
 ---创建曲线运动器
----@param mover_data Mover.CreateData.Curve
+---@param mover_data Mover.CreateData.CurveCn
 ---@return Mover
-function Unit:mover_curve(mover_data)
-    local mover = M.mover_curve(self, mover_data)
+function Unit:创建曲线运动器(mover_data)
+    local mover = M.创建曲线运动器(self, M.局_参数转换(mover_data))
     return mover
 end
 
 ---创建曲线运动器
----@param mover_data Mover.CreateData.Curve
+---@param mover_data Mover.CreateData.CurveCn
 ---@return Mover
-function Projectile:mover_curve(mover_data)
-    local mover = M.mover_curve(self, mover_data)
+function Projectile:创建曲线运动器(mover_data)
+    local mover = M.创建曲线运动器(self, M.局_参数转换(mover_data))
     return mover
 end
 
 ---创建环绕运动器
----@param mover_data Mover.CreateData.Round
+---@param mover_data Mover.CreateData.RoundCn
 ---@return Mover
-function Unit:mover_round(mover_data)
-    local mover = M.mover_round(self, mover_data)
+function Unit:创建环绕运动器(mover_data)
+    local mover = M.创建环绕运动器(self, M.局_参数转换(mover_data))
     return mover
 end
 
 ---创建环绕运动器
----@param mover_data Mover.CreateData.Round
+---@param mover_data Mover.CreateData.RoundCn
 ---@return Mover
-function Projectile:mover_round(mover_data)
-    local mover = M.mover_round(self, mover_data)
+function Projectile:创建环绕运动器(mover_data)
+    local mover = M.创建环绕运动器(self, M.局_参数转换(mover_data))
     return mover
 end
 
 ---打断运动器
-function Unit:break_mover()
+function Unit:打断运动器()
     GameAPI.break_unit_mover(self.handle)
 end
 
 ---移除运动器
-function Unit:remove_mover()
+function Unit:删除运动器()
     GameAPI.remove_unit_mover(self.handle)
 end
 
 ---打断运动器
-function Projectile:break_mover()
+function Projectile:打断运动器()
     -- TODO 见问题8
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.break_unit_mover(self.handle)
 end
 
 ---移除运动器
-function Projectile:remove_mover()
+function Projectile:删除运动器()
     -- TODO 见问题8
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.remove_unit_mover(self.handle)
+end
+
+M.参数映射 = {
+    碰撞单位回调 = "on_hit",
+    碰撞地形回调 = "on_block",
+    运动结束回调 = "on_finish",
+    运动打断回调 = "on_break",
+    运动移除回调 = "on_remove",
+    碰撞类型 = "hit_type",
+    碰撞范围 = "hit_radius",
+    是否重复碰撞同一单位 = "hit_same",
+    碰撞同一个单位的间隔 = "hit_interval",
+    是否会被地形阻挡 = "terrain_block",
+    触发地形阻挡事件的间隔 = "block_interval",
+    优先级 = "priority",
+    是否使用绝对高度 = "absolute_height",
+    是否始终面向运动方向 = "face_angle",
+    关联技能 = "ability",
+    关联单位 = "unit",
+    初始高度 = "init_height",
+    撞击目标的距离 = "target_distance",
+    抛物线顶点高度 = "parabola_height",
+    绑定点 = "bind_point",
+    运动方向 = "angle",
+    运动距离 = "distance",
+    初始速度 = "speed",
+    路径点 = "path",
+    加速度 = "acceleration",
+    最大速度 = "max_speed",
+    最小速度 = "min_speed",
+    终点高度 = "fin_height",
+    追踪目标 = "target",
+    环绕目标 = "target",
+    环绕半径 = "radius",
+    环绕速度 = "angle_speed",
+    初始角度 = "init_angle",
+    是否顺时针 = "clock_wise",
+    环绕时间 = "round_time",
+    半径变化速度 = "radius_speed",
+    提升速度 = "lifting_speed",
+    环绕高度 = "height",
+    目标点 = "target_point",
+}
+
+function M.局_参数转换(参数)
+    local r = {}
+    for key, value in pairs(参数) do
+        r[M.参数映射[key]] = value
+    end
+    return r
 end
 
 return M

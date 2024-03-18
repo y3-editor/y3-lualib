@@ -132,7 +132,7 @@ end
 
 -- 遍历池的对象
 ---@return fun(): any, integer
-function M:pairs()
+function M:遍历()
     local keys = {}
     for k in pairs(self.pool) do
         keys[#keys + 1] = k

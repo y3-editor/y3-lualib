@@ -29,7 +29,7 @@ y3.sandbox = require "y3.tools.sandbox"
 include = y3.重载.include
 
 require "y3.tools.linked_table"
-require "y3.tools.pool"
+y3.随机池 = require "y3.tools.pool"
 require "y3.tools.gc"
 
 require "y3.util.eca_function"
