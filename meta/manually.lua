@@ -185,6 +185,9 @@ function GameAPI.bind_local_listener(comp_uid, event_type, callback) end
 ---@return string
 function GameAPI.get_prefab_ins_id_by_name(prefab_name) end
 
+---@return py.Dict
+function GameAPI.lua_get_start_args() end
+
 ---@param id string
 ---@param data string
 function broadcast_lua_msg(id, data) end

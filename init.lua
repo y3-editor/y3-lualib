@@ -6,10 +6,11 @@ end)
 ---@class Y3
 y3 = {}
 
-y3.proxy  = require 'y3.tools.proxy'
-y3.class  = require 'y3.tools.class'
-y3.util   = require 'y3.tools.utility'
-y3.json   = require 'y3.tools.json'
+y3.proxy   = require 'y3.tools.proxy'
+y3.class   = require 'y3.tools.class'
+y3.util    = require 'y3.tools.utility'
+y3.json    = require 'y3.tools.json'
+y3.inspect = require 'y3.tools.inspect'
 pcall(function ()
     y3.doctor = require 'y3.tools.doctor'
 end)
@@ -99,6 +100,13 @@ y3.sync         = require 'y3.util.sync'
 
 y3.develop = {}
 y3.develop.command = include 'y3.develop.command'
+y3.develop.arg     = require 'y3.develop.arg'
+
+pcall(function ()
+    if LDBG and y3.develop.arg['lua_wait_debugger'] == 'true' then
+        LDBG:event 'wait'
+    end
+end)
 
 -- TODO 给目前的Lua垃圾回收过慢的问题打个临时补丁
 local function fixGC()

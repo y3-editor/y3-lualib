@@ -1,7 +1,7 @@
 --作弊指令
 --
 --该功能仅在开发模式有效
----@class Command
+---@class Develop.Command
 local M = {}
 
 ---@private
