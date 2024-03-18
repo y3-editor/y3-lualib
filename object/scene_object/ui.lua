@@ -837,7 +837,7 @@ end
 --获取滑动条当前值
 ---@return number slider_value 滑动条当前值
 function M:get_slider_current_value()
-    return GameAPI.get_slider_cur_percent(self.handle)
+    return GameAPI.get_slider_cur_percent(self.handle):float()
 end
 
 --获得界面控件名
