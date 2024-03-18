@@ -33,7 +33,19 @@ y3.py_converter.register_lua_to_py('py.RoleGroup', function (lua_value)
     return lua_value.handle
 end)
 
---遍历玩家组中玩家做动作    --不处理遍历
+--创建空玩家组(3月28号更新后可用)
+---@return PlayerGroup
+function M.create()
+    return M.get_by_handle(GameAPI.create_role_group())
+end
+
+--获取玩家组中玩家数量
+---@return integer
+function M:count()
+    return python_len(self.handle)
+end
+
+--将玩家组转换为Lua的玩家数组
 ---@return Player[]
 function M:pick()
     local lua_table = {}

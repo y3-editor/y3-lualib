@@ -23,7 +23,13 @@ y3.py_converter.register_lua_to_py('py.UnitGroup', function (lua_value)
     return lua_value.handle
 end)
 
---遍历单位组中单位做动作
+--创建空单位组(3月28号更新后可用)
+---@return UnitGroup
+function M.create()
+    return M.get_by_handle(GameAPI.create_unit_group())
+end
+
+--将单位组转换为Lua的单位数组
 ---@return Unit[]
 function M:pick()
     local lua_table ={}
