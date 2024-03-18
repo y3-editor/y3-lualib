@@ -4,12 +4,13 @@ end)
 
 -- 全局方法类，提供各种全局方法
 ---@class Y3
-y3       = {}
+y3         = {}
 
-y3.proxy = require "y3.tools.proxy"
-y3.class = require "y3.tools.class"
-y3.util  = require "y3.tools.utility"
-y3.json  = require "y3.tools.json"
+y3.proxy   = require "y3.tools.proxy"
+y3.class   = require "y3.tools.class"
+y3.util    = require "y3.tools.utility"
+y3.json    = require "y3.tools.json"
+y3.inspect = require "y3.tools.inspect"
 pcall(function()
     y3.doctor = require "y3.tools.doctor"
 end)
@@ -94,6 +95,13 @@ y3.sync = require "y3.util.sync"
 
 y3.develop = {}
 y3.develop.command = include "y3.develop.command"
+y3.develop.arg = require "y3.develop.arg"
+
+pcall(function()
+    if LDBG and y3.develop.arg["lua_wait_debugger"] == "true" then
+        LDBG:event "wait"
+    end
+end)
 
 -- TODO 给目前的Lua垃圾回收过慢的问题打个临时补丁
 local function fixGC()
@@ -109,35 +117,4 @@ local function fixGC()
     end)
 end
 
--- TODO 访问不存在的 GameAPI 和 GlobalAPI 不要报错，返回 nil
-local function safeGetter(t)
-    local nilMap = {}
-    return setmetatable({}, {
-        __index = function(self, k)
-            if nilMap[k] then
-                return nil
-            end
-            local suc, res = pcall(function()
-                return t[k]
-            end)
-            if not suc or res == nil then
-                nilMap[k] = true
-                return nil
-            else
-                self[k] = res
-                return res
-            end
-        end,
-    })
-end
-
 fixGC()
-
--- TODO 临时补丁，防止访问不存在的 GameAPI 和 GlobalAPI 时报错。预计3月7号版本修复。
----@class py.GameAPI
-GameAPI = safeGetter(GameAPI)
----@class py.GlobalAPI
-GlobalAPI = safeGetter(GlobalAPI)
-
-
-require "y3.px.init"

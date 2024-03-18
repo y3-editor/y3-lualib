@@ -6529,6 +6529,39 @@ event.ET_UNIT_REMOVE_ITEM = {
     },
 }
 
+---@class EventParam.ET_UNIT_REMOVE_ITEM_FOR_UI
+---@field unit Unit # 失去该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+
+--单位失去物品(用于UI)
+event.ET_UNIT_REMOVE_ITEM_FOR_UI = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "失去该物品的单位id",
+        lua_desc = "失去该物品的单位",
+    },
+    [2] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "物品id",
+        lua_desc = "物品",
+    },
+    [3] = {
+        name = "__item_no",
+        type = "py.ItemKey",
+        lua_name = "item_no",
+        lua_type = "py.ItemKey",
+        desc = "物品编号",
+        lua_desc = "物品编号",
+    },
+}
+
 ---@class EventParam.ET_UNIT_REMOVE_ITEM_FROM_BAR
 ---@field 触发单位 Unit # 失去该物品的单位
 ---@field 触发物品 Item # 物品
