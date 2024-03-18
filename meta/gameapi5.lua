@@ -246,6 +246,12 @@ function GameAPI.get_rank_player_global_archive_value(rank_key, num) end
 ---@return string # 昵称
 function GameAPI.get_archive_rank_player_nickname(archive_key, num) end
 
+--获取玩家指定的个人存档栏位的第n名玩家昵称的后缀id
+---@param archive_key integer # 玩家存档栏位
+---@param num integer # 第n名
+---@return string # 后缀id
+function GameAPI.get_archive_rank_player_tag(archive_key, num) end
+
 --获取玩家指定的个人存档栏位的第n名玩家的存档值
 ---@param archive_key integer # 玩家存档栏位
 ---@param num integer # 第n名
@@ -267,6 +273,21 @@ function GameAPI.api_soft_resume_game() end
 ---@param op_key string # 埋点Key
 ---@param op_cnt integer # 次数
 function GameAPI.api_upload_user_tracking_data(role, op_key, op_cnt) end
+
+--开启/关闭timer不同步检测日志
+---@param enable? boolean # 是否开启
+function GameAPI.api_set_enable_timer_snapshot(enable) end
+
+--开启/关闭ECA不同步检测日志。可通过参数过滤掉一些安全的API以防止误报，例如创建特效、UI操作等
+---@param enable boolean # 是否开启
+---@param filter_mode? integer # 过滤模式,默认1 剔除模式（不记录filter_set中指定的api）或者0 包含模式（仅记录filter_set中指定的api）
+---@param filter_set? nil # 过滤集合，默认为{"client_only", "client_possible"}。可传入想要剔除/包含的API（取决于上个参数），如{"client_only", "client_possible", "GameAPI:print_to_dialog, "GameAPI:get_function_return_value"}。
+---@return string # 开启结果
+function GameAPI.api_set_enable_eca_snapshot(enable, filter_mode, filter_set) end
+
+--设置不同步详细日志级别
+---@param tag? integer # mask用于控制开启哪些日志，0xFFFFFFFF全部开启。各bit含义>> 1：运动器tick，2：运动器碰撞检测，4：寻路回调，8：坐标更新，16：血量变化，32：坐标变化2，64：单位指令
+function GameAPI.api_set_detail_snapshot_enable_tag(tag) end
 
 --本地玩家编号
 ---@return py.RoleID # 玩家编号
@@ -458,11 +479,11 @@ function GameAPI.get_cascaded_shadow_enable() end
 function GameAPI.get_dynamic_shadow_cascades() end
 
 --获取级联阴影距离
----@return number # 距离
+---@return py.Fixed # 距离
 function GameAPI.get_dynamic_shadow_distance_movable_light() end
 
 --获取阴影距离
----@return number # 距离
+---@return py.Fixed # 距离
 function GameAPI.get_cascaded_shadow_distance() end
 
 --获取光源Float属性
@@ -527,6 +548,11 @@ function GameAPI.change_mini_map_img_with_icon(role, image_id) end
 ---@param role py.Role # 玩家
 ---@param color_type integer # 显示模式
 function GameAPI.change_mini_map_color_type(role, color_type) end
+
+--开启小地图迷雾显示
+---@param role py.Role # 玩家
+---@param enable integer # 显示模式
+function GameAPI.enable_player_mini_map_fog_img(role, enable) end
 
 --开启绘制单位路径线
 ---@param role py.Role # 玩家
@@ -1058,7 +1084,8 @@ function GameAPI.set_ui_comp_opacity(role, comp_name, opacity) end
 ---@param role py.Role # 玩家
 ---@param unit py.Unit # 单位对象
 ---@param comp_name string # 控件名
-function GameAPI.set_buff_on_ui_comp(role, unit, comp_name) end
+---@param effect? integer # BUFF效果类型
+function GameAPI.set_buff_on_ui_comp(role, unit, comp_name, effect) end
 
 --绑定物品实体到道具栏控件
 ---@param role py.Role # 玩家
@@ -1126,7 +1153,17 @@ function GameAPI.set_ui_model_id(role, comp_name, model_id) end
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
 ---@param model_unit py.Unit # 单位
-function GameAPI.set_ui_model_unit(role, comp_name, model_unit) end
+---@param clone_effect? boolean # 继承特效
+---@param clone_attach? boolean # 继承挂接模型
+---@param clone_material? boolean # 继承材质变化
+function GameAPI.set_ui_model_unit(role, comp_name, model_unit, clone_effect, clone_attach, clone_material) end
+
+--播放魔法效果表现到模型控件
+---@param modifier_key py.ModifierKey # 魔法效果类型
+---@param modifier_state integer # 播放枚举
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+function GameAPI.set_modifier_on_ui_model(modifier_key, modifier_state, role, comp_name) end
 
 --设置玩家的商店控件的目标商店单位
 ---@param role py.Role # 玩家
@@ -1405,7 +1442,7 @@ function GameAPI.get_combo_box_cur_value(comp_id) end
 
 --获取滑动条当前值
 ---@param comp_id string # 滑动条
----@return number # value
+---@return py.Fixed # value
 function GameAPI.get_slider_cur_percent(comp_id) end
 
 --设置滑动条当前值
@@ -1805,6 +1842,52 @@ function GameAPI.api_get_editor_type_data(data_type, key) end
 ---@param key integer # 物编key
 ---@param data py.Dict # 物编数据
 function GameAPI.api_set_editor_type_data(data_type, key, data) end
+
+--设置鼠标挂接物
+---@param _type integer # 类型
+---@param entity_no integer # 模型/特效id
+---@param role py.Role # 玩家
+function GameAPI.set_mouse_follower(_type, entity_no, role) end
+
+--取消鼠标挂接物
+---@param role py.Role # 玩家
+function GameAPI.cancel_mouse_follower(role) end
+
+--设置鼠标挂接物的偏移
+---@param role py.Role # 玩家
+---@param offset_x number # 偏移X
+---@param offset_y number # 偏移Y
+---@param offset_z number # 偏移Z
+function GameAPI.set_mouse_follower_offset(role, offset_x, offset_y, offset_z) end
+
+--设置鼠标挂接物的旋转角度
+---@param role py.Role # 玩家
+---@param rotation_x number # X
+---@param rotation_y number # Y
+---@param rotation_z number # Z
+function GameAPI.set_mouse_follower_rotation(role, rotation_x, rotation_y, rotation_z) end
+
+--设置鼠标挂接物的缩放比列
+---@param role py.Role # 玩家
+---@param scale_x number # X
+---@param scale_y number # Y
+---@param scale_z number # Z
+function GameAPI.set_mouse_follower_scale(role, scale_x, scale_y, scale_z) end
+
+--设置鼠标挂接物的动画速度
+---@param role py.Role # 玩家
+---@param anim_speed number # 速度
+function GameAPI.set_mouse_follower_anim_speed(role, anim_speed) end
+
+--设置鼠标挂接物模型播放动画
+---@param role py.Role # 玩家
+---@param anim_name string # 动画名
+---@param anim_speed? number # 动画速率
+---@param start_time? number # 开始时间
+---@param end_time? number # 结束时间
+---@param is_loop? boolean # 是否循环播放
+---@param is_back_to_default? boolean # 是否回到默认动画
+function GameAPI.set_mouse_follower_model_anim(role, anim_name, anim_speed, start_time, end_time, is_loop, is_back_to_default) end
 
 --获取COLLIDER所属的刚体
 ---@param collider py.Collider # Collider
@@ -2787,6 +2870,10 @@ function GameAPI.create_projectile_in_scene(p_key, location, face, owner_unit_or
 ---@return py.ProjectileEntity # 创建出的投掷物
 function GameAPI.create_projectile_in_scene_new(p_key, location, owner_unit_or_player, face, related_ability, duration, is_open_duration, height, visibility, immediately, use_sys_d_destroy_way) end
 
+--新建空玩家组
+---@return py.RoleGroup # 玩家组
+function GameAPI.create_role_group() end
+
 --将玩家添加到玩家组
 ---@param role py.Role # 玩家
 ---@param group py.RoleGroup # 玩家组
@@ -3488,7 +3575,7 @@ function GameAPI.set_tps_mode_ctrl(role, enable) end
 
 --获取本地玩家镜头的实数属性
 ---@param attr_name string # 属性名
----@return number # 属性值
+---@return py.Fixed # 属性值
 function GameAPI.get_camera_attr_real_num(attr_name) end
 
 --获取本地玩家镜头的整数属性
@@ -3987,6 +4074,10 @@ function GameAPI.get_all_items_in_shapes(point, shape, sort_type) end
 ---@param s string # 事件名称
 ---@param args py.Dict # 参数
 function GameAPI.send_ui_global_event_with_info_dict(s, args) end
+
+--新建空单位组
+---@return py.UnitGroup # 单位组
+function GameAPI.create_unit_group() end
 
 --添加单位到单位组
 ---@param unit py.Unit # 单位
