@@ -4,6 +4,20 @@ local console_tips_match = console_tips_match
 ---@class Develop.Console
 local M = {}
 
+y3.sync.onSync('$console', function (input)
+    if type(input) ~= 'string' then
+        return
+    end
+    local content = input:sub(2)
+    local strs = {}
+    for str in content:gmatch('[^%s]+') do
+        strs[#strs+1] = str
+    end
+
+    local command = table.remove(strs, 1)
+    y3.develop.command.execute(command, table.unpack(strs))
+end)
+
 y3.game:event('控制台-输入', function (trg, data)
     if not y3.game.is_debug_mode() then
         return
@@ -11,27 +25,19 @@ y3.game:event('控制台-输入', function (trg, data)
     local input = data.str1
 
     if input:sub(1, 1) == '.' then
-        local content = input:sub(2)
-        local strs = {}
-        for str in content:gmatch('[^%s]+') do
-            strs[#strs+1] = str
-        end
-
-        local command = table.remove(strs, 1)
-        y3.develop.command.execute(command, table.unpack(strs))
+        y3.sync.send('$console', input)
         return
     end
 end)
 
 ---@param inputed string
 ---@param candidates string[]
----@param prefix? string
 ---@return string[]
-local function filterOut(inputed, candidates, prefix)
+local function filterOut(inputed, candidates)
     local completes = {}
     local lownerInputed = inputed:lower()
     for _, word in ipairs(candidates) do
-        local fullWord = (prefix or '') .. word
+        local fullWord = word
         if y3.util.stringStartWith(fullWord:lower(), lownerInputed) then
             completes[#completes+1] = fullWord
         end
@@ -47,7 +53,11 @@ y3.game:event('控制台-请求补全', function (trg, data)
 
     if input:sub(1, 1) == '.' then
         local commands = y3.develop.command.getAllCommands()
-        local completes = filterOut(input, commands, '.')
+        local words = {}
+        for _, comman in ipairs(commands) do
+            words[#words+1] = '.' .. comman
+        end
+        local completes = filterOut(input, words)
         console_tips_match(table.concat(completes, ','))
         return
     end

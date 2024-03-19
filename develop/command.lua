@@ -4,15 +4,34 @@
 ---@class Develop.Command
 local M = {}
 
+---@class Develop.Command.InfoParam
+---@field onCommand fun(...)
+---@field needSync? boolean
+---@field priority? number
+
+---@class Develop.Command.Info: Develop.Command.InfoParam
+---@field name string
+---@field priority number
+
+
 ---@private
----@type table<string, fun(...)>
+---@type table<string, Develop.Command.Info>
 M.commands = {}
 
 -- 注册作弊指令（指令名称无视大小写）
 ---@param command string
----@param callback fun(...)
-function M.register(command, callback)
-    M.commands[command:lower()] = callback
+---@param info Develop.Command.InfoParam|function
+function M.register(command, info)
+    local lname = command:lower()
+    if type(info) == 'function' then
+        info = {
+            onCommand = info,
+            priority = 0,
+        }
+    end
+    ---@cast info Develop.Command.Info
+    info.name = lname
+    M.commands[lname] = info
 end
 
 ---@param reload Reload
@@ -46,9 +65,13 @@ local function remove_all_local_timers_in_include(reload)
     end
 end
 
-M.register('RD', function ()
-    y3.reload.reload()
-end)
+M.register('RD', {
+    needSync = true,
+    priority = 100,
+    onCommand = function ()
+        y3.reload.reload()
+    end,
+})
 
 M.register('SS', function ()
     collectgarbage()
@@ -104,11 +127,11 @@ y3.game:event('玩家-发送消息', function (trg, data)
     end
 
     local command = table.remove(strs, 1):lower()
-    local f = M.commands[command]
-    if not f then
+    local info = M.commands[command]
+    if not info then
         return
     end
-    f(table.unpack(strs))
+    info.onCommand(table.unpack(strs))
 end)
 
 -- 执行作弊指令
@@ -116,14 +139,23 @@ end)
 ---@param ... any
 function M.execute(command, ...)
     command = command:lower()
-    local f = M.commands[command]
-    assert(f, '作弊指令不存在: ' .. command)
-    f(...)
+    local info = M.commands[command]
+    assert(info, '作弊指令不存在: ' .. command)
+    info.onCommand(...)
+end
+
+---@param command string
+---@return Develop.Command.Info?
+function M.getCommandInfo(command)
+    local lname = command:lower()
+    return M.commands[lname]
 end
 
 ---@return string[]
 function M.getAllCommands()
-    return y3.util.getTableKeys(M.commands, true)
+    return y3.util.getTableKeys(M.commands, function (a, b)
+        return M.getCommandInfo(a).priority > M.getCommandInfo(b).priority
+    end)
 end
 
 return M
