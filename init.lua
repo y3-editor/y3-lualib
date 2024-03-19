@@ -101,6 +101,7 @@ y3.sync         = require 'y3.util.sync'
 y3.develop = {}
 y3.develop.command = include 'y3.develop.command'
 y3.develop.arg     = require 'y3.develop.arg'
+y3.develop.console = include 'y3.develop.console'
 
 pcall(function ()
     if LDBG and y3.develop.arg['lua_wait_debugger'] == 'true' then

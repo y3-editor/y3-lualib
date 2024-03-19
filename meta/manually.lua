@@ -199,5 +199,4 @@ function broadcast_lua_msg(id, data) end
 ---@param timeout? number
 ---@param headers? table
 ---@param callback? fun(body?: string)
-function request_url(url, post, body, port, timeout, headers, callback)
-end
+function request_url(url, post, body, port, timeout, headers, callback) end

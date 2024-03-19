@@ -121,4 +121,9 @@ function M.execute(command, ...)
     f(...)
 end
 
+---@return string[]
+function M.getAllCommands()
+    return y3.util.getTableKeys(M.commands, true)
+end
+
 return M
