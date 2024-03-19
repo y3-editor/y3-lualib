@@ -1717,6 +1717,7 @@ end\
     },
     key = "ET_ABILITY_CS_START",
     name = "施法-即将开始",
+    object = "Ability",
     params = {
     },
 }
@@ -1760,6 +1761,7 @@ end\
     },
     key = "ET_ABILITY_PS_START",
     name = "施法-开始",
+    object = "Ability",
     params = {
     },
 }
@@ -1790,6 +1792,7 @@ end\
     },
     key = "ET_ABILITY_PS_END",
     name = "施法-引导",
+    object = "Ability",
     params = {
     },
 }
@@ -1833,6 +1836,7 @@ end\
     },
     key = "ET_ABILITY_SP_END",
     name = "施法-出手",
+    object = "Ability",
     params = {
     },
 }
@@ -1863,6 +1867,7 @@ end\
     },
     key = "ET_ABILITY_CST_END",
     name = "施法-完成",
+    object = "Ability",
     params = {
     },
 }
@@ -1893,6 +1898,7 @@ end\
     },
     key = "ET_ABILITY_BS_END",
     name = "施法-结束",
+    object = "Ability",
     params = {
     },
 }
@@ -1936,6 +1942,7 @@ end\
     },
     key = "ET_ABILITY_PS_INTERRUPT",
     name = "施法-打断开始",
+    object = "Ability",
     params = {
     },
 }
@@ -1966,6 +1973,7 @@ end\
     },
     key = "ET_ABILITY_SP_INTERRUPT",
     name = "施法-打断引导",
+    object = "Ability",
     params = {
     },
 }
@@ -1996,6 +2004,7 @@ end\
     },
     key = "ET_ABILITY_CST_INTERRUPT",
     name = "施法-打断出手",
+    object = "Ability",
     params = {
     },
 }
@@ -2039,6 +2048,7 @@ end\
     },
     key = "ET_ABILITY_END",
     name = "施法-停止",
+    object = "Ability",
     params = {
     },
 }
@@ -3232,6 +3242,16 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Ability, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
 ---@field event fun(self: Ability, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
 ---@field event fun(self: Ability, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
+---@field event fun(self: Ability, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
+---@field event fun(self: Ability, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
+---@field event fun(self: Ability, event: "施法-引导", callback: fun(trg: Trigger, data: EventParam.施法-引导)): Trigger
+---@field event fun(self: Ability, event: "施法-出手", callback: fun(trg: Trigger, data: EventParam.施法-出手)): Trigger
+---@field event fun(self: Ability, event: "施法-完成", callback: fun(trg: Trigger, data: EventParam.施法-完成)): Trigger
+---@field event fun(self: Ability, event: "施法-结束", callback: fun(trg: Trigger, data: EventParam.施法-结束)): Trigger
+---@field event fun(self: Ability, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
+---@field event fun(self: Ability, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
+---@field event fun(self: Ability, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: Ability, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: Ability, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: Ability, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
 ---@field event fun(self: Ability, event: "技能-交换", callback: fun(trg: Trigger, data: EventParam.技能-交换)): Trigger
