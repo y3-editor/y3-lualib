@@ -4,6 +4,11 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--获取区域的场景ID
+---@param area py.Area # 区域
+---@return integer # 场景ID
+function GameAPI.get_area_resource_id(area) end
+
 --获取路径的场景ID
 ---@param road py.Road # 路径
 ---@return integer # 场景ID
@@ -886,6 +891,13 @@ function GameAPI.set_ui_scrollview_size_change_according_children(role, comp_uid
 ---@param a number # A
 function GameAPI.set_ui_image_color(role, comp_uid, r, g, b, a) end
 
+--设置图片颜色(hex)
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件名
+---@param color string # hex
+---@param a number # A
+function GameAPI.set_ui_image_color_hex(role, comp_uid, color, a) end
+
 --界面-获取控件的真实长度
 ---@param role py.Role # 玩家
 ---@param comp_uid string # 控件名
@@ -1031,6 +1043,13 @@ function GameAPI.set_ui_comp_visible(role, visible, comp_name) end
 ---@param b number # B
 ---@param a number # A
 function GameAPI.set_ui_comp_font_color(role, comp_name, r, g, b, a) end
+
+--设置ui文本颜色(HEX)
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+---@param color string # hex
+---@param a number # A
+function GameAPI.set_ui_comp_font_color_hex(role, comp_name, color, a) end
 
 --设置ui文本
 ---@param role py.Role # 玩家
@@ -1787,6 +1806,18 @@ function GameAPI.set_equip_slot_use_operation(role, comp_uid, use_operation) end
 ---@param comp_uid string # 控件uid
 ---@param drag_operation integer # 操作方式
 function GameAPI.set_equip_slot_drag_operation(role, comp_uid, drag_operation) end
+
+--获取轮播图当前图片索引
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@return integer # 索引值
+function GameAPI.get_page_view_current_index(role, comp_uid) end
+
+--获取轮播图点击图片索引
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@return integer # 索引值
+function GameAPI.get_page_view_click_index(role, comp_uid) end
 
 --创建新单位物编
 ---@param old_entity_no py.UnitKey # 单位物编
@@ -5187,3 +5218,9 @@ function GameAPI.platform_http_login(api_path, external_data) end
 ---@param data string # body数据
 ---@return string # 调用结果
 function GameAPI.platform_http_request(api, is_post, data) end
+
+--上传反作弊数值统计
+---@param role py.Role # 玩家
+---@param args py.List # 自定义参数
+---@return string # 玩家全量昵称
+function GameAPI.save_anticheat_data(role, args) end

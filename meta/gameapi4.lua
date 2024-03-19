@@ -5303,6 +5303,12 @@ function GameAPI.set_sfx_angle(sfx_entity, face_angle) end
 ---@param w number # w
 function GameAPI.set_sfx_color(sfx_entity, x, y, z, w) end
 
+--设置特效颜色(HEX)
+---@param sfx_entity py.Sfx # 特效
+---@param color string # hex
+---@param w number # w
+function GameAPI.set_sfx_color_hex(sfx_entity, color, w) end
+
 --设置特效缩放
 ---@param sfx_entity py.Sfx # 特效
 ---@param scale_x number # x轴缩放
@@ -6011,8 +6017,3 @@ function GameAPI.edit_area_collision(area, collision_layer, is_add) end
 ---@param fov_block_type integer # 视野阻挡类型
 ---@param is_add boolean # 添加/去除
 function GameAPI.edit_area_fov_block(area, fov_block_type, is_add) end
-
---获取区域的场景ID
----@param area py.Area # 区域
----@return integer # 场景ID
-function GameAPI.get_area_resource_id(area) end

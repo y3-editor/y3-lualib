@@ -7893,6 +7893,36 @@ event.ET_ROLE_STORE_PAGE_STATE_CHANGED = {
     },
 }
 
+---@class EventParam.ET_LUA_CONSOLE_COMMAND
+---@field str1 string # 指令字符串
+
+--LuaConsole命令
+event.ET_LUA_CONSOLE_COMMAND = {
+    [1] = {
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "指令字符串",
+        lua_desc = "指令字符串",
+    },
+}
+
+---@class EventParam.ET_LUA_CONSOLE_TIPS
+---@field str1 string # 指令前缀
+
+--LuaConsole命令补全
+event.ET_LUA_CONSOLE_TIPS = {
+    [1] = {
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "指令前缀",
+        lua_desc = "指令前缀",
+    },
+}
+
 ---@class EventParam.ET_DIALOG_EVENT
 ---@field dialog_id integer # 对话框id
 
