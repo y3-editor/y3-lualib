@@ -103,7 +103,7 @@ end
 ---@param player Player 玩家
 ---@param is_immediately? boolean 是否立即停止
 function M:stop(player, is_immediately)
-    GameAPI.stop_sound(player.handle, self.handle, is_immediately or false)
+    GameAPI.stop_sound(player.handle, self.handle, not is_immediately or false)
 end
 
 -- 设置音量
