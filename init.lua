@@ -118,3 +118,6 @@ local function fixGC()
 end
 
 fixGC()
+
+
+include "y3.px.init"

@@ -121,7 +121,7 @@ end
 
 ---表_到字符串
 ---@param 表 table
----@param 配置? table
+---@param 配置? {y3tostring:boolean,    alignment:unknown,    deep:unknown,    format:unknown,    longStringKey:unknown,    loop:unknown,    noArrayKey:unknown,    number:unknown,    sorter:unknown,}
 function m.表_返回结构文本(表, 配置)
     return y3.util.dump(表, 配置)
 end

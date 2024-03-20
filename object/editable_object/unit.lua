@@ -355,20 +355,15 @@ function M:造成治疗(value, skill, source_unit, text_type)
 end
 
 ---添加标签
----@param tag string[] 标签
+---@param tag 别名.单位.标签
 function M:添加标签(tag)
-    for _, value in ipairs(tag) do
-        调试输出(value)
-        self.handle:api_add_tag(value)
-    end
+    self.handle:api_add_tag(tag)
 end
 
 ---移除标签
----@param tag string[] 标签
+---@param tag 别名.单位.标签
 function M:移除标签(tag)
-    for index, value in ipairs(tag) do
-        self.handle:api_remove_tag(value)
-    end
+    self.handle:api_remove_tag(tag)
 end
 
 ---添加状态
@@ -1526,7 +1521,7 @@ function M:get_team()
 end
 
 ---是否具有标签
----@param tag_name string 标签
+---@param tag_name 别名.单位.标签
 ---@return boolean has_tag 具有标签
 function M:是否存在标签(tag_name)
     return GlobalAPI.has_tag(self.handle, tag_name)

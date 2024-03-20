@@ -92,11 +92,26 @@ function M:生命_不足_是否_可以_释放()
     return self.handle:api_get_can_cast_when_hp_insufficient()
 end
 
+---@param 标签 别名.技能.标签
+function M:添加_标签(标签)
+    local 标签缓存 = self:获取存储值("@标签")
+    if 标签缓存 == nil then
+        self:设置存储值("@标签", {})
+    end
+    self:获取存储值("@标签")[标签] = true
+end
+
+---@param 标签 别名.技能.标签
+function M:移除_标签(标签)
+    self:获取存储值("@标签")[标签] = nil
+end
+
 ---是否具有标签
----@param tag 别名.技能.标签
+---@param 标签 别名.技能.标签
 ---@return boolean
-function M:是否_具有_标签(tag)
-    return GlobalAPI.has_tag(self.handle, tag)
+function M:是否_具有_标签(标签)
+    return self:获取存储值("@标签")[标签]
+    -- return GlobalAPI.has_tag(self.handle, tag)
 end
 
 ---启用技能
