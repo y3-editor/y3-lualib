@@ -1015,6 +1015,12 @@ function M:set_animation_speed(speed)
     self.handle:api_set_animation_speed(Fix32(speed))
 end
 
+---设置走路动画基准速度
+---@param speed number 速度
+function M:set_base_speed(speed)
+    self.handle:api_set_base_speed(Fix32(speed))
+end
+
 ---添加可贩卖的商品
 ---@param tag_name py.TabName 标签名
 ---@param item_key py.ItemKey 物品id

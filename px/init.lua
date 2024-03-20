@@ -1,3 +1,5 @@
+require "px.develop.command"
+
 调试输出 = log.debug
 调试警告 = log.warn
 调试错误 = log.error

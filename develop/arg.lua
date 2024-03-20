@@ -4,8 +4,8 @@
 ---@class Develop.Arg
 local arg = {}
 
-pcall(function ()
-    if not y3.game.is_debug_mode() then
+pcall(function()
+    if not y3.游戏.is_debug_mode() then
         return
     end
     if not GameAPI.lua_get_start_args then

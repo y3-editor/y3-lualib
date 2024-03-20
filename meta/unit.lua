@@ -877,6 +877,11 @@ function Unit:api_stop_dissolve() end
 ---@param a py.Fixed # a
 function Unit:api_set_ghost_color(r, g, b, a) end
 
+--设置残影颜色(HEX)
+---@param color string # hex
+---@param a py.Fixed # a
+function Unit:api_set_ghost_color_hex(color, a) end
+
 --设置残影时间
 ---@param interval py.Fixed # interval
 ---@param duration py.Fixed # duration
@@ -928,6 +933,10 @@ function Unit:api_set_unit_disk_shadow_size(shadow_size) end
 ---@param color_g number # G
 ---@param color_b number # B
 function Unit:set_unit_outlined_color(color_r, color_g, color_b) end
+
+--设置单位的描边颜色(HEX)
+---@param color string # R
+function Unit:set_unit_outlined_color_hex(color) end
 
 --开关单位描边效果
 ---@param flag boolean # 开关
