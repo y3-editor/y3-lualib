@@ -4,6 +4,45 @@ local console_tips_match = console_tips_match
 ---@class Develop.Console
 local M = {}
 
+---@param code string
+---@return any
+local function runCode(code)
+    local returnedCode = 'return ' .. code
+    local f, err = load(returnedCode, '=console')
+    if not f then
+        f, err = load(code, '=console')
+    end
+    if not f then
+        assert(err)
+        consoleprint(err:gsub('console:1:', 'Error: '))
+        return
+    end
+    local ok, result = pcall(f)
+    if not ok then
+        consoleprint(result)
+        return
+    end
+    local view = y3.inspect(result)
+    if #view > 10000 then
+        view = view:sub(1, 10000) .. '...'
+    end
+    consoleprint(view)
+end
+
+y3.game:event('控制台-输入', function (trg, data)
+    if not y3.game.is_debug_mode() then
+        return
+    end
+    local input = data.str1
+
+    if input:sub(1, 1) == '.' then
+        y3.sync.send('$console', input)
+        return
+    end
+
+    runCode(input)
+end)
+
 y3.sync.onSync('$console', function (input)
     if type(input) ~= 'string' then
         return
@@ -16,18 +55,6 @@ y3.sync.onSync('$console', function (input)
 
     local command = table.remove(strs, 1)
     y3.develop.command.execute(command, table.unpack(strs))
-end)
-
-y3.game:event('控制台-输入', function (trg, data)
-    if not y3.game.is_debug_mode() then
-        return
-    end
-    local input = data.str1
-
-    if input:sub(1, 1) == '.' then
-        y3.sync.send('$console', input)
-        return
-    end
 end)
 
 ---@param inputed string
