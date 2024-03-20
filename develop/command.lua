@@ -2,12 +2,13 @@
 --
 --该功能仅在开发模式有效
 ---@class Develop.Command
-local M = {}
+local M = Class 'Develop.Command'
 
 ---@class Develop.Command.InfoParam
 ---@field onCommand fun(...)
 ---@field needSync? boolean
 ---@field priority? number
+---@field desc? string
 
 ---@class Develop.Command.Info: Develop.Command.InfoParam
 ---@field name string
@@ -26,11 +27,11 @@ function M.register(command, info)
     if type(info) == 'function' then
         info = {
             onCommand = info,
-            priority = 0,
         }
     end
     ---@cast info Develop.Command.Info
     info.name = lname
+    info.priority = info.priority or 0
     M.commands[lname] = info
 end
 
@@ -68,43 +69,50 @@ end
 M.register('RD', {
     needSync = true,
     priority = 100,
+    desc = '重载所有使用 `include` 加载的脚本文件，并清理他们的全局计时器和触发器。',
     onCommand = function ()
         y3.reload.reload()
     end,
 })
 
-M.register('SS', function ()
-    collectgarbage()
-    collectgarbage()
-    local reports = y3.doctor.report()
-    local lines = {}
-    for _, report in ipairs(reports) do
-        lines[#lines+1] = string.format('%16s(%d): %s'
-            , report.point
-            , report.count
-            , report.name
-        )
+M.register('SS', {
+    desc = '生成内存快照',
+    onCommand = function ()
+        collectgarbage()
+        collectgarbage()
+        local reports = y3.doctor.report()
+        local lines = {}
+        for _, report in ipairs(reports) do
+            lines[#lines+1] = string.format('%16s(%d): %s'
+                , report.point
+                , report.count
+                , report.name
+            )
+        end
+        local content = table.concat(lines, '\n')
+        ---@diagnostic disable-next-line: undefined-global
+        py_write_file(lua_script_path .. '/log/snapshot.txt', 'w', content)
+        log.debug('快照已保存到 script/log/snapshot.txt')
     end
-    local content = table.concat(lines, '\n')
-    ---@diagnostic disable-next-line: undefined-global
-    py_write_file(lua_script_path .. '/log/snapshot.txt', 'w', content)
-    log.debug('快照已保存到 script/log/snapshot.txt')
-end)
+})
 
-M.register('CT', function (...)
-    collectgarbage()
-    collectgarbage()
-    local results = y3.doctor.catch(...)
-    local lines = {}
-    for _, result in ipairs(results) do
-        result[1] = 'root'
-        lines[#lines+1] = table.concat(result, '->')
+M.register('CT', {
+    desc = '查询某个对象的引用',
+    onCommand = function (...)
+        collectgarbage()
+        collectgarbage()
+        local results = y3.doctor.catch(...)
+        local lines = {}
+        for _, result in ipairs(results) do
+            result[1] = 'root'
+            lines[#lines+1] = table.concat(result, '->')
+        end
+        local content = table.concat(lines, '\n')
+        ---@diagnostic disable-next-line: undefined-global
+        py_write_file(lua_script_path .. '/log/catch.txt', 'w', content)
+        log.debug('快照已保存到 script/log/catch.txt')
     end
-    local content = table.concat(lines, '\n')
-    ---@diagnostic disable-next-line: undefined-global
-    py_write_file(lua_script_path .. '/log/catch.txt', 'w', content)
-    log.debug('快照已保存到 script/log/catch.txt')
-end)
+})
 
 y3.reload.onBeforeReload(function (reload, willReload)
     remove_all_triggers_in_include(reload)
