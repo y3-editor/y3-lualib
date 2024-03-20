@@ -26,6 +26,14 @@ EventParam.单位-受到伤害后
 ```
 
  获取当前伤害
+## is_critical
+
+```lua
+(method) DamageInstance:is_critical()
+  -> boolean
+```
+
+ 获取当前伤害是否暴击
 ## is_missed
 
 ```lua
@@ -40,6 +48,13 @@ EventParam.单位-受到伤害后
 '伤害前'|'伤害后'|'伤害时'
 ```
 
+## set_critical
+
+```lua
+(method) DamageInstance:set_critical(critical: boolean)
+```
+
+ 设置当前伤害是否暴击
 ## set_damage
 
 ```lua

@@ -13,6 +13,17 @@
 @*param* `key` — 属性key
 
 @*param* `value` — 属性值
+## add_bonus_attribute
+
+```lua
+(method) Item:add_bonus_attribute(key: string, value: number)
+```
+
+增加增益属性
+
+@*param* `key` — 属性key
+
+@*param* `value` — 属性值
 ## add_charge
 
 ```lua
@@ -279,6 +290,16 @@ function Item.get_attribute_by_key(item_key: py.ItemKey, key: string)
 @*param* `key` — 属性key
 
 @*param* `item_key` — 物品类型
+## get_bonus_attribute
+
+```lua
+(method) Item:get_bonus_attribute(key: string)
+  -> number
+```
+
+获取物品的增益属性
+
+@*param* `key` — 属性key
 ## get_by_handle
 
 ```lua
@@ -684,7 +705,7 @@ string?
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -694,7 +715,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua
@@ -728,6 +756,19 @@ unknown
 ```
 
 @*param* `tag` — 标签
+## set_attr
+
+```lua
+(method) Item:set_attr(attr_name: string, value: number, attr_type: string)
+```
+
+设置属性
+
+@*param* `attr_name` — 属性名
+
+@*param* `value` — 属性值
+
+@*param* `attr_type` — 属性类型
 ## set_attribute
 
 ```lua
@@ -735,6 +776,17 @@ unknown
 ```
 
 设置基础属性
+
+@*param* `key` — 属性key
+
+@*param* `value` — 属性值
+## set_bonus_attribute
+
+```lua
+(method) Item:set_bonus_attribute(key: string, value: number)
+```
+
+设置增益属性
 
 @*param* `key` — 属性key
 
@@ -921,6 +973,20 @@ table
 
 ```lua
 string
+```
+
+
+# Item.DrapOperation
+
+```lua
+"无" | "左键" | "右键"
+```
+
+
+# Item.UseOperation
+
+```lua
+"无" | "左键单击" | "右键单击" | "左键双击"
 ```
 
 

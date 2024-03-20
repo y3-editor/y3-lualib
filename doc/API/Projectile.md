@@ -60,6 +60,13 @@ function Projectile.get_by_handle(py_projectile: py.ProjectileEntity)
   -> projectile: Projectile
 ```
 
+## get_by_id
+
+```lua
+function Projectile.get_by_id(id: py.ProjectileID)
+  -> Projectile
+```
+
 ## get_facing
 
 ```lua
@@ -176,7 +183,7 @@ string?
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -186,7 +193,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua

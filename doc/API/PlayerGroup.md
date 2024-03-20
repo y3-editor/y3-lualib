@@ -11,6 +11,29 @@
 添加玩家
 
 @*param* `player` — 玩家
+## clear
+
+```lua
+(method) PlayerGroup:clear()
+```
+
+清空玩家组
+## count
+
+```lua
+(method) PlayerGroup:count()
+  -> integer
+```
+
+获取玩家组中玩家数量
+## create
+
+```lua
+function PlayerGroup.create()
+  -> PlayerGroup
+```
+
+创建空玩家组(3月28号更新后可用)
 ## get_all_players
 
 ```lua
@@ -108,7 +131,7 @@ py.RoleGroup
   -> Player[]
 ```
 
-遍历玩家组中玩家做动作    --不处理遍历
+将玩家组转换为Lua的玩家数组
 ## remove_player
 
 ```lua

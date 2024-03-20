@@ -55,6 +55,21 @@ py.Sfx
 设置动画速度
 
 @*param* `speed` — 速度
+## set_color
+
+```lua
+(method) Particle:set_color(x: number, y: number, z: number, w: number)
+```
+
+设置特效颜色
+
+@*param* `x` — x
+
+@*param* `y` — y
+
+@*param* `z` — z
+
+@*param* `w` — w
 ## set_facing
 
 ```lua
@@ -117,6 +132,15 @@ py.Sfx
 设置持续时间
 
 @*param* `duration` — 持续时间
+## set_visible
+
+```lua
+(method) Particle:set_visible(visible: boolean)
+```
+
+设置特效显示
+
+@*param* `visible` — 开关
 ## type
 
 ```lua

@@ -787,6 +787,15 @@ function Unit.get_by_res_id(res_id: integer)
 ```
 
  获取摆放在场景上的单位
+## get_by_string
+
+```lua
+function Unit.get_by_string(str: string)
+  -> Unit?
+```
+
+根据字符串获取单位，字符串是通过 `tostring(Unit)`
+或是使用ECA中的“任意变量转化为字符串”获得的。
 ## get_cancel_alert_range
 
 ```lua
@@ -1681,7 +1690,7 @@ string?
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -1691,7 +1700,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua
@@ -2077,6 +2093,15 @@ function Unit.set_attr_growth(unit_key: py.UnitKey, attr_name: string, value: nu
 设置物品栏的槽位数
 
 @*param* `number` — 槽位数
+## set_base_speed
+
+```lua
+(method) Unit:set_base_speed(speed: number)
+```
+
+设置走路动画基准速度
+
+@*param* `speed` — 速度
 ## set_behavior
 
 ```lua
@@ -2243,6 +2268,39 @@ function Unit.set_attr_growth(unit_key: py.UnitKey, attr_name: string, value: nu
 设置单位小地图头像
 
 @*param* `img_id` — 单位小地图头像
+## set_move_channel_air
+
+```lua
+(method) Unit:set_move_channel_air(air_limitation?: boolean)
+```
+
+设置单位的移动类型为空中
+
+@*param* `air_limitation` — 空中限制
+## set_move_channel_land
+
+```lua
+(method) Unit:set_move_channel_land(land_limitation?: boolean, item_limitation?: boolean, water_limitation?: boolean)
+```
+
+设置单位的移动类型为地面
+
+@*param* `land_limitation` — 陆地限制
+
+@*param* `item_limitation` — 物件限制
+
+@*param* `water_limitation` — 海洋限制
+## set_move_collision
+
+```lua
+(method) Unit:set_move_collision(collision_layer: integer, enable: boolean)
+```
+
+设置单位是否计算某种碰撞类型
+
+@*param* `collision_layer` — 碰撞mask
+
+@*param* `enable` — 开启状态
 ## set_mp
 
 ```lua
@@ -2354,6 +2412,19 @@ function Unit.set_attr_growth(unit_key: py.UnitKey, attr_name: string, value: nu
 设置转身速度
 
 @*param* `speed` — 转身速度
+## set_unit_scale
+
+```lua
+(method) Unit:set_unit_scale(sx: number, sy: number, sz: number)
+```
+
+设置单位三轴缩放
+
+@*param* `sx` — X轴缩放
+
+@*param* `sy` — Y轴缩放
+
+@*param* `sz` — Z轴缩放
 ## shift_item
 
 ```lua

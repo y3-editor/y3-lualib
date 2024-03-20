@@ -53,7 +53,9 @@ unknown
 Object.Ability
 ```
 
-Class.Base
+技能的物编数据，你可以从里面读取或修改任意物编  
+> 警告：请确保数据类型正确，否则可能导致崩溃  
+> 警告：如果创建过此技能再修改数据，行为是未定义的
 ## data_key
 
 ```lua
@@ -90,7 +92,7 @@ string
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -100,7 +102,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua
@@ -234,7 +243,7 @@ string
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -244,7 +253,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua
@@ -345,7 +361,7 @@ string
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -355,7 +371,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua
@@ -447,7 +470,7 @@ string
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -457,7 +480,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua

@@ -342,7 +342,7 @@ function Buff.get_icon_by_key(buff_key: py.ModifierKey)
 
 ```lua
 (method) Buff:get_owner()
-  -> owner: Unit
+  -> owner: Unit?
 ```
 
 获取魔法效果的携带者
@@ -476,7 +476,7 @@ string?
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -486,7 +486,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua

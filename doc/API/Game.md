@@ -270,6 +270,14 @@ function Game.get_current_game_mode()
 获取当前游戏模式
 
 @*return* `game_mode` — 游戏模式
+## get_current_server_time
+
+```lua
+function Game.get_current_server_time()
+  -> ServerTime
+```
+
+获取当前的服务器时间
 ## get_damage_ratio
 
 ```lua
@@ -291,7 +299,7 @@ function Game.get_day_night_time()
   -> time: number
 ```
 
-获取游戏当前时间
+获取游戏当前昼夜时间
 
 @*return* `time` — 时间
 ## get_event_manager
@@ -378,6 +386,16 @@ function Game.get_icon_id(id: integer)
 ```
 
 根据图片ID获取图片
+## get_obj_icon
+
+```lua
+function Game.get_obj_icon(obj?: Ability|Buff|Item|Unit)
+  -> texture: py.Texture
+```
+
+获取任意对象图片
+
+@*param* `obj` — 单位|物品|技能|魔法效果
 ## get_point_texture
 
 ```lua
@@ -520,6 +538,17 @@ function Game.modify_point_texture(point: Point, terrain_type: integer, range: i
 @*param* `range` — 范围
 
 @*param* `area_type` — 形状
+## on_client_tick
+
+```lua
+function Game.on_client_tick(callback: fun(local_player: Player))
+```
+
+本地客户端每帧回调此函数  
+只能注册一个回调，后注册的会覆盖之前的，
+如有需要请自己在回调中分发
+
+>警告：回调函数是在本地玩家的客户端上执行的，注意避免产生不同步的问题。
 ## pause_game
 
 ```lua
@@ -582,6 +611,14 @@ function Game.replace_area_texture(area: Area, old_texture: integer, new_texture
 @*param* `old_texture` — 纹理类型
 
 @*param* `new_texture` — 纹理类型
+## request_url
+
+```lua
+(method) Game:request_url(url: string, body?: string, callback?: fun(body?: string), options?: HttpRequestOptions)
+```
+
+发送 http 请求，成功或失败都会触发回调，
+成功时回调的参数是 http 返回的 body，失败时回调的参数是 `nil`
 ## restart_game
 
 ```lua
@@ -1344,4 +1381,26 @@ function Game.unreg_sound_area(area: Area)
 注销区域的附近语音频道
 
 @*param* `area` — 区域
+## world_pos_to_camera_pos
+
+```lua
+function Game.world_pos_to_camera_pos(world_pos: Point)
+  -> x: number
+  2. y: number
+```
+
+世界坐标转换屏幕坐标
+
+@*param* `world_pos` — 世界坐标
+
+@*return* `x,y` — 屏幕坐标
+## world_pos_to_screen_edge_pos
+
+```lua
+function Game.world_pos_to_screen_edge_pos(world_pos: Point, delta_dis: number)
+  -> x: number
+  2. y: number
+```
+
+世界坐标转换屏幕边缘坐标
 
