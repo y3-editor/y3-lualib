@@ -244,13 +244,27 @@ local function mergeAndRemoveDuplicate(...)
     return result
 end
 
----@param inputed string
+---@param input string
 ---@return string[]
-local function requestWords(inputed)
-    local nearestTokens = inputed:match '[%w_%.%:%s]*$'
+local function parseWords(input)
+    local nearestTokens = input:match '[%w_%.%:%s]*$'
     local tokens = {}
-    for word in nearestTokens:gmatch '[%w_.%:]+' do
-        tokens[#tokens+1] = word
+    local pos = 1
+    for _ = 1, 10000 do
+        pos = nearestTokens:match('()%S', pos) or pos
+        if pos > #nearestTokens then
+            break
+        end
+        local word = nearestTokens:match('[%a_][%w_]*', pos)
+        if word then
+            tokens[#tokens+1] = word
+            pos = pos + #word
+        end
+        local symbol = nearestTokens:match('[%.%:]', pos)
+        if symbol then
+            tokens[#tokens+1] = symbol
+            pos = pos + #symbol
+        end
     end
     if #tokens == 0 then
         return {}
@@ -280,6 +294,13 @@ local function requestWords(inputed)
         end
     end
     y3.util.revertArray(words)
+    return words
+end
+
+---@param inputed string
+---@return string[]
+local function requestWords(inputed)
+    local words = parseWords(inputed)
     local result1 = requestWordsByField(words)
     local result2 = requestWordsByKeyWord(words)
     local mergedResult = mergeAndRemoveDuplicate(result1, result2)
