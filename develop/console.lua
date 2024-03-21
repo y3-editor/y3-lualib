@@ -102,17 +102,191 @@ y3.sync.onSync('$run', function (code)
     runCode(code)
 end)
 
+---@param word string
+---@return table<string, true>
+local function getUsedCharsSet(word)
+    local usedChars = {}
+    for i = 1, #word do
+        usedChars[word:sub(i, i)] = true
+    end
+    return usedChars
+end
+
 ---@param inputed string
 ---@param candidates string[]
 ---@return string[]
 local function filterOut(inputed, candidates)
-    local completes = {}
     local lownerInputed = inputed:lower()
+    local inputChars = getUsedCharsSet(lownerInputed)
+    local completes = {}
     for _, word in ipairs(candidates) do
-        local fullWord = word
-        if y3.util.stringStartWith(fullWord:lower(), lownerInputed) then
-            completes[#completes+1] = fullWord
+        local lword = word:lower()
+        local wordChars = getUsedCharsSet(lword)
+        local notMatch = false
+        for char in pairs(inputChars) do
+            if not wordChars[char] then
+                notMatch = true
+                break
+            end
         end
+        if not notMatch then
+            completes[#completes+1] = word
+        end
+    end
+
+    if #completes == 0 then
+        return completes
+    end
+
+    local getMatchScore = (function ()
+        local cache = {}
+        ---@param word string
+        ---@return integer
+        return function (word)
+            if not cache[word] then
+                local score = - #word
+                for i = 1, #inputed do
+                    if inputed:sub(i, i) == word:sub(i, i) then
+                        if i == 1 then
+                            score = score + 1000
+                        else
+                            score = score + 100
+                        end
+                    elseif lownerInputed:sub(i, i) == word:lower():sub(i, i) then
+                        if i == 1 then
+                            score = score + 100
+                        else
+                            score = score + 1
+                        end
+                    else
+                        break
+                    end
+                end
+                cache[word] = score
+            end
+            return cache[word]
+        end
+    end)()
+
+    table.sort(completes, function (a, b)
+        return getMatchScore(a) > getMatchScore(b)
+    end)
+
+    if getMatchScore(completes[1]) >= 100 then
+        for i = 1, #completes do
+            if getMatchScore(completes[i]) < 100 then
+                completes[i] = nil
+            end
+        end
+    end
+
+    return completes
+end
+
+local function getFieldsOf(t)
+    local fields = {}
+    for k in pairs(t) do
+        if type(k) == 'string' then
+            fields[k] = true
+        end
+    end
+
+    local mtMark = {}
+    local function lookIntoMetaTable(mt)
+        if mtMark[mt] then
+            return
+        end
+        if type(mt) == 'table' and type(mt.__index) == 'table' then
+            for k in pairs(mt.__index) do
+                if type(k) == 'string' then
+                    fields[k] = true
+                end
+            end
+            lookIntoMetaTable(getmetatable(mt.__index))
+        end
+    end
+
+    lookIntoMetaTable(getmetatable(t))
+
+    return y3.util.getTableKeys(fields, true)
+end
+
+local function requestWordsByField(words)
+    local current = _G
+    for i = 1, #words - 1 do
+        current = current[words[i]]
+        if type(current) ~= 'table' then
+            return {}
+        end
+    end
+    local fields = getFieldsOf(current)
+    return fields
+end
+
+local function requestWordsByKeyWord(words)
+    if #words > 1 then
+        return {}
+    end
+    return {'if', 'else', 'elseif', 'for', 'while', 'repeat', 'until', 'function', 'local', 'return', 'break', 'do', 'end', 'then', 'in', 'nil', 'true', 'false', 'and', 'or', 'not'}
+end
+
+local function mergeAndRemoveDuplicate(...)
+    local result = {}
+    local mark = {}
+    for _, words in ipairs({...}) do
+        for _, word in ipairs(words) do
+            if not mark[word] then
+                mark[word] = true
+                result[#result+1] = word
+            end
+        end
+    end
+    return result
+end
+
+---@param inputed string
+---@return string[]
+local function requestWords(inputed)
+    local nearestTokens = inputed:match '[%w_%.%:%s]*$'
+    local tokens = {}
+    for word in nearestTokens:gmatch '[%w_.%:]+' do
+        tokens[#tokens+1] = word
+    end
+    if #tokens == 0 then
+        return {}
+    end
+    local words = {}
+    local expectSymbol, expectWord
+    for i = #tokens, 1, -1 do
+        if tokens[i] == '.'
+        or tokens[i] == ':' then
+            if expectWord then
+                break
+            end
+            expectSymbol = false
+            expectWord = true
+            if i == #tokens then
+                words[#words+1] = ''
+            end
+        elseif tokens[i]:match '[%w_]+' then
+            if expectSymbol then
+                break
+            end
+            expectSymbol = true
+            expectWord = false
+            words[#words+1] = tokens[i]
+        else
+            break
+        end
+    end
+    y3.util.revertArray(words)
+    local result1 = requestWordsByField(words)
+    local result2 = requestWordsByKeyWord(words)
+    local mergedResult = mergeAndRemoveDuplicate(result1, result2)
+    local resultFields = filterOut(words[#words], mergedResult)
+    local completes = {}
+    for i, field in ipairs(resultFields) do
+        completes[i] = inputed:sub(1, -#words[#words] - 1) .. field
     end
     return completes
 end
@@ -122,6 +296,10 @@ y3.game:event('控制台-请求补全', function (trg, data)
         return
     end
     local input = data.str1
+
+    if input == '?' then
+        return
+    end
 
     if input:sub(1, 1) == '.' then
         local commands = y3.develop.command.getAllCommands()
@@ -133,6 +311,9 @@ y3.game:event('控制台-请求补全', function (trg, data)
         console_tips_match(table.concat(completes, ','))
         return
     end
+
+    local completes = requestWords(input)
+    console_tips_match(table.concat(completes, ','))
 end)
 
 consoleprint(getHelpInfo())
