@@ -103,11 +103,12 @@ y3.sync.onSync('$run', function (code)
 end)
 
 ---@param word string
----@return table<string, true>
+---@return table<string, integer>
 local function getUsedCharsSet(word)
     local usedChars = {}
     for i = 1, #word do
-        usedChars[word:sub(i, i)] = true
+        local c = word:sub(i, i)
+        usedChars[c] = (usedChars[c] or 0) + 1
     end
     return usedChars
 end
@@ -123,8 +124,8 @@ local function filterOut(inputed, candidates)
         local lword = word:lower()
         local wordChars = getUsedCharsSet(lword)
         local notMatch = false
-        for char in pairs(inputChars) do
-            if not wordChars[char] then
+        for char, count in pairs(inputChars) do
+            if (wordChars[char] or 0) < count then
                 notMatch = true
                 break
             end
