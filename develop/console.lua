@@ -117,6 +117,9 @@ end
 ---@param candidates string[]
 ---@return string[]
 local function filterOut(inputed, candidates)
+    if not inputed then
+        return {}
+    end
     local lownerInputed = inputed:lower()
     local inputChars = getUsedCharsSet(lownerInputed)
     local completes = {}
@@ -249,6 +252,9 @@ end
 ---@return string[]
 local function parseWords(input)
     local nearestTokens = input:match '[%w_%.%:%s]*$'
+    if nearestTokens:match '^%s*[%.%:]' then
+        return {}
+    end
     local tokens = {}
     local pos = 1
     for _ = 1, 10000 do
@@ -256,15 +262,15 @@ local function parseWords(input)
         if pos > #nearestTokens then
             break
         end
-        local word = nearestTokens:match('[%a_][%w_]*', pos)
+        local word, newPos = nearestTokens:match('([%a_][%w_]*)()', pos)
         if word then
             tokens[#tokens+1] = word
-            pos = pos + #word
+            pos = newPos
         end
-        local symbol = nearestTokens:match('[%.%:]', pos)
+        local symbol, newPos = nearestTokens:match('([%.%:])()', pos)
         if symbol then
             tokens[#tokens+1] = symbol
-            pos = pos + #symbol
+            pos = newPos
         end
     end
     if #tokens == 0 then
@@ -330,12 +336,12 @@ y3.game:event('控制台-请求补全', function (trg, data)
             words[#words+1] = '.' .. comman
         end
         local completes = filterOut(input, words)
-        console_tips_match(table.concat(completes, ','))
+        console_tips_match(table.concat(completes, '\x01'))
         return
     end
 
     local completes = requestWords(input)
-    console_tips_match(table.concat(completes, ','))
+    console_tips_match(table.concat(completes, '\x01'))
 end)
 
 consoleprint(getHelpInfo())
