@@ -399,9 +399,9 @@ end
 
 --设置文本颜色
 ---@param r number 红色
----@param g number 红色
----@param b number 红色
----@param a number 红色
+---@param g number 绿色
+---@param b number 蓝色
+---@param a number 透明度
 ---@return self
 function M:set_text_color(r,g,b,a)
     GameAPI.set_ui_comp_font_color(self.player.handle, self.handle, r, g, b, a)
