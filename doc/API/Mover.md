@@ -83,6 +83,12 @@ function Mover.mover_target(mover_unit: Projectile|Unit, mover_data: Mover.Creat
 table
 ```
 
+## wrap_base_args
+
+```lua
+function Mover.wrap_base_args(builder: py.MoverBaseBuilder, args: Mover.CreateData.Base)
+```
+
 ## wrap_callbacks
 
 ```lua
@@ -151,6 +157,13 @@ boolean
 ```
 
 是否使用绝对高度
+## block_interval
+
+```lua
+number
+```
+
+触发地形阻挡事件的间隔
 ## face_angle
 
 ```lua
@@ -158,6 +171,13 @@ boolean
 ```
 
 是否始终面向运动方向
+## hit_interval
+
+```lua
+number
+```
+
+碰撞同一个单位的间隔
 ## hit_radius
 
 ```lua
@@ -178,7 +198,7 @@ boolean
 integer
 ```
 
-碰撞类型
+碰撞类型 0： 敌人；1： 盟友；2： 全部
 ## on_block
 
 ```lua
@@ -228,6 +248,13 @@ boolean
 ```
 
 是否会被地形阻挡
+## unit
+
+```lua
+Unit
+```
+
+关联单位
 
 # Mover.CreateData.Curve
 
@@ -259,6 +286,13 @@ number
 ```
 
 运动方向
+## block_interval
+
+```lua
+number
+```
+
+触发地形阻挡事件的间隔
 ## distance
 
 ```lua
@@ -280,6 +314,13 @@ number
 ```
 
 终点高度
+## hit_interval
+
+```lua
+number
+```
+
+碰撞同一个单位的间隔
 ## hit_radius
 
 ```lua
@@ -300,7 +341,7 @@ boolean
 integer
 ```
 
-碰撞类型
+碰撞类型 0： 敌人；1： 盟友；2： 全部
 ## init_height
 
 ```lua
@@ -385,6 +426,13 @@ boolean
 ```
 
 是否会被地形阻挡
+## unit
+
+```lua
+Unit
+```
+
+关联单位
 
 # Mover.CreateData.Line
 
@@ -416,6 +464,13 @@ number
 ```
 
 运动方向
+## block_interval
+
+```lua
+number
+```
+
+触发地形阻挡事件的间隔
 ## distance
 
 ```lua
@@ -437,6 +492,13 @@ number
 ```
 
 终点高度
+## hit_interval
+
+```lua
+number
+```
+
+碰撞同一个单位的间隔
 ## hit_radius
 
 ```lua
@@ -457,7 +519,7 @@ boolean
 integer
 ```
 
-碰撞类型
+碰撞类型 0： 敌人；1： 盟友；2： 全部
 ## init_height
 
 ```lua
@@ -542,6 +604,13 @@ boolean
 ```
 
 是否会被地形阻挡
+## unit
+
+```lua
+Unit
+```
+
+关联单位
 
 # Mover.CreateData.Round
 
@@ -566,6 +635,13 @@ number
 ```
 
 环绕速度
+## block_interval
+
+```lua
+number
+```
+
+触发地形阻挡事件的间隔
 ## clock_wise
 
 ```lua
@@ -587,6 +663,13 @@ number
 ```
 
 环绕高度
+## hit_interval
+
+```lua
+number
+```
+
+碰撞同一个单位的间隔
 ## hit_radius
 
 ```lua
@@ -607,7 +690,7 @@ boolean
 integer
 ```
 
-碰撞类型
+碰撞类型 0： 敌人；1： 盟友；2： 全部
 ## init_angle
 
 ```lua
@@ -706,6 +789,13 @@ boolean
 ```
 
 是否会被地形阻挡
+## unit
+
+```lua
+Unit
+```
+
+关联单位
 
 # Mover.CreateData.Target
 
@@ -737,6 +827,13 @@ string
 ```
 
 绑定点
+## block_interval
+
+```lua
+number
+```
+
+触发地形阻挡事件的间隔
 ## face_angle
 
 ```lua
@@ -751,6 +848,13 @@ number
 ```
 
 初始高度
+## hit_interval
+
+```lua
+number
+```
+
+碰撞同一个单位的间隔
 ## hit_radius
 
 ```lua
@@ -771,7 +875,7 @@ boolean
 integer
 ```
 
-碰撞类型
+碰撞类型 0： 敌人；1： 盟友；2： 全部
 ## max_speed
 
 ```lua
@@ -863,4 +967,11 @@ boolean
 ```
 
 是否会被地形阻挡
+## unit
+
+```lua
+Unit
+```
+
+关联单位
 

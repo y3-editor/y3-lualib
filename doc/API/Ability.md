@@ -497,7 +497,7 @@ function Ability.get_str_attr_by_key(ability_key: py.AbilityKey, key: py.Ability
 ## get_string_attr
 
 ```lua
-(method) Ability:get_string_attr(key: py.AbilityStrAttr)
+(method) Ability:get_string_attr(key: string)
   -> value: string
 ```
 
@@ -558,6 +558,16 @@ function Ability.hide_pointer(player: Player)
 integer
 ```
 
+## is_autocast_enabled
+
+```lua
+(method) Ability:is_autocast_enabled()
+  -> is_enabled: boolean
+```
+
+自动施法是否开启
+
+@*return* `is_enabled` — 是否开启
 ## is_cd_reduce
 
 ```lua
@@ -623,7 +633,7 @@ string?
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -633,7 +643,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua

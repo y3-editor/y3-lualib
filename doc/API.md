@@ -12,10 +12,6 @@
 
 会在施法相关的事件中传递
 
-# [Command](API/Command.md) 作弊指令
-
-该功能仅在开发模式有效
-
 # [Config](API/Config.md) 配置
 
 可以设置日志、同步等相关的配置
@@ -26,6 +22,8 @@
 
 # [Destructible](API/Destructible.md) 可破坏物
 
+# [Develop](API/Develop.md) 
+
 # [ECAFunction](API/ECAFunction.md) 注册ECA函数
 
 可以使用该功能让lua函数在ECA中被调用。
@@ -33,6 +31,10 @@
 # [EditorObject](API/EditorObject.md)  物体编辑器
 
 # [Enum](API/Enum.md) 
+
+# [FuncUtil](API/FuncUtil.md) 
+
+# [GCBuffer](API/GCBuffer.md) 
 
 # [Game](API/Game.md) 游戏接口
 
@@ -44,6 +46,8 @@
 
 在治疗相关的事件中传递
 
+# [HttpRequestOptions](API/HttpRequestOptions.md) 
+
 # [Item](API/Item.md) 物品
 
 # [ItemGroup](API/ItemGroup.md) 物品组
@@ -51,6 +55,8 @@
 # [Light](API/Light.md) 光照
 
 用来修改光照、阴影等效果
+
+# [LocalPlayer](API/LocalPlayer.md) 
 
 # [LocalTimer](API/LocalTimer.md) 本地计时器
 
@@ -61,6 +67,71 @@
 均使用角度制
 
 # [Mover](API/Mover.md) 
+
+# [NPBehave](API/NPBehave.md) 
+
+# [NPBehaveBlackboardType](API/NPBehaveBlackboardType.md) ```lua
+
+{
+    Add: string = Add,
+    Remove: string = Remove,
+    Change: string = Change,
+}
+```
+
+# [NPBehaveClassName](API/NPBehaveClassName.md) ```lua
+
+{
+    Node: string = NPBehave.Node,
+    Root: string = NPBehave.Root,
+    Decorator: string = NPBehave.Decorator.Decorator,
+    ObservingDecorator: string = NPBehave.Decorator.ObservingDecorator,
+    BlackboardCondition: string = NPBehave.Decorator.BlackboardCondition,
+    Service: string = NPBehave.Decorator.Service,
+    BlackboardQuery: string = NPBehave.Decorator.BlackboardQuery,
+    Condition: string = NPBehave.Decorator.Condition,
+    Cooldown: string = NPBehave.Decorator.Cooldown,
+    Failer: string = NPBehave.Decorator.Failer,
+    Hook: string = NPBehave.Decorator.Hook,
+    Inverter: string = NPBehave.Decorator.Inverter,
+    Observer: string = NPBehave.Decorator.Observer,
+    Random: string = NPBehave.Decorator.Random,
+    Repeater: string = NPBehave.Decorator.Repeater,
+    Succeeder: string = NPBehave.Decorator.Succeeder,
+    TimeMax: string = NPBehave.Decorator.TimeMax,
+    TimeMin: string = NPBehave.Decorator.TimeMin,
+    WaitForCondition: string = NPBehave.Decorator.WaitForCondition,
+    Composite: string = NPBehave.Composite.Composite,
+    Sequence: string = NPBehave.Composite.Sequence,
+    Parallel: string = NPBehave.Composite.Parallel,
+    Selector: string = NPBehave.Composite.Selector,
+    RandomSelector: string = NPBehave.Composite.RandomSelector,
+    RandomSequence: string = NPBehave.Composite.RandomSequence,
+    Action: string = NPBehave.Task.Action,
+    Task: string = NPBehave.Task.Task,
+    WaitUntilStopped: string = NPBehave.Task.WaitUntilStopped,
+    Wait: string = NPBehave.Task.Wait,
+}
+```
+
+# [NPBehaveTaskActionRequest](API/NPBehaveTaskActionRequest.md) ```lua
+
+{
+    Start: string = Start,
+    Update: string = Update,
+    Cancel: string = Cancel,
+}
+```
+
+# [NPBehaveTaskActionResult](API/NPBehaveTaskActionResult.md) ```lua
+
+{
+    Success: string = Success,
+    Failed: string = Failed,
+    Blocked: string = Blocked,
+    Progress: string = Progress,
+}
+```
 
 # [Particle](API/Particle.md) 粒子特效
 
@@ -82,15 +153,21 @@
 
 # [Road](API/Road.md) 路径
 
+# [SandBox](API/SandBox.md) 
+
 # [SaveData](API/SaveData.md) 存档
 
 # [Selector](API/Selector.md) 选取器
 
 用来选取某个区域内的单位
 
+# [ServerTime](API/ServerTime.md) 
+
 # [Shape](API/Shape.md) 形状
 
 # [Sound](API/Sound.md) 声音
+
+# [Sync](API/Sync.md)  将本地数据同步给所有玩家
 
 # [Technology](API/Technology.md) 科技
 

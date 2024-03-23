@@ -45,6 +45,13 @@ fun(level: Log.Level, message: string, timeStamp: string):boolean
 ```
 
 自定义的日志处理函数，返回 `true` 将阻止默认的日志处理。在处理函数的执行过程中会屏蔽此函数。
+## toConsole
+
+```lua
+boolean
+```
+
+是否打印到控制台中，默认为 `true`
 ## toDialog
 
 ```lua
@@ -52,6 +59,13 @@ boolean
 ```
 
 是否打印到Dialog窗口，默认为 `true`
+## toFile
+
+```lua
+boolean
+```
+
+是否打印到文件中，默认为 `true`
 ## toGame
 
 ```lua

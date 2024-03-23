@@ -116,9 +116,8 @@ local function fixGC()
             collectgarbage("step", math.ceil(delta))
         end
     end)
+
+    fixGC()
 end
-
-fixGC()
-
 
 include "y3.px.init"

@@ -11,6 +11,13 @@
 添加单位
 
 @*param* `unit` — 单位
+## clear
+
+```lua
+(method) UnitGroup:clear()
+```
+
+清空单位组
 ## count
 
 ```lua
@@ -31,6 +38,14 @@
 单位组中单位类型的数量
 
 @*return* `num_of_unit` — 单位类型的数量
+## create
+
+```lua
+function UnitGroup.create()
+  -> UnitGroup
+```
+
+创建空单位组(3月28号更新后可用)
 ## get_by_handle
 
 ```lua
@@ -82,7 +97,7 @@ py.UnitGroup
   -> Unit[]
 ```
 
-遍历单位组中单位做动作
+将单位组转换为Lua的单位数组
 ## pick_by_key
 
 ```lua

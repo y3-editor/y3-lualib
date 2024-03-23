@@ -66,6 +66,17 @@ EventManager?
 @*param* `msg` — 消息
 
 @*param* `localize` — 是否支持语言环境
+## display_message
+
+```lua
+(method) Player:display_message(message: string, localize: boolean)
+```
+
+ 对玩家显示文本消息
+
+@*param* `message` — 消息
+
+@*param* `localize` — 是否支持语言环境
 ## enable_vignetting
 
 ```lua
@@ -256,6 +267,15 @@ function Player.get_by_id(id: integer)
 @*param* `id` — 玩家ID
 
 @*return* `player` — 玩家
+## get_by_string
+
+```lua
+function Player.get_by_string(str: string)
+  -> Player?
+```
+
+根据字符串获取玩家，字符串是通过 `tostring(Player)`
+或是使用ECA中的“任意变量转化为字符串”获得的。
 ## get_camp
 
 ```lua
@@ -263,6 +283,14 @@ function Player.get_by_id(id: integer)
   -> py.Camp
 ```
 
+## get_color
+
+```lua
+(method) Player:get_color()
+  -> HEX颜色: string
+```
+
+获取玩家颜色
 ## get_controller
 
 ```lua
@@ -302,6 +330,8 @@ function Player.get_local()
 
  获取本地玩家，注意这可能会导致不同步！  
 > 警告：如果你不确定这个函数在做什么，请不要使用它！
+
+> 已废弃：请改用 `y3.player.with_local`
 ## get_mouse_pos
 
 ```lua
@@ -709,7 +739,7 @@ string?
 ## kv_load
 
 ```lua
-(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|KV.SupportTypeEnum)
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
   -> any
 ```
 
@@ -719,7 +749,14 @@ lua_type:
     | 'number'
     | 'integer'
     | 'string'
+    | 'table'
 ```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
 ## kv_save
 
 ```lua
@@ -1009,4 +1046,23 @@ string
 @*param* `count` — 个数
 
 @*param* `item_id` — 平台道具id
+## with_local
+
+```lua
+function Player.with_local(callback: fun(local_player: Player))
+```
+
+在本地玩家环境中执行代码。  
+在开发模式中会阻止这些代码修改上值、修改全局变量、调用同步函数，因此也会产生额外的开销。  
+在平台上不会检测，也不会有额外开销。
+
+---
+
+
+```lua
+y3.player.with_local(function (local_player)
+    -- 在此回调函数中修改上值、修改全局变量、调用同步函数会给出警告
+    print(local_player)
+end)
+```
 

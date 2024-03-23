@@ -242,6 +242,12 @@ table
 table
 ```
 
+## UIButtonStatus
+
+```lua
+table
+```
+
 ## UIComponentType
 
 ```lua
@@ -883,6 +889,30 @@ y3.Const.ShiftSlotTypeAlias:
 ```
 
 
+# y3.Const.UIButtonStatus
+
+```lua
+{
+    常态: integer = 1,
+    悬浮: integer = 2,
+    按下: integer = 3,
+    禁用: integer = 4,
+}
+```
+
+
+# y3.Const.UIButtonStatus.常态
+
+
+# y3.Const.UIButtonStatus.悬浮
+
+
+# y3.Const.UIButtonStatus.按下
+
+
+# y3.Const.UIButtonStatus.禁用
+
+
 # y3.Const.UIComponentType
 
 ```lua
@@ -919,20 +949,23 @@ y3.Const.UIComponentType:
 
 ```lua
 y3.Const.UIEvent:
-    | '空'
-    | '点击-开始'
-    | '点击-结束'
-    | '点击-持续'
-    | '鼠标-双击'
+    | '左键-按下'
+    | '左键-抬起'
+    | '左键-点击'
+    | '左键-双击'
     | '鼠标-悬停'
     | '鼠标-移入'
     | '鼠标-移出'
     | '鼠标-右击'
+    | '右键-按下'
+    | '右键-抬起'
+    | '右键-点击'
+    | '右键-双击'
 ```
 
 
 ```lua
-'点击-开始'|'点击-持续'|'点击-结束'|'空'|'鼠标-双击'...(+4)
+'右键-双击'|'右键-抬起'|'右键-按下'|'右键-点击'|'左键-双击'...(+7)
 ```
 
 

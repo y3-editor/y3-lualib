@@ -43,6 +43,21 @@ event.ET_LOADING_END = {}
 --重启客户端追帧完成
 event.ET_RELAUNCH_FRAME_CATCHING_FINISHED = {}
 
+---@class EventParam.ET_GAME_SNAPSHOT_MISMATCH
+---@field int1 integer # 不同步帧号
+
+--快照不同步
+event.ET_GAME_SNAPSHOT_MISMATCH = {
+    [1] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "不同步帧号",
+        lua_desc = "不同步帧号",
+    },
+}
+
 ---@class EventParam.ET_RECV_TRIGGER
 ---@field trigger_id py.TriggerID # 触发器id
 
@@ -5113,6 +5128,48 @@ event.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT = {
         lua_type = "boolean",
         desc = "是否拖拽开始",
         lua_desc = "是否拖拽开始",
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field bool1 boolean # 自定义信息
+
+--ui复选框事件
+event.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__bool1",
+        type = "boolean",
+        lua_name = "bool1",
+        lua_type = "boolean",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
     },
 }
 

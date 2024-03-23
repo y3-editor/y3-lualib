@@ -1146,6 +1146,10 @@ function Unit:api_create_building_on_point(build_key, point) end
 ---@param pos_z py.Fixed # 坐标Z
 function Unit:api_create_building_on_position(build_key, pos_x, pos_z) end
 
+--获取单位攻击间隔
+---@return py.Fixed # 攻击间隔
+function Unit:api_get_unit_attack_interval() end
+
 --单位是否拥有物品
 ---@param item py.Item # 物品
 ---@return boolean # 单位是否拥有物品
@@ -1158,8 +1162,9 @@ function Unit:api_has_item_key(item_no) end
 
 --给单位添加物品名
 ---@param item_no py.ItemKey # 物品编号
+---@param slot_type? py.SlotType # 槽位类型
 ---@return py.Item # 创建的物品实体
-function Unit:api_add_item(item_no) end
+function Unit:api_add_item(item_no, slot_type) end
 
 --给单位删除物品名
 ---@param item_key py.ItemKey # 物品编号

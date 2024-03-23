@@ -1824,6 +1824,18 @@ function GameAPI.get_page_view_current_index(role, comp_uid) end
 ---@return integer # 索引值
 function GameAPI.get_page_view_click_index(role, comp_uid) end
 
+--获取复选框当前选中状态
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@return boolean # 当前选中状态
+function GameAPI.get_checkbox_selected(role, comp_name) end
+
+--设置复选框当前选中状态
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@param is_selected boolean # 选中状态
+function GameAPI.set_checkbox_selected(role, comp_name, is_selected) end
+
 --创建新单位物编
 ---@param old_entity_no py.UnitKey # 单位物编
 ---@return py.UnitKey # 单位物编key
@@ -3445,6 +3457,12 @@ function GameAPI.camera_set_param_roll(role, roll, move_time) end
 ---@param move_time? py.Fixed # 时间
 function GameAPI.camera_set_param_pitch(role, pitch, move_time) end
 
+--设置镜头跟随单位缓动
+---@param role py.Role # 玩家
+---@param enable boolean # 缓动开关
+---@param inertia_coeff? py.Fixed # 缓动速率
+function GameAPI.set_follow_placer_enable_inertia(role, enable, inertia_coeff) end
+
 --设置镜头参数yaw
 ---@param role py.Role # 玩家
 ---@param yaw py.Fixed # 导航角
@@ -3690,6 +3708,41 @@ function GameAPI.show_msg_to_role(role, text, localize) end
 ---@param camp_id py.CampID # 阵营编号
 ---@param result string # 结束信息
 function GameAPI.show_game_end_ui_by_camp_id(camp_id, result) end
+
+--调试-绘制球形
+---@param x py.Fixed # x坐标
+---@param y py.Fixed # y坐标
+---@param z py.Fixed # z坐标
+---@param radius py.Fixed # 半径
+---@param duration? py.Fixed # 持续时间
+---@param color? string # 绘制颜色
+function GameAPI.debug_draw_sphere(x, y, z, radius, duration, color) end
+
+--调试-绘制圆柱
+---@param point py.Point # 底部中心点
+---@param radius py.Fixed # 半径
+---@param height py.Fixed # 高度
+---@param duration? py.Fixed # 持续时间
+---@param color? string # 绘制颜色
+function GameAPI.debug_draw_cylinder(point, radius, height, duration, color) end
+
+--调试-绘制立方体
+---@param rect py.RecArea # 矩形区域
+---@param height py.Fixed # 高度
+---@param duration? py.Fixed # 持续时间
+---@param color? string # 绘制颜色
+function GameAPI.debug_draw_box(rect, height, duration, color) end
+
+--调试-绘制线段
+---@param point1_x py.Fixed # x1坐标
+---@param point1_y py.Fixed # y1坐标
+---@param point1_z py.Fixed # z1坐标
+---@param point2_x py.Fixed # x2坐标
+---@param point2_y py.Fixed # y2坐标
+---@param point2_z py.Fixed # z2坐标
+---@param duration? py.Fixed # 持续时间
+---@param color? string # 绘制颜色
+function GameAPI.debug_draw_polyline(point1_x, point1_y, point1_z, point2_x, point2_y, point2_z, duration, color) end
 
 --范围内随机整数
 ---@param min_num integer # 最小值
@@ -5249,3 +5302,22 @@ function GameAPI.platform_http_request(api, is_post, data) end
 ---@param args py.List # 自定义参数
 ---@return string # 玩家全量昵称
 function GameAPI.save_anticheat_data(role, args) end
+
+--剔除字符串内富文本信息
+---@param rich_text string # 富文本
+---@return string # 普通文本
+function GameAPI.get_plain_text_from_rich_text(rich_text) end
+
+--点是否在圆形范围内
+---@param check_point py.Point # 待检查的点
+---@param center_point py.Point # 中心点
+---@param radius py.Fixed # 半径
+---@return boolean # 布尔值
+function GameAPI.api_is_point_in_circle_area(check_point, center_point, radius) end
+
+--点是否在矩形范围内
+---@param check_point py.Point # 待检查的点
+---@param bottom_left py.Point # 左下角
+---@param upper_right py.Point # 右上角
+---@return boolean # 布尔值
+function GameAPI.api_is_point_in_rect_area(check_point, bottom_left, upper_right) end
