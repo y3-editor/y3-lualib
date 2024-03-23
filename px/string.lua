@@ -26,7 +26,7 @@ end
 ---@param 原文本 string
 ---@param 检查文本 string[]
 ---@return boolean 包含任意一个返回true
-function 字符串.是否包含文本P(原文本, 检查文本)
+function 字符串.是否包含多个文本(原文本, 检查文本)
     for index, value in ipairs(检查文本) do
         -- print(index, value)
         -- if string.find(原文本, value) then
@@ -142,7 +142,7 @@ function 字符串.取左边文本(文本, 模板, 包含模板)
         end
         return 字符串.替换(s, 模板, "")
     end
-    return nil
+    return 文本
 end
 
 ---@param 文本 string
@@ -156,7 +156,7 @@ function 字符串.取右边文本(文本, 模板, 包含模板)
         end
         return 字符串.替换(s, 模板, "")
     end
-    return nil
+    return 文本
 end
 
 ---@param 文本 string
@@ -242,6 +242,5 @@ end
     end
     return 返回内容
 end
-
 
 return 字符串

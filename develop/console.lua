@@ -29,7 +29,7 @@ local function runCode(code)
     consoleprint(view)
 end
 
-y3.游戏:event("控制台-输入", function(trg, data)
+y3.游戏:事件("控制台-输入", function(trg, data)
     if not y3.游戏.是否为调试模式() then
         return
     end
@@ -72,7 +72,7 @@ local function filterOut(inputed, candidates)
     return completes
 end
 
-y3.游戏:event("控制台-请求补全", function(trg, data)
+y3.游戏:事件("控制台-请求补全", function(trg, data)
     if not y3.游戏.是否为调试模式() then
         return
     end

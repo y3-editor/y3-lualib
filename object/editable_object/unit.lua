@@ -18,7 +18,6 @@ Extends("Unit", "ObjectEvent")
 ---@class Unit: KV
 Extends("Unit", "KV")
 
-
 ---@private
 function M:__tostring()
     return string.format("{unit|%s|%s}"
@@ -178,7 +177,7 @@ function M:获取_所有魔法效果()
     local buffs = {}
     local py_list = self.handle:api_get_all_modifiers()
     for i = 0, python_len(py_list) - 1 do
-        local lua_buff = y3.魔法效果.get_by_handle(python_index(py_list, i))
+        local lua_buff = y3.魔法效果.获取于HD(python_index(py_list, i))
         buffs[#buffs + 1] = lua_buff
     end
     return buffs
@@ -368,21 +367,15 @@ end
 
 ---添加状态
 ---@type y3.Const.单位状态[]
----@param ... y3.Const.单位状态
-function M:添加状态(...)
-    ---@diagnostic disable-next-line: param-type-mismatch
-    for index, value in ipairs(table.pack(...)) do
-        self.handle:api_add_state(y3.const.单位状态[value])
-    end
+---@param 状态 y3.Const.单位状态
+function M:添加状态(状态)
+    self.handle:api_add_state(y3.const.单位状态[状态])
 end
 
 ---移除状态
----@param ... y3.Const.单位状态
-function M:移除状态(...)
-    ---@diagnostic disable-next-line: param-type-mismatch
-    for index, value in ipairs(table.pack(...)) do
-        self.handle:api_remove_state(y3.const.单位状态[value])
-    end
+---@param 状态 y3.Const.单位状态
+function M:移除状态(状态)
+    self.handle:api_remove_state(y3.const.单位状态[状态])
 end
 
 ---添加状态
@@ -1081,7 +1074,7 @@ function M:添加_魔法效果(data)
     if not py_buff then
         return nil
     end
-    return y3.魔法效果.get_by_handle(py_buff)
+    return y3.魔法效果.获取于HD(py_buff)
 end
 
 ---单位移除所有指定id的魔法效果
@@ -1091,7 +1084,7 @@ function M:remove_buffs_by_key(buff_key)
 end
 
 ---单位移除所有指定类型的魔法效果
----@param effect_type y3.Const.EffectType 影响类型的魔法效果
+---@param effect_type y3.Const.魔法影响类型 影响类型的魔法效果
 function M:remove_buffs_by_effect_type(effect_type)
     self.handle:api_delete_all_modifiers_by_effect_type(effect_type)
 end
@@ -1105,7 +1098,7 @@ function M:find_buff(buff_key, index)
     if not py_modifier then
         return nil
     end
-    return y3.魔法效果.get_by_handle(py_modifier)
+    return y3.魔法效果.获取于HD(py_modifier)
 end
 
 ---获取商店商品的库存间隔
@@ -1631,7 +1624,7 @@ function M:has_buff_by_key(buff_key)
 end
 
 ---是否有指定类型的魔法效果
----@param effect_type y3.Const.EffectType 魔法效果类型
+---@param effect_type y3.Const.魔法影响类型 魔法效果类型
 ---@return boolean has_modifier_style 有指定类型的魔法效果
 function M:has_buff_by_effect_type(effect_type)
     return self.handle:api_has_modifier_type(effect_type)

@@ -4808,7 +4808,12 @@ function GameAPI.get_mover_collide_unit() end
 ---@param f_terrain_collide? function # 地形碰撞事件
 ---@param f_unit_collide? function # 单位碰撞事件
 ---@return py.Mover # 运动器ID
-function GameAPI.create_chasing_mover(unit, target_unit, stop_distance_to_target, init_velocity, acceleration, max_velocity, min_velocity, init_height, parabola_height, bind_point, collision_type, collision_radius, is_face_angle, is_multi_collision, terrain_block, priority, is_absolute_height, f_mover_finish, f_mover_interrupt, f_mover_removed, f_terrain_collide, f_unit_collide) end
+function GameAPI.create_chasing_mover(unit, target_unit, stop_distance_to_target, init_velocity, acceleration,
+                                      max_velocity, min_velocity, init_height, parabola_height, bind_point,
+                                      collision_type, collision_radius, is_face_angle, is_multi_collision, terrain_block,
+                                      priority, is_absolute_height, f_mover_finish, f_mover_interrupt, f_mover_removed,
+                                      f_terrain_collide, f_unit_collide)
+end
 
 --创建直线运动器
 ---@param unit py.Unit # 单位
@@ -4834,7 +4839,12 @@ function GameAPI.create_chasing_mover(unit, target_unit, stop_distance_to_target
 ---@param f_terrain_collide? function # 地形碰撞事件
 ---@param f_unit_collide? function # 单位碰撞事件
 ---@return py.Mover # 运动器ID
-function GameAPI.create_straight_mover(unit, angle, max_dist, init_velocity, acceleration, max_velocity, min_velocity, init_height, fin_height, parabola_height, collision_type, collision_radius, is_face_angle, is_multi_collision, terrain_block, priority, is_absolute_height, f_mover_finish, f_mover_interrupt, f_mover_removed, f_terrain_collide, f_unit_collide) end
+function GameAPI.create_straight_mover(unit, angle, max_dist, init_velocity, acceleration, max_velocity, min_velocity,
+                                       init_height, fin_height, parabola_height, collision_type, collision_radius,
+                                       is_face_angle, is_multi_collision, terrain_block, priority, is_absolute_height,
+                                       f_mover_finish, f_mover_interrupt, f_mover_removed, f_terrain_collide,
+                                       f_unit_collide)
+end
 
 --创建环绕运动器
 ---@param unit py.Unit # 单位
@@ -4861,7 +4871,12 @@ function GameAPI.create_straight_mover(unit, angle, max_dist, init_velocity, acc
 ---@param f_terrain_collide? function # 地形碰撞事件
 ---@param f_unit_collide? function # 单位碰撞事件
 ---@return py.Mover # 运动器ID
-function GameAPI.create_round_mover(unit, target_unit, circle_radius, angle_velocity, init_angle, counterclockwise, round_time, centrifugal_velocity, lifting_velocity, init_height, collision_type, collision_radius, is_face_angle, is_multi_collision, terrain_block, priority, is_absolute_height, target_pos, f_mover_finish, f_mover_interrupt, f_mover_removed, f_terrain_collide, f_unit_collide) end
+function GameAPI.create_round_mover(unit, target_unit, circle_radius, angle_velocity, init_angle, counterclockwise,
+                                    round_time, centrifugal_velocity, lifting_velocity, init_height, collision_type,
+                                    collision_radius, is_face_angle, is_multi_collision, terrain_block, priority,
+                                    is_absolute_height, target_pos, f_mover_finish, f_mover_interrupt, f_mover_removed,
+                                    f_terrain_collide, f_unit_collide)
+end
 
 --创建曲线运动器
 ---@param unit py.Unit # 单位
@@ -4887,7 +4902,12 @@ function GameAPI.create_round_mover(unit, target_unit, circle_radius, angle_velo
 ---@param f_terrain_collide? function # 地形碰撞事件
 ---@param f_unit_collide? function # 单位碰撞事件
 ---@return py.Mover # 运动器ID
-function GameAPI.create_curved_mover(unit, angle, max_dist, init_velocity, acceleration, max_velocity, min_velocity, init_height, fin_height, collision_type, collision_radius, is_face_angle, is_multi_collision, terrain_block, priority, is_absolute_height, path, f_mover_finish, f_mover_interrupt, f_mover_removed, f_terrain_collide, f_unit_collide) end
+function GameAPI.create_curved_mover(unit, angle, max_dist, init_velocity, acceleration, max_velocity, min_velocity,
+                                     init_height, fin_height, collision_type, collision_radius, is_face_angle,
+                                     is_multi_collision, terrain_block, priority, is_absolute_height, path,
+                                     f_mover_finish, f_mover_interrupt, f_mover_removed, f_terrain_collide,
+                                     f_unit_collide)
+end
 
 --获得运动器类型
 ---@param mover_id py.Mover # 运动器
@@ -5110,7 +5130,9 @@ function GameAPI.create_unit_group_command_attack_target(target, nav_range) end
 ---@param start_from_nearest? boolean # 是否就近开始
 ---@param back_to_nearest? boolean # 是否就近返回
 ---@return py.UnitCommand # 单位命令
-function GameAPI.create_unit_group_command_move_along_road(road, patrol_mode, can_attack, start_from_nearest, back_to_nearest) end
+function GameAPI.create_unit_group_command_move_along_road(road, patrol_mode, can_attack, start_from_nearest,
+                                                           back_to_nearest)
+end
 
 --跟随
 ---@param target py.Unit # 目标
@@ -5160,7 +5182,9 @@ function GameAPI.play_sfx_on_point(point, sfx, scale, duratime, offset, role, vi
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param follow_scale? boolean # 是否跟随单位缩放
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, source_socket, target_point, target_height, duration, immediately, use_sys_d_destroy_way, follow_scale) end
+function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, source_socket, target_point, target_height,
+                                                    duration, immediately, use_sys_d_destroy_way, follow_scale)
+end
 
 --创建单位到单位闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -5173,7 +5197,9 @@ function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, sou
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param follow_scale? boolean # 是否跟随单位缩放
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, source_socket, target_unit, target_socket, duration, immediately, use_sys_d_destroy_way, follow_scale) end
+function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, source_socket, target_unit, target_socket,
+                                                   duration, immediately, use_sys_d_destroy_way, follow_scale)
+end
 
 --创建点到单位闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -5185,7 +5211,9 @@ function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, sour
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, source_height, source_unit, source_socket, duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, source_height, source_unit, source_socket,
+                                                    duration, immediately, use_sys_d_destroy_way)
+end
 
 --创建点到点闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -5197,7 +5225,9 @@ function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, so
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_point_to_point(sfx_res_id, source_point, source_height, target_point, target_height, duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_link_sfx_from_point_to_point(sfx_res_id, source_point, source_height, target_point, target_height,
+                                                     duration, immediately, use_sys_d_destroy_way)
+end
 
 --设置闪电特效的位置点
 ---@param sfx_entity py.LinkSfx # 特效
@@ -5246,7 +5276,9 @@ function GameAPI.enable_sfx_visible(sfx_entity, role, b_visible) end
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_point(sfx_id, point, face_angle, scale, height, duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_sfx_on_point(sfx_id, point, face_angle, scale, height, duration, immediately,
+                                     use_sys_d_destroy_way)
+end
 
 --创建特效到单位附加点
 ---@param sfx_id py.SfxKey # 特效编号
@@ -5260,7 +5292,9 @@ function GameAPI.create_sfx_on_point(sfx_id, point, face_angle, scale, height, d
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_unit(sfx_id, unit, socket, b_follow_rotate, b_follow_scale, scale, duration, angle, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_sfx_on_unit(sfx_id, unit, socket, b_follow_rotate, b_follow_scale, scale, duration, angle,
+                                    immediately, use_sys_d_destroy_way)
+end
 
 --创建特效到单位附加点（跟随旋转使用枚举）
 ---@param sfx_id py.SfxKey # 特效编号
@@ -5275,7 +5309,9 @@ function GameAPI.create_sfx_on_unit(sfx_id, unit, socket, b_follow_rotate, b_fol
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param detach? boolean # 是否脱离单位
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_unit_new(sfx_id, unit, socket, rotate_type, b_follow_scale, scale, duration, angle, immediately, use_sys_d_destroy_way, detach) end
+function GameAPI.create_sfx_on_unit_new(sfx_id, unit, socket, rotate_type, b_follow_scale, scale, duration, angle,
+                                        immediately, use_sys_d_destroy_way, detach)
+end
 
 --删除特效
 ---@param sfx_entity? py.Sfx # 特效
@@ -5352,7 +5388,9 @@ function GameAPI.add_sfx_to_camera(sfx_key, keep_time, role, render_after_post) 
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.Sfx # 特效
-function GameAPI.add_sfx_to_camera_with_return(sfx_key, keep_time, role, render_after_post, immediately, use_sys_d_destroy_way) end
+function GameAPI.add_sfx_to_camera_with_return(sfx_key, keep_time, role, render_after_post, immediately,
+                                               use_sys_d_destroy_way)
+end
 
 --震动屏幕
 ---@param role py.Role # 玩家
@@ -5824,7 +5862,9 @@ function GameAPI.create_polygon_area(point0, point1, point2, point3, point4, poi
 ---@param point11? py.Point # 点
 ---@param point12? py.Point # 点
 ---@return py.PolyArea # 多边形区域
-function GameAPI.create_polygon_area_new(point0, point1, point2, point3, point4, point5, point6, point7, point8, point9, point10, point11, point12) end
+function GameAPI.create_polygon_area_new(point0, point1, point2, point3, point4, point5, point6, point7, point8, point9,
+                                         point10, point11, point12)
+end
 
 --设置圆形区域大小
 ---@param area py.CirArea # 圆形区域

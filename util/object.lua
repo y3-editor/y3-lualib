@@ -236,19 +236,19 @@ y3.游戏:事件("物品-移除", function(trg, data)
 end)
 
 y3.游戏:事件("效果-即将获得", function(trg, data)
-    M.callMethod("buff", "on_can_add", data.buff:get_key(), nil, data.buff)
+    M.callMethod("buff", "on_can_add", data.buff:获取物编ID(), nil, data.buff)
 end)
 
 y3.游戏:事件("效果-获得", function(trg, data)
-    M.callMethod("buff", "on_add", data.buff:get_key(), data.buff, data.buff)
+    M.callMethod("buff", "on_add", data.buff:获取物编ID(), data.buff, data.buff)
 end)
 
 y3.游戏:事件("效果-失去", function(trg, data)
-    M.callMethod("buff", "on_lose", data.buff:get_key(), data.buff, data.buff)
+    M.callMethod("buff", "on_lose", data.buff:获取物编ID(), data.buff, data.buff)
 end)
 
 y3.游戏:事件("效果-心跳", function(trg, data)
-    M.callMethod("buff", "on_pulse", data.buff:get_key(), data.buff, data.buff)
+    M.callMethod("buff", "on_pulse", data.buff:获取物编ID(), data.buff, data.buff)
 end)
 
 y3.游戏:事件("技能-获得", function(trg, data)

@@ -364,19 +364,32 @@ M.背包槽位类型 = {
     栏位外 = -1,
 }
 
----@enum y3.Const.EffectType
 M.ModifierEffectType = {
     ["NORMAL"] = 1,
     ["POSITIVE"] = 2,
     ["NEGATIVE"] = 3,
 }
 
----@enum y3.Const.ModifierType
+---@alias y3.Const.魔法影响类型 "普通"|"正面"|"负面"
+M.魔法效果影类型 = {
+    [1] = "普通",
+    [2] = "正面",
+    [3] = "负面",
+}
+
 M.ModifierType = {
-    ["NORMAL"] = 1,
-    ["HALO"] = 2,
-    ["HALO_EFFECT"] = 3,
-    ["SHIELD"] = 4,
+    ["普通"] = 1,
+    ["光环"] = 2,
+    ["光环效果"] = 3,
+    ["护盾"] = 4,
+}
+
+---@alias y3.Const.魔法效果类别 "普通"|"光环"|"光环效果"|"护盾"
+M.魔法效果类别 = {
+    [1] = "普通",
+    [2] = "光环",
+    [3] = "光环效果",
+    [4] = "护盾",
 }
 
 ---@enum y3.Const.AbilityPointerType
