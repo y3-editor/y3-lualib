@@ -20,5 +20,6 @@ require 'y3.util.custom_event'
 require 'y3.util.trigger'
 
 require 'y3.unittest.eventtest'
+require 'y3.unittest.eventperform'
 
 print('测试完成！')

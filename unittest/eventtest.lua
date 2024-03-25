@@ -1,9 +1,4 @@
----@class UnitTest.EventObject
----@overload fun(): self
-local M = Class 'UnitTest.EventObject'
-
----@class UnitTest.EventObject: CustomEvent
-Extends('UnitTest.EventObject', 'CustomEvent')
+require 'y3.unittest.eventhead'
 
 do --基本功能
     local o = New 'UnitTest.EventObject' ()
