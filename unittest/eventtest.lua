@@ -5,7 +5,7 @@ local M = Class 'UnitTest.EventObject'
 ---@class UnitTest.EventObject: CustomEvent
 Extends('UnitTest.EventObject', 'CustomEvent')
 
-do
+do --基本功能
     local o = New 'UnitTest.EventObject' ()
 
     local count = 0
@@ -23,7 +23,7 @@ do
     assert(count == 2)
 end
 
-do
+do --notify的结算队列
     local o = New 'UnitTest.EventObject' ()
 
     local r = {}
@@ -46,7 +46,7 @@ do
     assert(r[3] == 2)
 end
 
-do
+do --dispatch插入结算
     local o = New 'UnitTest.EventObject' ()
 
     local r = {}
@@ -69,7 +69,7 @@ do
     assert(r[3] == 3)
 end
 
-do
+do --事件注册参数匹配规则
     local o = New 'UnitTest.EventObject' ()
 
     local r = {}
@@ -98,7 +98,7 @@ do
     assert(r[3] == 3)
 end
 
-do
+do --事件回调参数
     local o = New 'UnitTest.EventObject' ()
 
     local r = {}
@@ -122,7 +122,7 @@ do
     }))
 end
 
-do
+do --同时包含注册参数和回调参数
     local o = New 'UnitTest.EventObject' ()
 
     local r = {}
