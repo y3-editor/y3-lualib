@@ -79,7 +79,9 @@ end
 ---@return Unit
 function M.从场景获取(res_id)
     local u = M.从唯一id获取(res_id --[[@as py.UnitID]])
-    assert(u, ("无法找到ID为%d的单位"):format(res_id))
+    if not u then
+        error(("无法找到ID为%d的单位"):format(res_id))
+    end
     return u
 end
 

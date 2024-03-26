@@ -200,3 +200,9 @@ function broadcast_lua_msg(id, data) end
 ---@param headers? table
 ---@param callback? fun(body?: string)
 function request_url(url, post, body, port, timeout, headers, callback) end
+
+---@class oslib
+os = {}
+
+---@return number
+function os.clock_banned() end

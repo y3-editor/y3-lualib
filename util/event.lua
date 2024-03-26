@@ -58,7 +58,7 @@ end
 ---@param args any[]
 ---@return boolean
 function M:has_matched_trigger(args)
-    for trigger in self.triggers:pairs() do
+    for trigger in self.triggers:pairsFast() do
         if trigger:is_match_args(args) then
             return true
         end
@@ -71,7 +71,7 @@ end
 function M:notify(event_args, ...)
     self.fire_lock = self.fire_lock + 1
     ---@param trigger Trigger
-    for trigger in self.triggers:pairs() do
+    for trigger in self.triggers:pairsFast() do
         if trigger:is_match_args(event_args) then
             trigger:execute(...)
         end
@@ -86,7 +86,7 @@ end
 function M:dispatch(event_args, ...)
     self.fire_lock = self.fire_lock + 1
     ---@param trigger Trigger
-    for trigger in self.triggers:pairs() do
+    for trigger in self.triggers:pairsFast() do
         if trigger:is_match_args(event_args) then
             local a, b, c, d = trigger:execute(...)
             if a ~= nil then
