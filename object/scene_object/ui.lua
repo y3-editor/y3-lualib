@@ -99,7 +99,7 @@ end
 -->警告：回调函数是在本地玩家的客户端上执行的，注意避免产生不同步的问题。
 ---@param event y3.Const.UIEvent # 界面事件类型
 ---@param callback fun(local_player: Player) # 回调函数
-function M:add_local_event(event, callback)
+function M:添加本地事件(event, callback)
     assert(y3.const.UIEventMap[event], "无效的事件类型")
     GameAPI.bind_local_listener(self.handle, y3.const.UIEventMap[event], function()
         y3.玩家.执行本地代码(function(local_player)

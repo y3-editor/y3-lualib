@@ -365,9 +365,9 @@ M.背包槽位类型 = {
 }
 
 M.ModifierEffectType = {
-    ["NORMAL"] = 1,
-    ["POSITIVE"] = 2,
-    ["NEGATIVE"] = 3,
+    ["普通"] = 1,
+    ["正面"] = 2,
+    ["负面"] = 3,
 }
 
 ---@alias y3.Const.魔法影响类型 "普通"|"正面"|"负面"
