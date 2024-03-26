@@ -76,7 +76,9 @@ end
 ---@return Unit
 function M.get_by_res_id(res_id)
     local u = M.get_by_id(res_id--[[@as py.UnitID]])
-    assert(u, ('无法找到ID为%d的单位'):format(res_id))
+    if not u then
+        error(('无法找到ID为%d的单位'):format(res_id))
+    end
     return u
 end
 
