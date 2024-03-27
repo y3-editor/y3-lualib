@@ -71,6 +71,7 @@ end
 ---@field logLevel? table<Log.Level, integer> # 自定义日志等级
 ---@field needTraceBack? table<Log.Level, boolean> # 是否需要打印堆栈信息
 ---@field clock? fun(): number # 获取当前时间，需要精确到毫秒
+---@field traceback? (fun(message: string, level: integer): string) # 获取堆栈的函数，默认为debug.traceback
 
 ---@param path string
 ---@param mode openmode
@@ -156,15 +157,9 @@ function M:build(level, ...)
 
     if self.needTraceBack[level] then
         if debug.getinfo(1, "t").istailcall then
-            message = debug.traceback(message, 2)
+            message = (self.option.traceback or debug.traceback)(message, 2)
         else
-            message = debug.traceback(message, 3)
-        end
-        if python and python.get_exc_info then
-            local py_traceback = python.get_exc_info()
-            if py_traceback then
-                message = tostring(py_traceback) .. '\n' .. message
-            end
+            message = (self.option.traceback or debug.traceback)(message, 3)
         end
     end
 

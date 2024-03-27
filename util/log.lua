@@ -4,7 +4,7 @@ require 'y3.tools.log'
 ---@param mode openmode
 ---@return file*?
 ---@return string? errmsg
-local function ioOpen(path, mode)
+local function io_open(path, mode)
     if not io then
         return nil, 'No io module'
     end
@@ -23,8 +23,8 @@ end
 
 local log_cache = {}
 local log_name = ('lua_player%02d.log'):format(GameAPI.get_client_role():get_role_id_num())
-local log_file = ioOpen(lua_script_path .. '/log/' .. log_name, 'w+b')
-            or   ioOpen(log_name, 'w+b')
+local log_file = io_open(lua_script_path .. '/log/' .. log_name, 'w+b')
+            or   io_open(log_name, 'w+b')
 if log_file then
     log_file:setvbuf 'no'
 end
@@ -83,5 +83,15 @@ log = New 'Log' {
             ---@diagnostic disable-next-line: deprecated
             y3.ui.display_message(y3.player.get_local(), remove_bad_utf8(table.concat(log_cache, '\n')), 60)
         end
+    end,
+    traceback = function (message, level)
+        local err = debug.traceback(message, level + 1)
+        if python and python.get_exc_info then
+            local py_traceback = python.get_exc_info()
+            if py_traceback then
+                err = tostring(py_traceback) .. '\n' .. err
+            end
+        end
+        return err
     end,
 }
