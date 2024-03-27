@@ -4,7 +4,10 @@
 local M = Class "Pool"
 
 function M:__init()
+    ---@private
     self.pool = {}
+    ---@private
+    self.order = {}
     return self
 end
 
@@ -12,7 +15,12 @@ end
 ---@param obj any
 ---@param w? integer
 function M:添加对象(obj, w)
-    self.pool[obj] = (self.pool[obj] or 0) + (w or 1)
+    if self.pool[obj] then
+        self.pool[obj] = self.pool[obj] + (w or 1)
+    else
+        self.pool[obj] = w or 1
+        self.order[#self.order + 1] = obj
+    end
 end
 
 -- 移除对象
@@ -63,10 +71,10 @@ function M:取一个随机对象(filter)
     local valid = {}
     local total = 0
 
-    for obj, w in pairs(self.pool) do
+    for _, obj in ipairs(self.order) do
         if not filter or filter(obj) == true then
             valid[#valid + 1] = obj
-            total = total + w
+            total = total + self.pool[obj]
         end
     end
 
@@ -124,8 +132,8 @@ function M:dump()
         return tostring(a) < tostring(b)
     end)
     local buf = {}
-    for i, k in ipairs(keys) do
-        buf[i] = ("%s: %d"):format(tostring(k), self.pool[k])
+    for i, obj in ipairs(self.order) do
+        buf[i] = ("%s: %d"):format(tostring(obj), self.pool[obj])
     end
     return table.concat(buf, "\n")
 end
@@ -133,18 +141,11 @@ end
 -- 遍历池的对象
 ---@return fun(): any, integer
 function M:遍历()
-    local keys = {}
-    for k in pairs(self.pool) do
-        keys[#keys + 1] = k
-    end
-    table.sort(keys, function(a, b)
-        return tostring(a) < tostring(b)
-    end)
     local i = 0
     return function()
         i = i + 1
-        local k = keys[i]
-        return k, self.pool[k]
+        local obj = self.order[i]
+        return obj, self.pool[obj]
     end
 end
 
