@@ -438,7 +438,7 @@ end
 ---@param range number 范围
 ---@return py.UnitCommand # 命令
 function M:attack_target(target, range)
-    local command = GameAPI.create_unit_command_attack_target(target.handle, range and Fix32(range) or nil)
+    local command = GameAPI.create_unit_command_attack_target(target.handle, Fix32(range or 0))
     self:command(command)
     return command
 end
