@@ -2498,7 +2498,7 @@ M.config["界面-消息"] = {
     extraArgs = {
         [1] = {
             code = "function (data)\
-    local ui = y3.控件.从handle获取(data.触发玩家, data.comp_name)\
+    local ui = y3.控件.获取于HD(data.触发玩家, data.comp_name)\
     return ui\
 end\
 ",

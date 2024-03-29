@@ -51,7 +51,7 @@ end
 ---@return UI
 function M:获取子控件(path)
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.控件.从handle获取(self.player, GameAPI.get_ui_prefab_child_by_path(self.handle, path))
+    return y3.控件.获取于HD(self.player, GameAPI.get_ui_prefab_child_by_path(self.handle, path))
 end
 
 return M

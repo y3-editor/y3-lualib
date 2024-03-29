@@ -4960,7 +4960,7 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
         lua_type = "UI",
         lua_desc = "ui",
         lua_code = function(data)
-            local ui = y3.控件.从handle获取(data.触发玩家, data.comp_name)
+            local ui = y3.控件.获取于HD(data.触发玩家, data.comp_name)
             return ui
         end,
     },

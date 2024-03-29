@@ -156,7 +156,7 @@ end
 ---@param 文本 string
 function M:设置控件文本(控件handle, 文本)
     self:遍历(function(索引, 遍历到的玩家)
-        y3.控件.从handle获取(遍历到的玩家, 控件handle):设置文本(文本)
+        y3.控件.获取于HD(遍历到的玩家, 控件handle):设置文本(文本)
     end)
 end
 
@@ -164,7 +164,7 @@ end
 ---@param 是否可见 boolean
 function M:设置控件是否可见(控件handle, 是否可见)
     self:遍历(function(索引, 遍历到的玩家)
-        y3.控件.从handle获取(遍历到的玩家, 控件handle):设置是否可见(是否可见)
+        y3.控件.获取于HD(遍历到的玩家, 控件handle):设置是否可见(是否可见)
     end)
 end
 

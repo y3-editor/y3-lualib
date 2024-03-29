@@ -53,7 +53,7 @@ M.comp_id = y3.proxy.new({}, {
 ---@param player Player
 ---@param handle string
 ---@return UI
-function M.从handle获取(player, handle)
+function M.获取于HD(player, handle)
     local ui = New "UI" (player, handle)
     return ui
 end
@@ -65,7 +65,7 @@ end
 ---@return UI
 function M.创建(player, parent_ui, comp_type)
     local py_ui = GameAPI.create_ui_comp(player.handle, parent_ui.handle, y3.const.UIComponentType[comp_type] or 7)
-    return y3.控件.从handle获取(player, py_ui)
+    return y3.控件.获取于HD(player, py_ui)
 end
 
 ---@param player Player 玩家
@@ -74,7 +74,7 @@ end
 function M.从路径获取(player, ui_path)
     local py_ui = GameAPI.get_comp_by_absolute_path(player.handle, ui_path)
     assert(py_ui, string.format("UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。", ui_path))
-    return y3.控件.从handle获取(player, py_ui)
+    return y3.控件.获取于HD(player, py_ui)
 end
 
 ---@param comp_type y3.Const.UIComponentType ui控件
@@ -536,7 +536,7 @@ end
 function M:获取所有子控件()
     local py_list = GameAPI.get_ui_comp_children(self.player.handle, self.handle)
     local uis = y3.helper.unpack_list(py_list, function(py_object)
-        return y3.控件.从handle获取(self.player, py_object)
+        return y3.控件.获取于HD(self.player, py_object)
     end)
     return uis
 end
@@ -880,7 +880,7 @@ function M:获取子控件(name)
     if not py_ui or py_ui == "" then
         return nil
     end
-    return y3.控件.从handle获取(self.player, py_ui)
+    return y3.控件.获取于HD(self.player, py_ui)
 end
 
 --获得控件宽度
@@ -919,7 +919,7 @@ end
 ---@return UI ui_comp ui控件
 function M:获取_父控件()
     local py_ui = GameAPI.get_ui_comp_parent(self.player.handle, self.handle)
-    return y3.控件.从handle获取(self.player, py_ui)
+    return y3.控件.获取于HD(self.player, py_ui)
 end
 
 --获得玩家输入框文本内容

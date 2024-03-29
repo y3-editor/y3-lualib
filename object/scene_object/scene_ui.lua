@@ -24,13 +24,13 @@ M.map = {}
 ---通过py层的界面实例获取lua层的界面实例
 ---@param py_scene_node py.SceneNode
 ---@return SceneUI
-function M.从handle获取(py_scene_node)
+function M.获取于HD(py_scene_node)
     local scene_ui = New "SceneUI" (py_scene_node)
     return scene_ui
 end
 
 y3.py_converter.register_type_alias("py.SceneNode", "SceneUI")
-y3.py_converter.register_py_to_lua("py.SceneNode", M.从handle获取)
+y3.py_converter.register_py_to_lua("py.SceneNode", M.获取于HD)
 y3.py_converter.register_lua_to_py("py.SceneNode", function(lua_value)
     return lua_value.handle
 end)
@@ -46,7 +46,7 @@ function M.创建到点(sceneui, point, range, height)
     ---@diagnostic disable-next-line: param-type-mismatch
     local py_scene_node = GameAPI.create_scene_node_on_point(y3.控件.comp_id[sceneui], point.handle, range or 10000,
                                                              height or 0)
-    return M.从handle获取(py_scene_node)
+    return M.获取于HD(py_scene_node)
 end
 
 --获取指定玩家场景ui中的控件
@@ -55,7 +55,7 @@ end
 ---@return UI # UI控件
 function M:获取子控件(player, comp_path)
     local temp_ui = GameAPI.get_ui_comp_in_scene_ui(self.handle, comp_path)
-    return y3.控件.从handle获取(player, temp_ui)
+    return y3.控件.获取于HD(player, temp_ui)
 end
 
 --创建场景界面到玩家单位挂点
@@ -68,7 +68,7 @@ end
 function M.创建到单位挂接点(scene_ui_type, player, unit, socket_name, distance)
     local py_scene_node = GameAPI.create_scene_node_on_unit(y3.控件.comp_id[scene_ui_type], player.handle, unit.handle,
                                                             socket_name, distance or 10000)
-    return M.从handle获取(py_scene_node)
+    return M.获取于HD(py_scene_node)
 end
 
 --删除场景界面

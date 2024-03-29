@@ -232,11 +232,13 @@ end
 格式化文本彩色 = function(str, ...)
     local 颜色数组 = 表.数组_创建于不定长参数(...)
     local 返回内容 = str
-    调试输出(颜色数组)
+    local 替换文本
     for index, value in ipairs(颜色数组) do
-        if value and value[1] and value[2] then
-            调试输出(value)
-            local 替换文本 = value[2] .. 到字符串(value[1]) .. "#ffffff"
+        if value[1] and value[2] then
+            替换文本 = value[2] .. 到字符串(value[1]) .. "#ffffff"
+            返回内容 = 字符串.替换(返回内容, "{}", 替换文本, 1)
+        else
+            替换文本 = 到字符串(value[1])
             返回内容 = 字符串.替换(返回内容, "{}", 替换文本, 1)
         end
     end
