@@ -1,6 +1,7 @@
 --投射物
 ---@class Projectile
 ---@field handle py.ProjectileEntity
+---@field phandle py.ProjectileEntity
 ---@overload fun(id: integer, py_projectile: py.ProjectileEntity): self
 local M = Class "Projectile"
 M.type = "projectile"
@@ -23,14 +24,15 @@ end
 ---@param py_projectile py.ProjectileEntity
 ---@return self
 function M:__init(id, py_projectile)
-    self.handle = py_projectile
-    self.id     = id
+    self.handle  = py_projectile
+    self.phandle = y3.py_proxy.wrap(py_projectile)
+    self.id      = id
     return self
 end
 
 ---@private
 function M:__del()
-    self.handle:api_delete()
+    self.phandle:api_delete()
 end
 
 ---@package
@@ -71,7 +73,7 @@ end)
 ---获取投射物的类型ID
 ---@return py.ProjectileKey projectile_key
 function M:获取类型id()
-    return self.handle:api_get_key()
+    return self.phandle:api_get_key()
 end
 
 ---是否存在
@@ -84,32 +86,32 @@ end
 ---@return number height 高度
 function M:获取高度()
     ---@diagnostic disable-next-line: undefined-field
-    return self.handle:api_get_height():float()
+    return self.phandle:api_get_height():float()
 end
 
 ---获取投射物剩余持续时间
 ---@return number duration 投射物剩余持续时间
 function M:获取剩余持续时间()
-    return self.handle:api_get_left_time()
+    return self.phandle:api_get_left_time()
 end
 
 ---获取投射物的拥有者
 ---@return Unit unit 投射物的拥有者
 function M:获取拥有者()
-    local py_unit = self.handle:api_get_owner()
+    local py_unit = self.phandle:api_get_owner()
     return y3.单位.从handle获取(py_unit)
 end
 
 ---获取投射物朝向
 ---@return number angle 投射物朝向
 function M:获取朝向()
-    return self.handle:api_get_face_angle()
+    return self.phandle:api_get_face_angle()
 end
 
 ---获取投射物所在点
 ---@return Point point 投射物所在点
 function M:获取所在点()
-    local py_point = self.handle:api_get_position()
+    local py_point = self.phandle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     return y3.点.从handle获取(py_point)
@@ -125,13 +127,13 @@ end
 ---投射物添加标签
 ---@param tag string 标签
 function M:添加标签(tag)
-    self.handle:api_add_tag(tag)
+    self.phandle:api_add_tag(tag)
 end
 
 ---投射物移除标签
 ---@param tag string 标签
 function M:移除标签(tag)
-    self.handle:api_remove_tag(tag)
+    self.phandle:api_remove_tag(tag)
 end
 
 ---@class Projectile.CreateData
@@ -213,7 +215,7 @@ end
 ---设置高度
 ---@param height number 高度
 function M:所设置高度(height)
-    self.handle:api_raise_height(Fix32(height))
+    self.phandle:api_raise_height(Fix32(height))
 end
 
 ---设置坐标
@@ -221,13 +223,13 @@ end
 function M:设置坐标(point)
     -- TODO 见问题3
     ---@diagnostic disable-next-line: param-type-mismatch
-    self.handle:api_set_position(point.handle)
+    self.phandle:api_set_position(point.handle)
 end
 
 ---设置朝向
 ---@param direction number 朝向
 function M:设置朝向(direction)
-    self.handle:api_set_face_angle(direction)
+    self.phandle:api_set_face_angle(direction)
 end
 
 ---设置旋转
@@ -235,7 +237,7 @@ end
 ---@param y number y轴
 ---@param z number z轴
 function M:设置旋转(x, y, z)
-    self.handle:api_set_rotation(x, y, z)
+    self.phandle:api_set_rotation(x, y, z)
 end
 
 ---设置缩放
@@ -243,25 +245,25 @@ end
 ---@param y number y轴
 ---@param z number z轴
 function M:设置缩放(x, y, z)
-    self.handle:api_set_scale(x, y, z)
+    self.phandle:api_set_scale(x, y, z)
 end
 
 ---设置动画速度
 ---@param speed number
 function M:设置动画速度(speed)
-    self.handle:api_set_animation_speed(speed)
+    self.phandle:api_set_animation_speed(speed)
 end
 
 ---设置持续时间
 ---@param duration number 持续时间
 function M:设置持续时间(duration)
-    self.handle:api_set_duration(duration)
+    self.phandle:api_set_duration(duration)
 end
 
 ---增加持续时间
 ---@param duration number 持续时间
 function M:增加持续时间(duration)
-    self.handle:api_add_duration(duration)
+    self.phandle:api_add_duration(duration)
 end
 
 ---获得关联技能

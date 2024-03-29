@@ -1,6 +1,7 @@
 --技能
 ---@class Ability
 ---@field handle py.Ability
+---@field phandle py.Ability
 ---@overload fun(id: integer, py_ability: py.Ability): self
 local M = Class "Ability"
 
@@ -29,13 +30,14 @@ end
 ---@param py_ability py.Ability
 ---@return self
 function M:__init(id, py_ability)
-    self.id     = id
-    self.handle = py_ability
+    self.id      = id
+    self.handle  = py_ability
+    self.phandle = y3.py_proxy.wrap(py_ability)
     return self
 end
 
 function M:__del()
-    self.handle:api_remove()
+    self.phandle:api_remove()
 end
 
 ---@private
@@ -71,25 +73,25 @@ y3.游戏:事件("技能-失去", function(trg, data)
 end)
 
 function M:获取_技能类型id()
-    return self.handle:api_get_ability_id()
+    return self.phandle:api_get_ability_id()
 end
 
 ---是否受冷却缩减影响
 ---@return boolean is_influenced 是否受冷却缩减影响
 function M:是否受_冷却影响()
-    return self.handle:api_get_influenced_by_cd_reduce()
+    return self.phandle:api_get_influenced_by_cd_reduce()
 end
 
 ---消耗生命是否会死亡
 ---@return boolean is_cost 消耗生命是否会死亡
 function M:消耗_生命_是否_死亡()
-    return self.handle:api_get_cost_hp_can_die()
+    return self.phandle:api_get_cost_hp_can_die()
 end
 
 ---生命不足是否可以释放
 ---@return boolean can_cast 生命不足是否可以释放
 function M:生命_不足_是否_可以_释放()
-    return self.handle:api_get_can_cast_when_hp_insufficient()
+    return self.phandle:api_get_can_cast_when_hp_insufficient()
 end
 
 ---@param 标签 别名.技能.标签
@@ -115,22 +117,22 @@ end
 
 ---启用技能
 function M:启用()
-    self.handle:api_enable()
+    self.phandle:api_enable()
 end
 
 ---禁用技能
 function M:禁用()
-    self.handle:api_disable()
+    self.phandle:api_disable()
 end
 
 ---进入冷却
 function M:进入_冷却()
-    self.handle:api_restart_cd()
+    self.phandle:api_restart_cd()
 end
 
 ---完成冷却
 function M:完成_冷却()
-    self.handle:api_immediately_clear_cd()
+    self.phandle:api_immediately_clear_cd()
 end
 
 ---移除技能
@@ -141,87 +143,87 @@ end
 ---设置技能等级
 ---@param level integer 等级
 function M:设置_等级(level)
-    self.handle:api_set_level(level)
+    self.phandle:api_set_level(level)
 end
 
 -- 获取技能等级
 ---@return integer level 等级
 function M:获取_等级()
-    return self.handle:api_get_level()
+    return self.phandle:api_get_level()
 end
 
 ---增加冷却时间
 ---@param value number 冷却
 function M:增加_冷却(value)
-    self.handle:api_change_ability_cd_cold_down(Fix32(value))
+    self.phandle:api_change_ability_cd_cold_down(Fix32(value))
 end
 
 ---设置充能层数
 ---@param value integer 层数
 function M:设置_充能_层数(value)
-    self.handle:api_set_ability_stack_count(value)
+    self.phandle:api_set_ability_stack_count(value)
 end
 
 function M:获取_名称()
-    return self.handle:api_get_name()
+    return self.phandle:api_get_name()
 end
 
 ---设置实数属性
 ---@param key string 属性key
 ---@param value number 属性值
 function M:设置_实数_属性(key, value)
-    self.handle:api_set_float_attr(key, Fix32(value))
+    self.phandle:api_set_float_attr(key, Fix32(value))
 end
 
 ---设置整数属性
 ---@param key string 属性key
 ---@param value integer 属性值
 function M:设置_整数_属性(key, value)
-    self.handle:api_set_int_attr(key, value)
+    self.phandle:api_set_int_attr(key, value)
 end
 
 ---设置剩余冷却时间
 ---@param value number 剩余冷却时间
 function M:设置_剩余_冷却(value)
-    self.handle:api_set_ability_cd(Fix32(value))
+    self.phandle:api_set_ability_cd(Fix32(value))
 end
 
 ---增加技能等级
 ---@param value integer 等级
 function M:增加_等级(value)
-    self.handle:api_add_level(value)
+    self.phandle:api_add_level(value)
 end
 
 ---增加技能充能层数
 ---@param value integer 层数
 function M:增加_充能_层数(value)
-    self.handle:api_add_ability_stack_count(value)
+    self.phandle:api_add_ability_stack_count(value)
 end
 
 ---增加技能剩余冷却时间
 ---@param value number 剩余冷却时间
 function M:增加_剩余_冷却(value)
-    self.handle:api_add_ability_cd(Fix32(value))
+    self.phandle:api_add_ability_cd(Fix32(value))
 end
 
 ---增加实数属性
 ---@param key string 属性key
 ---@param value number 属性值
 function M:增加_实数_属性(key, value)
-    self.handle:api_add_float_attr(key, Fix32(value))
+    self.phandle:api_add_float_attr(key, Fix32(value))
 end
 
 ---增加整数属性
 ---@param key string 属性key
 ---@param value integer 属性值
 function M:增加_整数_属性(key, value)
-    self.handle:api_add_int_attr(key, value)
+    self.phandle:api_add_int_attr(key, value)
 end
 
 ---设置技能名字
 ---@param name string 技能名字
 function M:设置_名称(name)
-    self.handle:api_set_name(name)
+    self.phandle:api_set_name(name)
 end
 
 ---设置技能描述
@@ -229,156 +231,156 @@ end
 function M:设置_描述(des)
     -- TODO 见问题1
     ---@diagnostic disable-next-line: param-type-mismatch
-    self.handle:api_set_str_attr("desc", des)
+    self.phandle:api_set_str_attr("desc", des)
 end
 
 ---学习技能
 function M:学习()
-    self.handle:api_learn_ability()
+    self.phandle:api_learn_ability()
 end
 
 ---设置技能剩余充能时间
 ---@param value number 剩余充能时间
 function M:设置_剩余_充能_时间(value)
-    self.handle:api_set_ability_cur_stack_cd(Fix32(value))
+    self.phandle:api_set_ability_cur_stack_cd(Fix32(value))
 end
 
 ---设置技能施法范围
 ---@param value number 施法范围
 function M:设置_施法_范围(value)
-    self.handle:api_set_ability_cast_range(Fix32(value))
+    self.phandle:api_set_ability_cast_range(Fix32(value))
 end
 
 ---获取技能施法范围
 ---@return number # 施法范围
 function M:获取_施法_范围()
-    return self.handle:api_get_ability_cast_range():float()
+    return self.phandle:api_get_ability_cast_range():float()
 end
 
 ---设置技能玩家属性消耗
 ---@param key string 属性key
 ---@param value number 属性值
 function M:设置_玩家_属性_消耗(key, value)
-    self.handle:api_set_ability_player_attr_cost(key, Fix32(value))
+    self.phandle:api_set_ability_player_attr_cost(key, Fix32(value))
 end
 
 ---增加技能玩家属性消耗
 ---@param key string 属性key
 ---@param value number 属性值
 function M:增加_玩家_属性_消耗(key, value)
-    self.handle:api_add_ability_player_attr_cost(key, Fix32(value))
+    self.phandle:api_add_ability_player_attr_cost(key, Fix32(value))
 end
 
 ---设置技能是否受冷却缩减的影响
 ---@param is_influenced boolean 属性key
 function M:设置_是否_受_冷却_影响(is_influenced)
-    self.handle:api_set_influenced_by_cd_reduce(is_influenced)
+    self.phandle:api_set_influenced_by_cd_reduce(is_influenced)
 end
 
 ---设置消耗生命是否会死亡
 ---@param can_die boolean 是否会死亡
 function M:设置_消耗_生命_是否_死亡(can_die)
-    self.handle:api_set_cost_hp_can_die(can_die)
+    self.phandle:api_set_cost_hp_can_die(can_die)
 end
 
 ---设置生命不足时是否可以释放技能
 ---@param can_cast boolean 是否可以释放
 function M:设置_生命_不足_是否_可以_释放(can_cast)
-    self.handle:api_set_can_cast_when_hp_insufficient(can_cast)
+    self.phandle:api_set_can_cast_when_hp_insufficient(can_cast)
 end
 
 ---设置扇形指示器半径
 ---@param value number 半径
 function M:设置_扇形_指示器_半径(value)
-    self.handle:api_set_ability_sector_radius(Fix32(value))
+    self.phandle:api_set_ability_sector_radius(Fix32(value))
 end
 
 ---设置扇形指示器夹角
 ---@param value number 角度
 function M:设置_扇形_指示器_夹角(value)
-    self.handle:api_set_ability_sector_angle(Fix32(value))
+    self.phandle:api_set_ability_sector_angle(Fix32(value))
 end
 
 ---设置箭头/多段指示器长度
 ---@param value number 长度
 function M:设置_箭头_多段_指示器_长度(value)
-    self.handle:api_set_ability_arrow_length(Fix32(value))
+    self.phandle:api_set_ability_arrow_length(Fix32(value))
 end
 
 ---设置箭头/多段指示器宽度
 ---@param value number 宽度
 function M:设置_箭头_多段_指示器_宽度(value)
-    self.handle:api_set_ability_arrow_width(Fix32(value))
+    self.phandle:api_set_ability_arrow_width(Fix32(value))
 end
 
 ---设置箭圆形指示器半径
 ---@param value number 半径
 function M:设置_箭圆形_指示器_半径(value)
-    self.handle:api_set_ability_circle_radius(Fix32(value))
+    self.phandle:api_set_ability_circle_radius(Fix32(value))
 end
 
 ---设置技能指示器类型
 ---@param type y3.Const.AbilityPointerType 技能指示器类型
 function M:设置_技能_指示器_类型(type)
-    self.handle:api_set_ability_pointer_type(type)
+    self.phandle:api_set_ability_pointer_type(type)
 end
 
 ---获取技能当前剩余充能时间
 ---@return number
 function M:获取_当前_充能_剩余_时间()
-    return self.handle:api_get_stack_cd_left_time():float()
+    return self.phandle:api_get_stack_cd_left_time():float()
 end
 
 ---获取技能种类
 ---@return py.AbilityType type 技能种类
 function M:获取_种类()
-    return self.handle:api_get_type()
+    return self.phandle:api_get_type()
 end
 
 ---获取技能所在技能位
 ---@return y3.Const.AbilityIndex index 技能所在技能位
 function M:获取所在槽位()
-    return self.handle:api_get_ability_index()
+    return self.phandle:api_get_ability_index()
 end
 
 ---获取技能消耗的玩家属性值
 ---@param key string 属性key
 ---@return number cost 玩家属性值
 function M:get_player_attr_cost(key)
-    return self.handle:api_get_ability_player_attr_cost(key):float()
+    return self.phandle:api_get_ability_player_attr_cost(key):float()
 end
 
 ---获取技能释放类型 AbilityCastType
 ---@return py.AbilityCastType type 技能释放类型
 function M:get_cast_type()
-    return self.handle:api_get_ability_cast_type()
+    return self.phandle:api_get_ability_cast_type()
 end
 
 ---自动施法是否开启
 ---@return boolean is_enabled 是否开启
 function M:is_autocast_enabled()
-    return self.handle:api_is_autocast_enabled()
+    return self.phandle:api_is_autocast_enabled()
 end
 
 ---获取技能公式类型的kv
 ---@param key string 键值key
 ---@return number value 值
 function M:get_formula_kv(key)
-    return self.handle:api_calc_ability_formula_kv(key):float()
+    return self.phandle:api_calc_ability_formula_kv(key):float()
 end
 
 ---获取实数属性
 ---@param key string 键值key
 ---@return number value 值
 function M:get_float_attr(key)
-    return self.handle:api_get_float_attr(key):float()
+    return self.phandle:api_get_float_attr(key):float()
 end
 
 ---获取整数属性
 ---@param key y3.Const.技能整数属性
 ---@return number value 值
 function M:获取_整数_属性(key)
-    return self.handle:api_get_int_attr(key)
+    return self.phandle:api_get_int_attr(key)
 end
 
 ---获取字符串属性
@@ -386,20 +388,20 @@ end
 ---@return string value 值
 function M:获取_字符串_属性(key)
     ---@diagnostic disable-next-line: param-type-mismatch
-    return self.handle:api_get_str_attr(key)
+    return self.phandle:api_get_str_attr(key)
 end
 
 ---获取技能的拥有者
 ---@return Unit owner 技能拥有者
 function M:获取_拥有者_单位()
-    local py_unit = self.handle:api_get_owner()
+    local py_unit = self.phandle:api_get_owner()
     return y3.单位.从handle获取(py_unit)
 end
 
 ---获取当前冷却时间
 ---@return number time 当前冷却时间
 function M:获取_当前_冷却()
-    return self.handle:api_get_cd_left_time():float()
+    return self.phandle:api_get_cd_left_time():float()
 end
 
 ---是否存在
@@ -426,7 +428,7 @@ function M:获取_施法_ID(cast)
         return y3.物品.从句柄获取(item)
     end
 
-    local point = self.handle:api_get_release_position(cast)
+    local point = self.phandle:api_get_release_position(cast)
     if point then
         return y3.点.从handle获取(point)
     end
@@ -443,7 +445,7 @@ end
 ---开关自动施法
 ---@param enable boolean 开关
 function M:设置_是否_自动_施法(enable)
-    self.handle:api_set_autocast_enabled(enable)
+    self.phandle:api_set_autocast_enabled(enable)
 end
 
 --------------------------------------------------------类的方法--------------------------------------------------------
@@ -530,19 +532,19 @@ end
 ---设置技能图标
 ---@param icon_id integer 图片id
 function M:设置_图标(icon_id)
-    self.handle:api_set_ability_icon(icon_id)
+    self.phandle:api_set_ability_icon(icon_id)
 end
 
 ---设置技能的建造朝向
 ---@param angle number 角度
 function M:设置_建造_方向(angle)
-    self.handle:api_set_ability_build_rotate(Fix32(angle))
+    self.phandle:api_set_ability_build_rotate(Fix32(angle))
 end
 
 ---获取技能的指示器类型
 ---@return y3.Const.AbilityPointerType
 function M:获取_指示器_类型()
-    return self.handle:api_get_ability_skill_pointer()
+    return self.phandle:api_get_ability_skill_pointer()
 end
 
 ---获取技能类型的指示器类型
