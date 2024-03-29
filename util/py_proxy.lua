@@ -6,22 +6,28 @@ local RAW = {'<RAW>'}
 local proxyMT = { __index = function (self, key)
     local raw = self[RAW]
     local f = raw[key]
-    if type(f) ~= 'userdata' then
-        return f
+    local tp = type(f)
+    if tp == 'function' then
+        self[key] = function (_, ...)
+            return f(raw, ...)
+        end
+        return self[key]
     end
-    local mt = getmetatable(f)
-    if not mt then
-        return f
+    if tp == 'userdata' then
+        local mt = getmetatable(f)
+        if not mt then
+            return f
+        end
+        local call = mt.__call
+        if not call then
+            return f
+        end
+        self[key] = function (_, ...)
+            return call(f, raw, ...)
+        end
+        return self[key]
     end
-    local call = mt.__call
-    if not call then
-        return f
-    end
-    local proxyMethod = function (_, ...)
-        return call(f, raw, ...)
-    end
-    self[key] = proxyMethod
-    return proxyMethod
+    return f
 end }
 
 local cachedMap = setmetatable({}, { __mode = 'k' })
