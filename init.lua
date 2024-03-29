@@ -47,6 +47,7 @@ require 'y3.util.gc_buffer'
 
 print = log.debug
 
+
 y3.const        = require 'y3.game.const'
 y3.math         = require 'y3.game.math'
 y3.game         = require 'y3.game.game'
@@ -56,6 +57,7 @@ y3.helper       = require 'y3.game.helper'
 y3.ground       = require 'y3.game.ground'
 y3.config       = require 'y3.game.config'
 y3.kv           = require 'y3.game.kv'
+y3.py_proxy     = require 'y3.util.py_proxy'
 
 y3.unit         = require 'y3.object.editable_object.unit'
 y3.ability      = require 'y3.object.editable_object.ability'

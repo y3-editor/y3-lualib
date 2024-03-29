@@ -1,6 +1,7 @@
 --物品
 ---@class Item
 ---@field handle py.Item
+---@field phandle py.Item
 ---@field id py.ItemID
 ---@overload fun(id: py.ItemID, py_item: py.Item): self
 local M = Class 'Item'
@@ -31,11 +32,12 @@ end
 function M:__init(id, py_item)
     self.id     = id
     self.handle = py_item
+    self.phandle = y3.py_proxy.wrap(py_item)
     return self
 end
 
 function M:__del()
-    self.handle:api_remove()
+    self.phandle:api_remove()
 end
 
 ---@package
@@ -93,7 +95,7 @@ end
 ---@param tag string 删除标签
 ---@return boolean is_has_tag 是否有标签
 function M:has_tag(tag)
-    return self.handle:api_has_tag(tag)
+    return self.phandle:api_has_tag(tag)
 end
 
 ---是否在场景中
@@ -102,19 +104,19 @@ function M:is_in_scene()
     if not self:is_exist() then
         return false
     end
-    return self.handle:api_is_in_scene()
+    return self.phandle:api_is_in_scene()
 end
 
 ---物品在物品栏
 ---@return boolean is_in_bar 是否在物品栏
 function M:is_in_bar()
-    return self.handle:api_is_in_bar()
+    return self.phandle:api_is_in_bar()
 end
 
 ---物品在背包栏
 ---@return boolean is_in_bag 是否在背包栏
 function M:is_in_bag()
-    return self.handle:api_is_in_pkg()
+    return self.phandle:api_is_in_pkg()
 end
 
 ---遍历物品的单位属性
@@ -151,7 +153,7 @@ end
 ---@param point Point 目标点
 ---@param count integer 丢弃数量
 function M:drop(point, count)
-    self.handle:api_drop_self(point.handle, count)
+    self.phandle:api_drop_self(point.handle, count)
 end
 
 ---移动到点 
@@ -159,73 +161,73 @@ end
 function M:set_point(point)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    self.handle:api_transmit(point.handle)
+    self.phandle:api_transmit(point.handle)
 end
 
 ---设置物品的名称
 ---@param name string 名字
 function M:set_name(name)
-    self.handle:set_name(name)
+    self.phandle:set_name(name)
 end
 
 ---设置物品的描述
 ---@param description string 描述
 function M:set_description(description)
-    self.handle:api_set_desc(description)
+    self.phandle:api_set_desc(description)
 end
 
 ---设置物品的图标
 ---@param picture_id py.Texture 图片id
 function M:set_icon(picture_id)
-    self.handle:api_set_item_icon(picture_id)
+    self.phandle:api_set_item_icon(picture_id)
 end
 
 ---获取物品的图标
 ---@return py.Texture
 function M:get_icon()
-    return self.handle:api_get_item_icon()
+    return self.phandle:api_get_item_icon()
 end
 
 ---设置所属玩家
 ---@param player Player 所属玩家
 function M:set_owner_player(player)
-    self.handle:api_set_creator(player.handle)
+    self.phandle:api_set_creator(player.handle)
 end
 
 ---设置等级
 ---@param level integer 等级
 function M:set_level(level)
-    self.handle:api_set_level(level)
+    self.phandle:api_set_level(level)
 end
 
 ---设置充能数
 ---@param charge integer 充能数
 function M:set_charge(charge)
-    self.handle:api_set_charge_cnt(charge)
+    self.phandle:api_set_charge_cnt(charge)
 end
 
 ---增加充能数
 ---@param charge integer 充能数
 function M:add_charge(charge)
-    self.handle:api_add_charge(charge)
+    self.phandle:api_add_charge(charge)
 end
 
 ---设置最大充能数
 ---@param charge integer 最大充能数 
 function M:set_max_charge(charge)
-    self.handle:api_set_max_charge(charge)
+    self.phandle:api_set_max_charge(charge)
 end
 
 ---设置堆叠数
 ---@param stack integer 堆叠数
 function M:set_stack(stack)
-    self.handle:api_set_stack_cnt(stack)
+    self.phandle:api_set_stack_cnt(stack)
 end
 
 ---增加堆叠数
 ---@param stack integer 堆叠数
 function M:add_stack(stack)
-    self.handle:api_add_stack(stack)
+    self.phandle:api_add_stack(stack)
 end
 
 ---设置属性
@@ -233,108 +235,108 @@ end
 ---@param value number 属性值
 ---@param attr_type string 属性类型
 function M:set_attr(attr_name, value, attr_type)
-    self.handle:api_set_attr(attr_type, attr_name, value)
+    self.phandle:api_set_attr(attr_type, attr_name, value)
 end
 
 ---设置基础属性
 ---@param key string 属性key
 ---@param value number 属性值
 function M:set_attribute(key, value)
-    self.handle:api_set_attr("ATTR_BASE", key, value)
+    self.phandle:api_set_attr("ATTR_BASE", key, value)
 end
 
 ---增加基础属性
 ---@param key string 属性key
 ---@param value number 属性值
 function M:add_attribute(key, value)
-    self.handle:api_change_attr("ATTR_BASE", key, value)
+    self.phandle:api_change_attr("ATTR_BASE", key, value)
 end
 
 ---获取物品的基础属性
 ---@param key string 属性key
 ---@return number
 function M:get_attribute(key)
-    return self.handle:api_get_attr("ATTR_BASE", key):float()
+    return self.phandle:api_get_attr("ATTR_BASE", key):float()
 end
 
 ---设置增益属性
 ---@param key string 属性key
 ---@param value number 属性值
 function M:set_bonus_attribute(key, value)
-    self.handle:api_set_attr("ATTR_BONUS", key, value)
+    self.phandle:api_set_attr("ATTR_BONUS", key, value)
 end
 
 ---增加增益属性
 ---@param key string 属性key
 ---@param value number 属性值
 function M:add_bonus_attribute(key, value)
-    self.handle:api_change_attr("ATTR_BONUS", key, value)
+    self.phandle:api_change_attr("ATTR_BONUS", key, value)
 end
 
 ---获取物品的增益属性
 ---@param key string 属性key
 ---@return number
 function M:get_bonus_attribute(key)
-    return self.handle:api_get_attr("ATTR_BONUS", key):float()
+    return self.phandle:api_get_attr("ATTR_BONUS", key):float()
 end
 ---设置生命值
 ---@param value number 生命值
 function M:set_hp(value)
-    self.handle:api_set_hp(value)
+    self.phandle:api_set_hp(value)
 end
 
 ---给物品添加被动技能
 ---@param ability_id py.AbilityKey 技能id
 ---@param level integer 等级
 function M:add_passive_ability(ability_id, level)
-    self.handle:api_item_add_passive_ability(ability_id, level)
+    self.phandle:api_item_add_passive_ability(ability_id, level)
 end
 
 ---设置丢弃状态
 ---@param dropable boolean 状态
 function M:set_droppable(dropable)
-    self.handle:api_set_droppable(dropable)
+    self.phandle:api_set_droppable(dropable)
 end
 
 ---添加标签
 ---@param tag string 标签
 function M:add_tag(tag)
-    self.handle:api_add_tag(tag)
+    self.phandle:api_add_tag(tag)
 end
 
 ---@param tag string 标签
 function M:remove_tag(tag)
-    self.handle:api_remove_tag(tag)
+    self.phandle:api_remove_tag(tag)
 end
 
 ---设置物品可否出售
 ---@param state boolean 是否可出售
 function M:set_sale_state(state)
-    self.handle:api_set_sale_state(state)
+    self.phandle:api_set_sale_state(state)
 end
 
 ---设置物品缩放
 ---@param scale number 缩放
 function M:set_scale(scale)
-    self.handle:api_set_scale(scale)
+    self.phandle:api_set_scale(scale)
 end
 
 --设置物品可见性
 ---@param is_visible boolean # 是否可见
 function M:set_visible(is_visible)
-    self.handle:api_set_item_visible(is_visible)
+    self.phandle:api_set_item_visible(is_visible)
 end
 
 ---设置物品朝向
 ---@param facing number 朝向
 function M:set_facing(facing)
-    self.handle:api_set_face_angle(facing)
+    self.phandle:api_set_face_angle(facing)
 end
 
 ---获取物品类型id
 ---@return py.ItemKey key 类型
 function M:get_key()
-    return self.handle:api_get_key()
+    return self.phandle:api_get_key()
 end
 
 ---设置物品商品售价
@@ -348,7 +350,7 @@ end
 ---物品持有者
 ---@return Unit? owner 持有者
 function M:get_owner()
-    local py_owner = self.handle:api_get_owner()
+    local py_owner = self.phandle:api_get_owner()
     if not py_owner then
         return nil
     end
@@ -358,7 +360,7 @@ end
 ---物品所在点
 ---@return Point position 物品所在点
 function M:get_point()
-    local py_point = self.handle:api_get_position()
+    local py_point = self.phandle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     return y3.point.get_by_handle(py_point)
@@ -367,61 +369,61 @@ end
 ---物品堆叠数
 ---@return integer stacks 堆叠数
 function M:get_stack()
-    return self.handle:api_get_stack_cnt()
+    return self.phandle:api_get_stack_cnt()
 end
 
 ---物品充能数
 ---@return integer charges 充能数
 function M:get_charge()
-    return self.handle:api_get_charge_cnt()
+    return self.phandle:api_get_charge_cnt()
 end
 
 ---获取最大充能数
 ---@return integer max_charge 最大充能数
 function M:get_max_charge()
-    return self.handle:api_get_max_charge()
+    return self.phandle:api_get_max_charge()
 end
 
 ---获取物品等级
 ---@return integer level 物品等级
 function M:get_level()
-    return self.handle:api_get_level()
+    return self.phandle:api_get_level()
 end
 
 ---获取物品的生命值
 ---@return number hp 物品的生命值
 function M:get_hp()
-    return self.handle:api_get_hp():float()
+    return self.phandle:api_get_hp():float()
 end
 
 ---获取物品名
 ---@return string name 物品名字
 function M:get_name()
-    return self.handle:get_name()
+    return self.phandle:get_name()
 end
 
 ---获取物品描述
 ---@return string description 物品描述
 function M:get_description()
-    return self.handle:api_get_desc()
+    return self.phandle:api_get_desc()
 end
 
 ---获取物品缩放
 ---@return number scale 物品缩放
 function M:get_scale()
-    return self.handle:api_get_scale():float()
+    return self.phandle:api_get_scale():float()
 end
 
 ---获取物品的朝向
 ---@return number angel 朝向
 function M:get_facing()
-    return self.handle:api_get_face_angle():float()
+    return self.phandle:api_get_face_angle():float()
 end
 
 ---获取物品的主动技能
 ---@return Ability? ability 主动技能
 function M:get_ability()
-    local py_ability = self.handle:api_get_positive_ability()
+    local py_ability = self.phandle:api_get_positive_ability()
     if not py_ability then
         return nil
     end
@@ -432,7 +434,7 @@ end
 ---@param index integer
 ---@return Ability? ability 被动技能
 function M:get_passive_ability(index)
-    local py_ability = self.handle:api_get_passive_ability(index)
+    local py_ability = self.phandle:api_get_passive_ability(index)
     if not py_ability then
         return nil
     end
@@ -442,26 +444,26 @@ end
 ---获取物品在单位身上的格子位置
 ---@return integer index 格子位置
 function M:get_slot()
-    if not self.handle:api_get_owner() then
+    if not self.phandle:api_get_owner() then
         return -1
     end
-    return self.handle:api_get_item_slot_idx()
+    return self.phandle:api_get_item_slot_idx()
 end
 
 ---获取物品的拥有玩家
 ---@return Player player 玩家
 function M:get_owner_player()
-    local py_player = self.handle:api_get_creator()
+    local py_player = self.phandle:api_get_creator()
     return y3.player.get_by_handle(py_player)
 end
 
 ---获取物品在单位身上的背包槽类型
 ---@return py.SlotType 背包槽类型
 function M:get_slot_type()
-    if not self.handle:api_get_owner() then
+    if not self.phandle:api_get_owner() then
         return -1
     end
-    return self.handle:api_get_item_slot_type()
+    return self.phandle:api_get_item_slot_type()
 end
 
 --------------------------------------------------------类的方法--------------------------------------------------------
@@ -535,7 +537,7 @@ end
 ---获取物品模型
 ---@return py.ModelKey model_key 模型类型
 function M:get_model()
-    return self.handle:api_get_item_model()
+    return self.phandle:api_get_item_model()
 end
 
 ---获取物品类型的模型
