@@ -111,7 +111,7 @@ end
 
 ---@param 待处理字符串 any
 ---@param 分隔符 any
----@return table
+---@return string[]
 function 字符串.分割(待处理字符串, 分隔符)
     if type(分隔符) ~= "string" or #分隔符 <= 0 then
         return {}

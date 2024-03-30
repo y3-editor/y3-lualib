@@ -110,6 +110,12 @@ function M.创建自坐标(x, y, z)
     return M.从handle获取(py_point)
 end
 
+---@param tostring文本 string
+function M.创建自字符串(tostring文本)
+    local 坐标数组 = 字符串.分割(字符串.取右边文本(tostring文本, "|"), ",")
+    return M.创建自坐标(到数值(坐标数组[1]), 到数值(坐标数组[2]), 到数值(坐标数组[3]))
+end
+
 ---点向方向偏移
 ---@param point Point 点
 ---@param direction number 偏移方向点
