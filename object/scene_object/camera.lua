@@ -120,10 +120,10 @@ end
 ---@param player Player 玩家
 ---@param unit Unit 目标单位
 ---@param x? number 过渡时间
----@param y? number 移动模式
+---@param y? y3.Const.镜头移动类型
 ---@param height? number 高度
 function M.设置_跟随单位(player, unit, x, y, height)
-    GameAPI.camera_set_follow_unit(player.handle, unit.handle, x, y, height)
+    GameAPI.camera_set_follow_unit(player.handle, unit.handle, x or 0, y3.const.镜头移动类型[y or "匀速"], height or 0)
 end
 
 ---设置镜头取消跟随
