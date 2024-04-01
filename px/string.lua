@@ -245,4 +245,24 @@ end
     return 返回内容
 end
 
+---@param 内容 string
+---@param 字体大小 integer
+---@param 最大宽度 number
+---@param 保留换行? boolean
+function 字符串.获取文本画板尺寸(内容, 字体大小, 最大宽度, 保留换行)
+    local 行高 = 字体大小 * 1.5
+    if not 保留换行 then
+        local 总长度 = 字符串.获取长度(内容) * 字体大小 / 2
+        调试输出(行高, 总长度)
+        if 总长度 <= 最大宽度 then
+            调试输出(行高, 总长度)
+            return 总长度, 行高
+        else
+            调试输出(总长度 // 最大宽度, 总长度 / 最大宽度, 最大宽度, 行高 * 数学.向上取整(总长度 / 最大宽度))
+
+            return 最大宽度, 行高 * 数学.向上取整(总长度 / 最大宽度)
+        end
+    end
+end
+
 return 字符串
