@@ -9,7 +9,7 @@
 ---@field handle py.Timer
 ---@field desc string
 ---@field private on_timer Timer.OnTimer
----@field private include_name? string
+---@field private include_name? string | false
 ---@field private mode Timer.Mode
 ---@overload fun(py_timer: py.Timer, on_timer: Timer.OnTimer, mode: Timer.Mode, desc: string): self
 local M = Class "Timer"
@@ -22,7 +22,6 @@ M.id_counter = y3.util.counter()
 ---@private
 M.all_timers = setmetatable({}, y3.util.MODE_V)
 
----@private
 ---@param py_timer py.Timer
 ---@param on_timer Timer.OnTimer
 ---@param mode Timer.Mode
@@ -34,12 +33,10 @@ function M:__init(py_timer, on_timer, mode, desc)
     self.id = self.id_counter()
     self.mode = mode
     self.desc = desc
-    self.include_name = y3.重载.getCurrentIncludeName()
     M.all_timers[self.id] = self
     return self
 end
 
----@private
 function M:__del()
     if self.mode == "second" then
         GameAPI.cancel_timer(self.handle)
@@ -111,7 +108,7 @@ end
 
 -- 等待一定帧数后执行
 --> 请改用 `y3.ltimer.wait_frame`
----@private
+---@deprecated
 ---@param frame integer
 ---@param on_timer fun(timer: Timer)
 ---@param desc? string # 描述
@@ -129,7 +126,7 @@ function M.wait_frame(frame, on_timer, desc)
 end
 
 -- 循环执行
----@param timeout number 毫秒
+---@param timeout number
 ---@param on_timer fun(timer: Timer, count: integer)
 ---@param desc? string # 描述
 ---@return Timer
@@ -147,7 +144,6 @@ end
 
 -- 每经过一定帧数后执行
 --> 请改用 `y3.ltimer.loop_frame`
----@private
 ---@deprecated
 ---@param frame integer
 ---@param on_timer fun(timer: Timer, count: integer)
@@ -190,14 +186,12 @@ end
 
 -- 每经过一定帧数后执行，可以指定最大次数
 --> 请改用 `y3.ltimer.count_loop_frame`
----@private
 ---@deprecated
 ---@param frame integer
 ---@param times integer
 ---@param on_timer fun(timer: Timer, count: integer)
 ---@param desc? string # 描述
 ---@return Timer
----@package
 function M.count_loop_frame(frame, times, on_timer, desc)
     error("帧计时器不支持有次数的循环，若有此需求请改用 `y3.ltimer.count_loop_frame`")
     desc = desc or make_timer_reason(on_timer)
@@ -271,11 +265,13 @@ end
 
 ---@return string?
 function M:get_include_name()
-    return self.include_name
+    if not self.include_name then
+        self.include_name = y3.reload.getIncludeName(self.on_timer) or false
+    end
+    return self.include_name or nil
 end
 
 -- 遍历所有的计时器，仅用于调试（可能会遍历到已经失效的）
----@private
 ---@return fun():Timer?
 function M.pairs()
     local timers = {}

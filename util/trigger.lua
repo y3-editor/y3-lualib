@@ -5,14 +5,13 @@ local counter = y3.util.counter()
 ---@field private _event Event
 ---@field private _callback Trigger.CallBack
 ---@field private _event_args? any[]
----@field private _include_name? string
+---@field private _include_name? string | false
 ---@field private _on_remove? function
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
 local M = Class "Trigger"
 
 ---@alias Trigger.CallBack fun(...): any, any, any, any
 
----@private
 ---@param event Event
 ---@param event_args? any[]
 ---@param callback Trigger.CallBack
@@ -22,12 +21,10 @@ function M:__init(event, event_args, callback)
     self._callback = callback
     self._id = counter()
     self._event_args = event_args
-    self._include_name = y3.重载.getCurrentIncludeName()
     event:add_trigger(self)
     return self
 end
 
----@private
 function M:__del()
     self._event:remove_trigger(self)
     if self._on_remove then
@@ -41,10 +38,8 @@ M._enable = true
 ---@private
 M._id = 0
 
----@private
 function M:__tostring()
-    ---@diagnostic disable-next-line: invisible
-    return ("{trigger|%d|%s|%s}"):format(self._id, self._event.event_name, self._include_name)
+    return ("{trigger|%d}"):format(self._id)
 end
 
 --禁用触发器
@@ -115,12 +110,13 @@ end
 
 ---@return string?
 function M:获取载入名称()
-    return self._include_name
+    if not self._include_name then
+        self._include_name = y3.reload.getIncludeName(self._callback) or false
+    end
+    return self._include_name or nil
 end
 
 ---@private
 function M:on_remove(callback)
     self._on_remove = callback
 end
-
-return M
