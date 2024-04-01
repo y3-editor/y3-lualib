@@ -1,17 +1,20 @@
 ---@class ECABind
 Bind = {}
 
+--注册ECA函数
+--
+--可以使用该功能让lua函数在ECA中被调用。
 ---@class ECAFunction
 ---@field call_name string
 ---@field params {key: string, type: string, optional?: boolean}[]
 ---@field returns {key: string, type: string}[]
 ---@field func function
 ---@overload fun(name: string): self
-local M = Class 'ECAFunction'
+local M = Class "ECAFunction"
 
 function M:__tostring()
-    return string.format('{ECAFunction|%s}'
-        , self.call_name
+    return string.format("{ECAFunction|%s}"
+    , self.call_name
     )
 end
 
@@ -20,15 +23,15 @@ end
 ---@param ... any
 ---@return ...
 function M:_unpack_params(error_handler, ...)
-    local param_list = {...}
+    local param_list = { ... }
     for i, param in ipairs(self.params) do
         local py_value = param_list[i]
         if py_value == nil and not param.optional then
-            error(('第 %d 个参数 %s 为空！'):format(i, param.key))
+            error(("第 %d 个参数 %s 为空！"):format(i, param.key))
         end
-        local ok, lua_value = xpcall(y3.py_converter.py_to_lua, function (...)
-            error_handler('第【' .. i .. '】个参数【' .. param.key .. '】转换失败：\n', ...)
-        end, param.type, py_value)
+        local ok, lua_value = xpcall(y3.py_converter.py_to_lua, function(...)
+                                         error_handler("第【" .. i .. "】个参数【" .. param.key .. "】转换失败：\n", ...)
+                                     end, param.type, py_value)
         if not ok then
             return
         end
@@ -59,9 +62,9 @@ end
 ---@param name string
 ---@return self
 function M:__init(name)
-    self.call_name  = name
-    self.params     = {}
-    self.returns    = {}
+    self.call_name = name
+    self.params    = {}
+    self.returns   = {}
     return self
 end
 
@@ -71,13 +74,13 @@ end
 ---@return self
 function M:with_param(key, type_name)
     local optional
-    if type_name:sub(-1) == '?' then
+    if type_name:sub(-1) == "?" then
         optional = true
         type_name = type_name:sub(1, -2)
     end
     table.insert(self.params, {
-        key  = key,
-        type = y3.py_converter.get_py_type(type_name),
+        key      = key,
+        type     = y3.py_converter.get_py_type(type_name),
         optional = optional,
     })
     return self
@@ -98,13 +101,14 @@ end
 --执行的函数
 ---@param func function
 function M:call(func)
-    assert(Bind[self.call_name] == nil, ('不能重复定义绑定函数: %s'):format(self.call_name))
+    assert(Bind[self.call_name] == nil, ("不能重复定义绑定函数: %s"):format(self.call_name))
     self.func = func
     local function error_handler(...)
-        log.error('在【' .. self.call_name .. '】中发生错误：\n', ...)
+        log.error("在【" .. self.call_name .. "】中发生错误：\n", ...)
     end
-    Bind[self.call_name] = function (...)
-        return self:_pack_returns(error_handler, xpcall(self.func, error_handler, self:_unpack_params(error_handler, ...)))
+    Bind[self.call_name] = function(...)
+        return self:_pack_returns(error_handler,
+                                  xpcall(self.func, error_handler, self:_unpack_params(error_handler, ...)))
     end
 end
 

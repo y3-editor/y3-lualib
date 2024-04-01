@@ -1,17 +1,17 @@
 ---@class Game
-local M = Class 'Game'
+local M = Class "Game"
 
 ---@class Game: CustomEvent
-Extends('Game', 'CustomEvent')
+Extends("Game", "CustomEvent")
 
 ---@private
-M.event_manager = New 'EventManager' ()
+M.event_manager = New "EventManager" ()
 
 -- 注册引擎事件
 ---@param event_type y3.Const.EventType
 ---@param ... any
 ---@return Trigger
-function M:event(event_type, ...)
+function M:事件(event_type, ...)
     local extra_args, callback, unsubscribe = self:subscribe_event(event_type, ...)
     local trg = self.event_manager:event(event_type, extra_args, callback)
     ---@diagnostic disable-next-line: invisible
@@ -30,23 +30,23 @@ end
 ---@return Trigger.CallBack
 ---@return function Unsubscribe
 function M:subscribe_event(event_type, ...)
-    local nargs = select('#', ...)
+    local nargs = select("#", ...)
     local extra_args
     ---@type Trigger.CallBack
     local callback
     if nargs == 1 then
         callback = ...
     elseif nargs > 1 then
-        extra_args = {...}
+        extra_args = { ... }
         callback = extra_args[nargs]
         extra_args[nargs] = nil
     else
-        error('缺少回调函数！')
+        error("缺少回调函数！")
     end
 
     y3.py_event_sub.event_register(event_type, extra_args)
 
-    local unsubscribe = function ()
+    local unsubscribe = function()
         y3.py_event_sub.event_unregister(event_type, extra_args)
     end
 

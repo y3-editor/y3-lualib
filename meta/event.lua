@@ -1,5 +1,4 @@
 -- 此文件由 `tools/genGameAPI` 生成，请勿手动修改。
----@meta
 
 ---@class py.Event
 local event = {}
@@ -43,6 +42,21 @@ event.ET_LOADING_END = {}
 
 --重启客户端追帧完成
 event.ET_RELAUNCH_FRAME_CATCHING_FINISHED = {}
+
+---@class EventParam.ET_GAME_SNAPSHOT_MISMATCH
+---@field int1 integer # 不同步帧号
+
+--快照不同步
+event.ET_GAME_SNAPSHOT_MISMATCH = {
+    [1] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "不同步帧号",
+        lua_desc = "不同步帧号",
+    },
+}
 
 ---@class EventParam.ET_RECV_TRIGGER
 ---@field trigger_id py.TriggerID # 触发器id
@@ -108,6 +122,11 @@ event.ET_DAY_NIGHT_CHANGE = {
         lua_desc = "是否是白天转到黑夜",
     },
 }
+
+---@class EventParam.ET_DAY_NIGHT_TIME_CHANGE
+
+--昼夜时间发生变化
+event.ET_DAY_NIGHT_TIME_CHANGE = {}
 
 ---@class EventParam.ET_CONTAINER_ADDED
 ---@field name string # 容器名
@@ -179,8 +198,8 @@ event.ET_ACTOR_ATTR_UPDATED = {
 }
 
 ---@class EventParam.ET_AREA_ENTER
----@field unit Unit # 单位
----@field area Area # 区域
+---@field 触发单位 Unit # 单位
+---@field 触发区域 Area # 区域
 ---@field trigger_id py.TriggerID # 触发器ID
 
 --单位进入区域
@@ -188,7 +207,7 @@ event.ET_AREA_ENTER = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
@@ -196,7 +215,7 @@ event.ET_AREA_ENTER = {
     [2] = {
         name = "__area_id",
         type = "py.AreaID",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "区域ID",
         lua_desc = "区域",
@@ -212,8 +231,8 @@ event.ET_AREA_ENTER = {
 }
 
 ---@class EventParam.ET_AREA_LEAVE
----@field unit Unit # 单位
----@field area Area # 区域
+---@field 触发单位 Unit # 单位
+---@field 触发区域 Area # 区域
 ---@field trigger_id py.TriggerID # 触发器ID
 
 --单位离开区域
@@ -221,7 +240,7 @@ event.ET_AREA_LEAVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
@@ -229,7 +248,7 @@ event.ET_AREA_LEAVE = {
     [2] = {
         name = "__area_id",
         type = "py.AreaID",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "区域ID",
         lua_desc = "区域",
@@ -301,16 +320,121 @@ event.ET_BROADCAST_LUA_MSG = {
     },
 }
 
+---@class EventParam.ET_CLOSE_MALL_COIN_PAYMENT
+---@field 触发玩家 Player # 角色
+---@field int1 integer # 错误码
+
+--内购商品事件
+event.ET_CLOSE_MALL_COIN_PAYMENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "错误码",
+        lua_desc = "错误码",
+    },
+}
+
+---@class EventParam.ET_MALL_GOODS_CHANGE
+---@field 触发玩家 Player # 角色
+---@field int1 integer # 数量
+
+--玩家商品变化事件
+event.ET_MALL_GOODS_CHANGE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "数量",
+        lua_desc = "数量",
+    },
+}
+
+---@class EventParam.ET_MALL_COIN_CHANGE
+---@field 触发玩家 Player # 角色
+---@field int1 integer # 数量
+
+--玩家货币变化事件
+event.ET_MALL_COIN_CHANGE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "数量",
+        lua_desc = "数量",
+    },
+}
+
+---@class EventParam.ET_CAMERA_SHOOT_RAYCAST_HIT
+---@field 触发玩家 Player # 角色
+---@field 触发单位 Unit # 单位
+---@field float1 number # 高度
+
+--射击事件
+event.ET_CAMERA_SHOOT_RAYCAST_HIT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "触发单位",
+        lua_type = "Unit",
+        desc = "单位ID",
+        lua_desc = "单位",
+    },
+    [3] = {
+        name = "__float1",
+        type = "py.Fixed",
+        lua_name = "float1",
+        lua_type = "number",
+        desc = "高度",
+        lua_desc = "高度",
+    },
+}
+
 ---@class EventParam.ET_ROLE_JOIN_BATTLE
----@field player Player # 玩家
----@field is_middle_join boolean # 是否中途加入
+---@field 加入玩家 Player # 玩家
+---@field 是否中途加入 boolean # 是否中途加入
 
 --玩家加入战斗
 event.ET_ROLE_JOIN_BATTLE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "加入玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -318,7 +442,7 @@ event.ET_ROLE_JOIN_BATTLE = {
     [2] = {
         name = "__is_middle_join",
         type = "boolean",
-        lua_name = "is_middle_join",
+        lua_name = "是否中途加入",
         lua_type = "boolean",
         desc = "是否中途加入",
         lua_desc = "是否中途加入",
@@ -326,14 +450,14 @@ event.ET_ROLE_JOIN_BATTLE = {
 }
 
 ---@class EventParam.ET_ROLE_ACTIVE_EXIT_GAME_EVENT
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --玩家主动退出游戏
 event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -341,14 +465,14 @@ event.ET_ROLE_ACTIVE_EXIT_GAME_EVENT = {
 }
 
 ---@class EventParam.ET_ROLE_LOSE_CONNECT
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --玩家断开服务器连接
 event.ET_ROLE_LOSE_CONNECT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -356,14 +480,14 @@ event.ET_ROLE_LOSE_CONNECT = {
 }
 
 ---@class EventParam.ET_AI_TAKE_CONTROL
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --AI接管玩家
 event.ET_AI_TAKE_CONTROL = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -371,14 +495,14 @@ event.ET_AI_TAKE_CONTROL = {
 }
 
 ---@class EventParam.ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --下载档案数据回调
 event.ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -386,7 +510,7 @@ event.ET_DOWNLOAD_MAP_ARCHIVE_CALLBACK = {
 }
 
 ---@class EventParam.ET_ROLE_USE_STORE_ITEM_END
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field store_key py.StoreKey # 收费道具编号
 ---@field use_cnt integer # 使用次数
 
@@ -395,7 +519,7 @@ event.ET_ROLE_USE_STORE_ITEM_END = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -419,7 +543,7 @@ event.ET_ROLE_USE_STORE_ITEM_END = {
 }
 
 ---@class EventParam.ET_CONSUME_STORE_ITEM
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field store_key py.StoreKey # 收费道具编号
 
 --玩家成功使用收费道具（触发器内）
@@ -427,7 +551,7 @@ event.ET_CONSUME_STORE_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -443,7 +567,7 @@ event.ET_CONSUME_STORE_ITEM = {
 }
 
 ---@class EventParam.ET_ROLE_HOLD_STORE_ITEM
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field store_key py.StoreKey # 收费道具编号
 
 --玩家持有收费道具
@@ -451,7 +575,7 @@ event.ET_ROLE_HOLD_STORE_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -467,7 +591,7 @@ event.ET_ROLE_HOLD_STORE_ITEM = {
 }
 
 ---@class EventParam.ET_ROLE_RESOURCE_CHANGED
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field res_key py.RoleResKey # 玩家资源类型
 ---@field res_value integer # 玩家资源值
 ---@field res_value_delta number # 玩家资源变量值
@@ -477,7 +601,7 @@ event.ET_ROLE_RESOURCE_CHANGED = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -509,7 +633,7 @@ event.ET_ROLE_RESOURCE_CHANGED = {
 }
 
 ---@class EventParam.ET_ROLE_INPUT_MSG
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field msg string # 字符串
 
 --玩家输入字符串
@@ -517,7 +641,7 @@ event.ET_ROLE_INPUT_MSG = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -533,7 +657,7 @@ event.ET_ROLE_INPUT_MSG = {
 }
 
 ---@class EventParam.ET_ROLE_INPUT_ACTIVATION_CODE
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field activation_code_group string # 激活码组
 
 --玩家输入激活码
@@ -541,7 +665,7 @@ event.ET_ROLE_INPUT_ACTIVATION_CODE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -557,7 +681,7 @@ event.ET_ROLE_INPUT_ACTIVATION_CODE = {
 }
 
 ---@class EventParam.ET_ROLE_TECH_UPGRADE
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field tech_no py.TechKey # 科技编号
 ---@field curr_lv integer # 当前科技等级
 
@@ -566,7 +690,7 @@ event.ET_ROLE_TECH_UPGRADE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -590,7 +714,7 @@ event.ET_ROLE_TECH_UPGRADE = {
 }
 
 ---@class EventParam.ET_ROLE_TECH_DOWNGRADE
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field tech_no py.TechKey # 科技编号
 ---@field curr_lv integer # 当前科技等级
 
@@ -599,7 +723,7 @@ event.ET_ROLE_TECH_DOWNGRADE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -623,7 +747,7 @@ event.ET_ROLE_TECH_DOWNGRADE = {
 }
 
 ---@class EventParam.ET_ROLE_TECH_CHANGED
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field tech_no py.TechKey # 科技编号
 ---@field curr_lv integer # 当前科技等级
 ---@field delta_lv integer # 科技变化等级
@@ -633,7 +757,7 @@ event.ET_ROLE_TECH_CHANGED = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -665,8 +789,8 @@ event.ET_ROLE_TECH_CHANGED = {
 }
 
 ---@class EventParam.ET_UNIT_UPGRADE_TECH
----@field unit Unit # 单位
----@field player Player # 单位所属玩家
+---@field 触发单位 Unit # 单位
+---@field 触发玩家 Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
 --单位研发科技
@@ -674,7 +798,7 @@ event.ET_UNIT_UPGRADE_TECH = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
@@ -682,7 +806,7 @@ event.ET_UNIT_UPGRADE_TECH = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "单位所属玩家ID",
         lua_desc = "单位所属玩家",
@@ -698,8 +822,8 @@ event.ET_UNIT_UPGRADE_TECH = {
 }
 
 ---@class EventParam.ET_UNIT_ADD_TECH
----@field unit Unit # 单位
----@field player Player # 单位所属玩家
+---@field 触发单位 Unit # 单位
+---@field 触发玩家 Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
 --单位添加科技
@@ -707,7 +831,7 @@ event.ET_UNIT_ADD_TECH = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
@@ -715,7 +839,7 @@ event.ET_UNIT_ADD_TECH = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "单位所属玩家ID",
         lua_desc = "单位所属玩家",
@@ -731,8 +855,8 @@ event.ET_UNIT_ADD_TECH = {
 }
 
 ---@class EventParam.ET_UNIT_REMOVE_TECH
----@field unit Unit # 单位
----@field player Player # 单位所属玩家
+---@field 触发单位 Unit # 单位
+---@field 触发玩家 Player # 单位所属玩家
 ---@field tech_no py.TechKey # 科技编号
 
 --单位删除科技
@@ -740,7 +864,7 @@ event.ET_UNIT_REMOVE_TECH = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
@@ -748,7 +872,7 @@ event.ET_UNIT_REMOVE_TECH = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "单位所属玩家ID",
         lua_desc = "单位所属玩家",
@@ -801,7 +925,7 @@ event.ET_ROLE_CHANGE_RELATION = {
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能ID
 ---@field ability_seq py.AbilitySeq # 技能Seq
----@field unit Unit # 主人
+---@field 触发单位 Unit # 主人
 ---@field build_unit Unit # 建造出来的单位
 
 --建筑技能建造成功
@@ -841,7 +965,7 @@ event.ET_ABILITY_BUILD_FINISH = {
     [5] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "主人",
         lua_desc = "主人",
@@ -979,7 +1103,7 @@ event.ET_ABILITY_STACK_CHANGE = {
 ---@class EventParam.ET_ABILITY_PLUS_POINT
 ---@field ability_index py.AbilityIndex # 技能坑位
 ---@field ability Ability # 技能对象
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --技能加点
 event.ET_ABILITY_PLUS_POINT = {
@@ -1002,7 +1126,7 @@ event.ET_ABILITY_PLUS_POINT = {
     [3] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
@@ -1097,124 +1221,124 @@ event.ET_UNIT_NAME_CHANGE = {}
 event.ET_UNIT_CHANGE_MINI_MAP_ICON = {}
 
 ---@class EventParam.ET_UNIT_ICON_CHANGE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位头像图标发生变化
 event.ET_UNIT_ICON_CHANGE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_ROLE_UNIT_CHANGE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --阵营内单位变化
 event.ET_ROLE_UNIT_CHANGE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_ROLE_UNIT_TAG_CHANGE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --阵营内单位标签变化
 event.ET_ROLE_UNIT_TAG_CHANGE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_ENTER_MOVER_STATE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位进入运动器状态
 event.ET_UNIT_ENTER_MOVER_STATE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_START_MOVE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位开始移动
 event.ET_UNIT_START_MOVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_END_MOVE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位结束移动
 event.ET_UNIT_END_MOVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_REMOVE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位删除（ECA专用）
 event.ET_UNIT_REMOVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_DELETE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位删除（对象真正销毁）
 event.ET_UNIT_DELETE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_END_TRANSLATE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位传送结束
 event.ET_UNIT_END_TRANSLATE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_ATTR_CHANGE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 ---@field attr string # 无描述
 ---@field old_float_attr_value number # 无描述
 
@@ -1223,7 +1347,7 @@ event.ET_UNIT_ATTR_CHANGE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
     [2] = {
@@ -1246,7 +1370,7 @@ event.ET_UNIT_ATTR_CHANGE = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位即将死亡
 event.ET_BEFORE_UNIT_DIE = {
@@ -1293,7 +1417,7 @@ event.ET_BEFORE_UNIT_DIE = {
     [6] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
@@ -1304,7 +1428,7 @@ event.ET_BEFORE_UNIT_DIE = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位死亡
 event.ET_UNIT_DIE = {
@@ -1351,63 +1475,130 @@ event.ET_UNIT_DIE = {
     [6] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
+        lua_type = "Unit",
+    },
+}
+
+---@class EventParam.ET_UNIT_DIE_INTERNAL
+---@field damage number # 受到的伤害值
+---@field source_unit Unit # 施加伤害的单位
+---@field target_unit Unit # 承受伤害的单位
+---@field ability Ability # 当前伤害所属技能
+---@field damage_type integer # 伤害类型
+---@field 触发单位 Unit # 无描述
+
+--单位死亡(仅内部代码用，在死亡事件前发送)
+event.ET_UNIT_DIE_INTERNAL = {
+    [1] = {
+        name = "__damage",
+        type = "py.Fixed",
+        lua_name = "damage",
+        lua_type = "number",
+        desc = "受到的伤害值",
+        lua_desc = "受到的伤害值",
+    },
+    [2] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "施加伤害的单位",
+        lua_desc = "施加伤害的单位",
+    },
+    [3] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "承受伤害的单位",
+        lua_desc = "承受伤害的单位",
+    },
+    [4] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "当前伤害所属技能",
+        lua_desc = "当前伤害所属技能",
+    },
+    [5] = {
+        name = "__damage_type",
+        type = "integer",
+        lua_name = "damage_type",
+        lua_type = "integer",
+        desc = "伤害类型",
+        lua_desc = "伤害类型",
+    },
+    [6] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_ON_UNBIND_ROLE
----@field unit Unit # 无描述
----@field player Player # 无描述
+---@field 触发单位 Unit # 无描述
+---@field 触发玩家 Player # 无描述
 
 --单位解绑玩家
 event.ET_UNIT_ON_UNBIND_ROLE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
     },
 }
 
 ---@class EventParam.ET_UNIT_ON_BIND_ROLE
----@field unit Unit # 无描述
----@field player Player # 无描述
+---@field 触发单位 Unit # 无描述
+---@field 触发玩家 Player # 无描述
 
 --单位绑定玩家
 event.ET_UNIT_ON_BIND_ROLE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
     },
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT
+---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 ---@field damage_instance DamageInstance # 伤害实例
 
 --单位即将受到攻击
 event.ET_UNIT_BE_HURT = {
     [1] = {
+        name = "__is_normal_hit",
+        type = "boolean",
+        lua_name = "is_normal_hit",
+        lua_type = "boolean",
+        desc = "是否是普通攻击",
+        lua_desc = "是否是普通攻击",
+    },
+    [2] = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
@@ -1415,7 +1606,7 @@ event.ET_UNIT_BE_HURT = {
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
-    [2] = {
+    [3] = {
         name = "__source_unit",
         type = "py.Unit",
         lua_name = "source_unit",
@@ -1423,7 +1614,7 @@ event.ET_UNIT_BE_HURT = {
         desc = "施加伤害的单位",
         lua_desc = "施加伤害的单位",
     },
-    [3] = {
+    [4] = {
         name = "__target_unit",
         type = "py.Unit",
         lua_name = "target_unit",
@@ -1431,7 +1622,7 @@ event.ET_UNIT_BE_HURT = {
         desc = "承受伤害的单位",
         lua_desc = "承受伤害的单位",
     },
-    [4] = {
+    [5] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -1439,7 +1630,7 @@ event.ET_UNIT_BE_HURT = {
         desc = "当前伤害所属技能",
         lua_desc = "当前伤害所属技能",
     },
-    [5] = {
+    [6] = {
         name = "__damage_type",
         type = "integer",
         lua_name = "damage_type",
@@ -1447,37 +1638,46 @@ event.ET_UNIT_BE_HURT = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
-    [6] = {
+    [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
-    [7] = {
+    [8] = {
         name = nil,
         type = nil,
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害前")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害前")
             return instance
         end,
     },
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER
+---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 ---@field damage_instance DamageInstance # 伤害实例
 
 --单位即将击中其他单位
 event.ET_UNIT_HURT_OTHER = {
     [1] = {
+        name = "__is_normal_hit",
+        type = "boolean",
+        lua_name = "is_normal_hit",
+        lua_type = "boolean",
+        desc = "是否是普通攻击",
+        lua_desc = "是否是普通攻击",
+    },
+    [2] = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
@@ -1485,7 +1685,7 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
-    [2] = {
+    [3] = {
         name = "__source_unit",
         type = "py.Unit",
         lua_name = "source_unit",
@@ -1493,7 +1693,7 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "施加伤害的单位",
         lua_desc = "施加伤害的单位",
     },
-    [3] = {
+    [4] = {
         name = "__target_unit",
         type = "py.Unit",
         lua_name = "target_unit",
@@ -1501,7 +1701,7 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "承受伤害的单位",
         lua_desc = "承受伤害的单位",
     },
-    [4] = {
+    [5] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -1509,7 +1709,7 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "当前伤害所属技能",
         lua_desc = "当前伤害所属技能",
     },
-    [5] = {
+    [6] = {
         name = "__damage_type",
         type = "integer",
         lua_name = "damage_type",
@@ -1517,37 +1717,46 @@ event.ET_UNIT_HURT_OTHER = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
-    [6] = {
+    [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
-    [7] = {
+    [8] = {
         name = nil,
         type = nil,
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害前")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害前")
             return instance
         end,
     },
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_BEFORE_APPLY
+---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 ---@field damage_instance DamageInstance # 伤害实例
 
 --单位即将受到攻击（计算加成后）
 event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
     [1] = {
+        name = "__is_normal_hit",
+        type = "boolean",
+        lua_name = "is_normal_hit",
+        lua_type = "boolean",
+        desc = "是否是普通攻击",
+        lua_desc = "是否是普通攻击",
+    },
+    [2] = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
@@ -1555,7 +1764,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
-    [2] = {
+    [3] = {
         name = "__source_unit",
         type = "py.Unit",
         lua_name = "source_unit",
@@ -1563,7 +1772,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "施加伤害的单位",
         lua_desc = "施加伤害的单位",
     },
-    [3] = {
+    [4] = {
         name = "__target_unit",
         type = "py.Unit",
         lua_name = "target_unit",
@@ -1571,7 +1780,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "承受伤害的单位",
         lua_desc = "承受伤害的单位",
     },
-    [4] = {
+    [5] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -1579,7 +1788,7 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "当前伤害所属技能",
         lua_desc = "当前伤害所属技能",
     },
-    [5] = {
+    [6] = {
         name = "__damage_type",
         type = "integer",
         lua_name = "damage_type",
@@ -1587,37 +1796,46 @@ event.ET_UNIT_BE_HURT_BEFORE_APPLY = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
-    [6] = {
+    [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
-    [7] = {
+    [8] = {
         name = nil,
         type = nil,
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害时")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害时")
             return instance
         end,
     },
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_BEFORE_APPLY
+---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 ---@field damage_instance DamageInstance # 伤害实例
 
 --单位即将击中其他单位（计算加成后）
 event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
     [1] = {
+        name = "__is_normal_hit",
+        type = "boolean",
+        lua_name = "is_normal_hit",
+        lua_type = "boolean",
+        desc = "是否是普通攻击",
+        lua_desc = "是否是普通攻击",
+    },
+    [2] = {
         name = "__damage",
         type = "py.Fixed",
         lua_name = "damage",
@@ -1625,7 +1843,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "受到的伤害值",
         lua_desc = "受到的伤害值",
     },
-    [2] = {
+    [3] = {
         name = "__source_unit",
         type = "py.Unit",
         lua_name = "source_unit",
@@ -1633,7 +1851,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "施加伤害的单位",
         lua_desc = "施加伤害的单位",
     },
-    [3] = {
+    [4] = {
         name = "__target_unit",
         type = "py.Unit",
         lua_name = "target_unit",
@@ -1641,7 +1859,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "承受伤害的单位",
         lua_desc = "承受伤害的单位",
     },
-    [4] = {
+    [5] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -1649,7 +1867,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "当前伤害所属技能",
         lua_desc = "当前伤害所属技能",
     },
-    [5] = {
+    [6] = {
         name = "__damage_type",
         type = "integer",
         lua_name = "damage_type",
@@ -1657,20 +1875,20 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
         desc = "伤害类型",
         lua_desc = "伤害类型",
     },
-    [6] = {
+    [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
-    [7] = {
+    [8] = {
         name = nil,
         type = nil,
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害时")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害时")
             return instance
         end,
     },
@@ -1684,7 +1902,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 ---@field damage_instance DamageInstance # 伤害实例
 
 --单位实际对其他单位造成伤害
@@ -1748,7 +1966,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
     [8] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
     [9] = {
@@ -1757,8 +1975,8 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害后")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害后")
             return instance
         end,
     },
@@ -1772,7 +1990,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 ---@field target_unit Unit # 承受伤害的单位
 ---@field ability Ability # 当前伤害所属技能
 ---@field damage_type integer # 伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 ---@field damage_instance DamageInstance # 伤害实例
 
 --单位实际受到伤害
@@ -1836,7 +2054,7 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
     [8] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
     [9] = {
@@ -1845,8 +2063,8 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
         lua_name = "damage_instance",
         lua_type = "DamageInstance",
         lua_desc = "伤害实例",
-        lua_code = function (data)
-            local instance = New 'DamageInstance' (data, "伤害后")
+        lua_code = function(data)
+            local instance = New "DamageInstance" (data, "伤害后")
             return instance
         end,
     },
@@ -1881,8 +2099,8 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
         lua_name = "heal_instance",
         lua_type = "HealInstance",
         lua_desc = "治疗实例",
-        lua_code = function (data)
-            local instance = New 'HealInstance' (data, "治疗前")
+        lua_code = function(data)
+            local instance = New "HealInstance" (data, "治疗前")
             return instance
         end,
     },
@@ -1941,15 +2159,15 @@ event.ET_UNIT_GET_CURE = {
         lua_name = "heal_instance",
         lua_type = "HealInstance",
         lua_desc = "治疗实例",
-        lua_code = function (data)
-            local instance = New 'HealInstance' (data, "治疗时")
+        lua_code = function(data)
+            local instance = New "HealInstance" (data, "治疗时")
             return instance
         end,
     },
 }
 
 ---@class EventParam.ET_UNIT_ANIM_STATE_ENTER
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 ---@field last_asm_state py.CcAsmState # 前一个动画机状态
 ---@field cur_asm_state py.CcAsmState # 当前动画机状态
 ---@field asm_node_name string # 节点名称
@@ -1960,7 +2178,7 @@ event.ET_UNIT_ANIM_STATE_ENTER = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位",
         lua_desc = "单位",
@@ -2000,7 +2218,7 @@ event.ET_UNIT_ANIM_STATE_ENTER = {
 }
 
 ---@class EventParam.ET_UNIT_ANIM_STATE_EXIT
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 ---@field cur_asm_state py.CcAsmState # 当前动画机状态
 ---@field asm_node_name string # 节点名称
 ---@field asm_node_id integer # 节点ID
@@ -2010,7 +2228,7 @@ event.ET_UNIT_ANIM_STATE_EXIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位",
         lua_desc = "单位",
@@ -2067,7 +2285,7 @@ event.ET_RES_ICON_CHANGED = {
 
 ---@class EventParam.ET_UNIT_RELEASE_ABILITY
 ---@field ability Ability # 施放的技能对象
----@field unit Unit # 触发事件的单位unit_
+---@field 触发单位 Unit # 触发事件的单位unit_
 ---@field ability_target_unit Unit # 技能的目标单位
 
 --单位施放技能事件
@@ -2083,7 +2301,7 @@ event.ET_UNIT_RELEASE_ABILITY = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "触发事件的单位unit_id",
         lua_desc = "触发事件的单位unit_",
@@ -2100,7 +2318,7 @@ event.ET_UNIT_RELEASE_ABILITY = {
 
 ---@class EventParam.ET_UNIT_RELEASE_ABILITY_START
 ---@field ability Ability # 施放的技能对象
----@field unit Unit # 触发事件的单位unit_
+---@field 触发单位 Unit # 触发事件的单位unit_
 
 --单位施放技能开始事件
 event.ET_UNIT_RELEASE_ABILITY_START = {
@@ -2115,7 +2333,7 @@ event.ET_UNIT_RELEASE_ABILITY_START = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "触发事件的单位unit_id",
         lua_desc = "触发事件的单位unit_",
@@ -2124,7 +2342,7 @@ event.ET_UNIT_RELEASE_ABILITY_START = {
 
 ---@class EventParam.ET_UNIT_RELEASE_ABILITY_END
 ---@field ability Ability # 施放的技能对象
----@field unit Unit # 触发事件的单位unit_
+---@field 触发单位 Unit # 触发事件的单位unit_
 
 --单位施放技能结束事件
 event.ET_UNIT_RELEASE_ABILITY_END = {
@@ -2139,7 +2357,7 @@ event.ET_UNIT_RELEASE_ABILITY_END = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "触发事件的单位unit_id",
         lua_desc = "触发事件的单位unit_",
@@ -2148,7 +2366,7 @@ event.ET_UNIT_RELEASE_ABILITY_END = {
 
 ---@class EventParam.ET_UNIT_RELEASE_MAGIC_BOOK
 ---@field ability Ability # 施放的技能对象
----@field unit Unit # 触发事件的单位unit_
+---@field 触发单位 Unit # 触发事件的单位unit_
 
 --单位施放技能事件
 event.ET_UNIT_RELEASE_MAGIC_BOOK = {
@@ -2163,7 +2381,7 @@ event.ET_UNIT_RELEASE_MAGIC_BOOK = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "触发事件的单位unit_id",
         lua_desc = "触发事件的单位unit_",
@@ -2181,23 +2399,23 @@ event.ET_UNIT_LEVEL_CHANGE = {}
 event.ET_UNIT_EXP_CHANGE = {}
 
 ---@class EventParam.ET_UNIT_PRE_ADD_EXP
----@field unit Unit # 获得经验的单位
----@field add_exp number # 增加的经验
+---@field 触发单位 Unit # 获得经验的单位
+---@field 经验数值 number # 增加的经验
 
 --单位即将获得经验
 event.ET_UNIT_PRE_ADD_EXP = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "获得经验的单位",
         lua_desc = "获得经验的单位",
     },
     [2] = {
         name = "__add_exp",
-        type = "number",
-        lua_name = "add_exp",
+        type = "py.Fixed",
+        lua_name = "经验数值",
         lua_type = "number",
         desc = "增加的经验",
         lua_desc = "增加的经验",
@@ -2205,31 +2423,31 @@ event.ET_UNIT_PRE_ADD_EXP = {
 }
 
 ---@class EventParam.ET_UNIT_ON_ADD_EXP
----@field unit Unit # 获得经验的单位
----@field add_exp number # 增加的经验
+---@field 触发单位 Unit # 获得经验的单位
+---@field 经验数值 integer # 增加的经验
 
 --单位获得经验
 event.ET_UNIT_ON_ADD_EXP = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "获得经验的单位",
         lua_desc = "获得经验的单位",
     },
     [2] = {
         name = "__add_exp",
-        type = "number",
-        lua_name = "add_exp",
-        lua_type = "number",
+        type = "integer",
+        lua_name = "经验数值",
+        lua_type = "integer",
         desc = "增加的经验",
         lua_desc = "增加的经验",
     },
 }
 
 ---@class EventParam.ET_UNIT_ON_COMMAND
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 ---@field cmd_type py.UnitCommand # 接收的命令
 ---@field target_unit Unit # 目标单位
 ---@field point Point # 目标点
@@ -2241,7 +2459,7 @@ event.ET_UNIT_ON_COMMAND = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位",
         lua_desc = "单位",
@@ -2294,7 +2512,7 @@ event.ET_UNIT_ON_COMMAND = {
 ---@field target_unit Unit # 死亡单位
 ---@field ability Ability # 致命伤害所属技能
 ---@field damage_type integer # 致命伤害类型
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位击杀其他单位
 event.ET_KILL_UNIT = {
@@ -2341,33 +2559,42 @@ event.ET_KILL_UNIT = {
     [6] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_BORN
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
+---@field lua_table py.Table # 用户自定义配置表
 
 --单位出生
 event.ET_UNIT_BORN = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
+    },
+    [2] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
 ---@class EventParam.ET_UNIT_ENTER_BATTLE
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --单位进入战斗状态
 event.ET_UNIT_ENTER_BATTLE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -2375,14 +2602,14 @@ event.ET_UNIT_ENTER_BATTLE = {
 }
 
 ---@class EventParam.ET_UNIT_EXIT_BATTLE
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --单位脱离战斗状态
 event.ET_UNIT_EXIT_BATTLE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -2390,14 +2617,14 @@ event.ET_UNIT_EXIT_BATTLE = {
 }
 
 ---@class EventParam.ET_UNIT_CREATE_SLAVE
----@field unit Unit # 仆从
+---@field 触发单位 Unit # 仆从
 
 --单位创建仆从
 event.ET_UNIT_CREATE_SLAVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "仆从id",
         lua_desc = "仆从",
@@ -2437,7 +2664,7 @@ event.ET_ITEM_ATTACHED_ATTR_CHANGED = {
 }
 
 ---@class EventParam.ET_UNIT_SHOP_BUY_ITEM
----@field unit Unit # 购买物品单位
+---@field 触发单位 Unit # 购买物品单位
 ---@field shop_unit Unit # 商店单位
 ---@field tab_idx integer # 商店分页
 ---@field cnt integer # 商品数量
@@ -2448,7 +2675,7 @@ event.ET_UNIT_SHOP_BUY_ITEM = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "购买物品单位id",
         lua_desc = "购买物品单位",
@@ -2488,7 +2715,7 @@ event.ET_UNIT_SHOP_BUY_ITEM = {
 }
 
 ---@class EventParam.ET_UNIT_SHOP_BUY_UNIT
----@field unit Unit # 购买物品单位
+---@field 触发单位 Unit # 购买物品单位
 ---@field shop_unit Unit # 商店单位
 ---@field tab_idx integer # 商店分页
 ---@field cnt integer # 商品数量
@@ -2499,7 +2726,7 @@ event.ET_UNIT_SHOP_BUY_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "购买物品单位id",
         lua_desc = "购买物品单位",
@@ -2539,7 +2766,7 @@ event.ET_UNIT_SHOP_BUY_UNIT = {
 }
 
 ---@class EventParam.ET_UNIT_ITEM_SELL
----@field unit Unit # 购买物品单位
+---@field 触发单位 Unit # 购买物品单位
 ---@field shop_unit Unit # 商店单位
 ---@field item Item # 道具
 
@@ -2548,7 +2775,7 @@ event.ET_UNIT_ITEM_SELL = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "购买物品单位id",
         lua_desc = "购买物品单位",
@@ -2707,7 +2934,7 @@ event.ET_SHOP_RES_COST_CHANGED = {
 }
 
 ---@class EventParam.ET_UNIT_ITEM_COMPOSE
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 ---@field compose_id py.ItemKey # 道具编号
 ---@field item_prop Item # 道具
 
@@ -2716,7 +2943,7 @@ event.ET_UNIT_ITEM_COMPOSE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -2740,7 +2967,7 @@ event.ET_UNIT_ITEM_COMPOSE = {
 }
 
 ---@class EventParam.ET_UNIT_SHOP_BUY_WITH_COMPOSE
----@field unit Unit # 购买物品单位
+---@field 触发单位 Unit # 购买物品单位
 ---@field shop_unit Unit # 商店单位
 ---@field item Item # 物品编号
 
@@ -2749,7 +2976,7 @@ event.ET_UNIT_SHOP_BUY_WITH_COMPOSE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "购买物品单位id",
         lua_desc = "购买物品单位",
@@ -2773,66 +3000,66 @@ event.ET_UNIT_SHOP_BUY_WITH_COMPOSE = {
 }
 
 ---@class EventParam.ET_REVIVE_UNIT
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位重生
 event.ET_REVIVE_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UPGRADE_UNIT
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位升级
 event.ET_UPGRADE_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_REACH_MOVE_TARGET_UNIT
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位运动目标达成
 event.ET_REACH_MOVE_TARGET_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_COLLIDE_OBSTACLE_UNIT
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --单位碰撞到障碍
 event.ET_COLLIDE_OBSTACLE_UNIT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
 
 ---@class EventParam.ET_UNIT_ENTER_GRASS
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --单位进入草丛
 event.ET_UNIT_ENTER_GRASS = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -2840,14 +3067,14 @@ event.ET_UNIT_ENTER_GRASS = {
 }
 
 ---@class EventParam.ET_UNIT_LEAVE_GRASS
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --单位离开草丛
 event.ET_UNIT_LEAVE_GRASS = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -2860,7 +3087,7 @@ event.ET_UNIT_LEAVE_GRASS = {
 event.ET_MAP_VISIBILITY_CHANGE = {}
 
 ---@class EventParam.ET_UNIT_ROLE_CHANGED
----@field unit Unit # 触发事件的单位
+---@field 触发单位 Unit # 触发事件的单位
 ---@field old_player Player # 单位原所属玩家
 ---@field new_player Player # 单位新所属玩家
 
@@ -2869,7 +3096,7 @@ event.ET_UNIT_ROLE_CHANGED = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "触发事件的单位",
         lua_desc = "触发事件的单位",
@@ -2924,7 +3151,7 @@ event.ET_UNIT_MUL_KV_CHANGE = {
 
 ---@class EventParam.ET_UNIT_PRECONDITION_SUCCEED
 ---@field unit_key py.UnitKey # 单位类型
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --单位类型的前置条件满足要求
 event.ET_UNIT_PRECONDITION_SUCCEED = {
@@ -2939,7 +3166,7 @@ event.ET_UNIT_PRECONDITION_SUCCEED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2948,7 +3175,7 @@ event.ET_UNIT_PRECONDITION_SUCCEED = {
 
 ---@class EventParam.ET_UNIT_PRECONDITION_FAILED
 ---@field unit_key py.UnitKey # 单位类型
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --单位类型的前置条件不满足要求
 event.ET_UNIT_PRECONDITION_FAILED = {
@@ -2963,7 +3190,7 @@ event.ET_UNIT_PRECONDITION_FAILED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2972,7 +3199,7 @@ event.ET_UNIT_PRECONDITION_FAILED = {
 
 ---@class EventParam.ET_ITEM_PRECONDITION_SUCCEED
 ---@field item_no py.ItemKey # 物品类型
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --物品类型的前置条件满足要求
 event.ET_ITEM_PRECONDITION_SUCCEED = {
@@ -2987,7 +3214,7 @@ event.ET_ITEM_PRECONDITION_SUCCEED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -2996,7 +3223,7 @@ event.ET_ITEM_PRECONDITION_SUCCEED = {
 
 ---@class EventParam.ET_ITEM_PRECONDITION_FAILED
 ---@field item_no py.ItemKey # 物品类型
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --物品类型的前置条件不满足要求
 event.ET_ITEM_PRECONDITION_FAILED = {
@@ -3011,7 +3238,7 @@ event.ET_ITEM_PRECONDITION_FAILED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -3020,7 +3247,7 @@ event.ET_ITEM_PRECONDITION_FAILED = {
 
 ---@class EventParam.ET_ABILITY_PRECONDITION_SUCCEED
 ---@field ability_id py.AbilityKey # 技能类型
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --技能类型的前置条件满足要求
 event.ET_ABILITY_PRECONDITION_SUCCEED = {
@@ -3035,7 +3262,7 @@ event.ET_ABILITY_PRECONDITION_SUCCEED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -3044,7 +3271,7 @@ event.ET_ABILITY_PRECONDITION_SUCCEED = {
 
 ---@class EventParam.ET_ABILITY_PRECONDITION_FAILED
 ---@field ability_id py.AbilityKey # 技能类型
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --技能类型的前置条件不满足要求
 event.ET_ABILITY_PRECONDITION_FAILED = {
@@ -3059,7 +3286,7 @@ event.ET_ABILITY_PRECONDITION_FAILED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -3068,7 +3295,7 @@ event.ET_ABILITY_PRECONDITION_FAILED = {
 
 ---@class EventParam.ET_TECH_PRECONDITION_SUCCEED
 ---@field tech_no py.TechKey # 科技类型
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --科技类型的前置条件满足要求
 event.ET_TECH_PRECONDITION_SUCCEED = {
@@ -3083,7 +3310,7 @@ event.ET_TECH_PRECONDITION_SUCCEED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -3092,7 +3319,7 @@ event.ET_TECH_PRECONDITION_SUCCEED = {
 
 ---@class EventParam.ET_TECH_PRECONDITION_FAILED
 ---@field tech_no py.TechKey # 科技类型
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --科技类型的前置条件不满足要求
 event.ET_TECH_PRECONDITION_FAILED = {
@@ -3107,7 +3334,7 @@ event.ET_TECH_PRECONDITION_FAILED = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -3116,7 +3343,7 @@ event.ET_TECH_PRECONDITION_FAILED = {
 
 ---@class EventParam.ET_ABILITY_UPGRADE
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 
 --技能升级
 event.ET_ABILITY_UPGRADE = {
@@ -3131,7 +3358,7 @@ event.ET_ABILITY_UPGRADE = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3140,7 +3367,7 @@ event.ET_ABILITY_UPGRADE = {
 
 ---@class EventParam.ET_ABILITY_CS_START
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3157,7 +3384,7 @@ event.ET_ABILITY_CS_START = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3176,10 +3403,10 @@ event.ET_ABILITY_CS_START = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3187,7 +3414,7 @@ event.ET_ABILITY_CS_START = {
 
 ---@class EventParam.ET_ABILITY_CS_END
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 
 --技能开始施法结束
@@ -3203,7 +3430,7 @@ event.ET_ABILITY_CS_END = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3220,7 +3447,7 @@ event.ET_ABILITY_CS_END = {
 
 ---@class EventParam.ET_ABILITY_PS_START
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3237,7 +3464,7 @@ event.ET_ABILITY_PS_START = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3256,10 +3483,10 @@ event.ET_ABILITY_PS_START = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3267,7 +3494,7 @@ event.ET_ABILITY_PS_START = {
 
 ---@class EventParam.ET_ABILITY_PS_END
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3284,7 +3511,7 @@ event.ET_ABILITY_PS_END = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3303,10 +3530,10 @@ event.ET_ABILITY_PS_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3329,7 +3556,7 @@ event.ET_ITEM_ABILITY_PS_END = {
 
 ---@class EventParam.ET_ABILITY_SP_END
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3346,7 +3573,7 @@ event.ET_ABILITY_SP_END = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3365,10 +3592,10 @@ event.ET_ABILITY_SP_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3376,7 +3603,7 @@ event.ET_ABILITY_SP_END = {
 
 ---@class EventParam.ET_ABILITY_CST_END
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3393,7 +3620,7 @@ event.ET_ABILITY_CST_END = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3412,10 +3639,10 @@ event.ET_ABILITY_CST_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3423,7 +3650,7 @@ event.ET_ABILITY_CST_END = {
 
 ---@class EventParam.ET_ABILITY_BS_END
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3440,7 +3667,7 @@ event.ET_ABILITY_BS_END = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3459,10 +3686,10 @@ event.ET_ABILITY_BS_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3470,7 +3697,7 @@ event.ET_ABILITY_BS_END = {
 
 ---@class EventParam.ET_ABILITY_CS_INTERRUPT
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 
 --技能准备阶段被打断
@@ -3486,7 +3713,7 @@ event.ET_ABILITY_CS_INTERRUPT = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3503,7 +3730,7 @@ event.ET_ABILITY_CS_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_PS_INTERRUPT
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3520,7 +3747,7 @@ event.ET_ABILITY_PS_INTERRUPT = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3539,10 +3766,10 @@ event.ET_ABILITY_PS_INTERRUPT = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3550,7 +3777,7 @@ event.ET_ABILITY_PS_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_SP_INTERRUPT
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3567,7 +3794,7 @@ event.ET_ABILITY_SP_INTERRUPT = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3586,10 +3813,10 @@ event.ET_ABILITY_SP_INTERRUPT = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3597,7 +3824,7 @@ event.ET_ABILITY_SP_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_CST_INTERRUPT
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3614,7 +3841,7 @@ event.ET_ABILITY_CST_INTERRUPT = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3633,10 +3860,10 @@ event.ET_ABILITY_CST_INTERRUPT = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3644,7 +3871,7 @@ event.ET_ABILITY_CST_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_BS_INTERRUPT
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 
 --技能后摇阶段被打断
@@ -3660,7 +3887,7 @@ event.ET_ABILITY_BS_INTERRUPT = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3677,7 +3904,7 @@ event.ET_ABILITY_BS_INTERRUPT = {
 
 ---@class EventParam.ET_ABILITY_END
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
 ---@field cast Cast # 施法
 
@@ -3694,7 +3921,7 @@ event.ET_ABILITY_END = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3713,10 +3940,10 @@ event.ET_ABILITY_END = {
         lua_name = "cast",
         lua_type = "Cast",
         lua_desc = "施法",
-        lua_code = function (data)
+        lua_code = function(data)
             local ability = data.ability
-            local id = data._py_params['__ability_runtime_id']
-            local cast = New 'Cast' (ability, id)
+            local id = data._py_params["__ability_runtime_id"]
+            local cast = y3.cast.get(ability, id)
             return cast
         end,
     },
@@ -3724,7 +3951,8 @@ event.ET_ABILITY_END = {
 
 ---@class EventParam.ET_ABILITY_OBTAIN
 ---@field ability Ability # 技能对象
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
+---@field lua_table py.Table # 用户自定义配置表
 
 --获得技能
 event.ET_ABILITY_OBTAIN = {
@@ -3739,16 +3967,24 @@ event.ET_ABILITY_OBTAIN = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
+    },
+    [3] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
 ---@class EventParam.ET_ABILITY_LOSE
 ---@field ability Ability # 技能对象
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --失去技能
 event.ET_ABILITY_LOSE = {
@@ -3763,7 +3999,7 @@ event.ET_ABILITY_LOSE = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
@@ -3772,7 +4008,7 @@ event.ET_ABILITY_LOSE = {
 
 ---@class EventParam.ET_ABILITY_SWITCH
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 
 --交换技能
 event.ET_ABILITY_SWITCH = {
@@ -3787,7 +4023,7 @@ event.ET_ABILITY_SWITCH = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3841,7 +4077,7 @@ event.ET_ABILITY_ATTR_CHANGED = {
 
 ---@class EventParam.ET_ABILITY_CD_END
 ---@field ability Ability # 技能对象
----@field unit Unit # 技能Owner
+---@field 触发单位 Unit # 技能Owner
 
 --技能冷却事件
 event.ET_ABILITY_CD_END = {
@@ -3856,7 +4092,7 @@ event.ET_ABILITY_CD_END = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "技能Owner",
         lua_desc = "技能Owner",
@@ -3882,6 +4118,7 @@ event.ET_ABILITY_AUTOCAST_CHANGED = {
 ---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
 ---@field from_unit Unit # 效果施加者
+---@field lua_table py.Table # 用户自定义配置表
 
 --获得效果
 event.ET_OBTAIN_MODIFIER = {
@@ -3908,6 +4145,14 @@ event.ET_OBTAIN_MODIFIER = {
         lua_type = "Unit",
         desc = "效果施加者",
         lua_desc = "效果施加者",
+    },
+    [4] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
@@ -4250,7 +4495,7 @@ event.ET_DEST_COLLECTED = {
 }
 
 ---@class EventParam.ET_DEST_AREA_DIE
----@field area Area # 可破坏物死亡的区域
+---@field 触发区域 Area # 可破坏物死亡的区域
 ---@field destructible Destructible # 死亡的可破坏物
 ---@field unit_for_dest Unit # 杀手单位
 
@@ -4259,7 +4504,7 @@ event.ET_DEST_AREA_DIE = {
     [1] = {
         name = "__area",
         type = "py.Area",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "可破坏物死亡的区域",
         lua_desc = "可破坏物死亡的区域",
@@ -4283,7 +4528,7 @@ event.ET_DEST_AREA_DIE = {
 }
 
 ---@class EventParam.ET_DEST_AREA_DRY
----@field area Area # 可破坏物被采集枯竭的区域
+---@field 触发区域 Area # 可破坏物被采集枯竭的区域
 ---@field destructible Destructible # 资源枯竭的可破坏物
 ---@field unit_for_dest Unit # 采集单位
 
@@ -4292,7 +4537,7 @@ event.ET_DEST_AREA_DRY = {
     [1] = {
         name = "__area",
         type = "py.Area",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "可破坏物被采集枯竭的区域",
         lua_desc = "可破坏物被采集枯竭的区域",
@@ -4316,7 +4561,7 @@ event.ET_DEST_AREA_DRY = {
 }
 
 ---@class EventParam.ET_DEST_AREA_ATTACKED
----@field area Area # 可破坏物被攻击的区域
+---@field 触发区域 Area # 可破坏物被攻击的区域
 ---@field destructible Destructible # 被攻击的可破坏物
 ---@field unit_for_dest Unit # 攻击单位
 
@@ -4325,7 +4570,7 @@ event.ET_DEST_AREA_ATTACKED = {
     [1] = {
         name = "__area",
         type = "py.Area",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "可破坏物被攻击的区域",
         lua_desc = "可破坏物被攻击的区域",
@@ -4349,7 +4594,7 @@ event.ET_DEST_AREA_ATTACKED = {
 }
 
 ---@class EventParam.ET_DEST_AREA_COLLECTED
----@field area Area # 可破坏物被采集的区域
+---@field 触发区域 Area # 可破坏物被采集的区域
 ---@field destructible Destructible # 被采集的可破坏物
 ---@field unit_for_dest Unit # 采集单位
 
@@ -4358,7 +4603,7 @@ event.ET_DEST_AREA_COLLECTED = {
     [1] = {
         name = "__area",
         type = "py.Area",
-        lua_name = "area",
+        lua_name = "触发区域",
         lua_type = "Area",
         desc = "可破坏物被采集的区域",
         lua_desc = "可破坏物被采集的区域",
@@ -4383,6 +4628,7 @@ event.ET_DEST_AREA_COLLECTED = {
 
 ---@class EventParam.ET_DEST_CREATE_NEW
 ---@field destructible Destructible # 可破坏物
+---@field lua_table py.Table # 用户自定义配置表
 
 --可破坏物创建
 event.ET_DEST_CREATE_NEW = {
@@ -4393,6 +4639,14 @@ event.ET_DEST_CREATE_NEW = {
         lua_type = "Destructible",
         desc = "可破坏物ID",
         lua_desc = "可破坏物",
+    },
+    [2] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
@@ -4535,7 +4789,7 @@ event.ET_GET_HURT_NEW = {
 }
 
 ---@class EventParam.ET_SELECT_DEST
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field destructible Destructible # 点击到可破坏物
 
 --玩家选中可破坏物
@@ -4543,7 +4797,7 @@ event.ET_SELECT_DEST = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4584,9 +4838,9 @@ event.ET_PRODUCE_PROJECTILE = {
         lua_name = "projectile",
         lua_type = "Projectile",
         lua_desc = "投射物",
-        lua_code = function (data)
-            local py_proj = data._py_params['projectile']
-            local projectile = y3.projectile.get_by_handle(py_proj)
+        lua_code = function(data)
+            local py_proj = data._py_params["projectile"]
+            local projectile = y3.投射物.从handle获取(py_proj)
             return projectile
         end,
     },
@@ -4603,9 +4857,9 @@ event.ET_DEATH_PROJECTILE = {
         lua_name = "projectile",
         lua_type = "Projectile",
         lua_desc = "投射物",
-        lua_code = function (data)
-            local py_proj = data._py_params['projectile']
-            local projectile = y3.projectile.get_by_handle(py_proj)
+        lua_code = function(data)
+            local py_proj = data._py_params["projectile"]
+            local projectile = y3.投射物.从handle获取(py_proj)
             return projectile
         end,
     },
@@ -4622,14 +4876,14 @@ event.ET_START_MOVE_PROJECTILE = {}
 event.ET_REACH_MOVE_TARGET_PROJECTILE = {}
 
 ---@class EventParam.ET_COLLIDE_OBSTACLE_PROJECTILE
----@field unit Unit # 无描述
+---@field 触发单位 Unit # 无描述
 
 --投射物碰撞到障碍
 event.ET_COLLIDE_OBSTACLE_PROJECTILE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
     },
 }
@@ -4640,21 +4894,21 @@ event.ET_COLLIDE_OBSTACLE_PROJECTILE = {
 event.ET_UNIT_PRODUCE_PROJECTILE = {}
 
 ---@class EventParam.ET_TRIGGER_COMPONENT_EVENT
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
 ---@field pos py.Vector2 # 触碰坐标
 ---@field touch_id integer # 触碰ID
 ---@field str1 string # 自定义信息
----@field ui UI # ui
----@field data any # 自定义数据
+---@field 触发控件 UI # ui
+---@field 自定义数据 any # 自定义数据
 
 --ui编辑器事件
 event.ET_TRIGGER_COMPONENT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -4702,25 +4956,220 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
     [7] = {
         name = nil,
         type = nil,
-        lua_name = "ui",
+        lua_name = "触发控件",
         lua_type = "UI",
         lua_desc = "ui",
-        lua_code = function (data)
-            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+        lua_code = function(data)
+            local ui = y3.控件.获取于HD(data.触发玩家, data.comp_name)
             return ui
         end,
     },
     [8] = {
         name = nil,
         type = nil,
-        lua_name = "data",
+        lua_name = "自定义数据",
         lua_type = "any",
         lua_desc = "自定义数据",
-        lua_code = function (data)
+        lua_code = function(data)
             local bin = data.str1
             local undumped = y3.dump.decode(bin)
             return undumped
         end,
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT
+---@field 触发玩家 Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field float1 number # 自定义信息
+
+--ui滑动条事件
+event.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__float1",
+        type = "py.Fixed",
+        lua_name = "float1",
+        lua_type = "number",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT
+---@field 触发玩家 Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field bool1 boolean # 自定义信息
+
+--ui聊天框元件可见性改变事件
+event.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__bool1",
+        type = "boolean",
+        lua_name = "bool1",
+        lua_type = "boolean",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT
+---@field ui_event_name string # 事件名
+---@field 触发玩家 Player # 玩家
+---@field equip_slot_id integer # 槽位索引
+---@field equip_slot_type integer # 物品栏类型
+---@field equip_slot_item Item # 物品
+---@field equip_slot_unit Unit # 单位
+---@field equip_slot_is_begin boolean # 是否拖拽开始
+
+--UI装备栏拖拽事件
+event.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT = {
+    [1] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "事件名",
+        lua_desc = "事件名",
+    },
+    [2] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [3] = {
+        name = "__equip_slot_id",
+        type = "integer",
+        lua_name = "equip_slot_id",
+        lua_type = "integer",
+        desc = "槽位索引",
+        lua_desc = "槽位索引",
+    },
+    [4] = {
+        name = "__equip_slot_type",
+        type = "integer",
+        lua_name = "equip_slot_type",
+        lua_type = "integer",
+        desc = "物品栏类型",
+        lua_desc = "物品栏类型",
+    },
+    [5] = {
+        name = "__equip_slot_item",
+        type = "py.Item",
+        lua_name = "equip_slot_item",
+        lua_type = "Item",
+        desc = "物品",
+        lua_desc = "物品",
+    },
+    [6] = {
+        name = "__equip_slot_unit",
+        type = "py.Unit",
+        lua_name = "equip_slot_unit",
+        lua_type = "Unit",
+        desc = "单位",
+        lua_desc = "单位",
+    },
+    [7] = {
+        name = "__equip_slot_is_begin",
+        type = "boolean",
+        lua_name = "equip_slot_is_begin",
+        lua_type = "boolean",
+        desc = "是否拖拽开始",
+        lua_desc = "是否拖拽开始",
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field bool1 boolean # 自定义信息
+
+--ui复选框事件
+event.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__bool1",
+        type = "boolean",
+        lua_name = "bool1",
+        lua_type = "boolean",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
     },
 }
 
@@ -4749,15 +5198,15 @@ event.ET_GLOBAL_EVENT_TO_UI_WITH_DICT = {
 }
 
 ---@class EventParam.ET_KEYBOARD_KEY_DOWN_EVENT
----@field player Player # 触发按键的玩家
----@field current_key py.KeyboardKey # 当前键盘按键
+---@field 触发玩家 Player # 触发按键的玩家
+---@field 触发按键 py.KeyboardKey # 当前键盘按键
 
 --键盘按键按下
 event.ET_KEYBOARD_KEY_DOWN_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4765,7 +5214,7 @@ event.ET_KEYBOARD_KEY_DOWN_EVENT = {
     [2] = {
         name = "__current_key",
         type = "py.KeyboardKey",
-        lua_name = "current_key",
+        lua_name = "触发按键",
         lua_type = "py.KeyboardKey",
         desc = "当前键盘按键",
         lua_desc = "当前键盘按键",
@@ -4773,15 +5222,15 @@ event.ET_KEYBOARD_KEY_DOWN_EVENT = {
 }
 
 ---@class EventParam.ET_KEYBOARD_KEY_UP_EVENT
----@field player Player # 触发按键的玩家
----@field current_key py.KeyboardKey # 当前键盘按键
+---@field 触发玩家 Player # 触发按键的玩家
+---@field 触发按键 py.KeyboardKey # 当前键盘按键
 
 --键盘按键抬起
 event.ET_KEYBOARD_KEY_UP_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4789,7 +5238,7 @@ event.ET_KEYBOARD_KEY_UP_EVENT = {
     [2] = {
         name = "__current_key",
         type = "py.KeyboardKey",
-        lua_name = "current_key",
+        lua_name = "触发按键",
         lua_type = "py.KeyboardKey",
         desc = "当前键盘按键",
         lua_desc = "当前键盘按键",
@@ -4797,7 +5246,7 @@ event.ET_KEYBOARD_KEY_UP_EVENT = {
 }
 
 ---@class EventParam.ET_MOUSE_KEY_DOWN_EVENT
----@field player Player # 触发按键的玩家
+---@field 触发玩家 Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
@@ -4806,7 +5255,7 @@ event.ET_MOUSE_KEY_DOWN_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4830,7 +5279,7 @@ event.ET_MOUSE_KEY_DOWN_EVENT = {
 }
 
 ---@class EventParam.ET_MOUSE_KEY_UP_EVENT
----@field player Player # 触发按键的玩家
+---@field 触发玩家 Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
@@ -4839,7 +5288,7 @@ event.ET_MOUSE_KEY_UP_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4863,7 +5312,7 @@ event.ET_MOUSE_KEY_UP_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_DB_CLICK_EVENT
----@field player Player # 触发按键的玩家
+---@field 触发玩家 Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 
@@ -4872,7 +5321,7 @@ event.MOUSE_KEY_DB_CLICK_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4896,16 +5345,16 @@ event.MOUSE_KEY_DB_CLICK_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_DOWN_UNIT_EVENT
----@field player Player # 触发按键的玩家
+---@field 触发玩家 Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
----@field unit Unit # 当前操作的单位
+---@field 触发单位 Unit # 当前操作的单位
 
 --鼠标按键按下单位
 event.MOUSE_KEY_DOWN_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4921,7 +5370,7 @@ event.MOUSE_KEY_DOWN_UNIT_EVENT = {
     [3] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "当前操作的单位ID",
         lua_desc = "当前操作的单位",
@@ -4929,16 +5378,16 @@ event.MOUSE_KEY_DOWN_UNIT_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_UP_UNIT_EVENT
----@field player Player # 触发按键的玩家
+---@field 触发玩家 Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
----@field unit Unit # 当前操作的单位
+---@field 触发单位 Unit # 当前操作的单位
 
 --鼠标按键抬起单位
 event.MOUSE_KEY_UP_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4954,7 +5403,7 @@ event.MOUSE_KEY_UP_UNIT_EVENT = {
     [3] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "当前操作的单位ID",
         lua_desc = "当前操作的单位",
@@ -4962,16 +5411,16 @@ event.MOUSE_KEY_UP_UNIT_EVENT = {
 }
 
 ---@class EventParam.MOUSE_KEY_DB_CLICK_UNIT_EVENT
----@field player Player # 触发按键的玩家
+---@field 触发玩家 Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
----@field unit Unit # 当前操作的单位
+---@field 触发单位 Unit # 当前操作的单位
 
 --鼠标按键双击单位
 event.MOUSE_KEY_DB_CLICK_UNIT_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -4987,7 +5436,7 @@ event.MOUSE_KEY_DB_CLICK_UNIT_EVENT = {
     [3] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "当前操作的单位ID",
         lua_desc = "当前操作的单位",
@@ -4995,7 +5444,7 @@ event.MOUSE_KEY_DB_CLICK_UNIT_EVENT = {
 }
 
 ---@class EventParam.MOUSE_MOVE_EVENT
----@field player Player # 触发按键的玩家
+---@field 触发玩家 Player # 触发按键的玩家
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
 ---@field tar_x integer # 鼠标指向的屏幕坐标X
 ---@field tar_y integer # 鼠标指向的屏幕坐标Y
@@ -5005,7 +5454,7 @@ event.MOUSE_MOVE_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -5037,7 +5486,7 @@ event.MOUSE_MOVE_EVENT = {
 }
 
 ---@class EventParam.ET_MOUSE_WHEEL_EVENT
----@field player Player # 触发按键的玩家
+---@field 触发玩家 Player # 触发按键的玩家
 ---@field mouse_wheel py.MouseWheel # 当前鼠标滚轮
 
 --鼠标滚轮事件
@@ -5045,7 +5494,7 @@ event.ET_MOUSE_WHEEL_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "触发按键的玩家ID",
         lua_desc = "触发按键的玩家",
@@ -5072,7 +5521,7 @@ event.LOCAL_MOUSE_MOVE_EVENT = {}
 ---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --单位触发器向全局触发器发送事件
 event.ET_UNIT_EVENT_TO_GLOBAL = {
@@ -5127,7 +5576,7 @@ event.ET_UNIT_EVENT_TO_GLOBAL = {
     [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -5141,7 +5590,7 @@ event.ET_UNIT_EVENT_TO_GLOBAL = {
 ---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --技能触发器向全局触发器发送事件
 event.ET_ABILITY_EVENT_TO_GLOBAL = {
@@ -5196,7 +5645,7 @@ event.ET_ABILITY_EVENT_TO_GLOBAL = {
     [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -5210,7 +5659,7 @@ event.ET_ABILITY_EVENT_TO_GLOBAL = {
 ---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --效果触发器向全局触发器发送事件
 event.ET_MODIFIER_EVENT_TO_GLOBAL = {
@@ -5265,7 +5714,7 @@ event.ET_MODIFIER_EVENT_TO_GLOBAL = {
     [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -5279,7 +5728,7 @@ event.ET_MODIFIER_EVENT_TO_GLOBAL = {
 ---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --投射物触发器向全局触发器发送事件
 event.ET_PROJECTILE_EVENT_TO_GLOBAL = {
@@ -5334,7 +5783,7 @@ event.ET_PROJECTILE_EVENT_TO_GLOBAL = {
     [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -5348,7 +5797,7 @@ event.ET_PROJECTILE_EVENT_TO_GLOBAL = {
 ---@field float1 number # 实数1
 ---@field bool1 boolean # 布尔1
 ---@field str1 string # 字符串1
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --物品触发器向全局触发器发送事件
 event.ET_ITEM_EVENT_TO_GLOBAL = {
@@ -5403,7 +5852,7 @@ event.ET_ITEM_EVENT_TO_GLOBAL = {
     [7] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -5411,15 +5860,15 @@ event.ET_ITEM_EVENT_TO_GLOBAL = {
 }
 
 ---@class EventParam.ET_SELECT_UNIT
----@field player Player # 玩家
----@field unit Unit # 点击到单位
+---@field 触发玩家 Player # 玩家
+---@field 触发单位 Unit # 点击到单位
 
 --玩家选中单位
 event.ET_SELECT_UNIT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5427,7 +5876,7 @@ event.ET_SELECT_UNIT = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "点击到单位id",
         lua_desc = "点击到单位",
@@ -5435,7 +5884,7 @@ event.ET_SELECT_UNIT = {
 }
 
 ---@class EventParam.ET_HIGH_LIGHT_UNIT_CHANGE
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field high_light_unit_id py.HighLightUnitID # 高亮单位id
 
 --玩家控制的高亮单位
@@ -5443,7 +5892,7 @@ event.ET_HIGH_LIGHT_UNIT_CHANGE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5459,7 +5908,7 @@ event.ET_HIGH_LIGHT_UNIT_CHANGE = {
 }
 
 ---@class EventParam.ET_SELECT_ITEM
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field item Item # 点击到物品
 
 --玩家选中物品
@@ -5467,7 +5916,7 @@ event.ET_SELECT_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5482,8 +5931,59 @@ event.ET_SELECT_ITEM = {
     },
 }
 
+---@class EventParam.ET_ATTR_CHEATING_DETECTED
+---@field player Player # 作弊玩家
+---@field unit Unit # 作弊单位
+---@field attr_key string # 作弊属性名
+---@field cheating_value number # 作弊值
+---@field real_value number # 真实值
+
+--玩家作弊
+event.ET_ATTR_CHEATING_DETECTED = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "作弊玩家ID",
+        lua_desc = "作弊玩家",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "作弊单位id",
+        lua_desc = "作弊单位",
+    },
+    [3] = {
+        name = "__attr_key",
+        type = "string",
+        lua_name = "attr_key",
+        lua_type = "string",
+        desc = "作弊属性名",
+        lua_desc = "作弊属性名",
+    },
+    [4] = {
+        name = "__cheating_value",
+        type = "py.Fixed",
+        lua_name = "cheating_value",
+        lua_type = "number",
+        desc = "作弊值",
+        lua_desc = "作弊值",
+    },
+    [5] = {
+        name = "__real_value",
+        type = "py.Fixed",
+        lua_name = "real_value",
+        lua_type = "number",
+        desc = "真实值",
+        lua_desc = "真实值",
+    },
+}
+
 ---@class EventParam.ET_DOUBLE_CLICK_ITEM
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field item Item # 双击到物品
 
 --玩家双击选中物品
@@ -5491,7 +5991,7 @@ event.ET_DOUBLE_CLICK_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5507,15 +6007,15 @@ event.ET_DOUBLE_CLICK_ITEM = {
 }
 
 ---@class EventParam.ET_OPEN_SHOP_PANEL
----@field player Player # 玩家
----@field unit Unit # 商店单位
+---@field 触发玩家 Player # 玩家
+---@field 触发单位 Unit # 商店单位
 
 --打开商店界面
 event.ET_OPEN_SHOP_PANEL = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5523,7 +6023,7 @@ event.ET_OPEN_SHOP_PANEL = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "商店单位ID",
         lua_desc = "商店单位",
@@ -5531,7 +6031,7 @@ event.ET_OPEN_SHOP_PANEL = {
 }
 
 ---@class EventParam.ET_DOUBLE_CLICK_DEST
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field destructible Destructible # 双击到可破坏物
 
 --玩家双击选中可破坏物
@@ -5539,7 +6039,7 @@ event.ET_DOUBLE_CLICK_DEST = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5555,7 +6055,7 @@ event.ET_DOUBLE_CLICK_DEST = {
 }
 
 ---@class EventParam.ET_SELECT_UNIT_GROUP
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field unit_group_id_list UnitGroup # 框选到单位组id列表
 ---@field team_id integer # 队伍编号
 
@@ -5564,7 +6064,7 @@ event.ET_SELECT_UNIT_GROUP = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5588,8 +6088,8 @@ event.ET_SELECT_UNIT_GROUP = {
 }
 
 ---@class EventParam.ET_START_SKILL_POINTER
----@field player Player # 玩家
----@field unit Unit # 释放单位
+---@field 触发玩家 Player # 玩家
+---@field 触发单位 Unit # 释放单位
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能Seq
@@ -5599,7 +6099,7 @@ event.ET_START_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5607,7 +6107,7 @@ event.ET_START_SKILL_POINTER = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "释放单位id",
         lua_desc = "释放单位",
@@ -5639,8 +6139,8 @@ event.ET_START_SKILL_POINTER = {
 }
 
 ---@class EventParam.ET_STOP_SKILL_POINTER
----@field player Player # 玩家
----@field unit Unit # 释放单位
+---@field 触发玩家 Player # 玩家
+---@field 触发单位 Unit # 释放单位
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能Seq
@@ -5650,7 +6150,7 @@ event.ET_STOP_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5658,7 +6158,7 @@ event.ET_STOP_SKILL_POINTER = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "释放单位id",
         lua_desc = "释放单位",
@@ -5690,8 +6190,8 @@ event.ET_STOP_SKILL_POINTER = {
 }
 
 ---@class EventParam.ET_RESIZE_SKILL_POINTER
----@field player Player # 玩家
----@field unit Unit # 释放单位
+---@field 触发玩家 Player # 玩家
+---@field 触发单位 Unit # 释放单位
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能Seq
@@ -5701,7 +6201,7 @@ event.ET_RESIZE_SKILL_POINTER = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -5709,7 +6209,7 @@ event.ET_RESIZE_SKILL_POINTER = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "释放单位id",
         lua_desc = "释放单位",
@@ -5922,16 +6422,16 @@ event.ET_TOP_TOUCH_END = {}
 event.RANK_LIST_INFO_CHANGE = {}
 
 ---@class EventParam.ET_UNIT_ADD_ITEM
----@field unit Unit # 获得该物品的单位
----@field item Item # 物品
----@field item_no py.ItemKey # 物品编号
+---@field 触发单位 Unit # 获得该物品的单位
+---@field 触发物品 Item # 物品
+---@field 物品编号 py.ItemKey # 物品编号
 
 --单位获得物品
 event.ET_UNIT_ADD_ITEM = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "获得该物品的单位id",
         lua_desc = "获得该物品的单位",
@@ -5939,7 +6439,7 @@ event.ET_UNIT_ADD_ITEM = {
     [2] = {
         name = "__item_id",
         type = "py.ItemID",
-        lua_name = "item",
+        lua_name = "触发物品",
         lua_type = "Item",
         desc = "物品id",
         lua_desc = "物品",
@@ -5947,7 +6447,7 @@ event.ET_UNIT_ADD_ITEM = {
     [3] = {
         name = "__item_no",
         type = "py.ItemKey",
-        lua_name = "item_no",
+        lua_name = "物品编号",
         lua_type = "py.ItemKey",
         desc = "物品编号",
         lua_desc = "物品编号",
@@ -5955,16 +6455,16 @@ event.ET_UNIT_ADD_ITEM = {
 }
 
 ---@class EventParam.ET_UNIT_ADD_ITEM_FOR_COMPOSE
----@field unit Unit # 获得该物品的单位
----@field item Item # 物品
----@field item_no py.ItemKey # 物品编号
+---@field 触发单位 Unit # 获得该物品的单位
+---@field 触发物品 Item # 物品
+---@field 物品编号 py.ItemKey # 物品编号
 
 --单位添加物品用于物品合成事件的判断
 event.ET_UNIT_ADD_ITEM_FOR_COMPOSE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "获得该物品的单位id",
         lua_desc = "获得该物品的单位",
@@ -5972,7 +6472,7 @@ event.ET_UNIT_ADD_ITEM_FOR_COMPOSE = {
     [2] = {
         name = "__item_id",
         type = "py.ItemID",
-        lua_name = "item",
+        lua_name = "触发物品",
         lua_type = "Item",
         desc = "物品id",
         lua_desc = "物品",
@@ -5980,7 +6480,7 @@ event.ET_UNIT_ADD_ITEM_FOR_COMPOSE = {
     [3] = {
         name = "__item_no",
         type = "py.ItemKey",
-        lua_name = "item_no",
+        lua_name = "物品编号",
         lua_type = "py.ItemKey",
         desc = "物品编号",
         lua_desc = "物品编号",
@@ -5988,16 +6488,16 @@ event.ET_UNIT_ADD_ITEM_FOR_COMPOSE = {
 }
 
 ---@class EventParam.ET_UNIT_ADD_ITEM_TO_BAR
----@field unit Unit # 获得该物品的单位
----@field item Item # 物品
----@field item_no py.ItemKey # 物品编号
+---@field 触发单位 Unit # 获得该物品的单位
+---@field 触发物品 Item # 物品
+---@field 物品编号 py.ItemKey # 物品编号
 
 --单位获得物品到物品栏
 event.ET_UNIT_ADD_ITEM_TO_BAR = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "获得该物品的单位id",
         lua_desc = "获得该物品的单位",
@@ -6005,7 +6505,7 @@ event.ET_UNIT_ADD_ITEM_TO_BAR = {
     [2] = {
         name = "__item_id",
         type = "py.ItemID",
-        lua_name = "item",
+        lua_name = "触发物品",
         lua_type = "Item",
         desc = "物品id",
         lua_desc = "物品",
@@ -6013,7 +6513,7 @@ event.ET_UNIT_ADD_ITEM_TO_BAR = {
     [3] = {
         name = "__item_no",
         type = "py.ItemKey",
-        lua_name = "item_no",
+        lua_name = "物品编号",
         lua_type = "py.ItemKey",
         desc = "物品编号",
         lua_desc = "物品编号",
@@ -6021,19 +6521,52 @@ event.ET_UNIT_ADD_ITEM_TO_BAR = {
 }
 
 ---@class EventParam.ET_UNIT_ADD_ITEM_TO_PKG
----@field unit Unit # 获得该物品的单位
----@field item Item # 物品
----@field item_no py.ItemKey # 物品编号
+---@field 触发单位 Unit # 获得该物品的单位
+---@field 触发物品 Item # 物品
+---@field 物品编号 py.ItemKey # 物品编号
 
 --单位获得物品到背包栏
 event.ET_UNIT_ADD_ITEM_TO_PKG = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "获得该物品的单位id",
         lua_desc = "获得该物品的单位",
+    },
+    [2] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "触发物品",
+        lua_type = "Item",
+        desc = "物品id",
+        lua_desc = "物品",
+    },
+    [3] = {
+        name = "__item_no",
+        type = "py.ItemKey",
+        lua_name = "物品编号",
+        lua_type = "py.ItemKey",
+        desc = "物品编号",
+        lua_desc = "物品编号",
+    },
+}
+
+---@class EventParam.ET_UNIT_REMOVE_ITEM
+---@field 触发单位 Unit # 失去该物品的单位
+---@field item Item # 物品
+---@field item_no py.ItemKey # 物品编号
+
+--单位失去物品
+event.ET_UNIT_REMOVE_ITEM = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "触发单位",
+        lua_type = "Unit",
+        desc = "失去该物品的单位id",
+        lua_desc = "失去该物品的单位",
     },
     [2] = {
         name = "__item_id",
@@ -6053,13 +6586,13 @@ event.ET_UNIT_ADD_ITEM_TO_PKG = {
     },
 }
 
----@class EventParam.ET_UNIT_REMOVE_ITEM
+---@class EventParam.ET_UNIT_REMOVE_ITEM_FOR_UI
 ---@field unit Unit # 失去该物品的单位
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
---单位失去物品
-event.ET_UNIT_REMOVE_ITEM = {
+--单位失去物品(用于UI)
+event.ET_UNIT_REMOVE_ITEM_FOR_UI = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -6087,16 +6620,16 @@ event.ET_UNIT_REMOVE_ITEM = {
 }
 
 ---@class EventParam.ET_UNIT_REMOVE_ITEM_FROM_BAR
----@field unit Unit # 失去该物品的单位
----@field item Item # 物品
----@field item_no py.ItemKey # 物品编号
+---@field 触发单位 Unit # 失去该物品的单位
+---@field 触发物品 Item # 物品
+---@field 物品编号 py.ItemKey # 物品编号
 
 --单位物品从物品栏离开
 event.ET_UNIT_REMOVE_ITEM_FROM_BAR = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "失去该物品的单位id",
         lua_desc = "失去该物品的单位",
@@ -6104,7 +6637,7 @@ event.ET_UNIT_REMOVE_ITEM_FROM_BAR = {
     [2] = {
         name = "__item_id",
         type = "py.ItemID",
-        lua_name = "item",
+        lua_name = "触发物品",
         lua_type = "Item",
         desc = "物品id",
         lua_desc = "物品",
@@ -6112,7 +6645,7 @@ event.ET_UNIT_REMOVE_ITEM_FROM_BAR = {
     [3] = {
         name = "__item_no",
         type = "py.ItemKey",
-        lua_name = "item_no",
+        lua_name = "物品编号",
         lua_type = "py.ItemKey",
         desc = "物品编号",
         lua_desc = "物品编号",
@@ -6120,16 +6653,16 @@ event.ET_UNIT_REMOVE_ITEM_FROM_BAR = {
 }
 
 ---@class EventParam.ET_UNIT_REMOVE_ITEM_FROM_PKG
----@field unit Unit # 失去该物品的单位
----@field item Item # 物品
----@field item_no py.ItemKey # 物品编号
+---@field 触发单位 Unit # 失去该物品的单位
+---@field 触发物品 Item # 物品
+---@field 物品编号 py.ItemKey # 物品编号
 
 --单位物品从背包栏离开
 event.ET_UNIT_REMOVE_ITEM_FROM_PKG = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "失去该物品的单位id",
         lua_desc = "失去该物品的单位",
@@ -6137,7 +6670,7 @@ event.ET_UNIT_REMOVE_ITEM_FROM_PKG = {
     [2] = {
         name = "__item_id",
         type = "py.ItemID",
-        lua_name = "item",
+        lua_name = "触发物品",
         lua_type = "Item",
         desc = "物品id",
         lua_desc = "物品",
@@ -6145,7 +6678,7 @@ event.ET_UNIT_REMOVE_ITEM_FROM_PKG = {
     [3] = {
         name = "__item_no",
         type = "py.ItemKey",
-        lua_name = "item_no",
+        lua_name = "物品编号",
         lua_type = "py.ItemKey",
         desc = "物品编号",
         lua_desc = "物品编号",
@@ -6153,7 +6686,7 @@ event.ET_UNIT_REMOVE_ITEM_FROM_PKG = {
 }
 
 ---@class EventParam.ET_UNIT_USE_ITEM
----@field unit Unit # 使用该物品的单位
+---@field 触发单位 Unit # 使用该物品的单位
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
@@ -6162,7 +6695,7 @@ event.ET_UNIT_USE_ITEM = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "使用该物品的单位id",
         lua_desc = "使用该物品的单位",
@@ -6201,14 +6734,14 @@ event.ET_UNIT_USE_ITEM_END = {
 }
 
 ---@class EventParam.ET_UNIT_START_NAV_EVENT
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --单位开始寻路时
 event.ET_UNIT_START_NAV_EVENT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -6216,14 +6749,14 @@ event.ET_UNIT_START_NAV_EVENT = {
 }
 
 ---@class EventParam.ET_UNIT_END_NAV_EVENT
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 
 --单位结束寻路时
 event.ET_UNIT_END_NAV_EVENT = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -6236,7 +6769,7 @@ event.ET_UNIT_END_NAV_EVENT = {
 event.ET_UNIT_BAG_REFRESH = {}
 
 ---@class EventParam.ET_ITEM_STACK_CHANGED
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 ---@field delta_cnt integer # 变化值
@@ -6246,7 +6779,7 @@ event.ET_ITEM_STACK_CHANGED = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -6278,7 +6811,7 @@ event.ET_ITEM_STACK_CHANGED = {
 }
 
 ---@class EventParam.ET_ITEM_CHARGE_CHANGED
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 ---@field item Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 ---@field delta_cnt integer # 变化值
@@ -6288,7 +6821,7 @@ event.ET_ITEM_CHARGE_CHANGED = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位id",
         lua_desc = "单位",
@@ -6321,6 +6854,7 @@ event.ET_ITEM_CHARGE_CHANGED = {
 
 ---@class EventParam.ET_ITEM_ON_CREATE
 ---@field item Item # 被创建的物品
+---@field lua_table py.Table # 用户自定义配置表
 
 --物品创建
 event.ET_ITEM_ON_CREATE = {
@@ -6331,6 +6865,14 @@ event.ET_ITEM_ON_CREATE = {
         lua_type = "Item",
         desc = "被创建的物品",
         lua_desc = "被创建的物品",
+    },
+    [2] = {
+        name = "__lua_table",
+        type = "py.Table",
+        lua_name = "lua_table",
+        lua_type = "py.Table",
+        desc = "用户自定义配置表",
+        lua_desc = "用户自定义配置表",
     },
 }
 
@@ -6374,7 +6916,7 @@ event.ET_ITEM_ENTITY_ON_DESTROY = {
 }
 
 ---@class EventParam.ET_ITEM_SOLD
----@field unit Unit # 购买者
+---@field 触发单位 Unit # 购买者
 ---@field unit2 Unit # 贩卖者
 ---@field item Item # 被售出的物品
 ---@field buy_unit Unit # 收购物品的单位
@@ -6385,7 +6927,7 @@ event.ET_ITEM_SOLD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "购买者",
         lua_desc = "购买者",
@@ -6426,7 +6968,7 @@ event.ET_ITEM_SOLD = {
 
 ---@class EventParam.ET_ITEM_BROKEN
 ---@field item Item # 被破坏的物品
----@field unit Unit # 破坏物品的单位
+---@field 触发单位 Unit # 破坏物品的单位
 
 --破坏物品
 event.ET_ITEM_BROKEN = {
@@ -6441,7 +6983,7 @@ event.ET_ITEM_BROKEN = {
     [2] = {
         name = "__unit",
         type = "py.Unit",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "破坏物品的单位",
         lua_desc = "破坏物品的单位",
@@ -6499,7 +7041,7 @@ event.ET_ITEM_DESC_CHANGED = {
 ---@class EventParam.ET_ITEM_CREATE_ON_DEST_COLLECTED
 ---@field item Item # 事件中的物品
 ---@field destructible Destructible # 事件中的可破坏物
----@field unit Unit # 采集可破坏物事件中的单位
+---@field 触发单位 Unit # 采集可破坏物事件中的单位
 ---@field ability Ability # 采集可破坏物的捷能
 
 --物品被采集创建
@@ -6523,7 +7065,7 @@ event.ET_ITEM_CREATE_ON_DEST_COLLECTED = {
     [3] = {
         name = "__unit_id",
         type = "py.Unit",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "采集可破坏物事件中的单位",
         lua_desc = "采集可破坏物事件中的单位",
@@ -6539,7 +7081,7 @@ event.ET_ITEM_CREATE_ON_DEST_COLLECTED = {
 }
 
 ---@class EventParam.ET_ATTACK_MOVE_CMD
----@field unit Unit # 指定单位
+---@field 触发单位 Unit # 指定单位
 ---@field tar_x number # 点击位置X坐标
 ---@field tar_y number # 点击位置Y坐标
 
@@ -6548,7 +7090,7 @@ event.ET_ATTACK_MOVE_CMD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "指定单位",
         lua_desc = "指定单位",
@@ -6596,7 +7138,7 @@ event.ET_SELL_ITEM_CMD = {
 }
 
 ---@class EventParam.ET_AI_RELEASE_SKILL_CMD
----@field unit Unit # 指定单位
+---@field 触发单位 Unit # 指定单位
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能SEQ
@@ -6607,7 +7149,7 @@ event.ET_AI_RELEASE_SKILL_CMD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "指定单位",
         lua_desc = "指定单位",
@@ -6647,7 +7189,7 @@ event.ET_AI_RELEASE_SKILL_CMD = {
 }
 
 ---@class EventParam.ET_PATROL_CMD
----@field unit Unit # 指定单位
+---@field 触发单位 Unit # 指定单位
 ---@field tar_x number # 点击位置X坐标
 ---@field tar_y number # 点击位置Y坐标
 
@@ -6656,7 +7198,7 @@ event.ET_PATROL_CMD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "指定单位",
         lua_desc = "指定单位",
@@ -6680,7 +7222,7 @@ event.ET_PATROL_CMD = {
 }
 
 ---@class EventParam.ET_MOVE_UNIT_TO_TARGET_CMD
----@field unit Unit # 指定单位
+---@field 触发单位 Unit # 指定单位
 ---@field tar_x number # 点击位置X坐标
 ---@field tar_y number # 点击位置Y坐标
 
@@ -6689,7 +7231,7 @@ event.ET_MOVE_UNIT_TO_TARGET_CMD = {
     [1] = {
         name = "__unit",
         type = "py.Unit",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "指定单位",
         lua_desc = "指定单位",
@@ -6713,8 +7255,8 @@ event.ET_MOVE_UNIT_TO_TARGET_CMD = {
 }
 
 ---@class EventParam.ET_MOUSE_HOVER_EVENT
----@field player Player # 玩家
----@field unit Unit # 悬浮单位
+---@field 触发玩家 Player # 玩家
+---@field 触发单位 Unit # 悬浮单位
 ---@field item Item # 悬浮物品
 ---@field destructible Destructible # 悬浮可破坏物
 
@@ -6723,7 +7265,7 @@ event.ET_MOUSE_HOVER_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家id",
         lua_desc = "玩家",
@@ -6731,7 +7273,7 @@ event.ET_MOUSE_HOVER_EVENT = {
     [2] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "悬浮单位ID",
         lua_desc = "悬浮单位",
@@ -6791,7 +7333,7 @@ event.ET_MOVER_TERRAIN_COLLISION = {}
 
 ---@class EventParam.ET_CHAT_SEND_GM
 ---@field str1 string # 指令字符串
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 
 --聊天中发送指令
 event.ET_CHAT_SEND_GM = {
@@ -6806,7 +7348,7 @@ event.ET_CHAT_SEND_GM = {
     [2] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家id",
         lua_desc = "玩家",
@@ -6922,7 +7464,7 @@ event.UI_VX_EVENT = {
 }
 
 ---@class EventParam.ET_UI_PREFAB_CREATE_EVENT
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field ui_prefab string # ui模块id
 ---@field ui_prefab_ins py.UIPrefabIns # 创建出的实例控件
 
@@ -6931,7 +7473,7 @@ event.ET_UI_PREFAB_CREATE_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -6955,7 +7497,7 @@ event.ET_UI_PREFAB_CREATE_EVENT = {
 }
 
 ---@class EventParam.ET_UI_PREFAB_DEL_EVENT
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field ui_prefab string # ui模块id
 ---@field ui_prefab_ins py.UIPrefabIns # 销毁的模块实例控件
 
@@ -6964,7 +7506,7 @@ event.ET_UI_PREFAB_DEL_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -6988,7 +7530,7 @@ event.ET_UI_PREFAB_DEL_EVENT = {
 }
 
 ---@class EventParam.ROLE_INPUT_FIELD_EDIT_MSG
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field msg string # 字符串
 
 --输入框控件玩家输入
@@ -6996,7 +7538,7 @@ event.ROLE_INPUT_FIELD_EDIT_MSG = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -7012,7 +7554,7 @@ event.ROLE_INPUT_FIELD_EDIT_MSG = {
 }
 
 ---@class EventParam.ET_MICRO_SPEAK
----@field player Player # 玩家
+---@field 触发玩家 Player # 玩家
 ---@field audio_channel integer # 频道
 ---@field audio_bool boolean # 是否发言
 
@@ -7021,7 +7563,7 @@ event.ET_MICRO_SPEAK = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
-        lua_name = "player",
+        lua_name = "触发玩家",
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
@@ -7045,7 +7587,7 @@ event.ET_MICRO_SPEAK = {
 }
 
 ---@class EventParam.ET_UNIT_3D_ACTIVE
----@field unit Unit # 单位
+---@field 触发单位 Unit # 单位
 ---@field is_active boolean # 是否开启
 
 --聊天中发送指令
@@ -7053,7 +7595,7 @@ event.ET_UNIT_3D_ACTIVE = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
-        lua_name = "unit",
+        lua_name = "触发单位",
         lua_type = "Unit",
         desc = "单位ID",
         lua_desc = "单位",
@@ -7329,6 +7871,150 @@ event.ET_PHYSICS_ENTITY_ON_LOSE = {
         lua_type = "py.PhysicsEntityKey",
         desc = "组件id",
         lua_desc = "组件id",
+    },
+}
+
+---@class EventParam.ET_ROLE_STORE_ITEM_CHANGED
+---@field store_key py.StoreKey # 道具编号
+---@field store_item_type py.StoreItemType # 道具类型
+---@field store_item_change_count integer # 平台道具变化数
+---@field store_item_expire_date integer # 平台道具到期时间戳
+---@field 触发玩家 Player # 玩家
+
+--平台道具变化事件
+event.ET_ROLE_STORE_ITEM_CHANGED = {
+    [1] = {
+        name = "__store_key",
+        type = "py.StoreKey",
+        lua_name = "store_key",
+        lua_type = "py.StoreKey",
+        desc = "道具编号",
+        lua_desc = "道具编号",
+    },
+    [2] = {
+        name = "__store_item_type",
+        type = "py.StoreItemType",
+        lua_name = "store_item_type",
+        lua_type = "py.StoreItemType",
+        desc = "道具类型",
+        lua_desc = "道具类型",
+    },
+    [3] = {
+        name = "__store_item_change_count",
+        type = "integer",
+        lua_name = "store_item_change_count",
+        lua_type = "integer",
+        desc = "平台道具变化数",
+        lua_desc = "平台道具变化数",
+    },
+    [4] = {
+        name = "__store_item_expire_date",
+        type = "integer",
+        lua_name = "store_item_expire_date",
+        lua_type = "integer",
+        desc = "平台道具到期时间戳",
+        lua_desc = "平台道具到期时间戳",
+    },
+    [5] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "玩家id",
+        lua_desc = "玩家",
+    },
+}
+
+---@class EventParam.ET_ROLE_STORE_PAGE_STATE_CHANGED
+---@field 触发玩家 Player # 玩家
+---@field store_page_state boolean # 商城界面状态
+
+--平台商城窗口变化事件
+event.ET_ROLE_STORE_PAGE_STATE_CHANGED = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "触发玩家",
+        lua_type = "Player",
+        desc = "玩家id",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__store_page_state",
+        type = "boolean",
+        lua_name = "store_page_state",
+        lua_type = "boolean",
+        desc = "商城界面状态",
+        lua_desc = "商城界面状态",
+    },
+}
+
+---@class EventParam.ET_LUA_CONSOLE_COMMAND
+---@field str1 string # 指令字符串
+
+--LuaConsole命令
+event.ET_LUA_CONSOLE_COMMAND = {
+    [1] = {
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "指令字符串",
+        lua_desc = "指令字符串",
+    },
+}
+
+---@class EventParam.ET_LUA_CONSOLE_TIPS
+---@field str1 string # 指令前缀
+
+--LuaConsole命令补全
+event.ET_LUA_CONSOLE_TIPS = {
+    [1] = {
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "指令前缀",
+        lua_desc = "指令前缀",
+    },
+}
+
+---@class EventParam.ET_DIALOG_EVENT
+---@field dialog_id integer # 对话框id
+
+--对话框-点击
+event.ET_DIALOG_EVENT = {
+    [1] = {
+        name = "__dialog_id",
+        type = "integer",
+        lua_name = "dialog_id",
+        lua_type = "integer",
+        desc = "对话框id",
+        lua_desc = "对话框id",
+    },
+}
+
+---@class EventParam.ET_DIALOG_BUTTON_EVENT
+---@field dialog_id integer # 对话框id
+---@field button_id integer # 按钮id
+
+--对话框按钮-点击
+event.ET_DIALOG_BUTTON_EVENT = {
+    [1] = {
+        name = "__dialog_id",
+        type = "integer",
+        lua_name = "dialog_id",
+        lua_type = "integer",
+        desc = "对话框id",
+        lua_desc = "对话框id",
+    },
+    [2] = {
+        name = "__button_id",
+        type = "integer",
+        lua_name = "button_id",
+        lua_type = "integer",
+        desc = "按钮id",
+        lua_desc = "按钮id",
     },
 }
 

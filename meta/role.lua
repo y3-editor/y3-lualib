@@ -353,6 +353,11 @@ function Role:set_role_vignetting_change_range(value) end
 ---@param interval? number # Interval
 function Role:set_role_vignetting_color(r, g, b, interval) end
 
+--设置玩家暗角颜色(HEX)
+---@param color string # hex
+---@param interval? number # Interval
+function Role:set_role_vignetting_color_hex(color, interval) end
+
 --设置玩家的基础操作快捷键（过滤掉禁止修改的）
 ---@param game_func_id py.EditableGameFunc # 可编辑操作
 ---@param normal_key py.NormalKey # 功能键
@@ -459,3 +464,16 @@ function Role:api_get_role_total_consume() end
 --获取玩家是否打赏该地图
 ---@return boolean # 是否打赏该地图
 function Role:api_get_role_is_donated() end
+
+--获取玩家商城登录用token
+---@return string # 商城token
+function Role:api_get_role_store_params() end
+
+--获取玩家当前地图的成就点数
+---@return boolean # 成就点数
+function Role:api_get_role_achieve_point() end
+
+--获取玩家当前地图成就是否解锁
+---@param achieve_id string # 成就ID
+---@return boolean # 是否解锁
+function Role:api_get_role_achieve_unlock(achieve_id) end

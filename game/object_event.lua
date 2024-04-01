@@ -1,18 +1,18 @@
-local event_configs = require 'y3.meta.eventconfig'
-local event_datas   = require 'y3.meta.event'
+local event_configs = require "y3.meta.eventconfig"
+local event_datas   = require "y3.meta.event"
 
 ---@class ObjectEvent
 ---@field private object_event_manager? EventManager
 ---@overload fun(): self
-local M = Class 'ObjectEvent'
+local M             = Class "ObjectEvent"
 
 -- 注册对象的引擎事件
 ---@param event_name string
 ---@param ... any
 ---@return Trigger
-function M:event(event_name, ...)
+function M:事件(event_name, ...)
     if not self.object_event_manager then
-        self.object_event_manager = New 'EventManager' (self)
+        self.object_event_manager = New "EventManager" (self)
     end
     local extra_args, callback, unsubscribe = self:subscribe_event(event_name, ...)
     local trigger = self.object_event_manager:event(event_name, extra_args, callback)
@@ -21,7 +21,7 @@ function M:event(event_name, ...)
 
     local gcHost = self --[[@as GCHost]]
     if gcHost.bindGC then
-        gcHost:bindGC(trigger)
+        gcHost:bindGC(New 'GCBuffer' (0, trigger))
     end
 
     return trigger
@@ -55,24 +55,24 @@ function M:subscribe_event(event_name, ...)
     local config = event_configs.config[event_name]
     local self_type = y3.class.type(self)
     if not config or not self_type then
-        error('此事件无法作为对象事件：' .. tostring(event_name))
+        error("此事件无法作为对象事件：" .. tostring(event_name))
     end
     if not config or not is_valid_object(self_type, config) then
-        error('此事件无法作为对象事件：' .. tostring(event_name))
+        error("此事件无法作为对象事件：" .. tostring(event_name))
     end
 
-    local nargs = select('#', ...)
+    local nargs = select("#", ...)
     local extra_args
     ---@type Trigger.CallBack
     local callback
     if nargs == 1 then
         callback = ...
     elseif nargs > 1 then
-        extra_args = {...}
+        extra_args = { ... }
         callback = extra_args[nargs]
         extra_args[nargs] = nil
     else
-        error('缺少回调函数！')
+        error("缺少回调函数！")
     end
 
     if self_type == config.object then
@@ -90,7 +90,7 @@ function M:subscribe_event(event_name, ...)
 
     y3.py_event_sub.event_register(event_name, extra_args)
 
-    local unsubscribe = function ()
+    local unsubscribe = function()
         y3.py_event_sub.event_unregister(event_name, extra_args)
     end
 
@@ -111,7 +111,7 @@ local function getMaster(datas, config, lua_params)
     end
 end
 
-local function event_notify(event_name, extra_args, lua_params)
+local function 发起事件(event_name, extra_args, lua_params)
     local config = event_configs.config[event_name]
     if not config or not config.object then
         return
@@ -150,5 +150,6 @@ local function event_notify(event_name, extra_args, lua_params)
 end
 
 return {
-    event_notify = event_notify,
+    event_notify = 发起事件,
+    self = M,
 }

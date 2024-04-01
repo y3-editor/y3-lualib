@@ -1,5 +1,5 @@
 ---@class Helper
-local M = Class 'Helper'
+local M = Class "Helper"
 
 ---@param py_list py.List
 ---@param wrapper? fun(py_object: any): any
@@ -9,7 +9,7 @@ function M.unpack_list(py_list, wrapper)
     for i = 0, python_len(py_list) - 1 do
         local py_obj = python_index(py_list, i)
         local lua_obj = wrapper and wrapper(py_obj) or py_obj
-        t[#t+1] = lua_obj
+        t[#t + 1] = lua_obj
     end
     return t
 end
@@ -22,7 +22,7 @@ function M.pack_list(lua_list, unwrapper)
     for i = 1, #lua_list do
         local lua_obj = lua_list[i]
         local py_obj = unwrapper and unwrapper(lua_obj) or lua_obj
-        py_list.append(py_obj)
+        py_list[#py_list + 1] = py_obj
     end
     return py_list
 end
@@ -30,7 +30,7 @@ end
 ---@param n number | py.Fixed
 ---@return number
 function M.tonumber(n)
-    if type(n) == 'number' then
+    if type(n) == "number" then
         return n
     else
         return n:float()

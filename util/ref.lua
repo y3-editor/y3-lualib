@@ -8,8 +8,8 @@
 --]]
 
 ---@class Ref
----@overload fun(className: string, new: (fun(key: Ref.ValidKeyType): any)): self
-local M = Class 'Ref'
+---@overload fun(className: string, new: (fun(key: Ref.ValidKeyType, ...): any)): self
+local M = Class "Ref"
 
 ---@alias Ref.ValidKeyType any
 
@@ -49,6 +49,9 @@ end
 ---@param ... any
 ---@return any
 function M:get(key, ...)
+    if not key then
+        return nil
+    end
     local strongRefMap = self.strongRefMap
     if strongRefMap[key] then
         return strongRefMap[key]
@@ -71,7 +74,7 @@ function M:remove(key)
     -- 只有在第一次移除引用时才会开始计时，这样可以错峰（大概？）
     if not self.updateTimer then
         ---@private
-        self.updateTimer = y3.timer.loop(self.unrefTimeAtLeast, function ()
+        self.updateTimer = y3.本地计时器.loop(self.unrefTimeAtLeast, function()
             self:updateWaitingList()
         end)
     end

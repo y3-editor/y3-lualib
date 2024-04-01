@@ -1,5 +1,6 @@
 local counter = y3.util.counter()
 
+--触发器
 ---@class Trigger
 ---@field private _event Event
 ---@field private _callback Trigger.CallBack
@@ -7,10 +8,11 @@ local counter = y3.util.counter()
 ---@field private _include_name? string
 ---@field private _on_remove? function
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
-local M = Class 'Trigger'
+local M = Class "Trigger"
 
 ---@alias Trigger.CallBack fun(...): any, any, any, any
 
+---@private
 ---@param event Event
 ---@param event_args? any[]
 ---@param callback Trigger.CallBack
@@ -20,11 +22,12 @@ function M:__init(event, event_args, callback)
     self._callback = callback
     self._id = counter()
     self._event_args = event_args
-    self._include_name = y3.reload.getCurrentIncludeName()
+    self._include_name = y3.重载.getCurrentIncludeName()
     event:add_trigger(self)
     return self
 end
 
+---@private
 function M:__del()
     self._event:remove_trigger(self)
     if self._on_remove then
@@ -32,27 +35,29 @@ function M:__del()
     end
 end
 
-M.type = 'trigger'
+M.type = "trigger"
 ---@private
 M._enable = true
 ---@private
 M._id = 0
 
+---@private
 function M:__tostring()
-    return ('{trigger|%d}'):format(self._id)
+    ---@diagnostic disable-next-line: invisible
+    return ("{trigger|%d|%s|%s}"):format(self._id, self._event.event_name, self._include_name)
 end
 
 --禁用触发器
-function M:disable()
+function M:禁用()
     self._enable = false
 end
 
-function M:enable()
+function M:启用()
     self._enable = true
 end
 
 ---@return boolean
-function M:is_enable()
+function M:是否已启用()
     return self._enable
 end
 
@@ -62,7 +67,7 @@ end
 ---@return boolean
 function M:is_match_args(fire_args)
     local event_args = self._event_args
-    if fire_args == event_args  then
+    if fire_args == event_args then
         return true
     end
     local fire_args_n = fire_args and #fire_args or 0
@@ -104,12 +109,12 @@ function M:execute(...)
     end
 end
 
-function M:remove()
+function M:移除()
     Delete(self)
 end
 
 ---@return string?
-function M:get_include_name()
+function M:获取载入名称()
     return self._include_name
 end
 
@@ -117,3 +122,5 @@ end
 function M:on_remove(callback)
     self._on_remove = callback
 end
+
+return M

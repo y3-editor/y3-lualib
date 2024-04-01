@@ -1,3 +1,4 @@
+--科技
 ---@class Technology
 local M = Class 'Technology'
 

@@ -1,7 +1,10 @@
--- 本地计时器，支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
+--本地计时器
+--
+--支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
 ---@class LocalTimer
 ---@field private include_name? string
 ---@field package id integer
+---@field private time number
 ---@field private mode LocalTimer.Mode
 ---@field private count integer
 ---@field private on_timer LocalTimer.OnTimer
@@ -14,7 +17,7 @@
 ---@field private waking_up? boolean
 ---@field private queue_index? integer
 ---@overload fun(time: number, mode: LocalTimer.Mode, count: integer, on_timer: LocalTimer.OnTimer): self
-local M = Class 'LocalTimer'
+local M = Class "LocalTimer"
 
 ---@alias LocalTimer.Mode 'second' | 'frame'
 ---@alias LocalTimer.OnTimer fun(timer: LocalTimer, count: integer)
@@ -51,7 +54,7 @@ function M:__init(time, mode, count, on_timer)
     self.mode = mode
     self.count = count
     self.on_timer = on_timer
-    self.include_name = y3.reload.getCurrentIncludeName()
+    self.include_name = y3.重载.getCurrentIncludeName()
     self.init_ms = cur_ms
     self.target_ms = cur_ms
     self.start_ms = cur_ms
@@ -72,14 +75,14 @@ function M:set_time_out()
         return
     end
 
-    if self.mode == 'second' then
+    if self.mode == "second" then
         self.target_ms = self.init_ms
-                       + self.time * (self.runned_count + 1) * 1000.0
-                       + self.total_paused_ms
+            + self.time * (self.runned_count + 1) * 1000.0
+            + self.total_paused_ms
     else
         self.target_ms = self.init_ms
-                       + self.time * (self.runned_count + 1) * 1000 // frame_interval
-                       + self.total_paused_ms
+            + self.time * (self.runned_count + 1) * 1000 // frame_interval
+            + self.total_paused_ms
     end
 
     self:push()
@@ -126,7 +129,7 @@ function M:push()
         queue = {}
         timer_queues[ms] = queue
     end
-    queue[#queue+1] = self
+    queue[#queue + 1] = self
     self.queue_index = ms
 end
 
@@ -174,7 +177,7 @@ end
 
 -- 是否正在运行
 function M:is_running()
-    return  not self.removed
+    return not self.removed
         and not self.pausing
 end
 
@@ -236,7 +239,7 @@ end
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
 function M.wait(timeout, on_timer)
-    local timer = New 'LocalTimer' (timeout, 'second', 1, on_timer)
+    local timer = New "LocalTimer" (timeout, "second", 1, on_timer)
     return timer
 end
 
@@ -245,7 +248,7 @@ end
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
 function M.wait_frame(frame, on_timer)
-    local timer = New 'LocalTimer' (frame, 'frame', 1, on_timer)
+    local timer = New "LocalTimer" (frame, "frame", 1, on_timer)
     return timer
 end
 
@@ -254,7 +257,7 @@ end
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
 function M.loop(timeout, on_timer)
-    local timer = New 'LocalTimer' (timeout, 'second', 0, on_timer)
+    local timer = New "LocalTimer" (timeout, "second", 0, on_timer)
     return timer
 end
 
@@ -263,7 +266,7 @@ end
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
 function M.loop_frame(frame, on_timer)
-    local timer = New 'LocalTimer' (frame, 'frame', 0, on_timer)
+    local timer = New "LocalTimer" (frame, "frame", 0, on_timer)
     return timer
 end
 
@@ -273,7 +276,7 @@ end
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
 function M.loop_count(timeout, count, on_timer)
-    local timer = New 'LocalTimer' (timeout, 'second', count, on_timer)
+    local timer = New "LocalTimer" (timeout, "second", count, on_timer)
     return timer
 end
 
@@ -283,7 +286,7 @@ end
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
 function M.loop_count_frame(frame, count, on_timer)
-    local timer = New 'LocalTimer' (frame, 'frame', count, on_timer)
+    local timer = New "LocalTimer" (frame, "frame", count, on_timer)
     return timer
 end
 
@@ -292,10 +295,10 @@ end
 function M.pairs()
     local timers = {}
     for _, timer in y3.util.sortPairs(M.all_timers) do
-        timers[#timers+1] = timer
+        timers[#timers + 1] = timer
     end
     local i = 0
-    return function ()
+    return function()
         i = i + 1
         return timers[i]
     end
@@ -311,7 +314,7 @@ local function update_frame()
         local queue = timer_queues[ti]
         if queue then
             cur_ms = ti
-            table.sort(queue, function (a, b)
+            table.sort(queue, function(a, b)
                 return a.id < b.id
             end)
             for i = 1, #queue do
@@ -329,7 +332,7 @@ local function update_frame()
     cur_ms = target_ms
 end
 
----@diagnostic disable-next-line: deprecated
-y3.timer.loop_frame(1, update_frame)
+---@diagnostic disable-next-line: deprecated, invisible
+y3.计时器.loop_frame(1, update_frame)
 
 return M

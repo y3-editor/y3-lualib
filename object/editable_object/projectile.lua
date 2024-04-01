@@ -1,129 +1,139 @@
---- File Name : projectile.lua
---- Description: 投射物相关逻辑 对应编辑器---投射物
-
+--投射物
 ---@class Projectile
 ---@field handle py.ProjectileEntity
+---@field phandle py.ProjectileEntity
 ---@overload fun(id: integer, py_projectile: py.ProjectileEntity): self
-local M = Class 'Projectile'
-M.type = 'projectile'
+local M = Class "Projectile"
+M.type = "projectile"
 
 ---@class Projectile: ObjectEvent
-Extends('Projectile', 'ObjectEvent')
+Extends("Projectile", "ObjectEvent")
 ---@class Projectile: KV
-Extends('Projectile', 'KV')
+Extends("Projectile", "KV")
 
+---@private
 function M:__tostring()
-    return string.format('{projectile|%s|%s}'
-        , self:get_key()
-        , self.handle
+    return string.format("{projectile|%s|%s}"
+    , self:获取类型id()
+    , self.handle
     )
 end
 
+---@private
 ---@param id integer
 ---@param py_projectile py.ProjectileEntity
 ---@return self
 function M:__init(id, py_projectile)
-    self.handle = py_projectile
-    self.id     = id
+    self.handle  = py_projectile
+    self.phandle = y3.py_proxy.wrap(py_projectile)
+    self.id      = id
     return self
 end
 
+---@private
 function M:__del()
-    self.handle:api_delete()
+    self.phandle:api_delete()
 end
 
 ---@package
-M.ref_manager = New 'Ref' ('Projectile', function (id)
+M.ref_manager = New "Ref" ("Projectile", function(id)
     local py_proj = GameAPI.get_projectile_by_id(id)
     if not py_proj then
         return nil
     end
-    return New 'Projectile' (id, py_proj)
+    return New "Projectile" (id, py_proj)
 end)
 
 ---@param py_projectile py.ProjectileEntity
 ---@return Projectile projectile
-function M.get_by_handle(py_projectile)
-    -- TODO 获取ID换成正式API
-    ---@diagnostic disable-next-line: undefined-field
-    local id = py_projectile.id
+function M.从handle获取(py_projectile)
+    local id = py_projectile:api_get_id()
     local projectile = M.ref_manager:get(id)
     return projectile
 end
 
-y3.py_converter.register_py_to_lua('py.Projectile', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.Projectile', function (lua_value)
+---@param id py.ProjectileID
+---@return Projectile
+function M.get_by_id(id)
+    local projectile = M.ref_manager:get(id)
+    return projectile
+end
+
+y3.py_converter.register_py_to_lua("py.Projectile", M.从handle获取)
+y3.py_converter.register_lua_to_py("py.Projectile", function(lua_value)
     return lua_value.handle
 end)
+y3.py_converter.register_py_to_lua("py.ProjectileID", M.get_by_id)
 
-y3.game:event('投射物-死亡', function (trg, data)
+y3.游戏:事件("投射物-死亡", function(trg, data)
     local id = data.projectile.id
     M.ref_manager:remove(id)
 end)
 
 ---获取投射物的类型ID
 ---@return py.ProjectileKey projectile_key
-function M:get_key()
-    return self.handle:api_get_key()
+function M:获取类型id()
+    return self.phandle:api_get_key()
 end
 
 ---是否存在
 ---@return boolean is_exist 是否存在
-function M:is_exist()
-    return  GameAPI.projectile_is_exist(self.handle)
+function M:是否存在()
+    return GameAPI.projectile_is_exist(self.handle)
 end
 
 ---获取投射物高度
 ---@return number height 高度
-function M:get_height()
-    return self.handle:api_get_height()
+function M:获取高度()
+    ---@diagnostic disable-next-line: undefined-field
+    return self.phandle:api_get_height():float()
 end
 
 ---获取投射物剩余持续时间
 ---@return number duration 投射物剩余持续时间
-function M:get_left_time()
-    return self.handle:api_get_left_time()
+function M:获取剩余持续时间()
+    return self.phandle:api_get_left_time()
 end
 
 ---获取投射物的拥有者
 ---@return Unit unit 投射物的拥有者
-function M:get_owner()
-    local py_unit = self.handle:api_get_owner()
-    return y3.unit.get_by_handle(py_unit)
+function M:获取拥有者()
+    local py_unit = self.phandle:api_get_owner()
+    return y3.单位.从handle获取(py_unit)
 end
 
 ---获取投射物朝向
 ---@return number angle 投射物朝向
-function M:get_facing()
-    return self.handle:api_get_face_angle()
+function M:获取朝向()
+    return self.phandle:api_get_face_angle()
 end
 
 ---获取投射物所在点
 ---@return Point point 投射物所在点
-function M:get_point()
-    local py_point = self.handle:api_get_position()
+function M:获取所在点()
+    local py_point = self.phandle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.point.get_by_handle(py_point)
+    return y3.点.从handle获取(py_point)
 end
 
 ---是否拥有标签
 ---@param  tag string 标签
 ---@return boolean is_has_tag 是否拥有标签
-function M:has_tag(tag)
+function M:是否拥有标签(tag)
     return GlobalAPI.has_tag(self.handle, tag)
 end
 
 ---投射物添加标签
 ---@param tag string 标签
-function M:add_tag(tag)
-    self.handle:api_add_tag(tag)
+function M:添加标签(tag)
+    self.phandle:api_add_tag(tag)
 end
 
 ---投射物移除标签
 ---@param tag string 标签
-function M:remove_tag(tag)
-    self.handle:api_remove_tag(tag)
+function M:移除标签(tag)
+    self.phandle:api_remove_tag(tag)
 end
 
 ---@class Projectile.CreateData
@@ -141,12 +151,12 @@ end
 -- 创建投射物
 ---@param data Projectile.CreateData 投射物创建数据
 ---@return Projectile
-function M.create(data)
+function M.创建(data)
     if not data.owner then
-        data.owner = y3.player.get_by_id(31)
+        data.owner = y3.玩家.从id获取(31)
     end
     local target = data.target
-    if target.type == 'point' then
+    if target.type == "point" then
         ---@cast target Point
         local py_obj = GameAPI.create_projectile_in_scene_new(
             data.key,
@@ -163,13 +173,13 @@ function M.create(data)
             data.remove_immediately or false,
             data.remove_immediately == nil and true or false
         )
-        return M.get_by_handle(py_obj)
+        return M.从handle获取(py_obj)
     else
         ---@cast target Unit
         local py_obj = GameAPI.create_projectile_on_socket(
             data.key,
             target.handle,
-            data.socket or 'origin',
+            data.socket or "origin",
             Fix32(data.angle or 0.0),
             -- TODO 见问题3
             ---@diagnostic disable-next-line: param-type-mismatch
@@ -181,87 +191,87 @@ function M.create(data)
             data.remove_immediately or false,
             data.remove_immediately == nil and true or false
         )
-        return M.get_by_handle(py_obj)
+        return M.从handle获取(py_obj)
     end
 end
 
 ---设置所属单位
 ---@param unit Unit 所属单位
-function M:set_owner(unit)
+function M:所在所属单位(unit)
     GameAPI.change_projectile_owner(self.handle, unit.handle)
 end
 
 ---设置关联技能
 ---@param ability Ability 关联技能
-function M:set_ability(ability)
+function M:所在关联技能(ability)
     GameAPI.change_projectile_ability(self.handle, ability.handle)
 end
 
 ---销毁
-function M:remove()
+function M:移除()
     Delete(self)
 end
 
 ---设置高度
 ---@param height number 高度
-function M:set_height(height)
-    self.handle:api_raise_height(Fix32(height))
+function M:所设置高度(height)
+    self.phandle:api_raise_height(Fix32(height))
 end
 
 ---设置坐标
 ---@param point Point 点坐标
-function M:set_point(point)
+function M:设置坐标(point)
     -- TODO 见问题3
     ---@diagnostic disable-next-line: param-type-mismatch
-    self.handle:api_set_position(point.handle)
+    self.phandle:api_set_position(point.handle)
 end
 
 ---设置朝向
 ---@param direction number 朝向
-function M:set_facing(direction)
-    self.handle:api_set_face_angle(direction)
+function M:设置朝向(direction)
+    self.phandle:api_set_face_angle(direction)
 end
 
 ---设置旋转
 ---@param x number x轴
 ---@param y number y轴
 ---@param z number z轴
-function M:set_rotation(x, y, z)
-    self.handle:api_set_rotation(x, y, z)
+function M:设置旋转(x, y, z)
+    self.phandle:api_set_rotation(x, y, z)
 end
 
 ---设置缩放
 ---@param x number x轴
 ---@param y number y轴
 ---@param z number z轴
-function M:set_scale(x, y, z)
-    self.handle:api_set_scale(x, y, z)
+function M:设置缩放(x, y, z)
+    self.phandle:api_set_scale(x, y, z)
 end
 
 ---设置动画速度
 ---@param speed number
-function M:set_animation_speed(speed)
-    self.handle:api_set_animation_speed(speed)
+function M:设置动画速度(speed)
+    self.phandle:api_set_animation_speed(speed)
 end
 
 ---设置持续时间
 ---@param duration number 持续时间
-function M:set_time(duration)
-    self.handle:api_set_duration(duration)
+function M:设置持续时间(duration)
+    self.phandle:api_set_duration(duration)
 end
 
 ---增加持续时间
 ---@param duration number 持续时间
-function M:add_time(duration)
-    self.handle:api_add_duration(duration)
+function M:增加持续时间(duration)
+    self.phandle:api_add_duration(duration)
 end
 
 ---获得关联技能
 ---@return Ability? ability 投射物或魔法效果的关联技能
-function M:get_ability()
+function M:获取关联技能()
     local py_ability = GlobalAPI.get_related_ability(self.handle)
     if py_ability then
-        return y3.ability.get_by_handle(py_ability)
+        return y3.技能.获取_通过handle(py_ability)
     end
     return nil
 end

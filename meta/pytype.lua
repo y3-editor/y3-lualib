@@ -107,8 +107,10 @@
 ---@class py.SlotType: integer
 --
 ---@class py.RoleResKey: string
---平台道具类型
+--平台道具编号
 ---@class py.StoreKey: integer
+--平台道具类型
+---@class py.StoreItemType: integer
 --
 ---@class py.TabName: string
 --商店页签ID
@@ -121,6 +123,10 @@
 ---@class py.MiniMapColorType: integer
 --单位行为
 ---@class py.UnitBehavior: string
+--求救类型
+---@class py.ERescueSeekerType: integer
+--救援类型
+---@class py.ERescuerType: integer
 --形状
 ---@class py.Shape: py.ETypeMeta
 --
@@ -249,6 +255,10 @@
 ---@class py.UnitCommand: py.DynamicTypeMeta
 --
 ---@class py.UnitCommandType: integer
+--单位组命令
+---@class py.UnitGroupCommand: py.DynamicTypeMeta
+--
+---@class py.UnitGroupCommandType: integer
 --颜色
 ---@class py.Color: string
 --计时器

@@ -1,10 +1,13 @@
+--光照
+--
+--用来修改光照、阴影等效果
 ---@class Light
 ---@field handle py.Light
 ---@field res_id? py.LightID
 ---@overload fun(py_light: py.Light): self
-local M = Class 'Light'
+local M = Class "Light"
 
-M.type = 'light'
+M.type = "light"
 
 ---@param py_light py.Light
 ---@return self
@@ -45,12 +48,12 @@ end
 ---@param py_light py.Light
 ---@return Light light
 function M.create_lua_light_by_py(py_light)
-    local light = New 'Light' (py_light)
+    local light = New "Light" (py_light)
     return light
 end
 
-y3.py_converter.register_py_to_lua('py.Light', M.create_lua_light_by_py)
-y3.py_converter.register_lua_to_py('py.Light', function (lua_value)
+y3.py_converter.register_py_to_lua("py.Light", M.create_lua_light_by_py)
+y3.py_converter.register_lua_to_py("py.Light", function(lua_value)
     return lua_value.handle
 end)
 
@@ -63,13 +66,11 @@ function M:get_light_attribute(key)
     return GameAPI.get_light_float_attr_value(self.handle, key):float()
 end
 
-
 ---获取光源是否产生阴影
 ---@return boolean 是否产生阴影
 function M:get_light_cast_shadow_state()
     return GameAPI.get_light_cast_shadow_attr_value(self.handle)
 end
-
 
 --创建点光源到点
 ---@param point Point 目标点
@@ -77,14 +78,13 @@ end
 ---@return Light
 function M.create_point_light_at_point(point, deviation_height)
     local py_light = GameAPI.create_point_light_to_point(
-        -- TODO 见问题2
-        ---@diagnostic disable-next-line: param-type-mismatch
+    -- TODO 见问题2
+    ---@diagnostic disable-next-line: param-type-mismatch
         point.handle,
         Fix32(deviation_height)
     )
     return M.create_lua_light_by_py(py_light)
 end
-
 
 --创建点光源到单位挂接点
 ---@param unit Unit 目标单位
@@ -96,7 +96,6 @@ function M.create_point_light_at_unit_socket(unit, socket_name, deviation_height
     return M.create_lua_light_by_py(py_obj)
 end
 
-
 --创建方向光源到点
 ---@param point Point 目标点
 ---@param pos_offset_y? number 偏移高度
@@ -105,8 +104,8 @@ end
 ---@return Light
 function M.create_spot_light_to_point(point, pos_offset_y, unit_point_projectile, target_offset_y)
     local py_obj = GameAPI.create_spot_light_to_point(
-        -- TODO 见问题2
-        ---@diagnostic disable-next-line: param-type-mismatch
+    -- TODO 见问题2
+    ---@diagnostic disable-next-line: param-type-mismatch
         point.handle,
         pos_offset_y and Fix32(pos_offset_y) or nil,
         -- TODO 见问题6
@@ -117,7 +116,6 @@ function M.create_spot_light_to_point(point, pos_offset_y, unit_point_projectile
     return M.create_lua_light_by_py(py_obj)
 end
 
-
 --创建方向光源到单位挂接点
 ---@param unit Unit 目标单位
 ---@param socket_name string 挂接点
@@ -125,7 +123,7 @@ end
 ---@param target_unit? Unit 目标单位
 ---@param target_offset_y? number 目标点偏移高度
 ---@return Light
-function M.create_spot_light_at_unit_socket(unit,socket_name,pos_offset_y,target_unit,target_offset_y)
+function M.create_spot_light_at_unit_socket(unit, socket_name, pos_offset_y, target_unit, target_offset_y)
     local py_obj = GameAPI.create_spot_light_to_unit_socket(
         unit.handle,
         socket_name,
@@ -150,14 +148,14 @@ end
 --设置点光源属性
 ---@param light_attr_type string 属性名
 ---@param value number 属性值
-function M:set_point_light_attribute(light_attr_type,value)
+function M:set_point_light_attribute(light_attr_type, value)
     GameAPI.set_light_float_attr_value(self.handle, light_attr_type, Fix32(value))
 end
 
 --设置方向光源属性
 ---@param light_attr_type string 属性名
 ---@param value number 属性值
-function M:set_directional_light_attribute(light_attr_type,value)
+function M:set_directional_light_attribute(light_attr_type, value)
     GameAPI.set_light_float_attr_value(self.handle, light_attr_type, Fix32(value))
 end
 

@@ -1,3 +1,6 @@
+--治疗实例
+--
+--在治疗相关的事件中传递
 ---@class HealInstance
 ---@overload fun(data: EventParam.单位-受到治疗后, mode: string): self
 local M = Class 'HealInstance'

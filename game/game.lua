@@ -1,8 +1,9 @@
-require 'y3.game.game_event'
-require 'y3.game.object_event'
+require "y3.game.game_event"
+require "y3.game.object_event"
 
+--游戏接口
 ---@class Game
-local M = Class 'Game'
+local M = Class "Game"
 
 ---设置物体的材质
 ---@param obj Unit
@@ -264,8 +265,19 @@ end
 ---根据图片ID获取图片
 ---@param id integer
 ---@return py.Texture texture
+---@deprecated 请直接使用图片ID
 function M.get_icon_id(id)
-    return GameAPI.get_texture_by_icon_id(id)
+    ---@type py.Texture
+    return id
+end
+
+---获取任意对象图片
+---@param obj ?Unit|Item|Ability|Buff 单位|物品|技能|魔法效果
+---@return py.Texture texture
+function M.获取任意对象图片(obj)
+    -- 如果为空，返回空图片
+    ---@type py.Texture
+    return obj and GameAPI.get_icon_id(obj.handle) or 999
 end
 
 ---设置某点的地形纹理
@@ -323,16 +335,18 @@ end
 ---@param blue number 颜色b
 ---@param concentration number 浓度
 ---@param speed number 流速
-function M.set_fog_attribute(fog, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue, concentration, speed)
-    GameAPI.set_fog_attr(fog, 4095, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue, concentration, speed)
+function M.set_fog_attribute(fog, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue,
+                             concentration, speed)
+    GameAPI.set_fog_attr(fog, 4095, direction, pos_x, pos_y, pos_z, scale_x, scale_y, scale_z, red, green, blue,
+                         concentration, speed)
 end
 
 ---设置雾效属性(新)
 ---@param fog table 局部雾
 ---@param attr string 朝向
 ---@param value number 位置x
-function M.set_fog_attr(fog,attr,value)
-    GameAPI.set_fog_attr_new(fog,attr,value)
+function M.set_fog_attr(fog, attr, value)
+    GameAPI.set_fog_attr_new(fog, attr, value)
 end
 
 ---设置阴影距离
@@ -387,28 +401,28 @@ end
 ---@param player Player 玩家
 ---@param result string 结果
 ---@param is_show boolean 是否展示界面
-function M.end_player_game(player, result, is_show)
+function M.结束玩家游戏(player, result, is_show)
     GameAPI.set_melee_result_by_role(player.handle, result, is_show, false, 0, false)
 end
 
 ---暂停游戏
-function M.pause_game()
+function M.暂停游戏()
     GameAPI.pause_game()
 end
 
 ---开始新一轮游戏
 ---@param fast_restart boolean 快速重置
-function M.restart_game(fast_restart)
+function M.开启新一轮游戏(fast_restart)
     GameAPI.request_new_round(fast_restart)
 end
 
 ---开启软暂停
-function M.enable_soft_pause()
+function M.开启软暂停()
     GameAPI.api_soft_pause_game()
 end
 
 ---恢复软暂停
-function M.resume_soft_pause()
+function M.恢复软暂停()
     GameAPI.api_soft_resume_game()
 end
 
@@ -488,12 +502,12 @@ function M.get_current_game_mode()
 end
 
 ---游戏已运行的时间
----@return number time  时间
-function M.current_game_run_time()
+---@return number time  时间 约等于秒
+function M.获取游戏已运行时间()
     return GameAPI.get_cur_game_time():float()
 end
 
----获取游戏当前时间
+---获取游戏当前昼夜时间
 ---@return number time 时间
 function M.get_day_night_time()
     return GameAPI.get_cur_day_and_night_time():float()
@@ -509,21 +523,21 @@ end
 
 ---获取本局游戏环境
 ---@return integer game_mode 游戏环境，1是编辑器，2是平台
-function M.get_start_mode()
+function M.获取游戏环境()
     return GameAPI.api_get_start_mode()
 end
 
 -- 是否是调试模式
 ---@return boolean
-function M.is_debug_mode()
+function M.是否为调试模式()
     if y3.config.debug == true then
         return true
     end
     if y3.config.debug == false then
         return false
     end
-    if y3.config.debug == 'auto' then
-        return M.get_start_mode() == 1
+    if y3.config.debug == "auto" then
+        return M.获取游戏环境() == 1
     end
     return false
 end
@@ -558,8 +572,24 @@ end
 
 ---获取游戏开始时间戳
 ---@return integer time_stamp 时间戳
-function M.get_game_init_time_stamp()
+function M.获取_游戏开始时间戳()
     return GameAPI.get_game_init_time_stamp()
+end
+
+---@class ServerTime: osdate
+---@field timestamp integer # 时间戳
+---@field msec integer # 毫秒
+
+--获取当前的服务器时间
+---@return ServerTime
+function M.获取_当前服务器时间()
+    local init_time_stamp = GameAPI.get_game_init_time_stamp()
+    local runned_sec, runned_ms = math.modf(GameAPI.get_cur_game_time():float())
+    local time_stamp = init_time_stamp + runned_sec
+    local result = os.date("!*t", time_stamp) --[[@as ServerTime]]
+    result.msec = math.floor(runned_ms * 1000)
+    result.timestamp = time_stamp
+    return result
 end
 
 ---获取初始化横向分辨率
@@ -606,8 +636,7 @@ end
 ---@param id integer 事件id
 ---@param table table 事件数据
 function M.send_custom_event(id, table)
-    ---@diagnostic disable-next-line
-    GameAPI.send_custom_event(id, table)
+    GameAPI.send_event_custom(id, table)
 end
 
 ---字符串转界面事件
@@ -768,6 +797,78 @@ end
 ---@param switch boolean 是否关闭
 function M.set_role_all_micro_switch(player, switch)
     GameAPI.set_role_all_micro_switch(player.handle, switch)
+end
+
+---世界坐标转换屏幕坐标
+---@param world_pos Point 世界坐标
+---@return number x, number y 屏幕坐标
+function M.world_pos_to_camera_pos(world_pos)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local pos = GameAPI.api_world_pos_to_camera_pos(world_pos.handle)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local x = GlobalAPI.get_fixed_coord_index(pos, 0):float() / 100
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local y = GlobalAPI.get_fixed_coord_index(pos, 2):float() / 100
+    y = y - 2 * (y - y3.控件:获取_窗口高度() / 2)
+    return x, y
+end
+
+---世界坐标转换屏幕边缘坐标
+---@param world_pos Point
+---@param delta_dis number
+---@return number x, number y
+function M.world_pos_to_screen_edge_pos(world_pos, delta_dis)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local pos = GameAPI.api_world_pos_to_screen_edge_pos(world_pos.handle, delta_dis)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local x = GlobalAPI.get_fixed_coord_index(pos, 0):float() / 100
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local y = GlobalAPI.get_fixed_coord_index(pos, 2):float() / 100
+    y = y - 2 * (y - y3.控件:获取_窗口高度() / 2)
+    return x, y
+end
+
+--本地客户端每帧回调此函数
+--只能注册一个回调，后注册的会覆盖之前的，
+--如有需要请自己在回调中分发
+--
+-->警告：回调函数是在本地玩家的客户端上执行的，注意避免产生不同步的问题。
+---@param callback fun(local_player: Player)
+function M.on_client_tick(callback)
+    if type(callback) ~= "function" then
+        error("on_client_tick: callback must be a function")
+    end
+    ---@private
+    M._client_tick_callback = callback
+end
+
+---@class HttpRequestOptions
+---@field post? boolean # post 请求还是 get 请求
+---@field port? integer # 端口号
+---@field timeout? number # 超时时间，默认为2秒
+---@field headers? table # 请求头
+
+--发送 http 请求，成功或失败都会触发回调，
+--成功时回调的参数是 http 返回的 body，失败时回调的参数是 `nil`
+---@param url string
+---@param body? string
+---@param callback? fun(body?: string)
+---@param options? HttpRequestOptions
+function M:request_url(url, body, callback, options)
+    request_url(url
+    , options and options.post or false
+    , body
+    , options and options.port
+    , options and options.timeout or 2
+    , options and options.headers
+    , callback
+    )
+end
+
+_G["OnTick"] = function()
+    if M._client_tick_callback then
+        y3.玩家.执行本地代码(M._client_tick_callback)
+    end
 end
 
 return M

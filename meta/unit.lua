@@ -179,6 +179,14 @@ function Unit:api_get_ai_battle_target_unit() end
 ---@return py.Unit # 跟随的单位
 function Unit:api_get_ai_follow_target_unit() end
 
+--设置单位是否休眠
+---@param is_sleeping boolean # 是否休眠
+function Unit:api_set_is_sleeping(is_sleeping) end
+
+--获取单位是否休眠
+---@return boolean # 是否休眠
+function Unit:api_get_is_sleeping() end
+
 --获取 attr_other
 ---@param key string # 属性名
 ---@return py.Fixed # 属性值
@@ -212,6 +220,10 @@ function Unit:api_get_attr_all_ratio(key) end
 --获取单位主属性
 ---@return string # 主属性
 function Unit:api_get_main_attr() end
+
+--切换主属性
+---@param main_attr string # 属性名
+function Unit:api_switch_main_attr(main_attr) end
 
 --设置纯值类型的值
 ---@param key string # 属性名
@@ -274,6 +286,9 @@ function Unit:api_add_attr_all_ratio(key, delta) end
 ---@param key string # 属性名
 ---@param val py.Fixed # 设置值
 function Unit:api_set_attr_base_ratio(key, val) end
+
+--开启单位属性作弊检查
+function Unit:api_open_attr_cheating_detected() end
 
 --增加单位属性基础值百分比加成
 ---@param key string # 属性名
@@ -444,6 +459,11 @@ function Unit:api_set_unit_icon(icon) end
 ---@return string # 属性
 function Unit:api_get_unit_main_attr() end
 
+--获取单位属性本地化名
+---@param attr_key string # 属性索引
+---@return string # 属性本地化名
+function Unit:api_get_attr_name(attr_key) end
+
 --单位停止移动
 function Unit:api_stop_move() end
 
@@ -504,6 +524,14 @@ function Unit:api_set_turn_speed(turn_speed) end
 ---@return py.Fixed # 转身速度
 function Unit:api_get_turn_speed() end
 
+--设置动画移动速度-跑（用于控制跑的动画播放速度）
+---@param base_speed py.Fixed # 动画移动速度
+function Unit:api_set_base_speed(base_speed) end
+
+--设置动画移动速度-走（用于控制走的动画播放速度）
+---@param speed py.Fixed # 动画移动速度
+function Unit:api_set_anim_walk_speed(speed) end
+
 --单位是否在移动
 ---@return boolean # 是否在移动
 function Unit:api_is_moving() end
@@ -517,6 +545,11 @@ function Unit:api_set_move_collision(collision_layer, enable) end
 ---@param collision_layer integer # 碰撞mask
 ---@return boolean # 是否开启
 function Unit:api_get_move_collision(collision_layer) end
+
+--判断单位的移动类型
+---@param move_type integer # 移动类型
+---@return boolean # 是否为该移动类型
+function Unit:api_is_move_type(move_type) end
 
 --设置单位的移动类型为地面
 ---@param land_limitation? boolean # 陆地限制
@@ -573,7 +606,8 @@ function Unit:api_set_animation_speed(speed) end
 ---@param role? py.Role # 所属单位
 ---@param visible_type? py.SfxVisibleType # 可见性规则
 ---@param rotation? number # 初始旋转 角度制
-function Unit:api_play_sfx(socket_name, sfx_res_id, keep_time, scale, inherit_pos, inherit_rotate, inherit_scale, role, visible_type, rotation) end
+function Unit:api_play_sfx(socket_name, sfx_res_id, keep_time, scale, inherit_pos, inherit_rotate, inherit_scale, role,
+                           visible_type, rotation) end
 
 --在单位挂接点播放特效
 ---@param socket_name string # 挂节点名字
@@ -584,7 +618,8 @@ function Unit:api_play_sfx(socket_name, sfx_res_id, keep_time, scale, inherit_po
 ---@param inherit_scale? boolean # 是否跟随缩放
 ---@param role? py.Role # 所属玩家
 ---@param visible_type? py.SfxVisibleType # 可见性规则
-function Unit:api_unit_play_sfx_on_socket(socket_name, sfx_id, keep_time, scale, inherit_rotate, inherit_scale, role, visible_type) end
+function Unit:api_unit_play_sfx_on_socket(socket_name, sfx_id, keep_time, scale, inherit_rotate, inherit_scale, role,
+                                          visible_type) end
 
 --在单位上播放特效并返回特效实体
 ---@param socket_name string # 挂节点名字
@@ -598,7 +633,8 @@ function Unit:api_unit_play_sfx_on_socket(socket_name, sfx_id, keep_time, scale,
 ---@param visible_type? py.SfxVisibleType # 可见性规则
 ---@param rotation? number # 初始旋转 角度制
 ---@return py.Sfx # 特效
-function Unit:api_play_sfx_with_return(socket_name, sfx_res_id, keep_time, scale, inherit_pos, inherit_rotate, inherit_scale, role, visible_type, rotation) end
+function Unit:api_play_sfx_with_return(socket_name, sfx_res_id, keep_time, scale, inherit_pos, inherit_rotate,
+                                       inherit_scale, role, visible_type, rotation) end
 
 --单位替换播放动画
 ---@param target_ani string # 目标动画名字
@@ -841,6 +877,11 @@ function Unit:api_stop_dissolve() end
 ---@param a py.Fixed # a
 function Unit:api_set_ghost_color(r, g, b, a) end
 
+--设置残影颜色(HEX)
+---@param color string # hex
+---@param a py.Fixed # a
+function Unit:api_set_ghost_color_hex(color, a) end
+
 --设置残影时间
 ---@param interval py.Fixed # interval
 ---@param duration py.Fixed # duration
@@ -887,6 +928,20 @@ function Unit:api_set_disk_shadow_open(is_open) end
 ---@param shadow_size number # 大小
 function Unit:api_set_unit_disk_shadow_size(shadow_size) end
 
+--设置单位的描边颜色
+---@param color_r number # R
+---@param color_g number # G
+---@param color_b number # B
+function Unit:set_unit_outlined_color(color_r, color_g, color_b) end
+
+--设置单位的描边颜色(HEX)
+---@param color string # R
+function Unit:set_unit_outlined_color_hex(color) end
+
+--开关单位描边效果
+---@param flag boolean # 开关
+function Unit:set_unit_outlined_enable(flag) end
+
 --单位添加指定编号的效果
 ---@param modifier_key py.ModifierKey # 效果编号
 ---@param from_unit? py.Unit # 来源单位对象
@@ -894,8 +949,9 @@ function Unit:api_set_unit_disk_shadow_size(shadow_size) end
 ---@param time? py.Fixed # 持续时间
 ---@param cycle_time? py.Fixed # 循环周期
 ---@param stack_count? integer # 效果层数
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.ModifierEntity # 魔法效果
-function Unit:api_add_modifier(modifier_key, from_unit, from_ability, time, cycle_time, stack_count) end
+function Unit:api_add_modifier(modifier_key, from_unit, from_ability, time, cycle_time, stack_count, lua_table) end
 
 --获取单位身上指定编号的的效果层数
 ---@param modifier_key py.ModifierKey # 效果编号
@@ -947,8 +1003,9 @@ function Unit:api_get_all_modifiers() end
 ---@param ability_id py.AbilityKey # 技能编号
 ---@param ability_index? py.AbilityIndex # 技能槽位编号
 ---@param ability_level? integer # 技能等级
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.Ability # 技能
-function Unit:api_add_ability(ability_type, ability_id, ability_index, ability_level) end
+function Unit:api_add_ability(ability_type, ability_id, ability_index, ability_level, lua_table) end
 
 --单位根据槽位移除技能
 ---@param ability_type integer # 技能类型
@@ -1089,6 +1146,10 @@ function Unit:api_create_building_on_point(build_key, point) end
 ---@param pos_z py.Fixed # 坐标Z
 function Unit:api_create_building_on_position(build_key, pos_x, pos_z) end
 
+--获取单位攻击间隔
+---@return py.Fixed # 攻击间隔
+function Unit:api_get_unit_attack_interval() end
+
 --单位是否拥有物品
 ---@param item py.Item # 物品
 ---@return boolean # 单位是否拥有物品
@@ -1101,8 +1162,9 @@ function Unit:api_has_item_key(item_no) end
 
 --给单位添加物品名
 ---@param item_no py.ItemKey # 物品编号
+---@param slot_type? py.SlotType # 槽位类型
 ---@return py.Item # 创建的物品实体
-function Unit:api_add_item(item_no) end
+function Unit:api_add_item(item_no, slot_type) end
 
 --给单位删除物品名
 ---@param item_key py.ItemKey # 物品编号
@@ -1319,3 +1381,56 @@ function Unit:api_release_command(command) end
 --设置单位默认跳转状态
 ---@param behavior py.UnitBehavior # 默认跳转状态
 function Unit:api_set_default_switch_behavior(behavior) end
+
+--单位 - 单位发起求救
+---@param source_unit py.Unit # 攻击目标
+---@param seek_range number # 搜寻范围
+function Unit:api_trigger_rescue(source_unit, seek_range) end
+
+--单位 - 设置单位求救类型
+---@param v py.ERescueSeekerType # 值
+function Unit:api_set_rescue_seeker_type(v) end
+
+--单位 - 设置单位救援类型
+---@param v py.ERescuerType # 值
+function Unit:api_set_rescuer_type(v) end
+
+--单位 - 设置单位求救距离
+---@param v number # 值
+function Unit:api_set_rescue_seeker_distance(v) end
+
+--单位 - 设置单位求救间隔
+---@param v number # 值
+function Unit:api_set_rescue_seeker_interval(v) end
+
+--单位 - 设置单位救援后返回
+---@param v boolean # 值
+function Unit:api_set_rescue_finish_return(v) end
+
+--单位 - 获取单位求救类型
+---@return py.ERescueSeekerType # 值
+function Unit:api_get_rescue_seeker_type() end
+
+--单位 - 获取单位救援类型
+---@return py.ERescuerType # 值
+function Unit:api_get_rescuer_type() end
+
+--单位 - 获取单位求救距离
+---@return number # 值
+function Unit:api_get_rescue_seeker_distance() end
+
+--单位 - 获取单位求救间隔
+---@return number # 值
+function Unit:api_get_rescue_seeker_interval() end
+
+--单位 - 获取单位救援后返回
+---@return boolean # 值
+function Unit:api_get_rescue_finish_return() end
+
+--单位 - 获取单位是否正在救援
+---@return boolean # 值
+function Unit:api_get_is_rescuing() end
+
+--单位 - 获取单位是否正在救援后返回
+---@return boolean # 值
+function Unit:api_get_is_rescue_returning() end

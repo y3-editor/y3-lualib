@@ -1,5 +1,7 @@
 ---@meta
 
+lua_script_path = ''
+
 ---@class py.Unit
 local Unit = Class 'py.Unit'
 
@@ -54,9 +56,30 @@ function python_len(obj) end
 ---@return any
 function python_index(obj, index) end
 
+-- 设置容器元素
+---@param obj py.DynamicTypeMeta
+---@param index integer
+---@param value any
+function set_py_index(obj, index, value) end
+
+python = {}
+
 --------------- 运动器构造 ------------------
 
----@class py.MoverLineBuilder
+---@class py.MoverBaseBuilder
+---@field set_is_face_angle            fun(is_face_angle: boolean)
+---@field set_collision_type           fun(collision_type: integer)
+---@field set_collision_radius         fun(collision_radius: py.Fixed)
+---@field set_is_multi_collision       fun(is_multi_collision: boolean)
+---@field set_unit_collide_interval    fun(interval: py.Fixed)
+---@field set_terrain_block            fun(terrain_block: boolean)
+---@field set_terrain_collide_interval fun(interval: py.Fixed)
+---@field set_priority                 fun(priority: integer)
+---@field set_related_unit             fun(related_unit?: py.Unit)
+---@field set_related_ability          fun(related_ability?: py.Ability)
+---@field set_is_absolute_height       fun(is_absolute_height: boolean)
+
+---@class py.MoverLineBuilder: py.MoverBaseBuilder
 ---@field set_angle               fun(angle: py.Fixed)
 ---@field set_max_dist            fun(max_dist: py.Fixed)
 ---@field set_init_velocity       fun(init_velocity: py.Fixed)
@@ -66,18 +89,11 @@ function python_index(obj, index) end
 ---@field set_init_height         fun(init_height: py.Fixed)
 ---@field set_fin_height          fun(fin_height: py.Fixed)
 ---@field set_parabola_height     fun(parabola_height: py.Fixed)
----@field set_collision_type      fun(collision_type: integer)
----@field set_collision_radius    fun(collision_radius: py.Fixed)
----@field set_is_face_angle       fun(is_face_angle: boolean)
----@field set_is_multi_collision  fun(is_multi_collision: boolean)
----@field set_terrain_block       fun(terrain_block: boolean)
----@field set_priority            fun(priority: integer)
 ---@field set_is_parabola_height  fun(is_parabola_height: boolean)
----@field set_is_absolute_height  fun(is_absolute_height: boolean)
 ---@field set_is_open_init_height fun(is_open_init_height: boolean)
 ---@field set_is_open_fin_height  fun(is_open_fin_height: boolean)
 
----@class py.MoverTargetBuilder
+---@class py.MoverTargetBuilder: py.MoverBaseBuilder
 ---@field set_stop_distance_to_target fun(stop_distance: py.Fixed)
 ---@field set_init_velocity           fun(init_velocity: py.Fixed)
 ---@field set_acceleration            fun(acceleration: py.Fixed)
@@ -87,18 +103,13 @@ function python_index(obj, index) end
 ---@field set_bind_point              fun(bind_point: string)
 ---@field set_collision_type          fun(collision_type: integer)
 ---@field set_collision_radius        fun(collision_radius: py.Fixed)
----@field set_is_face_angle           fun(is_face_angle: boolean)
----@field set_is_multi_collision      fun(is_multi_collision: boolean)
----@field set_terrain_block           fun(terrain_block: boolean)
----@field set_priority                fun(priority: integer)
----@field set_is_absolute_height      fun(is_absolute_height: boolean)
 ---@field set_is_open_init_height     fun(is_open_init_height: boolean)
 ---@field set_is_parabola_height      fun(is_parabola_height: boolean)
 ---@field set_parabola_height         fun(parabola_height: py.Fixed)
 ---@field set_is_open_bind_point      fun(is_open_bind_point: boolean)
 ---@field set_target_unit_id          fun(target_unit_id: integer)
 
----@class py.MoverCurveBuilder
+---@class py.MoverCurveBuilder: py.MoverBaseBuilder
 ---@field set_angle                fun(angle: py.Fixed)
 ---@field set_max_dist             fun(max_dist: py.Fixed)
 ---@field set_init_velocity        fun(init_velocity: py.Fixed)
@@ -108,16 +119,9 @@ function python_index(obj, index) end
 ---@field set_min_velocity         fun(min_velocity: py.Fixed)
 ---@field set_init_height          fun(init_height: py.Fixed)
 ---@field set_fin_height           fun(fin_height: py.Fixed)
----@field set_collision_type       fun(collision_type: integer)
----@field set_collision_radius     fun(collision_radius: py.Fixed)
----@field set_is_face_angle        fun(is_face_angle: boolean)
----@field set_is_multi_collision   fun(is_multi_collision: boolean)
----@field set_terrain_block        fun(terrain_block: boolean)
----@field set_priority             fun(priority: integer)
----@field set_is_absolute_height   fun(is_absolute_height: boolean)
 ---@field set_is_open_init_height  fun(is_open_init_height: boolean)
 
----@class py.MoverRoundBuilder
+---@class py.MoverRoundBuilder: py.MoverBaseBuilder
 ---@field set_is_to_unit             fun(is_to_unit: boolean)
 ---@field set_target_unit_id         fun(target_unit_id: integer)
 ---@field set_target_pos             fun(target_pos: py.FixedVec2)
@@ -129,13 +133,6 @@ function python_index(obj, index) end
 ---@field set_centrifugal_velocity   fun(centrifugal_velocity: py.Fixed)
 ---@field set_lifting_velocity       fun(lifting_velocity: py.Fixed)
 ---@field set_around_init_height     fun(around_init_height: py.Fixed)
----@field set_collision_type         fun(collision_type: integer)
----@field set_collision_radius       fun(collision_radius: py.Fixed)
----@field set_is_face_angle          fun(is_face_angle: boolean)
----@field set_is_multi_collision     fun(is_multi_collision: boolean)
----@field set_terrain_block          fun(terrain_block: boolean)
----@field set_priority               fun(priority: integer)
----@field set_is_absolute_height     fun(is_absolute_height: boolean)
 
 -- 直线运动参数生成器
 ---@return py.MoverLineBuilder
@@ -172,3 +169,40 @@ function Unit:create_mover_trigger(mover_data, mode, unit_collide, mover_finish,
 ---@param mover_removed   fun(mover: py.Mover)
 ---@return py.Mover
 function Projectile:create_mover_trigger(mover_data, mode, unit_collide, mover_finish, terrain_collide, mover_interrupt, mover_removed) end
+
+---@param ... any
+function consoleprint(...) end
+
+---@class py.GameAPI
+GameAPI = {}
+
+---@param comp_uid string
+---@param event_type integer
+---@param callback function
+function GameAPI.bind_local_listener(comp_uid, event_type, callback) end
+
+---@param prefab_name string
+---@return string
+function GameAPI.get_prefab_ins_id_by_name(prefab_name) end
+
+---@return py.Dict
+function GameAPI.lua_get_start_args() end
+
+---@param id string
+---@param data string
+function broadcast_lua_msg(id, data) end
+
+---@param url string
+---@param post? boolean
+---@param body? string
+---@param port? integer
+---@param timeout? number
+---@param headers? table
+---@param callback? fun(body?: string)
+function request_url(url, post, body, port, timeout, headers, callback) end
+
+---@class oslib
+os = {}
+
+---@return number
+function os.clock_banned() end
