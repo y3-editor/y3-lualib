@@ -532,8 +532,15 @@ function M:unbind_widget()
 end
 
 --遍历某个界面控件的子节点
+--> 名字太长了，改用 `get_childs` 吧
 ---@return UI[]
 function M:get_ui_comp_children()
+    return self:get_childs()
+end
+
+--遍历某个界面控件的子节点
+---@return UI[]
+function M:get_childs()
     local py_list = GameAPI.get_ui_comp_children(self.player.handle, self.handle)
     local uis = y3.helper.unpack_list(py_list, function (py_object)
         return y3.ui.get_by_handle(self.player, py_object)

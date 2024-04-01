@@ -5,7 +5,7 @@ local main_console_ui = game_main_ui:get_child('MainConsole')
 assert(main_console_ui)
 main_console_ui:set_visible(true)
 
-local ability_list = main_console_ui:get_child('main.main.hero_skill'):get_ui_comp_children()
+local ability_list = main_console_ui:get_child('main.main.hero_skill'):get_childs()
 
 for i = 1, 5 do
     local slot = ability_list[i]:get_child('slot')
