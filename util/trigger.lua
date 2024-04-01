@@ -5,7 +5,7 @@ local counter = y3.util.counter()
 ---@field private _event Event
 ---@field private _callback Trigger.CallBack
 ---@field private _event_args? any[]
----@field private _include_name? string
+---@field private _include_name? string | false
 ---@field private _on_remove? function
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
 local M = Class 'Trigger'
@@ -21,7 +21,6 @@ function M:__init(event, event_args, callback)
     self._callback = callback
     self._id = counter()
     self._event_args = event_args
-    self._include_name = y3.reload.getCurrentIncludeName()
     event:add_trigger(self)
     return self
 end
@@ -111,7 +110,10 @@ end
 
 ---@return string?
 function M:get_include_name()
-    return self._include_name
+    if not self._include_name then
+        self._include_name = y3.reload.getIncludeName(self._callback) or false
+    end
+    return self._include_name or nil
 end
 
 ---@private

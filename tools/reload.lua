@@ -116,23 +116,30 @@ function M:fire()
 end
 
 ---@private
+M.modNameMap = {}
+
+---@private
 M.includeStack = {}
 
 -- 类似于 `require` ，但是会在重载时重新加载文件。
----@param name string
+---@param modname string
 ---@return any
-function M.include(name)
-    if not M.includedNameMap[name] then
-        M.includedNameMap[name] = true
-        M.includedNames[#M.includedNames+1] = name
+---@return unknown loaderdata
+function M.include(modname)
+    if not M.includedNameMap[modname] then
+        M.includedNameMap[modname] = true
+        M.includedNames[#M.includedNames+1] = modname
     end
-    M.includeStack[#M.includeStack+1] = name
-    local suc, result = xpcall(originRequire, log.error, name)
+    M.includeStack[#M.includeStack+1] = modname
+    local suc, result, loaderdata = xpcall(originRequire, log.error, modname)
     M.includeStack[#M.includeStack] = nil
     if not suc then
-        return false
+        return false, nil
     end
-    return result
+    if loaderdata ~= nil then
+        M.modNameMap[loaderdata] = modname
+    end
+    return result, loaderdata
 end
 
 ---@param modname string
@@ -145,7 +152,29 @@ function require(modname)
     if not suc then
         return false, nil
     end
+    if loaderdata ~= nil then
+        M.modNameMap[loaderdata] = modname
+    end
     return result, loaderdata
+end
+
+---@param func function
+---@return string?
+function M.getIncludeName(func)
+    if not debug or not debug.getinfo then
+        return nil
+    end
+    local info = debug.getinfo(func, 'S')
+    local source = info.source
+    if source:sub(1, 1) ~= '@' then
+        return nil
+    end
+    local path = source:sub(2)
+    local modName = M.modNameMap[path]
+    if not M.includedNameMap[modName] then
+        return nil
+    end
+    return modName
 end
 
 ---@return string?

@@ -9,7 +9,7 @@
 ---@field handle py.Timer
 ---@field desc string
 ---@field private on_timer Timer.OnTimer
----@field private include_name? string
+---@field private include_name? string | false
 ---@field private mode Timer.Mode
 ---@overload fun(py_timer: py.Timer, on_timer: Timer.OnTimer, mode: Timer.Mode, desc: string): self
 local M = Class 'Timer'
@@ -33,7 +33,6 @@ function M:__init(py_timer, on_timer, mode, desc)
     self.id = self.id_counter()
     self.mode = mode
     self.desc = desc
-    self.include_name = y3.reload.getCurrentIncludeName()
     M.all_timers[self.id] = self
     return self
 end
@@ -267,7 +266,10 @@ end
 
 ---@return string?
 function M:get_include_name()
-    return self.include_name
+    if not self.include_name then
+        self.include_name = y3.reload.getIncludeName(self.on_timer) or false
+    end
+    return self.include_name or nil
 end
 
 -- 遍历所有的计时器，仅用于调试（可能会遍历到已经失效的）
