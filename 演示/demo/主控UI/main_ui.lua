@@ -1,11 +1,9 @@
-local game_main_ui = y3.ui.get_ui(y3.player(1), 'GameMain')
+local tips_ui = require 'y3.演示.demo.主控UI.tips_ui'
+
+local game_main_ui = y3.ui.get_ui(y3.player(1), '主控UI')
 game_main_ui:set_visible(true)
 
-local main_console_ui = game_main_ui:get_child('MainConsole')
-assert(main_console_ui)
-main_console_ui:set_visible(true)
-
-local ability_list = main_console_ui:get_child('main.main.hero_skill'):get_childs()
+local ability_list = game_main_ui:get_child('主界面.英雄技能'):get_childs()
 
 for i = 1, 5 do
     local slot = ability_list[i]:get_child('slot')
@@ -25,7 +23,6 @@ y3.game:event("选中-单位", function(_, data)
     select_unit = data.unit
 end)
 
-local tips_ui = require 'y3.演示.demo.主控UI.tips_ui'
 -- 技能图标 鼠标移入 显示提示
 y3.game:event('界面-消息', '显示技能提示', function(trg, data)
     local ability = select_unit:get_ability_by_slot(y3.const.AbilityType.HERO, data.data.slot)
@@ -39,14 +36,14 @@ y3.game:event('界面-消息', '隐藏技能提示', function(trg, data)
     tips_ui.hide_tips_skill()
 end)
 
-local avatar_ui = main_console_ui:get_child('main.avatar')
+local avatar_ui = game_main_ui:get_child('头像')
 assert(avatar_ui)
-local avatar_img = avatar_ui:get_child('main.heroAvatar_IMG')          --单位头像
-local avatar_title_txt = avatar_ui:get_child('main.title.title_TEXT')  --单位名称
-local attr_spd_txt = avatar_ui:get_child('attr.spd.spd_TEXT')          --移动速度
-local attr_atkSpd_txt = avatar_ui:get_child('attr.atkSPD.atkSpd_TEXT') --攻击速度
+local avatar_img = avatar_ui:get_child('图片')          --单位头像
+local avatar_title_txt = avatar_ui:get_child('名字.文本')  --单位名称
+local attr_spd_txt = avatar_ui:get_child('属性.移动速度.文本')          --移动速度
+local attr_atkSpd_txt = avatar_ui:get_child('属性.攻击速度.文本') --攻击速度
 
-local attr_list_ui = main_console_ui:get_child('attr')
+local attr_list_ui = game_main_ui:get_child('属性栏')
 
 assert(attr_list_ui)
 local attr_atk_txt = attr_list_ui:get_child('atk.atk_TEXT') -- 物理攻击力
@@ -54,16 +51,14 @@ local attr_def_txt = attr_list_ui:get_child('def.def_TEXT') -- 物理防御力
 local attr_str_txt = attr_list_ui:get_child('str.str_TEXT') -- 力量
 local attr_agi_txt = attr_list_ui:get_child('agi.agi_TEXT') -- 敏捷
 local attr_int_txt = attr_list_ui:get_child('int.int_TEXT') -- 智力
-local bar_ui = main_console_ui:get_child('main.main.bar')
 
-assert(bar_ui)
-local heroHp_bar = bar_ui:get_child('hp.heroHp_BAR')         --生命值条
-local heroHp_txt = bar_ui:get_child('hp.heroHp_TEXT')        --生命值文本
+local heroHp_bar = game_main_ui:get_child('血条.进度条')         --生命值条
+local heroHp_txt = game_main_ui:get_child('血条.文本')        --生命值文本
 
-local heroExp_bar = bar_ui:get_child('exp.heroExp_BAR')      --经验值条
-local heroExp_txt = bar_ui:get_child('exp.heroExp_TEXT')     --经验值文本
+local heroExp_bar = game_main_ui:get_child('经验条.进度条')      --经验值条
+local heroExp_txt = game_main_ui:get_child('经验条.经验文本')     --经验值文本
 
-local heroLevel_txt = bar_ui:get_child('exp.heroLevel_TEXT') --等级文本
+local heroLevel_txt = game_main_ui:get_child('经验条.等级文本') --等级文本
 
 
 -- 更新主控面板
