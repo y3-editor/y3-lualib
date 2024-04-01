@@ -18,6 +18,7 @@ M._errorHandler = error
 ---@field public  __alloc? fun(self: any)
 ---@field package __call   fun(self: any, ...)
 ---@field public  __getter table
+---@field public  __setter table
 ---@field public  __super  Class.Base
 
 ---@class Class.Config
@@ -59,8 +60,10 @@ function M.declare(name, super, superInit)
     end
     local class  = {}
     local getter = {}
+    local setter = {}
     class.__name   = name
     class.__getter = getter
+    class.__setter = setter
 
     ---@param self any
     ---@param k any
@@ -72,15 +75,31 @@ function M.declare(name, super, superInit)
             if f then
                 local res, needCache = f(self)
                 if needCache then
-                    self[k] = res
+                    rawset(self, k, res)
                 end
                 return res
             else
                 return nil
             end
         else
-            self[k] = r
+            rawset(self, k, r)
             return r
+        end
+    end
+
+    ---@param self any
+    ---@param k any
+    ---@param v any
+    ---@return any
+    local function setterFunc(self, k, v)
+        local f = setter[k]
+        if f then
+            local res = f(self, v)
+            if res ~= nil then
+                rawset(self, k, res)
+            end
+        else
+            rawset(self, k, v)
         end
     end
 
@@ -91,6 +110,16 @@ function M.declare(name, super, superInit)
         else
             class.__index = class
             return class[k]
+        end
+    end
+
+    function class:__newindex(k, v)
+        if next(class.__setter) then
+            class.__newindex = setterFunc
+            setterFunc(self, k, v)
+        else
+            class.__newindex = nil
+            rawset(self, k, v)
         end
     end
 
@@ -339,6 +368,11 @@ function Config:extends(extendsName, init)
                 class.__getter[k] = v
             end
         end
+        for k, v in pairs(extends.__setter) do
+            if not class.__setter[k] then
+                class.__setter[k] = v
+            end
+        end
     end
     table.insert(self.extendsCalls, {
         init = init,
@@ -388,4 +422,5 @@ function M.isInstanceOf(obj, parentName)
 
     return false
 end
+
 return M
