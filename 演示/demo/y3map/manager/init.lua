@@ -1,5 +1,0 @@
-require 'y3map.manager.ui_manager'
-require 'y3map.manager.generator_manager'
-require 'y3map.manager.config_manager'
-require 'y3map.manager.timer_manager'
-require 'y3map.manager.keyboard_manager'

@@ -1,2 +1,0 @@
----@class EventParams.GenerateMonstersData
----@field batch_index integer -- 正在刷第几波怪
