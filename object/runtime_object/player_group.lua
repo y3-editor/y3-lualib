@@ -33,7 +33,7 @@ y3.py_converter.register_lua_to_py('py.RoleGroup', function (lua_value)
     return lua_value.handle
 end)
 
---创建空玩家组(3月28号更新后可用)
+--创建空玩家组
 ---@return PlayerGroup
 function M.create()
     return M.get_by_handle(GameAPI.create_role_group())
