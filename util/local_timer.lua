@@ -54,7 +54,7 @@ function M:__init(time, mode, count, on_timer)
     self.mode = mode
     self.count = count
     self.on_timer = on_timer
-    self.include_name = y3.重载.getCurrentIncludeName()
+    self.include_name = y3.reload.getCurrentIncludeName()
     self.init_ms = cur_ms
     self.target_ms = cur_ms
     self.start_ms = cur_ms

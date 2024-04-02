@@ -221,7 +221,7 @@ end
 
 M.sandbox = y3.proxy.new(_G, M.proxy_config, "")
 
-y3.重载.事件_重载之后(function()
+y3.reload.onAfterReload(function()
     M.sandbox = y3.proxy.new(_G, M.proxy_config, "")
 end)
 

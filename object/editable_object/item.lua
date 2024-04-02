@@ -75,7 +75,7 @@ end
 y3.py_converter.register_py_to_lua("py.ItemID", M.从ID获取)
 
 y3.游戏:事件("物品-移除", function(trg, data)
-    local item = data.item
+    local item = data.触发物品
     M.ref_manager:remove(item.id)
 end)
 

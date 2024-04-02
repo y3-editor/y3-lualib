@@ -198,7 +198,7 @@ end
 
 -- 注册在重载之前的回调
 ---@param callback Reload.beforeReloadCallback
-function M.事件_重载之前(callback)
+function M.onBeforeReload(callback)
     M.beforeReloadCallbacks[#M.beforeReloadCallbacks + 1] = {
         name     = M.getCurrentIncludeName(),
         callback = callback,
@@ -207,7 +207,7 @@ end
 
 -- 注册在重载之后的回调
 ---@param callback Reload.afterReloadCallback
-function M.事件_重载之后(callback)
+function M.onAfterReload(callback)
     M.afterReloadCallbacks[#M.afterReloadCallbacks + 1] = {
         name     = M.getCurrentIncludeName(),
         callback = callback,

@@ -6555,7 +6555,7 @@ event.ET_UNIT_ADD_ITEM_TO_PKG = {
 
 ---@class EventParam.ET_UNIT_REMOVE_ITEM
 ---@field 触发单位 Unit # 失去该物品的单位
----@field item Item # 物品
+---@field 触发物品 Item # 物品
 ---@field item_no py.ItemKey # 物品编号
 
 --单位失去物品
@@ -6571,7 +6571,7 @@ event.ET_UNIT_REMOVE_ITEM = {
     [2] = {
         name = "__item_id",
         type = "py.ItemID",
-        lua_name = "item",
+        lua_name = "触发物品",
         lua_type = "Item",
         desc = "物品id",
         lua_desc = "物品",
@@ -6853,7 +6853,7 @@ event.ET_ITEM_CHARGE_CHANGED = {
 }
 
 ---@class EventParam.ET_ITEM_ON_CREATE
----@field item Item # 被创建的物品
+---@field 触发物品 Item # 被创建的物品
 ---@field lua_table py.Table # 用户自定义配置表
 
 --物品创建
@@ -6861,7 +6861,7 @@ event.ET_ITEM_ON_CREATE = {
     [1] = {
         name = "__item",
         type = "py.Item",
-        lua_name = "item",
+        lua_name = "触发物品",
         lua_type = "Item",
         desc = "被创建的物品",
         lua_desc = "被创建的物品",
@@ -6877,14 +6877,14 @@ event.ET_ITEM_ON_CREATE = {
 }
 
 ---@class EventParam.ET_ITEM_ON_DESTROY
----@field item Item # 销毁的物品
+---@field 触发物品 Item # 销毁的物品
 
 --物品销毁
 event.ET_ITEM_ON_DESTROY = {
     [1] = {
         name = "__item_id",
         type = "py.ItemID",
-        lua_name = "item",
+        lua_name = "触发物品",
         lua_type = "Item",
         desc = "销毁的物品",
         lua_desc = "销毁的物品",

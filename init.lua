@@ -23,11 +23,11 @@ IsValid      = y3.class.isValid
 IsInstanceOf = y3.class.isInstanceOf
 
 require "y3.util.log"
-y3.重载 = require "y3.tools.reload"
+y3.reload = require "y3.tools.reload"
 y3.sandbox = require "y3.tools.sandbox"
 
 ---@diagnostic disable-next-line: lowercase-global
-include = y3.重载.include
+include = y3.reload.include
 
 require "y3.tools.linked_table"
 y3.随机池 = require "y3.tools.pool"
