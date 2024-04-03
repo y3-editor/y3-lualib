@@ -821,4 +821,38 @@ M.UIButtonStatus = {
     ['按下'] = 3,
     ['禁用'] = 4,
 }
+
+---@enum (key) y3.Const.UIAttr
+M.UIAttr = {
+    ["文本"] = "text_bind",
+    ["最大值"] = "max_value_bind",
+    ["当前值"] = "current_value_bind",
+}
+
+---@enum (key) y3.Const.AbilityIntAttr
+M.AbilityIntAttr = {
+    ["最大等级"] = "ability_max_level",
+    ["最大充能数"] = "ability_max_stack_count",
+    ["当前等级"] = "ability_level",
+    ["当前充能数"] = "cur_stack_count",
+}
+
+---@enum (key) y3.Const.AbilityStrAttr
+M.AbilityStrAttr = {
+    ["名称"] = "name",
+    ["描述"] = "description",
+}
+
+---@enum (key) y3.Const.UnitAttrType
+M.UnitAttrType = {
+    ["基础属性"] = "ATTR_BASE",
+    ["基础属性加成"] = "ATTR_BASE_RATIO",
+    ["增益属性"] = "ATTR_BONUS",
+    ["增益属性加成"] = "ATTR_BONUS_RATIO",
+    ["总属性加成"] = "ATTR_ALL_RATIO",
+    -- 实际属性 = "ATTR_RESULT", --仅用于获取,不可设置
+    -- 额外属性 = "ATTR_OTHER" -- 仅用于获取,不可设置
+}
+
+
 return M
