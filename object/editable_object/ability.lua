@@ -3,24 +3,24 @@
 ---@field handle py.Ability
 ---@field phandle py.Ability
 ---@overload fun(id: integer, py_ability: py.Ability): self
-local M = Class 'Ability'
+local M = Class "Ability"
 
 ---@class Ability: GCHost
-Extends('Ability', 'GCHost')
+Extends("Ability", "GCHost")
 ---@class Ability: Storage
-Extends('Ability', 'Storage')
+Extends("Ability", "Storage")
 ---@class Ability: CustomEvent
-Extends('Ability', 'CustomEvent')
+Extends("Ability", "CustomEvent")
 ---@class Ability: ObjectEvent
-Extends('Ability', 'ObjectEvent')
+Extends("Ability", "ObjectEvent")
 ---@class Ability: KV
-Extends('Ability', 'KV')
+Extends("Ability", "KV")
 
 function M:__tostring()
-    return string.format('{ability|%s|%s} @ %s'
-        , self:get_name()
-        , self.handle
-        , self:get_owner()
+    return string.format("{ability|%s|%s} @ %s"
+    , self:get_name()
+    , self.handle
+    , self:get_owner()
     )
 end
 
@@ -28,8 +28,8 @@ end
 ---@param py_ability py.Ability
 ---@return self
 function M:__init(id, py_ability)
-    self.id     = id
-    self.handle = py_ability
+    self.id      = id
+    self.handle  = py_ability
     self.phandle = y3.py_proxy.wrap(py_ability)
     return self
 end
@@ -42,8 +42,8 @@ end
 ---@param id integer
 ---@param py_ability py.Ability
 ---@return Ability
-M.ref_manager = New 'Ref' ('Ability', function (id, py_ability)
-    return New 'Ability' (id, py_ability)
+M.ref_manager = New "Ref" ("Ability", function(id, py_ability)
+    return New "Ability" (id, py_ability)
 end)
 
 ---通过py层的技能实例获取lua层的技能实例
@@ -60,12 +60,12 @@ function M.get_by_id(id)
     return M.ref_manager:get(id)
 end
 
-y3.py_converter.register_py_to_lua('py.Ability', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
+y3.py_converter.register_py_to_lua("py.Ability", M.get_by_handle)
+y3.py_converter.register_lua_to_py("py.Ability", function(lua_value)
     return lua_value.handle
 end)
 
-y3.game:event('技能-失去', function (trg, data)
+y3.game:event("技能-失去", function(trg, data)
     local id = data.ability.id
     M.ref_manager:remove(id)
 end)
@@ -96,7 +96,7 @@ end
 ---@param tag string 标签
 ---@return boolean
 function M:has_tag(tag)
-    return GlobalAPI.has_tag(self.handle,tag)
+    return GlobalAPI.has_tag(self.handle, tag)
 end
 
 ---启用技能
@@ -160,10 +160,10 @@ function M:set_float_attr(key, value)
 end
 
 ---设置整数属性
----@param key string 属性key
+---@param key y3.Const.AbilityIntAttr 属性key
 ---@param value integer 属性值
 function M:set_int_attr(key, value)
-    self.phandle:api_set_int_attr(key, value)
+    self.phandle:api_set_int_attr(y3.const.AbilityIntAttr[key], value)
 end
 
 ---设置剩余冷却时间
@@ -297,7 +297,6 @@ function M:set_arrow_width(value)
     self.phandle:api_set_ability_arrow_width(Fix32(value))
 end
 
-
 ---设置箭圆形指示器半径
 ---@param value number 半径
 function M:set_circle_radius(value)
@@ -362,10 +361,10 @@ function M:get_float_attr(key)
 end
 
 ---获取整数属性
----@param key string 键值key
+---@param key y3.Const.AbilityIntAttr 键值key
 ---@return number value 值
 function M:get_int_attr(key)
-    return self.phandle:api_get_int_attr(key)
+    return self.phandle:api_get_int_attr(y3.const.AbilityIntAttr[key])
 end
 
 ---获取字符串属性
@@ -398,7 +397,7 @@ end
 ---@param cast integer 施法ID
 ---@return Unit|Destructible|Item|Point|nil target 目标
 function M:get_target(cast)
-    local unit = GameAPI.get_target_unit_in_ability(self.handle,cast)
+    local unit = GameAPI.get_target_unit_in_ability(self.handle, cast)
     if unit then
         return y3.unit.get_by_handle(unit)
     end
@@ -408,7 +407,7 @@ function M:get_target(cast)
         return y3.destructible.get_by_handle(dest)
     end
 
-    local item = GameAPI.get_target_item_in_ability(self.handle,cast)
+    local item = GameAPI.get_target_item_in_ability(self.handle, cast)
     if item then
         return y3.item.get_by_handle(item)
     end
@@ -463,7 +462,7 @@ end
 ---@param key string 键值key
 ---@return integer value 值
 function M.get_int_attr_by_key(ability_key, key)
-    return GameAPI.get_ability_conf_int_attr(ability_key,key)
+    return GameAPI.get_ability_conf_int_attr(ability_key, key)
 end
 
 ---设置玩家的普攻预览状态
@@ -502,7 +501,8 @@ end
 ---@param unit_hp_cur number 单位当前生命
 ---@return number value 值
 function M.get_formula_attr_by_key(ability_id, attr_name, level, stack_count, unit_hp_max, unit_hp_cur)
-    return GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, stack_count, Fix32(unit_hp_max), Fix32(unit_hp_cur)):float()
+    return GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, stack_count, Fix32(unit_hp_max),
+        Fix32(unit_hp_cur)):float()
 end
 
 ---获取技能类型字符串属性
@@ -547,7 +547,7 @@ end
 ---进入技能准备施法状态
 ---@param player Player 玩家
 function M:pre_cast(player)
-	GameAPI.start_skill_pointer(player.handle, self.handle)
+    GameAPI.start_skill_pointer(player.handle, self.handle)
 end
 
 return M
