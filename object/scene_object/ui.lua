@@ -70,7 +70,9 @@ end
 ---@return UI
 function M.get_ui(player, ui_path)
     local py_ui = GameAPI.get_comp_by_absolute_path(player.handle, ui_path)
-    assert(py_ui, string.format('UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。', ui_path))
+    if not py_ui then
+        error(string.format('UI “%s” 不存在。注意，在界面编辑器中放置的UI需要在游戏初始化事件之后才能获取。', ui_path))
+    end
     return y3.ui.get_by_handle(player, py_ui)
 end
 
