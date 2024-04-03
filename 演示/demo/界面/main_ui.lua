@@ -1,4 +1,4 @@
-local tips_ui = require 'y3.演示.demo.主控UI.tips_ui'
+local tips_ui = require 'y3.演示.demo.界面.tips_ui'
 
 local game_main_ui = y3.ui.get_ui(y3.player(1), '主控UI')
 game_main_ui:set_visible(true)

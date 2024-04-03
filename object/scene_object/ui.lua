@@ -283,6 +283,12 @@ function M:set_skill_on_ui_comp(skill)
     return self
 end
 
+--绑定技能
+---@param ability Ability 技能对象
+---@return self
+function M:bind_ability(ability)
+    return self:set_skill_on_ui_comp(ability)
+end
 
 --绑定单位到魔法效果显示栏组件
 ---@param unit Unit 单位

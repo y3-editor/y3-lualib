@@ -241,9 +241,10 @@ end
 
 ---获得某个技能位的的技能
 ---@param type y3.Const.AbilityType 技能类型
----@param slot y3.Const.AbilityIndex 技能位
+---@param slot integer 技能位
 ---@return Ability? ability 技能
 function M:get_ability_by_slot(type, slot)
+    ---@diagnostic disable-next-line: param-type-mismatch
     local py_ability = self.phandle:api_get_ability(type, slot)
     if not py_ability then
         return nil
