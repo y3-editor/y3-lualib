@@ -1417,6 +1417,12 @@ function M:is_hero()
     return self.phandle:api_get_type() == y3.const.UnitCategory['HERO']
 end
 
+--获取单位的头像
+---@return py.Texture image 单位的头像
+function M:get_icon()
+    return GameAPI.get_icon_id_by_unit_type(self:get_key()) --[[@as py.Texture]]
+end
+
 ---获取单位类型的头像
 ---@param unit_key py.UnitKey 单位类型
 ---@return py.Texture image 单位类型的头像
