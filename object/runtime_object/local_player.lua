@@ -235,7 +235,7 @@ end
 local Player = Class 'Player'
 
 --在本地玩家环境中执行代码。  
---在开发模式中会阻止这些代码修改上值、修改全局变量、调用同步函数，因此也会产生额外的开销。  
+--在开发模式中会阻止这些代码修改上值、修改全局变量、调用同步函数，因此也会产生额外的开销。（暂时失效）  
 --在平台上不会检测，也不会有额外开销。
 --
 ------
@@ -248,6 +248,10 @@ local Player = Class 'Player'
 --```
 ---@param callback fun(local_player: Player)
 function Player.with_local(callback)
+    do
+        callback(M.LOCAL_PLAYER)
+        return
+    end
     if not can_use_debug
     or not y3.game.is_debug_mode() then
         callback(M.LOCAL_PLAYER)
