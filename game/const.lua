@@ -51,34 +51,53 @@ M.UnitState = {
     ['DISSOLVE'] = 'Dissolve',
 }
 
-M.UnitKeyFloatAttr = {
-    ['ROTATE_SPEED'] = 'rotate_speed', -- 转身速度
-    ['CANCEL_ALARM_RANGE'] = 'cancel_alarm_range', -- 取消警戒范围
-    ['ALARM_RANGE'] = 'alarm_range', -- 警戒范围
-    ['BODY_SIZE'] = 'body_size', -- 缩放
-    ['CD_REDUCE'] = 'cd_reduce', -- 冷却缩减
-    ['VISION_RNG'] = 'vision_rng', -- 视野范围
-    ['HP_MAX'] = 'hp_max', -- 最大生命
-    ['HP_REC'] = 'hp_rec', -- 生命恢复
-    ['MP_MAX'] = 'mp_max', -- 最大魔法
-    ['MP_REC'] = 'mp_rec', -- 魔法恢复
-    ['ORI_SPEED'] = 'ori_speed', -- 施法速度
-    ['ATTACK_PHY'] = 'attack_phy', -- 物理攻击力
-    ['ATTACK_MAG'] = 'attack_mag', -- 法术攻击力
-    ['DEFENSE_PHY'] = 'defense_phy', -- 物理防御力
-    ['DEFENSE_MAG'] = 'defense_mag', -- 法术防御力
-    ['ATTACK_SPEED'] = 'attack_speed', -- 攻击速度
-    ['CRITICAL_CHANCE'] = 'critical_chance', -- 暴击率
-    ['CRITICAL_DMG'] = 'critical_dmg', -- 暴击伤害
-    ['PENE_PHY'] = 'pene_phy', -- 物理穿透
-    ['PENE_MAG'] = 'pene_mag', -- 法术穿透
-    ['VAMPIRE_PHY'] = 'vampire_phy', -- 物理吸血
-    ['VAMPIRE_MAG'] = 'vampire_mag', -- 法术吸血
-    ['PENE_PHY_RATIO'] = 'pene_phy_ratio', -- 物理穿透
-    ['PENE_MAG_RATIO'] = 'pene_mag_ratio', -- 法术穿透
-    ['DMG_REDUCTION'] = 'dmg_reduction', -- 伤害减免
-    ['HIT_RATE'] = 'hit_rate', -- 命中率
-    ['DODGE_RATE'] = 'dodge_rate', -- 躲避率
+---@enum(key) y3.Const.UnitAttr
+M.UnitAttr = {
+    ['最大生命'] = 'hp_max',
+    ['生命恢复'] = 'hp_rec',
+    ['最大魔法'] = 'mp_max',
+    ['魔法恢复'] = 'mp_rec',
+    ['物理攻击'] = 'attack_phy',
+    ['法术攻击'] = 'attack_mag',
+    ['物理防御'] = 'defense_phy',
+    ['法术防御'] = 'defense_mag',
+    ['攻击速度'] = 'attack_speed', --百分比
+    ['冷却缩减'] = 'cd_reduce', --百分比
+    ['命中率'] = 'hit_rate', --百分比
+    ['躲避率'] = 'dodge_rate', --百分比
+    ['暴击率'] = 'critical_chance', --百分比
+    ['暴击伤害'] = 'critical_dmg', --百分比
+    ['物理穿透'] = 'pene_phy',
+    ['法术穿透'] = 'pene_mag',
+    ['物理吸血'] = 'vampire_phy', --百分比
+    ['法术吸血'] = 'vampire_mag', --百分比
+    ['物理穿透比例'] = 'pene_phy_ratio', --百分比
+    ['法术穿透比例'] = 'pene_mag_ratio', --百分比
+    ['受伤减免'] = 'dmg_reduction', --百分比
+    ['伤害加成'] = 'extra_dmg', --百分比
+    ['被治疗加成'] = 'healing_effect', --百分比
+    ['移动速度'] = 'ori_speed',
+    ['真实视野'] = 'vision_true',
+    ['攻击间隔'] = 'attack_interval',
+    ['攻击范围'] = 'attack_range',
+    ['白天视野'] = 'vision_rng',
+    ['夜晚视野'] = 'vision_night',
+    ['白天扇形视野半径'] = 'vision_sector_rng',
+    ['夜晚扇形视野半径'] = 'vision_sector_night',
+    ['白天扇形视野夹角'] = 'vision_sector_angle_day',
+    ['夜晚扇形视野夹角'] = 'vision_sector_angle_night',
+    ['力量'] = 'strength',
+    ['敏捷'] = 'agility',
+    ['智力'] = 'intelligence',
+}
+
+---@enum(key) y3.Const.UnitAttrType
+M.UnitAttrType = {
+    ["基础"] = "ATTR_BASE",
+    ["基础加成"] = "ATTR_BASE_RATIO", --百分比
+    ["增益"] = "ATTR_BONUS",
+    ["增益加成"] = "ATTR_BONUS_RATIO", --百分比
+    ["总加成"] = "ATTR_ALL_RATIO", --百分比
 }
 
 M.ModifyType = {
@@ -841,17 +860,6 @@ M.AbilityIntAttr = {
 M.AbilityStrAttr = {
     ["名称"] = "name",
     ["描述"] = "description",
-}
-
----@enum (key) y3.Const.UnitAttrType
-M.UnitAttrType = {
-    ["基础属性"] = "ATTR_BASE",
-    ["基础属性加成"] = "ATTR_BASE_RATIO",
-    ["增益属性"] = "ATTR_BONUS",
-    ["增益属性加成"] = "ATTR_BONUS_RATIO",
-    ["总属性加成"] = "ATTR_ALL_RATIO",
-    -- 实际属性 = "ATTR_RESULT", --仅用于获取,不可设置
-    -- 额外属性 = "ATTR_OTHER" -- 仅用于获取,不可设置
 }
 
 

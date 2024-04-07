@@ -583,25 +583,25 @@ function M:set_description(description)
 end
 
 ---设置属性
----@param attr_name string 属性名
+---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@param value number 属性值
----@param attr_type string 属性类型
+---@param attr_type string | y3.Const.UnitAttrType 属性类型
 function M:set_attr(attr_name, value, attr_type)
-    self.phandle:api_set_attr_by_attr_element(attr_name, Fix32(value), attr_type)
+    self.phandle:api_set_attr_by_attr_element(y3.const.UnitAttr[attr_name] or attr_name, Fix32(value), y3.const.UnitAttrType[attr_type] or attr_type)
 end
 
 ---增加属性
----@param attr_name string 属性名
+---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@param value number 属性值
----@param attr_type string 属性类型
+---@param attr_type string | y3.Const.UnitAttrType 属性类型
 function M:add_attr(attr_name, value, attr_type)
-    self.phandle:api_add_attr_by_attr_element(attr_name, Fix32(value), attr_type)
+    self.phandle:api_add_attr_by_attr_element(y3.const.UnitAttr[attr_name] or attr_name, Fix32(value), y3.const.UnitAttrType[attr_type] or attr_type)
 end
 
 ---增加属性
----@param attr_name string 属性名
+---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@param value number 属性值
----@param attr_type string 属性类型
+---@param attr_type string | y3.Const.UnitAttrType 属性类型
 ---@return GCNode
 function M:add_attr_gc(attr_name, value, attr_type)
     self:add_attr(attr_name, value, attr_type)
@@ -1141,60 +1141,90 @@ function M:get_mp()
 end
 
 ---获取最终属性
----@param attr_name string 属性名
+---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@return number
 function M:get_final_attr(attr_name)
-    return self.phandle:api_get_float_attr(attr_name):float()
+    return self.phandle:api_get_float_attr(y3.const.UnitAttr[attr_name] or attr_name):float()
 end
 
 ---获取属性（额外）
----@param attr_name string 属性名
+---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@return number
 function M:get_attr_other(attr_name)
-    return self.phandle:api_get_attr_other(attr_name):float()
+    return self.phandle:api_get_attr_other(y3.const.UnitAttr[attr_name] or attr_name):float()
 end
 
 ---获取单属性（基础）
----@param attr_name string
+---@param attr_name string | y3.Const.UnitAttr
 ---@return number attr_base 单位基础属性类型的属性
 function M:get_attr_base(attr_name)
-    return self.phandle:api_get_attr_base(attr_name):float()
+    return self.phandle:api_get_attr_base(y3.const.UnitAttr[attr_name] or attr_name):float()
 end
 
 ---获取属性（基础加成）
----@param attr_name string
+---@param attr_name string | y3.Const.UnitAttr
 ---@return number
 function M:get_attr_base_ratio(attr_name)
-    return self.phandle:api_get_attr_base_ratio(attr_name):float()
+    return self.phandle:api_get_attr_base_ratio(y3.const.UnitAttr[attr_name] or attr_name):float()
 end
 
 ---获取属性（增益）
----@param attr_name string
+---@param attr_name string | y3.Const.UnitAttr
 ---@return number
 function M:get_attr_bonus(attr_name)
-    return self.phandle:api_get_attr_bonus(attr_name):float()
+    return self.phandle:api_get_attr_bonus(y3.const.UnitAttr[attr_name] or attr_name):float()
 end
 
 ---获取属性（最终加成）
----@param attr_name string
+---@param attr_name string | y3.Const.UnitAttr
 ---@return number
 function M:get_attr_all_ratio(attr_name)
-    return self.phandle:api_get_attr_all_ratio(attr_name):float()
+    return self.phandle:api_get_attr_all_ratio(y3.const.UnitAttr[attr_name] or attr_name):float()
 end
 
 ---获取属性（增益加成）
----@param attr_name string
+---@param attr_name string | y3.Const.UnitAttr
 ---@return number
 function M:get_attr_bonus_ratio(attr_name)
-    return self.phandle:api_get_attr_bonus_ratio(attr_name):float()
+    return self.phandle:api_get_attr_bonus_ratio(y3.const.UnitAttr[attr_name] or attr_name):float()
+end
+
+---获取属性（默认为实际属性）
+---@param attr_name string | y3.Const.UnitAttr
+---@param attr_type? '实际' | '额外' | y3.Const.UnitAttrType
+---@return number
+function M:get_attr(attr_name, attr_type)
+    if attr_type == '实际'
+    or attr_type == nil then
+        return self:get_final_attr(attr_name)
+    end
+    if attr_type == '额外' then
+        return self:get_attr_other(attr_name)
+    end
+    if attr_type == '基础' then
+        return self:get_attr_base(attr_name)
+    end
+    if attr_type == '基础加成' then
+        return self:get_attr_base_ratio(attr_name)
+    end
+    if attr_type == '增益' then
+        return self:get_attr_bonus(attr_name)
+    end
+    if attr_type == '增益加成' then
+        return self:get_attr_bonus_ratio(attr_name)
+    end
+    if attr_type == '最终加成' then
+        return self:get_attr_all_ratio(attr_name)
+    end
+    error('未知的属性类型:' .. tostring(attr_type))
 end
 
 ---获取单位属性成长
 ---@param unit_key py.UnitKey
----@param attr_name any
+---@param attr_name string | y3.Const.UnitAttr
 ---@return number unit_attribute_growth 单位属性成长
 function M.get_attr_growth_by_key(unit_key, attr_name)
-    return GameAPI.api_get_attr_growth(unit_key, attr_name):float()
+    return GameAPI.api_get_attr_growth(unit_key, y3.const.UnitAttr[attr_name] or attr_name):float()
 end
 
 ---获取单位剩余生命周期
