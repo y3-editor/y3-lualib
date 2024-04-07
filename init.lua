@@ -44,7 +44,6 @@ require 'y3.util.custom_event'
 require 'y3.util.ref'
 require 'y3.util.storage'
 require 'y3.util.gc_buffer'
-require 'y3.util.local_ui_logic'
 
 print = log.debug
 
@@ -84,6 +83,7 @@ y3.heal_instance   = require 'y3.object.runtime_object.heal_instance'
 y3.sound        = require 'y3.object.runtime_object.sound'
 
 require 'y3.object.runtime_object.local_player'
+require 'y3.object.runtime_object.current_select'
 
 y3.area         = require 'y3.object.scene_object.area'
 y3.camera       = require 'y3.object.scene_object.camera'
@@ -100,6 +100,8 @@ y3.ltimer       = require 'y3.util.local_timer'
 y3.save_data    = require 'y3.util.save_data'
 y3.dump         = require 'y3.util.dump'
 y3.sync         = require 'y3.util.sync'
+
+require 'y3.util.local_ui_logic'
 
 y3.develop = {}
 y3.develop.command = include 'y3.develop.command'

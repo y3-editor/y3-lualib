@@ -4,9 +4,12 @@
 ---@overload fun(main_name: string): self
 local M = Class 'LocalUILogic'
 
+---@diagnostic disable-next-line: deprecated
+local local_player = y3.player.get_local()
+
 ---@class LocalUILogic.RegisterInfo
 ---@field name string
----@field on_update fun(ui: UI)
+---@field on_update fun(ui: UI, local_player: Player)
 
 function M:__init(main_name)
     ---@private
@@ -17,9 +20,7 @@ function M:__init(main_name)
     ---@type LocalUILogic.RegisterInfo[]
     self._registers = {}
     y3.ltimer.wait(0, function ()
-        y3.player.with_local(function (local_player)
-            self._main = y3.ui.get_ui(local_player, self._main_name)
-        end)
+        self._main = y3.ui.get_ui(local_player, self._main_name)
         assert(self._main)
         for _, v in ipairs(self._bind_unit_attr) do
             self:bind_unit_attr(v.child_name, v.ui_attr, v.unit_attr)
@@ -67,9 +68,9 @@ function M:bind_unit_attr(child_name, ui_attr, unit_attr)
 end
 
 
---订阅控件刷新
+--订阅控件刷新，回调函数在 *本地玩家* 环境中执行
 ---@param child_name string
----@param on_update fun(ui: UI)
+---@param on_update fun(ui: UI, local_player: Player)
 function M:register(child_name, on_update)
     table.insert(self._registers, {
         name = child_name,
@@ -106,8 +107,13 @@ end
 --刷新控件，指定的控件以及其子控件都会收到刷新消息。
 --参数为 `*` 时，刷新所有控件。
 ---@param name string
-function M:update(name)
+---@param player? Player # 只刷新此玩家的
+function M:update(name, player)
     if not self._main then
+        return
+    end
+
+    if player and player ~= local_player then
         return
     end
 
@@ -115,7 +121,7 @@ function M:update(name)
     for _, info in ipairs(infos) do
         local ui = self._childs[info.name]
         if ui then
-            info.on_update(ui)
+            info.on_update(ui, local_player)
         end
     end
 end
