@@ -591,12 +591,24 @@ function M:set_ui_model_focus_pos(x, y, z)
 end
 
 --绑定单位属性到玩家界面控件的属性
+--> 请改用 `UI:bind_unit_attr`
+---@deprecated
 ---@param uiAttr string 界面控件属性
 ---@param attr string 单位属性
 ---@param accuracy integer 小数精度
 ---@return self
 function M:bind_player_attribute(uiAttr, attr, accuracy)
     GameAPI.set_ui_comp_bind_attr(self.player.handle, self.handle, uiAttr, attr, accuracy)
+    return self
+end
+
+--绑定单位属性到玩家界面控件的属性
+---@param uiAttr y3.Const.UIAttr 界面控件属性
+---@param attr_name string | y3.Const.UnitAttr 单位属性
+---@param accuracy? integer 小数精度，默认为0
+---@return self
+function M:bind_unit_attr(uiAttr, attr_name, accuracy)
+    GameAPI.set_ui_comp_bind_attr(self.player.handle, self.handle, y3.const.UIAttr[uiAttr], y3.const.UnitAttr[attr_name] or attr_name, accuracy or 0)
     return self
 end
 
@@ -625,7 +637,7 @@ end
 ---@param uiAttr string 界面控件属性
 ---@return self
 function M:unbind(uiAttr)
-    GameAPI.ui_comp_unbind(self.player.handle,self.handle,uiAttr)
+    GameAPI.ui_comp_unbind(self.player.handle, self.handle, uiAttr)
     return self
 end
 

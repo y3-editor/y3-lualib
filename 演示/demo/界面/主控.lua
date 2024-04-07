@@ -33,6 +33,18 @@ local function update_avatar(main)
 
     --更新头像下方的属性
     local attr = main:get_child('属性')
+    if attr then
+        local attack_speed = attr:get_child('攻击速度.文本')
+        local move_speed = attr:get_child('移动速度.文本')
+        if current_unit then
+            if attack_speed then
+                attack_speed:bind_unit(current_unit)
+            end
+            if move_speed then
+                move_speed:bind_unit(current_unit)
+            end
+        end
+    end
 end
 
 --更新技能栏
@@ -53,6 +65,29 @@ local function update_ability(main)
     end
 end
 
+local has_inited = false
+
+---@param main UI?
+local function init(main)
+    if not main then
+        return
+    end
+    if has_inited then
+        return
+    end
+    has_inited = true
+
+    local attack_speed = main:get_child('头像.属性.攻击速度.文本')
+    if attack_speed then
+        attack_speed:bind_unit_attr('文本', '攻击速度')
+    end
+
+    local move_speed = main:get_child('头像.属性.移动速度.文本')
+    if move_speed then
+        move_speed:bind_unit_attr('文本', '移动速度')
+    end
+end
+
 local function update_main()
     y3.player.with_local(function (local_player)
         local main = y3.ui.get_ui(local_player, '主控')
@@ -61,7 +96,7 @@ local function update_main()
             return
         end
         main:set_visible(true)
-
+        init(main)
         update_avatar(main:get_child('头像'))
         update_ability(main:get_child('英雄技能'))
     end)
