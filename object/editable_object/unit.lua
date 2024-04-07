@@ -240,12 +240,12 @@ function M:find_ability(type, id)
 end
 
 ---获得某个技能位的的技能
----@param type y3.Const.AbilityType 技能类型
+---@param type y3.Const.AbilityType | y3.Const.AbilityTypeAlias 技能类型
 ---@param slot integer 技能位
 ---@return Ability? ability 技能
 function M:get_ability_by_slot(type, slot)
     ---@diagnostic disable-next-line: param-type-mismatch
-    local py_ability = self.phandle:api_get_ability(type, slot)
+    local py_ability = self.phandle:api_get_ability(y3.const.AbilityType[type] or type, slot)
     if not py_ability then
         return nil
     end
@@ -1190,7 +1190,7 @@ function M:get_attr_bonus_ratio(attr_name)
 end
 
 ---获取属性（默认为实际属性）
----@param attr_name string | y3.Const.UnitAttr
+---@param attr_name y3.Const.UnitAttr
 ---@param attr_type? '实际' | '额外' | y3.Const.UnitAttrType
 ---@return number
 function M:get_attr(attr_name, attr_type)

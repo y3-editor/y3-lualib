@@ -604,7 +604,7 @@ end
 
 --绑定单位属性到玩家界面控件的属性
 ---@param uiAttr y3.Const.UIAttr 界面控件属性
----@param attr_name string | y3.Const.UnitAttr 单位属性
+---@param attr_name y3.Const.UnitAttr 单位属性
 ---@param accuracy? integer 小数精度，默认为0
 ---@return self
 function M:bind_unit_attr(uiAttr, attr_name, accuracy)
