@@ -53,6 +53,8 @@ M.UnitState = {
 
 ---@enum(key) y3.Const.UnitAttr
 M.UnitAttr = {
+    ['生命'] = 'hp_cur',
+    ['魔法'] = 'mp_cur',
     ['最大生命'] = 'hp_max',
     ['生命恢复'] = 'hp_rec',
     ['最大魔法'] = 'mp_max',
