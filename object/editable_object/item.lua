@@ -580,4 +580,10 @@ function M.has_tag_by_key(tag, item_key)
     return GameAPI.item_key_has_tag(item_key, tag)
 end
 
+---获取单位阵营ID
+---@return py.CampID
+function M:get_camp_id()
+    return self.phandle:api_get_camp_id()
+end
+
 return M
