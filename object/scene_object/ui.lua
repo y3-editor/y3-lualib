@@ -478,6 +478,7 @@ end
 
 
 --设置控件绝对坐标
+--> 同 `UI:set_absolute_pos`
 ---@param x number x轴
 ---@param y number y轴
 ---@return self
@@ -941,6 +942,15 @@ end
 ---@return self
 function M:set_pos(x, y)
     GameAPI.set_ui_comp_pos_no_trans(self.player.handle, self.handle, x, y)
+    return self
+end
+
+---设置控件绝对坐标
+---@param x number x轴
+---@param y number y轴
+---@return self
+function M:set_absolute_pos(x, y)
+    GameAPI.set_ui_comp_world_pos(self.player.handle, self.handle, x, y)
     return self
 end
 

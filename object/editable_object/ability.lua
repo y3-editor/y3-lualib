@@ -218,6 +218,13 @@ function M:set_description(des)
     self.phandle:api_set_str_attr("desc", des)
 end
 
+--获取技能描述
+---@return string
+function M:get_description()
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return self.phandle:api_get_str_attr("desc")
+end
+
 ---学习技能
 function M:learn()
     self.phandle:api_learn_ability()
@@ -491,6 +498,12 @@ end
 ---@return py.Texture id 图片ID
 function M.get_icon_by_key(ability_key)
     return GameAPI.get_icon_id_by_ability_type(ability_key) --[[@as py.Texture]]
+end
+
+--获取技能图标
+---@return py.Texture id 图片ID
+function M:get_icon()
+    return M.get_icon_by_key(self:get_key())
 end
 
 ---获取技能类型公式属性

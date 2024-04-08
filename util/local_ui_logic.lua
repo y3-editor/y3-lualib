@@ -4,21 +4,39 @@
 ---@overload fun(main_name: string): self
 local M = Class 'LocalUILogic'
 
+---@class LocalUILogic: Storage
+Extends('LocalUILogic', 'Storage')
+
+---@type table<LocalUILogic, boolean>
+local all_instances = setmetatable({}, { __mode = 'k' })
+
 ---@diagnostic disable-next-line: deprecated
 local local_player = y3.player.get_local()
 
----@class LocalUILogic.RegisterInfo
+---@class LocalUILogic.OnRefreshInfo
 ---@field name string
 ---@field on_refresh fun(ui: UI, local_player: Player)
 
+---@class LocalUILogic.OnEventInfo
+---@field name string
+---@field event y3.Const.UIEvent
+---@field on_event fun(ui: UI, local_player: Player)
+
 function M:__init(main_name)
+    if y3.game.is_debug_mode() then
+        all_instances[self] = true
+    end
     ---@private
     self._main_name = main_name
     ---@private
     self._bind_unit_attr = {}
-    ---@private
-    ---@type LocalUILogic.RegisterInfo[]
-    self._registers = {}
+    ---@package
+    ---@type LocalUILogic.OnRefreshInfo[]
+    self._on_refreshs = {}
+    ---@package
+    ---@type LocalUILogic.OnEventInfo[]
+    self._on_events = {}
+
     y3.ltimer.wait(0, function ()
         self._main = y3.ui.get_ui(local_player, self._main_name)
         assert(self._main)
@@ -35,7 +53,7 @@ function M:__init(main_name)
         end })
 
         ---@private
-        ---@type table<string, LocalUILogic.RegisterInfo[]>
+        ---@type table<string, LocalUILogic.OnRefreshInfo[]>
         self._refresh_targets = setmetatable({}, { __index = function (t, k)
             local uis = self:get_refresh_targets(k)
             t[k] = uis
@@ -44,6 +62,8 @@ function M:__init(main_name)
 
         self._childs['*'] = self._main
         self:refresh('*')
+
+        self:register_events()
     end)
 end
 
@@ -73,10 +93,34 @@ end
 ---@param child_name string
 ---@param on_refresh fun(ui: UI, local_player: Player)
 function M:on_refresh(child_name, on_refresh)
-    table.insert(self._registers, {
+    table.insert(self._on_refreshs, {
         name = child_name,
         on_refresh = on_refresh
     })
+end
+
+--订阅控件的本地事件，回调函数在 *本地玩家* 环境中执行。
+---@param child_name string
+---@param event y3.Const.UIEvent
+---@param callback fun(ui: UI, local_player: Player)
+function M:on_event(child_name, event, callback)
+    table.insert(self._on_events, {
+        name = child_name,
+        event = event,
+        on_event = callback
+    })
+end
+
+---@private
+function M:register_events()
+    for _, info in ipairs(self._on_events) do
+        local ui = self._childs[info.name]
+        if ui then
+            ui:add_local_event(info.event, function ()
+                info.on_event(ui, local_player)
+            end)
+        end
+    end
 end
 
 local function is_child_name(target, name)
@@ -91,13 +135,13 @@ end
 
 ---@private
 ---@param name string
----@return LocalUILogic.RegisterInfo[]
+---@return LocalUILogic.OnRefreshInfo[]
 function M:get_refresh_targets(name)
     if name == '*' then
-        return self._registers
+        return self._on_refreshs
     end
     local targets = {}
-    for _, info in ipairs(self._registers) do
+    for _, info in ipairs(self._on_refreshs) do
         if is_child_name(name, info.name) then
             targets[#targets+1] = info
         end
@@ -126,3 +170,18 @@ function M:refresh(name, player)
         end
     end
 end
+
+y3.reload.onBeforeReload(function (reload, willReload)
+    for instance in pairs(all_instances) do
+        for _, info in pairs(instance._on_refreshs) do
+            if reload:isValidName(y3.reload.getIncludeName(info.on_refresh)) then
+                info.on_refresh = function () end
+            end
+        end
+        for _, info in pairs(instance._on_events) do
+            if reload:isValidName(y3.reload.getIncludeName(info.on_event)) then
+                info.on_event = function () end
+            end
+        end
+    end
+end)
