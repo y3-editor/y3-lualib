@@ -9,7 +9,7 @@ local local_player = y3.player.get_local()
 
 ---@class LocalUILogic.RegisterInfo
 ---@field name string
----@field on_update fun(ui: UI, local_player: Player)
+---@field on_refresh fun(ui: UI, local_player: Player)
 
 function M:__init(main_name)
     ---@private
@@ -36,8 +36,8 @@ function M:__init(main_name)
 
         ---@private
         ---@type table<string, LocalUILogic.RegisterInfo[]>
-        self._update_targets = setmetatable({}, { __index = function (t, k)
-            local uis = self:get_update_targets(k)
+        self._refresh_targets = setmetatable({}, { __index = function (t, k)
+            local uis = self:get_refresh_targets(k)
             t[k] = uis
             return t[k]
         end })
@@ -71,11 +71,11 @@ end
 --订阅控件刷新，回调函数在 *本地玩家* 环境中执行。
 --使用 `*` 表示主控件。
 ---@param child_name string
----@param on_update fun(ui: UI, local_player: Player)
-function M:register(child_name, on_update)
+---@param on_refresh fun(ui: UI, local_player: Player)
+function M:on_refresh(child_name, on_refresh)
     table.insert(self._registers, {
         name = child_name,
-        on_update = on_update
+        on_refresh = on_refresh
     })
 end
 
@@ -92,7 +92,7 @@ end
 ---@private
 ---@param name string
 ---@return LocalUILogic.RegisterInfo[]
-function M:get_update_targets(name)
+function M:get_refresh_targets(name)
     if name == '*' then
         return self._registers
     end
@@ -118,11 +118,11 @@ function M:refresh(name, player)
         return
     end
 
-    local infos = self._update_targets[name]
+    local infos = self._refresh_targets[name]
     for _, info in ipairs(infos) do
         local ui = self._childs[info.name]
         if ui then
-            info.on_update(ui, local_player)
+            info.on_refresh(ui, local_player)
         end
     end
 end

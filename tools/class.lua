@@ -133,6 +133,7 @@ function M.declare(name, super, superInit)
     local mt = {
         __call = function (self, ...)
             if not self.__alloc then
+                error(('class %q can not be instantiated'):format(name))
                 return self
             end
             return self:__alloc(...)
