@@ -90,17 +90,17 @@ LL:register('*', function (ui, local_player)
 end)
 
 y3.game:event('选中-单位', function (trg, data)
-    LL:update('*', data.player)
+    LL:refresh('*', data.player)
 end)
 
 y3.game:event('选中-单位组', function (trg, data)
-    LL:update('*', data.player)
+    LL:refresh('*', data.player)
 end)
 
 y3.game:event('单位-获得经验后', function (trg, data)
     y3.player.with_local(function (local_player)
         if local_player:get_selecting_unit() == data.unit then
-            LL:update('经验条')
+            LL:refresh('经验条')
         end
     end)
 end)
@@ -108,7 +108,7 @@ end)
 y3.game:event('单位-升级', function (trg, data)
     y3.player.with_local(function (local_player)
         if local_player:get_selecting_unit() == data.unit then
-            LL:update('经验条')
+            LL:refresh('经验条')
         end
     end)
 end)

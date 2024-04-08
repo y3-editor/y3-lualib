@@ -43,7 +43,7 @@ function M:__init(main_name)
         end })
 
         self._childs['*'] = self._main
-        self:update('*')
+        self:refresh('*')
     end)
 end
 
@@ -68,7 +68,8 @@ function M:bind_unit_attr(child_name, ui_attr, unit_attr)
 end
 
 
---订阅控件刷新，回调函数在 *本地玩家* 环境中执行
+--订阅控件刷新，回调函数在 *本地玩家* 环境中执行。
+--使用 `*` 表示主控件。
 ---@param child_name string
 ---@param on_update fun(ui: UI, local_player: Player)
 function M:register(child_name, on_update)
@@ -108,7 +109,7 @@ end
 --参数为 `*` 时，刷新所有控件。
 ---@param name string
 ---@param player? Player # 只刷新此玩家的
-function M:update(name, player)
+function M:refresh(name, player)
     if not self._main then
         return
     end
