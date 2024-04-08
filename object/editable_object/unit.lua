@@ -1824,4 +1824,10 @@ function M:set_move_channel_air(air_limitation)
     self.phandle:set_move_channel_air(air_limitation)
 end
 
+---获取单位阵营ID
+---@return py.CampID
+function M:get_camp_id()
+    return self.phandle:api_get_camp_id()
+end
+
 return M
