@@ -585,17 +585,41 @@ end
 ---设置属性
 ---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@param value number 属性值
----@param attr_type string | y3.Const.UnitAttrType 属性类型
+---@param attr_type? string | y3.Const.UnitAttrType 属性类型，默认为“基础”
 function M:set_attr(attr_name, value, attr_type)
+    attr_name = y3.const.UnitAttr[attr_name] or attr_name
+    if attr_name == 'hp_cur' then
+        self:set_hp(value)
+        return
+    end
+    if attr_name == 'mp_cur' then
+        self:set_hp(value)
+        return
+    end
+    if attr_type == nil then
+        attr_type = '基础'
+    end
     self.phandle:api_set_attr_by_attr_element(y3.const.UnitAttr[attr_name] or attr_name, Fix32(value), y3.const.UnitAttrType[attr_type] or attr_type)
 end
 
 ---增加属性
 ---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@param value number 属性值
----@param attr_type string | y3.Const.UnitAttrType 属性类型
+---@param attr_type? string | y3.Const.UnitAttrType 属性类型，默认为“增益”
 function M:add_attr(attr_name, value, attr_type)
-    self.phandle:api_add_attr_by_attr_element(y3.const.UnitAttr[attr_name] or attr_name, Fix32(value), y3.const.UnitAttrType[attr_type] or attr_type)
+    attr_name = y3.const.UnitAttr[attr_name] or attr_name
+    if attr_name == 'hp_cur' then
+        self:add_hp(value)
+        return
+    end
+    if attr_name == 'mp_cur' then
+        self:add_mp(value)
+        return
+    end
+    if attr_type == nil then
+        attr_type = '增益'
+    end
+    self.phandle:api_add_attr_by_attr_element(attr_name, Fix32(value), y3.const.UnitAttrType[attr_type] or attr_type)
 end
 
 ---增加属性
