@@ -1,21 +1,21 @@
 local M = {}
 
--- 胜利的ui界面
-local win_ui = y3.ui.get_ui(y3.player(1), 'win')
-win_ui:set_visible(false)
-
--- 失败的ui界面
-local loss_ui = y3.ui.get_ui(y3.player(1), 'loss')
-loss_ui:set_visible(false)
+M.finished = false
 
 function M.win()
-    win_ui:set_visible(true)
-    y3.game.pause_game()
+    if M.finished then
+        return
+    end
+    M.finished = true
+    y3.player(1):display_message('游戏胜利!')
 end
 
 function M.lose()
-    loss_ui:set_visible(true)
-    y3.game.pause_game()
+    if M.finished then
+        return
+    end
+    M.finished = true
+    y3.player(1):display_message('游戏失败!')
 end
 
 return M
