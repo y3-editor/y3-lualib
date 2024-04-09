@@ -14,6 +14,8 @@ Extends('Buff', 'Storage')
 Extends('Buff', 'GCHost')
 ---@class Buff: CustomEvent
 Extends('Buff', 'CustomEvent')
+---@class Buff: ObjectEvent
+Extends('Buff', 'ObjectEvent')
 ---@class Buff: KV
 Extends('Buff', 'KV')
 
