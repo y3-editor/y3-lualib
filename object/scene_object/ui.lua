@@ -101,7 +101,7 @@ function M:add_local_event(event, callback)
     assert(y3.const.UIEventMap[event], '无效的事件类型')
     GameAPI.bind_local_listener(self.handle, y3.const.UIEventMap[event], function ()
         y3.player.with_local(function (local_player)
-            callback(local_player)
+            xpcall(callback, log.error, local_player)
         end)
     end)
 end

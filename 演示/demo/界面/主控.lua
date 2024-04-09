@@ -89,6 +89,19 @@ MAIN:on_refresh('*', function (ui, local_player)
     end
 end)
 
+MAIN:on_event('头像', '左键-按下', function (ui, local_player)
+    local u = local_player:get_selecting_unit()
+    if not u then
+        return
+    end
+
+    y3.camera.set_camera_follow_unit(local_player, u, 0, 0, 0)
+end)
+
+MAIN:on_event('头像', '左键-抬起', function (ui, local_player)
+    y3.camera.cancel_camera_follow_unit(local_player)
+end)
+
 y3.game:event('选中-单位', function (trg, data)
     MAIN:refresh('*', data.player)
 end)
@@ -111,6 +124,19 @@ y3.game:event('单位-升级', function (trg, data)
             MAIN:refresh('经验条')
         end
     end)
+end)
+
+y3.game:event('键盘-按下', y3.const.KeyboardKey['SPACE'], function (trg, data)
+    local u = data.player:get_selecting_unit()
+    if not u then
+        return
+    end
+
+    y3.camera.set_camera_follow_unit(data.player, u, 0, 0, 0)
+end)
+
+y3.game:event('键盘-抬起', y3.const.KeyboardKey['SPACE'], function (trg, data)
+    y3.camera.cancel_camera_follow_unit(data.player)
 end)
 
 return MAIN
