@@ -60,7 +60,7 @@ function M:__init(main_name)
             return t[k]
         end })
 
-        self._childs['*'] = self._main
+        self._childs[''] = self._main
         self:refresh('*')
 
         self:register_events()
@@ -89,7 +89,7 @@ end
 
 
 --订阅控件刷新，回调函数在 *本地玩家* 环境中执行。
---使用 `*` 表示主控件。
+--使用空字符串表示主控件。
 ---@param child_name string
 ---@param on_refresh fun(ui: UI, local_player: Player)
 function M:on_refresh(child_name, on_refresh)

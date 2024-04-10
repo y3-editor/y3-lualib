@@ -81,7 +81,7 @@ MAIN:on_refresh('经验条.等级文本', function (ui, local_player)
     ui:set_text(string.format('等级%d', local_player:get_selecting_unit():get_level()))
 end)
 
-MAIN:on_refresh('*', function (ui, local_player)
+MAIN:on_refresh('', function (ui, local_player)
     if local_player:get_selecting_unit() then
         ui:set_visible(true)
     else
