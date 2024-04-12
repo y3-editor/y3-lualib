@@ -62,9 +62,13 @@ end
 ---@param unit Unit 单位
 ---@param socket_name string 挂接点名称
 ---@param distance? number 可见距离
+---@param follow_scale? boolean 是否跟随缩放
 ---@return SceneUI scene_ui 场景ui
-function M.create_scene_ui_at_player_unit_socket(scene_ui_type, player, unit, socket_name, distance)
-    local py_scene_node = GameAPI.create_scene_node_on_unit(y3.ui.comp_id[scene_ui_type], player.handle, unit.handle, socket_name, distance or 10000)
+function M.create_scene_ui_at_player_unit_socket(scene_ui_type, player, unit, socket_name, distance, follow_scale)
+    if follow_scale == nil then
+        follow_scale = true
+    end
+    local py_scene_node = GameAPI.create_scene_node_on_unit_ex(y3.ui.comp_id[scene_ui_type], player.handle, unit.handle, socket_name, follow_scale, distance or 100000)
     return M.get_by_handle(py_scene_node)
 end
 
