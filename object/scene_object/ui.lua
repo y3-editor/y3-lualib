@@ -767,11 +767,12 @@ end
 ---@param point Point 点
 ---@param text_type y3.Const.HarmTextType 跳字类型
 ---@param str string 文字
----@param player_group PlayerGroup 玩家组
-function M.create_floating_text(point, text_type, str, player_group)
+---@param player_group? PlayerGroup 玩家组
+---@param jump_word_track? integer 跳字轨迹类型
+function M.create_floating_text(point, text_type, str, player_group, jump_word_track)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    GameAPI.create_harm_text(point.handle, y3.const.HarmTextType[text_type] or text_type, str, player_group.handle)
+    GameAPI.create_harm_text_ex(point.handle, y3.const.HarmTextType[text_type] or text_type, str, (player_group or y3.player_group.get_all_players()).handle, jump_word_track or 0)
 end
 
 --设置窗口

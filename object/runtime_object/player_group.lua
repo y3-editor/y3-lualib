@@ -73,11 +73,13 @@ function M:clear()
     GlobalAPI.clear_group(self.handle)
 end
 
+---@private
+M.ALL_PLAYERS = M.get_by_handle(GameAPI.get_all_role_ids())
+
 ---获取所有玩家
 ---@return PlayerGroup player_group 单位组
 function M.get_all_players()
-    local py_player_group = GameAPI.get_all_role_ids()
-    return M.get_by_handle(py_player_group)
+    return M.ALL_PLAYERS
 end
 
 ---阵营內所有玩家
