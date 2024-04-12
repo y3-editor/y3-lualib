@@ -240,6 +240,11 @@ function Role:api_use_store_item(cnt, no) end
 ---@return integer # 收费道具数量
 function Role:get_store_item_cnt(no) end
 
+--获取平台道具到期时间戳
+---@param no py.StoreKey # 收费道具key
+---@return integer # 收费道具数量
+function Role:get_store_item_expired_time(no) end
+
 --玩家是否拥有单位的可见性
 ---@param unit py.Unit # 单位
 ---@return boolean # 是否可见
@@ -408,6 +413,10 @@ function Role:api_set_role_skill_indicator(skill_indicator_key, effect_key) end
 --获取玩家颜色
 ---@return string # 颜色
 function Role:api_get_role_color() end
+
+--上报玩家排名
+---@param rank integer # 本局游戏排名
+function Role:upload_player_game_rank(rank) end
 
 --玩家是否为平台荣耀会员
 ---@return boolean # 是否是会员

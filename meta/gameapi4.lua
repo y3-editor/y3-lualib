@@ -4,6 +4,270 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--设置全局触发器PHYSICS_OBJECT_KEY数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.PhysicsObjectKey # 值
+function GameAPI.set_trigger_list_variable_physics_object_key(key, index, value) end
+
+--设置全局触发器PHYSICS_OBJECT_KEY数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.PhysicsObjectKey # 值
+function GameAPI.set_trigger_list_actor_variable_physics_object_key(actor, key, index, value) end
+
+--设置全局触发器PHYSICS_OBJECT_KEY非数组变量
+---@param key string # 变量名称
+---@param value? py.PhysicsObjectKey # 值
+function GameAPI.set_trigger_variable_physics_object_key(key, value) end
+
+--设置全局触发器PHYSICS_OBJECT_KEY非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.PhysicsObjectKey # 值
+function GameAPI.set_trigger_actor_variable_physics_object_key(actor, key, value) end
+
+--设置全局触发器PHYSICS_ENTITY_KEY数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.PhysicsEntityKey # 值
+function GameAPI.set_trigger_list_variable_physics_entity_key(key, index, value) end
+
+--设置全局触发器PHYSICS_ENTITY_KEY数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.PhysicsEntityKey # 值
+function GameAPI.set_trigger_list_actor_variable_physics_entity_key(actor, key, index, value) end
+
+--设置全局触发器PHYSICS_ENTITY_KEY非数组变量
+---@param key string # 变量名称
+---@param value? py.PhysicsEntityKey # 值
+function GameAPI.set_trigger_variable_physics_entity_key(key, value) end
+
+--设置全局触发器PHYSICS_ENTITY_KEY非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.PhysicsEntityKey # 值
+function GameAPI.set_trigger_actor_variable_physics_entity_key(actor, key, value) end
+
+--设置全局触发器RIGID_BODY数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.RigidBody # 值
+function GameAPI.set_trigger_list_variable_rigid_body(key, index, value) end
+
+--设置全局触发器RIGID_BODY数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.RigidBody # 值
+function GameAPI.set_trigger_list_actor_variable_rigid_body(actor, key, index, value) end
+
+--设置全局触发器RIGID_BODY非数组变量
+---@param key string # 变量名称
+---@param value? py.RigidBody # 值
+function GameAPI.set_trigger_variable_rigid_body(key, value) end
+
+--设置全局触发器RIGID_BODY非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.RigidBody # 值
+function GameAPI.set_trigger_actor_variable_rigid_body(actor, key, value) end
+
+--设置全局触发器RIGID_BODY_GROUP数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.RigidBodyGroup # 值
+function GameAPI.set_trigger_list_variable_rigid_body_group(key, index, value) end
+
+--设置全局触发器RIGID_BODY_GROUP数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.RigidBodyGroup # 值
+function GameAPI.set_trigger_list_actor_variable_rigid_body_group(actor, key, index, value) end
+
+--设置全局触发器RIGID_BODY_GROUP非数组变量
+---@param key string # 变量名称
+---@param value? py.RigidBodyGroup # 值
+function GameAPI.set_trigger_variable_rigid_body_group(key, value) end
+
+--设置全局触发器RIGID_BODY_GROUP非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.RigidBodyGroup # 值
+function GameAPI.set_trigger_actor_variable_rigid_body_group(actor, key, value) end
+
+--设置全局触发器COLLIDER数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Collider # 值
+function GameAPI.set_trigger_list_variable_collider(key, index, value) end
+
+--设置全局触发器COLLIDER数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Collider # 值
+function GameAPI.set_trigger_list_actor_variable_collider(actor, key, index, value) end
+
+--设置全局触发器COLLIDER非数组变量
+---@param key string # 变量名称
+---@param value? py.Collider # 值
+function GameAPI.set_trigger_variable_collider(key, value) end
+
+--设置全局触发器COLLIDER非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.Collider # 值
+function GameAPI.set_trigger_actor_variable_collider(actor, key, value) end
+
+--设置全局触发器JOINT数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Joint # 值
+function GameAPI.set_trigger_list_variable_joint(key, index, value) end
+
+--设置全局触发器JOINT数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Joint # 值
+function GameAPI.set_trigger_list_actor_variable_joint(actor, key, index, value) end
+
+--设置全局触发器JOINT非数组变量
+---@param key string # 变量名称
+---@param value? py.Joint # 值
+function GameAPI.set_trigger_variable_joint(key, value) end
+
+--设置全局触发器JOINT非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.Joint # 值
+function GameAPI.set_trigger_actor_variable_joint(actor, key, value) end
+
+--设置全局触发器REACTION数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Reaction # 值
+function GameAPI.set_trigger_list_variable_reaction(key, index, value) end
+
+--设置全局触发器REACTION数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Reaction # 值
+function GameAPI.set_trigger_list_actor_variable_reaction(actor, key, index, value) end
+
+--设置全局触发器REACTION非数组变量
+---@param key string # 变量名称
+---@param value? py.Reaction # 值
+function GameAPI.set_trigger_variable_reaction(key, value) end
+
+--设置全局触发器REACTION非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.Reaction # 值
+function GameAPI.set_trigger_actor_variable_reaction(actor, key, value) end
+
+--设置全局触发器REACTION_GROUP数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.ReactionGroup # 值
+function GameAPI.set_trigger_list_variable_reaction_group(key, index, value) end
+
+--设置全局触发器REACTION_GROUP数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.ReactionGroup # 值
+function GameAPI.set_trigger_list_actor_variable_reaction_group(actor, key, index, value) end
+
+--设置全局触发器REACTION_GROUP非数组变量
+---@param key string # 变量名称
+---@param value? py.ReactionGroup # 值
+function GameAPI.set_trigger_variable_reaction_group(key, value) end
+
+--设置全局触发器REACTION_GROUP非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.ReactionGroup # 值
+function GameAPI.set_trigger_actor_variable_reaction_group(actor, key, value) end
+
+--设置全局触发器PHYSICS_FILTER数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.PhysicsFilter # 值
+function GameAPI.set_trigger_list_variable_physics_filter(key, index, value) end
+
+--设置全局触发器PHYSICS_FILTER数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.PhysicsFilter # 值
+function GameAPI.set_trigger_list_actor_variable_physics_filter(actor, key, index, value) end
+
+--设置全局触发器PHYSICS_FILTER非数组变量
+---@param key string # 变量名称
+---@param value? py.PhysicsFilter # 值
+function GameAPI.set_trigger_variable_physics_filter(key, value) end
+
+--设置全局触发器PHYSICS_FILTER非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.PhysicsFilter # 值
+function GameAPI.set_trigger_actor_variable_physics_filter(actor, key, value) end
+
+--设置全局触发器INT_SAVE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_int_save(key, index, value) end
+
+--设置全局触发器INT_SAVE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_int_save(actor, key, index, value) end
+
+--设置全局触发器INT_SAVE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_int_save(key, value) end
+
+--设置全局触发器INT_SAVE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_int_save(actor, key, value) end
+
+--设置全局触发器STR_SAVE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? string # 值
+function GameAPI.set_trigger_list_variable_str_save(key, index, value) end
+
+--设置全局触发器STR_SAVE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? string # 值
+function GameAPI.set_trigger_list_actor_variable_str_save(actor, key, index, value) end
+
+--设置全局触发器STR_SAVE非数组变量
+---@param key string # 变量名称
+---@param value? string # 值
+function GameAPI.set_trigger_variable_str_save(key, value) end
+
+--设置全局触发器STR_SAVE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? string # 值
+function GameAPI.set_trigger_actor_variable_str_save(actor, key, value) end
+
 --设置全局触发器FLOAT_SAVE数组变量子项
 ---@param key string # 变量名称
 ---@param index integer # 下标
@@ -2070,6 +2334,24 @@ function GameAPI.set_random_pool_drop_list_value(l, i, v) end
 ---@return py.List # 列表
 function GameAPI.get_random_pool_drop_n_list(n, v) end
 
+--获取SPINE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.Spine # 值
+function GameAPI.get_spine_list_value(l, i) end
+
+--设置SPINE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.Spine # 值
+function GameAPI.set_spine_list_value(l, i, v) end
+
+--生成n个值为v的SPINE数组
+---@param n integer # 长度
+---@param v? py.Spine # 值
+---@return py.List # 列表
+function GameAPI.get_spine_n_list(n, v) end
+
 --获取DAMAGE_ATTACK_TYPE数组中某项
 ---@param l py.List # 列表
 ---@param i integer # 下标
@@ -2892,6 +3174,12 @@ function GameAPI.set_unit_key_texture_kv(item_key, key, value) end
 ---@param value string # 键值名称
 function GameAPI.set_unit_key_sequence_kv(item_key, key, value) end
 
+--预设库 添加SPINE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_spine_kv(item_key, key, value) end
+
 --预设库 添加PHYSICS_OBJECT键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -3041,6 +3329,12 @@ function GameAPI.set_unit_key_mouse_key_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_unit_key_mouse_wheel_kv(item_key, key, value) end
+
+--预设库 添加MAP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_map_kv(item_key, key, value) end
 
 --预设库 添加POST_EFFECT键值对
 ---@param item_key integer # prefab库ID
@@ -3588,6 +3882,12 @@ function GameAPI.set_item_key_texture_kv(item_key, key, value) end
 ---@param value string # 键值名称
 function GameAPI.set_item_key_sequence_kv(item_key, key, value) end
 
+--预设库 添加SPINE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_spine_kv(item_key, key, value) end
+
 --预设库 添加PHYSICS_OBJECT键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -3737,6 +4037,12 @@ function GameAPI.set_item_key_mouse_key_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_item_key_mouse_wheel_kv(item_key, key, value) end
+
+--预设库 添加MAP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_map_kv(item_key, key, value) end
 
 --预设库 添加POST_EFFECT键值对
 ---@param item_key integer # prefab库ID
@@ -4284,6 +4590,12 @@ function GameAPI.set_ability_key_texture_kv(item_key, key, value) end
 ---@param value string # 键值名称
 function GameAPI.set_ability_key_sequence_kv(item_key, key, value) end
 
+--预设库 添加SPINE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_ability_key_spine_kv(item_key, key, value) end
+
 --预设库 添加PHYSICS_OBJECT键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -4433,6 +4745,12 @@ function GameAPI.set_ability_key_mouse_key_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_ability_key_mouse_wheel_kv(item_key, key, value) end
+
+--预设库 添加MAP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_ability_key_map_kv(item_key, key, value) end
 
 --预设库 添加POST_EFFECT键值对
 ---@param item_key integer # prefab库ID
@@ -5030,6 +5348,11 @@ function GameAPI.create_unit_command_move_along_road(road, patrol_mode, can_atta
 ---@return py.UnitCommand # 单位命令
 function GameAPI.create_unit_command_use_skill(ability, tar_point_1, tar_point_2, tar_unit, tar_item, tar_dest) end
 
+--攻击目标点
+---@param point py.Point # 释放点
+---@return py.UnitCommand # 单位命令
+function GameAPI.create_unit_command_attack_point(point) end
+
 --使用物品
 ---@param item py.Item # 物品
 ---@param tar_point_1? py.Point # 释放点1
@@ -5062,8 +5385,15 @@ function GameAPI.create_unit_command_transfer_item(item, target) end
 ---@param refresh_interval? py.Fixed # 间隔
 ---@param near_offset? py.Fixed # 跟随距离
 ---@param far_offset? py.Fixed # 重新跟随距离
+---@param follow_angle? py.Fixed # 跟随角度
+---@param follow_dead_target? boolean # 跟随死亡目标
 ---@return py.UnitCommand # 单位命令
-function GameAPI.create_unit_command_follow(target, refresh_interval, near_offset, far_offset) end
+function GameAPI.create_unit_command_follow(target, refresh_interval, near_offset, far_offset, follow_angle, follow_dead_target) end
+
+--巡逻
+---@param pos py.Unit # 目标点
+---@return py.UnitCommand # 单位命令
+function GameAPI.create_unit_command_patrol(pos) end
 
 --发布命令
 ---@param group py.UnitGroup # 单位组
@@ -5117,8 +5447,10 @@ function GameAPI.create_unit_group_command_move_along_road(road, patrol_mode, ca
 ---@param refresh_interval? py.Fixed # 间隔
 ---@param near_offset? py.Fixed # 跟随距离
 ---@param far_offset? py.Fixed # 重新跟随距离
+---@param follow_angle? py.Fixed # 跟随角度
+---@param follow_dead_target? boolean # 跟随死亡目标
 ---@return py.UnitCommand # 单位命令
-function GameAPI.create_unit_group_command_follow(target, refresh_interval, near_offset, far_offset) end
+function GameAPI.create_unit_group_command_follow(target, refresh_interval, near_offset, far_offset, follow_angle, follow_dead_target) end
 
 --移动到随机位置
 ---@param area py.Area # 区域
@@ -5132,10 +5464,26 @@ function GameAPI.create_unit_group_command_move_to_random_pos(area, r) end
 ---@return py.UnitCommand # 单位命令
 function GameAPI.create_unit_group_command_attack_move_random_pos(area, r) end
 
+--攻击目标点
+---@param point py.Point # 释放点
+---@return py.UnitCommand # 单位命令
+function GameAPI.create_unit_group_command_attack_point(point) end
+
+--巡逻
+---@param point py.Point # 目标点
+---@return py.UnitCommand # 单位命令
+function GameAPI.create_unit_group_command_patrol(point) end
+
 --特效播放开关
 ---@param role py.Role # 玩家
 ---@param switch boolean # 开关
 function GameAPI.set_player_sfx_switch(role, switch) end
+
+--特效播放开关
+---@param role py.Role # 玩家
+---@param tag integer # 特效标签
+---@param switch boolean # 开关
+function GameAPI.set_player_sfx_switch_by_tag(role, tag, switch) end
 
 --在某点播放特效
 ---@param point py.FVector3 # 点
@@ -5689,331 +6037,3 @@ function GameAPI.get_point_ground_collision(point) end
 ---@param point py.Point # 点
 ---@return integer # 隔断类型
 function GameAPI.get_point_view_block_type(point) end
-
---判断点是否在区域内
----@param point py.FVector3 # 点
----@param area py.Area # 区域
----@return boolean # 点是否在区域中
-function GameAPI.judge_point_in_area(point, area) end
-
---判断点是否在正方形内
----@param point py.FVector3 # 点
----@param center py.FVector3 # 中心点
----@param width py.Fixed # 正方形边长
----@return boolean # 点是否在正方形中
-function GameAPI.judge_point_in_rec(point, center, width) end
-
---给区域添加tag
----@param area py.Area # 区域
----@param tag string # tag
-function GameAPI.add_area_tag(area, tag) end
-
---给区域移除tag
----@param area py.Area # 区域
----@param tag string # tag
-function GameAPI.remove_area_tag(area, tag) end
-
---给路径添加tag
----@param road py.Road # 路径
----@param tag string # tag
-function GameAPI.add_road_tag(road, tag) end
-
---给路径移除tag
----@param road py.Road # 路径
----@param tag string # tag
-function GameAPI.remove_road_tag(road, tag) end
-
---圆形区域是否拥有某tags
----@param area py.Area # 区域
----@param tag string # tag
----@return boolean # 布尔值
-function GameAPI.if_cir_area_has_tag(area, tag) end
-
---矩形区域是否拥有某tags
----@param area py.Area # 区域
----@param tag string # tag
----@return boolean # 布尔值
-function GameAPI.if_rect_area_has_tag(area, tag) end
-
---路径是否拥有某tags
----@param road py.Road # 路径
----@param tag string # tag
----@return boolean # 布尔值
-function GameAPI.if_road_has_tag(road, tag) end
-
---根据tag获取对应的圆形区域
----@param tag string # tag
----@return py.List # 列表
-function GameAPI.get_cir_areas_by_tag(tag) end
-
---根据tag获取对应的矩形区域
----@param tag string # tag
----@return py.List # 列表
-function GameAPI.get_rect_areas_by_tag(tag) end
-
---根据tag获取对应的不规则区域
----@param tag string # tag
----@return py.List # 列表
-function GameAPI.get_polygon_areas_by_tag(tag) end
-
---根据tag获取对应的路径
----@param tag string # tag
----@return py.List # 列表
-function GameAPI.get_roads_by_tag(tag) end
-
---获取不规则区域顶点列表
----@param poly_area py.PolyArea # 不规则区域
----@return py.List # 顶点列表
-function GameAPI.get_poly_area_point_list(poly_area) end
-
---通过路点返回点
----@param road_point py.DynamicTypeMeta # 路点
----@return py.FVector3 # 点
-function GameAPI.get_point_by_road_point(road_point) end
-
---创建矩形区域
----@param point py.FVector3 # 左下方起始点
----@param width py.Fixed # 宽
----@param height py.Fixed # 高
----@return py.RecArea # 矩形区域
-function GameAPI.create_new_rec_area(point, width, height) end
-
---创建矩形区域
----@param center py.FVector3 # 中心点
----@param width py.Fixed # 宽
----@param height py.Fixed # 高
----@return py.RecArea # 矩形区域
-function GameAPI.create_rect_area_by_center(center, width, height) end
-
---创建矩形区域
----@param point_begin py.Point # 起始点
----@param point_end py.Point # 终点
----@return py.RecArea # 矩形区域
-function GameAPI.create_rec_area_from_two_points(point_begin, point_end) end
-
---创建圆形区域
----@param point py.FVector3 # 中心点
----@param radius py.Fixed # 半径
----@return py.CirArea # 圆形区域
-function GameAPI.create_new_cir_area(point, radius) end
-
---创建多边形区域
----@param point0 py.Point # 点
----@param point1 py.Point # 点
----@param point2 py.Point # 点
----@param point3? py.Point # 点
----@param point4? py.Point # 点
----@param point5? py.Point # 点
----@param point6? py.Point # 点
----@param point7? py.Point # 点
----@return py.PolyArea # 多边形区域
-function GameAPI.create_polygon_area(point0, point1, point2, point3, point4, point5, point6, point7) end
-
---创建多边形区域(新)
----@param point0 py.Point # 点
----@param point1 py.Point # 点
----@param point2 py.Point # 点
----@param point3? py.Point # 点
----@param point4? py.Point # 点
----@param point5? py.Point # 点
----@param point6? py.Point # 点
----@param point7? py.Point # 点
----@param point8? py.Point # 点
----@param point9? py.Point # 点
----@param point10? py.Point # 点
----@param point11? py.Point # 点
----@param point12? py.Point # 点
----@return py.PolyArea # 多边形区域
-function GameAPI.create_polygon_area_new(point0, point1, point2, point3, point4, point5, point6, point7, point8, point9, point10, point11, point12) end
-
---设置圆形区域大小
----@param area py.CirArea # 圆形区域
----@param radius py.Fixed # 半径
-function GameAPI.set_cir_area_radius(area, radius) end
-
---获取圆形区域半径
----@param area py.CirArea # 圆形区域
----@return py.Fixed # 半径
-function GameAPI.get_circle_area_radius(area) end
-
---获取圆形区域内最小X坐标
----@param area py.CirArea # 圆形区域
----@return py.Fixed # 最小的X坐标
-function GameAPI.get_circle_area_min_x(area) end
-
---获取圆形区域内最小y坐标
----@param area py.CirArea # 圆形区域
----@return py.Fixed # 最小的Y坐标
-function GameAPI.get_circle_area_min_y(area) end
-
---获取圆形区域内最大X坐标
----@param area py.CirArea # 圆形区域
----@return py.Fixed # 最大的X坐标
-function GameAPI.get_circle_area_max_x(area) end
-
---获取圆形区域内最大y坐标
----@param area py.CirArea # 圆形区域
----@return py.Fixed # 最大的Y坐标
-function GameAPI.get_circle_area_max_y(area) end
-
---设置矩形区域大小
----@param area py.RecArea # 矩形区域
----@param length py.Fixed # 长
----@param width py.Fixed # 宽
-function GameAPI.set_rect_area_radius(area, length, width) end
-
---获取矩形区域内最小X坐标
----@param area py.RecArea # 矩形区域
----@return py.Fixed # 最小的X坐标
-function GameAPI.get_rect_area_min_x(area) end
-
---获取矩形区域内最小Y坐标
----@param area py.RecArea # 矩形区域
----@return py.Fixed # 最小的Y坐标
-function GameAPI.get_rect_area_min_y(area) end
-
---获取矩形区域内最大X坐标
----@param area py.RecArea # 矩形区域
----@return py.Fixed # 最大的X坐标
-function GameAPI.get_rect_area_max_x(area) end
-
---获取矩形区域内最大Y坐标
----@param area py.RecArea # 矩形区域
----@return py.Fixed # 最大的Y坐标
-function GameAPI.get_rect_area_max_y(area) end
-
---获取可用地图范围
----@return py.RecArea # 区域
-function GameAPI.get_usable_map_range() end
-
---通过区域ID返回矩形区域
----@param res_id py.AreaID # 区域ID
----@return py.RecArea # 矩形区域
-function GameAPI.get_rec_area_by_res_id(res_id) end
-
---通过区域ID返回圆形区域
----@param res_id py.AreaID # 区域ID
----@return py.CirArea # 圆形区域
-function GameAPI.get_circle_area_by_res_id(res_id) end
-
---通过区域ID返回自定义多边形区域
----@param res_id py.AreaID # 区域ID
----@return py.PolyArea # 多边形区域
-function GameAPI.get_polygon_area_by_res_id(res_id) end
-
---最近创建的矩形区域
----@return py.RecArea # 矩形区域
-function GameAPI.get_rec_area_last_created() end
-
---点是否在矩形区域内
----@param point py.FPoint # 点
----@param area py.RecArea # 矩形区域
----@return boolean # 点是否在矩形区域内
-function GameAPI.judge_point_in_rec_area(point, area) end
-
---点是否在圆形区域内
----@param point py.FPoint # 点
----@param area py.CirArea # 圆形区域
----@return boolean # 点是否在圆形区域内
-function GameAPI.judge_point_in_cir_area(point, area) end
-
---点是否在不规则区域内
----@param point py.FPoint # 点
----@param area py.CirArea # 不规则区域
----@return boolean # 点是否在不规则区域内
-function GameAPI.judge_point_in_polygon_area(point, area) end
-
---通过资源id返回点
----@param res_id integer # 资源ID
----@return py.FPoint # 点
-function GameAPI.get_point_by_res_id(res_id) end
-
---获取区域内单位数量
----@param area py.Area # 区域
----@return integer # 单位数量
-function GameAPI.get_unit_num_in_area(area) end
-
---矩形区域内单位数量
----@param area py.RecArea # 矩形区域
----@return integer # 单位数量
-function GameAPI.get_unit_num_in_rec_area(area) end
-
---圆形区域内单位数量
----@param area py.CirArea # 圆形区域
----@return integer # 单位数量
-function GameAPI.get_unit_num_in_cir_area(area) end
-
---不规则区域内单位数量
----@param area py.PolyArea # 不规则区域
----@return integer # 单位数量
-function GameAPI.get_unit_num_in_poly_area(area) end
-
---矩形区域内所有未销毁单位单位
----@param area py.RecArea # 矩形区域
----@return py.UnitGroup # 单位组
-function GameAPI.get_unit_group_in_rec_area(area) end
-
---圆形区域内所有未销毁单位
----@param area py.CirArea # 圆形区域
----@return py.UnitGroup # 单位组
-function GameAPI.get_unit_group_in_cir_area(area) end
-
---不规则区域内所有未销毁单位
----@param area py.CirArea # 不规则区域
----@return py.UnitGroup # 单位组
-function GameAPI.get_unit_group_in_poly_area(area) end
-
---矩形区域内所有物品
----@param area py.RecArea # 矩形区域
----@return py.ItemGroup # 物品组
-function GameAPI.get_item_group_in_rec_area(area) end
-
---圆形区域内所有物品
----@param area py.CirArea # 圆形区域
----@return py.ItemGroup # 物品组
-function GameAPI.get_item_group_in_cir_area(area) end
-
---不规则区域内所有物品
----@param area py.PolyArea # 不规则区域
----@return py.ItemGroup # 物品组
-function GameAPI.get_item_group_in_poly_area(area) end
-
---删除区域
----@param area py.Area # 区域
-function GameAPI.remove_area(area) end
-
---获得区域天气
----@param area py.Area # 区域
----@return integer # 天气类型
-function GameAPI.get_area_weather(area) end
-
---设置区域天气
----@param area py.Area # 区域
----@param weather_type integer # 天气类型
-function GameAPI.update_area_weather(area, weather_type) end
-
---设置点碰撞
----@param point py.Point # 点
----@param is_add boolean # 添加/去除
----@param ground_channel boolean # 地面碰撞
----@param air_channel boolean # 飞行碰撞
-function GameAPI.set_point_collision(point, is_add, ground_channel, air_channel) end
-
---设置区域碰撞
----@param area py.Area # 区域
----@param is_add boolean # 添加/去除
----@param ground_channel boolean # 地面碰撞
----@param air_channel boolean # 飞行碰撞
-function GameAPI.set_area_collision(area, is_add, ground_channel, air_channel) end
-
---编辑区域碰撞
----@param area py.Area # 区域
----@param collision_layer integer # 碰撞类型
----@param is_add boolean # 添加/去除
-function GameAPI.edit_area_collision(area, collision_layer, is_add) end
-
---编辑区域视野阻挡
----@param area py.Area # 区域
----@param fov_block_type integer # 视野阻挡类型
----@param is_add boolean # 添加/去除
-function GameAPI.edit_area_fov_block(area, fov_block_type, is_add) end

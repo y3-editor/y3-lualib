@@ -921,6 +921,96 @@ event.ET_ROLE_CHANGE_RELATION = {
     },
 }
 
+---@class EventParam.ET_UNIT_BUILD_UPGRADE_START
+---@field unit Unit # 开始升级的建筑单位
+
+--建筑单位升级开始
+event.ET_UNIT_BUILD_UPGRADE_START = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "开始升级的建筑单位",
+        lua_desc = "开始升级的建筑单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_BUILD_UPGRADE_CANCEL
+---@field unit Unit # 取消升级的建筑单位
+
+--建筑单位升级取消
+event.ET_UNIT_BUILD_UPGRADE_CANCEL = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "取消升级的建筑单位",
+        lua_desc = "取消升级的建筑单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_BUILD_UPGRADE_FINISH
+---@field unit Unit # 升级完成的建筑单位
+
+--建筑单位升级成功
+event.ET_UNIT_BUILD_UPGRADE_FINISH = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "升级完成的建筑单位",
+        lua_desc = "升级完成的建筑单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_CONSTRUCT_START
+---@field unit Unit # 开始建造的单位
+
+--单位建造开始
+event.ET_UNIT_CONSTRUCT_START = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "开始建造的单位",
+        lua_desc = "开始建造的单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_CONSTRUCT_CANCEL
+---@field unit Unit # 取消建造的单位
+
+--单位建造取消
+event.ET_UNIT_CONSTRUCT_CANCEL = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "取消建造的单位",
+        lua_desc = "取消建造的单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_CONSTRUCT_FINISH
+---@field unit Unit # 建造完成的单位
+
+--单位建造成功
+event.ET_UNIT_CONSTRUCT_FINISH = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "建造完成的单位",
+        lua_desc = "建造完成的单位",
+    },
+}
+
 ---@class EventParam.ET_ABILITY_BUILD_FINISH
 ---@field ability Ability # 技能
 ---@field ability_type py.AbilityType # 技能类型
@@ -2454,6 +2544,7 @@ event.ET_UNIT_ON_ADD_EXP = {
 ---@field point Point # 目标点
 ---@field destructible Destructible # 目标可破坏物
 ---@field item Item # 目标物品
+---@field ability Ability # 释放的技能
 
 --单位接收命令
 event.ET_UNIT_ON_COMMAND = {
@@ -2504,6 +2595,14 @@ event.ET_UNIT_ON_COMMAND = {
         lua_type = "Item",
         desc = "目标物品ID",
         lua_desc = "目标物品",
+    },
+    [7] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "释放的技能",
+        lua_desc = "释放的技能",
     },
 }
 
@@ -4115,6 +4214,21 @@ event.ET_ABILITY_AUTOCAST_CHANGED = {
     },
 }
 
+---@class EventParam.ET_ABILITY_SEND_CUE_EVENT
+---@field ability Ability # 技能对象
+
+--技能发送自定义CUE事件
+event.ET_ABILITY_SEND_CUE_EVENT = {
+    [1] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "技能对象",
+        lua_desc = "技能对象",
+    },
+}
+
 ---@class EventParam.ET_OBTAIN_MODIFIER
 ---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者
@@ -5174,6 +5288,48 @@ event.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT = {
     },
 }
 
+---@class EventParam.ET_TRIGGER_UI_TABWIDGET_CHANGE_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field int1 integer # 自定义信息
+
+--ui复选框事件
+event.ET_TRIGGER_UI_TABWIDGET_CHANGE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
+    },
+}
+
 ---@class EventParam.ET_GLOBAL_EVENT_TO_UI_WITH_DICT
 ---@field event_name string # ui事件名
 ---@field args py.Dict # 参数
@@ -6094,6 +6250,7 @@ event.ET_SELECT_UNIT_GROUP = {
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能Seq
+---@field ability Ability # 技能
 
 --打开技能指示器
 event.ET_START_SKILL_POINTER = {
@@ -6137,6 +6294,16 @@ event.ET_START_SKILL_POINTER = {
         desc = "技能Seq",
         lua_desc = "技能Seq",
     },
+    [6] = {
+        name = nil,
+        type = nil,
+        lua_name = "ability",
+        lua_type = "Ability",
+        lua_desc = "技能",
+        lua_code = function (data)
+            return data.unit:get_ability_by_seq(data.ability_seq)
+        end,
+    },
 }
 
 ---@class EventParam.ET_STOP_SKILL_POINTER
@@ -6145,6 +6312,7 @@ event.ET_START_SKILL_POINTER = {
 ---@field ability_type py.AbilityType # 技能类型
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能Seq
+---@field ability Ability # 技能
 
 --关闭技能指示器
 event.ET_STOP_SKILL_POINTER = {
@@ -6187,6 +6355,16 @@ event.ET_STOP_SKILL_POINTER = {
         lua_type = "py.AbilitySeq",
         desc = "技能Seq",
         lua_desc = "技能Seq",
+    },
+    [6] = {
+        name = nil,
+        type = nil,
+        lua_name = "ability",
+        lua_type = "Ability",
+        lua_desc = "技能",
+        lua_code = function (data)
+            return data.unit:get_ability_by_seq(data.ability_seq)
+        end,
     },
 }
 

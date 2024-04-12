@@ -4,6 +4,90 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--获取逻辑物理组件类型UI_EQUIP_SLOT_USE_TYPE键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_physics_entity_key_ui_equip_slot_use_type_kv(physics_entity_key, key) end
+
+--获取UI_EQUIP_SLOT_USE_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_equip_slot_use_type(kvbase, key) end
+
+--获取单位编号UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_unit_key_ui_equip_slot_drag_type_kv(unit_key, key) end
+
+--获取物品编号UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_item_key_ui_equip_slot_drag_type_kv(item_key, key) end
+
+--获取技能编号UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_ability_key_ui_equip_slot_drag_type_kv(ability_key, key) end
+
+--获取魔法效果特效编号UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_modifier_key_ui_equip_slot_drag_type_kv(modifier_key, key) end
+
+--获取特效编号UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_projectile_key_ui_equip_slot_drag_type_kv(projectile_key, key) end
+
+--获取可破坏物编号UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_destructible_key_ui_equip_slot_drag_type_kv(destructible_key, key) end
+
+--获取科技编号UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_tech_key_ui_equip_slot_drag_type_kv(tech_key, key) end
+
+--获取图片UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_icon_id_ui_equip_slot_drag_type_kv(icon_id, key) end
+
+--获取逻辑物理组件类型UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_physics_entity_key_ui_equip_slot_drag_type_kv(physics_entity_key, key) end
+
+--获取UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_equip_slot_drag_type(kvbase, key) end
+
+--获取单位编号UI_ANIM键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.UIAnimKey # 键值
+function GameAPI.get_unit_key_ui_anim_kv(unit_key, key) end
+
+--获取物品编号UI_ANIM键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.UIAnimKey # 键值
+function GameAPI.get_item_key_ui_anim_kv(item_key, key) end
+
 --获取技能编号UI_ANIM键值对
 ---@param ability_key py.AbilityKey # 技能编号
 ---@param key string # 键名称
@@ -3712,6 +3796,66 @@ function GameAPI.get_physics_entity_key_sequence_kv(physics_entity_key, key) end
 ---@return py.Sequence # 键值
 function GameAPI.get_kv_pair_value_sequence(kvbase, key) end
 
+--获取单位编号SPINE键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_unit_key_spine_kv(unit_key, key) end
+
+--获取物品编号SPINE键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_item_key_spine_kv(item_key, key) end
+
+--获取技能编号SPINE键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_ability_key_spine_kv(ability_key, key) end
+
+--获取魔法效果特效编号SPINE键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_modifier_key_spine_kv(modifier_key, key) end
+
+--获取特效编号SPINE键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_projectile_key_spine_kv(projectile_key, key) end
+
+--获取可破坏物编号SPINE键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_destructible_key_spine_kv(destructible_key, key) end
+
+--获取科技编号SPINE键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_tech_key_spine_kv(tech_key, key) end
+
+--获取图片SPINE键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_icon_id_spine_kv(icon_id, key) end
+
+--获取逻辑物理组件类型SPINE键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_physics_entity_key_spine_kv(physics_entity_key, key) end
+
+--获取SPINE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_kv_pair_value_spine(kvbase, key) end
+
 --获取单位编号PHYSICS_OBJECT键值对
 ---@param unit_key py.UnitKey # 单位编号
 ---@param key string # 键名称
@@ -5212,6 +5356,66 @@ function GameAPI.get_physics_entity_key_mouse_wheel_kv(physics_entity_key, key) 
 ---@return py.MouseWheel # 键值
 function GameAPI.get_kv_pair_value_mouse_wheel(kvbase, key) end
 
+--获取单位编号MAP键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_unit_key_map_kv(unit_key, key) end
+
+--获取物品编号MAP键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_item_key_map_kv(item_key, key) end
+
+--获取技能编号MAP键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_ability_key_map_kv(ability_key, key) end
+
+--获取魔法效果特效编号MAP键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_modifier_key_map_kv(modifier_key, key) end
+
+--获取特效编号MAP键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_projectile_key_map_kv(projectile_key, key) end
+
+--获取可破坏物编号MAP键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_destructible_key_map_kv(destructible_key, key) end
+
+--获取科技编号MAP键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_tech_key_map_kv(tech_key, key) end
+
+--获取图片MAP键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_icon_id_map_kv(icon_id, key) end
+
+--获取逻辑物理组件类型MAP键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_physics_entity_key_map_kv(physics_entity_key, key) end
+
+--获取MAP键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_kv_pair_value_map(kvbase, key) end
+
 --获取单位编号POST_EFFECT键值对
 ---@param unit_key py.UnitKey # 单位编号
 ---@param key string # 键名称
@@ -5799,204 +6003,3 @@ function GameAPI.get_tech_key_rescuer_type_kv(tech_key, key) end
 ---@param key string # 键名称
 ---@return py.ERescuerType # 键值
 function GameAPI.get_icon_id_rescuer_type_kv(icon_id, key) end
-
---获取逻辑物理组件类型RESCUER_TYPE键值对
----@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
----@param key string # 键名称
----@return py.ERescuerType # 键值
-function GameAPI.get_physics_entity_key_rescuer_type_kv(physics_entity_key, key) end
-
---获取RESCUER_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键名称
----@return py.ERescuerType # 键值
-function GameAPI.get_kv_pair_value_rescuer_type(kvbase, key) end
-
---获取单位编号STORE_ITEM_TYPE键值对
----@param unit_key py.UnitKey # 单位编号
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_unit_key_store_item_type_kv(unit_key, key) end
-
---获取物品编号STORE_ITEM_TYPE键值对
----@param item_key py.ItemKey # 物品编号
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_item_key_store_item_type_kv(item_key, key) end
-
---获取技能编号STORE_ITEM_TYPE键值对
----@param ability_key py.AbilityKey # 技能编号
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_ability_key_store_item_type_kv(ability_key, key) end
-
---获取魔法效果特效编号STORE_ITEM_TYPE键值对
----@param modifier_key py.ModifierKey # 魔法效果编号
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_modifier_key_store_item_type_kv(modifier_key, key) end
-
---获取特效编号STORE_ITEM_TYPE键值对
----@param projectile_key py.ProjectileKey # 特效编号
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_projectile_key_store_item_type_kv(projectile_key, key) end
-
---获取可破坏物编号STORE_ITEM_TYPE键值对
----@param destructible_key py.DestructibleKey # 可破坏物编号
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_destructible_key_store_item_type_kv(destructible_key, key) end
-
---获取科技编号STORE_ITEM_TYPE键值对
----@param tech_key py.TechKey # 科技编号
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_tech_key_store_item_type_kv(tech_key, key) end
-
---获取图片STORE_ITEM_TYPE键值对
----@param icon_id py.Texture # 图片
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_icon_id_store_item_type_kv(icon_id, key) end
-
---获取逻辑物理组件类型STORE_ITEM_TYPE键值对
----@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_physics_entity_key_store_item_type_kv(physics_entity_key, key) end
-
---获取STORE_ITEM_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键名称
----@return py.StoreItemType # 键值
-function GameAPI.get_kv_pair_value_store_item_type(kvbase, key) end
-
---获取全局触发器非数组变量（指定类型）
----@param var_type string # 变量类型
----@param key string # 变量名称
----@return py.Actor # 值
-function GameAPI.get_trigger_variable_by_type(var_type, key) end
-
---获取全局触发器数组变量子项（指定类型）
----@param var_type string # 变量类型
----@param key string # 变量名称
----@param index integer # 下标
----@return py.Actor # 值
-function GameAPI.get_trigger_list_variable_by_type(var_type, key, index) end
-
---获取全局触发器BOOLEAN非数组变量
----@param key string # 变量名称
----@return boolean # 值
-function GameAPI.get_trigger_variable_boolean(key) end
-
---获取触发器BOOLEAN非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return boolean # 值
-function GameAPI.get_trigger_actor_variable_boolean(actor, key) end
-
---获取全局触发器BOOLEAN数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@return boolean # 值
-function GameAPI.get_trigger_list_variable_boolean(key, index) end
-
---获取触发器BOOLEAN数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@return boolean # 值
-function GameAPI.get_trigger_list_actor_variable_boolean(actor, key, index) end
-
---获取全局触发器BOOLEAN数组变量
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_variable_all_boolean(key) end
-
---获取触发器BOOLEAN 组变量数组
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_actor_variable_all_boolean(actor, key) end
-
---获取全局触发器INTEGER非数组变量
----@param key string # 变量名称
----@return integer # 值
-function GameAPI.get_trigger_variable_integer(key) end
-
---获取触发器INTEGER非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return integer # 值
-function GameAPI.get_trigger_actor_variable_integer(actor, key) end
-
---获取全局触发器INTEGER数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@return integer # 值
-function GameAPI.get_trigger_list_variable_integer(key, index) end
-
---获取触发器INTEGER数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@return integer # 值
-function GameAPI.get_trigger_list_actor_variable_integer(actor, key, index) end
-
---获取全局触发器INTEGER数组变量
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_variable_all_integer(key) end
-
---获取触发器INTEGER 组变量数组
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_actor_variable_all_integer(actor, key) end
-
---获取全局触发器FLOAT非数组变量
----@param key string # 变量名称
----@return py.Fixed # 值
-function GameAPI.get_trigger_variable_float(key) end
-
---获取触发器FLOAT非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return py.Fixed # 值
-function GameAPI.get_trigger_actor_variable_float(actor, key) end
-
---获取全局触发器FLOAT数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@return py.Fixed # 值
-function GameAPI.get_trigger_list_variable_float(key, index) end
-
---获取触发器FLOAT数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@return py.Fixed # 值
-function GameAPI.get_trigger_list_actor_variable_float(actor, key, index) end
-
---获取全局触发器FLOAT数组变量
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_variable_all_float(key) end
-
---获取触发器FLOAT 组变量数组
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_actor_variable_all_float(actor, key) end
-
---获取全局触发器STRING非数组变量
----@param key string # 变量名称
----@return string # 值
-function GameAPI.get_trigger_variable_string(key) end
-
---获取触发器STRING非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return string # 值
-function GameAPI.get_trigger_actor_variable_string(actor, key) end

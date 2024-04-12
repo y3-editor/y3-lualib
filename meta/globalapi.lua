@@ -792,6 +792,11 @@ function GlobalAPI.item_group_to_str(obj) end
 ---@return string # 字符串
 function GlobalAPI.mover_entity_to_str(obj_id) end
 
+--关卡转字符串
+---@param obj py.Map # 关卡
+---@return string # 字符串
+function GlobalAPI.map_to_str(obj) end
+
 --玩家转字符串
 ---@param obj py.Role # 玩家
 ---@return string # 字符串

@@ -119,6 +119,8 @@
 ---@class py.Texture: integer
 --序列帧
 ---@class py.Sequence: integer
+--Spine
+---@class py.Spine: integer
 --小地图颜色显示模式
 ---@class py.MiniMapColorType: integer
 --单位行为

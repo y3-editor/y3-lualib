@@ -4,6 +4,334 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--判断点是否在区域内
+---@param point py.FVector3 # 点
+---@param area py.Area # 区域
+---@return boolean # 点是否在区域中
+function GameAPI.judge_point_in_area(point, area) end
+
+--判断点是否在正方形内
+---@param point py.FVector3 # 点
+---@param center py.FVector3 # 中心点
+---@param width py.Fixed # 正方形边长
+---@return boolean # 点是否在正方形中
+function GameAPI.judge_point_in_rec(point, center, width) end
+
+--给区域添加tag
+---@param area py.Area # 区域
+---@param tag string # tag
+function GameAPI.add_area_tag(area, tag) end
+
+--给区域移除tag
+---@param area py.Area # 区域
+---@param tag string # tag
+function GameAPI.remove_area_tag(area, tag) end
+
+--给路径添加tag
+---@param road py.Road # 路径
+---@param tag string # tag
+function GameAPI.add_road_tag(road, tag) end
+
+--给路径移除tag
+---@param road py.Road # 路径
+---@param tag string # tag
+function GameAPI.remove_road_tag(road, tag) end
+
+--圆形区域是否拥有某tags
+---@param area py.Area # 区域
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.if_cir_area_has_tag(area, tag) end
+
+--矩形区域是否拥有某tags
+---@param area py.Area # 区域
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.if_rect_area_has_tag(area, tag) end
+
+--路径是否拥有某tags
+---@param road py.Road # 路径
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.if_road_has_tag(road, tag) end
+
+--根据tag获取对应的圆形区域
+---@param tag string # tag
+---@return py.List # 列表
+function GameAPI.get_cir_areas_by_tag(tag) end
+
+--根据tag获取对应的矩形区域
+---@param tag string # tag
+---@return py.List # 列表
+function GameAPI.get_rect_areas_by_tag(tag) end
+
+--根据tag获取对应的不规则区域
+---@param tag string # tag
+---@return py.List # 列表
+function GameAPI.get_polygon_areas_by_tag(tag) end
+
+--根据tag获取对应的路径
+---@param tag string # tag
+---@return py.List # 列表
+function GameAPI.get_roads_by_tag(tag) end
+
+--获取不规则区域顶点列表
+---@param poly_area py.PolyArea # 不规则区域
+---@return py.List # 顶点列表
+function GameAPI.get_poly_area_point_list(poly_area) end
+
+--通过路点返回点
+---@param road_point py.DynamicTypeMeta # 路点
+---@return py.FVector3 # 点
+function GameAPI.get_point_by_road_point(road_point) end
+
+--创建矩形区域
+---@param point py.FVector3 # 左下方起始点
+---@param width py.Fixed # 宽
+---@param height py.Fixed # 高
+---@return py.RecArea # 矩形区域
+function GameAPI.create_new_rec_area(point, width, height) end
+
+--创建矩形区域
+---@param center py.FVector3 # 中心点
+---@param width py.Fixed # 宽
+---@param height py.Fixed # 高
+---@return py.RecArea # 矩形区域
+function GameAPI.create_rect_area_by_center(center, width, height) end
+
+--创建矩形区域
+---@param point_begin py.Point # 起始点
+---@param point_end py.Point # 终点
+---@return py.RecArea # 矩形区域
+function GameAPI.create_rec_area_from_two_points(point_begin, point_end) end
+
+--创建圆形区域
+---@param point py.FVector3 # 中心点
+---@param radius py.Fixed # 半径
+---@return py.CirArea # 圆形区域
+function GameAPI.create_new_cir_area(point, radius) end
+
+--创建多边形区域
+---@param point0 py.Point # 点
+---@param point1 py.Point # 点
+---@param point2 py.Point # 点
+---@param point3? py.Point # 点
+---@param point4? py.Point # 点
+---@param point5? py.Point # 点
+---@param point6? py.Point # 点
+---@param point7? py.Point # 点
+---@return py.PolyArea # 多边形区域
+function GameAPI.create_polygon_area(point0, point1, point2, point3, point4, point5, point6, point7) end
+
+--创建多边形区域(新)
+---@param point0 py.Point # 点
+---@param point1 py.Point # 点
+---@param point2 py.Point # 点
+---@param point3? py.Point # 点
+---@param point4? py.Point # 点
+---@param point5? py.Point # 点
+---@param point6? py.Point # 点
+---@param point7? py.Point # 点
+---@param point8? py.Point # 点
+---@param point9? py.Point # 点
+---@param point10? py.Point # 点
+---@param point11? py.Point # 点
+---@param point12? py.Point # 点
+---@return py.PolyArea # 多边形区域
+function GameAPI.create_polygon_area_new(point0, point1, point2, point3, point4, point5, point6, point7, point8, point9, point10, point11, point12) end
+
+--设置圆形区域大小
+---@param area py.CirArea # 圆形区域
+---@param radius py.Fixed # 半径
+function GameAPI.set_cir_area_radius(area, radius) end
+
+--获取圆形区域半径
+---@param area py.CirArea # 圆形区域
+---@return py.Fixed # 半径
+function GameAPI.get_circle_area_radius(area) end
+
+--获取圆形区域内最小X坐标
+---@param area py.CirArea # 圆形区域
+---@return py.Fixed # 最小的X坐标
+function GameAPI.get_circle_area_min_x(area) end
+
+--获取圆形区域内最小y坐标
+---@param area py.CirArea # 圆形区域
+---@return py.Fixed # 最小的Y坐标
+function GameAPI.get_circle_area_min_y(area) end
+
+--获取圆形区域内最大X坐标
+---@param area py.CirArea # 圆形区域
+---@return py.Fixed # 最大的X坐标
+function GameAPI.get_circle_area_max_x(area) end
+
+--获取圆形区域内最大y坐标
+---@param area py.CirArea # 圆形区域
+---@return py.Fixed # 最大的Y坐标
+function GameAPI.get_circle_area_max_y(area) end
+
+--设置矩形区域大小
+---@param area py.RecArea # 矩形区域
+---@param length py.Fixed # 长
+---@param width py.Fixed # 宽
+function GameAPI.set_rect_area_radius(area, length, width) end
+
+--获取矩形区域内最小X坐标
+---@param area py.RecArea # 矩形区域
+---@return py.Fixed # 最小的X坐标
+function GameAPI.get_rect_area_min_x(area) end
+
+--获取矩形区域内最小Y坐标
+---@param area py.RecArea # 矩形区域
+---@return py.Fixed # 最小的Y坐标
+function GameAPI.get_rect_area_min_y(area) end
+
+--获取矩形区域内最大X坐标
+---@param area py.RecArea # 矩形区域
+---@return py.Fixed # 最大的X坐标
+function GameAPI.get_rect_area_max_x(area) end
+
+--获取矩形区域内最大Y坐标
+---@param area py.RecArea # 矩形区域
+---@return py.Fixed # 最大的Y坐标
+function GameAPI.get_rect_area_max_y(area) end
+
+--获取可用地图范围
+---@return py.RecArea # 区域
+function GameAPI.get_usable_map_range() end
+
+--通过区域ID返回矩形区域
+---@param res_id py.AreaID # 区域ID
+---@return py.RecArea # 矩形区域
+function GameAPI.get_rec_area_by_res_id(res_id) end
+
+--通过区域ID返回圆形区域
+---@param res_id py.AreaID # 区域ID
+---@return py.CirArea # 圆形区域
+function GameAPI.get_circle_area_by_res_id(res_id) end
+
+--通过区域ID返回自定义多边形区域
+---@param res_id py.AreaID # 区域ID
+---@return py.PolyArea # 多边形区域
+function GameAPI.get_polygon_area_by_res_id(res_id) end
+
+--最近创建的矩形区域
+---@return py.RecArea # 矩形区域
+function GameAPI.get_rec_area_last_created() end
+
+--点是否在矩形区域内
+---@param point py.FPoint # 点
+---@param area py.RecArea # 矩形区域
+---@return boolean # 点是否在矩形区域内
+function GameAPI.judge_point_in_rec_area(point, area) end
+
+--点是否在圆形区域内
+---@param point py.FPoint # 点
+---@param area py.CirArea # 圆形区域
+---@return boolean # 点是否在圆形区域内
+function GameAPI.judge_point_in_cir_area(point, area) end
+
+--点是否在不规则区域内
+---@param point py.FPoint # 点
+---@param area py.CirArea # 不规则区域
+---@return boolean # 点是否在不规则区域内
+function GameAPI.judge_point_in_polygon_area(point, area) end
+
+--通过资源id返回点
+---@param res_id integer # 资源ID
+---@return py.FPoint # 点
+function GameAPI.get_point_by_res_id(res_id) end
+
+--获取区域内单位数量
+---@param area py.Area # 区域
+---@return integer # 单位数量
+function GameAPI.get_unit_num_in_area(area) end
+
+--矩形区域内单位数量
+---@param area py.RecArea # 矩形区域
+---@return integer # 单位数量
+function GameAPI.get_unit_num_in_rec_area(area) end
+
+--圆形区域内单位数量
+---@param area py.CirArea # 圆形区域
+---@return integer # 单位数量
+function GameAPI.get_unit_num_in_cir_area(area) end
+
+--不规则区域内单位数量
+---@param area py.PolyArea # 不规则区域
+---@return integer # 单位数量
+function GameAPI.get_unit_num_in_poly_area(area) end
+
+--矩形区域内所有未销毁单位单位
+---@param area py.RecArea # 矩形区域
+---@return py.UnitGroup # 单位组
+function GameAPI.get_unit_group_in_rec_area(area) end
+
+--圆形区域内所有未销毁单位
+---@param area py.CirArea # 圆形区域
+---@return py.UnitGroup # 单位组
+function GameAPI.get_unit_group_in_cir_area(area) end
+
+--不规则区域内所有未销毁单位
+---@param area py.CirArea # 不规则区域
+---@return py.UnitGroup # 单位组
+function GameAPI.get_unit_group_in_poly_area(area) end
+
+--矩形区域内所有物品
+---@param area py.RecArea # 矩形区域
+---@return py.ItemGroup # 物品组
+function GameAPI.get_item_group_in_rec_area(area) end
+
+--圆形区域内所有物品
+---@param area py.CirArea # 圆形区域
+---@return py.ItemGroup # 物品组
+function GameAPI.get_item_group_in_cir_area(area) end
+
+--不规则区域内所有物品
+---@param area py.PolyArea # 不规则区域
+---@return py.ItemGroup # 物品组
+function GameAPI.get_item_group_in_poly_area(area) end
+
+--删除区域
+---@param area py.Area # 区域
+function GameAPI.remove_area(area) end
+
+--获得区域天气
+---@param area py.Area # 区域
+---@return integer # 天气类型
+function GameAPI.get_area_weather(area) end
+
+--设置区域天气
+---@param area py.Area # 区域
+---@param weather_type integer # 天气类型
+function GameAPI.update_area_weather(area, weather_type) end
+
+--设置点碰撞
+---@param point py.Point # 点
+---@param is_add boolean # 添加/去除
+---@param ground_channel boolean # 地面碰撞
+---@param air_channel boolean # 飞行碰撞
+function GameAPI.set_point_collision(point, is_add, ground_channel, air_channel) end
+
+--设置区域碰撞
+---@param area py.Area # 区域
+---@param is_add boolean # 添加/去除
+---@param ground_channel boolean # 地面碰撞
+---@param air_channel boolean # 飞行碰撞
+function GameAPI.set_area_collision(area, is_add, ground_channel, air_channel) end
+
+--编辑区域碰撞
+---@param area py.Area # 区域
+---@param collision_layer integer # 碰撞类型
+---@param is_add boolean # 添加/去除
+function GameAPI.edit_area_collision(area, collision_layer, is_add) end
+
+--编辑区域视野阻挡
+---@param area py.Area # 区域
+---@param fov_block_type integer # 视野阻挡类型
+---@param is_add boolean # 添加/去除
+function GameAPI.edit_area_fov_block(area, fov_block_type, is_add) end
+
 --获取区域的场景ID
 ---@param area py.Area # 区域
 ---@return integer # 场景ID
@@ -228,10 +556,19 @@ function GameAPI.request_new_round(fast_restart) end
 ---@param level_id_str py.Map # 关卡ID
 function GameAPI.request_switch_level(level_id_str) end
 
+--获取当前关卡
+---@return py.Map # 当前关卡
+function GameAPI.get_current_level() end
+
 --获取当前地图的指定key的存档值
 ---@param key string # 指定的全局存档key值
 ---@return integer # 全局存档值
 function GameAPI.get_global_map_archive(key) end
+
+--获取当前地图的指定key的字符串型存档值
+---@param key string # 指定的全局存档key值
+---@return string # 字符串型全局存档值
+function GameAPI.get_global_map_str_archive(key) end
 
 --获取地图全局指定key存档的第n名玩家的昵称
 ---@param rank_key string # key值
@@ -279,19 +616,32 @@ function GameAPI.api_soft_resume_game() end
 ---@param op_cnt integer # 次数
 function GameAPI.api_upload_user_tracking_data(role, op_key, op_cnt) end
 
---开启/关闭timer不同步检测日志
+--记录自定义日志，用于定位不同步
+---@param log string # 日志内容
+---@return boolean # 返回值恒定为True
+function GameAPI.add_detail_log(log) end
+
+--开启/关闭不同步详细日志。默认关闭。这个是总开关，关了这个之后别的设置接口都不生效了了，但性能最好。
+---@param enable? boolean # 是否开启
+function GameAPI.api_set_enable_detail_snapshot(enable) end
+
+--设置某些日志的堆栈记录详细等级。
+---@param level? integer # 等级
+function GameAPI.api_set_snapshot_traceback_level(level) end
+
+--开启/关闭timer不同步检测日志。默认关闭。开启后可以检测出哪里多创建了ECA计时器，但计时器不一致并不一定代表着实际游戏内容不同步（比如计时器回调里只做表现层修改就是安全的）
 ---@param enable? boolean # 是否开启
 function GameAPI.api_set_enable_timer_snapshot(enable) end
 
---开启/关闭ECA不同步检测日志。可通过参数过滤掉一些安全的API以防止误报，例如创建特效、UI操作等
+--开启/关闭ECA不同步检测日志。默认关闭，开销较高。可通过参数过滤掉一些安全的API以防止误报，例如创建特效、UI操作等
 ---@param enable boolean # 是否开启
 ---@param filter_mode? integer # 过滤模式,默认1 剔除模式（不记录filter_set中指定的api）或者0 包含模式（仅记录filter_set中指定的api）
----@param filter_set? nil # 过滤集合，默认为{"client_only", "client_possible"}。可传入想要剔除/包含的API（取决于上个参数），如{"client_only", "client_possible", "GameAPI:print_to_dialog, "GameAPI:get_function_return_value"}。
+---@param filter_set? py.Table # 过滤集合，默认为{"client_only", "client_possible"}。可传入想要剔除/包含的API（取决于上个参数），如{"client_only", "client_possible", "GameAPI:print_to_dialog, "GameAPI:get_function_return_value"}。client_only和client_possible为官方确认安全/较安全的API集合，即在{使用得当的情况下}即使调用次数不一致也不会影响游戏核心逻辑，通常可以将其加入剔除集合中以避免误报
 ---@return string # 开启结果
 function GameAPI.api_set_enable_eca_snapshot(enable, filter_mode, filter_set) end
 
---设置不同步详细日志级别
----@param tag? integer # mask用于控制开启哪些日志，0xFFFFFFFF全部开启。各bit含义>> 1：运动器tick，2：运动器碰撞检测，4：寻路回调，8：坐标更新，16：血量变化，32：坐标变化2，64：单位指令
+--设置不同步详细日志级别。越详细越利于定位不同步产生点,但性能消耗会增高
+---@param tag integer # mask用于控制开启哪些日志，0xFFFFFFFF全部开启，默认开启16+32。各bit含义>> 1：运动器tick，2：运动器碰撞检测，4：寻路回调，8：寻路坐标更新，16：血量变化，32：坐标瞬变
 function GameAPI.api_set_detail_snapshot_enable_tag(tag) end
 
 --本地玩家编号
@@ -1407,6 +1757,14 @@ function GameAPI.get_comp_by_absolute_path(role, path) end
 ---@param loop? boolean # 循环
 function GameAPI.play_ui_comp_fx(role, uid, fx_id, ani_name, loop) end
 
+--播放spine动画
+---@param role py.Role # 玩家
+---@param uid string # 控件uid
+---@param fx_id py.Spine # 控件动效工程id
+---@param ani_name string # 动效名
+---@param loop? boolean # 循环
+function GameAPI.play_ui_spine(role, uid, fx_id, ani_name, loop) end
+
 --ui模型控件播放动画
 ---@param role py.Role # 玩家
 ---@param uid string # 控件uid
@@ -1831,6 +2189,57 @@ function GameAPI.get_checkbox_selected(role, comp_name) end
 ---@param is_selected boolean # 选中状态
 function GameAPI.set_checkbox_selected(role, comp_name, is_selected) end
 
+--界面-设置屏幕坐标对应的世界坐标点
+---@param x number # x
+---@param y number # y
+function GameAPI.set_world_point_by_ui_screen_point(x, y) end
+
+--界面-设置屏幕坐标对应的世界坐标高度
+---@param x number # x
+---@param y number # y
+function GameAPI.set_world_height_by_ui_screen_point(x, y) end
+
+--界面-获取屏幕坐标对应的世界坐标点
+---@return py.Point # 坐标
+function GameAPI.get_world_point_by_ui_screen_point() end
+
+--界面-获取屏幕坐标对应的世界坐标高度
+---@return number # 高度
+function GameAPI.get_world_height_by_ui_screen_point() end
+
+--界面-获取标签页控件当前选中页索引
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@return number # 索引
+function GameAPI.get_tab_widget_current_index(role, comp_uid) end
+
+--界面-获取控件路径
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@return string # 路径
+function GameAPI.get_ui_comp_path(role, comp_uid) end
+
+--ive2d控件播放动画
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param motion_name string # 动画名称
+---@param priority? integer # 优先级
+---@param ith? integer # 第几个动画
+---@param loop? boolean # 是否停止之前的播放
+function GameAPI.play_live2d_anim(role, comp_uid, motion_name, priority, ith, loop) end
+
+--ive2d设置模型
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param model string # 模型
+function GameAPI.stop_live2d_anim(role, comp_uid, model) end
+
+--界面-删除界面事件
+---@param comp_uid string # 控件uid
+---@param event_type integer # 控件事件类型
+---@param name string # 自定义事件名
+function GameAPI.del_ui_comp_event(comp_uid, event_type, name) end
+
 --创建新单位物编
 ---@param old_entity_no py.UnitKey # 单位物编
 ---@return py.UnitKey # 单位物编key
@@ -1853,6 +2262,11 @@ function GameAPI.create_spine(ientity, spine, vertical, rate) end
 ---@param value py.Fixed # 属性值
 ---@return py.Fixed # 属性值
 function GameAPI.convert_unit_attr_m2cm(attr, value) end
+
+--获取属性名
+---@param attr_key string # 属性key
+---@return string # 属性名
+function GameAPI.api_get_attr_name(attr_key) end
 
 --创建新技能物编
 ---@param old_entity_no py.AbilityKey # 技能物编
@@ -1931,6 +2345,30 @@ function GameAPI.set_mouse_follower_anim_speed(role, anim_speed) end
 ---@param is_loop? boolean # 是否循环播放
 ---@param is_back_to_default? boolean # 是否回到默认动画
 function GameAPI.set_mouse_follower_model_anim(role, anim_name, anim_speed, start_time, end_time, is_loop, is_back_to_default) end
+
+--lua回调函数测试
+---@param callback function # 回调函数
+function GameAPI.test_lua_callback(callback) end
+
+--获取玩家的宠物数量
+---@param role py.Role # 要获取的目标玩家
+---@param callback function # 回调函数
+function GameAPI.get_role_pet_count(role, callback) end
+
+--获取宠物属性信息
+---@param pet_uid integer # 宠物唯一id
+---@param callback function # 回调函数
+function GameAPI.get_pet_attr_info(pet_uid, callback) end
+
+--获取宠物当前状态
+---@param pet_uid integer # 宠物唯一id
+---@param callback function # 回调函数
+function GameAPI.get_pet_state(pet_uid, callback) end
+
+--执行宠物睡觉
+---@param pet_uid integer # 宠物唯一id
+---@param callback function # 回调函数
+function GameAPI.pet_sleep(pet_uid, callback) end
 
 --获取COLLIDER所属的刚体
 ---@param collider py.Collider # Collider
@@ -3454,6 +3892,18 @@ function GameAPI.camera_set_param_yaw(role, yaw, move_time) end
 ---@param move_time? py.Fixed # 时间
 function GameAPI.camera_set_param_rotate(role, rotate_type, angle, move_time) end
 
+--设置镜头碰撞参数
+---@param role py.Role # 玩家
+---@param enable_collider boolean # 碰撞开关
+---@param MinDist number # 最小焦距
+---@param SmoothRatio? number # 过度速率
+function GameAPI.camera_set_param_collide(role, enable_collider, MinDist, SmoothRatio) end
+
+--设置镜头碰撞参数
+---@param role py.Role # 玩家
+---@param radius number # 最小焦距
+function GameAPI.camera_set_param_collide_radius(role, radius) end
+
 --设置镜头参数distance
 ---@param role py.Role # 玩家
 ---@param distance py.Fixed # 焦点距离
@@ -4290,6 +4740,21 @@ function GameAPI.rect_area_is_exist(rect_area) end
 ---@param camera py.Camera # 镜头
 ---@return boolean # 是否存在
 function GameAPI.camera_is_exist(camera) end
+
+--触发器是否存在
+---@param trigger_id py.DynamicTriggerInstance # 动态触发器实例
+---@return boolean # 是否存在
+function GameAPI.trigger_is_exist(trigger_id) end
+
+--运动器是否存在
+---@param mover_id py.Mover # 运动器实例
+---@return boolean # 是否存在
+function GameAPI.mover_is_exist(mover_id) end
+
+--对象是否存在
+---@param obj py.DynamicTypeMeta # 对象
+---@return boolean # 是否存在
+function GameAPI.common_is_exist(obj) end
 
 --获取技能最大等级
 ---@param ability py.Ability # 技能
@@ -5223,6 +5688,19 @@ function GameAPI.set_billboard_visible(unit, node_name, visible, role) end
 ---@param role? py.Role # 玩家
 function GameAPI.set_billboard_progress(unit, node_name, progress, role) end
 
+--设置血条整体可见性
+---@param unit py.Unit # 单位
+---@param visibility boolean # 可见性
+---@param role? py.Role # 玩家
+function GameAPI.set_billboard_overall_visibility(unit, visibility, role) end
+
+--设置血条中进度条控件的进度条图片
+---@param unit py.Unit # 单位
+---@param node_name string # 血条命名
+---@param icon_id py.Texture # 图片
+---@param role? py.Role # 玩家
+function GameAPI.set_billboard_picture_group(unit, node_name, icon_id, role) end
+
 --玩家完全退出游戏（大厅完全退出游戏）
 ---@param role py.Role # 玩家
 function GameAPI.lobby_exit_game(role) end
@@ -5235,64 +5713,3 @@ function GameAPI.open_platform_shop(role, store_key) end
 --获取本地玩家镜头焦点
 ---@return py.FVector3 # 镜头焦点
 function GameAPI.get_local_player_camera_focus() end
-
---平台道具是否相等
----@param store_key1 py.StoreKey # 平台道具
----@param store_key2 py.StoreKey # 平台道具
----@return boolean # 是否相等
-function GameAPI.api_compare_store_key(store_key1, store_key2) end
-
---世界坐标转换屏幕坐标
----@param world_pos py.Point # 世界坐标
----@return py.Point # 屏幕坐标
-function GameAPI.api_world_pos_to_camera_pos_2d(world_pos) end
-
---世界坐标转换屏幕边缘坐标
----@param world_pos py.Point # 世界坐标
----@param delta_dis py.Fixed # 定点数
----@return py.Point # 屏幕坐标
-function GameAPI.api_world_pos_to_screen_edge_pos_2d(world_pos, delta_dis) end
-
---平台外部服务器设置接口
----@param aes_key string # AESKey
----@param public_key string # PublicKey
----@param external_url string # ExternalUrl
-function GameAPI.init_external_http_config(aes_key, public_key, external_url) end
-
---平台外部连接登录
----@param api_path string # 外部API路径
----@param external_data string # 自定义数据
----@return boolean # 调用结果
-function GameAPI.platform_http_login(api_path, external_data) end
-
---平台外部http请求
----@param api string # 外部API路径
----@param is_post boolean # 是否是post请求
----@param data string # body数据
----@return string # 调用结果
-function GameAPI.platform_http_request(api, is_post, data) end
-
---上传反作弊数值统计
----@param role py.Role # 玩家
----@param args py.List # 自定义参数
----@return string # 玩家全量昵称
-function GameAPI.save_anticheat_data(role, args) end
-
---剔除字符串内富文本信息
----@param rich_text string # 富文本
----@return string # 普通文本
-function GameAPI.get_plain_text_from_rich_text(rich_text) end
-
---点是否在圆形范围内
----@param check_point py.Point # 待检查的点
----@param center_point py.Point # 中心点
----@param radius py.Fixed # 半径
----@return boolean # 布尔值
-function GameAPI.api_is_point_in_circle_area(check_point, center_point, radius) end
-
---点是否在矩形范围内
----@param check_point py.Point # 待检查的点
----@param bottom_left py.Point # 左下角
----@param upper_right py.Point # 右上角
----@return boolean # 布尔值
-function GameAPI.api_is_point_in_rect_area(check_point, bottom_left, upper_right) end

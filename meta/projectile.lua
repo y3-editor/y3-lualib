@@ -113,3 +113,7 @@ function ProjectileEntity:api_remove_tag(tag) end
 ---@param sid py.AudioKey # 乐曲编号
 ---@param loop boolean # 是否循环
 function ProjectileEntity:api_play_sound_by_proj_for_role_relation(camp_target, sid, loop) end
+
+--获取投射物的玩家
+---@return py.Role # 玩家
+function ProjectileEntity:get_projectile_role() end

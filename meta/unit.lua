@@ -551,6 +551,10 @@ function Unit:api_get_move_collision(collision_layer) end
 ---@return boolean # 是否为该移动类型
 function Unit:api_is_move_type(move_type) end
 
+--设置是否阻挡其他单位
+---@param is_on boolean # 是否阻挡
+function Unit:api_set_block_others(is_on) end
+
 --设置单位的移动类型为地面
 ---@param land_limitation? boolean # 陆地限制
 ---@param item_limitation? boolean # 物件限制
@@ -925,6 +929,10 @@ function Unit:api_set_disk_shadow_open(is_open) end
 ---@param shadow_size number # 大小
 function Unit:api_set_unit_disk_shadow_size(shadow_size) end
 
+--设置单位动画状态名
+---@param anim_state_name string # 状态名
+function Unit:api_set_unit_anim_state_name(anim_state_name) end
+
 --设置单位的描边颜色
 ---@param color_r number # R
 ---@param color_g number # G
@@ -1146,6 +1154,10 @@ function Unit:api_create_building_on_position(build_key, pos_x, pos_z) end
 --获取单位攻击间隔
 ---@return py.Fixed # 攻击间隔
 function Unit:api_get_unit_attack_interval() end
+
+--获取单位每秒攻击次数
+---@return py.Fixed # 攻击次数
+function Unit:api_get_unit_attack_count_per_second() end
 
 --单位是否拥有物品
 ---@param item py.Item # 物品

@@ -114,6 +114,10 @@ function Ability:api_set_ability_cast_range(value) end
 ---@param value py.Fixed # 建造朝向
 function Ability:api_set_ability_build_rotate(value) end
 
+--设置技能的建造目标类型(build_id)
+---@param new_build_id py.UnitKey # 单位物编ID
+function Ability:api_set_ability_build_id(new_build_id) end
+
 --设置扇形指示器半径
 ---@param value py.Fixed # 指示器半径
 function Ability:api_set_ability_sector_radius(value) end
@@ -313,3 +317,11 @@ function Ability:api_is_autocast_enabled() end
 --获取技能绑定的物品
 ---@return py.Item # 物品实体
 function Ability:api_get_item() end
+
+--技能添加键值对
+---@param tag string # TAG
+function Ability:api_add_tag(tag) end
+
+--技能移除键值对
+---@param tag string # TAG
+function Ability:api_remove_tag(tag) end
