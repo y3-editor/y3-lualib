@@ -919,9 +919,12 @@ function M:get_real_height()
 end
 
 --获得界面控件的父控件
----@return UI ui_comp ui控件
+---@return UI? ui_comp ui控件
 function M:get_parent()
     local py_ui = GameAPI.get_ui_comp_parent(self.player.handle, self.handle)
+    if not py_ui then
+        return nil
+    end
     return y3.ui.get_by_handle(self.player, py_ui)
 end
 
