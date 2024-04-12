@@ -45,12 +45,32 @@ function M:remove()
 end
 
 -- 获取 UIPrefab 的 UI 实例
+-->请改用 `get_child` 方法
+---@deprecated
 ---@param  player Player 玩家
----@param path? string 路径，默认为根节点
 ---@return UI
-function M:get_ui(player, path)
+function M:get_ui(player)
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.ui.get_by_handle(player, GameAPI.get_ui_prefab_child_by_path(self.handle, path or ""))
+    return y3.ui.get_by_handle(player, GameAPI.get_ui_prefab_child_by_path(self.handle, ""))
+end
+
+--获取 UIPrefab 的 UI 实例
+-->注意！这里的 path 是相对于 *节点第一层之后* 的（就是节点列表里有个默认不能删的节点，那个是第一层）
+---@param child_path? string 路径，默认为根节点。
+---@return UI?
+function M:get_child(child_path)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local py_ui = GameAPI.get_ui_prefab_child_by_path(self.handle, '')
+    if not py_ui then
+        return nil
+    end
+
+    local ui = y3.ui.get_by_handle(self.player, py_ui)
+    if child_path and #child_path > 0 then
+        return ui:get_child(child_path)
+    end
+
+    return ui
 end
 
 return M
