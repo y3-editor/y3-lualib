@@ -252,6 +252,17 @@ function M:get_ability_by_slot(type, slot)
     return y3.ability.get_by_handle(py_ability)
 end
 
+--根据技能序号获取技能
+---@param seq py.AbilitySeq
+---@return Ability?
+function M:get_ability_by_seq(seq)
+    local py_ability = self.phandle:api_get_ability_by_seq(seq)
+    if not py_ability then
+        return nil
+    end
+    return y3.ability.get_by_handle(py_ability)
+end
+
 ---获取单位背包槽位上的物品
 ---@param type y3.Const.SlotType 槽位类型
 ---@param slot integer 位置
