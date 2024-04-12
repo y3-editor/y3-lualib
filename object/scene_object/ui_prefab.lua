@@ -46,10 +46,11 @@ end
 
 -- 获取 UIPrefab 的 UI 实例
 ---@param  player Player 玩家
+---@param path? string 路径，默认为根节点
 ---@return UI
-function M:get_ui(player)
+function M:get_ui(player, path)
     ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.ui.get_by_handle(player, GameAPI.get_ui_prefab_child_by_path(self.handle, ""))
+    return y3.ui.get_by_handle(player, GameAPI.get_ui_prefab_child_by_path(self.handle, path or ""))
 end
 
 return M
