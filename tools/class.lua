@@ -64,7 +64,64 @@ function M.declare(name, super, superInit)
     class.__name   = name
     class.__getter = getter
     class.__setter = setter
-    class.__index  = class
+
+    ---@param self any
+    ---@param k any
+    ---@return any
+    local function getterFunc(self, k)
+        local r = class[k]
+        if r == nil then
+            local f = getter[k]
+            if f then
+                local res, needCache = f(self)
+                if needCache then
+                    rawset(self, k, res)
+                end
+                return res
+            else
+                return nil
+            end
+        else
+            rawset(self, k, r)
+            return r
+        end
+    end
+
+    ---@param self any
+    ---@param k any
+    ---@param v any
+    ---@return any
+    local function setterFunc(self, k, v)
+        local f = setter[k]
+        if f then
+            local res = f(self, v)
+            if res ~= nil then
+                rawset(self, k, res)
+            end
+        else
+            rawset(self, k, v)
+        end
+    end
+
+    function class:__index(k)
+        if next(class.__getter) then
+            class.__index = getterFunc
+            return getterFunc(self, k)
+        else
+            class.__index = class
+            return class[k]
+        end
+    end
+
+    function class:__newindex(k, v)
+        if next(class.__setter) then
+            class.__newindex = setterFunc
+            setterFunc(self, k, v)
+        else
+            class.__newindex = nil
+            rawset(self, k, v)
+        end
+    end
 
     function class:__call(...)
         M.runInit(self, name, ...)
@@ -73,14 +130,15 @@ function M.declare(name, super, superInit)
 
     M._classes[name] = class
 
-    local mt = {}
-     function mt:__call(...)
-        if not self.__alloc then
-            error(('class %q can not be instantiated'):format(name))
-            return self
-        end
-        return self:__alloc(...)
-    end
+    local mt = {
+        __call = function (self, ...)
+            if not self.__alloc then
+                error(('class %q can not be instantiated'):format(name))
+                return self
+            end
+            return self:__alloc(...)
+        end,
+    }
     setmetatable(class, mt)
 
     local superClass = M._classes[super]
@@ -109,43 +167,6 @@ function M.get(name)
     return M._classes[name]
 end
 
-local firstInit = setmetatable({}, { __newindex = function (t, class)
-    rawset(t, class, true)
-    local getter = class.__getter
-    local setter = class.__setter
-
-    local mt = getmetatable(class)
-
-    if next(getter) then
-        function mt:__index(k)
-            local f = getter[k]
-            if f then
-                local res, needCache = f(self)
-                if needCache then
-                    rawset(self, k, res)
-                end
-                return res
-            else
-                return nil
-            end
-        end
-    end
-
-    if next(setter) then
-        function class:__newindex(k, v)
-            local f = setter[k]
-            if f then
-                local res = f(self, v)
-                if res ~= nil then
-                    rawset(self, k, res)
-                end
-            else
-                rawset(self, k, v)
-            end
-        end
-    end
-end })
-
 -- 实例化一个类
 ---@generic T: string
 ---@param name `T`
@@ -156,8 +177,6 @@ function M.new(name, tbl)
     if not class then
         M._errorHandler(('class %q not found'):format(name))
     end
-
-    firstInit[class] = true
 
     if not tbl then
         tbl = {}
