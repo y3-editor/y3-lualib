@@ -1001,9 +1001,11 @@ end
 
 -- 设置控件跟随鼠标
 ---@param follow_mouse boolean
+---@param offset_x? number # 偏移x轴
+---@param offset_y? number # 偏移y轴
 ---@return self
-function M:set_follow_mouse(follow_mouse)
-    GameAPI.set_ui_comp_follow_mouse(self.player.handle, self.handle, follow_mouse)
+function M:set_follow_mouse(follow_mouse, offset_x, offset_y)
+    GameAPI.set_ui_comp_follow_mouse(self.player.handle, self.handle, follow_mouse, offset_x, offset_y)
     return self
 end
 
