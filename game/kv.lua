@@ -19,7 +19,7 @@ local class = require 'y3.tools.class'
 ---@enum(key) KV.SupportTypeEnum
 local apiAlias = {
     Unit         = 'unit_entity',
-    UnitName     = 'unit_name',
+    UnitKey      = 'unit_name',
     Ability      = 'ability',
     Item         = 'item_entity',
     Buff         = 'modifier_entity',
