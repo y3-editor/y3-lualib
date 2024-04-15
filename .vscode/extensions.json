@@ -1,7 +1,6 @@
 {
     "recommendations": [
         "sumneko.lua",
-        "actboy168.lua-debug",
         "sumneko.y3-helper"
     ]
 }
