@@ -30,7 +30,7 @@ for i = 1, 4 do
     end)
 end
 
-DESC:on_refresh('*', function (ui, local_player)
+DESC:on_refresh('', function (ui, local_player)
     if current_ability and current_ui then
         ui:set_visible(true)
     else
