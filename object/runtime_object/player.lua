@@ -131,16 +131,20 @@ function M:set_team(id)
 end
 
 ---设置属性值
----@param key py.RoleResKey 属性名
+---@param key y3.Const.PlayerAttr | string 属性名
 ---@param value number 值
 function M:set(key, value)
+    key = y3.const.PlayerAttr[key] or key
+    ---@cast key py.RoleResKey
     self.phandle:set_role_res(key, Fix32(value))
 end
 
 ---增加属性值
----@param key py.RoleResKey 属性名
+---@param key y3.Const.PlayerAttr | string 属性名
 ---@param value number 值
 function M:add(key, value)
+    key = y3.const.PlayerAttr[key] or key
+    ---@cast key py.RoleResKey
     self.phandle:change_role_res(key, Fix32(value))
 end
 
@@ -305,9 +309,11 @@ end
 
 
 ---获取玩家属性
----@param key py.RoleResKey 属性名
+---@param key y3.Const.PlayerAttr | string # 属性名
 ---@return number role_res 玩家属性
 function M:get_attr(key)
+    key = y3.const.PlayerAttr[key] or key
+    ---@cast key py.RoleResKey
     return self.phandle:get_role_res(key):float()
 end
 
