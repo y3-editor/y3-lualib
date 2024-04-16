@@ -70,7 +70,7 @@ end
 --将子控件的属性绑定到单位的属性
 ---@param child_name string
 ---@param ui_attr y3.Const.UIAttr
----@param unit_attr y3.Const.UnitAttr
+---@param unit_attr y3.Const.UnitAttr | string
 function M:bind_unit_attr(child_name, ui_attr, unit_attr)
     if not self._main then
         table.insert(self._bind_unit_attr, {
