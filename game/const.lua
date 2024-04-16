@@ -51,6 +51,7 @@ M.UnitState = {
     ['DISSOLVE'] = 'Dissolve',
 }
 
+---@diagnostic disable-next-line: duplicate-doc-alias
 ---@enum(key) y3.Const.UnitAttr
 M.UnitAttr = {
     ['生命'] = 'hp_cur',

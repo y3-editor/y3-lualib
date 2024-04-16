@@ -103,6 +103,10 @@ y3.sync         = require 'y3.util.sync'
 
 require 'y3.util.local_ui_logic'
 
+pcall(function ()
+    require 'y3-helper.meta'
+end)
+
 y3.develop = {}
 y3.develop.command = include 'y3.develop.command'
 y3.develop.arg     = require 'y3.develop.arg'
