@@ -150,7 +150,7 @@ function require(modname)
     local suc, result, loaderdata = xpcall(originRequire, log.error, modname)
     M.includeStack[#M.includeStack] = nil
     if not suc then
-        return false, nil
+        error(result)
     end
     if loaderdata ~= nil then
         M.modNameMap[loaderdata] = modname
