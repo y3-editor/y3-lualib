@@ -80,7 +80,7 @@ y3.py_converter.register_py_to_lua('py.RoleID', M.get_by_id)
 ---@param py_player py.Role
 ---@return Player
 function M.get_by_handle(py_player)
-    local id = py_player:get_role_id_num()
+    local id = y3.py_proxy.wrap(py_player):get_role_id_num()
     return M.get_by_id(id)
 end
 

@@ -55,7 +55,7 @@ end)
 ---@param  py_item py.Item py层的道具实例
 ---@return Item # 返回在lua层初始化后的lua层道具实例
 function M.get_by_handle(py_item)
-    local id = py_item:api_get_id()
+    local id = y3.py_proxy.wrap(py_item):api_get_id()
     return M.get_by_id(id)
 end
 

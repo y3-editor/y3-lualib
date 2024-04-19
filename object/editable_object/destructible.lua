@@ -45,7 +45,7 @@ end)
 ---@param  py_destructible py.Destructible
 ---@return Destructible
 function M.get_by_handle(py_destructible)
-    local id = py_destructible:api_get_id()
+    local id = y3.py_proxy.wrap(py_destructible):api_get_id()
     local dest = M.ref_manager:get(id)
     return dest
 end

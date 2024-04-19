@@ -44,7 +44,7 @@ end)
 ---@param py_projectile py.ProjectileEntity
 ---@return Projectile projectile
 function M.get_by_handle(py_projectile)
-    local id = py_projectile:api_get_id()
+    local id = y3.py_proxy.wrap(py_projectile):api_get_id()
     local projectile = M.ref_manager:get(id)
     return projectile
 end
