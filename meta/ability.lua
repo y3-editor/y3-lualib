@@ -325,3 +325,6 @@ function Ability:api_add_tag(tag) end
 --技能移除键值对
 ---@param tag string # TAG
 function Ability:api_remove_tag(tag) end
+
+--清空键值对
+function Ability:api_clear_tag() end

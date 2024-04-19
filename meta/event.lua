@@ -300,6 +300,7 @@ event.ET_HTTP_RESPONSE = {
 ---@class EventParam.ET_BROADCAST_LUA_MSG
 ---@field broadcast_lua_msg_id string # 消息id
 ---@field broadcast_lua_msg_content string # 消息内容
+---@field player Player # 角色
 
 --广播自定义Lua消息
 event.ET_BROADCAST_LUA_MSG = {
@@ -318,6 +319,14 @@ event.ET_BROADCAST_LUA_MSG = {
         lua_type = "string",
         desc = "消息内容",
         lua_desc = "消息内容",
+    },
+    [3] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
     },
 }
 
@@ -786,6 +795,30 @@ event.ET_ROLE_TECH_CHANGED = {
         lua_type = "integer",
         desc = "科技变化等级",
         lua_desc = "科技变化等级",
+    },
+}
+
+---@class EventParam.ET_ROLE_SET_CLIENT_GRAPH_QUALITY
+---@field player Player # 玩家
+---@field image_quality py.ImageQuality # 画质
+
+--玩家客户端画质改变
+event.ET_ROLE_SET_CLIENT_GRAPH_QUALITY = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__image_quality",
+        type = "py.ImageQuality",
+        lua_name = "image_quality",
+        lua_type = "py.ImageQuality",
+        desc = "画质",
+        lua_desc = "画质",
     },
 }
 
@@ -2164,6 +2197,8 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
 ---@class EventParam.ET_UNIT_GET_CURE_BEFORE_APPLY
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
+---@field target_unit Unit # 受到治疗的单位
+---@field source_unit Unit # 施加治疗的单位
 ---@field heal_instance HealInstance # 治疗实例
 
 --单位即将受到治疗
@@ -2185,6 +2220,22 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
         lua_desc = "当前治疗所属技能",
     },
     [3] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "受到治疗的单位",
+        lua_desc = "受到治疗的单位",
+    },
+    [4] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "施加治疗的单位",
+        lua_desc = "施加治疗的单位",
+    },
+    [5] = {
         name = nil,
         type = nil,
         lua_name = "heal_instance",
@@ -2200,6 +2251,8 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
 ---@class EventParam.ET_UNIT_GET_CURE_FINISH
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
+---@field target_unit Unit # 受到治疗的单位
+---@field source_unit Unit # 施加治疗的单位
 
 --单位受到治疗结束
 event.ET_UNIT_GET_CURE_FINISH = {
@@ -2219,11 +2272,29 @@ event.ET_UNIT_GET_CURE_FINISH = {
         desc = "当前治疗所属技能",
         lua_desc = "当前治疗所属技能",
     },
+    [3] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "受到治疗的单位",
+        lua_desc = "受到治疗的单位",
+    },
+    [4] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "施加治疗的单位",
+        lua_desc = "施加治疗的单位",
+    },
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
+---@field target_unit Unit # 受到治疗的单位
+---@field source_unit Unit # 施加治疗的单位
 ---@field heal_instance HealInstance # 治疗实例
 
 --单位受到治疗
@@ -2245,6 +2316,22 @@ event.ET_UNIT_GET_CURE = {
         lua_desc = "当前治疗所属技能",
     },
     [3] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "受到治疗的单位",
+        lua_desc = "受到治疗的单位",
+    },
+    [4] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "施加治疗的单位",
+        lua_desc = "施加治疗的单位",
+    },
+    [5] = {
         name = nil,
         type = nil,
         lua_name = "heal_instance",
@@ -6040,6 +6127,21 @@ event.ET_SELECT_UNIT = {
     },
 }
 
+---@class EventParam.CANCEL_SELECT_UNIT
+---@field player Player # 玩家
+
+--取消选中单位
+event.CANCEL_SELECT_UNIT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+}
+
 ---@class EventParam.ET_HIGH_LIGHT_UNIT_CHANGE
 ---@field player Player # 玩家
 ---@field high_light_unit_id py.HighLightUnitID # 高亮单位id
@@ -6295,6 +6397,59 @@ event.ET_START_SKILL_POINTER = {
         lua_desc = "技能Seq",
     },
     [6] = {
+        name = nil,
+        type = nil,
+        lua_name = "ability",
+        lua_type = "Ability",
+        lua_desc = "技能",
+        lua_code = function (data)
+            return data.unit:get_ability_by_seq(data.ability_seq)
+        end,
+    },
+}
+
+---@class EventParam.ET_BUILD_SKILL_POINTER_CHECK_PASS
+---@field player Player # 玩家
+---@field unit Unit # 释放单位
+---@field ability_seq py.AbilitySeq # 技能Seq
+---@field ability_target_pos Point # 施法目标位置
+---@field ability Ability # 技能
+
+--建造技能指示器施法检查通过
+event.ET_BUILD_SKILL_POINTER_CHECK_PASS = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "释放单位id",
+        lua_desc = "释放单位",
+    },
+    [3] = {
+        name = "__ability_seq",
+        type = "py.AbilitySeq",
+        lua_name = "ability_seq",
+        lua_type = "py.AbilitySeq",
+        desc = "技能Seq",
+        lua_desc = "技能Seq",
+    },
+    [4] = {
+        name = "__ability_target_pos",
+        type = "py.Point",
+        lua_name = "ability_target_pos",
+        lua_type = "Point",
+        desc = "施法目标位置",
+        lua_desc = "施法目标位置",
+    },
+    [5] = {
         name = nil,
         type = nil,
         lua_name = "ability",

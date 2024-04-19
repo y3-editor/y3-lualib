@@ -1027,3 +1027,7 @@ function GlobalAPI.get_iter_random_pool_archive_key(v) end
 ---@param v integer # int
 ---@return integer # int
 function GlobalAPI.get_iter_random_pool_archive_increment(v) end
+
+--还给lua一个空python table
+---@return py.Dict # Dict
+function GlobalAPI.lua_get_python_empty_dict() end

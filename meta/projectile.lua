@@ -117,3 +117,8 @@ function ProjectileEntity:api_play_sound_by_proj_for_role_relation(camp_target, 
 --获取投射物的玩家
 ---@return py.Role # 玩家
 function ProjectileEntity:get_projectile_role() end
+
+--设置投射物对玩家的可见性
+---@param role py.Role # 玩家/玩家组
+---@param is_visible boolean # 是否可见
+function ProjectileEntity:api_set_projectile_visible(role, is_visible) end

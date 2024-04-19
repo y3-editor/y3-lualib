@@ -84,6 +84,16 @@ function Unit:api_delete() end
 ---@param source_unit? py.Unit # 杀手单位
 function Unit:api_kill(source_unit) end
 
+--设置单位建造进度
+---@param progress py.Fixed # 建造进度
+---@param is_percent? boolean # 是否百分比
+function Unit:api_set_construction_progress(progress, is_percent) end
+
+--设置单位升级进度
+---@param progress py.Fixed # 升级进度
+---@param is_percent? boolean # 是否百分比
+function Unit:api_set_upgrade_progress(progress, is_percent) end
+
 --获取单位图标路径
 ---@return string # 单位图标路径
 function Unit:api_get_icon() end
@@ -672,6 +682,15 @@ function Unit:api_replace_model(target_model) end
 --取消单位替换模型
 ---@param target_model py.ModelKey # 目标模型名字
 function Unit:api_cancel_replace_model(target_model) end
+
+--单位设置指定标签模型
+---@param tag string # 标签
+---@param model_id py.ModelKey # 目标模型编号
+function Unit:set_model_by_tag(tag, model_id) end
+
+--单位删除设置指定标签模型
+---@param tag string # 标签
+function Unit:remove_model_by_tag(tag) end
 
 --显示血条倒计时
 ---@param left_time py.Fixed # 倒计时时长, 单位秒

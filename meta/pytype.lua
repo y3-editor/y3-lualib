@@ -69,6 +69,8 @@
 ---@class py.ItemID: integer
 --物品编号
 ---@class py.ItemKey: integer
+--物品堆叠类型
+---@class py.ItemStackType: integer
 --字典
 ---@class py.Dict: py.DynamicTypeMeta
 --
@@ -93,6 +95,8 @@
 ---@class py.LinkSfxKey: integer
 --模型编号
 ---@class py.ModelKey: integer
+--live2d模型编号
+---@class py.Live2dKey: integer
 --触发器ID
 ---@class py.TriggerID: integer
 --动态触发器实例
@@ -249,6 +253,8 @@
 ---@class py.Road: py.List
 --
 ---@class py.Model: integer
+--
+---@class py.Live2d: integer
 --特效
 ---@class py.Sfx: py.DynamicTypeMeta
 --链接特效
@@ -357,3 +363,5 @@
 ---@class py.Map: integer
 --移动方向
 ---@class py.MoveDirection: integer
+--画质
+---@class py.ImageQuality: integer

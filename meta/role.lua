@@ -418,6 +418,10 @@ function Role:api_get_role_color() end
 ---@param rank integer # 本局游戏排名
 function Role:upload_player_game_rank(rank) end
 
+--获取玩家当前选中单位组
+---@return py.UnitGroup # 单位组
+function Role:api_get_role_select_units() end
+
 --玩家是否为平台荣耀会员
 ---@return boolean # 是否是会员
 function Role:api_is_honor_vip() end
