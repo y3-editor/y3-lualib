@@ -1005,7 +1005,7 @@ end
 ---@param offset_y? number # 偏移y轴
 ---@return self
 function M:set_follow_mouse(follow_mouse, offset_x, offset_y)
-    GameAPI.set_ui_comp_follow_mouse(self.player.handle, self.handle, follow_mouse, offset_x, offset_y)
+    GameAPI.set_ui_comp_follow_mouse(self.player.handle, self.handle, follow_mouse, offset_x or 0, offset_y or 0)
     return self
 end
 
