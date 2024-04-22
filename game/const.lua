@@ -89,9 +89,6 @@ M.UnitAttr = {
     ['夜晚扇形视野半径'] = 'vision_sector_night',
     ['白天扇形视野夹角'] = 'vision_sector_angle_day',
     ['夜晚扇形视野夹角'] = 'vision_sector_angle_night',
-    ['力量'] = 'strength',
-    ['敏捷'] = 'agility',
-    ['智力'] = 'intelligence',
 }
 
 ---@enum(key) y3.Const.UnitAttrType
