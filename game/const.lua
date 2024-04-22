@@ -51,7 +51,6 @@ M.UnitState = {
     ['DISSOLVE'] = 'Dissolve',
 }
 
----@diagnostic disable-next-line: duplicate-doc-alias
 ---@enum(key) y3.Const.UnitAttr
 M.UnitAttr = {
     ['生命'] = 'hp_cur',
@@ -100,7 +99,6 @@ M.UnitAttrType = {
     ["总加成"] = "ATTR_ALL_RATIO", --百分比
 }
 
----@diagnostic disable-next-line: duplicate-doc-alias
 ---@enum(key) y3.Const.PlayerAttr
 M.PlayerAttr = {}
 
