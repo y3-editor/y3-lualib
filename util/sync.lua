@@ -17,7 +17,7 @@ end
 -- 同步接收数据，回调函数在同步后执行  
 -- 同一个 id 只能注册一个回调函数，后注册的会覆盖前面的
 ---@param id string
----@param callback fun(data: Serialization.SupportTypes)
+---@param callback fun(data: Serialization.SupportTypes, source: Player)
 function M.onSync(id, callback)
     M.syncMap[id] = callback
 end
@@ -29,7 +29,7 @@ y3.game:event('游戏-接收广播信息', function (trg, data)
         return
     end
     local value = y3.dump.decode(data.broadcast_lua_msg_content)
-    xpcall(callback, log.error, value)
+    xpcall(callback, log.error, value, data.player)
 end)
 
 return M
