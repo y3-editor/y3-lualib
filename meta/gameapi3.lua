@@ -4,6 +4,414 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--获取科技编号MAP键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_tech_key_map_kv(tech_key, key) end
+
+--获取图片MAP键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_icon_id_map_kv(icon_id, key) end
+
+--获取逻辑物理组件类型MAP键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_physics_entity_key_map_kv(physics_entity_key, key) end
+
+--获取MAP键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_kv_pair_value_map(kvbase, key) end
+
+--获取单位编号POST_EFFECT键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_unit_key_post_effect_kv(unit_key, key) end
+
+--获取物品编号POST_EFFECT键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_item_key_post_effect_kv(item_key, key) end
+
+--获取技能编号POST_EFFECT键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_ability_key_post_effect_kv(ability_key, key) end
+
+--获取魔法效果特效编号POST_EFFECT键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_modifier_key_post_effect_kv(modifier_key, key) end
+
+--获取特效编号POST_EFFECT键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_projectile_key_post_effect_kv(projectile_key, key) end
+
+--获取可破坏物编号POST_EFFECT键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_destructible_key_post_effect_kv(destructible_key, key) end
+
+--获取科技编号POST_EFFECT键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_tech_key_post_effect_kv(tech_key, key) end
+
+--获取图片POST_EFFECT键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_icon_id_post_effect_kv(icon_id, key) end
+
+--获取逻辑物理组件类型POST_EFFECT键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_physics_entity_key_post_effect_kv(physics_entity_key, key) end
+
+--获取POST_EFFECT键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.PostEffect # 键值
+function GameAPI.get_kv_pair_value_post_effect(kvbase, key) end
+
+--获取单位编号UNIT_TYPE键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_unit_key_unit_type_kv(unit_key, key) end
+
+--获取物品编号UNIT_TYPE键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_item_key_unit_type_kv(item_key, key) end
+
+--获取技能编号UNIT_TYPE键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_ability_key_unit_type_kv(ability_key, key) end
+
+--获取魔法效果特效编号UNIT_TYPE键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_modifier_key_unit_type_kv(modifier_key, key) end
+
+--获取特效编号UNIT_TYPE键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_projectile_key_unit_type_kv(projectile_key, key) end
+
+--获取可破坏物编号UNIT_TYPE键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_destructible_key_unit_type_kv(destructible_key, key) end
+
+--获取科技编号UNIT_TYPE键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_tech_key_unit_type_kv(tech_key, key) end
+
+--获取图片UNIT_TYPE键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_icon_id_unit_type_kv(icon_id, key) end
+
+--获取逻辑物理组件类型UNIT_TYPE键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_physics_entity_key_unit_type_kv(physics_entity_key, key) end
+
+--获取UNIT_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.UnitType # 键值
+function GameAPI.get_kv_pair_value_unit_type(kvbase, key) end
+
+--获取单位编号UNIT_COMMAND_TYPE键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_unit_key_unit_command_type_kv(unit_key, key) end
+
+--获取物品编号UNIT_COMMAND_TYPE键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_item_key_unit_command_type_kv(item_key, key) end
+
+--获取技能编号UNIT_COMMAND_TYPE键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_ability_key_unit_command_type_kv(ability_key, key) end
+
+--获取魔法效果特效编号UNIT_COMMAND_TYPE键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_modifier_key_unit_command_type_kv(modifier_key, key) end
+
+--获取特效编号UNIT_COMMAND_TYPE键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_projectile_key_unit_command_type_kv(projectile_key, key) end
+
+--获取可破坏物编号UNIT_COMMAND_TYPE键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_destructible_key_unit_command_type_kv(destructible_key, key) end
+
+--获取科技编号UNIT_COMMAND_TYPE键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_tech_key_unit_command_type_kv(tech_key, key) end
+
+--获取图片UNIT_COMMAND_TYPE键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_icon_id_unit_command_type_kv(icon_id, key) end
+
+--获取逻辑物理组件类型UNIT_COMMAND_TYPE键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_physics_entity_key_unit_command_type_kv(physics_entity_key, key) end
+
+--获取UNIT_COMMAND_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.UnitCommandType # 键值
+function GameAPI.get_kv_pair_value_unit_command_type(kvbase, key) end
+
+--获取单位编号UNIT_GROUP_COMMAND_TYPE键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_unit_key_unit_group_command_type_kv(unit_key, key) end
+
+--获取物品编号UNIT_GROUP_COMMAND_TYPE键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_item_key_unit_group_command_type_kv(item_key, key) end
+
+--获取技能编号UNIT_GROUP_COMMAND_TYPE键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_ability_key_unit_group_command_type_kv(ability_key, key) end
+
+--获取魔法效果特效编号UNIT_GROUP_COMMAND_TYPE键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_modifier_key_unit_group_command_type_kv(modifier_key, key) end
+
+--获取特效编号UNIT_GROUP_COMMAND_TYPE键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_projectile_key_unit_group_command_type_kv(projectile_key, key) end
+
+--获取可破坏物编号UNIT_GROUP_COMMAND_TYPE键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_destructible_key_unit_group_command_type_kv(destructible_key, key) end
+
+--获取科技编号UNIT_GROUP_COMMAND_TYPE键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_tech_key_unit_group_command_type_kv(tech_key, key) end
+
+--获取图片UNIT_GROUP_COMMAND_TYPE键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_icon_id_unit_group_command_type_kv(icon_id, key) end
+
+--获取逻辑物理组件类型UNIT_GROUP_COMMAND_TYPE键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_physics_entity_key_unit_group_command_type_kv(physics_entity_key, key) end
+
+--获取UNIT_GROUP_COMMAND_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_kv_pair_value_unit_group_command_type(kvbase, key) end
+
+--获取单位编号MINI_MAP_COLOR_TYPE键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_unit_key_mini_map_color_type_kv(unit_key, key) end
+
+--获取物品编号MINI_MAP_COLOR_TYPE键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_item_key_mini_map_color_type_kv(item_key, key) end
+
+--获取技能编号MINI_MAP_COLOR_TYPE键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_ability_key_mini_map_color_type_kv(ability_key, key) end
+
+--获取魔法效果特效编号MINI_MAP_COLOR_TYPE键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_modifier_key_mini_map_color_type_kv(modifier_key, key) end
+
+--获取特效编号MINI_MAP_COLOR_TYPE键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_projectile_key_mini_map_color_type_kv(projectile_key, key) end
+
+--获取可破坏物编号MINI_MAP_COLOR_TYPE键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_destructible_key_mini_map_color_type_kv(destructible_key, key) end
+
+--获取科技编号MINI_MAP_COLOR_TYPE键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_tech_key_mini_map_color_type_kv(tech_key, key) end
+
+--获取图片MINI_MAP_COLOR_TYPE键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_icon_id_mini_map_color_type_kv(icon_id, key) end
+
+--获取逻辑物理组件类型MINI_MAP_COLOR_TYPE键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_physics_entity_key_mini_map_color_type_kv(physics_entity_key, key) end
+
+--获取MINI_MAP_COLOR_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.MiniMapColorType # 键值
+function GameAPI.get_kv_pair_value_mini_map_color_type(kvbase, key) end
+
+--获取单位编号UNIT_BEHAVIOR键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_unit_key_unit_behavior_kv(unit_key, key) end
+
+--获取物品编号UNIT_BEHAVIOR键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_item_key_unit_behavior_kv(item_key, key) end
+
+--获取技能编号UNIT_BEHAVIOR键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_ability_key_unit_behavior_kv(ability_key, key) end
+
+--获取魔法效果特效编号UNIT_BEHAVIOR键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_modifier_key_unit_behavior_kv(modifier_key, key) end
+
+--获取特效编号UNIT_BEHAVIOR键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_projectile_key_unit_behavior_kv(projectile_key, key) end
+
+--获取可破坏物编号UNIT_BEHAVIOR键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_destructible_key_unit_behavior_kv(destructible_key, key) end
+
+--获取科技编号UNIT_BEHAVIOR键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_tech_key_unit_behavior_kv(tech_key, key) end
+
+--获取图片UNIT_BEHAVIOR键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_icon_id_unit_behavior_kv(icon_id, key) end
+
+--获取逻辑物理组件类型UNIT_BEHAVIOR键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_physics_entity_key_unit_behavior_kv(physics_entity_key, key) end
+
+--获取UNIT_BEHAVIOR键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.UnitBehavior # 键值
+function GameAPI.get_kv_pair_value_unit_behavior(kvbase, key) end
+
+--获取单位编号CURVED_PATH键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.CurvedPath # 键值
+function GameAPI.get_unit_key_curved_path_kv(unit_key, key) end
+
+--获取物品编号CURVED_PATH键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.CurvedPath # 键值
+function GameAPI.get_item_key_curved_path_kv(item_key, key) end
+
+--获取技能编号CURVED_PATH键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.CurvedPath # 键值
+function GameAPI.get_ability_key_curved_path_kv(ability_key, key) end
+
+--获取魔法效果特效编号CURVED_PATH键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.CurvedPath # 键值
+function GameAPI.get_modifier_key_curved_path_kv(modifier_key, key) end
+
 --获取特效编号CURVED_PATH键值对
 ---@param projectile_key py.ProjectileKey # 特效编号
 ---@param key string # 键名称
@@ -818,6 +1226,76 @@ function GameAPI.get_trigger_list_variable_all_ui_scrollview_type(key) end
 ---@return py.List # 数组型变量值
 function GameAPI.get_trigger_list_actor_variable_all_ui_scrollview_type(actor, key) end
 
+--获取全局触发器UI_GRIDVIEW_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_gridview_type(key) end
+
+--获取触发器UI_GRIDVIEW_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_gridview_type(actor, key) end
+
+--获取全局触发器UI_GRIDVIEW_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_gridview_type(key, index) end
+
+--获取触发器UI_GRIDVIEW_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_gridview_type(actor, key, index) end
+
+--获取全局触发器UI_GRIDVIEW_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_gridview_type(key) end
+
+--获取触发器UI_GRIDVIEW_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_gridview_type(actor, key) end
+
+--获取全局触发器UI_GRIDVIEW_BAR_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_gridview_bar_type(key) end
+
+--获取触发器UI_GRIDVIEW_BAR_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_gridview_bar_type(actor, key) end
+
+--获取全局触发器UI_GRIDVIEW_BAR_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_gridview_bar_type(key, index) end
+
+--获取触发器UI_GRIDVIEW_BAR_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_gridview_bar_type(actor, key, index) end
+
+--获取全局触发器UI_GRIDVIEW_BAR_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_gridview_bar_type(key) end
+
+--获取触发器UI_GRIDVIEW_BAR_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_gridview_bar_type(actor, key) end
+
 --获取全局触发器UI_EQUIP_SLOT_USE_TYPE非数组变量
 ---@param key string # 变量名称
 ---@return integer # 值
@@ -887,6 +1365,76 @@ function GameAPI.get_trigger_list_variable_all_ui_equip_slot_drag_type(key) end
 ---@param key string # 变量名称
 ---@return py.List # 数组型变量值
 function GameAPI.get_trigger_list_actor_variable_all_ui_equip_slot_drag_type(actor, key) end
+
+--获取全局触发器UI_LAYOUT_CLIPPING_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_layout_clipping_type(key) end
+
+--获取触发器UI_LAYOUT_CLIPPING_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_layout_clipping_type(actor, key) end
+
+--获取全局触发器UI_LAYOUT_CLIPPING_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_layout_clipping_type(key, index) end
+
+--获取触发器UI_LAYOUT_CLIPPING_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_layout_clipping_type(actor, key, index) end
+
+--获取全局触发器UI_LAYOUT_CLIPPING_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_layout_clipping_type(key) end
+
+--获取触发器UI_LAYOUT_CLIPPING_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_layout_clipping_type(actor, key) end
+
+--获取全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_text_over_length_handling_type(key) end
+
+--获取触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_text_over_length_handling_type(actor, key) end
+
+--获取全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_text_over_length_handling_type(key, index) end
+
+--获取触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_text_over_length_handling_type(actor, key, index) end
+
+--获取全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_text_over_length_handling_type(key) end
+
+--获取触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_text_over_length_handling_type(actor, key) end
 
 --获取全局触发器UI_ANIM非数组变量
 ---@param key string # 变量名称
@@ -4621,6 +5169,54 @@ function GameAPI.set_trigger_variable_ui_scrollview_type(key, value) end
 ---@param value? integer # 值
 function GameAPI.set_trigger_actor_variable_ui_scrollview_type(actor, key, value) end
 
+--设置全局触发器UI_GRIDVIEW_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_gridview_type(key, index, value) end
+
+--设置全局触发器UI_GRIDVIEW_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_gridview_type(actor, key, index, value) end
+
+--设置全局触发器UI_GRIDVIEW_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_gridview_type(key, value) end
+
+--设置全局触发器UI_GRIDVIEW_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_gridview_type(actor, key, value) end
+
+--设置全局触发器UI_GRIDVIEW_BAR_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_gridview_bar_type(key, index, value) end
+
+--设置全局触发器UI_GRIDVIEW_BAR_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_gridview_bar_type(actor, key, index, value) end
+
+--设置全局触发器UI_GRIDVIEW_BAR_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_gridview_bar_type(key, value) end
+
+--设置全局触发器UI_GRIDVIEW_BAR_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_gridview_bar_type(actor, key, value) end
+
 --设置全局触发器UI_EQUIP_SLOT_USE_TYPE数组变量子项
 ---@param key string # 变量名称
 ---@param index integer # 下标
@@ -4668,6 +5264,54 @@ function GameAPI.set_trigger_variable_ui_equip_slot_drag_type(key, value) end
 ---@param key string # 变量名称
 ---@param value? integer # 值
 function GameAPI.set_trigger_actor_variable_ui_equip_slot_drag_type(actor, key, value) end
+
+--设置全局触发器UI_LAYOUT_CLIPPING_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_layout_clipping_type(key, index, value) end
+
+--设置全局触发器UI_LAYOUT_CLIPPING_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_layout_clipping_type(actor, key, index, value) end
+
+--设置全局触发器UI_LAYOUT_CLIPPING_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_layout_clipping_type(key, value) end
+
+--设置全局触发器UI_LAYOUT_CLIPPING_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_layout_clipping_type(actor, key, value) end
+
+--设置全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_text_over_length_handling_type(key, index, value) end
+
+--设置全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_text_over_length_handling_type(actor, key, index, value) end
+
+--设置全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_text_over_length_handling_type(key, value) end
+
+--设置全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_text_over_length_handling_type(actor, key, value) end
 
 --设置全局触发器UI_ANIM数组变量子项
 ---@param key string # 变量名称
@@ -5244,651 +5888,3 @@ function GameAPI.set_trigger_variable_modifier_entity(key, value) end
 ---@param key string # 变量名称
 ---@param value? py.ModifierEntity # 值
 function GameAPI.set_trigger_actor_variable_modifier_entity(actor, key, value) end
-
---设置全局触发器MODIFIER数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.ModifierKey # 值
-function GameAPI.set_trigger_list_variable_modifier(key, index, value) end
-
---设置全局触发器MODIFIER数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.ModifierKey # 值
-function GameAPI.set_trigger_list_actor_variable_modifier(actor, key, index, value) end
-
---设置全局触发器MODIFIER非数组变量
----@param key string # 变量名称
----@param value? py.ModifierKey # 值
-function GameAPI.set_trigger_variable_modifier(key, value) end
-
---设置全局触发器MODIFIER非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.ModifierKey # 值
-function GameAPI.set_trigger_actor_variable_modifier(actor, key, value) end
-
---设置全局触发器PROJECTILE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.ProjectileKey # 值
-function GameAPI.set_trigger_list_variable_projectile(key, index, value) end
-
---设置全局触发器PROJECTILE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.ProjectileKey # 值
-function GameAPI.set_trigger_list_actor_variable_projectile(actor, key, index, value) end
-
---设置全局触发器PROJECTILE非数组变量
----@param key string # 变量名称
----@param value? py.ProjectileKey # 值
-function GameAPI.set_trigger_variable_projectile(key, value) end
-
---设置全局触发器PROJECTILE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.ProjectileKey # 值
-function GameAPI.set_trigger_actor_variable_projectile(actor, key, value) end
-
---设置全局触发器PROJECTILE_ENTITY数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.ProjectileEntity # 值
-function GameAPI.set_trigger_list_variable_projectile_entity(key, index, value) end
-
---设置全局触发器PROJECTILE_ENTITY数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.ProjectileEntity # 值
-function GameAPI.set_trigger_list_actor_variable_projectile_entity(actor, key, index, value) end
-
---设置全局触发器PROJECTILE_ENTITY非数组变量
----@param key string # 变量名称
----@param value? py.ProjectileEntity # 值
-function GameAPI.set_trigger_variable_projectile_entity(key, value) end
-
---设置全局触发器PROJECTILE_ENTITY非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.ProjectileEntity # 值
-function GameAPI.set_trigger_actor_variable_projectile_entity(actor, key, value) end
-
---设置全局触发器PROJECTILE_GROUP数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.ProjectileGroup # 值
-function GameAPI.set_trigger_list_variable_projectile_group(key, index, value) end
-
---设置全局触发器PROJECTILE_GROUP数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.ProjectileGroup # 值
-function GameAPI.set_trigger_list_actor_variable_projectile_group(actor, key, index, value) end
-
---设置全局触发器PROJECTILE_GROUP非数组变量
----@param key string # 变量名称
----@param value? py.ProjectileGroup # 值
-function GameAPI.set_trigger_variable_projectile_group(key, value) end
-
---设置全局触发器PROJECTILE_GROUP非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.ProjectileGroup # 值
-function GameAPI.set_trigger_actor_variable_projectile_group(actor, key, value) end
-
---设置全局触发器DESTRUCTIBLE_ENTITY数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Destructible # 值
-function GameAPI.set_trigger_list_variable_destructible_entity(key, index, value) end
-
---设置全局触发器DESTRUCTIBLE_ENTITY数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Destructible # 值
-function GameAPI.set_trigger_list_actor_variable_destructible_entity(actor, key, index, value) end
-
---设置全局触发器DESTRUCTIBLE_ENTITY非数组变量
----@param key string # 变量名称
----@param value? py.Destructible # 值
-function GameAPI.set_trigger_variable_destructible_entity(key, value) end
-
---设置全局触发器DESTRUCTIBLE_ENTITY非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.Destructible # 值
-function GameAPI.set_trigger_actor_variable_destructible_entity(actor, key, value) end
-
---设置全局触发器DESTRUCTIBLE_NAME数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.DestructibleKey # 值
-function GameAPI.set_trigger_list_variable_destructible_name(key, index, value) end
-
---设置全局触发器DESTRUCTIBLE_NAME数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.DestructibleKey # 值
-function GameAPI.set_trigger_list_actor_variable_destructible_name(actor, key, index, value) end
-
---设置全局触发器DESTRUCTIBLE_NAME非数组变量
----@param key string # 变量名称
----@param value? py.DestructibleKey # 值
-function GameAPI.set_trigger_variable_destructible_name(key, value) end
-
---设置全局触发器DESTRUCTIBLE_NAME非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.DestructibleKey # 值
-function GameAPI.set_trigger_actor_variable_destructible_name(actor, key, value) end
-
---设置全局触发器SOUND_ENTITY数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.SoundEntity # 值
-function GameAPI.set_trigger_list_variable_sound_entity(key, index, value) end
-
---设置全局触发器SOUND_ENTITY数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.SoundEntity # 值
-function GameAPI.set_trigger_list_actor_variable_sound_entity(actor, key, index, value) end
-
---设置全局触发器SOUND_ENTITY非数组变量
----@param key string # 变量名称
----@param value? py.SoundEntity # 值
-function GameAPI.set_trigger_variable_sound_entity(key, value) end
-
---设置全局触发器SOUND_ENTITY非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.SoundEntity # 值
-function GameAPI.set_trigger_actor_variable_sound_entity(actor, key, value) end
-
---设置全局触发器AUDIO_KEY数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.AudioKey # 值
-function GameAPI.set_trigger_list_variable_audio_key(key, index, value) end
-
---设置全局触发器AUDIO_KEY数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.AudioKey # 值
-function GameAPI.set_trigger_list_actor_variable_audio_key(actor, key, index, value) end
-
---设置全局触发器AUDIO_KEY非数组变量
----@param key string # 变量名称
----@param value? py.AudioKey # 值
-function GameAPI.set_trigger_variable_audio_key(key, value) end
-
---设置全局触发器AUDIO_KEY非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.AudioKey # 值
-function GameAPI.set_trigger_actor_variable_audio_key(actor, key, value) end
-
---设置全局触发器GAME_MODE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.GameMode # 值
-function GameAPI.set_trigger_list_variable_game_mode(key, index, value) end
-
---设置全局触发器GAME_MODE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.GameMode # 值
-function GameAPI.set_trigger_list_actor_variable_game_mode(actor, key, index, value) end
-
---设置全局触发器GAME_MODE非数组变量
----@param key string # 变量名称
----@param value? py.GameMode # 值
-function GameAPI.set_trigger_variable_game_mode(key, value) end
-
---设置全局触发器GAME_MODE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.GameMode # 值
-function GameAPI.set_trigger_actor_variable_game_mode(actor, key, value) end
-
---设置全局触发器PLAYER数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Role # 值
-function GameAPI.set_trigger_list_variable_player(key, index, value) end
-
---设置全局触发器PLAYER数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Role # 值
-function GameAPI.set_trigger_list_actor_variable_player(actor, key, index, value) end
-
---设置全局触发器PLAYER非数组变量
----@param key string # 变量名称
----@param value? py.Role # 值
-function GameAPI.set_trigger_variable_player(key, value) end
-
---设置全局触发器PLAYER非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.Role # 值
-function GameAPI.set_trigger_actor_variable_player(actor, key, value) end
-
---设置全局触发器PLAYER_GROUP数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoleGroup # 值
-function GameAPI.set_trigger_list_variable_player_group(key, index, value) end
-
---设置全局触发器PLAYER_GROUP数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoleGroup # 值
-function GameAPI.set_trigger_list_actor_variable_player_group(actor, key, index, value) end
-
---设置全局触发器PLAYER_GROUP非数组变量
----@param key string # 变量名称
----@param value? py.RoleGroup # 值
-function GameAPI.set_trigger_variable_player_group(key, value) end
-
---设置全局触发器PLAYER_GROUP非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.RoleGroup # 值
-function GameAPI.set_trigger_actor_variable_player_group(actor, key, value) end
-
---设置全局触发器ROLE_RES_KEY数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoleResKey # 值
-function GameAPI.set_trigger_list_variable_role_res_key(key, index, value) end
-
---设置全局触发器ROLE_RES_KEY数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoleResKey # 值
-function GameAPI.set_trigger_list_actor_variable_role_res_key(actor, key, index, value) end
-
---设置全局触发器ROLE_RES_KEY非数组变量
----@param key string # 变量名称
----@param value? py.RoleResKey # 值
-function GameAPI.set_trigger_variable_role_res_key(key, value) end
-
---设置全局触发器ROLE_RES_KEY非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.RoleResKey # 值
-function GameAPI.set_trigger_actor_variable_role_res_key(actor, key, value) end
-
---设置全局触发器ROLE_STATUS数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoleStatus # 值
-function GameAPI.set_trigger_list_variable_role_status(key, index, value) end
-
---设置全局触发器ROLE_STATUS数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoleStatus # 值
-function GameAPI.set_trigger_list_actor_variable_role_status(actor, key, index, value) end
-
---设置全局触发器ROLE_STATUS非数组变量
----@param key string # 变量名称
----@param value? py.RoleStatus # 值
-function GameAPI.set_trigger_variable_role_status(key, value) end
-
---设置全局触发器ROLE_STATUS非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.RoleStatus # 值
-function GameAPI.set_trigger_actor_variable_role_status(actor, key, value) end
-
---设置全局触发器ROLE_TYPE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoleType # 值
-function GameAPI.set_trigger_list_variable_role_type(key, index, value) end
-
---设置全局触发器ROLE_TYPE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoleType # 值
-function GameAPI.set_trigger_list_actor_variable_role_type(actor, key, index, value) end
-
---设置全局触发器ROLE_TYPE非数组变量
----@param key string # 变量名称
----@param value? py.RoleType # 值
-function GameAPI.set_trigger_variable_role_type(key, value) end
-
---设置全局触发器ROLE_TYPE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.RoleType # 值
-function GameAPI.set_trigger_actor_variable_role_type(actor, key, value) end
-
---设置全局触发器TEAM数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Camp # 值
-function GameAPI.set_trigger_list_variable_team(key, index, value) end
-
---设置全局触发器TEAM数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Camp # 值
-function GameAPI.set_trigger_list_actor_variable_team(actor, key, index, value) end
-
---设置全局触发器TEAM非数组变量
----@param key string # 变量名称
----@param value? py.Camp # 值
-function GameAPI.set_trigger_variable_team(key, value) end
-
---设置全局触发器TEAM非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.Camp # 值
-function GameAPI.set_trigger_actor_variable_team(actor, key, value) end
-
---设置全局触发器POINT数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.FPoint # 值
-function GameAPI.set_trigger_list_variable_point(key, index, value) end
-
---设置全局触发器POINT数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.FPoint # 值
-function GameAPI.set_trigger_list_actor_variable_point(actor, key, index, value) end
-
---设置全局触发器POINT非数组变量
----@param key string # 变量名称
----@param value? py.FPoint # 值
-function GameAPI.set_trigger_variable_point(key, value) end
-
---设置全局触发器POINT非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.FPoint # 值
-function GameAPI.set_trigger_actor_variable_point(actor, key, value) end
-
---设置全局触发器VECTOR3数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.FVector3 # 值
-function GameAPI.set_trigger_list_variable_vector3(key, index, value) end
-
---设置全局触发器VECTOR3数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.FVector3 # 值
-function GameAPI.set_trigger_list_actor_variable_vector3(actor, key, index, value) end
-
---设置全局触发器VECTOR3非数组变量
----@param key string # 变量名称
----@param value? py.FVector3 # 值
-function GameAPI.set_trigger_variable_vector3(key, value) end
-
---设置全局触发器VECTOR3非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.FVector3 # 值
-function GameAPI.set_trigger_actor_variable_vector3(actor, key, value) end
-
---设置全局触发器ROTATION数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.FRotation # 值
-function GameAPI.set_trigger_list_variable_rotation(key, index, value) end
-
---设置全局触发器ROTATION数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.FRotation # 值
-function GameAPI.set_trigger_list_actor_variable_rotation(actor, key, index, value) end
-
---设置全局触发器ROTATION非数组变量
----@param key string # 变量名称
----@param value? py.FRotation # 值
-function GameAPI.set_trigger_variable_rotation(key, value) end
-
---设置全局触发器ROTATION非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.FRotation # 值
-function GameAPI.set_trigger_actor_variable_rotation(actor, key, value) end
-
---设置全局触发器POINT_LIST数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Road # 值
-function GameAPI.set_trigger_list_variable_point_list(key, index, value) end
-
---设置全局触发器POINT_LIST数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Road # 值
-function GameAPI.set_trigger_list_actor_variable_point_list(actor, key, index, value) end
-
---设置全局触发器POINT_LIST非数组变量
----@param key string # 变量名称
----@param value? py.Road # 值
-function GameAPI.set_trigger_variable_point_list(key, value) end
-
---设置全局触发器POINT_LIST非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.Road # 值
-function GameAPI.set_trigger_actor_variable_point_list(actor, key, value) end
-
---设置全局触发器ROAD_GROUP数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoadGroup # 值
-function GameAPI.set_trigger_list_variable_road_group(key, index, value) end
-
---设置全局触发器ROAD_GROUP数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RoadGroup # 值
-function GameAPI.set_trigger_list_actor_variable_road_group(actor, key, index, value) end
-
---设置全局触发器ROAD_GROUP非数组变量
----@param key string # 变量名称
----@param value? py.RoadGroup # 值
-function GameAPI.set_trigger_variable_road_group(key, value) end
-
---设置全局触发器ROAD_GROUP非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.RoadGroup # 值
-function GameAPI.set_trigger_actor_variable_road_group(actor, key, value) end
-
---设置全局触发器RECTANGLE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RecArea # 值
-function GameAPI.set_trigger_list_variable_rectangle(key, index, value) end
-
---设置全局触发器RECTANGLE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.RecArea # 值
-function GameAPI.set_trigger_list_actor_variable_rectangle(actor, key, index, value) end
-
---设置全局触发器RECTANGLE非数组变量
----@param key string # 变量名称
----@param value? py.RecArea # 值
-function GameAPI.set_trigger_variable_rectangle(key, value) end
-
---设置全局触发器RECTANGLE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.RecArea # 值
-function GameAPI.set_trigger_actor_variable_rectangle(actor, key, value) end
-
---设置全局触发器ROUND_AREA数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.CirArea # 值
-function GameAPI.set_trigger_list_variable_round_area(key, index, value) end
-
---设置全局触发器ROUND_AREA数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.CirArea # 值
-function GameAPI.set_trigger_list_actor_variable_round_area(actor, key, index, value) end
-
---设置全局触发器ROUND_AREA非数组变量
----@param key string # 变量名称
----@param value? py.CirArea # 值
-function GameAPI.set_trigger_variable_round_area(key, value) end
-
---设置全局触发器ROUND_AREA非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.CirArea # 值
-function GameAPI.set_trigger_actor_variable_round_area(actor, key, value) end
-
---设置全局触发器POLYGON数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.PolyArea # 值
-function GameAPI.set_trigger_list_variable_polygon(key, index, value) end
-
---设置全局触发器POLYGON数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.PolyArea # 值
-function GameAPI.set_trigger_list_actor_variable_polygon(actor, key, index, value) end
-
---设置全局触发器POLYGON非数组变量
----@param key string # 变量名称
----@param value? py.PolyArea # 值
-function GameAPI.set_trigger_variable_polygon(key, value) end
-
---设置全局触发器POLYGON非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.PolyArea # 值
-function GameAPI.set_trigger_actor_variable_polygon(actor, key, value) end
-
---设置全局触发器CAMERA数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Camera # 值
-function GameAPI.set_trigger_list_variable_camera(key, index, value) end
-
---设置全局触发器CAMERA数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.Camera # 值
-function GameAPI.set_trigger_list_actor_variable_camera(actor, key, index, value) end
-
---设置全局触发器CAMERA非数组变量
----@param key string # 变量名称
----@param value? py.Camera # 值
-function GameAPI.set_trigger_variable_camera(key, value) end
-
---设置全局触发器CAMERA非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.Camera # 值
-function GameAPI.set_trigger_actor_variable_camera(actor, key, value) end
-
---设置全局触发器CAMLINE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.CamlineID # 值
-function GameAPI.set_trigger_list_variable_camline(key, index, value) end
-
---设置全局触发器CAMLINE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.CamlineID # 值
-function GameAPI.set_trigger_list_actor_variable_camline(actor, key, index, value) end
-
---设置全局触发器CAMLINE非数组变量
----@param key string # 变量名称
----@param value? py.CamlineID # 值
-function GameAPI.set_trigger_variable_camline(key, value) end
-
---设置全局触发器CAMLINE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.CamlineID # 值
-function GameAPI.set_trigger_actor_variable_camline(actor, key, value) end
-
---设置全局触发器POINT_LIGHT数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.PointLight # 值
-function GameAPI.set_trigger_list_variable_point_light(key, index, value) end
-
---设置全局触发器POINT_LIGHT数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.PointLight # 值
-function GameAPI.set_trigger_list_actor_variable_point_light(actor, key, index, value) end
-
---设置全局触发器POINT_LIGHT非数组变量
----@param key string # 变量名称
----@param value? py.PointLight # 值
-function GameAPI.set_trigger_variable_point_light(key, value) end
-
---设置全局触发器POINT_LIGHT非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.PointLight # 值
-function GameAPI.set_trigger_actor_variable_point_light(actor, key, value) end
-
---设置全局触发器SPOT_LIGHT数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.SpotLight # 值
-function GameAPI.set_trigger_list_variable_spot_light(key, index, value) end
-
---设置全局触发器SPOT_LIGHT数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@param value? py.SpotLight # 值
-function GameAPI.set_trigger_list_actor_variable_spot_light(actor, key, index, value) end
-
---设置全局触发器SPOT_LIGHT非数组变量
----@param key string # 变量名称
----@param value? py.SpotLight # 值
-function GameAPI.set_trigger_variable_spot_light(key, value) end
-
---设置全局触发器SPOT_LIGHT非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param value? py.SpotLight # 值
-function GameAPI.set_trigger_actor_variable_spot_light(actor, key, value) end

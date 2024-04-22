@@ -5014,6 +5014,30 @@ event.ET_SELECT_DEST = {
     },
 }
 
+---@class EventParam.ET_ASYNC_SELECT_DEST
+---@field player Player # 玩家
+---@field destructible Destructible # 点击到可破坏物
+
+--异步玩家选中可破坏物
+event.ET_ASYNC_SELECT_DEST = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__destructible_id",
+        type = "py.DestructibleID",
+        lua_name = "destructible",
+        lua_type = "Destructible",
+        desc = "点击到可破坏物id",
+        lua_desc = "点击到可破坏物",
+    },
+}
+
 ---@class EventParam.ET_DEST_DELETE
 ---@field destructible Destructible # 触发事件的可破坏物
 
@@ -5489,6 +5513,54 @@ event.ET_KEYBOARD_KEY_UP_EVENT = {
     },
 }
 
+---@class EventParam.ET_ASYNC_KEYBOARD_KEY_DOWN_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.KeyboardKey # 当前键盘按键
+
+--异步键盘按键按下
+event.ET_ASYNC_KEYBOARD_KEY_DOWN_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.KeyboardKey",
+        lua_name = "current_key",
+        lua_type = "py.KeyboardKey",
+        desc = "当前键盘按键",
+        lua_desc = "当前键盘按键",
+    },
+}
+
+---@class EventParam.ET_ASYNC_KEYBOARD_KEY_UP_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.KeyboardKey # 当前键盘按键
+
+--异步键盘按键抬起
+event.ET_ASYNC_KEYBOARD_KEY_UP_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.KeyboardKey",
+        lua_name = "current_key",
+        lua_type = "py.KeyboardKey",
+        desc = "当前键盘按键",
+        lua_desc = "当前键盘按键",
+    },
+}
+
 ---@class EventParam.ET_MOUSE_KEY_DOWN_EVENT
 ---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
@@ -5562,6 +5634,105 @@ event.ET_MOUSE_KEY_UP_EVENT = {
 
 --鼠标按键双击
 event.MOUSE_KEY_DB_CLICK_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.MouseKey",
+        lua_name = "current_key",
+        lua_type = "py.MouseKey",
+        desc = "当前鼠标按键",
+        lua_desc = "当前鼠标按键",
+    },
+    [3] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "鼠标指向的世界坐标",
+        lua_desc = "鼠标指向的世界坐标",
+    },
+}
+
+---@class EventParam.ET_ASYNC_MOUSE_KEY_DOWN_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field pointing_world_pos Point # 鼠标指向的世界坐标
+
+--异步鼠标按键按下
+event.ET_ASYNC_MOUSE_KEY_DOWN_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.MouseKey",
+        lua_name = "current_key",
+        lua_type = "py.MouseKey",
+        desc = "当前鼠标按键",
+        lua_desc = "当前鼠标按键",
+    },
+    [3] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "鼠标指向的世界坐标",
+        lua_desc = "鼠标指向的世界坐标",
+    },
+}
+
+---@class EventParam.ET_ASYNC_MOUSE_KEY_UP_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field pointing_world_pos Point # 鼠标指向的世界坐标
+
+--异步鼠标按键抬起
+event.ET_ASYNC_MOUSE_KEY_UP_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.MouseKey",
+        lua_name = "current_key",
+        lua_type = "py.MouseKey",
+        desc = "当前鼠标按键",
+        lua_desc = "当前鼠标按键",
+    },
+    [3] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "鼠标指向的世界坐标",
+        lua_desc = "鼠标指向的世界坐标",
+    },
+}
+
+---@class EventParam.ET_ASYNC_MOUSE_KEY_DB_CLICK_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field pointing_world_pos Point # 鼠标指向的世界坐标
+
+--异步鼠标按键双击
+event.ET_ASYNC_MOUSE_KEY_DB_CLICK_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -5687,6 +5858,105 @@ event.MOUSE_KEY_DB_CLICK_UNIT_EVENT = {
     },
 }
 
+---@class EventParam.ET_MOUSE_KEY_DOWN_UNIT_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field unit Unit # 当前操作的单位
+
+--异步鼠标按键按下单位
+event.ET_MOUSE_KEY_DOWN_UNIT_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.MouseKey",
+        lua_name = "current_key",
+        lua_type = "py.MouseKey",
+        desc = "当前鼠标按键",
+        lua_desc = "当前鼠标按键",
+    },
+    [3] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "当前操作的单位ID",
+        lua_desc = "当前操作的单位",
+    },
+}
+
+---@class EventParam.ET_MOUSE_KEY_UP_UNIT_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field unit Unit # 当前操作的单位
+
+--异步鼠标按键抬起单位
+event.ET_MOUSE_KEY_UP_UNIT_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.MouseKey",
+        lua_name = "current_key",
+        lua_type = "py.MouseKey",
+        desc = "当前鼠标按键",
+        lua_desc = "当前鼠标按键",
+    },
+    [3] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "当前操作的单位ID",
+        lua_desc = "当前操作的单位",
+    },
+}
+
+---@class EventParam.ET_MOUSE_KEY_DB_CLICK_UNIT_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.MouseKey # 当前鼠标按键
+---@field unit Unit # 当前操作的单位
+
+--异步鼠标按键双击单位
+event.ET_MOUSE_KEY_DB_CLICK_UNIT_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.MouseKey",
+        lua_name = "current_key",
+        lua_type = "py.MouseKey",
+        desc = "当前鼠标按键",
+        lua_desc = "当前鼠标按键",
+    },
+    [3] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "当前操作的单位ID",
+        lua_desc = "当前操作的单位",
+    },
+}
+
 ---@class EventParam.MOUSE_MOVE_EVENT
 ---@field player Player # 触发按键的玩家
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
@@ -5729,12 +5999,78 @@ event.MOUSE_MOVE_EVENT = {
     },
 }
 
+---@class EventParam.ET_ASYNC_MOUSE_MOVE_EVENT
+---@field player Player # 触发按键的玩家
+---@field pointing_world_pos Point # 鼠标指向的世界坐标
+---@field tar_x integer # 鼠标指向的屏幕坐标X
+---@field tar_y integer # 鼠标指向的屏幕坐标Y
+
+--异步鼠标移动事件
+event.ET_ASYNC_MOUSE_MOVE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "鼠标指向的世界坐标",
+        lua_desc = "鼠标指向的世界坐标",
+    },
+    [3] = {
+        name = "__tar_x",
+        type = "integer",
+        lua_name = "tar_x",
+        lua_type = "integer",
+        desc = "鼠标指向的屏幕坐标X",
+        lua_desc = "鼠标指向的屏幕坐标X",
+    },
+    [4] = {
+        name = "__tar_y",
+        type = "integer",
+        lua_name = "tar_y",
+        lua_type = "integer",
+        desc = "鼠标指向的屏幕坐标Y",
+        lua_desc = "鼠标指向的屏幕坐标Y",
+    },
+}
+
 ---@class EventParam.ET_MOUSE_WHEEL_EVENT
 ---@field player Player # 触发按键的玩家
 ---@field mouse_wheel py.MouseWheel # 当前鼠标滚轮
 
 --鼠标滚轮事件
 event.ET_MOUSE_WHEEL_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__mouse_wheel",
+        type = "py.MouseWheel",
+        lua_name = "mouse_wheel",
+        lua_type = "py.MouseWheel",
+        desc = "当前鼠标滚轮",
+        lua_desc = "当前鼠标滚轮",
+    },
+}
+
+---@class EventParam.ET_ASYNC_MOUSE_WHEEL_EVENT
+---@field player Player # 触发按键的玩家
+---@field mouse_wheel py.MouseWheel # 当前鼠标滚轮
+
+--鼠标滚轮事件
+event.ET_ASYNC_MOUSE_WHEEL_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -6127,11 +6463,50 @@ event.ET_SELECT_UNIT = {
     },
 }
 
+---@class EventParam.ET_ASYNC_SELECT_UNIT
+---@field player Player # 玩家
+---@field unit Unit # 点击到单位
+
+--异步玩家选中单位
+event.ET_ASYNC_SELECT_UNIT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "点击到单位id",
+        lua_desc = "点击到单位",
+    },
+}
+
 ---@class EventParam.CANCEL_SELECT_UNIT
 ---@field player Player # 玩家
 
 --取消选中单位
 event.CANCEL_SELECT_UNIT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+}
+
+---@class EventParam.ET_ASYNC_CANCEL_SELECT_UNIT
+---@field player Player # 玩家
+
+--异步取消单位选中
+event.ET_ASYNC_CANCEL_SELECT_UNIT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -6172,6 +6547,30 @@ event.ET_HIGH_LIGHT_UNIT_CHANGE = {
 
 --玩家选中物品
 event.ET_SELECT_ITEM = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "点击到物品id",
+        lua_desc = "点击到物品",
+    },
+}
+
+---@class EventParam.ET_ASYNC_SELECT_ITEM
+---@field player Player # 玩家
+---@field item Item # 点击到物品
+
+--异步玩家选中物品
+event.ET_ASYNC_SELECT_ITEM = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -6320,6 +6719,39 @@ event.ET_DOUBLE_CLICK_DEST = {
 
 --玩家选中单位组
 event.ET_SELECT_UNIT_GROUP = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__unit_group_id_list",
+        type = "py.UnitGroup",
+        lua_name = "unit_group_id_list",
+        lua_type = "UnitGroup",
+        desc = "框选到单位组id列表",
+        lua_desc = "框选到单位组id列表",
+    },
+    [3] = {
+        name = "__team_id",
+        type = "integer",
+        lua_name = "team_id",
+        lua_type = "integer",
+        desc = "队伍编号",
+        lua_desc = "队伍编号",
+    },
+}
+
+---@class EventParam.ET_ASYNC_SELECT_UNIT_GROUP
+---@field player Player # 玩家
+---@field unit_group_id_list UnitGroup # 框选到单位组id列表
+---@field team_id integer # 队伍编号
+
+--玩家选中单位组
+event.ET_ASYNC_SELECT_UNIT_GROUP = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -7596,6 +8028,48 @@ event.ET_MOVE_UNIT_TO_TARGET_CMD = {
 
 --鼠标悬停事件
 event.ET_MOUSE_HOVER_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家id",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "悬浮单位ID",
+        lua_desc = "悬浮单位",
+    },
+    [3] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "悬浮物品ID",
+        lua_desc = "悬浮物品",
+    },
+    [4] = {
+        name = "__destructible_id",
+        type = "py.DestructibleID",
+        lua_name = "destructible",
+        lua_type = "Destructible",
+        desc = "悬浮可破坏物ID",
+        lua_desc = "悬浮可破坏物",
+    },
+}
+
+---@class EventParam.ET_ASYNC_MOUSE_HOVER_EVENT
+---@field player Player # 玩家
+---@field unit Unit # 悬浮单位
+---@field item Item # 悬浮物品
+---@field destructible Destructible # 悬浮可破坏物
+
+--异步鼠标悬停事件
+event.ET_ASYNC_MOUSE_HOVER_EVENT = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
