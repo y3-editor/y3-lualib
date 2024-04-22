@@ -350,7 +350,8 @@ end
 ---获取经验获得率
 ---@return number exp_rate 经验获得率
 function M:get_exp_rate()
-    return self.phandle:get_role_exp_rate():float()
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return self.phandle:get_role_exp_rate()
 end
 
 ---获取队伍ID
