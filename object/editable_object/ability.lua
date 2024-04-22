@@ -99,6 +99,22 @@ function M:has_tag(tag)
     return GlobalAPI.has_tag(self.handle,tag)
 end
 
+--添加标签
+---5月30日版本更新后可用
+---@deprecated
+---@param tag string 标签
+function M:add_tag(tag)
+    self.phandle:api_add_tag(tag)
+end
+
+---移除标签
+---5月30日版本更新后可用
+---@deprecated
+---@param tag string 标签
+function M:remove_tag(tag)
+    self.phandle:api_remove_tag(tag)
+end
+
 ---启用技能
 function M:enable()
     self.phandle:api_enable()
