@@ -409,7 +409,7 @@ end
 ---获取玩家平台头像
 ---@return integer icon 平台头像
 function M:get_platform_icon()
-    return GameAPI.get_role_platform_icon(self.handle)
+    return self.phandle:get_role_status() == 1 and GameAPI.get_role_platform_icon(self.handle) or 999
 end
 
 ---玩家平台道具数量
