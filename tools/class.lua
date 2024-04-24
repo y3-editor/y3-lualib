@@ -25,6 +25,7 @@ M._errorHandler = error
 ---@field private name         string
 ---@field package extendsMap   table<string, boolean>
 ---@field package extendsCalls Class.Extends.CallData[]
+---@field package extendsKeys  table<string, boolean>
 ---@field private superCache   table<string, fun(...)>
 ---@field package superClass?  Class.Base
 ---@field public  getter       table<any, fun(obj: any)>
@@ -40,6 +41,7 @@ function M.getConfig(name)
             extendsMap   = {},
             superCache   = {},
             extendsCalls = {},
+            extendsKeys  = {},
         }, { __index = Config })
     end
     return M._classConfig[name]
@@ -357,28 +359,50 @@ function Config:extends(extendsName, init)
     if type(init) ~= 'nil' and type(init) ~= 'function' then
         M._errorHandler(('init must be nil or function'))
     end
-    if not self.extendsMap[extendsName] then
-        self.extendsMap[extendsName] = true
+    self.extendsMap[extendsName] = true
+
+    do --复制父类的字段与 getter 和 setter
         for k, v in pairs(extends) do
-            if not class[k] and not k:match '^__' then
+            if (not class[k] or self.extendsKeys[k])
+            and not k:match '^__' then
+                self.extendsKeys[k] = true
                 class[k] = v
             end
         end
         for k, v in pairs(extends.__getter) do
-            if not class.__getter[k] then
+            if not class.__getter[k]
+            or self.extendsKeys[k] then
+                self.extendsKeys[k] = true
                 class.__getter[k] = v
             end
         end
         for k, v in pairs(extends.__setter) do
-            if not class.__setter[k] then
+            if not class.__setter[k]
+            or self.extendsKeys[k] then
+                self.extendsKeys[k] = true
                 class.__setter[k] = v
             end
         end
     end
-    table.insert(self.extendsCalls, {
-        init = init,
-        name = extendsName,
-    })
+
+    do --记录父类的init方法
+        local rewrite
+        for i = 1, #self.extendsCalls do
+            local call = self.extendsCalls[i]
+            if call.name == extendsName then
+                call.init = init
+                rewrite = true
+                break
+            end
+        end
+        if not rewrite then
+            table.insert(self.extendsCalls, {
+                init = init,
+                name = extendsName,
+            })
+        end
+    end
+
     -- 检查是否需要显性初始化
     if not init then
         if not extends.__init then
