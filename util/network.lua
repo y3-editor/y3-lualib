@@ -13,6 +13,7 @@ M._send_buffer = ''
 ---@field buffer_size? integer # 网络缓冲区大小（字节），默认为 2MB
 ---@field timeout? number # 连接超时时间（秒），默认为无限
 ---@field update_interval? number # 网络更新间隔（秒），默认为 0.2
+---@field retry_interval? number # 重连间隔（秒），默认为 5
 
 ---@alias Network.OnConnected fun(self: Network)
 ---@alias Network.OnData fun(self: Network, data: string)
@@ -29,6 +30,7 @@ function M:__init(ip, port, options)
     self.options = options or {}
     self.options.buffer_size = self.options.buffer_size or (1024 * 1024 * 2)
     self.options.update_interval = self.options.update_interval or 0.2
+    self.options.retry_interval = self.options.retry_interval or 5
 
     ---@private
     self.update_timer = y3.ltimer.loop(self.options.update_interval, function ()
@@ -37,7 +39,7 @@ function M:__init(ip, port, options)
     y3.ltimer.wait(0, function ()
         self:update()
     end)
-    self.retry_timer = y3.ltimer.loop(1, function (t)
+    self.retry_timer = y3.ltimer.loop(self.options.retry_interval, function (t)
         if self.state ~= 'started' then
             t:remove()
             return
@@ -163,6 +165,55 @@ end
 function M:on_data(on_data)
     ---@private
     self._on_data = on_data
+end
+
+--创建一个“阻塞”式的数据读取器，会循环执行 `callback`
+--> 与 `on_data` 互斥
+---@param callback async fun(read: async fun(len: integer): string)
+function M:data_reader(callback)
+    local buffer = ''
+    local read_once
+
+    ---@async
+    local co = coroutine.create(function (reader)
+        while true do
+            read_once = false
+            xpcall(callback, log.error, reader)
+            if not read_once then
+                log.error([[
+数据读取器在本次循环中没有读取任何数据！
+请确保你在读取器中至少调用过一次有效的 `read` 函数！
+读取器已休眠，将在收到新数据后重新激活。
+]])
+                coroutine.yield()
+            end
+        end
+    end)
+
+    self:on_data(function (_, data)
+        buffer = buffer .. data
+        coroutine.resume(co)
+    end)
+
+    --读取指定字节数的数据。如果缓冲区中的数据不足，
+    --读取器会休眠直到收到足够的数据
+    ---@async
+    ---@param len integer # 要读取的字节数
+    ---@return string
+    local function read(len)
+        if len <= 0 then
+            return ''
+        end
+        while len > #buffer do
+            coroutine.yield()
+        end
+        read_once = true
+        local data = buffer:sub(1, len)
+        buffer = buffer:sub(len + 1)
+        return data
+    end
+
+    coroutine.resume(co, read)
 end
 
 --断开连接后的回调
