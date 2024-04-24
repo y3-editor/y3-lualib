@@ -1100,7 +1100,7 @@ function M:add_buff(data)
         data.key,
         data.source and data.source.handle or nil,
         data.ability and data.ability.handle or nil,
-        Fix32(data.time or 100.0),
+        Fix32(data.time or -1),
         Fix32(data.pulse or 0.0),
         data.stacks or 1
     )
