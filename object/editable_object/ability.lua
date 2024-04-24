@@ -35,6 +35,7 @@ function M:__init(id, py_ability)
 end
 
 function M:__del()
+    M.ref_manager:remove(self.id)
     self.phandle:api_remove()
 end
 
@@ -66,8 +67,7 @@ y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
 end)
 
 y3.game:event('技能-失去', function (trg, data)
-    local id = data.ability.id
-    M.ref_manager:remove(id)
+    data.ability:remove()
 end)
 
 function M:get_key()

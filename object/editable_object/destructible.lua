@@ -29,6 +29,7 @@ function M:__init(py_destructible)
 end
 
 function M:__del()
+    M.ref_manager:remove(self.id)
     self.phandle:api_delete()
 end
 
@@ -66,8 +67,7 @@ end
 y3.py_converter.register_py_to_lua('py.DestructibleID', M.get_by_id)
 
 y3.game:event('可破坏物-移除', function (trg, data)
-    local id = data.destructible.id
-    M.ref_manager:remove(id)
+    data.destructible:remove()
 end)
 
 ---是否存在

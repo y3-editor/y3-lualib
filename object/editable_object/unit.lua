@@ -37,6 +37,7 @@ function M:__init(py_unit_id, py_unit)
 end
 
 function M:__del()
+    M.ref_manager:remove(self.id)
     self.phandle:api_delete()
 end
 
@@ -101,8 +102,7 @@ end
 y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)
 
 y3.game:event('单位-移除后', function (trg, data)
-    local id = data.unit.id
-    M.ref_manager:remove(id)
+    data.unit:remove()
 end)
 
 ---是否存在

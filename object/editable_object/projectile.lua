@@ -29,6 +29,7 @@ function M:__init(id, py_projectile)
 end
 
 function M:__del()
+    M.ref_manager:remove(self.id)
     self.phandle:api_delete()
 end
 
@@ -63,8 +64,7 @@ end)
 y3.py_converter.register_py_to_lua('py.ProjectileID', M.get_by_id)
 
 y3.game:event('投射物-死亡', function (trg, data)
-    local id = data.projectile.id
-    M.ref_manager:remove(id)
+    data.projectile:remove()
 end)
 
 ---获取投射物的类型ID

@@ -37,6 +37,7 @@ function M:__init(id, py_item)
 end
 
 function M:__del()
+    M.ref_manager:remove(self.id)
     self.phandle:api_remove()
 end
 
@@ -75,8 +76,7 @@ end
 y3.py_converter.register_py_to_lua('py.ItemID', M.get_by_id)
 
 y3.game:event('物品-移除', function (trg, data)
-    local item = data.item
-    M.ref_manager:remove(item.id)
+    data.item:remove()
 end)
 
 ---是否存在
