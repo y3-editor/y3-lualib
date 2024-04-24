@@ -100,6 +100,7 @@ y3.ltimer       = require 'y3.util.local_timer'
 y3.save_data    = require 'y3.util.save_data'
 y3.dump         = require 'y3.util.dump'
 y3.sync         = require 'y3.util.sync'
+y3.network      = require 'y3.util.network'
 
 require 'y3.util.local_ui_logic'
 
