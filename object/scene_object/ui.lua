@@ -775,9 +775,9 @@ function M.create_floating_text(point, text_type, str, player_group, jump_word_t
     GameAPI.create_harm_text_ex(point.handle, y3.const.HarmTextType[text_type] or text_type, str, (player_group or y3.player_group.get_all_players()).handle, jump_word_track or 0)
 end
 
---设置窗口
+--设置窗口类型
 ---@param player Player 玩家
----@param window_mode string 窗口类型
+---@param window_mode Game.WindowMode 窗口类型
 function M.set_window_mode(player, window_mode)
     GameAPI.set_window_type(player.handle, window_mode)
 end

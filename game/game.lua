@@ -608,8 +608,13 @@ function M.get_graphics_quality()
     return GameAPI.get_graphics_quality()
 end
 
+---@alias Game.WindowMode
+---| "full_screen" # 全屏
+---| "window_mode" # 窗口化
+---| "window_mode_full_screen" # 窗口化全屏
+
 ---获取窗口化类别
----@return 'full_screen' | 'window_mode' | 'window_mode_full_screen' mode 窗口化类别
+---@return Game.WindowMode mode 窗口化类别
 function M.get_window_mode()
     return GameAPI.get_window_mode()
 end
