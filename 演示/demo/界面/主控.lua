@@ -139,4 +139,22 @@ y3.game:event('键盘-抬起', y3.const.KeyboardKey['SPACE'], function (trg, dat
     y3.camera.cancel_camera_follow_unit(data.player)
 end)
 
+MAIN:on_refresh('道具', function (ui, local_player)
+    local u = local_player:get_selecting_unit()
+    if not u then
+        return
+    end
+
+    for i, slot in ipairs(ui:get_childs()) do
+        local item = u:get_item_by_slot(y3.const.SlotType.BAR, i)
+        if item then
+            slot:get_child(tostring(i)):set_ui_unit_slot(u, y3.const.SlotType.BAR, i - 1)
+        end
+    end
+end)
+
+y3.game:event('物品-获得', function (trg, data)
+    MAIN:refresh('道具', data.unit:get_owner_player())
+end)
+
 return MAIN
