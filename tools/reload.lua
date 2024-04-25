@@ -122,6 +122,7 @@ M.modNameMap = {}
 M.includeStack = {}
 
 -- 类似于 `require` ，但是会在重载时重新加载文件。
+-- 加载文件时遇到错误会返回false而不是抛出异常。
 ---@param modname string
 ---@return any
 ---@return unknown loaderdata
