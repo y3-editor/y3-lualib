@@ -195,22 +195,69 @@ function M:data_reader(callback)
         coroutine.resume(co)
     end)
 
-    --读取指定字节数的数据。如果缓冲区中的数据不足，
-    --读取器会休眠直到收到足够的数据
+    --按照传入的规则读取数据，如果数据不满足规则，
+    --那么读取器会休眠直到收到满足规则的数据再返回
+    --* 如果不传入任何参数：
+    --  读取所有已收到的数据，类似于 `on_data`
+    --* 如果传入整数：
+    --  读取指定字节数的数据。
+    --* 如果传入 `'l'`：
+    --  读取一行数据，不包括换行符。
+    --* 如果传入 `'L'`：
+    --  读取一行数据，包括换行符。
     ---@async
-    ---@param len integer # 要读取的字节数
+    ---@param what nil|integer|'l'|'L' # 要读取的内容
     ---@return string
-    local function read(len)
-        if len <= 0 then
-            return ''
+    local function read(what)
+        if what == nil then
+            if #buffer == 0 then
+                coroutine.yield()
+                --一定是收到数据后才被唤醒的，因此不用再判断缓存了
+            end
+            read_once = true
+            buffer = ''
+            return buffer
         end
-        while len > #buffer do
-            coroutine.yield()
+        if what == 'l'
+        or what == 'L' then
+            local pos
+            local init = 1
+            while true do
+                pos = buffer:find('\n', init, true)
+                if pos then
+                    break
+                end
+                init = #buffer + 1
+                coroutine.yield()
+            end
+            read_once = true
+            local data = buffer:sub(1, pos)
+            buffer = buffer:sub(pos + 1)
+            if what == 'l' then
+                if data:sub(-2) == '\r\n' then
+                    data = data:sub(1, -3)
+                else
+                    data = data:sub(1, -2)
+                end
+                return data
+            else
+                return data
+            end
         end
-        read_once = true
-        local data = buffer:sub(1, len)
-        buffer = buffer:sub(len + 1)
-        return data
+        if math.type(what) == 'integer' then
+            ---@cast what integer
+            if what <= 0 then
+                return ''
+            end
+            while what > #buffer do
+                coroutine.yield()
+            end
+            read_once = true
+            local data = buffer:sub(1, what)
+            buffer = buffer:sub(what + 1)
+            return data
+        end
+        error('无效的读取规则:' .. tostring(what))
     end
 
     coroutine.resume(co, read)
