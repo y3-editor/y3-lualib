@@ -134,6 +134,10 @@ y3.game:event('玩家-发送消息', function (trg, data)
         strs[#strs+1] = str
     end
 
+    if #strs == 0 then
+        return
+    end
+
     local command = table.remove(strs, 1):lower()
     local info = M.commands[command]
     if not info then
