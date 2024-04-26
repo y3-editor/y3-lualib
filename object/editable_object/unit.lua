@@ -264,11 +264,11 @@ function M:get_ability_by_seq(seq)
 end
 
 ---获取单位背包槽位上的物品
----@param type y3.Const.SlotType 槽位类型
+---@param type y3.Const.SlotType | y3.Const.ShiftSlotTypeAlias 槽位类型
 ---@param slot integer 位置
 ---@return Item? item 物品
 function M:get_item_by_slot(type, slot)
-    local py_item = self.phandle:api_get_item_by_slot(type, slot)
+    local py_item = self.phandle:api_get_item_by_slot(y3.const.ShiftSlotType[type] or type, slot)
     if not py_item then
         return nil
     end
