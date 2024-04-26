@@ -169,7 +169,20 @@ end
 
 --创建一个“阻塞”式的数据读取器，会循环执行 `callback`
 --> 与 `on_data` 互斥
----@param callback async fun(read: async fun(len: integer): string)
+--
+--回调里会给你一个读取函数 `read`，下面是它的说明：
+--
+--按照传入的规则读取数据，如果数据不满足规则，
+--那么读取器会休眠直到收到满足规则的数据再返回
+--* 如果不传入任何参数：
+--  读取所有已收到的数据，类似于 `on_data`
+--* 如果传入整数：
+--  读取指定字节数的数据。
+--* 如果传入 `'l'`：
+--  读取一行数据，不包括换行符。
+--* 如果传入 `'L'`：
+--  读取一行数据，包括换行符。
+---@param callback async fun(read: async fun(len: nil|integer|'l'|'L'): string)
 function M:data_reader(callback)
     local buffer = ''
     local read_once
@@ -195,16 +208,6 @@ function M:data_reader(callback)
         coroutine.resume(co)
     end)
 
-    --按照传入的规则读取数据，如果数据不满足规则，
-    --那么读取器会休眠直到收到满足规则的数据再返回
-    --* 如果不传入任何参数：
-    --  读取所有已收到的数据，类似于 `on_data`
-    --* 如果传入整数：
-    --  读取指定字节数的数据。
-    --* 如果传入 `'l'`：
-    --  读取一行数据，不包括换行符。
-    --* 如果传入 `'L'`：
-    --  读取一行数据，包括换行符。
     ---@async
     ---@param what nil|integer|'l'|'L' # 要读取的内容
     ---@return string
