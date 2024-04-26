@@ -148,7 +148,7 @@ end
 ---@return unknown loaderdata
 function require(modname)
     M.includeStack[#M.includeStack+1] = false
-    local suc, result, loaderdata = xpcall(originRequire, log.error, modname)
+    local suc, result, loaderdata = xpcall(originRequire, debug.traceback, modname)
     M.includeStack[#M.includeStack] = nil
     if not suc then
         error(result)
