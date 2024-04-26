@@ -41,6 +41,7 @@ function M.start()
                 monster:attack_move(attack_point)
 
                 monster:event("单位-死亡", function (_, data)
+                    monsters:remove_unit(data.unit)
                     alive_cnt = alive_cnt - 1
                 end)
             end
