@@ -128,6 +128,7 @@ end
 ---@param item_id py.ItemKey 物品id
 ---@return Item
 function M:add_item(item_id)
+    --TODO 5月9号版本更新后可以指定槽位类型
     local py_item = self.phandle:api_add_item(item_id)
     return y3.item.get_by_handle(py_item)
 end
