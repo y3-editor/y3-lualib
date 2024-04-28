@@ -15,6 +15,7 @@ local class = require 'y3.tools.class'
 ---| Destructible
 ---| Particle
 ---| Mover
+---| UnitGroup
 
 ---@enum(key) KV.SupportTypeEnum
 local apiAlias = {
@@ -29,6 +30,7 @@ local apiAlias = {
     Destructible = 'destructible_entity',
     Particle     = 'sfx_entity',
     Mover        = 'mover_entity',
+    UnitGroup    = 'unit_group',
 }
 
 ---@class KV
