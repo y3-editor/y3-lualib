@@ -21,7 +21,7 @@ y3.ltimer.wait(0.5, function ()
 
     -- 当英雄进入练功房时开始刷怪
     circle_area:event('区域-进入', function (trg, data)
-        if (data.unit:is_hero()) then
+        if data.unit:is_hero() then
             monster_wave.start()
         end
     end)
@@ -29,7 +29,7 @@ y3.ltimer.wait(0.5, function ()
     -- 1.当英雄离开练功房5秒后删除区域内怪物
     -- 2.如果5秒内英雄折返则不删除
     circle_area:event('区域-离开', function (trg, data)
-        if (data.unit:is_hero()) then
+        if data.unit:is_hero() then
             monster_wave.delete(circle_area, 5)
         end
     end)

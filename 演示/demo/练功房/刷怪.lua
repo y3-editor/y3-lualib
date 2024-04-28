@@ -63,7 +63,7 @@ function M.delete(area, time)
     local is_hero_enter = false
     area:event('区域-进入', function (trg, data)
         -- 如果折回区域则为真
-        if (data.unit:is_hero()) then
+        if data.unit:is_hero() then
             is_hero_enter = true
         end
     end)
