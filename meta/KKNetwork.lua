@@ -18,11 +18,12 @@ end
 -- @detail 启动网络连接，这个函数调用后会真正的连接到服务器
 -- 如果连接成功，is_connecting 方法会返回true
 function KKNetwork:start()
-end 
+end
 
 -- 返回网络连接的在状态
+---@return boolean
 function KKNetwork:is_connecting()
-end 
+end
 
 -- 断开网络连接，停止接受网络消息事件
 -- @detail 断开当前连接，并且释放对应的资源，只要没有调用destory，还可以再次调用start 方法启动网络连接
