@@ -205,6 +205,10 @@ function M:data_reader(callback)
 
     self:on_data(function (_, data)
         buffer = buffer .. data
+        if #buffer > self.options.buffer_size then
+            self:make_error('缓冲区溢出!')
+            return
+        end
         coroutine.resume(co)
     end)
 
