@@ -47,6 +47,20 @@ local function remove_all_triggers_in_include(reload)
 end
 
 ---@param reload Reload
+local function remove_all_custom_triggers_in_include(reload)
+    local event_manager = y3.game:get_custom_event_manager()
+    if not event_manager then
+        return
+    end
+    for trigger in event_manager:pairs() do
+        local name = trigger:get_include_name()
+        if reload:isValidName(name) then
+            trigger:remove()
+        end
+    end
+end
+
+---@param reload Reload
 local function remove_all_timers_in_include(reload)
     for timer in y3.timer.pairs() do
         local name = timer:get_include_name()
@@ -116,6 +130,7 @@ M.register('CT', {
 
 y3.reload.onBeforeReload(function (reload, willReload)
     remove_all_triggers_in_include(reload)
+    remove_all_custom_triggers_in_include(reload)
     remove_all_timers_in_include(reload)
     remove_all_local_timers_in_include(reload)
 end)

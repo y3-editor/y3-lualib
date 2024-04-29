@@ -149,4 +149,9 @@ function M:event_dispatch_with_args(event_name, args, ...)
     return self.custom_event_manager:dispatch(event_name, args, ...)
 end
 
+---@return EventManager?
+function M:get_custom_event_manager()
+    return self.custom_event_manager
+end
+
 return M
