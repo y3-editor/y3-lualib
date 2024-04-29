@@ -3847,25 +3847,12 @@ function GameAPI.set_build_pointer_move_grids(x, y) end
 ---@param callback function # 回调函数
 function GameAPI.test_lua_callback(callback) end
 
---获取玩家的宠物数量
----@param role py.Role # 要获取的目标玩家
----@param callback function # 回调函数
-function GameAPI.get_role_pet_count(role, callback) end
-
---获取宠物属性信息
----@param pet_uid integer # 宠物唯一id
----@param callback function # 回调函数
-function GameAPI.get_pet_attr_info(pet_uid, callback) end
-
---获取宠物当前状态
----@param pet_uid integer # 宠物唯一id
----@param callback function # 回调函数
-function GameAPI.get_pet_state(pet_uid, callback) end
-
---执行宠物睡觉
----@param pet_uid integer # 宠物唯一id
----@param callback function # 回调函数
-function GameAPI.pet_sleep(pet_uid, callback) end
+--宠物http请求调用
+---@param api string # 请求的api方法名
+---@param body string # 请求的body
+---@param timeout? integer # 超时时间
+---@param callback? function # 回调函数
+function GameAPI.pet_http_request(api, body, timeout, callback) end
 
 --获取玩家选中的单个单位
 ---@param role_id py.RoleID # 玩家ID
@@ -5700,7 +5687,7 @@ function GameAPI.get_random_fixed(min_num, max_num) end
 
 --保底伪随机数Roll点
 ---@param event_name string # 事件名
----@param event_odds number # 期望概率
+---@param event_odds number # 期望概率(百分数)
 ---@return boolean # 布尔值
 function GameAPI.api_get_pseudo_random(event_name, event_odds) end
 
@@ -5892,3 +5879,18 @@ function GameAPI.set_cur_cure_value(value) end
 ---@param damage_result_state integer # damage_result_state
 ---@return boolean # 是否暴击
 function GameAPI.get_cur_damage_is_critical(damage_result_state) end
+
+--设置当前是否暴击
+---@param is_critical boolean # 是否暴击
+function GameAPI.set_cur_damage_is_critical(is_critical) end
+
+--启动行为树
+---@param unit py.Unit # 单位
+---@param tree_name string # 行为树名称
+---@param tree_args py.Dict # 行为树参数
+function GameAPI.assign_behavior_tree(unit, tree_name, tree_args) end
+
+--停止一棵行为树
+---@param unit py.Unit # 单位
+---@param tree_name string # 行为树名称
+function GameAPI.stop_behavior_tree(unit, tree_name) end

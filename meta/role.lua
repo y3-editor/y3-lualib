@@ -465,10 +465,26 @@ function Role:api_is_returning_player() end
 ---@return boolean # 是否收藏当前地图
 function Role:api_is_bookmark_current_map() end
 
---获取玩家天梯的排位积分
+--获取玩家当前赛季天梯的排位积分
 ---@param ladder_key string # 天梯key
 ---@return integer # 积分
 function Role:api_get_ladder_rank_points(ladder_key) end
+
+--获取玩家当前赛季天梯编号
+---@param ladder_key string # 天梯key
+---@return integer # 赛季编号
+function Role:api_get_current_season_id(ladder_key) end
+
+--获取玩家当前赛季天梯排名
+---@param ladder_key string # 天梯key
+---@return integer # 当前赛季排名
+function Role:api_get_current_season_standing(ladder_key) end
+
+--获取玩家当前赛天梯排名次数
+---@param ladder_key string # 天梯key
+---@param rank_number integer # 第几名
+---@return integer # 排名次数
+function Role:api_get_current_season_standing_number(ladder_key, rank_number) end
 
 --获取玩家该地图累计充值
 ---@return py.Fixed # 累计充值

@@ -4,21 +4,6 @@
 ---@class py.GameAPI
 GameAPI = {}
 
---设置当前是否暴击
----@param is_critical boolean # 是否暴击
-function GameAPI.set_cur_damage_is_critical(is_critical) end
-
---启动行为树
----@param unit py.Unit # 单位
----@param tree_name string # 行为树名称
----@param tree_args py.Dict # 行为树参数
-function GameAPI.assign_behavior_tree(unit, tree_name, tree_args) end
-
---停止一棵行为树
----@param unit py.Unit # 单位
----@param tree_name string # 行为树名称
-function GameAPI.stop_behavior_tree(unit, tree_name) end
-
 --停止所有行为树
 ---@param unit py.Unit # 单位
 function GameAPI.stop_all_behavior_tree(unit) end
@@ -1322,7 +1307,8 @@ function GameAPI.set_billboard_visible(unit, node_name, visible, role) end
 ---@param node_name string # 血条命名
 ---@param progress number # 进度
 ---@param role? py.Role # 玩家
-function GameAPI.set_billboard_progress(unit, node_name, progress, role) end
+---@param transition_time? number # 过渡时间
+function GameAPI.set_billboard_progress(unit, node_name, progress, role, transition_time) end
 
 --设置血条整体可见性
 ---@param unit py.Unit # 单位

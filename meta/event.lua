@@ -5405,7 +5405,7 @@ event.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT = {
 ---@field comp_name string # 触发事件控件名称
 ---@field int1 integer # 自定义信息
 
---ui复选框事件
+--ui标签页点击事件
 event.ET_TRIGGER_UI_TABWIDGET_CHANGE_EVENT = {
     [1] = {
         name = "__role_id",
@@ -6840,15 +6840,15 @@ event.ET_START_SKILL_POINTER = {
     },
 }
 
----@class EventParam.ET_BUILD_SKILL_POINTER_CHECK_PASS
+---@class EventParam.ET_BUILD_SKILL_BEFORE_RELEASE
 ---@field player Player # 玩家
 ---@field unit Unit # 释放单位
 ---@field ability_seq py.AbilitySeq # 技能Seq
 ---@field ability_target_pos Point # 施法目标位置
----@field ability Ability # 技能
+---@field idx integer # 建造事件唯一ID
 
---建造技能指示器施法检查通过
-event.ET_BUILD_SKILL_POINTER_CHECK_PASS = {
+--建造技能释放前
+event.ET_BUILD_SKILL_BEFORE_RELEASE = {
     [1] = {
         name = "__role_id",
         type = "py.RoleID",
@@ -6882,14 +6882,12 @@ event.ET_BUILD_SKILL_POINTER_CHECK_PASS = {
         lua_desc = "施法目标位置",
     },
     [5] = {
-        name = nil,
-        type = nil,
-        lua_name = "ability",
-        lua_type = "Ability",
-        lua_desc = "技能",
-        lua_code = function (data)
-            return data.unit:get_ability_by_seq(data.ability_seq)
-        end,
+        name = "__idx",
+        type = "integer",
+        lua_name = "idx",
+        lua_type = "integer",
+        desc = "建造事件唯一ID",
+        lua_desc = "建造事件唯一ID",
     },
 }
 
