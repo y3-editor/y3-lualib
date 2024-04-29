@@ -92,6 +92,7 @@ end)
 ---@field lifting_speed? number # 提升速度
 ---@field height? number # 环绕高度
 ---@field target_point? Point # 目标点
+---@field on_finish? false # 环绕运动不会有结束回调
 
 ---@private
 ---@param mover_data Mover.CreateData.Base
