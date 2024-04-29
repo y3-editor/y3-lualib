@@ -98,6 +98,7 @@ y3.save_data    = require 'y3.util.save_data'
 y3.dump         = require 'y3.util.dump'
 y3.sync         = require 'y3.util.sync'
 y3.network      = require 'y3.util.network'
+y3.eca          = require 'y3.util.eca_helper'
 
 require 'y3.util.local_ui_logic'
 
