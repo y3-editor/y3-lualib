@@ -3,6 +3,7 @@
 ---@field handle py.ModifierEntity # py层的魔法效果对象
 ---@field phandle py.ModifierEntity # 代理的对象，用这个调用引擎的方法会快得多
 ---@field id     integer
+---@field package _removed_by_py? boolean
 ---@overload fun(id: integer, py_modifier: py.ModifierEntity): Buff
 local M = Class 'Buff'
 
@@ -39,6 +40,9 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
+    if self._removed_by_py then
+        return
+    end
     self.phandle:api_remove()
 end
 
@@ -72,6 +76,7 @@ y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
 end)
 
 y3.game:event('效果-失去', function (trg, data)
+    data.buff._removed_by_py = true
     data.buff:remove()
 end)
 

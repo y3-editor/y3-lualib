@@ -2,6 +2,7 @@
 ---@class Ability
 ---@field handle py.Ability
 ---@field phandle py.Ability
+---@field package _removed_by_py? boolean
 ---@overload fun(id: integer, py_ability: py.Ability): self
 local M = Class 'Ability'
 
@@ -36,6 +37,9 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
+    if self._removed_by_py then
+        return
+    end
     self.phandle:api_remove()
 end
 
@@ -67,6 +71,7 @@ y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
 end)
 
 y3.game:event('技能-失去', function (trg, data)
+    data.ability._removed_by_py = true
     data.ability:remove()
 end)
 

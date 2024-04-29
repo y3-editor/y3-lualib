@@ -3,6 +3,7 @@
 ---@field handle py.Destructible
 ---@field phandle py.Destructible
 ---@field id integer
+---@field package _removed_by_py? boolean
 ---@overload fun(py_destructible: py.Destructible): self
 local M = Class 'Destructible'
 M.type = 'destructible'
@@ -30,6 +31,9 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
+    if self._removed_by_py then
+        return
+    end
     self.phandle:api_delete()
 end
 
@@ -67,6 +71,7 @@ end
 y3.py_converter.register_py_to_lua('py.DestructibleID', M.get_by_id)
 
 y3.game:event('可破坏物-移除', function (trg, data)
+    data.destructible._removed_by_py = true
     data.destructible:remove()
 end)
 

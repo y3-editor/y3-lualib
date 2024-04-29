@@ -3,6 +3,7 @@
 ---@field handle py.Unit # py层的单位对象
 ---@field phandle py.Unit # 代理的对象，用这个调用引擎的方法会快得多
 ---@field id integer
+---@field package _removed_by_py? boolean
 ---@overload fun(py_unit_id: py.UnitID, py_unit: py.Unit): self
 local M = Class 'Unit'
 
@@ -38,6 +39,9 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
+    if self._removed_by_py then
+        return
+    end
     self.phandle:api_delete()
 end
 
@@ -102,6 +106,7 @@ end
 y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)
 
 y3.game:event('单位-移除后', function (trg, data)
+    data.unit._removed_by_py = true
     data.unit:remove()
 end)
 
