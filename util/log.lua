@@ -46,6 +46,15 @@ local function remove_bad_utf8(text)
     return table.concat(buf)
 end
 
+local function print_to_game(message)
+    log_cache[#log_cache+1] = message
+    if #log_cache > 10 then
+        table.remove(log_cache, 1)
+    end
+    ---@diagnostic disable-next-line: deprecated
+    y3.ui.display_message(y3.player.get_local(), remove_bad_utf8(table.concat(log_cache, '\n')), 60)
+end
+
 ---@diagnostic disable-next-line: lowercase-global
 log = New 'Log' {
     level = 'debug',
@@ -76,12 +85,7 @@ log = New 'Log' {
             consoleprint(message)
         end
         if y3.config.log.toGame then
-            log_cache[#log_cache+1] = message
-            if #log_cache > 10 then
-                table.remove(log_cache, 1)
-            end
-            ---@diagnostic disable-next-line: deprecated
-            y3.ui.display_message(y3.player.get_local(), remove_bad_utf8(table.concat(log_cache, '\n')), 60)
+            print_to_game(message)
         end
     end,
     traceback = function (message, level)
@@ -95,3 +99,15 @@ log = New 'Log' {
         return err
     end,
 }
+
+--重载print
+
+--等价于 `log.debug`。另外在开发模式中，还会确保打印到游戏窗口中。
+---@param ... any
+function print(...)
+    local message = log.debug(...)
+    if  y3.game.is_debug_mode()
+    and not y3.config.log.toGame then
+        print_to_game(message)
+    end
+end

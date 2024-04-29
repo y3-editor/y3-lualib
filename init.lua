@@ -45,9 +45,6 @@ require 'y3.util.ref'
 require 'y3.util.storage'
 require 'y3.util.gc_buffer'
 
-print = log.debug
-
-
 y3.const        = require 'y3.game.const'
 y3.math         = require 'y3.game.math'
 y3.game         = require 'y3.game.game'
