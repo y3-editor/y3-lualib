@@ -135,9 +135,9 @@ end
 
 ---单位移除物品
 ---@param item_id py.ItemKey 物品id
----@param num integer 数量
+---@param num? integer 数量
 function M:remove_item(item_id, num)
-    self.phandle:api_delete_item(item_id, num)
+    self.phandle:api_delete_item(item_id, num or 1)
 end
 
 ---移动物品
