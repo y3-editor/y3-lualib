@@ -491,17 +491,21 @@ end
 
 ---获取物品购买售价
 ---@param item_key py.ItemKey 类型
----@param key py.RoleResKey 玩家属性
+---@param key y3.Const.PlayerAttr | string # 玩家属性
 ---@return number price 价格
 function M.get_item_buy_price_by_key(item_key, key)
+    key = y3.const.PlayerAttr[key] or key
+    ---@cast key py.RoleResKey
     return GameAPI.get_item_buy_price(item_key, key):float()
 end
 
 ---获取物品出售售价
 ---@param item_key py.ItemKey 类型
----@param key py.RoleResKey 玩家属性
+---@param key y3.Const.PlayerAttr | string # 玩家属性
 ---@return number price 价格
 function M.get_item_sell_price_by_key(item_key, key)
+    key = y3.const.PlayerAttr[key] or key
+    ---@cast key py.RoleResKey
     return GameAPI.get_item_sell_price(item_key, key):float()
 end
 
