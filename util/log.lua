@@ -57,7 +57,7 @@ end
 
 ---@diagnostic disable-next-line: lowercase-global
 log = New 'Log' {
-    level = 'debug',
+    level = 'trace',
     file  = log_file,
     clock = function ()
         return GameAPI.get_cur_game_time():float()
