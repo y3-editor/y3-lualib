@@ -355,6 +355,9 @@ end
 ---物品持有者
 ---@return Unit? owner 持有者
 function M:get_owner()
+    if not IsValid(self) then
+        return nil
+    end
     local py_owner = self.phandle:api_get_owner()
     if not py_owner then
         return nil
@@ -456,9 +459,15 @@ function M:get_slot()
 end
 
 ---获取物品的拥有玩家
----@return Player player 玩家
+---@return Player? player 玩家
 function M:get_owner_player()
+    if not IsValid(self) then
+        return nil
+    end
     local py_player = self.phandle:api_get_creator()
+    if not py_player then
+        return nil
+    end
     return y3.player.get_by_handle(py_player)
 end
 
