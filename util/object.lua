@@ -88,6 +88,7 @@ end)
 ---@field on_add? fun(buff: Buff) # 效果获得后执行
 ---@field on_lose? fun(buff: Buff) # 效果失去后执行
 ---@field on_pulse? fun(buff: Buff) # 效果心跳后执行
+---@field on_stack_change? fun(buff: Buff) # 效果层数变化后执行
 --魔法效果的物编数据，你可以从里面读取或修改任意物编  
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此魔法效果再修改数据，行为是未定义的
@@ -280,6 +281,12 @@ end)
 subscribe(Buff, 'on_pulse', function ()
     y3.game:event('效果-心跳', function (trg, data)
         M.callMethod('buff', 'on_pulse', data.buff:get_key(), data.buff, data.buff)
+    end)
+end)
+
+subscribe(Buff, 'on_stack_change', function ()
+    y3.game:event('效果-层数变化', function (trg, data)
+        M.callMethod('buff', 'on_stack_change', data.buff:get_key(), data.buff, data.buff)
     end)
 end)
 
