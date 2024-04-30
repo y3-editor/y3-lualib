@@ -331,8 +331,13 @@ end
 ---@param point Point 点
 ---@param direction number 方向
 ---@param clone_hp_mp boolean 复制当前的生命值和魔法值
+---@return Unit?
 function M.create_illusion(illusion_unit, call_unit, player, point, direction, clone_hp_mp)
-    GameAPI.create_illusion(illusion_unit.handle, call_unit.handle, player.handle, point.handle, Fix32(direction), clone_hp_mp)
+    local py_unit = GameAPI.create_illusion(illusion_unit.handle, call_unit.handle, player.handle, point.handle, Fix32(direction), clone_hp_mp)
+    if not py_unit then
+        return nil
+    end
+    return y3.unit.get_by_handle(py_unit)
 end
 
 ---删除单位
