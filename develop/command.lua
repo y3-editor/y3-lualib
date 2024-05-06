@@ -80,6 +80,16 @@ local function remove_all_local_timers_in_include(reload)
     end
 end
 
+---@param reload Reload
+local function remove_all_client_timers_in_include(reload)
+    for timer in y3.ctimer.pairs() do
+        local name = timer:get_include_name()
+        if reload:isValidName(name) then
+            timer:remove()
+        end
+    end
+end
+
 M.register('RD', {
     needSync = true,
     priority = 100,
@@ -133,6 +143,7 @@ y3.reload.onBeforeReload(function (reload, willReload)
     remove_all_custom_triggers_in_include(reload)
     remove_all_timers_in_include(reload)
     remove_all_local_timers_in_include(reload)
+    remove_all_client_timers_in_include(reload)
 end)
 
 y3.game:event('玩家-发送消息', function (trg, data)

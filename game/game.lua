@@ -873,6 +873,7 @@ _G['OnTick'] = function ()
     if M._client_tick_callback then
         y3.player.with_local(M._client_tick_callback)
     end
+    y3.ctimer.update_frame()
 end
 
 return M

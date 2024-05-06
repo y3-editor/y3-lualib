@@ -33,13 +33,13 @@ function M:__init(ip, port, options)
     self.options.retry_interval = self.options.retry_interval or 5
 
     ---@private
-    self.update_timer = y3.ltimer.loop(self.options.update_interval, function ()
+    self.update_timer = y3.ctimer.loop(self.options.update_interval, function ()
         self:update()
     end)
-    y3.ltimer.wait(0, function ()
+    y3.ctimer.wait(0, function ()
         self:update()
     end)
-    self.retry_timer = y3.ltimer.loop(self.options.retry_interval, function (t)
+    self.retry_timer = y3.ctimer.loop(self.options.retry_interval, function (t)
         if self.state ~= 'started' then
             t:remove()
             return
@@ -50,7 +50,7 @@ function M:__init(ip, port, options)
         self:update()
     end)
     if self.options.timeout and self.options.timeout > 0 then
-        y3.ltimer.wait(self.options.timeout, function ()
+        y3.ctimer.wait(self.options.timeout, function ()
             if self.state ~= 'started' then
                 return
             end

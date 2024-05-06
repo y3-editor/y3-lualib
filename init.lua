@@ -94,6 +94,7 @@ y3.shape        = require 'y3.object.scene_object.shape'
 
 y3.object       = require 'y3.util.object'
 y3.ltimer       = require 'y3.util.local_timer'
+y3.ctimer       = require 'y3.util.client_timer'
 y3.save_data    = require 'y3.util.save_data'
 y3.dump         = require 'y3.util.dump'
 y3.sync         = require 'y3.util.sync'
