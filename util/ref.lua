@@ -4,7 +4,7 @@
 
 1. 引擎对象第一次进Lua时，生成对应的Lua对象并添加强引用
 2. 引擎对象被引擎回收后，将Lua对象加入待回收队列
-3. 待回收队列至少60秒后，将Lua对象从强引用改为弱引用
+3. 待回收队列至少5秒后，将Lua对象从强引用改为弱引用
 --]]
 
 ---@class Ref
@@ -15,7 +15,7 @@ local M = Class 'Ref'
 
 -- 至少在这个时间之后才会释放引用
 ---@private
-M.unrefTimeAtLeast = 60
+M.unrefTimeAtLeast = 5
 -- 是否允许弱引用
 ---@private
 M.allowWeakRef = false
