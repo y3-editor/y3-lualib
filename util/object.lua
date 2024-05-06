@@ -176,6 +176,15 @@ M.call_stack_map = setmetatable({}, {
     end,
 })
 
+local function applyMethod(stack, key, func, arg1, arg2)
+    M.lock_count_map[key] = M.lock_count_map[key] + 1
+    xpcall(func, log.error, arg1, arg2)
+    M.lock_count_map[key] = M.lock_count_map[key] - 1
+    if #stack > 0 and M.lock_count_map[key] == 0 then
+        table.remove(stack, 1)()
+    end
+end
+
 ---@param otype string
 ---@param mname string
 ---@param key any
@@ -195,16 +204,11 @@ function M.callMethod(otype, mname, key, lock_obj, arg1, arg2)
     local stack = M.call_stack_map[lock_obj]
     if M.lock_count_map[key] > 0 then
         stack[#stack+1] = function ()
-            M.callMethod(otype, mname, key, lock_obj, arg1, arg2)
+            applyMethod(stack, key, func, arg1, arg2)
         end
         return
     end
-    M.lock_count_map[key] = M.lock_count_map[key] + 1
-    xpcall(func, log.error, arg1, arg2)
-    M.lock_count_map[key] = M.lock_count_map[key] - 1
-    if #stack > 0 and M.lock_count_map[key] == 0 then
-        table.remove(stack, 1)()
-    end
+    applyMethod(stack, key, func, arg1, arg2)
 end
 
 local function subscribe(class, method, callback)
