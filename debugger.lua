@@ -26,6 +26,16 @@ local function getLatestDebugger()
     return luaDebugs[1][2]
 end
 
+local function getInnerDebugger()
+    local f = io.open(lua_script_path .. '/log/debugger_path', 'rb')
+    if not f then
+        return
+    end
+    local path = f:read 'a'
+    f:close()
+    return path
+end
+
 local function dofile(filename)
     local f = assert(io.open(filename))
     local str = f:read "*a"
@@ -33,5 +43,5 @@ local function dofile(filename)
     return assert(load(str, "=(debugger.lua)"))(filename)
 end
 
-local path = getLatestDebugger()
+local path = getInnerDebugger() or getLatestDebugger()
 return dofile(path .. "/script/debugger.lua")
