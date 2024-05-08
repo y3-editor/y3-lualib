@@ -27,12 +27,10 @@ local function getLatestDebugger()
 end
 
 local function getInnerDebugger()
-    local f = io.open(lua_script_path .. '/log/debugger_path', 'rb')
-    if not f then
-        return
-    end
-    local path = f:read 'a'
-    f:close()
+    local path
+    pcall(function ()
+        path = require 'log.debugger_path'
+    end)
     return path
 end
 
