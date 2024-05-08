@@ -42,5 +42,6 @@ Y3的Lua虚拟机版本为 `5.4` ，并进行了一些定制：
     + `package.loadlib`
 * 出于安全性考虑，在平台运行地图时以下函数会受到限制：
     + `io.open`: 无法使用绝对路径，路径中不能包含 `..`，相对路径将基于地图的 `custom` 目录。
+    + `io.open`: 无法使用 `r` 模式打开文件。
     + `debug.getinfo`: 返回的表中不会包含 `func` 字段。
     + `debug.setmetatable`: 对 `table` 或 `userdata` 使用时将降级为 `setmetatable`，以保证无法绕过 `__metatable` 元方法。
