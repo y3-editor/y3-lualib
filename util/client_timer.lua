@@ -159,7 +159,7 @@ function M:push()
         queue = frame_queues[frame]
         if not queue then
             queue = {}
-            ms_queues[frame] = queue
+            frame_queues[frame] = queue
         end
         queue[#queue+1] = self
     end
@@ -387,27 +387,39 @@ end
 ---@type ClientTimer[]
 local desk = {}
 
+local function update_queue(queue)
+    table.sort(queue, function (a, b)
+        return a.id < b.id
+    end)
+    for i = 1, #queue do
+        desk[i] = queue[i]
+    end
+    for i = 1, #desk do
+        local t = desk[i]
+        desk[i] = nil
+        t:wakeup()
+    end
+end
+
 --立即更新到下一帧
 function M.update_frame()
     cur_frame = cur_frame + 1
+
+    do
+        local queue = frame_queues[cur_frame]
+        if queue then
+            frame_queues[cur_frame] = nil
+            update_queue(queue)
+        end
+    end
 
     local target_ms = math.floor(os.clock_banned() * 1000)
     for ti = cur_ms, target_ms do
         local queue = ms_queues[ti]
         if queue then
             cur_ms = ti
-            table.sort(queue, function (a, b)
-                return a.id < b.id
-            end)
-            for i = 1, #queue do
-                desk[i] = queue[i]
-            end
             ms_queues[ti] = nil
-            for i = 1, #desk do
-                local t = desk[i]
-                desk[i] = nil
-                t:wakeup()
-            end
+            update_queue(queue)
         end
     end
 
