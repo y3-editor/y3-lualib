@@ -615,7 +615,7 @@ function M:set_attr(attr_name, value, attr_type)
         return
     end
     if attr_name == 'mp_cur' then
-        self:set_hp(value)
+        self:set_mp(value)
         return
     end
     if attr_type == nil then
