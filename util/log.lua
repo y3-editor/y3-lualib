@@ -107,7 +107,7 @@ log = New 'Log' {
 function print(...)
     local message = log.debug(...)
     if  y3.game.is_debug_mode()
-    and not y3.config.log.toGame then
+    and y3.config.log.toGame then
         print_to_game(message)
     end
 end
