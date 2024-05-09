@@ -131,10 +131,10 @@ end
 
 ---单位添加物品
 ---@param item_id py.ItemKey 物品id
+---@param slot_type? y3.Const.ShiftSlotTypeAlias 槽位类型
 ---@return Item
-function M:add_item(item_id)
-    --TODO 5月9号版本更新后可以指定槽位类型
-    local py_item = self.phandle:api_add_item(item_id)
+function M:add_item(item_id, slot_type)
+    local py_item = self.phandle:api_add_item(item_id, y3.const.ShiftSlotType[slot_type])
     return y3.item.get_by_handle(py_item)
 end
 
