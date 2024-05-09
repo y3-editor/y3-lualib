@@ -151,9 +151,6 @@ function M:callback(key, ...)
 end
 
 --连接成功后的回调
---
---> TODO: 目前有bug，临时方案是连接成功后服务器第一次发送
---消息过来后触发。等待5月9号版本更新修复
 ---@param on_connected Network.OnConnected
 function M:on_connected(on_connected)
     ---@private
@@ -271,8 +268,6 @@ function M:data_reader(callback)
 end
 
 --断开连接后的回调
---
---> TODO: 目前有bug无法触发。等待5月9号版本更新修复
 ---@param on_disconnected Network.OnDisconnected
 function M:on_disconnected(on_disconnected)
     ---@private
@@ -286,22 +281,10 @@ function M:on_error(on_error)
     self._on_error = on_error
 end
 
---是否连接中
---
---> TODO: 目前有bug，需要连上后服务器主动发一个消息
---过来才能判断是否连接上。等5月9号版本更新修复。
+--是否已连接
 ---@return boolean
 function M:is_connecting()
-    if self._connected then
-        return true
-    end
-    local res = self.handle:peek(1)
-    if res ~= nil then
-        ---@private
-        self._connected = true
-        return true
-    end
-    return false
+    return self.handle:is_connecting()
 end
 
 ---@param data string
