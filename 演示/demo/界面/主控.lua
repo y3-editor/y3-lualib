@@ -146,10 +146,7 @@ MAIN:on_refresh('道具', function (ui, local_player)
     end
 
     for i, slot in ipairs(ui:get_childs()) do
-        local item = u:get_item_by_slot(y3.const.SlotType.BAR, i)
-        if item then
-            slot:get_child(tostring(i)):set_ui_unit_slot(u, y3.const.SlotType.BAR, i - 1)
-        end
+        slot:get_child(tostring(i)):set_ui_unit_slot(u, y3.const.SlotType.BAR, i - 1)
     end
 end)
 
