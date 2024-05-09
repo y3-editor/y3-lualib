@@ -927,6 +927,7 @@ M.config["单位-即将死亡"] = {
     extraArgs = {
     },
     key = "ET_BEFORE_UNIT_DIE",
+    master = "target_unit",
     name = "单位-即将死亡",
     object = "Unit",
     params = {
