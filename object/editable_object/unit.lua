@@ -904,6 +904,20 @@ function M:set_unit_scale(sx, sy, sz)
     self.phandle:api_set_unit_scale(sx, sy, sz)
 end
 
+---设置单位描边开启
+---@param bool boolean # 布尔值
+function M:set_outline_visible(bool)
+    self.phandle:set_unit_outlined_enable(bool)
+end
+
+---设置单位描边颜色
+---@param color_r number # R
+---@param color_g number # G
+---@param color_b number # B
+function M:set_outlined_color(color_r, color_g, color_b)
+    self.phandle:set_unit_outlined_color(color_r, color_g, color_b)
+end
+
 ---设置转身速度
 ---@param speed number 转身速度
 function M:set_turning_speed(speed)
