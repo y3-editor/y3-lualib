@@ -17,6 +17,7 @@ M._errorHandler = error
 ---@field public  __del?   fun(self: any)
 ---@field public  __alloc? fun(self: any)
 ---@field package __call   fun(self: any, ...)
+---@field package __name string
 ---@field public  __getter table
 ---@field public  __setter table
 ---@field public  __super  Class.Base
@@ -206,9 +207,12 @@ function M.delete(obj)
 end
 
 -- 获取类的名称
----@param obj table
+---@param obj any
 ---@return string?
 function M.type(obj)
+    if type(obj) ~= 'table' then
+        return nil
+    end
     return obj.__class__
 end
 
@@ -416,36 +420,44 @@ function Config:extends(extendsName, init)
     end
 end
 
+local isInstanceMap = setmetatable({}, { __index = function (isInstanceMap, myName)
+    local map = {
+        [myName] = true,
+    }
+    isInstanceMap[myName] = map
+
+    local config = M.getConfig(myName)
+    setmetatable(map, { __index = function (_, targetName)
+        local superName = config.superClass and config.superClass.__name
+        if superName then
+            if isInstanceMap[superName][targetName] then
+                map[targetName] = true
+                return true
+            end
+        end
+        for parentName in pairs(config.extendsMap) do
+            if isInstanceMap[parentName][targetName] then
+                map[targetName] = true
+                return true
+            end
+        end
+        map[targetName] = false
+        return false
+    end })
+    return map
+end })
+
 ---检查一个对象是否是某个类的实例
----@param obj? table
----@param parentName string
+---@param obj any
+---@param targetName string
 ---@return boolean
-function M.isInstanceOf(obj, parentName)
-    if not obj then
+function M.isInstanceOf(obj, targetName)
+    local myName = M.type(obj)
+    if not myName then
         return false
-    end
-    ---@param name string
-    ---@return boolean
-    local function checkParent(name)
-        if name == parentName then
-            return true
-        end
-        for pname in pairs(M.getConfig(name).extendsMap) do
-            ---@cast pname string
-            if pname == parentName then
-                return true
-            end
-            if checkParent(pname) then
-                return true
-            end
-        end
-        return false
-    end
-    if checkParent(M.type(obj)--[[@as string]]) then
-        return true
     end
 
-    return false
+    return isInstanceMap[myName][targetName]
 end
 
 return M
