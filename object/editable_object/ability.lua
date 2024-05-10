@@ -105,7 +105,6 @@ function M:has_tag(tag)
 end
 
 --添加标签
----5月30日版本更新后可用
 ---@deprecated
 ---@param tag string 标签
 function M:add_tag(tag)
@@ -113,7 +112,6 @@ function M:add_tag(tag)
 end
 
 ---移除标签
----5月30日版本更新后可用
 ---@deprecated
 ---@param tag string 标签
 function M:remove_tag(tag)
