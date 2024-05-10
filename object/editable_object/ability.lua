@@ -105,14 +105,12 @@ function M:has_tag(tag)
 end
 
 --添加标签
----@deprecated
 ---@param tag string 标签
 function M:add_tag(tag)
     self.phandle:api_add_tag(tag)
 end
 
 ---移除标签
----@deprecated
 ---@param tag string 标签
 function M:remove_tag(tag)
     self.phandle:api_remove_tag(tag)
