@@ -208,12 +208,19 @@ end
 
 -- 立即执行
 function M:execute(...)
+    if self:is_removed() then
+        return
+    end
     xpcall(self.on_timer, log.error, self, ...)
 end
 
 -- 移除计时器
 function M:remove()
     Delete(self)
+end
+
+function M:is_removed()
+    return not IsValid(self)
 end
 
 -- 暂停计时器
