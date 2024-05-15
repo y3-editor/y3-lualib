@@ -56,17 +56,64 @@ function M:stack_notify(event_name, event_args, ...)
     self.stack_list:pushTail(box)
 end
 
+function M:make_stack_overflow_error(last_events)
+    local msg = {}
+    msg[#msg+1] = '事件死循环！'
+    msg[#msg+1] = '最后10个事件为：'
+    msg[#msg+1] = table.concat(last_events, ' -> ')
+    error(table.concat(msg, '\n'))
+end
+
 ---@private
-function M:check_stack()
-    if not self.stack_list then
+function M:release_stack()
+    if self.fire_lock ~= 0 then
         return
     end
-    local box = self.stack_list:getHead()
-    if not box then
+    local list = self.stack_list
+    if not list then
         return
     end
-    self.stack_list:pop(box)
-    self:notify(table.unpack(box, 1, box.n))
+    if list:getSize() == 0 then
+        return
+    end
+    self.fire_lock = self.fire_lock + 1
+    for _ = 1, 10000 do
+        local box = list:getHead()
+        if not box then
+            self.fire_lock = self.fire_lock - 1
+            return
+        end
+        list:pop(box)
+        self:raw_notify(table.unpack(box, 1, box.n))
+    end
+    --跑到这里说明有死循环，走异常处理
+    local last_events = {}
+    --探测最后10个事件
+    for i = 1, 10 do
+        local box = list:getHead()
+        if not box then
+            break
+        end
+        list:pop(box)
+        self:raw_notify(table.unpack(box, 1, box.n))
+        local event_name = box[1]
+        last_events[i] = event_name
+    end
+    self.fire_lock = self.fire_lock - 1
+    list:reset()
+    self:make_stack_overflow_error(last_events)
+end
+
+---@private
+---@param event_name Event.Name
+---@param event_args any[]?
+---@param ... any
+function M:raw_notify(event_name, event_args, ...)
+    local event = self.event_map[event_name]
+    if not event then
+        return
+    end
+    event:notify(event_args, ...)
 end
 
 ---@param event_name Event.Name
@@ -84,7 +131,7 @@ function M:notify(event_name, event_args, ...)
     self.fire_lock = self.fire_lock + 1
     event:notify(event_args, ...)
     self.fire_lock = self.fire_lock - 1
-    self:check_stack()
+    self:release_stack()
 end
 
 ---@param event_name Event.Name
@@ -99,7 +146,7 @@ function M:dispatch(event_name, event_args, ...)
     self.fire_lock = self.fire_lock + 1
     local a, b, c, d = event:dispatch(event_args, ...)
     self.fire_lock = self.fire_lock - 1
-    self:check_stack()
+    self:release_stack()
     return a, b, c, d
 end
 
