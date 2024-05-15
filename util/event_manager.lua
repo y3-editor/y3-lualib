@@ -1,3 +1,5 @@
+local Trigger = require 'y3.util.trigger'
+
 ---@class EventManager
 ---@field private object table
 ---@field private event_map table<string, Event>
@@ -70,10 +72,9 @@ function M:release_stack()
         return
     end
     local list = self.stack_list
-    if not list then
-        return
-    end
-    if list:getSize() == 0 then
+    if not list
+    or list:getSize() == 0 then
+        Trigger.recover_disable_once()
         return
     end
     self.fire_lock = self.fire_lock + 1
@@ -81,6 +82,7 @@ function M:release_stack()
         local box = list:getHead()
         if not box then
             self.fire_lock = self.fire_lock - 1
+            Trigger.recover_disable_once()
             return
         end
         list:pop(box)
@@ -100,6 +102,7 @@ function M:release_stack()
         last_events[i] = event_name
     end
     self.fire_lock = self.fire_lock - 1
+    Trigger.recover_disable_once()
     list:reset()
     self:make_stack_overflow_error(last_events)
 end

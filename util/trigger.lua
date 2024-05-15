@@ -37,6 +37,10 @@ M.type = 'trigger'
 M._enable = true
 ---@private
 M._id = 0
+---@private
+M._disable_once = false
+---@private
+M.disable_onced_triggers = {}
 
 function M:__tostring()
     return ('{trigger|%d}'):format(self._id)
@@ -54,6 +58,19 @@ end
 ---@return boolean
 function M:is_enable()
     return self._enable
+end
+
+--在本次事件中禁用此触发器
+function M:disable_once()
+    self._disable_once = true
+    M.disable_onced_triggers[#M.disable_onced_triggers+1] = self
+end
+
+function M.recover_disable_once()
+    for i, trigger in ipairs(M.disable_onced_triggers) do
+        M.disable_onced_triggers[i] = nil
+        trigger._disable_once = false
+    end
 end
 
 -- 检查事件的参数与触发器的参数是否匹配，
@@ -96,11 +113,13 @@ function M:execute(...)
     if not IsValid(self) then
         return
     end
-    if self._enable then
-        local suc, a, b, c, d = xpcall(self._callback, log.error, self, ...)
-        if suc then
-            return a, b, c, d
-        end
+    if not self._enable
+    or self._disable_once then
+        return
+    end
+    local suc, a, b, c, d = xpcall(self._callback, log.error, self, ...)
+    if suc then
+        return a, b, c, d
     end
 end
 
@@ -120,3 +139,5 @@ end
 function M:on_remove(callback)
     self._on_remove = callback
 end
+
+return M
