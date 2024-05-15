@@ -98,9 +98,12 @@ function M:count_by_key(unit_key)
 end
 
 --获取单位组内第一个单位
----@return Unit unit 单位组内第一个单位
+---@return Unit? unit 单位组内第一个单位
 function M:get_first()
     local py_unit = GameAPI.get_first_unit_in_group(self.handle)
+    if not py_unit then
+        return nil
+    end
     return y3.unit.get_by_handle(py_unit)
 end
 
