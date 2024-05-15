@@ -123,10 +123,10 @@ function M:get_id()
 end
 
 ---移除技能(指定类型)
----@param type y3.Const.AbilityType 技能类型
+---@param type y3.Const.AbilityType | y3.Const.AbilityTypeAlias 技能类型
 ---@param ability_key py.AbilityKey 物编id
 function M:remove_abilitiy_by_key(type, ability_key)
-    self.phandle:api_remove_abilities_in_type(type, ability_key)
+    self.phandle:api_remove_abilities_in_type(y3.const.AbilityType[type] or type, ability_key)
 end
 
 ---单位添加物品
