@@ -41,6 +41,19 @@ function M:__del()
         return
     end
     self.phandle:api_remove()
+    --技能正在放的时候删不掉，因此0秒后再删一次
+    if GameAPI.ability_is_exist(self.handle) then
+        y3.ltimer.wait(0, function (timer, count)
+            if not GameAPI.ability_is_exist(self.handle)
+            or self._removed_by_py then
+                return
+            end
+            self.phandle:api_remove()
+            if GameAPI.ability_is_exist(self.handle) then
+                log.error('技能删除失败，请汇报：', self)
+            end
+        end)
+    end
 end
 
 ---@private
