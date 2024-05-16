@@ -28,7 +28,10 @@ y3.game:event('游戏-接收广播信息', function (trg, data)
     if not callback then
         return
     end
-    local value = y3.dump.decode(data.broadcast_lua_msg_content)
+    local suc, value = pcall(y3.dump.decode, data.broadcast_lua_msg_content)
+    if not suc then
+        return
+    end
     xpcall(callback, log.error, value, data.player)
 end)
 
