@@ -17,6 +17,10 @@ local local_player = y3.player.get_local()
 ---@field name string
 ---@field on_refresh fun(ui: UI, local_player: Player)
 
+---@class LocalUILogic.OnInitInfo
+---@field name string
+---@field on_init fun(ui: UI, local_player: Player)
+
 ---@class LocalUILogic.OnEventInfo
 ---@field name string
 ---@field event y3.Const.UIEvent
@@ -36,6 +40,9 @@ function M:__init(main_name)
     ---@package
     ---@type LocalUILogic.OnEventInfo[]
     self._on_events = {}
+    ---@package
+    ---@type LocalUILogic.OnInitInfo[]
+    self._on_inits = {}
 
     y3.ltimer.wait(0, function ()
         self._main = y3.ui.get_ui(local_player, self._main_name)
@@ -61,6 +68,7 @@ function M:__init(main_name)
         end })
 
         self._childs[''] = self._main
+        self:init()
         self:refresh('*')
 
         self:register_events()
@@ -111,6 +119,16 @@ function M:on_event(child_name, event, callback)
     })
 end
 
+--订阅控件的初始化事件，回调函数在 *本地玩家* 环境中执行。
+---@param child_name string
+---@param on_init fun(ui: UI, local_player: Player)
+function M:on_init(child_name, on_init)
+    table.insert(self._on_inits, {
+        name = child_name,
+        on_init = on_init
+    })
+end
+
 ---@private
 function M:register_events()
     for _, info in ipairs(self._on_events) do
@@ -147,6 +165,16 @@ function M:get_refresh_targets(name)
         end
     end
     return targets
+end
+
+---@private
+function M:init()
+    for _, info in ipairs(self._on_inits) do
+        local ui = self._childs[info.name]
+        if ui then
+            info.on_init(ui, local_player)
+        end
+    end
 end
 
 --刷新控件，指定的控件以及其子控件都会收到刷新消息。
