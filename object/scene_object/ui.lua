@@ -917,8 +917,13 @@ function M:get_real_width()
     if self.player:get_state() ~= 1 then
         return 0
     end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return GameAPI.get_role_ui_comp_real_width(self.player.handle, self.handle)
+    local r = GameAPI.get_role_ui_comp_real_width(self.player.handle, self.handle)
+    if type(r) == 'number' then
+        return r
+    else
+        ---@cast r py.Fixed
+        return r:float()
+    end
 end
 
 --获得控件真实高度
@@ -927,8 +932,13 @@ function M:get_real_height()
     if self.player:get_state() ~= 1 then
         return 0
     end
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return GameAPI.get_role_ui_comp_real_height(self.player.handle, self.handle)
+    local r = GameAPI.get_role_ui_comp_real_height(self.player.handle, self.handle)
+    if type(r) == 'number' then
+        return r
+    else
+        ---@cast r py.Fixed
+        return r:float()
+    end
 end
 
 --获得界面控件的父控件
