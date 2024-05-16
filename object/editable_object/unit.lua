@@ -610,6 +610,12 @@ end
 ---@param attr_type? string | y3.Const.UnitAttrType 属性类型，默认为“基础”
 function M:set_attr(attr_name, value, attr_type)
     attr_name = y3.const.UnitAttr[attr_name] or attr_name
+    if attr_name == 'main' then
+        attr_name = self:get_main_attr()
+        if not attr_name then
+            error('此单位主属性为空')
+        end
+    end
     if attr_name == 'hp_cur' then
         self:set_hp(value)
         return
@@ -630,6 +636,12 @@ end
 ---@param attr_type? string | y3.Const.UnitAttrType 属性类型，默认为“增益”
 function M:add_attr(attr_name, value, attr_type)
     attr_name = y3.const.UnitAttr[attr_name] or attr_name
+    if attr_name == 'main' then
+        attr_name = self:get_main_attr()
+        if not attr_name then
+            error('此单位主属性为空')
+        end
+    end
     if attr_name == 'hp_cur' then
         self:add_hp(value)
         return
