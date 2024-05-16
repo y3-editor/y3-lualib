@@ -143,8 +143,8 @@ function M.loop(timeout, on_timer, desc, immediate)
     end, desc)
     timer = New 'Timer' (py_timer, on_timer, 'second', desc)
     if immediate then
-        on_timer(timer, count)
         count = count + 1
+        timer:execute(count)
     end
     return timer
 end
@@ -191,8 +191,12 @@ function M.count_loop(timeout, times, on_timer, desc, immediate)
     end, desc)
     timer = New 'Timer' (py_timer, on_timer, 'second', desc)
     if immediate then
-        on_timer(timer, count)
         count = count + 1
+        timer:execute(count)
+
+        if count >= times then
+            timer:remove()
+        end
     end
     return timer
 end
