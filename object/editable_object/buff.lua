@@ -220,9 +220,12 @@ function M:get_buff_aura_range()
 end
 
 ---获取魔法效果的施加者
----@return Unit provider 施加者
+---@return Unit? provider 施加者
 function M:get_source()
     local py_unit = self.phandle:api_get_releaser()
+    if not py_unit then
+        return nil
+    end
     return y3.unit.get_by_handle(py_unit)
 end
 
