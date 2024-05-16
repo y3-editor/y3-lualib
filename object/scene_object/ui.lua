@@ -912,6 +912,7 @@ function M:get_height()
 end
 
 --获得控件真实宽度
+--> 注意：该结果是不同步的
 ---@return number width 控件真实宽度
 function M:get_real_width()
     if self.player:get_state() ~= 1 then
@@ -927,6 +928,7 @@ function M:get_real_width()
 end
 
 --获得控件真实高度
+--> 注意：该结果是不同步的
 ---@return number height 控件真实高度
 function M:get_real_height()
     if self.player:get_state() ~= 1 then
