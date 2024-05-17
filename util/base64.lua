@@ -1,6 +1,7 @@
-    ---@diagnostic disable-next-line: undefined-global
+---@diagnostic disable-next-line: undefined-global
 local y3_crypto = y3_crypto
 
+--base64编码解码
 ---@class BASE64
 local M = {}
 
