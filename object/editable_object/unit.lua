@@ -1799,17 +1799,17 @@ function M:can_walk_to(start_point, end_point)
 end
 
 ---是否拥有指定碰撞类型
----@param collision_type integer 碰撞类型
+---@param collision_layer integer | y3.Const.CollisionLayers 碰撞类型
 ---@return boolean # 是否拥有指定碰撞类型
-function M:has_move_collision(collision_type)
-    return self.phandle:api_get_move_collision(collision_type)
+function M:has_move_collision(collision_layer)
+    return self.phandle:api_get_move_collision(y3.const.CollisionLayers[collision_layer] or collision_layer)
 end
 
 ---设置单位是否计算某种碰撞类型
----@param collision_layer integer # 碰撞mask
+---@param collision_layer integer | y3.Const.CollisionLayers # 碰撞mask
 ---@param enable boolean # 开启状态
 function M:set_move_collision(collision_layer, enable)
-    self.phandle:api_set_move_collision(collision_layer, enable)
+    self.phandle:api_set_move_collision(y3.const.CollisionLayers[collision_layer] or collision_layer, enable)
 end
 
 -- 获取所属玩家

@@ -864,5 +864,12 @@ M.AbilityStrAttr = {
     ["描述"] = "description",
 }
 
+---@enum(key) y3.Const.CollisionLayers
+M.CollisionLayers = {
+    ['地面'] = 1 << 5,
+    ['空中'] = 1 << 6,
+    ['水面'] = 1 << 7,
+    ['物件'] = 1 << 8,
+}
 
 return M
