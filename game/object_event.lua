@@ -11,7 +11,7 @@ local M = Class 'ObjectEvent'
 ---@param ... any
 ---@return Trigger
 function M:event(event_name, ...)
-    if not self.object_event_manager then
+    if not rawget(self, 'object_event_manager') then
         self.object_event_manager = New 'EventManager' (self)
     end
     local extra_args, callback, unsubscribe = self:subscribe_event(event_name, ...)
