@@ -10,7 +10,7 @@ local counter = y3.util.counter()
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
 local M = Class 'Trigger'
 
----@alias Trigger.CallBack fun(...): any, any, any, any
+---@alias Trigger.CallBack fun(trg: Trigger, ...): any, any, any, any
 
 ---@param event Event
 ---@param event_args? any[]
@@ -66,6 +66,7 @@ function M:disable_once()
     M.disable_onced_triggers[#M.disable_onced_triggers+1] = self
 end
 
+---@private
 function M.recover_disable_once()
     for i, trigger in ipairs(M.disable_onced_triggers) do
         M.disable_onced_triggers[i] = nil

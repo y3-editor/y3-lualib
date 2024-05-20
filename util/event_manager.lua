@@ -74,6 +74,7 @@ function M:release_stack()
     local list = self.stack_list
     if not list
     or list:getSize() == 0 then
+        ---@diagnostic disable-next-line: invisible
         Trigger.recover_disable_once()
         return
     end
@@ -82,6 +83,7 @@ function M:release_stack()
         local box = list:getHead()
         if not box then
             self.fire_lock = self.fire_lock - 1
+            ---@diagnostic disable-next-line: invisible
             Trigger.recover_disable_once()
             return
         end
@@ -102,6 +104,7 @@ function M:release_stack()
         last_events[i] = event_name
     end
     self.fire_lock = self.fire_lock - 1
+    ---@diagnostic disable-next-line: invisible
     Trigger.recover_disable_once()
     list:reset()
     self:make_stack_overflow_error(last_events)
