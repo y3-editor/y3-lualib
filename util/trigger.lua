@@ -7,6 +7,8 @@ local counter = y3.util.counter()
 ---@field private _event_args? any[]
 ---@field private _include_name? string | false
 ---@field private _on_remove? function
+---@field private _disable_once? boolean
+---@field event_manager EventManager?
 ---@overload fun(event: Event, event_args: any[], callback: Trigger.CallBack): self
 local M = Class 'Trigger'
 
@@ -37,10 +39,6 @@ M.type = 'trigger'
 M._enable = true
 ---@private
 M._id = 0
----@private
-M._disable_once = false
----@private
-M.disable_onced_triggers = {}
 
 function M:__tostring()
     return ('{trigger|%d}'):format(self._id)
@@ -63,15 +61,13 @@ end
 --在本次事件中禁用此触发器
 function M:disable_once()
     self._disable_once = true
-    M.disable_onced_triggers[#M.disable_onced_triggers+1] = self
+    if self.event_manager then
+        self.event_manager:disable_trigger_once(self)
+    end
 end
 
----@private
-function M.recover_disable_once()
-    for i, trigger in ipairs(M.disable_onced_triggers) do
-        M.disable_onced_triggers[i] = nil
-        trigger._disable_once = false
-    end
+function M:recover_disable_once()
+    self._disable_once = nil
 end
 
 -- 检查事件的参数与触发器的参数是否匹配，

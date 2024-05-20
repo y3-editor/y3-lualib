@@ -4,6 +4,7 @@ local Trigger = require 'y3.util.trigger'
 ---@field private object table
 ---@field private event_map table<string, Event>
 ---@field private stack_list? LinkedTable
+---@field private disable_once_triggers? Trigger[]
 ---@overload fun(object: table): self
 local M = Class 'EventManager'
 
@@ -29,7 +30,26 @@ function M:event(event_name, event_args, callback)
         self.event_map[event_name] = event
     end
     local trigger = New 'Trigger' (event, event_args, callback)
+    trigger.event_manager = self
     return trigger
+end
+
+---@param trigger Trigger
+function M:disable_trigger_once(trigger)
+    if not self.disable_once_triggers then
+        self.disable_once_triggers = {}
+    end
+    self.disable_once_triggers[#self.disable_once_triggers+1] = trigger
+end
+
+function M:recover_disable_once()
+    if not self.disable_once_triggers then
+        return
+    end
+    for _, trigger in ipairs(self.disable_once_triggers) do
+        trigger:recover_disable_once()
+    end
+    self.disable_once_triggers = nil
 end
 
 ---@param event_name Event.Name
@@ -75,7 +95,7 @@ function M:release_stack()
     if not list
     or list:getSize() == 0 then
         ---@diagnostic disable-next-line: invisible
-        Trigger.recover_disable_once()
+        self:recover_disable_once()
         return
     end
     self.fire_lock = self.fire_lock + 1
@@ -84,7 +104,7 @@ function M:release_stack()
         if not box then
             self.fire_lock = self.fire_lock - 1
             ---@diagnostic disable-next-line: invisible
-            Trigger.recover_disable_once()
+            self:recover_disable_once()
             return
         end
         list:pop(box)
@@ -105,7 +125,7 @@ function M:release_stack()
     end
     self.fire_lock = self.fire_lock - 1
     ---@diagnostic disable-next-line: invisible
-    Trigger.recover_disable_once()
+    self:recover_disable_once()
     list:reset()
     self:make_stack_overflow_error(last_events)
 end
