@@ -34,7 +34,7 @@ y3.py_converter.register_lua_to_py('py.SceneNode', function (lua_value)
 end)
 
 ---创建场景界面到场景点
----@param  sceneui string 控件
+---@param  sceneui string | y3.Const.SceneUI 控件
 ---@param  point Point 点
 ---@param  range? number 可见距离
 ---@param  height? number 离地高度
@@ -42,7 +42,7 @@ end)
 function M.create_scene_ui_at_point(sceneui, point, range, height)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    local py_scene_node = GameAPI.create_scene_node_on_point(y3.ui.comp_id[sceneui], point.handle, range or 10000, height or 0)
+    local py_scene_node = GameAPI.create_scene_node_on_point(y3.const.SceneUI[sceneui] or sceneui, point.handle, range or 10000, height or 0)
     local scene_ui = M.get_by_handle(py_scene_node)
     return scene_ui
 end
@@ -57,7 +57,7 @@ function M:get_ui_comp_in_scene_ui(player, comp_path)
 end
 
 --创建场景界面到玩家单位挂点
----@param scene_ui_type string 场景ui类型
+---@param scene_ui_type string | y3.Const.SceneUI 场景ui类型
 ---@param player Player 玩家
 ---@param unit Unit 单位
 ---@param socket_name string 挂接点名称
@@ -68,7 +68,7 @@ function M.create_scene_ui_at_player_unit_socket(scene_ui_type, player, unit, so
     if follow_scale == nil then
         follow_scale = true
     end
-    local py_scene_node = GameAPI.create_scene_node_on_unit_ex(y3.ui.comp_id[scene_ui_type], player.handle, unit.handle, socket_name, follow_scale, distance or 100000)
+    local py_scene_node = GameAPI.create_scene_node_on_unit_ex(y3.const.SceneUI[scene_ui_type] or scene_ui_type, player.handle, unit.handle, socket_name, follow_scale, distance or 100000)
     return M.get_by_handle(py_scene_node)
 end
 

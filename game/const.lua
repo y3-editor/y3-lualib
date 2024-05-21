@@ -872,4 +872,7 @@ M.CollisionLayers = {
     ['物件'] = 1 << 8,
 }
 
+---@enum(key) y3.Const.SceneUI
+M.SceneUI = {}
+
 return M
