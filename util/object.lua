@@ -54,6 +54,7 @@ end)
 ---@field on_remove? fun(item: Item) # 物品移除后执行
 ---@field on_add_to_pkg? fun(item: Item) # 物品进入背包后执行
 ---@field on_add_to_bar? fun(item: Item) # 物品进入装备栏后执行
+---@field on_use? fun(item: Item) # 物品使用时执行
 --物品的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此物品再修改数据，行为是未定义的
@@ -275,6 +276,12 @@ end)
 subscribe(Item, 'on_add_to_bar', function ()
     y3.game:event('物品-进入物品栏', function(trg, data)
         M.callMethod('item', 'on_add_to_bar', data.item:get_key(), data.item, data.item)
+    end)
+end)
+
+subscribe(Item, 'on_use', function ()
+    y3.game:event('物品-使用', function(trg, data)
+        M.callMethod('item', 'on_use', data.item:get_key(), data.item, data.item)
     end)
 end)
 
