@@ -540,9 +540,9 @@ end
 
 ---获取物品类型的icon的图片id
 ---@param item_key py.ItemKey 物品类型
----@return integer
+---@return py.Texture
 function M.get_icon_id_by_key(item_key)
-    return GameAPI.get_icon_id_by_item_type(item_key)
+    return GameAPI.get_icon_id_by_item_type(item_key)--[[@as py.Texture]]
 end
 
 ---获取物品类型的描述
