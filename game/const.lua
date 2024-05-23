@@ -822,6 +822,25 @@ M.HarmTextType = {
     ['致盲'] = 118,
 }
 
+---@alias y3.Const.TextTagType
+---| '治疗'
+---| '物理'
+---| '法术'
+---| '真实'
+---| '获取金币'
+---| '微软雅黑'
+---| '系统字体'
+
+M.TextTagType = {
+    ['治疗'] = 'heal',
+    ['物理'] = 'physics',
+    ['法术'] = 'magic',
+    ['真实'] = 'real',
+    ['获取金币'] = 'get_gold',
+    ['微软雅黑'] = 'MSYH',
+    ['系统字体'] = 0,
+}
+
 ---@alias y3.Const.UIRelativeParentPosType
 ---| '顶部'
 ---| '底部'
