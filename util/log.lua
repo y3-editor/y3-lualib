@@ -23,7 +23,7 @@ end
 
 local log_cache = {}
 local log_name = ('lua_player%02d.log'):format(GameAPI.get_client_role():get_role_id_num())
-local log_file = io_open(lua_script_path .. '/log/' .. log_name, 'w+b')
+local log_file = io_open(script_path:match('^(.-)%?') .. '/log/' .. log_name, 'w+b')
             or   io_open(log_name, 'w+b')
 if log_file then
     log_file:setvbuf 'no'
