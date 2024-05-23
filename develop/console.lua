@@ -4,7 +4,7 @@ local console_tips_match = console_tips_match
 ---@class Develop.Console
 local M = Class 'Develop.Console'
 
-local function getHelpInfo()
+function M.getHelpInfo()
     local info = {}
 
     info[#info+1] = '指令列表:'
@@ -57,7 +57,7 @@ y3.game:event('控制台-输入', function (trg, data)
     local input = data.str1
 
     if input == '?' then
-        consoleprint(getHelpInfo())
+        consoleprint(M.getHelpInfo())
         return
     end
 
@@ -344,6 +344,6 @@ y3.game:event('控制台-请求补全', function (trg, data)
     console_tips_match(table.concat(completes, '\x01'))
 end)
 
-consoleprint(getHelpInfo())
+consoleprint(M.getHelpInfo())
 
 return M
