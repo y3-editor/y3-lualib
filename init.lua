@@ -35,6 +35,7 @@ include  = y3.reload.include
 require 'y3.tools.linked_table'
 require 'y3.tools.pool'
 require 'y3.tools.gc'
+require 'y3.tools.synthesis'
 
 require 'y3.util.eca_function'
 require 'y3.util.trigger'
