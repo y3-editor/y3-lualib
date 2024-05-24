@@ -66,7 +66,7 @@ end
 ---@param value KV.SupportType
 local function kv_save_from_handle(handle, key, value)
     local py_value, tp = get_py_value_and_type(value)
-    if not py_value then
+    if (not py_value) and (py_value ~= false) then
         error('不支持的类型：' .. tp)
     end
     local api = GameAPI['add_' .. tp .. '_kv']
@@ -82,7 +82,7 @@ end
 ---@param value KV.SupportType
 local function kv_save_from_key(kv_key, object_key, key, value)
     local py_value, tp = get_py_value_and_type(value)
-    if not py_value then
+    if (not py_value) and (py_value ~= false) then
         error('不支持的类型：' .. tp)
     end
     local api = GameAPI['set_' .. kv_key .. '_' .. tp .. '_kv']
