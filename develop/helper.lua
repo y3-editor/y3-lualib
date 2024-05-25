@@ -6,11 +6,20 @@ local nextID = y3.util.counter()
 ---@class Develop.Helper
 local M = Class 'Develop.Helper'
 
----@type table<integer, fun(data: any)>
+---@type table<integer, fun(result: any)>
 local requestMap = {}
+
+---@type table<integer, fun(params: any): any>
+local methodMap = {}
 
 ---@type Network
 local client
+
+---@param method string
+---@param callback fun(params: any): any
+function M.registerMethod(method, callback)
+    methodMap[method] = callback
+end
 
 ---@param method string
 ---@param params table
@@ -30,6 +39,24 @@ function M.request(method, params, callback)
     client:send(string.pack('>s4', jsonContent))
 
     requestMap[data.id] = callback
+end
+
+---@param id integer
+---@param result any
+---@param err? string
+function M.response(id, result, err)
+    if not client then
+        return
+    end
+
+    local data = {
+        id = id,
+        result = result,
+        error = err,
+    }
+
+    local jsonContent = y3.json.encode(data)
+    client:send(string.pack('>s4', jsonContent))
 end
 
 ---@param port integer
@@ -53,6 +80,17 @@ local function createClient(port)
             local id = data.id
             if data.method then
                 --request
+                local callback = methodMap[data.method]
+                if callback then
+                    local suc, res = xpcall(callback, log.error, data.params)
+                    if suc then
+                        M.response(id, res)
+                    else
+                        M.response(id, nil, res)
+                    end
+                else
+                    M.response(id, nil, '未找到方法：' .. tostring(data.method))
+                end
             else
                 --response
                 if data.result then
@@ -70,6 +108,13 @@ local function createClient(port)
 
     return client
 end
+
+M.registerMethod('command', function (params)
+    M.request('print', {
+        message = '你发送了命令：' .. tostring(params.data)
+    })
+    return '这是返回值'
+end)
 
 y3.game:event("游戏-初始化", function (trg, data)
     if not y3.game.is_debug_mode() then
