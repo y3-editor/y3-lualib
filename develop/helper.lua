@@ -46,7 +46,7 @@ end
 ---@param id integer
 ---@param result any
 ---@param err? string
-function M.onResponse(id, result, err)
+function M.response(id, result, err)
     if not client then
         return
     end
@@ -61,10 +61,42 @@ function M.onResponse(id, result, err)
     client:send(string.pack('>s4', jsonContent))
 end
 
+local function handle_body(body)
+    local data = y3.json.decode(body)
+    local id = data.id
+    if data.method then
+        --request
+        local callback = methodMap[data.method]
+        if callback then
+            local suc, res = xpcall(callback, log.error, data.params)
+            if suc then
+                M.response(id, res)
+            else
+                M.response(id, nil, res)
+            end
+        else
+            M.response(id, nil, '未找到方法：' .. tostring(data.method))
+        end
+    else
+        --response
+        if data.result then
+            local callback = requestMap[id]
+            if callback then
+                requestMap[id] = nil
+                xpcall(callback, log.error, data.result)
+            end
+        elseif data.error then
+            log.warn(data.error)
+        end
+    end
+end
+
 ---@param port integer
 ---@return Network 
 local function createClient(port)
-    client = network.connect('127.0.0.1', port)
+    client = network.connect('127.0.0.1', port, {
+        update_interval = 0.05,
+    })
 
     client:on_connected(function (self)
         M.requestPrint(console.getHelpInfo())
@@ -75,35 +107,7 @@ local function createClient(port)
         local head = read(4)
         local len = string.unpack('>I4', head)
         local body = read(len)
-        pcall(function ()
-            local data = y3.json.decode(body)
-            local id = data.id
-            if data.method then
-                --request
-                local callback = methodMap[data.method]
-                if callback then
-                    local suc, res = xpcall(callback, log.error, data.params)
-                    if suc then
-                        M.onResponse(id, res)
-                    else
-                        M.onResponse(id, nil, res)
-                    end
-                else
-                    M.onResponse(id, nil, '未找到方法：' .. tostring(data.method))
-                end
-            else
-                --response
-                if data.result then
-                    local callback = requestMap[id]
-                    if callback then
-                        requestMap[id] = nil
-                        xpcall(callback, log.error, data.result)
-                    end
-                elseif data.error then
-                    log.warn(data.error)
-                end
-            end
-        end)
+        xpcall(handle_body, log.error, body)
     end)
 
     return client
