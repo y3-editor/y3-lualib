@@ -5,6 +5,8 @@
 ---@class py.ETypeMeta
 --
 ---@class py.DynamicTypeMeta: py.ETypeMeta
+--整型
+---@class py.IntBase: py.ETypeMeta
 --定点数
 ---@class py.Fixed: py.ETypeMeta
 --定点数Vector2
@@ -23,7 +25,7 @@
 ---@class py.Point: py.Vector3
 --玩家ID
 ---@class py.RoleID: integer
---
+--玩家关系
 ---@class py.RoleRelation: integer
 --阵营ID
 ---@class py.CampID: integer
@@ -85,8 +87,6 @@
 ---@class py.RoleStatus: integer
 --
 ---@class py.RoleType: integer
---
----@class py.RoleRelation: integer
 --音效编号
 ---@class py.AudioKey: integer
 --特效编号
@@ -363,5 +363,7 @@
 ---@class py.Map: integer
 --移动方向
 ---@class py.MoveDirection: integer
+--观战模式状态
+---@class py.WatchingModeStatus: integer
 --画质
 ---@class py.ImageQuality: integer

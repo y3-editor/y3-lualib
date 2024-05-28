@@ -328,3 +328,7 @@ function Ability:api_remove_tag(tag) end
 
 --清空键值对
 function Ability:api_clear_tag() end
+
+--设置是否为永久性技能
+---@param is_permanent_ability boolean # 是否为永久性技能
+function Ability:api_set_ability_is_permanent(is_permanent_ability) end

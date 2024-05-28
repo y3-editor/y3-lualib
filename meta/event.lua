@@ -330,6 +330,63 @@ event.ET_BROADCAST_LUA_MSG = {
     },
 }
 
+---@class EventParam.ET_BROADCAST_MSG
+---@field broadcast_msg_id string # 消息id
+---@field broadcast_msg_content string # 消息内容
+---@field player Player # 角色
+
+--广播自定义消息
+event.ET_BROADCAST_MSG = {
+    [1] = {
+        name = "__broadcast_msg_id",
+        type = "string",
+        lua_name = "broadcast_msg_id",
+        lua_type = "string",
+        desc = "消息id",
+        lua_desc = "消息id",
+    },
+    [2] = {
+        name = "__broadcast_msg_content",
+        type = "string",
+        lua_name = "broadcast_msg_content",
+        lua_type = "string",
+        desc = "消息内容",
+        lua_desc = "消息内容",
+    },
+    [3] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "角色ID",
+        lua_desc = "角色",
+    },
+}
+
+---@class EventParam.ET_WATCHING_PLAYER_CHANGED
+---@field player Player # 新的观看玩家
+---@field watching_mode_status py.WatchingModeStatus # 观看模式状态
+
+--观看的玩家ID发生改变
+event.ET_WATCHING_PLAYER_CHANGED = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "新的观看玩家ID",
+        lua_desc = "新的观看玩家",
+    },
+    [2] = {
+        name = "__watching_mode_status",
+        type = "py.WatchingModeStatus",
+        lua_name = "watching_mode_status",
+        lua_type = "py.WatchingModeStatus",
+        desc = "观看模式状态",
+        lua_desc = "观看模式状态",
+    },
+}
+
 ---@class EventParam.ET_CLOSE_MALL_COIN_PAYMENT
 ---@field player Player # 角色
 ---@field int1 integer # 错误码
@@ -1041,6 +1098,39 @@ event.ET_UNIT_CONSTRUCT_FINISH = {
         lua_type = "Unit",
         desc = "建造完成的单位",
         lua_desc = "建造完成的单位",
+    },
+}
+
+---@class EventParam.ET_ON_UNIT_TRANSFORMATION
+---@field unit Unit # 单位
+---@field old_unit_key py.UnitKey # 老的单位物编
+---@field new_unit_key py.UnitKey # 新的单位物编
+
+--单位变身
+event.ET_ON_UNIT_TRANSFORMATION = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位",
+        lua_desc = "单位",
+    },
+    [2] = {
+        name = "__old_unit_key",
+        type = "py.UnitKey",
+        lua_name = "old_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "老的单位物编",
+        lua_desc = "老的单位物编",
+    },
+    [3] = {
+        name = "__new_unit_key",
+        type = "py.UnitKey",
+        lua_name = "new_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "新的单位物编",
+        lua_desc = "新的单位物编",
     },
 }
 
@@ -5565,6 +5655,7 @@ event.ET_ASYNC_KEYBOARD_KEY_UP_EVENT = {
 ---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
+---@field is_click_swallowed_by_ui boolean # 点击事件是否被UI吞噬
 
 --鼠标按键按下
 event.ET_MOUSE_KEY_DOWN_EVENT = {
@@ -5591,6 +5682,14 @@ event.ET_MOUSE_KEY_DOWN_EVENT = {
         lua_type = "Point",
         desc = "鼠标指向的世界坐标",
         lua_desc = "鼠标指向的世界坐标",
+    },
+    [4] = {
+        name = "__is_click_swallowed_by_ui",
+        type = "boolean",
+        lua_name = "is_click_swallowed_by_ui",
+        lua_type = "boolean",
+        desc = "点击事件是否被UI吞噬",
+        lua_desc = "点击事件是否被UI吞噬",
     },
 }
 
@@ -5664,6 +5763,7 @@ event.MOUSE_KEY_DB_CLICK_EVENT = {
 ---@field player Player # 触发按键的玩家
 ---@field current_key py.MouseKey # 当前鼠标按键
 ---@field pointing_world_pos Point # 鼠标指向的世界坐标
+---@field is_click_swallowed_by_ui boolean # 点击事件是否被UI吞噬
 
 --异步鼠标按键按下
 event.ET_ASYNC_MOUSE_KEY_DOWN_EVENT = {
@@ -5690,6 +5790,14 @@ event.ET_ASYNC_MOUSE_KEY_DOWN_EVENT = {
         lua_type = "Point",
         desc = "鼠标指向的世界坐标",
         lua_desc = "鼠标指向的世界坐标",
+    },
+    [4] = {
+        name = "__is_click_swallowed_by_ui",
+        type = "boolean",
+        lua_name = "is_click_swallowed_by_ui",
+        lua_type = "boolean",
+        desc = "点击事件是否被UI吞噬",
+        lua_desc = "点击事件是否被UI吞噬",
     },
 }
 
@@ -8218,6 +8326,30 @@ event.ET_CUSTOM_EVENT = {
 
 --自定义事件
 event.ET_EVENT_CUSTOM = {
+    [1] = {
+        name = "__c_param_1",
+        type = "integer",
+        lua_name = "c_param_1",
+        lua_type = "integer",
+        desc = "事件参数",
+        lua_desc = "事件参数",
+    },
+    [2] = {
+        name = "__c_param_dict",
+        type = "py.Dict",
+        lua_name = "c_param_dict",
+        lua_type = "py.Dict",
+        desc = "自定义参数列表",
+        lua_desc = "自定义参数列表",
+    },
+}
+
+---@class EventParam.ET_EVENT_CUSTOM_BROADCAST
+---@field c_param_1 integer # 事件参数
+---@field c_param_dict py.Dict # 自定义参数列表
+
+--自定义广播事件
+event.ET_EVENT_CUSTOM_BROADCAST = {
     [1] = {
         name = "__c_param_1",
         type = "integer",

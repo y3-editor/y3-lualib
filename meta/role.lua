@@ -506,3 +506,21 @@ function Role:api_get_role_achieve_point() end
 ---@param achieve_id string # 成就ID
 ---@return boolean # 是否解锁
 function Role:api_get_role_achieve_unlock(achieve_id) end
+
+--宠物http请求调用
+---@param api string # 请求的api方法名
+---@param is_post boolean # api是否为post方法
+---@param body string # 请求的body
+---@param timeout? integer # 超时时间
+---@param callback? function # 回调函数
+function Role:pet_http_request(api, is_post, body, timeout, callback) end
+
+--请求创建私有副本
+---@param level_id py.Map # 关卡id
+---@param game_mode py.GameMode # 游戏模式
+---@param max_player? integer # 最大人数
+function Role:request_create_private_dungeon(level_id, game_mode, max_player) end
+
+--请求加入私有副本
+---@param token string # 房间口令
+function Role:request_join_private_dungeon(token) end

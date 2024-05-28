@@ -142,9 +142,16 @@ function GlobalAPI.int_iterator(num) end
 --整数迭代器
 ---@param start integer # 计数从start开始
 ---@param stop integer # 计数到stop结束
----@param step integer # 步长
+---@param step? integer # 步长
 ---@return py.Int32Iterator # Python迭代器
 function GlobalAPI.int_iterator2(start, stop, step) end
+
+--整数迭代器
+---@param start integer # 计数从start开始
+---@param stop integer # 计数到stop结束
+---@param step? integer # 步长
+---@return py.Int32Iterator # Python迭代器
+function GlobalAPI.int_iterator3(start, stop, step) end
 
 --列表索引迭代器
 ---@param l py.List # 列表
@@ -615,6 +622,13 @@ function GlobalAPI.dict_has_key(dict_var, key) end
 ---@param key py.DynamicTypeMeta # value
 ---@return boolean # 结果
 function GlobalAPI.dict_has_value(dict_var, key) end
+
+--数组 - 是否存在元素
+---@param dict_var py.List # list var
+---@param key py.DynamicTypeMeta # value
+---@param name string # name
+---@return boolean # 结果
+function GlobalAPI.dict_has_value_special(dict_var, key, name) end
 
 --将第二个列表的值赋值给第一个列表 不改变第一个列表的长度
 ---@param list1 py.List # 列表

@@ -197,6 +197,16 @@ function Unit:api_set_is_sleeping(is_sleeping) end
 ---@return boolean # 是否休眠
 function Unit:api_get_is_sleeping() end
 
+--单位变身
+---@param entity_no py.UnitKey # 新的物编ID
+---@param inherit_composite_attr? boolean # 是否继承复合属性
+---@param inherit_unit_attr? boolean # 是否继承单位属性
+---@param inherit_kv? boolean # 是否继承kv
+---@param inherit_hero_ability? boolean # 是否继承英雄技能
+---@param inherit_common_ability? boolean # 是否继承通用技能
+---@param inherit_passive_ability? boolean # 是否继承隐藏技能
+function Unit:api_unit_transformation(entity_no, inherit_composite_attr, inherit_unit_attr, inherit_kv, inherit_hero_ability, inherit_common_ability, inherit_passive_ability) end
+
 --获取 attr_other
 ---@param key string # 属性名
 ---@return py.Fixed # 属性值
@@ -438,6 +448,10 @@ function Unit:api_get_unit_pkg_cnt() end
 ---@return py.Fixed # 动态碰撞半径
 function Unit:api_get_unit_collision_radius() end
 
+--设置单位动态碰撞半径
+---@param radius number # 半径
+function Unit:api_set_unit_collision_radius(radius) end
+
 --获取单位被击杀经验
 ---@return integer # 经验值
 function Unit:api_get_unit_reward_exp() end
@@ -473,6 +487,10 @@ function Unit:api_get_unit_main_attr() end
 ---@param attr_key string # 属性索引
 ---@return string # 属性本地化名
 function Unit:api_get_attr_name(attr_key) end
+
+--设置事件中的经验值
+---@param val py.Fixed # 经验值
+function Unit:api_set_changed_exp_in_event(val) end
 
 --单位停止移动
 function Unit:api_stop_move() end
@@ -1177,6 +1195,10 @@ function Unit:api_get_unit_attack_interval() end
 --获取单位每秒攻击次数
 ---@return py.Fixed # 攻击次数
 function Unit:api_get_unit_attack_count_per_second() end
+
+--获取普攻技能
+---@return py.Ability # 普攻
+function Unit:api_get_common_atk_ability() end
 
 --单位是否拥有物品
 ---@param item py.Item # 物品
