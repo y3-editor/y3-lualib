@@ -1,5 +1,3 @@
-local Trigger = require 'y3.util.trigger'
-
 ---@class EventManager
 ---@field private object table
 ---@field private event_map table<string, Event>
