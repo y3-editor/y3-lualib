@@ -49,6 +49,10 @@ local function runCode(code)
         print_to_console(result)
         return
     end
+    if getmetatable(result) and getmetatable(result).__tostring then
+        print_to_console(tostring(result))
+        return
+    end
     local view = y3.inspect(result)
     if #view > 10000 then
         view = view:sub(1, 10000) .. '...'
