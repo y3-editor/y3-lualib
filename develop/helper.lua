@@ -21,6 +21,7 @@ function M.registerMethod(method, callback)
     methodMap[method] = callback
 end
 
+--向《Y3开发助手》发送请求
 ---@param method string
 ---@param params table
 ---@param callback? fun(data: any) # 接收返回值
@@ -41,10 +42,11 @@ function M.request(method, params, callback)
     requestMap[data.id] = callback
 end
 
+---@private
 ---@param id integer
 ---@param result any
 ---@param err? string
-function M.response(id, result, err)
+function M.onResponse(id, result, err)
     if not client then
         return
     end
@@ -65,9 +67,7 @@ local function createClient(port)
     client = network.connect('127.0.0.1', port)
 
     client:on_connected(function (self)
-        M.request('print', {
-            message = console.getHelpInfo()
-        })
+        M.requestPrint(console.getHelpInfo())
     end)
 
     ---@async
@@ -84,12 +84,12 @@ local function createClient(port)
                 if callback then
                     local suc, res = xpcall(callback, log.error, data.params)
                     if suc then
-                        M.response(id, res)
+                        M.onResponse(id, res)
                     else
-                        M.response(id, nil, res)
+                        M.onResponse(id, nil, res)
                     end
                 else
-                    M.response(id, nil, '未找到方法：' .. tostring(data.method))
+                    M.onResponse(id, nil, '未找到方法：' .. tostring(data.method))
                 end
             else
                 --response
@@ -109,11 +109,17 @@ local function createClient(port)
     return client
 end
 
-M.registerMethod('command', function (params)
+--在《Y3开发助手》的终端上打印消息
+---@param message string
+function M.requestPrint(message)
     M.request('print', {
-        message = '你发送了命令：' .. tostring(params.data)
+        message = message
     })
-    return '这是返回值'
+end
+
+--注册一个方法
+M.registerMethod('command', function (params)
+    y3.develop.console.input(params.data)
 end)
 
 y3.game:event("游戏-初始化", function (trg, data)

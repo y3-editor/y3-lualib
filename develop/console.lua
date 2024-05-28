@@ -25,6 +25,12 @@ function M.getHelpInfo()
     return table.concat(info, '\n')
 end
 
+---@param message string
+local function print_to_console(message)
+    consoleprint(message)
+    y3.develop.helper.requestPrint(message)
+end
+
 ---@param code string
 ---@return any
 local function runCode(code)
@@ -35,27 +41,24 @@ local function runCode(code)
     end
     if not f then
         assert(err)
-        consoleprint((err:gsub('console:1:', 'Error: ')))
+        print_to_console((err:gsub('console:1:', 'Error: ')))
         return
     end
     local ok, result = pcall(f)
     if not ok then
-        consoleprint(result)
+        print_to_console(result)
         return
     end
     local view = y3.inspect(result)
     if #view > 10000 then
         view = view:sub(1, 10000) .. '...'
     end
-    consoleprint(view)
+    print_to_console(view)
 end
 
-y3.game:event('控制台-输入', function (trg, data)
-    if not y3.game.is_debug_mode() then
-        return
-    end
-    local input = data.str1
-
+--控制台输入
+---@param input string
+function M.input(input)
     if input == '?' then
         consoleprint(M.getHelpInfo())
         return
@@ -73,6 +76,14 @@ y3.game:event('控制台-输入', function (trg, data)
     end
 
     runCode(input)
+end
+
+y3.game:event('控制台-输入', function (trg, data)
+    if not y3.game.is_debug_mode() then
+        return
+    end
+    local input = data.str1
+    M.input(input)
 end)
 
 y3.sync.onSync('$console', function (input)

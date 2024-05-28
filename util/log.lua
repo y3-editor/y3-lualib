@@ -87,6 +87,9 @@ log = New 'Log' {
         if y3.config.log.toGame then
             print_to_game(message)
         end
+        if y3.config.log.toHelper then
+            y3.develop.helper.requestPrint(message)
+        end
     end,
     traceback = function (message, level)
         local err = debug.traceback(message, level + 1)

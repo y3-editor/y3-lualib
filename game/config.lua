@@ -47,6 +47,7 @@ M.debug = 'auto'
 ---@field toDialog boolean # 是否打印到Dialog窗口，默认为 `true`
 ---@field toConsole boolean # 是否打印到控制台中，默认为 `true`
 ---@field toGame boolean # 是否打印到游戏窗口中，默认为 `false`
+---@field toHelper boolean # 是否打印到《Y3开发助手》中，默认为 `true`
 ---@field logger fun(level: Log.Level, message: string, timeStamp: string): boolean # 自定义的日志处理函数，返回 `true` 将阻止默认的日志处理。在处理函数的执行过程中会屏蔽此函数。
 -- 日志相关的配置
 M.log = y3.proxy.new({
@@ -55,6 +56,7 @@ M.log = y3.proxy.new({
     toDialog  = true,
     toConsole = true,
     toGmae    = false,
+    toHelper  = true,
 }, {
     updateRaw = true,
     setter = {
