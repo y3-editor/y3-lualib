@@ -20,6 +20,10 @@ function M:__init(py_player_group)
     return self
 end
 
+function M:__len()
+    return self:count()
+end
+
 ---@param py_role_group py.RoleGroup
 ---@return PlayerGroup
 function M.get_by_handle(py_role_group)

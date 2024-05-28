@@ -11,6 +11,10 @@ function M:__init(py_unit_group)
     return self
 end
 
+function M:__len()
+    return self:count()
+end
+
 ---@param py_unit_group py.UnitGroup
 ---@return UnitGroup
 function M.get_by_handle(py_unit_group)
