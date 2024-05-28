@@ -52,7 +52,7 @@ function M.register(result, ingredients)
 end
 
 -- 进行帧同步
-y3.sync.onSync('购买商店物品', function (data, source)
+y3.sync.onSync('demo-购买商店物品', function (data, source)
     if not data then
         return
     end

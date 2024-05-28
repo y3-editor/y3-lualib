@@ -295,7 +295,7 @@ MAIN:on_event('装备合成.购买按钮', '左键-按下', function (ui, local_
 
     if cur_click_synthesis_item then
         -- 发送购买请求
-        y3.sync.send('购买商店物品', {
+        y3.sync.send('demo-购买商店物品', {
             item_name = cur_click_synthesis_item,
             player_id = local_player:get_id(),
         })
