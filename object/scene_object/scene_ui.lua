@@ -17,6 +17,11 @@ function M:__del()
     GameAPI.delete_scene_node(self.handle)
 end
 
+function M:__eq(other)
+    return IsInstanceOf(other, 'SceneUI')
+        and self.handle == other.handle
+end
+
 M.map = {}
 
 ---通过py层的界面实例获取lua层的界面实例

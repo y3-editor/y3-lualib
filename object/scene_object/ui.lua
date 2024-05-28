@@ -28,6 +28,11 @@ function M:__tostring()
     )
 end
 
+function M:__eq(other)
+    return IsInstanceOf(other, 'UI')
+        and self.handle == other.handle
+end
+
 ---@private
 M.map = {}
 
