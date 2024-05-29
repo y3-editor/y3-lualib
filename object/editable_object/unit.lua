@@ -388,24 +388,24 @@ function M:remove_tag(tag)
 end
 
 ---添加状态
----@param state_enum integer 状态名
+---@param state_enum integer|y3.Const.UnitEnumState|y3.Const.UnitEnumStateAlias 状态名
 function M:add_state(state_enum)
-    self.phandle:api_add_state(state_enum)
+    self.phandle:api_add_state(y3.const.UnitEnumState[state_enum] or state_enum)
 end
 
 ---移除状态
----@param state_enum integer 状态名
+---@param state_enum integer|y3.Const.UnitEnumState|y3.Const.UnitEnumStateAlias 状态名
 function M:remove_state(state_enum)
-    self.phandle:api_remove_state(state_enum)
+    self.phandle:api_remove_state(y3.const.UnitEnumState[state_enum] or state_enum)
 end
 
 ---添加状态
----@param state_enum integer 状态名
+---@param state_enum integer|y3.Const.UnitEnumState|y3.Const.UnitEnumStateAlias 状态名
 ---@return GCNode
 function M:add_state_gc(state_enum)
-    self:add_state(state_enum)
+    self:add_state(y3.const.UnitEnumState[state_enum] or state_enum)
     return New 'GCNode' (function ()
-        self:remove_state(state_enum)
+        self:remove_state(y3.const.UnitEnumState[state_enum] or state_enum)
     end)
 end
 
