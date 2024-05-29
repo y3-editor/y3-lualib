@@ -485,7 +485,9 @@ function M.is_cd_reduce_by_key(ability_key)
     return GameAPI.api_get_influenced_by_cd_reduce(ability_key)
 end
 
----获取技能类型实数属性
+--获取技能类型实数属性
+--> 请使用 `y3.object.ability[ability_key].data` 代替
+---@deprecated
 ---@param ability_key py.AbilityKey 技能类型id (物编id)
 ---@param key string 键值key
 ---@return number value 值
@@ -493,7 +495,9 @@ function M.get_float_attr_by_key(ability_key, key)
     return GameAPI.get_ability_conf_float_attr(ability_key, key):float()
 end
 
----获取技能类型整数属性
+--获取技能类型整数属性
+--> 请使用 `y3.object.ability[ability_key].data` 代替
+---@deprecated
 ---@param ability_key py.AbilityKey 技能类型id (物编id)
 ---@param key string 键值key
 ---@return integer value 值
@@ -546,7 +550,9 @@ function M.get_formula_attr_by_key(ability_id, attr_name, level, stack_count, un
     return GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, stack_count, Fix32(unit_hp_max), Fix32(unit_hp_cur)):float()
 end
 
----获取技能类型字符串属性
+--获取技能类型字符串属性
+--> 请改用 `y3.object.ability[ability_key].data` 代替
+---@deprecated
 ---@param ability_key py.AbilityKey 技能类型id (物编id)
 ---@param key py.AbilityStrAttr 键值key
 ---@return string str 值
