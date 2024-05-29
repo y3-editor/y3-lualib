@@ -181,17 +181,17 @@ function M:get_name()
 end
 
 ---设置实数属性
----@param key string 属性key
+---@param key y3.Const.AbilityFloatAttr | string 属性key
 ---@param value number 属性值
 function M:set_float_attr(key, value)
-    self.phandle:api_set_float_attr(key, Fix32(value))
+    self.phandle:api_set_float_attr(y3.const.AbilityFloatAttr[key] or key, Fix32(value))
 end
 
 ---设置整数属性
----@param key string 属性key
+---@param key y3.Const.AbilityIntAttr | string 属性key
 ---@param value integer 属性值
 function M:set_int_attr(key, value)
-    self.phandle:api_set_int_attr(key, value)
+    self.phandle:api_set_int_attr(y3.const.AbilityIntAttr[key] or key, value)
 end
 
 ---设置剩余冷却时间
@@ -390,17 +390,17 @@ function M:get_formula_kv(key)
 end
 
 ---获取实数属性
----@param key string 键值key
+---@param key y3.Const.AbilityFloatAttr | string 键值key
 ---@return number value 值
 function M:get_float_attr(key)
-    return self.phandle:api_get_float_attr(key):float()
+    return self.phandle:api_get_float_attr(y3.const.AbilityFloatAttr[key] or key):float()
 end
 
 ---获取整数属性
----@param key string 键值key
+---@param key y3.Const.AbilityIntAttr | string 键值key
 ---@return number value 值
 function M:get_int_attr(key)
-    return self.phandle:api_get_int_attr(key)
+    return self.phandle:api_get_int_attr(y3.const.AbilityIntAttr[key] or key)
 end
 
 ---获取字符串属性
@@ -558,6 +558,22 @@ end
 ---@return string str 值
 function M.get_str_attr_by_key(ability_key, key)
     return GameAPI.get_ability_conf_str_attr(ability_key, key)
+end
+
+--根据技能的key获取技能名字
+---@param ability_key py.AbilityKey
+---@return string name 技能名字
+function M.get_name_by_key(ability_key)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return GameAPI.get_ability_conf_str_attr(ability_key, 'name')
+end
+
+--根据技能的key获取技能描述
+---@param ability_key py.AbilityKey
+---@return string des 描述
+function M.get_description_by_key(ability_key)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return GameAPI.get_ability_conf_str_attr(ability_key, 'description')
 end
 
 ---设置技能图标

@@ -877,7 +877,7 @@ M.UIAttr = {
     ["当前值"] = "current_value_bind",
 }
 
----@enum (key) y3.Const.AbilityIntAttr
+---@enum(key) y3.Const.AbilityIntAttr
 M.AbilityIntAttr = {
     ["最大等级"] = "ability_max_level",
     ["最大充能数"] = "ability_max_stack_count",
@@ -885,10 +885,25 @@ M.AbilityIntAttr = {
     ["当前充能数"] = "cur_stack_count",
 }
 
----@enum (key) y3.Const.AbilityStrAttr
+---@enum(key) y3.Const.AbilityStrAttr
 M.AbilityStrAttr = {
     ["名称"] = "name",
     ["描述"] = "description",
+}
+
+---@enum(key) y3.Const.AbilityFloatAttr
+M.AbilityFloatAttr = {
+    ['技能消耗'] = 'ability_cost',
+    ['生命值消耗'] = 'ability_hp_cost',
+    ['冷却时间'] = 'cold_down_time',
+    ['技能伤害值'] = 'ability_damage',
+    ['释放范围'] = 'ability_cast_range',
+    ['施法开始'] = 'ability_cast_point',
+    ['施法完成'] = 'ability_bw_point',
+    ['施法出手'] = 'ability_channel_time',
+    ['施法引导'] = 'ability_prepare_time',
+    ['技能影响范围'] = 'ability_damage_range',
+    ['充能时间'] = 'ability_stack_cd',
 }
 
 ---@enum(key) y3.Const.CollisionLayers
