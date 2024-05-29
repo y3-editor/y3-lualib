@@ -591,6 +591,12 @@ function M:set_max_cd(value)
     self:set_float_attr("cold_down_time", value)
 end
 
+--获取技能最大CD
+---@return number
+function M:get_max_cd()
+    return self:get_float_attr("cold_down_time")
+end
+
 ---进入技能准备施法状态
 ---@param player Player 玩家
 function M:pre_cast(player)
