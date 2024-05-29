@@ -73,6 +73,13 @@ boolean
 ```
 
 是否打印到游戏窗口中，默认为 `false`
+## toHelper
+
+```lua
+boolean
+```
+
+是否打印到《Y3开发助手》中，默认为 `true`
 
 # Config.Sync
 

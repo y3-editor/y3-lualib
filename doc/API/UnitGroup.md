@@ -45,7 +45,7 @@ function UnitGroup.create()
   -> UnitGroup
 ```
 
-创建空单位组(3月28号更新后可用)
+创建空单位组
 ## get_by_handle
 
 ```lua
@@ -57,7 +57,7 @@ function UnitGroup.get_by_handle(py_unit_group: py.UnitGroup)
 
 ```lua
 (method) UnitGroup:get_first()
-  -> unit: Unit
+  -> unit: Unit?
 ```
 
 获取单位组内第一个单位

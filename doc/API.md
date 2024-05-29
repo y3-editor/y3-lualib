@@ -12,6 +12,12 @@
 
 会在施法相关的事件中传递
 
+# [ClientTimer](API/ClientTimer.md) 客户端计时器
+
+由你自己电脑的CPU驱动的计时器，完全是异步的（即使是同步执行）
+在游戏暂停时也会继续计时并回调
+> 如果你不知道什么是异步，请不要使用这个模块！
+
 # [Config](API/Config.md) 配置
 
 可以设置日志、同步等相关的配置
@@ -27,6 +33,8 @@
 # [ECAFunction](API/ECAFunction.md) 注册ECA函数
 
 可以使用该功能让lua函数在ECA中被调用。
+
+# [ECAHelper](API/ECAHelper.md) 
 
 # [EditorObject](API/EditorObject.md)  物体编辑器
 
@@ -52,6 +60,8 @@
 
 # [ItemGroup](API/ItemGroup.md) 物品组
 
+# [KKNetwork](API/KKNetwork.md) 
+
 # [Light](API/Light.md) 光照
 
 用来修改光照、阴影等效果
@@ -61,6 +71,9 @@
 # [LocalTimer](API/LocalTimer.md) 本地计时器
 
 支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
+如果是同步执行的，那么会确保同步回调
+
+# [LocalUILogic](API/LocalUILogic.md) 本地UI逻辑框架
 
 # [Math](API/Math.md) 数学库
 
@@ -133,6 +146,8 @@
 }
 ```
 
+# [Network](API/Network.md) 
+
 # [Particle](API/Particle.md) 粒子特效
 
 # [Player](API/Player.md) 玩家
@@ -146,6 +161,8 @@
 # [Projectile](API/Projectile.md) 投射物
 
 # [ProjectileGroup](API/ProjectileGroup.md) 投射物组
+
+# [PyProxy](API/PyProxy.md) 
 
 # [Reload](API/Reload.md) 热重载
 
@@ -169,6 +186,8 @@
 
 # [Sync](API/Sync.md)  将本地数据同步给所有玩家
 
+# [Synthesis](API/Synthesis.md) 
+
 # [Technology](API/Technology.md) 科技
 
 # [Timer](API/Timer.md) 同步计时器
@@ -182,6 +201,12 @@
 # [Unit](API/Unit.md) 单位
 
 # [UnitGroup](API/UnitGroup.md) 单位组
+
+# [UnitTest](API/UnitTest.md) 
+
+# [oslib](API/oslib.md) 
+
+[查看文档](http://www.lua.org/manual/5.4/manual.html#pdf-os)
 
 # [Const](API/Const.md) 
 

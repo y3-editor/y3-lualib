@@ -27,7 +27,7 @@
 (method) Pool:del(obj: any)
 ```
 
- 移除对象
+ 移除对象，请勿在遍历的过程中移除对象
 ## dump
 
 ```lua
@@ -52,6 +52,12 @@
 ```
 
  是否包含对象
+## order
+
+```lua
+table
+```
+
 ## pairs
 
 ```lua

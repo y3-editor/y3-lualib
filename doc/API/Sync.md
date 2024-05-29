@@ -5,7 +5,7 @@
 ## onSync
 
 ```lua
-function Sync.onSync(id: string, callback: fun(data: Serialization.SupportTypes))
+function Sync.onSync(id: string, callback: fun(data: Serialization.SupportTypes, source: Player))
 ```
 
  同步接收数据，回调函数在同步后执行  

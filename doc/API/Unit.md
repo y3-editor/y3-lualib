@@ -38,7 +38,7 @@ type:
 ## add_attr
 
 ```lua
-(method) Unit:add_attr(attr_name: string, value: number, attr_type: string)
+(method) Unit:add_attr(attr_name: string|y3.Const.UnitAttr, value: number, attr_type?: string|y3.Const.UnitAttrType)
 ```
 
 增加属性
@@ -47,11 +47,11 @@ type:
 
 @*param* `value` — 属性值
 
-@*param* `attr_type` — 属性类型
+@*param* `attr_type` — 属性类型，默认为“增益”
 ## add_attr_gc
 
 ```lua
-(method) Unit:add_attr_gc(attr_name: string, value: number, attr_type: string)
+(method) Unit:add_attr_gc(attr_name: string|y3.Const.UnitAttr, value: number, attr_type: string|y3.Const.UnitAttrType)
   -> GCNode
 ```
 
@@ -102,13 +102,21 @@ type:
 ## add_item
 
 ```lua
-(method) Unit:add_item(item_id: py.ItemKey)
+(method) Unit:add_item(item_id: py.ItemKey, slot_type?: y3.Const.ShiftSlotTypeAlias)
   -> Item
 ```
 
 单位添加物品
 
 @*param* `item_id` — 物品id
+
+@*param* `slot_type` — 槽位类型
+
+```lua
+slot_type:
+    | '物品栏'
+    | '背包栏'
+```
 ## add_level
 
 ```lua
@@ -359,6 +367,7 @@ function Unit.check_precondition_by_key(player: Player, unit_key: py.UnitKey)
 
 ```lua
 function Unit.create_illusion(illusion_unit: Unit, call_unit: Unit, player: Player, point: Point, direction: number, clone_hp_mp: boolean)
+  -> Unit?
 ```
 
 创建幻象
@@ -609,10 +618,18 @@ type:
 ```
 
 获取指定类型的所有技能
+## get_ability_by_seq
+
+```lua
+(method) Unit:get_ability_by_seq(seq: py.AbilitySeq)
+  -> Ability?
+```
+
+根据技能序号获取技能
 ## get_ability_by_slot
 
 ```lua
-(method) Unit:get_ability_by_slot(type: y3.Const.AbilityType, slot: y3.Const.AbilityIndex)
+(method) Unit:get_ability_by_slot(type: y3.Const.AbilityType|y3.Const.AbilityTypeAlias, slot: integer)
   -> ability: Ability?
 ```
 
@@ -623,6 +640,14 @@ type:
 @*param* `slot` — 技能位
 
 @*return* `ability` — 技能
+
+```lua
+type:
+    | '隐藏'
+    | '普通'
+    | '命令'
+    | '英雄'
+```
 ## get_ability_point
 
 ```lua
@@ -681,10 +706,24 @@ type:
 获得攻击类型
 
 @*return* `DAMAGE_ATTACK_TYPE` — 攻击类型
+## get_attr
+
+```lua
+(method) Unit:get_attr(attr_name: y3.Const.UnitAttr, attr_type?: '实际'|'额外'|y3.Const.UnitAttrType)
+  -> number
+```
+
+获取属性（默认为实际属性）
+
+```lua
+attr_type:
+    | '实际'
+    | '额外'
+```
 ## get_attr_all_ratio
 
 ```lua
-(method) Unit:get_attr_all_ratio(attr_name: string)
+(method) Unit:get_attr_all_ratio(attr_name: string|y3.Const.UnitAttr)
   -> number
 ```
 
@@ -692,7 +731,7 @@ type:
 ## get_attr_base
 
 ```lua
-(method) Unit:get_attr_base(attr_name: string)
+(method) Unit:get_attr_base(attr_name: string|y3.Const.UnitAttr)
   -> attr_base: number
 ```
 
@@ -702,7 +741,7 @@ type:
 ## get_attr_base_ratio
 
 ```lua
-(method) Unit:get_attr_base_ratio(attr_name: string)
+(method) Unit:get_attr_base_ratio(attr_name: string|y3.Const.UnitAttr)
   -> number
 ```
 
@@ -710,7 +749,7 @@ type:
 ## get_attr_bonus
 
 ```lua
-(method) Unit:get_attr_bonus(attr_name: string)
+(method) Unit:get_attr_bonus(attr_name: string|y3.Const.UnitAttr)
   -> number
 ```
 
@@ -718,7 +757,7 @@ type:
 ## get_attr_bonus_ratio
 
 ```lua
-(method) Unit:get_attr_bonus_ratio(attr_name: string)
+(method) Unit:get_attr_bonus_ratio(attr_name: string|y3.Const.UnitAttr)
   -> number
 ```
 
@@ -726,7 +765,7 @@ type:
 ## get_attr_growth_by_key
 
 ```lua
-function Unit.get_attr_growth_by_key(unit_key: py.UnitKey, attr_name: any)
+function Unit.get_attr_growth_by_key(unit_key: py.UnitKey, attr_name: string|y3.Const.UnitAttr)
   -> unit_attribute_growth: number
 ```
 
@@ -736,7 +775,7 @@ function Unit.get_attr_growth_by_key(unit_key: py.UnitKey, attr_name: any)
 ## get_attr_other
 
 ```lua
-(method) Unit:get_attr_other(attr_name: string)
+(method) Unit:get_attr_other(attr_name: string|y3.Const.UnitAttr)
   -> number
 ```
 
@@ -796,6 +835,14 @@ function Unit.get_by_string(str: string)
 
 根据字符串获取单位，字符串是通过 `tostring(Unit)`
 或是使用ECA中的“任意变量转化为字符串”获得的。
+## get_camp_id
+
+```lua
+(method) Unit:get_camp_id()
+  -> py.CampID
+```
+
+获取单位阵营ID
 ## get_cancel_alert_range
 
 ```lua
@@ -816,6 +863,13 @@ function Unit.get_by_string(str: string)
 获取单位碰撞半径
 
 @*return* `collision_radius` — 单位碰撞半径
+## get_custom_event_manager
+
+```lua
+(method) CustomEvent:get_custom_event_manager()
+  -> EventManager?
+```
+
 ## get_description
 
 ```lua
@@ -871,7 +925,7 @@ function Unit.get_description_by_key(unit_key: py.UnitKey)
 ## get_final_attr
 
 ```lua
-(method) Unit:get_final_attr(attr_name: string)
+(method) Unit:get_final_attr(attr_name: string|y3.Const.UnitAttr)
   -> number
 ```
 
@@ -954,6 +1008,16 @@ function Unit.get_description_by_key(unit_key: py.UnitKey)
 获取当前生命值
 
 @*return* `current_unit_hp` — 当前生命值
+## get_icon
+
+```lua
+(method) Unit:get_icon()
+  -> image: py.Texture
+```
+
+获取单位的头像
+
+@*return* `image` — 单位的头像
 ## get_icon_by_key
 
 ```lua
@@ -987,7 +1051,7 @@ function Unit.get_icon_by_key(unit_key: py.UnitKey)
 ## get_item_by_slot
 
 ```lua
-(method) Unit:get_item_by_slot(type: y3.Const.SlotType, slot: integer)
+(method) Unit:get_item_by_slot(type: y3.Const.ShiftSlotTypeAlias|y3.Const.SlotType, slot: integer)
   -> item: Item?
 ```
 
@@ -998,6 +1062,12 @@ function Unit.get_icon_by_key(unit_key: py.UnitKey)
 @*param* `slot` — 位置
 
 @*return* `item` — 物品
+
+```lua
+type:
+    | '物品栏'
+    | '背包栏'
+```
 ## get_item_type_number_of_unit
 
 ```lua
@@ -1034,7 +1104,7 @@ function Unit.get_last_created_unit()
 
 ```lua
 (method) Unit:get_level()
-  -> unit_level: number
+  -> unit_level: integer
 ```
 
 获取单位等级
@@ -1388,7 +1458,7 @@ function Unit.get_type_by_id(unit_key: py.UnitKey)
 py.Unit
 ```
 
-单位
+py层的单位对象
 ## has_ability_by_key
 
 ```lua
@@ -1464,13 +1534,13 @@ py.Unit
 ## has_move_collision
 
 ```lua
-(method) Unit:has_move_collision(collision_type: integer)
+(method) Unit:has_move_collision(collision_layer: integer|y3.Const.CollisionLayers)
   -> boolean
 ```
 
 是否拥有指定碰撞类型
 
-@*param* `collision_type` — 碰撞类型
+@*param* `collision_layer` — 碰撞类型
 
 @*return* — 是否拥有指定碰撞类型
 ## has_tag
@@ -1805,6 +1875,13 @@ EventManager?
 设置生命周期暂停状态
 
 @*param* `is_stop` — 生命周期暂停状态
+## phandle
+
+```lua
+py.Unit
+```
+
+代理的对象，用这个调用引擎的方法会快得多
 ## pick_item
 
 ```lua
@@ -1866,7 +1943,7 @@ unknown
 ## remove_abilitiy_by_key
 
 ```lua
-(method) Unit:remove_abilitiy_by_key(type: y3.Const.AbilityType, ability_key: py.AbilityKey)
+(method) Unit:remove_abilitiy_by_key(type: y3.Const.AbilityType|y3.Const.AbilityTypeAlias, ability_key: py.AbilityKey)
 ```
 
 移除技能(指定类型)
@@ -1874,6 +1951,14 @@ unknown
 @*param* `type` — 技能类型
 
 @*param* `ability_key` — 物编id
+
+```lua
+type:
+    | '隐藏'
+    | '普通'
+    | '命令'
+    | '英雄'
+```
 ## remove_ability
 
 ```lua
@@ -1917,7 +2002,7 @@ unknown
 ## remove_item
 
 ```lua
-(method) Unit:remove_item(item_id: py.ItemKey, num: integer)
+(method) Unit:remove_item(item_id: py.ItemKey, num?: integer)
 ```
 
 单位移除物品
@@ -2060,7 +2145,7 @@ unknown
 ## set_attr
 
 ```lua
-(method) Unit:set_attr(attr_name: string, value: number, attr_type: string)
+(method) Unit:set_attr(attr_name: string|y3.Const.UnitAttr, value: number, attr_type?: string|y3.Const.UnitAttrType)
 ```
 
 设置属性
@@ -2069,7 +2154,7 @@ unknown
 
 @*param* `value` — 属性值
 
-@*param* `attr_type` — 属性类型
+@*param* `attr_type` — 属性类型，默认为“基础”
 ## set_attr_growth
 
 ```lua
@@ -2293,7 +2378,7 @@ function Unit.set_attr_growth(unit_key: py.UnitKey, attr_name: string, value: nu
 ## set_move_collision
 
 ```lua
-(method) Unit:set_move_collision(collision_layer: integer, enable: boolean)
+(method) Unit:set_move_collision(collision_layer: integer|y3.Const.CollisionLayers, enable: boolean)
 ```
 
 设置单位是否计算某种碰撞类型
@@ -2326,6 +2411,28 @@ function Unit.set_attr_growth(unit_key: py.UnitKey, attr_name: string, value: nu
 ```
 
  设置夜晚的视野范围
+## set_outline_visible
+
+```lua
+(method) Unit:set_outline_visible(bool: boolean)
+```
+
+设置单位描边开启
+
+@*param* `bool` — 布尔值
+## set_outlined_color
+
+```lua
+(method) Unit:set_outlined_color(color_r: number, color_g: number, color_b: number)
+```
+
+设置单位描边颜色
+
+@*param* `color_r` — R
+
+@*param* `color_g` — G
+
+@*param* `color_b` — B
 ## set_pkg_cnt
 
 ```lua

@@ -13,13 +13,15 @@ table
 ## count_loop
 
 ```lua
-function Timer.count_loop(timeout: number, times: integer, on_timer: fun(timer: Timer, count: integer), desc?: string)
+function Timer.count_loop(timeout: number, times: integer, on_timer: fun(timer: Timer, count: integer), desc?: string, immediate?: boolean)
   -> Timer
 ```
 
  循环执行，可以指定最大次数
 
 @*param* `desc` — 描述
+
+@*param* `immediate` — 是否立即执行一次(计入最大次数)
 ## count_loop_frame
 
 ```lua
@@ -130,7 +132,14 @@ unknown
 ## include_name
 
 ```lua
-string?
+(string|false)?
+```
+
+## is_removed
+
+```lua
+(method) Timer:is_removed()
+  -> boolean
 ```
 
 ## is_running
@@ -144,13 +153,15 @@ string?
 ## loop
 
 ```lua
-function Timer.loop(timeout: number, on_timer: fun(timer: Timer, count: integer), desc?: string)
+function Timer.loop(timeout: number, on_timer: fun(timer: Timer, count: integer), desc?: string, immediate?: boolean)
   -> Timer
 ```
 
  循环执行
 
 @*param* `desc` — 描述
+
+@*param* `immediate` — 是否立即执行一次
 ## loop_frame
 
 ```lua

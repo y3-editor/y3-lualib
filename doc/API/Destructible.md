@@ -441,6 +441,13 @@ lua_type:
 EventManager?
 ```
 
+## phandle
+
+```lua
+py.Destructible
+```
+
+可破坏物对象
 ## pick
 
 ```lua

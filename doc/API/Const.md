@@ -26,7 +26,19 @@ table
 table
 ```
 
+## AbilityIntAttr
+
+```lua
+table
+```
+
 ## AbilityPointerType
+
+```lua
+table
+```
+
+## AbilityStrAttr
 
 ```lua
 table
@@ -51,6 +63,12 @@ table
 ```
 
 ## CameraShakeMode
+
+```lua
+table
+```
+
+## CollisionLayers
 
 ```lua
 table
@@ -194,6 +212,12 @@ table
 table
 ```
 
+## PlayerAttr
+
+```lua
+table
+```
+
 ## ProjectileEventType
 
 ```lua
@@ -242,6 +266,12 @@ table
 table
 ```
 
+## UIAttr
+
+```lua
+table
+```
+
 ## UIButtonStatus
 
 ```lua
@@ -284,6 +314,18 @@ table
 table
 ```
 
+## UnitAttr
+
+```lua
+table
+```
+
+## UnitAttrType
+
+```lua
+table
+```
+
 ## UnitCategory
 
 ```lua
@@ -291,12 +333,6 @@ table
 ```
 
 ## UnitEventType
-
-```lua
-table
-```
-
-## UnitKeyFloatAttr
 
 ```lua
 table
@@ -362,6 +398,13 @@ table
 ```
 
 
+# y3.Const.AbilityIntAttr
+
+```lua
+"最大等级" | "最大充能数" | "当前等级" | "当前充能数"
+```
+
+
 # y3.Const.AbilityPointerType
 
 ```lua
@@ -375,6 +418,13 @@ table
     BUILD: integer = 6,
     VECTOR: integer = 7,
 }
+```
+
+
+# y3.Const.AbilityStrAttr
+
+```lua
+"名称" | "描述"
 ```
 
 
@@ -419,6 +469,13 @@ y3.Const.AbilityTypeAlias:
 
 ```lua
 '命令'|'普通'|'英雄'|'隐藏'
+```
+
+
+# y3.Const.CollisionLayers
+
+```lua
+"地面" | "空中" | "水面" | "物件"
 ```
 
 
@@ -585,6 +642,7 @@ y3.Const.AbilityEventType|y3.Const.DestructibleEventType|y3.Const.GlobalEventTyp
     MOUSE_DOWN_UNIT: string = MOUSE_KEY_DOWN_UNIT_EVENT,
     MOUSE_UP_UNIT: string = MOUSE_KEY_UP_UNIT_EVENT,
     MOUSE_D_CLICK_UNIT: string = MOUSE_KEY_DB_CLICK_UNIT_EVENT,
+    MOUSE_HOVER: string = ET_MOUSE_HOVER_EVENT,
     SELECT_UNIT: string = ET_SELECT_UNIT,
     SELECT_UNIT_GROUP: string = ET_SELECT_UNIT_GROUP,
     SELECT_ITEM: string = ET_SELECT_ITEM,
@@ -805,6 +863,13 @@ y3.Const.AbilityEventType|y3.Const.DestructibleEventType|y3.Const.GlobalEventTyp
 ```
 
 
+# y3.Const.PlayerAttr
+
+```lua
+
+```
+
+
 # y3.Const.ProjectileEventType
 
 ```lua
@@ -886,6 +951,13 @@ y3.Const.ShiftSlotTypeAlias:
     PKG: integer = 0,
     BAR: integer = 1,
 }
+```
+
+
+# y3.Const.UIAttr
+
+```lua
+"文本" | "最大值" | "当前值"
 ```
 
 
@@ -1022,6 +1094,20 @@ y3.Const.UIVAlignmentType:
 
 ```lua
 '上'|'下'|'中'
+```
+
+
+# y3.Const.UnitAttr
+
+```lua
+"生命" | "魔法" | "最大生命" | "生命恢复" | "最大魔法" | "魔法恢复" | "物理攻击" | "法术攻击" | "物理防御" | "法术防御" | "攻击速度" | "冷却缩减" | "命中率" | "躲避率" | "暴击率" | "暴击伤害" | "物理穿透" | "法术穿透" | "物理吸血" | "法术吸血" | "物理穿透比例" | "法术穿透比例" | "受伤减免" | "伤害加成" | "被治疗加成" | "移动速度" | "真实视野" | "攻击间隔" | "攻击范围" | "白天视野" | "夜晚视野" | "白天扇形视野半径" | "夜晚扇形视野半径" | "白天扇形视野夹角" | "夜晚扇形视野夹角"
+```
+
+
+# y3.Const.UnitAttrType
+
+```lua
+"基础" | "基础加成" | "增益" | "增益加成" | "总加成"
 ```
 
 

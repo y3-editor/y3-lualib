@@ -108,4 +108,49 @@ number?
 
 # Develop.Console
 
+## getHelpInfo
+
+```lua
+function Develop.Console.getHelpInfo()
+  -> string
+```
+
+## input
+
+```lua
+function Develop.Console.input(input: string)
+```
+
+控制台输入
+
+# Develop.Helper
+
+## registerMethod
+
+```lua
+function Develop.Helper.registerMethod(method: string, callback: fun(params: any):any)
+```
+
+## request
+
+```lua
+function Develop.Helper.request(method: string, params: table, callback?: fun(data: any))
+```
+
+向《Y3开发助手》发送请求
+
+@*param* `callback` — 接收返回值
+## requestPrint
+
+```lua
+function Develop.Helper.requestPrint(message: string)
+```
+
+在《Y3开发助手》的终端上打印消息
+## response
+
+```lua
+function Develop.Helper.response(id: integer, result: any, err?: string)
+```
+
 

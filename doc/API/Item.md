@@ -332,6 +332,13 @@ function Item.get_by_id(id: py.ItemID)
 物品充能数
 
 @*return* `charges` — 充能数
+## get_custom_event_manager
+
+```lua
+(method) CustomEvent:get_custom_event_manager()
+  -> EventManager?
+```
+
 ## get_description
 
 ```lua
@@ -384,7 +391,7 @@ function Item.get_description_by_key(item_key: py.ItemKey)
 
 ```lua
 function Item.get_icon_id_by_key(item_key: py.ItemKey)
-  -> integer
+  -> py.Texture
 ```
 
 获取物品类型的icon的图片id
@@ -401,7 +408,7 @@ function Item.get_icon_id_by_key(item_key: py.ItemKey)
 ## get_item_buy_price_by_key
 
 ```lua
-function Item.get_item_buy_price_by_key(item_key: py.ItemKey, key: py.RoleResKey)
+function Item.get_item_buy_price_by_key(item_key: py.ItemKey, key: string|y3.Const.PlayerAttr)
   -> price: number
 ```
 
@@ -425,7 +432,7 @@ function Item.get_item_group_in_area(area: Area)
 ## get_item_sell_price_by_key
 
 ```lua
-function Item.get_item_sell_price_by_key(item_key: py.ItemKey, key: py.RoleResKey)
+function Item.get_item_sell_price_by_key(item_key: py.ItemKey, key: string|y3.Const.PlayerAttr)
   -> price: number
 ```
 
@@ -538,7 +545,7 @@ function Item.get_num_of_player_attr(item_key: py.ItemKey, role_res_key: py.Role
 
 ```lua
 (method) Item:get_owner_player()
-  -> player: Player
+  -> player: Player?
 ```
 
 获取物品的拥有玩家
@@ -736,6 +743,13 @@ lua_type:
 EventManager?
 ```
 
+## phandle
+
+```lua
+py.Item
+```
+
+物品对象
 ## ref_manager
 
 ```lua

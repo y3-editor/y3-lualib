@@ -5,7 +5,7 @@
 ## add
 
 ```lua
-(method) Player:add(key: py.RoleResKey, value: number)
+(method) Player:add(key: string|y3.Const.PlayerAttr, value: number)
 ```
 
 增加属性值
@@ -69,7 +69,7 @@ EventManager?
 ## display_message
 
 ```lua
-(method) Player:display_message(message: string, localize: boolean)
+(method) Player:display_message(message: string, localize?: boolean)
 ```
 
  对玩家显示文本消息
@@ -239,7 +239,7 @@ Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 ## get_attr
 
 ```lua
-(method) Player:get_attr(key: py.RoleResKey)
+(method) Player:get_attr(key: string|y3.Const.PlayerAttr)
   -> role_res: number
 ```
 
@@ -301,6 +301,13 @@ function Player.get_by_string(str: string)
 获取玩家控制者类型
 
 @*return* `role_type` — 玩家控制者类型
+## get_custom_event_manager
+
+```lua
+(method) CustomEvent:get_custom_event_manager()
+  -> EventManager?
+```
+
 ## get_exp_rate
 
 ```lua
@@ -555,6 +562,20 @@ function Player.get_res_name(key: py.RoleResKey)
 @*param* `key` — 存档key
 
 @*return* `table_value` — 表格型玩家存档数据
+## get_selecting_unit
+
+```lua
+(method) Player:get_selecting_unit()
+  -> Unit?
+```
+
+## get_selecting_unit_group
+
+```lua
+(method) Player:get_selecting_unit_group()
+  -> UnitGroup?
+```
+
 ## get_state
 
 ```lua
@@ -770,6 +791,13 @@ lua_type:
 EventManager?
 ```
 
+## phandle
+
+```lua
+py.Role
+```
+
+玩家
 ## ref_manager
 
 ```lua
@@ -788,7 +816,7 @@ unknown
 ## set
 
 ```lua
-(method) Player:set(key: py.RoleResKey, value: number)
+(method) Player:set(key: string|y3.Const.PlayerAttr, value: number)
 ```
 
 设置属性值
@@ -1053,7 +1081,7 @@ function Player.with_local(callback: fun(local_player: Player))
 ```
 
 在本地玩家环境中执行代码。  
-在开发模式中会阻止这些代码修改上值、修改全局变量、调用同步函数，因此也会产生额外的开销。  
+在开发模式中会阻止这些代码修改上值、修改全局变量、调用同步函数，因此也会产生额外的开销。（暂时失效）  
 在平台上不会检测，也不会有额外开销。
 
 ---

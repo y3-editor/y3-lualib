@@ -278,6 +278,13 @@ function Game.get_current_server_time()
 ```
 
 获取当前的服务器时间
+## get_custom_event_manager
+
+```lua
+(method) CustomEvent:get_custom_event_manager()
+  -> EventManager?
+```
+
 ## get_damage_ratio
 
 ```lua
@@ -482,7 +489,7 @@ function Game.get_tech_name(tech_id: py.TechKey)
 
 ```lua
 function Game.get_window_mode()
-  -> mode: 'full_screen'|'window_mode'|'window_mode_full_screen'
+  -> mode: Game.WindowMode
 ```
 
 获取窗口化类别
@@ -491,9 +498,9 @@ function Game.get_window_mode()
 
 ```lua
 mode:
-    | 'full_screen'
-    | 'window_mode'
-    | 'window_mode_full_screen'
+    | "full_screen" -- 全屏
+    | "window_mode" -- 窗口化
+    | "window_mode_full_screen" -- 窗口化全屏
 ```
 ## is_compound_attributes_enabled
 
@@ -1403,4 +1410,19 @@ function Game.world_pos_to_screen_edge_pos(world_pos: Point, delta_dis: number)
 ```
 
 世界坐标转换屏幕边缘坐标
+
+# Game.WindowMode
+
+```lua
+Game.WindowMode:
+    | "full_screen" -- 全屏
+    | "window_mode" -- 窗口化
+    | "window_mode_full_screen" -- 窗口化全屏
+```
+
+
+```lua
+"full_screen"|"window_mode"|"window_mode_full_screen"
+```
+
 

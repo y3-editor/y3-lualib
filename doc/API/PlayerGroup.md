@@ -33,7 +33,7 @@ function PlayerGroup.create()
   -> PlayerGroup
 ```
 
-创建空玩家组(3月28号更新后可用)
+创建空玩家组
 ## get_all_players
 
 ```lua

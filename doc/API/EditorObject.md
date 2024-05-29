@@ -53,13 +53,31 @@ unknown
 Object.Ability
 ```
 
-技能的物编数据，你可以从里面读取或修改任意物编  
+技能的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 > 警告：请确保数据类型正确，否则可能导致崩溃  
 > 警告：如果创建过此技能再修改数据，行为是未定义的
 ## data_key
 
 ```lua
 string
+```
+
+## event
+
+```lua
+fun(self: EditorObject.Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)):Trigger
+```
+
+## event_manager
+
+```lua
+unknown
+```
+
+## get_key
+
+```lua
+fun(self: any):integer
 ```
 
 ## handle
@@ -195,6 +213,12 @@ fun(ability: Ability)
 ```
 
 技能升级后执行
+## type
+
+```lua
+string
+```
+
 
 # EditorObject.Buff
 
@@ -204,13 +228,31 @@ fun(ability: Ability)
 Object.Buff
 ```
 
-魔法效果的物编数据，你可以从里面读取或修改任意物编  
+魔法效果的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 > 警告：请确保数据类型正确，否则可能导致崩溃  
 > 警告：如果创建过此魔法效果再修改数据，行为是未定义的
 ## data_key
 
 ```lua
 string
+```
+
+## event
+
+```lua
+fun(self: EditorObject.Buff, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)):Trigger
+```
+
+## event_manager
+
+```lua
+unknown
+```
+
+## get_key
+
+```lua
+fun(self: any):integer
 ```
 
 ## handle
@@ -304,10 +346,50 @@ fun(buff: Buff)
 ```
 
 效果心跳后执行
+## on_stack_change
+
+```lua
+fun(buff: Buff)
+```
+
+效果层数变化后执行
+## type
+
+```lua
+string
+```
+
 
 # EditorObject.DataModule
 
 ## data_key
+
+```lua
+string
+```
+
+
+# EditorObject.Event
+
+## event
+
+```lua
+(method) EditorObject.Event:event(name: string, callback: function)
+```
+
+## event_manager
+
+```lua
+unknown
+```
+
+## get_key
+
+```lua
+fun(self: any):integer
+```
+
+## type
 
 ```lua
 string
@@ -322,13 +404,31 @@ string
 Object.Item
 ```
 
-物品的物编数据，你可以从里面读取或修改任意物编  
+物品的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 > 警告：请确保数据类型正确，否则可能导致崩溃  
 > 警告：如果创建过此物品再修改数据，行为是未定义的
 ## data_key
 
 ```lua
 string
+```
+
+## event
+
+```lua
+fun(self: EditorObject.Item, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)):Trigger
+```
+
+## event_manager
+
+```lua
+unknown
+```
+
+## get_key
+
+```lua
+fun(self: any):integer
 ```
 
 ## handle
@@ -401,6 +501,20 @@ fun(item: Item)
 ```
 
 物品获得后执行
+## on_add_to_bar
+
+```lua
+fun(item: Item)
+```
+
+物品进入装备栏后执行
+## on_add_to_pkg
+
+```lua
+fun(item: Item)
+```
+
+物品进入背包后执行
 ## on_create
 
 ```lua
@@ -422,6 +536,19 @@ fun(item: Item)
 ```
 
 物品移除后执行
+## on_use
+
+```lua
+fun(item: Item)
+```
+
+物品使用时执行
+## type
+
+```lua
+string
+```
+
 
 # EditorObject.Unit
 
@@ -431,13 +558,31 @@ fun(item: Item)
 Object.Unit
 ```
 
-单位的物编数据，你可以从里面读取或修改任意物编  
+单位的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 > 警告：请确保数据类型正确，否则可能导致崩溃  
 > 警告：如果创建过此单位再修改数据，行为是未定义的
 ## data_key
 
 ```lua
 string
+```
+
+## event
+
+```lua
+fun(self: EditorObject.Unit, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)):Trigger
+```
+
+## event_manager
+
+```lua
+unknown
+```
+
+## get_key
+
+```lua
+fun(self: any):integer
 ```
 
 ## handle
@@ -524,4 +669,10 @@ fun(unit: Unit)
 ```
 
 单位移除后执行
+## type
+
+```lua
+string
+```
+
 

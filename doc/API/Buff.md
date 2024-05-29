@@ -254,6 +254,13 @@ function Buff.get_by_id(id: integer)
   -> Buff
 ```
 
+## get_custom_event_manager
+
+```lua
+(method) CustomEvent:get_custom_event_manager()
+  -> EventManager?
+```
+
 ## get_cycle_time
 
 ```lua
@@ -372,7 +379,7 @@ function Buff.get_icon_by_key(buff_key: py.ModifierKey)
 
 ```lua
 (method) Buff:get_source()
-  -> provider: Unit
+  -> provider: Unit?
 ```
 
 获取魔法效果的施加者
@@ -404,7 +411,7 @@ function Buff.get_icon_by_key(buff_key: py.ModifierKey)
 py.ModifierEntity
 ```
 
-效果对象
+py层的魔法效果对象
 ## has_tag
 
 ```lua
@@ -501,6 +508,19 @@ lua_type:
 ```
 
  保存自定义键值对。可以与ECA互通。
+## object_event_manager
+
+```lua
+EventManager?
+```
+
+## phandle
+
+```lua
+py.ModifierEntity
+```
+
+代理的对象，用这个调用引擎的方法会快得多
 ## ref_manager
 
 ```lua
@@ -588,6 +608,15 @@ unknown
 
 ```lua
 table
+```
+
+## subscribe_event
+
+```lua
+(method) ObjectEvent:subscribe_event(event_name: string, ...any)
+  -> any[]?
+  2. Trigger.CallBack
+  3. Unsubscribe: function
 ```
 
 ## type

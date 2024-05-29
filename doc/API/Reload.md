@@ -41,14 +41,23 @@ function Reload.getCurrentIncludeName()
   -> string?
 ```
 
+## getIncludeName
+
+```lua
+function Reload.getIncludeName(func: function)
+  -> string?
+```
+
 ## include
 
 ```lua
-function Reload.include(name: string)
+function Reload.include(modname: string)
   -> any
+  2. loaderdata: unknown
 ```
 
  类似于 `require` ，但是会在重载时重新加载文件。
+ 加载文件时遇到错误会返回false而不是抛出异常。
 ## includeStack
 
 ```lua
@@ -75,6 +84,12 @@ string[]
 ```
 
  模块名是否会被重载
+## modNameMap
+
+```lua
+table
+```
+
 ## onAfterReload
 
 ```lua

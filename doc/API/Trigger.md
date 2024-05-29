@@ -9,10 +9,23 @@
 ```
 
 禁用触发器
+## disable_once
+
+```lua
+(method) Trigger:disable_once()
+```
+
+在本次事件中禁用此触发器
 ## enable
 
 ```lua
 (method) Trigger:enable()
+```
+
+## event_manager
+
+```lua
+EventManager?
 ```
 
 ## execute
@@ -55,6 +68,12 @@
 (method) Trigger:on_remove(callback: any)
 ```
 
+## recover_disable_once
+
+```lua
+(method) Trigger:recover_disable_once()
+```
+
 ## remove
 
 ```lua
@@ -72,7 +91,7 @@ string
 
 
 ```lua
-fun(...any):any, any, any, any
+fun(trg: Trigger, ...any):any, any, any, any
 ```
 
 

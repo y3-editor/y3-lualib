@@ -246,6 +246,13 @@ lua_type:
 EventManager?
 ```
 
+## phandle
+
+```lua
+py.ProjectileEntity
+```
+
+投掷物对象
 ## ref_manager
 
 ```lua

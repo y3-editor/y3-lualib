@@ -71,6 +71,15 @@
 增加技能充能层数
 
 @*param* `value` — 层数
+## add_tag
+
+```lua
+(method) Ability:add_tag(tag: string)
+```
+
+添加标签
+
+@*param* `tag` — 标签
 ## can_cast_when_hp_insufficient
 
 ```lua
@@ -300,6 +309,21 @@ function Ability.get_by_id(id: integer)
 ```
 
 获取技能当前剩余充能时间
+## get_custom_event_manager
+
+```lua
+(method) CustomEvent:get_custom_event_manager()
+  -> EventManager?
+```
+
+## get_description
+
+```lua
+(method) Ability:get_description()
+  -> string
+```
+
+获取技能描述
 ## get_float_attr
 
 ```lua
@@ -320,6 +344,7 @@ function Ability.get_float_attr_by_key(ability_key: py.AbilityKey, key: string)
 ```
 
 获取技能类型实数属性
+> 请使用 `y3.object.ability[ability_key].data` 代替
 
 @*param* `ability_key` — 技能类型id (物编id)
 
@@ -360,6 +385,16 @@ function Ability.get_formula_attr_by_key(ability_id: py.AbilityKey, attr_name: s
 @*param* `key` — 键值key
 
 @*return* `value` — 值
+## get_icon
+
+```lua
+(method) Ability:get_icon()
+  -> id: py.Texture
+```
+
+获取技能图标
+
+@*return* `id` — 图片ID
 ## get_icon_by_key
 
 ```lua
@@ -392,12 +427,21 @@ function Ability.get_int_attr_by_key(ability_key: py.AbilityKey, key: string)
 ```
 
 获取技能类型整数属性
+> 请使用 `y3.object.ability[ability_key].data` 代替
 
 @*param* `ability_key` — 技能类型id (物编id)
 
 @*param* `key` — 键值key
 
 @*return* `value` — 值
+## get_item
+
+```lua
+(method) Ability:get_item()
+  -> Item?
+```
+
+获取技能绑定的物品（技能对象在哪个物品对象上）
 ## get_key
 
 ```lua
@@ -488,6 +532,7 @@ function Ability.get_str_attr_by_key(ability_key: py.AbilityKey, key: py.Ability
 ```
 
 获取技能类型字符串属性
+> 请改用 `y3.object.ability[ability_key].data` 代替
 
 @*param* `ability_key` — 技能类型id (物编id)
 
@@ -671,6 +716,13 @@ lua_type:
 EventManager?
 ```
 
+## phandle
+
+```lua
+py.Ability
+```
+
+技能对象
 ## pre_cast
 
 ```lua
@@ -693,6 +745,15 @@ unknown
 ```
 
 移除技能
+## remove_tag
+
+```lua
+(method) Ability:remove_tag(tag: string)
+```
+
+移除标签
+
+@*param* `tag` — 标签
 ## restart_cd
 
 ```lua
