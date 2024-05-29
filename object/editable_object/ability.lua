@@ -591,4 +591,14 @@ function M:pre_cast(player)
 	GameAPI.start_skill_pointer(player.handle, self.handle)
 end
 
+--获取技能绑定的物品（技能对象在哪个物品对象上）
+---@return Item?
+function M:get_item()
+    local py_item = self.phandle:api_get_item()
+    if not py_item then
+        return nil
+    end
+    return y3.item.get_by_handle(py_item)
+end
+
 return M
