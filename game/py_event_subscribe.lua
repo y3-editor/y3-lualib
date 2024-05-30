@@ -8,7 +8,7 @@ local object_event  = require 'y3.game.object_event'
 local M = Class 'PYEventRegister'
 
 ---@private
-M.trigger_id_counter = y3.util.counter()
+M.trigger_id_counter = y3.util.counter(-1, -1)
 
 ---@private
 ---@param event_key y3.Const.EventType
