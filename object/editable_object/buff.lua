@@ -306,4 +306,17 @@ function M:set_aura_range(range)
     self.phandle:api_set_modifier_halo_influence_rng(Fix32(range))
 end
 
+---增加魔法效果循环周期
+---@param time number 变化时间
+function M:add_cycle_time(time)
+    self.phandle:api_add_cycle_time(Fix32(time))
+end
+
+---设置魔法效果循环周期
+---@param time number 循环周期
+function M:set_cycle_time(time)
+    self.phandle:api_set_cycle_time(Fix32(time))
+end
+
+
 return M
