@@ -1,4 +1,4 @@
-local helper = require 'y3.develop.helper'
+local helper = require 'y3.develop.helper.helper'
 
 ---@class Develop.Helper.TreeView: GCHost
 ---@overload fun(name: string, root: Develop.Helper.TreeNode): Develop.Helper.TreeView
