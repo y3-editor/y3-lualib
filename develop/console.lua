@@ -28,7 +28,7 @@ end
 ---@param message string
 local function print_to_console(message)
     consoleprint(message)
-    y3.develop.helper.requestPrint(message)
+    y3.develop.helper.print(message)
 end
 
 ---@param code string

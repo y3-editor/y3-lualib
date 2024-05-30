@@ -42,6 +42,22 @@ function M.request(method, params, callback)
     requestMap[data.id] = callback
 end
 
+--向《Y3开发助手》发送请求（协程）
+---@async
+---@param method string
+---@param params table
+---@return any
+function M.awaitRequest(method, params)
+    if not client then
+        return
+    end
+    local co = coroutine.running()
+    M.request(method, params, function (data)
+        coroutine.resume(co, data)
+    end)
+    coroutine.yield()
+end
+
 ---@private
 ---@param id integer
 ---@param result any
@@ -91,6 +107,8 @@ local function handle_body(body)
     end
 end
 
+local onReadyCallbacks = {}
+
 ---@param port integer
 ---@return Network 
 local function createClient(port)
@@ -99,7 +117,13 @@ local function createClient(port)
     })
 
     client:on_connected(function (self)
-        M.requestPrint(console.getHelpInfo())
+        M.print(console.getHelpInfo())
+
+        local callbacks = onReadyCallbacks
+        onReadyCallbacks = nil
+        for _, callback in ipairs(callbacks) do
+            xpcall(callback, log.error, client)
+        end
     end)
 
     ---@async
@@ -113,12 +137,40 @@ local function createClient(port)
     return client
 end
 
+--当《Y3开发助手》准备好时调用
+---@param callback fun()
+function M.onReady(callback)
+    if not onReadyCallbacks then
+        xpcall(callback, log.error)
+        return
+    end
+    onReadyCallbacks[#onReadyCallbacks+1] = callback
+end
+
 --在《Y3开发助手》的终端上打印消息
 ---@param message string
-function M.requestPrint(message)
+function M.print(message)
     M.request('print', {
         message = message
     })
+end
+
+--在《Y3开发助手》的视图上创建一个树形视图
+---@param name string
+---@param root Develop.Helper.TreeNode
+---@return Develop.Helper.TreeView
+function M.createTreeView(name, root)
+    local treeView = New 'Develop.Helper.TreeView' (name, root)
+    return treeView
+end
+
+--在《Y3开发助手》的树形视图上创建一个节点
+---@param name string
+---@param optional Develop.Helper.TreeNode.Optional
+---@return Develop.Helper.TreeNode
+function M.createTreeNode(name, optional)
+    local treeNode = New 'Develop.Helper.TreeNode' (name, optional)
+    return treeNode
 end
 
 --注册一个方法
@@ -126,7 +178,7 @@ M.registerMethod('command', function (params)
     y3.develop.console.input(params.data)
 end)
 
-y3.game:event("游戏-初始化", function (trg, data)
+local function init()
     if not y3.game.is_debug_mode() then
         return
     end
@@ -137,6 +189,8 @@ y3.game:event("游戏-初始化", function (trg, data)
     end
 
     createClient(port)
-end)
+end
+
+init()
 
 return M
