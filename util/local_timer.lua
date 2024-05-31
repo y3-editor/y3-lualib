@@ -305,6 +305,13 @@ function M.pairs()
     end
 end
 
+--获取当前逻辑时间
+---@return integer # 秒部分
+---@return integer # 毫秒部分
+function M.clock()
+    return cur_ms // 1000, cur_ms % 1000
+end
+
 ---@type LocalTimer[]
 local desk = {}
 local function update_frame()

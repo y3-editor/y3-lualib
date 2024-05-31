@@ -99,6 +99,8 @@ function M:__init(option)
     self.maxSize = option.maxSize
     self.level   = option.level
     self.clock = option.clock
+    ---@private
+    self.option = option
     if option.file then
         self.file = option.file
     else
@@ -108,14 +110,10 @@ function M:__init(option)
                 self.file = file
                 self.file:setvbuf 'no'
             elseif err then
-                if option.print then
-                    pcall(option.print, 'warn', err)
-                end
+                self:applyPrint('warn', err, self:getTimeStamp())
             end
         end
     end
-    ---@private
-    self.option = option
     ---@private
     self.logLevel = merge(M.logLevel, option.logLevel)
     ---@private
@@ -144,6 +142,24 @@ function M:getTimeStamp()
 end
 
 ---@private
+M.lockPrint = false
+
+---@private
+---@param level string
+---@param message string
+---@param timeStamp string
+function M:applyPrint(level, message, timeStamp)
+    if self.option.print then
+        if M.lockPrint then
+            return
+        end
+        M.lockPrint = true
+        pcall(self.option.print, level, message, timeStamp)
+        M.lockPrint = false
+    end
+end
+
+---@private
 ---@param level string
 ---@param ... any
 ---@return string message
@@ -169,9 +185,7 @@ function M:build(level, ...)
         return message, timeStamp
     end
 
-    if self.option.print then
-        pcall(self.option.print, level, message, timeStamp)
-    end
+    self:applyPrint(level, message, timeStamp)
 
     if not self.file then
         return message, timeStamp

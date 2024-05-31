@@ -14,6 +14,12 @@
 * `name`: `string` 视图的名称
 * `root`: `integer` 主节点的唯一ID
 
+## removeTreeView
+
+删除树形视图
+
+* `id`: `integer` 视图的唯一ID
+
 ## refreshTreeNode
 
 通知一下节点发生了变化，Y3开发助手之后可以用 `getTreeNode` 重新获取数据
@@ -37,9 +43,10 @@
 返回节点的数据
 
 * `name`: `string` 节点的名称
-* `desc`: `string` 节点的描述
-* `icon`: `string` 节点的图标
-* `hasChilds`: `boolean` 是否可以展开
+* `desc?`: `string` 节点的描述
+* `tip?`: `string` 悬停提示
+* `icon?`: `string` 节点的图标
+* `hasChilds?`: `boolean` 是否可以展开
 
 ## getChildTreeNodes
 

@@ -21,6 +21,13 @@ function M.registerMethod(method, callback)
     methodMap[method] = callback
 end
 
+local function logger(...)
+    local default = y3.config.log.toHelper
+    y3.config.log.toHelper = false
+    log.debug(...)
+    y3.config.log.toHelper = default
+end
+
 --向《Y3开发助手》发送请求
 ---@param method string
 ---@param params table
@@ -37,6 +44,7 @@ function M.request(method, params, callback)
     }
 
     local jsonContent = y3.json.encode(data)
+    logger('send:', jsonContent)
     client:send(string.pack('>s4', jsonContent))
 
     requestMap[data.id] = callback
@@ -78,6 +86,7 @@ function M.response(id, result, err)
 end
 
 local function handle_body(body)
+    logger('recv:', body)
     local data = y3.json.decode(body)
     local id = data.id
     if data.method then

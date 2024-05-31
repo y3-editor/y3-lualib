@@ -25,9 +25,18 @@ function View:__init(name, root)
     end)
 end
 
+function View:__del()
+    helper.onReady(function ()
+        helper.request('removeTreeView', {
+            id = self.id,
+        })
+    end)
+end
+
 ---@class Develop.Helper.TreeNode.Optional
 ---@field icon? string # 图标，见 https://code.visualstudio.com/api/references/icons-in-labels#icon-listing
 ---@field description? string # 描述
+---@field tooltip? string # 提示
 ---@field childs? Develop.Helper.TreeNode[] # 子节点列表。如果子节点计算量较大，可以改用 `childsGetter` 来获取子节点
 ---@field childsGetter? fun(node: Develop.Helper.TreeNode): Develop.Helper.TreeNode[] # 当试图展开节点时，会调用这个函数获取子节点，和 `childs` 互斥
 ---@field onVisible? fun(node: Develop.Helper.TreeNode) # 当节点能被看到时调用
@@ -54,6 +63,8 @@ function Node:__init(name, optional)
     self.name = name
     self.optional = optional
     self.description = optional.description
+    self.tooltip = optional.tooltip
+    self.icon = optional.icon
     Node.maxID = Node.maxID + 1
     self.id = Node.maxID
 
@@ -83,7 +94,42 @@ Node.__setter.description = function (self, desc)
 end
 
 ---@package
+Node._tooltip = nil
+
+---@param self Develop.Helper.TreeNode
+---@return string?
+Node.__getter.tooltip = function (self)
+    return self._tooltip
+end
+
+---@param self Develop.Helper.TreeNode
+---@param tooltip string
+Node.__setter.tooltip = function (self, tooltip)
+    self._tooltip = tooltip
+    self:refresh()
+end
+
+---@package
+Node._icon = nil
+
+---@param self Develop.Helper.TreeNode
+---@return string?
+Node.__getter.icon = function (self)
+    return self._icon
+end
+
+---@param self Develop.Helper.TreeNode
+---@param icon string
+Node.__setter.icon = function (self, icon)
+    self._icon = icon
+    self:refresh()
+end
+
+---@package
 function Node:refresh()
+    if not Node.nodeMap[self.id] then
+        return
+    end
     helper.request('refreshTreeNode', {
         id = self.id,
     })
@@ -122,8 +168,9 @@ helper.registerMethod('getTreeNode', function (params)
     return {
         name = node.name,
         desc = node.description,
-        icon = node.optional.icon,
-        hasChilds = (node.optional.childs or node.optional.childsGetter) and true or false,
+        tip  = node.tooltip,
+        icon = node.icon,
+        hasChilds = (node.optional.childs or node.optional.childsGetter) and true,
     }
 end)
 
