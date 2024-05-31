@@ -1,6 +1,7 @@
 ---@class y3.develop.helper.explorer
 local M = {}
 
+---@package
 ---@return Develop.Helper.TreeNode
 function M.createMemoryWatcher()
     local function getMemory()
@@ -28,6 +29,7 @@ function M.createMemoryWatcher()
     return node
 end
 
+---@package
 ---@param name string
 ---@return Develop.Helper.TreeNode
 function M.createRoot(name)
@@ -40,7 +42,7 @@ function M.createRoot(name)
     return root
 end
 
-local function init()
+y3.game:event_on('$Y3-初始化', function ()
     if not y3.game.is_debug_mode() then
         return
     end
@@ -49,8 +51,6 @@ local function init()
         local name = local_player:get_name()
         y3.develop.helper.createTreeView(name, M.createRoot(name))
     end)
-end
-
-init()
+end)
 
 return M

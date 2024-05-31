@@ -126,3 +126,5 @@ end)
 GlobalAPI.api_stop_luagc_control()
 collectgarbage 'restart'
 collectgarbage 'generational'
+
+y3.game:event_dispatch('$Y3-初始化')

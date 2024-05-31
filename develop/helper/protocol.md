@@ -51,8 +51,9 @@
 
 * `childs`: `integer[]` 子节点的唯一ID数组
 
-## disposeTreeNode
+## changeTreeNodeVisible
 
-界面中不再看到某个节点（可能是被折叠了）
+树形视图节点的可见性变化
 
-* `id`: `integer` 节点的唯一ID
+* `ids`: `integer` 节点的唯一ID数组
+* `visible`: `boolean` 是否可见

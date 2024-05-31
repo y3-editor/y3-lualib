@@ -17,7 +17,7 @@ function View:__init(name, root)
     self.id = View.maxID
 
     helper.onReady(function ()
-        helper.request('CreateTreeView', {
+        helper.request('createTreeView', {
             id = self.id,
             name = self.name,
             root = self.root.id,
@@ -180,12 +180,13 @@ helper.registerMethod('getChildTreeNodes', function (params)
     end
 end)
 
-helper.registerMethod('disposeTreeNode', function (params)
-    ---@type integer
-    local id = params.id
-    local node = Node.nodeMap[id]
-    if not node then
-        return
+helper.registerMethod('changeTreeNodeVisible', function (params)
+    ---@type integer[]
+    local ids = params.ids
+    for _, id in ipairs(ids) do
+        local node = Node.nodeMap[id]
+        if node then
+            node:changeVisible(params.visible)
+        end
     end
-    node:changeVisible(false)
 end)

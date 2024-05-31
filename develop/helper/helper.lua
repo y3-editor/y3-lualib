@@ -178,7 +178,7 @@ M.registerMethod('command', function (params)
     y3.develop.console.input(params.data)
 end)
 
-local function init()
+y3.game:event_on('$Y3-初始化', function ()
     if not y3.game.is_debug_mode() then
         return
     end
@@ -189,8 +189,6 @@ local function init()
     end
 
     createClient(port)
-end
-
-init()
+end)
 
 return M
