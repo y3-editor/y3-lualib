@@ -875,6 +875,15 @@ function M:get_absolute_scale_y()
     return GameAPI.get_ui_comp_world_scale_y(self.handle):float()
 end
 
+--设置动画旋转
+---@param start_rotation number # 开始旋转
+---@param end_rotation number # 结束旋转
+---@param duration number # 持续时间
+---@param ease_type? integer # 曲线类型
+function M:set_anim_rotate(start_rotation, end_rotation, duration, ease_type)
+    GameAPI.set_ui_comp_anim_rotate(self.player.handle, self.handle, start_rotation, end_rotation, duration, ease_type)
+end
+
 --界面控件转化为字符串
 ---@return string str 字符串
 function M:to_string()
