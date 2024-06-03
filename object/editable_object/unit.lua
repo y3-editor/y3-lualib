@@ -122,10 +122,19 @@ function M:get_id()
     return self.id
 end
 
----移除技能(指定类型)
+--移除技能(指定类型)
+--> 拼错了，请改用 `Unit:remove_ability_by_key`
+---@deprecated
 ---@param type y3.Const.AbilityType | y3.Const.AbilityTypeAlias 技能类型
 ---@param ability_key py.AbilityKey 物编id
 function M:remove_abilitiy_by_key(type, ability_key)
+    self.phandle:api_remove_abilities_in_type(y3.const.AbilityType[type] or type, ability_key)
+end
+
+--移除技能(指定类型)
+---@param type y3.Const.AbilityType | y3.Const.AbilityTypeAlias 技能类型
+---@param ability_key py.AbilityKey 物编id
+function M:remove_ability_by_key(type, ability_key)
     self.phandle:api_remove_abilities_in_type(y3.const.AbilityType[type] or type, ability_key)
 end
 
@@ -1291,7 +1300,8 @@ function M:get_attr(attr_name, attr_type)
     if attr_type == '增益加成' then
         return self:get_attr_bonus_ratio(attr_name)
     end
-    if attr_type == '最终加成' then
+    if attr_type == '最终加成'
+    or attr_type == '总加成' then
         return self:get_attr_all_ratio(attr_name)
     end
     error('未知的属性类型:' .. tostring(attr_type))

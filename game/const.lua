@@ -96,7 +96,7 @@ M.UnitAttrType = {
     ["基础加成"] = "ATTR_BASE_RATIO", --百分比
     ["增益"] = "ATTR_BONUS",
     ["增益加成"] = "ATTR_BONUS_RATIO", --百分比
-    ["总加成"] = "ATTR_ALL_RATIO", --百分比
+    ["最终加成"] = "ATTR_ALL_RATIO", --百分比
 }
 
 ---@enum(key) y3.Const.UnitEnumState
