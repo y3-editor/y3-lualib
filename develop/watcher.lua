@@ -1,7 +1,7 @@
 ---@class Develop.TimerWatcher
 local TMR = Class 'Develop.TimerWatcher'
 
----@return table<string, [integer, integer]>
+---@return table<string, { all: integer, alive: integer }>
 function TMR.count()
     local result = {}
 
@@ -14,7 +14,7 @@ function TMR.count()
                 alive = alive + 1
             end
         end
-        result[mod] = { all, alive }
+        result[mod] = { all = all, alive = alive }
     end
 
     return result
@@ -23,8 +23,7 @@ end
 ---@class Develop.TriggerWatcher
 local TRG = Class 'Develop.TriggerWatcher'
 
----@return integer all
----@return integer alive
+---@return { all: integer, alive: integer }
 function TRG.count()
     local all = 0
     local alive = 0
@@ -38,7 +37,7 @@ function TRG.count()
         end
     end
 
-    return all, alive
+    return { all = all, alive = alive }
 end
 
 return {

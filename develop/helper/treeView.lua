@@ -48,7 +48,7 @@ end
 ---@field description? string # 描述
 ---@field icon? string # 图标
 ---@field tooltip? string # 提示
----@field package lastChilds? Develop.Helper.TreeNode[]
+---@field package childs? Develop.Helper.TreeNode[]
 ---@overload fun(name: string, optional: Develop.Helper.TreeNode.Optional): Develop.Helper.TreeNode
 local Node = Class 'Develop.Helper.TreeNode'
 Extends('Develop.Helper.TreeNode', 'GCHost')
@@ -80,8 +80,8 @@ function Node:__del()
 
     self:changeVisible(false)
 
-    if self.lastChilds then
-        for _, child in ipairs(self.lastChilds) do
+    if self.childs then
+        for _, child in ipairs(self.childs) do
             Delete(child)
         end
     end
@@ -229,7 +229,7 @@ helper.registerMethod('getChildTreeNodes', function (params)
 
     ---@param newChilds Develop.Helper.TreeNode[]
     local function updateChilds(newChilds)
-        local lastChilds = node.lastChilds
+        local lastChilds = node.childs
         if lastChilds and lastChilds ~= newChilds then
             local newMap = {}
             for _, v in ipairs(newChilds) do
@@ -241,7 +241,7 @@ helper.registerMethod('getChildTreeNodes', function (params)
                 end
             end
         end
-        node.lastChilds = newChilds
+        node.childs = newChilds
     end
 
     if childsGetter then

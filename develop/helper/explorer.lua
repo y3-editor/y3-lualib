@@ -28,25 +28,14 @@ function M.createMemoryWatcher()
         return string.format('%.2f MB', mem / 1000)
     end
 
-    ---@type ClientTimer
-    local timer
-
     local node = y3.develop.helper.createTreeNode('内存占用', {
         icon = 'eye',
         description = getMemory(),
         tooltip = '只统计Lua的内存占用',
-        onVisible = function (node)
-            node.description = getMemory()
-            timer = y3.ctimer.loop(1, function ()
-                node.description = getMemory()
-            end)
-        end,
-        onInvisible = function ()
-            if timer then
-                timer:remove()
-            end
-        end,
     })
+    node:bindGC(y3.ctimer.loop(1, function ()
+        node.description = getMemory()
+    end)):execute()
 
     return node
 end
@@ -74,9 +63,9 @@ function M.createTimerWatcher()
         local all = 0
         local alive = 0
         for mod, count in pairs(counts) do
-            subNodes[mod].description = string.format('数量：%d(%d)', count[2], count[1] - count[2])
-            all = all + count[1]
-            alive = alive + count[2]
+            subNodes[mod].description = string.format('数量：%d(%d)', count.alive, count.all - count.alive)
+            all = all + count.all
+            alive = alive + count.alive
         end
         node.description = string.format('总计：%d(%d)', alive, all - alive)
     end)):execute()
@@ -92,9 +81,67 @@ function M.createTriggerWatcher()
     })
 
     node:bindGC(y3.ctimer.loop(1, function ()
-        local all, alive = watcher.triggerWatcher.count()
-        node.description = string.format('总计：%d(%d)', alive, all - alive)
+        local count = watcher.triggerWatcher.count()
+        node.description = string.format('总计：%d(%d)', count.alive, count.all - count.alive)
     end)):execute()
+
+    return node
+end
+
+---@return Develop.Helper.TreeNode
+function M.createRefWatcher()
+    local ref = require 'y3.util.ref'
+
+    local function countTable(t)
+        local n = 0
+        for _ in pairs(t) do
+            n = n + 1
+        end
+        return n
+    end
+
+    local node = y3.develop.helper.createTreeNode('引用', {
+        icon = 'list-selection',
+        tooltip = 'Lua持有的对象数量( 存活 | 死亡 | 未回收 )',
+        childsGetter = function (node)
+            local childs = {}
+            for className, manager in y3.util.sortPairs(ref.all_managers) do
+                ---@type ClientTimer?
+                local timer
+                childs[#childs+1] = y3.develop.helper.createTreeNode(className, {
+                    onVisible = function (child)
+                        timer = y3.ctimer.loop(1, function ()
+                            ---@diagnostic disable-next-line: invisible
+                            local strong = manager.strongRefMap
+                            ---@diagnostic disable-next-line: invisible
+                            local weak  = manager.weakRefMap
+                            ---@diagnostic disable-next-line: invisible
+                            local young = manager.waitingListYoung
+                            ---@diagnostic disable-next-line: invisible
+                            local old   = manager.waitingListOld
+
+                            local strongCount = countTable(strong)
+                            local aliveCount  = strongCount - countTable(young) - countTable(old)
+                            local weakCount   = countTable(weak)
+                            child.description = string.format('%d | %d | %d'
+                                , aliveCount
+                                , strongCount - aliveCount
+                                , weakCount
+                            )
+                        end)
+                        timer:execute()
+                    end,
+                    onInvisible = function (child)
+                        if timer then
+                            timer:remove()
+                            timer = nil
+                        end
+                    end,
+                })
+            end
+            return childs
+        end,
+    })
 
     return node
 end
@@ -108,6 +155,8 @@ function M.createRoot(name)
             M.createGameTimer(),
             M.createMemoryWatcher(),
             M.createTimerWatcher(),
+            M.createTriggerWatcher(),
+            M.createRefWatcher(),
         }
     })
     return root
@@ -126,7 +175,7 @@ y3.game:event_on('$Y3-初始化', function ()
     if not y3.game.is_debug_mode() then
         return
     end
-    --M.create()
+    M.create()
 end)
 
 return M

@@ -20,6 +20,9 @@ M.unrefTimeAtLeast = 5
 ---@private
 M.allowWeakRef = false
 
+---@type table<string, Ref>
+M.all_managers = {}
+
 ---@generic T: string
 ---@param className `T`
 ---@param new fun(key: Ref.ValidKeyType, ...): T
@@ -42,6 +45,8 @@ function M:__init(className, new)
     -- 待删除列表（老年代）
     ---@private
     self.waitingListOld = {}
+
+    M.all_managers[className] = self
 end
 
 -- 获取指定key的对象，如果不存在，则使用所有的参数创建并返回
@@ -56,9 +61,11 @@ function M:get(key, ...)
     if strongRefMap[key] then
         return strongRefMap[key]
     end
-    local weakRefMap = self.weakRefMap
-    if weakRefMap[key] then
-        return weakRefMap[key]
+    if self.allowWeakRef then
+        local weakRefMap = self.weakRefMap
+        if weakRefMap[key] then
+            return weakRefMap[key]
+        end
     end
     local obj = self.newMethod(key, ...)
     strongRefMap[key] = obj
@@ -92,9 +99,7 @@ function M:updateWaitingList()
         local obj = strongRef[key]
         if obj then
             strongRef[key] = nil
-            if self.allowWeakRef then
-                weakRef[key] = obj
-            end
+            weakRef[key] = obj
         end
         old[key] = nil
     end
@@ -103,3 +108,5 @@ function M:updateWaitingList()
     self.waitingListOld   = young
     self.waitingListYoung = old -- 这里复用了一下已被清空的上次老年代
 end
+
+return M
