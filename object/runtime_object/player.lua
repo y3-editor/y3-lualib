@@ -529,6 +529,13 @@ function M:get_platform_name()
     return self.phandle:get_role__unique_name()
 end
 
+---获取玩家加密UUID
+---@return string
+function M:get_platform_uuid()
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return self.phandle:get_encry_uuid()
+end
+
 ---向玩家发送提示
 ---@param msg string 消息
 ---@param localize? boolean 是否支持语言环境
