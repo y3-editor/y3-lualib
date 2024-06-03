@@ -46,6 +46,8 @@ end
 ---@class Develop.Helper.TreeNode: GCHost, Class.Base
 ---@field name string
 ---@field description? string # 描述
+---@field icon? string # 图标
+---@field tooltip? string # 提示
 ---@field package lastChilds? Develop.Helper.TreeNode[]
 ---@overload fun(name: string, optional: Develop.Helper.TreeNode.Optional): Develop.Helper.TreeNode
 local Node = Class 'Develop.Helper.TreeNode'
@@ -61,6 +63,7 @@ Node.nodeMap = {}
 ---@param name string
 ---@param optional Develop.Helper.TreeNode.Optional
 function Node:__init(name, optional)
+    optional = optional or {}
     self.name = name
     self.optional = optional
     self.description = optional.description
@@ -96,6 +99,9 @@ end
 ---@param self Develop.Helper.TreeNode
 ---@param desc string
 Node.__setter.description = function (self, desc)
+    if self._description == desc then
+        return
+    end
     self._description = desc
     self:refresh()
 end
@@ -112,6 +118,9 @@ end
 ---@param self Develop.Helper.TreeNode
 ---@param tooltip string
 Node.__setter.tooltip = function (self, tooltip)
+    if self._tooltip == tooltip then
+        return
+    end
     self._tooltip = tooltip
     self:refresh()
 end
@@ -128,6 +137,9 @@ end
 ---@param self Develop.Helper.TreeNode
 ---@param icon string
 Node.__setter.icon = function (self, icon)
+    if self._icon == icon then
+        return
+    end
     self._icon = icon
     self:refresh()
 end
@@ -135,6 +147,9 @@ end
 ---@package
 function Node:refresh()
     if not Node.nodeMap[self.id] then
+        return
+    end
+    if not self._visible then
         return
     end
     helper.request('refreshTreeNode', {
@@ -163,6 +178,11 @@ function Node:changeVisible(visible)
             xpcall(self.optional.onInvisible, log.error, self)
         end
     end
+end
+
+---@return boolean
+function Node:isVisible()
+    return self._visible
 end
 
 helper.registerMethod('getTreeNode', function (params)

@@ -14,6 +14,9 @@ local M = Class 'Trigger'
 
 ---@alias Trigger.CallBack fun(trg: Trigger, ...): any, any, any, any
 
+
+M.all_triggers = setmetatable({}, y3.util.MODE_K)
+
 ---@param event Event
 ---@param event_args? any[]
 ---@param callback Trigger.CallBack
@@ -24,6 +27,7 @@ function M:__init(event, event_args, callback)
     self._id = counter()
     self._event_args = event_args
     event:add_trigger(self)
+    M.all_triggers[self._id] = self
     return self
 end
 

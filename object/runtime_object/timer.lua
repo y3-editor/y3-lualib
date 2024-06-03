@@ -43,7 +43,6 @@ function M:__del()
     else
         error('帧计时器不支持删除，若有此需求请改用 `y3.ltimer.xxx_frame`')
     end
-    M.all_timers[self.id] = nil
 end
 
 ---@param py_timer py.Timer
@@ -120,7 +119,6 @@ function M.wait_frame(frame, on_timer, desc)
     local timer
     local py_timer = run_timer_by_frame(frame, 0, function()
         timer:execute()
-        M.all_timers[timer.id] = nil
     end)
     timer = New 'Timer' (py_timer, on_timer, 'frame', desc)
     return timer

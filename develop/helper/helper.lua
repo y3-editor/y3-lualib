@@ -178,7 +178,7 @@ end
 
 --在《Y3开发助手》的树形视图上创建一个节点
 ---@param name string
----@param optional Develop.Helper.TreeNode.Optional
+---@param optional? Develop.Helper.TreeNode.Optional
 ---@return Develop.Helper.TreeNode
 function M.createTreeNode(name, optional)
     local treeNode = New 'Develop.Helper.TreeNode' (name, optional)
