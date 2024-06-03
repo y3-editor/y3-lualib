@@ -11,7 +11,7 @@ M._send_buffer = ''
 
 ---@class Network.Options
 ---@field buffer_size? integer # 网络缓冲区大小（字节），默认为 2MB
----@field timeout? number # 连接超时时间（秒），默认为无限
+---@field timeout? number # 连接超时时间（秒），默认为30秒
 ---@field update_interval? number # 网络更新间隔（秒），默认为 0.2
 ---@field retry_interval? number # 重连间隔（秒），默认为 5
 
