@@ -22,6 +22,7 @@ function M.registerMethod(method, callback)
 end
 
 local function logger(...)
+    do return end
     local default = y3.config.log.toHelper
     y3.config.log.toHelper = false
     log.debug(...)
@@ -82,6 +83,7 @@ function M.response(id, result, err)
     }
 
     local jsonContent = y3.json.encode(data)
+    logger('resp:', jsonContent)
     client:send(string.pack('>s4', jsonContent))
 end
 

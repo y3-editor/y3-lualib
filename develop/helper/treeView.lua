@@ -31,6 +31,7 @@ function View:__del()
             id = self.id,
         })
     end)
+    Delete(self.root)
 end
 
 ---@class Develop.Helper.TreeNode.Optional
@@ -75,6 +76,12 @@ function Node:__del()
     Node.nodeMap[self.id] = nil
 
     self:changeVisible(false)
+
+    if self.lastChilds then
+        for _, child in ipairs(self.lastChilds) do
+            Delete(child)
+        end
+    end
 end
 
 ---@package
@@ -140,6 +147,9 @@ Node._visible = false
 
 ---@param visible boolean
 function Node:changeVisible(visible)
+    if not Node.nodeMap[self.id] then
+        visible = false
+    end
     if self._visible == visible then
         return
     end
