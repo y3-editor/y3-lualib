@@ -1,15 +1,5 @@
 --MEMO:24-06-04 投射物meta临时补充
 
----@class EditorObject.Projectile: EditorObject.DataModule
----@field key py.ProjectileKey
----@field on_create? fun(projectile: Projectile) # 投射物创建时执行
----@field on_remove? fun(projectile: Projectile) # 投射物销毁时执行
---投射物的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）
---> 警告：请确保数据类型正确，否则可能导致崩溃
---> 警告：如果创建过此投射物再修改数据，行为是未定义的
----@field data Object.Projectile
-
-
 --投射物
 ---@class Object.Projectile
 --效果异步
