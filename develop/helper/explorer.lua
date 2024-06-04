@@ -151,13 +151,15 @@ end
 function M.createRoot(name)
     local root = y3.develop.helper.createTreeNode(name, {
         icon = 'account',
-        childs = {
-            M.createGameTimer(),
-            M.createMemoryWatcher(),
-            M.createTimerWatcher(),
-            M.createTriggerWatcher(),
-            M.createRefWatcher(),
-        }
+        childsGetter = function ()
+            return {
+                M.createGameTimer(),
+                M.createMemoryWatcher(),
+                M.createTimerWatcher(),
+                M.createTriggerWatcher(),
+                M.createRefWatcher(),
+            }
+        end,
     })
     return root
 end
