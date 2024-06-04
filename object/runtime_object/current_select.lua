@@ -22,3 +22,8 @@ y3.game:event('选中-单位组', function (trg, data)
     data.player._selecting_unit = data.unit_group_id_list:get_first()
     data.player._selecting_group = data.unit_group_id_list
 end)
+
+y3.game:event('选中-取消', function (trg, data)
+    data.player._selecting_unit = nil
+    data.player._selecting_group = nil
+end)
