@@ -71,3 +71,10 @@
 点击了树形视图节点
 
 * `id`: `integer` 节点的唯一ID
+
+## changeTreeNodeExpanded
+
+树形视图展开状态变化
+
+* `id`: `integer` 节点的唯一ID
+* `expanded`: `boolean` 是否展开

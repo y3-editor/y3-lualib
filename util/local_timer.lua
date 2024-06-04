@@ -305,11 +305,10 @@ function M.pairs()
     end
 end
 
---获取当前逻辑时间
----@return integer # 秒部分
----@return integer # 毫秒部分
+--获取当前逻辑时间（毫秒）
+---@return number
 function M.clock()
-    return cur_ms // 1000, cur_ms % 1000
+    return cur_ms
 end
 
 ---@type LocalTimer[]

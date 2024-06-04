@@ -185,7 +185,7 @@ end
 ---@param message string
 function M.print(message)
     M.notify('print', {
-        message = message
+        message = message:sub(1, 10000)
     })
 end
 

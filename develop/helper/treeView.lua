@@ -43,6 +43,8 @@ end
 ---@field onVisible? fun(node: Develop.Helper.TreeNode) # 当节点能被看到时调用
 ---@field onInvisible? fun(node: Develop.Helper.TreeNode) # 当节点看不到时调用
 ---@field onClick? fun(node: Develop.Helper.TreeNode) # 当节点被点击时调用
+---@field onExpand? fun(node: Develop.Helper.TreeNode) # 当节点被展开时调用
+---@field onCollapse? fun(node: Develop.Helper.TreeNode) # 当节点被折叠时调用
 
 ---@class Develop.Helper.TreeNode: GCHost, Class.Base
 ---@field name string
@@ -186,6 +188,31 @@ function Node:isVisible()
     return self._visible
 end
 
+---@private
+Node._expanded = false
+
+---@param expanded boolean
+function Node:changeExpanded(expanded)
+    if self._expanded == expanded then
+        return
+    end
+    self._expanded = expanded
+    if expanded then
+        if self.optional.onExpand then
+            xpcall(self.optional.onExpand, log.error, self)
+        end
+    else
+        if self.optional.onCollapse then
+            xpcall(self.optional.onCollapse, log.error, self)
+        end
+    end
+end
+
+---@return boolean
+function Node:isExpanded()
+    return self._expanded
+end
+
 helper.registerMethod('getTreeNode', function (params)
     ---@type integer
     local id = params.id
@@ -276,5 +303,14 @@ helper.registerMethod('clickTreeNode', function (params)
     local node = Node.nodeMap[id]
     if node and node.optional.onClick then
         xpcall(node.optional.onClick, log.error, node)
+    end
+end)
+
+helper.registerMethod('changeTreeNodeExpanded', function (params)
+    ---@type integer
+    local id = params.id
+    local node = Node.nodeMap[id]
+    if node then
+        node:changeExpanded(params.expanded)
     end
 end)

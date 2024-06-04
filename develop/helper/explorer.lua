@@ -13,10 +13,10 @@ function M.createGameTimer()
     end
     local node = y3.develop.helper.createTreeNode('时间', {
         icon = 'clock',
-        description = formatTime(y3.ltimer.clock()),
+        description = formatTime(y3.ltimer.clock() // 1000),
     })
     node:bindGC(y3.ltimer.loop(1, function ()
-        node.description = formatTime(y3.ltimer.clock())
+        node.description = formatTime(y3.ltimer.clock() // 1000)
     end))
     return node
 end
