@@ -110,7 +110,7 @@ end
 ---@param handle unknown
 ---@param key string
 local function kv_remove_from_handle(handle, key)
-    GameAPI.del_prefab_key_kv(handle, key, 100003)
+    GlobalAPI.api_remove_kv(handle, key)
 end
 
 ---@param kv_key string
