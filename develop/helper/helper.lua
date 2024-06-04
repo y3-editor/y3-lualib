@@ -184,7 +184,7 @@ end
 --在《Y3开发助手》的终端上打印消息
 ---@param message string
 function M.print(message)
-    M.request('print', {
+    M.notify('print', {
         message = message
     })
 end

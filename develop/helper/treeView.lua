@@ -17,7 +17,7 @@ function View:__init(name, root)
     self.id = View.maxID
 
     helper.onReady(function ()
-        helper.request('createTreeView', {
+        helper.notify('createTreeView', {
             id = self.id,
             name = self.name,
             root = self.root.id,
@@ -27,7 +27,7 @@ end
 
 function View:__del()
     helper.onReady(function ()
-        helper.request('removeTreeView', {
+        helper.notify('removeTreeView', {
             id = self.id,
         })
     end)
@@ -152,7 +152,7 @@ function Node:refresh()
     if not self._visible then
         return
     end
-    helper.request('refreshTreeNode', {
+    helper.notify('refreshTreeNode', {
         id = self.id,
     })
 end

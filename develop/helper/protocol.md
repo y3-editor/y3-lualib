@@ -47,6 +47,7 @@
 * `tip?`: `string` 悬停提示
 * `icon?`: `string` 节点的图标
 * `hasChilds?`: `boolean` 是否可以展开
+* `canClick?`: `boolean` 是否可以点击
 
 ## getChildTreeNodes
 
@@ -64,3 +65,9 @@
 
 * `ids`: `integer` 节点的唯一ID数组
 * `visible`: `boolean` 是否可见
+
+## clickTreeNode
+
+点击了树形视图节点
+
+* `id`: `integer` 节点的唯一ID
