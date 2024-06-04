@@ -42,6 +42,7 @@ end
 ---@field childsGetter? fun(node: Develop.Helper.TreeNode): Develop.Helper.TreeNode[] # 当试图展开节点时，会调用这个函数获取子节点，和 `childs` 互斥
 ---@field onVisible? fun(node: Develop.Helper.TreeNode) # 当节点能被看到时调用
 ---@field onInvisible? fun(node: Develop.Helper.TreeNode) # 当节点看不到时调用
+---@field onClick? fun(node: Develop.Helper.TreeNode) # 当节点被点击时调用
 
 ---@class Develop.Helper.TreeNode: GCHost, Class.Base
 ---@field name string
@@ -201,6 +202,7 @@ helper.registerMethod('getTreeNode', function (params)
         tip  = node.tooltip,
         icon = node.icon,
         hasChilds = (node.optional.childs or node.optional.childsGetter) and true,
+        canClick  = node.optional.onClick and true,
     }
 end)
 
@@ -265,5 +267,14 @@ helper.registerMethod('changeTreeNodeVisible', function (params)
         if node then
             node:changeVisible(params.visible)
         end
+    end
+end)
+
+helper.registerMethod('clickTreeNode', function (params)
+    ---@type integer
+    local id = params.id
+    local node = Node.nodeMap[id]
+    if node and node.optional.onClick then
+        xpcall(node.optional.onClick, log.error, node)
     end
 end)
