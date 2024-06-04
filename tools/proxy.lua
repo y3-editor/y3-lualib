@@ -111,6 +111,18 @@ function M.raw(proxyObj)
 end
 
 ---@param proxyObj table
+---@return any
+function M.rawRecusive(proxyObj)
+    local obj = proxyObj[RAW] or proxyObj
+    for k, v in pairs(obj) do
+        if type(v) == 'table' then
+            obj[k] = M.rawRecusive(v)
+        end
+    end
+    return obj
+end
+
+---@param proxyObj table
 ---@return table
 function M.config(proxyObj)
     return proxyObj[CONFIG]

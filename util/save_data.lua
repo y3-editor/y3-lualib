@@ -88,9 +88,7 @@ end
 ---@param t table
 function M.save_table(player, slot, t)
     assert(type(t) == 'table', '数据类型必须是表！')
-    if y3.proxy.raw(t) then
-        t = y3.proxy.raw(t)
-    end
+    t = y3.proxy.rawRecusive(t)
     player.handle:set_save_data_table_value(slot, t)
     M.upload_save_data(player)
 end
