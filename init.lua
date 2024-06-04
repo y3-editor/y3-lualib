@@ -6,6 +6,8 @@ end)
 ---@class Y3
 y3 = {}
 
+y3.version = 240604
+
 y3.proxy   = require 'y3.tools.proxy'
 y3.class   = require 'y3.tools.class'
 y3.util    = require 'y3.tools.utility'
@@ -126,5 +128,7 @@ end)
 GlobalAPI.api_stop_luagc_control()
 collectgarbage 'restart'
 collectgarbage 'generational'
+
+log.info('LuaLib版本：', y3.version)
 
 y3.game:event_dispatch('$Y3-初始化')
