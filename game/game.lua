@@ -562,9 +562,10 @@ function M.get_global_weather()
 end
 
 ---获取多语言内容
----@param key string 多语言key
+---@param key integer|string 多语言key
 ---@return string 多语言内容
 function M.locale(key)
+    ---@diagnostic disable-next-line: param-type-mismatch
     return GameAPI.get_text_config(key)
 end
 

@@ -359,6 +359,8 @@ y3.game:event('控制台-请求补全', function (trg, data)
     console_tips_match(table.concat(completes, '\x01'))
 end)
 
-consoleprint(M.getHelpInfo())
+y3.game:event_on('$Y3-初始化', function ()
+    consoleprint(M.getHelpInfo())
+end)
 
 return M
