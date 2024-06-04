@@ -286,6 +286,12 @@ function M:use_store_item(count, item_id)
     self.phandle:api_use_store_item(count, item_id)
 end
 
+---请求购买平台道具
+---@param id py.StoreKey 平台道具id
+function M:open_platform_shop(id)
+    GameAPI.open_platform_shop(self.handle, id)
+end
+
 ---玩家是否可以看到某个位置
 ---@param point Point 点
 ---@return boolean visible 点对于玩家可见
