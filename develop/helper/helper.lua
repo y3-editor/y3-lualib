@@ -67,6 +67,25 @@ function M.awaitRequest(method, params)
     coroutine.yield()
 end
 
+--向《Y3开发助手》发送通知
+---@param method string
+---@param params table
+---@param callback? fun(data: any) # 接收返回值
+function M.notify(method, params, callback)
+    if not client then
+        return
+    end
+
+    local data = {
+        method = method,
+        params = params,
+    }
+
+    local jsonContent = y3.json.encode(data)
+    logger('send:', jsonContent)
+    client:send(string.pack('>s4', jsonContent))
+end
+
 ---@private
 ---@param id integer
 ---@param result any
@@ -96,13 +115,17 @@ local function handle_body(body)
         local callback = methodMap[data.method]
         if callback then
             local suc, res = xpcall(callback, log.error, data.params)
-            if suc then
-                M.response(id, res)
-            else
-                M.response(id, nil, res)
+            if id then
+                if suc then
+                    M.response(id, res)
+                else
+                    M.response(id, nil, res)
+                end
             end
         else
-            M.response(id, nil, '未找到方法：' .. tostring(data.method))
+            if id then
+                M.response(id, nil, '未找到方法：' .. tostring(data.method))
+            end
         end
     else
         --response
@@ -113,7 +136,10 @@ local function handle_body(body)
                 xpcall(callback, log.error, data.result)
             end
         elseif data.error then
-            log.warn(data.error)
+            logger(data.error)
+            if id then
+                requestMap[id] = nil
+            end
         end
     end
 end
