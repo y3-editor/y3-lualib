@@ -129,17 +129,13 @@ local function handle_body(body)
         end
     else
         --response
-        if data.result then
-            local callback = requestMap[id]
-            if callback then
-                requestMap[id] = nil
-                xpcall(callback, log.error, data.result)
-            end
-        elseif data.error then
+        if data.error then
             logger(data.error)
-            if id then
-                requestMap[id] = nil
-            end
+        end
+        local callback = requestMap[id]
+        if callback then
+            requestMap[id] = nil
+            xpcall(callback, log.error, data.result)
         end
     end
 end
