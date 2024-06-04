@@ -419,6 +419,13 @@ function M:get_store_item_number(id)
     return self.phandle:get_store_item_cnt(id)
 end
 
+---玩家平台道具到期时间戳
+---@param id py.StoreKey 平台道具id
+---@return integer store_item_end_time 平台道具到期时间戳
+function M:get_store_item_end_time(id)
+    return self.phandle:get_store_item_expired_time(id)
+end
+
 ---获取玩家平台等级
 ---@return integer map_level 平台等级
 function M:get_platform_level()
