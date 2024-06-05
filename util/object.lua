@@ -256,10 +256,6 @@ M.projectile = y3.util.defaultTable(function (key)
     return New 'EditorObject.Projectile' (key)
 end)
 
---TODO:临时meta整理
-require 'y3.util.object_temp_meta'
-
-
 --废弃了
 do
     M.lock_count_map = setmetatable({}, {
