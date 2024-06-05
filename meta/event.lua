@@ -2913,6 +2913,54 @@ event.ET_UNIT_CREATE_SLAVE = {
 --单位动画播放完成
 event.UNIT_ANIMATION_FINISHED_EVENT = {}
 
+---@class EventParam.ET_DETECT_BONE_COLLISON
+---@field source_unit Unit # 无描述
+---@field target_unit Unit # 无描述
+---@field src_bone string # 无描述
+---@field target_bone string # 无描述
+---@field hitPos py.Vector3 # 无描述
+---@field hitNormal py.Vector3 # 无描述
+
+--检测倒碰撞骨骼发生碰撞
+event.ET_DETECT_BONE_COLLISON = {
+    [1] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+    },
+    [3] = {
+        name = "__src_bone",
+        type = "string",
+        lua_name = "src_bone",
+        lua_type = "string",
+    },
+    [4] = {
+        name = "__target_bone",
+        type = "string",
+        lua_name = "target_bone",
+        lua_type = "string",
+    },
+    [5] = {
+        name = "__hitPos",
+        type = "py.Vector3",
+        lua_name = "hitPos",
+        lua_type = "py.Vector3",
+    },
+    [6] = {
+        name = "__hitNormal",
+        type = "py.Vector3",
+        lua_name = "hitNormal",
+        lua_type = "py.Vector3",
+    },
+}
+
 ---@class EventParam.ET_ITEM_ATTACHED_ATTR_CHANGED
 ---@field item Item # 无描述
 ---@field attr_key string # 无描述
@@ -5526,6 +5574,48 @@ event.ET_TRIGGER_UI_TABWIDGET_CHANGE_EVENT = {
         type = "integer",
         lua_name = "int1",
         lua_type = "integer",
+        desc = "自定义信息",
+        lua_desc = "自定义信息",
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_VIDEO_END_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field str1 string # 自定义信息
+
+--ui视频播放完成事件
+event.ET_TRIGGER_UI_VIDEO_END_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
         desc = "自定义信息",
         lua_desc = "自定义信息",
     },
@@ -8326,6 +8416,30 @@ event.ET_CUSTOM_EVENT = {
 
 --自定义事件
 event.ET_EVENT_CUSTOM = {
+    [1] = {
+        name = "__c_param_1",
+        type = "integer",
+        lua_name = "c_param_1",
+        lua_type = "integer",
+        desc = "事件参数",
+        lua_desc = "事件参数",
+    },
+    [2] = {
+        name = "__c_param_dict",
+        type = "py.Dict",
+        lua_name = "c_param_dict",
+        lua_type = "py.Dict",
+        desc = "自定义参数列表",
+        lua_desc = "自定义参数列表",
+    },
+}
+
+---@class EventParam.ET_EVENT_CUSTOM_CLIENT
+---@field c_param_1 integer # 事件参数
+---@field c_param_dict py.Dict # 自定义参数列表
+
+--本地自定义事件
+event.ET_EVENT_CUSTOM_CLIENT = {
     [1] = {
         name = "__c_param_1",
         type = "integer",

@@ -583,6 +583,7 @@ M.config["技能-建造完成"] = {
 ---@alias EventParam.单位-普攻命中 EventParam.ET_ATTACK_HIT_TARGET
 M.config["单位-普攻命中"] = {
     __class__ = "EventConfigBuilder",
+    _deprecated = true,
     desc = "",
     extraArgs = {
     },
@@ -596,6 +597,7 @@ M.config["单位-普攻命中"] = {
 ---@alias EventParam.单位-普攻造成伤害 EventParam.ET_ATTACK_HURT
 M.config["单位-普攻造成伤害"] = {
     __class__ = "EventConfigBuilder",
+    _deprecated = true,
     desc = "",
     extraArgs = {
     },
@@ -3900,6 +3902,10 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: EditorObject.Item, event: "物品-出售", callback: fun(trg: Trigger, data: EventParam.物品-出售)): Trigger
 ---@field event fun(self: EditorObject.Item, event: "物品-死亡", callback: fun(trg: Trigger, data: EventParam.物品-死亡)): Trigger
 ---@field event fun(self: EditorObject.Item, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
+
+---@class EditorObject.Projectile
+---@field event fun(self: EditorObject.Projectile, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
+---@field event fun(self: EditorObject.Projectile, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
 
 ---@class EditorObject.Unit
 ---@field event fun(self: EditorObject.Unit, event: "单位-研发科技", callback: fun(trg: Trigger, data: EventParam.单位-研发科技)): Trigger

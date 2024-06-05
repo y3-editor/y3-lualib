@@ -100,7 +100,7 @@
 --触发器ID
 ---@class py.TriggerID: integer
 --动态触发器实例
----@class py.DynamicTriggerInstance: integer
+---@class py.DynamicTriggerInstance: py.DynamicTypeMeta
 --区域ID
 ---@class py.AreaID: integer
 --场景声音ID

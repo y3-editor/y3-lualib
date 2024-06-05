@@ -583,6 +583,46 @@
 ---@class Object.Item.Kv
 
 
+---@class Object.Projectile
+--区分敌我特效显示  
+--开启后可以配置该特效在所属单位的敌人眼中的表现。通常用于处理不同颜色的警示圈或不对敌方显示特效。
+---@field async_effect boolean
+--描述  
+--描述
+---@field description number
+--开启后，当投射物被销毁时会立即移除表现
+---@field effect_destroy_way_is_immediately boolean
+--敌方特效  
+---@field effect_foes any[]
+--特效配置  
+---@field effect_friend any[]
+---@field icon number
+--ID
+---@field key number
+---@field kv Object.Projectile.Kv
+--投射物会在到达最大持续时间后强制删除。摆放在场景上的投射物不会受到限制。
+---@field max_duration number
+--影响可用的可移动通道。
+---@field move_channel number
+--当投射物作为运动器的运动对象且开启地形阻挡时，作为是否会触发碰撞静态碰撞事件的条件。
+---@field move_limitation number
+--名称  
+--名称
+---@field name string|integer
+--勾选后投射物会在播放完成后重复播放
+---@field sfx_loop boolean
+--可以设置触发指定事件时播放的声音
+---@field sound_event_list any[]
+--编辑器后缀
+---@field suffix string
+--标签  
+---@field tags any[]
+--UID
+---@field uid string
+
+---@class Object.Projectile.Kv
+
+
 ---@class Object.Unit
 --应用科技  
 --单位的可应用科技（会受到该科技的影响）
