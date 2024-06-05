@@ -258,6 +258,7 @@ end)
 
 --废弃了
 do
+    ---@package
     M.lock_count_map = setmetatable({}, {
         __mode = 'k',
         __index = function (t, k)
@@ -265,6 +266,7 @@ do
             return 0
         end,
     })
+    ---@package
     M.call_stack_map = setmetatable({}, {
         __mode = 'k',
         __index = function (t, k)
@@ -282,6 +284,7 @@ do
         end
     end
 
+    ---@package
     ---@param otype string
     ---@param mname string
     ---@param key any
