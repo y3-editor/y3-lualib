@@ -7,6 +7,8 @@
 local M = Class 'Projectile'
 M.type = 'projectile'
 
+---@class Projectile: GCHost
+Extends('Projectile', 'GCHost')
 ---@class Projectile: ObjectEvent
 Extends('Projectile', 'ObjectEvent')
 ---@class Projectile: KV
