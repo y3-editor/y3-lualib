@@ -1,6 +1,7 @@
 local M = y3.object.unit[134274912] -- 关羽
 
-function M.on_create(unit)
+M:event('单位-创建', function (trg, data)
+    local unit = data.unit
     print('单位-创建：', unit)
 
     -- 将计时器绑定在单位上，单位移除时计时器会自动销毁
@@ -12,15 +13,16 @@ function M.on_create(unit)
             type = '物理',
         }
     end))
-end
+end)
 
-function M.on_dead(unit)
+M:event('单位-死亡', function (trg, data)
+    local unit = data.unit
     print('单位-死亡：', unit)
     y3.ltimer.wait(2, function (timer, count)
         unit:remove()
     end)
-end
+end)
 
-function M.on_remove(unit)
-    print('单位-移除：', unit)
-end
+M:event('单位-移除', function (trg, data)
+    print('单位-移除：', data.unit)
+end)
