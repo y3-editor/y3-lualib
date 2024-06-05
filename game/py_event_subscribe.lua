@@ -17,7 +17,8 @@ M.trigger_id_counter = y3.util.counter()
 function M.convert_py_params(event_key, event_params)
     local event_data = event_datas[event_key]
     if not event_data then
-        error(string.format('event %s not found', event_key))
+        return event_params
+        --error(string.format('event %s not found', event_key))
     end
     -- TODO 见问题10，改为用户访问时才会实际访问py层的字段
     --local lua_params = M.convert_py_params_instant(event_name, event_config, event_params)
