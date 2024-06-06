@@ -2918,8 +2918,8 @@ event.UNIT_ANIMATION_FINISHED_EVENT = {}
 ---@field target_unit Unit # 无描述
 ---@field src_bone string # 无描述
 ---@field target_bone string # 无描述
----@field hitPos py.Vector3 # 无描述
----@field hitNormal py.Vector3 # 无描述
+---@field hitPos Point # 无描述
+---@field hitNormal Point # 无描述
 
 --检测倒碰撞骨骼发生碰撞
 event.ET_DETECT_BONE_COLLISON = {
@@ -2951,13 +2951,13 @@ event.ET_DETECT_BONE_COLLISON = {
         name = "__hitPos",
         type = "py.Vector3",
         lua_name = "hitPos",
-        lua_type = "py.Vector3",
+        lua_type = "Point",
     },
     [6] = {
         name = "__hitNormal",
         type = "py.Vector3",
         lua_name = "hitNormal",
-        lua_type = "py.Vector3",
+        lua_type = "Point",
     },
 }
 

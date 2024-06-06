@@ -62,6 +62,10 @@ y3.py_converter.register_py_to_lua('py.Point', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Point', function (lua_value)
     return lua_value.handle
 end)
+y3.py_converter.register_py_to_lua('py.Vector3', M.get_by_handle)
+y3.py_converter.register_lua_to_py('py.Vector3', function (lua_value)
+    return lua_value.handle
+end)
 
 ---点的x坐标
 ---@return number
