@@ -1378,6 +1378,18 @@ M.config["未知-ET_UNIT_CREATE_SLAVE"] = {
     },
 }
 
+---@alias EventParam.本地-骨骼碰撞 EventParam.ET_DETECT_BONE_COLLISON
+M.config["本地-骨骼碰撞"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "骨骼碰撞时触发",
+    extraArgs = {
+    },
+    key = "ET_DETECT_BONE_COLLISON",
+    name = "本地-骨骼碰撞",
+    params = {
+    },
+}
+
 ---@alias EventParam.未知-ET_ITEM_ATTACHED_ATTR_CHANGED EventParam.ET_ITEM_ATTACHED_ATTR_CHANGED
 M.config["未知-ET_ITEM_ATTACHED_ATTR_CHANGED"] = {
     __class__ = "EventConfigBuilder",
@@ -3521,6 +3533,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: self, event: "本地-骨骼碰撞", callback: fun(trg: Trigger, data: EventParam.本地-骨骼碰撞)): Trigger
 ---@field event fun(self: self, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
 ---@field event fun(self: self, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
 ---@field event fun(self: self, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
