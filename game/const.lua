@@ -390,10 +390,11 @@ M.LinkSfxPointType = {
     ['END'] = 2,
 }
 
+---@enum(key) y3.Const.SfxRotateType
 M.SfxRotateType = {
-    ['FOLLOW_SOCKET'] = 0,
-    ['FOLLOW_MODEL'] = 1,
-    ['NOT_FOLLOW'] = 2,
+    ['跟随节点'] = 0,
+    ['跟随模型'] = 1,
+    ['不跟随'] = 2,
 }
 
 ---@enum y3.Const.SlotType

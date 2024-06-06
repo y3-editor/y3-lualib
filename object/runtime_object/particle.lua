@@ -60,7 +60,7 @@ end
 ---@field time? number 持续时间
 ---@field height? number 高度，只有当 `target` 的类型为点时有效
 ---@field socket? string 特效挂节点，只有当 `target` 的类型为单位时有效
----@field follow_rotation? integer 跟随单位旋转的模式，只有当 `target` 的类型为单位时有效
+---@field follow_rotation? integer | y3.Const.SfxRotateType 跟随单位旋转的模式，只有当 `target` 的类型为单位时有效
 ---@field follow_scale? boolean 是否跟随单位缩放，只有当 `target` 的类型为单位时有效
 ---@field immediate? boolean 销毁时，是否有过度
 
@@ -82,7 +82,7 @@ function M.create(data)
             data.type,
             target.handle,
             socket,
-            follow_rotation or 0,
+            y3.const.SfxRotateType[follow_rotation] or follow_rotation or 0,
             follow_scale,
             scale,
             time,
