@@ -149,7 +149,7 @@ end
 ---@field time? number 投射物持续时间
 ---@field owner? Unit|Player 投射物拥有者
 ---@field ability? Ability 投射物关联技能
----@field visible_rule? integer 粒子特效可见性规则，默认为`1`
+---@field visible_rule? integer | y3.Const.VisibleType 粒子特效可见性规则，默认为`1`
 ---@field remove_immediately? boolean 是否立即移除表现，如果不填会读表
 
 -- 创建投射物
@@ -173,7 +173,7 @@ function M.create(data)
             Fix32(data.time or 60.0),
             data.time and true or false,
             Fix32(data.height or 0.0),
-            data.visible_rule or 1,
+            y3.const.VisibleType[data.visible_rule] or data.visible_rule or 1,
             data.remove_immediately or false,
             data.remove_immediately == nil and true or false
         )
@@ -189,7 +189,7 @@ function M.create(data)
             ---@diagnostic disable-next-line: param-type-mismatch
             data.owner.handle,
             data.ability and data.ability.handle or nil,
-            data.visible_rule or 1,
+            y3.const.VisibleType[data.visible_rule] or data.visible_rule or 1,
             Fix32(data.time or 60.0),
             data.time and true or false,
             data.remove_immediately or false,
