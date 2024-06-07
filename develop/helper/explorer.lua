@@ -146,6 +146,35 @@ function M.createRefWatcher()
     return node
 end
 
+function M.createReloadButton()
+    local node = y3.develop.helper.createTreeNode('重载Lua', {
+        icon = 'refresh',
+        tooltip = '省的你输入 `.rd`',
+        onClick = function ()
+            y3.develop.command.execute('RD')
+        end,
+    })
+
+    return node
+end
+
+function M.createRestartGameButton()
+    local node = y3.develop.helper.createTreeNode('重启游戏', {
+        icon = 'warning',
+        tooltip = '省的你输入 `.rr`',
+        childs = {
+            y3.develop.helper.createTreeNode('确认重启', {
+                icon = 'warning',
+                onClick = function ()
+                    y3.develop.command.execute('RR')
+                end,
+            })
+        },
+    })
+
+    return node
+end
+
 ---@param name string
 ---@return Develop.Helper.TreeNode
 function M.createRoot(name)
@@ -153,6 +182,8 @@ function M.createRoot(name)
         icon = 'account',
         childsGetter = function ()
             return {
+                M.createReloadButton(),
+                M.createRestartGameButton(),
                 M.createGameTimer(),
                 M.createMemoryWatcher(),
                 M.createTimerWatcher(),
