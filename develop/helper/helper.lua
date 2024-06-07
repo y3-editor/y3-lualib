@@ -35,6 +35,7 @@ end
 ---@param callback? fun(data: any) # 接收返回值
 function M.request(method, params, callback)
     if not client then
+        if callback then callback(nil) end
         return
     end
 
@@ -49,6 +50,8 @@ function M.request(method, params, callback)
     client:send(string.pack('>s4', jsonContent))
 
     requestMap[data.id] = callback
+
+    client:update()
 end
 
 --向《Y3开发助手》发送请求（协程）
@@ -70,8 +73,7 @@ end
 --向《Y3开发助手》发送通知
 ---@param method string
 ---@param params table
----@param callback? fun(data: any) # 接收返回值
-function M.notify(method, params, callback)
+function M.notify(method, params)
     if not client then
         return
     end
@@ -84,6 +86,8 @@ function M.notify(method, params, callback)
     local jsonContent = y3.json.encode(data)
     logger('send:', jsonContent)
     client:send(string.pack('>s4', jsonContent))
+
+    client:update()
 end
 
 ---@private
@@ -104,9 +108,11 @@ function M.response(id, result, err)
     local jsonContent = y3.json.encode(data)
     logger('resp:', jsonContent)
     client:send(string.pack('>s4', jsonContent))
+
+    client:update()
 end
 
-local function handle_body(body)
+local function handleBody(body)
     logger('recv:', body)
     local data = y3.json.decode(body)
     local id = data.id
@@ -165,7 +171,7 @@ local function createClient(port)
         local head = read(4)
         local len = string.unpack('>I4', head)
         local body = read(len)
-        xpcall(handle_body, log.error, body)
+        xpcall(handleBody, log.error, body)
     end)
 
     return client
@@ -181,12 +187,37 @@ function M.onReady(callback)
     onReadyCallbacks[#onReadyCallbacks+1] = callback
 end
 
+--《Y3开发助手》是否准备好
+---@return boolean
+function M.isReady()
+    return client ~= nil
+end
+
 --在《Y3开发助手》的终端上打印消息
 ---@param message string
 function M.print(message)
     M.notify('print', {
         message = message:sub(1, 10000)
     })
+end
+
+---@class Develop.Helper.RestartOptions
+---@field debugger? boolean # 是否需要启动调试器。如果省略，会根据当前是否附加了调试器来决定是否需要调试器。
+
+--准备重启游戏
+---@param options Develop.Helper.RestartOptions
+function M.prepareForRestart(options)
+    M.notify('prepareForRestart', options)
+end
+
+---@param command string
+---@param args? any[]
+---@param callback? fun(result: any)
+function M.requestCommand(command, args, callback)
+    M.request('command', {
+        command = command,
+        args = args,
+    }, callback)
 end
 
 --在《Y3开发助手》的视图上创建一个树形视图

@@ -120,6 +120,7 @@ y3.develop.helper  = require 'y3.develop.helper'
 
 pcall(function ()
     if LDBG and y3.develop.arg['lua_wait_debugger'] == 'true' then
+        y3.develop.wait_debugger = true
         LDBG:event 'wait'
     end
 end)

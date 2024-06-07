@@ -77,7 +77,6 @@ function M:make_error(err)
     self:remove()
 end
 
----@private
 function M:update()
     if self.state == 'error' or self.state == 'dead' then
         self:remove()

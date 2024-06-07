@@ -26,6 +26,21 @@
 
 * `id`: `integer` 节点的唯一ID
 
+## command
+
+执行命令，内置命令参考 https://code.visualstudio.com/api/references/commands
+
+* `command`: `string` 命令
+* `args?`: `any[]` 参数
+
+返回 `any`
+
+## prepareForRestart
+
+通知开发助手游戏即将重启
+
+* `debugger?`: `boolean` 是否需要启动调试器。如果省略，会根据当前是否附加了调试器来决定是否需要调试器。
+
 # Y3开发助手 -> 游戏
 
 ## command

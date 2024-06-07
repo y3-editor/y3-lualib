@@ -138,6 +138,16 @@ M.register('CT', {
     end
 })
 
+M.register('RR', {
+    desc = '重启游戏',
+    onCommand = function ()
+        y3.develop.helper.prepareForRestart {
+            debugger = y3.develop.wait_debugger,
+        }
+        y3.game.restart_game(true)
+    end
+})
+
 y3.reload.onBeforeReload(function (reload, willReload)
     remove_all_triggers_in_include(reload)
     remove_all_custom_triggers_in_include(reload)
