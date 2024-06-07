@@ -34,6 +34,10 @@ function View:__del()
     Delete(self.root)
 end
 
+function View:remove()
+    Delete(self)
+end
+
 ---@class Develop.Helper.TreeNode.Optional
 ---@field icon? string # 图标，见 https://code.visualstudio.com/api/references/icons-in-labels#icon-listing
 ---@field description? string # 描述

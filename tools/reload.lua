@@ -220,7 +220,7 @@ end
 ---@generic R
 ---@param callback fun(trash: fun(obj: any)): R?
 ---@return R
-function M.newLife(callback)
+function M.recycle(callback)
     local trashList = {}
     local function trash(obj)
         trashList[#trashList+1] = obj

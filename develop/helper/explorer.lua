@@ -198,7 +198,7 @@ end
 function M.create()
     y3.player.with_local(function (local_player)
         local name = local_player:get_name()
-        y3.reload.newLife(function (trash)
+        y3.reload.recycle(function (trash)
             trash(y3.develop.helper.createTreeView(name, M.createRoot(name)))
         end)
     end)

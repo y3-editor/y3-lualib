@@ -220,12 +220,20 @@ function M.requestCommand(command, args, callback)
     }, callback)
 end
 
+---@private
+---@type table<string, Develop.Helper.TreeView>
+M.treeViewMap = {}
+
 --在《Y3开发助手》的视图上创建一个树形视图
 ---@param name string
 ---@param root Develop.Helper.TreeNode
 ---@return Develop.Helper.TreeView
 function M.createTreeView(name, root)
+    if M.treeViewMap[name] then
+        M.treeViewMap[name]:remove()
+    end
     local treeView = New 'Develop.Helper.TreeView' (name, root)
+    M.treeViewMap[name] = treeView
     return treeView
 end
 
