@@ -421,6 +421,15 @@ function M:set_text_color(r,g,b,a)
     return self
 end
 
+--设置文本颜色(HEX)
+---@param color string # hex
+---@param a number 透明度
+---@return self
+function M:set_text_color_hex(color, a)
+    GameAPI.set_ui_comp_font_color_hex(self.player.handle, self.handle, color, a)
+    return self
+end
+
 
 --设置模型控件的镜头视野
 ---@param fov number 视野范围
