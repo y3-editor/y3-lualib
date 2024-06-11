@@ -29,14 +29,14 @@ end
 function M:in_range(cent, radius)
     if cent.type == 'unit' then
         ---@cast cent Unit
-        cent = cent:get_point()
+        self._pos = cent:get_point()
     elseif cent.type == 'item' then
         ---@cast cent Item
-        cent = cent:get_point()
+        self._pos = cent:get_point()
     else
         ---@cast cent Point
         ---@private
-        self._pos   = cent
+        self._pos = cent
     end
     ---@private
     self._shape = y3.shape.create_circular_shape(radius)
@@ -159,6 +159,22 @@ function M:count(count)
     return self
 end
 
+---@enum(key) Selector.SortType
+local sort_type = {
+    ['由近到远'] = 0,
+    ['由远到近'] = 1,
+    ['随机'] = 2,
+}
+
+-- 排序 - 按照某种方式排序
+---@param st Selector.SortType
+---@return Selector
+function M:sort_type(st)
+    ---@private
+    self._sort_type = sort_type[st]
+    return self
+end
+
 -- 进行选取
 ---@return UnitGroup
 function M:get()
@@ -183,9 +199,22 @@ function M:get()
         self._in_state or 0,
         self._not_in_state or 0,
         self._include_dead,
-        self._count or -1
+        self._count or -1,
+        self._sort_type
     )
     return New 'UnitGroup' (py_unit_group)
+end
+
+-- 进行选取
+---@return Unit[]
+function M:pick()
+    local ug = self:get()
+    return ug:pick()
+end
+
+-- 进行遍历
+function M:ipairs()
+    return ipairs(self:pick())
 end
 
 -- 创建选取器
