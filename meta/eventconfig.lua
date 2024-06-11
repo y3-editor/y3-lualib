@@ -3447,6 +3447,32 @@ M.config["未知-ET_UNIT_3D_ACTIVE"] = {
     },
 }
 
+---@alias EventParam.玩家-平台道具变化 EventParam.ET_ROLE_STORE_ITEM_CHANGED
+M.config["玩家-平台道具变化"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "玩家平台道具变化时触发",
+    extraArgs = {
+    },
+    key = "ET_ROLE_STORE_ITEM_CHANGED",
+    name = "玩家-平台道具变化",
+    object = "Player",
+    params = {
+    },
+}
+
+---@alias EventParam.玩家-平台商城窗口变化 EventParam.ET_ROLE_STORE_PAGE_STATE_CHANGED
+M.config["玩家-平台商城窗口变化"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "平台商城窗口变化事件",
+    extraArgs = {
+    },
+    key = "ET_ROLE_STORE_PAGE_STATE_CHANGED",
+    name = "玩家-平台商城窗口变化",
+    object = "Player",
+    params = {
+    },
+}
+
 ---@alias EventParam.控制台-输入 EventParam.ET_LUA_CONSOLE_COMMAND
 M.config["控制台-输入"] = {
     __class__ = "EventConfigBuilder",
@@ -3678,6 +3704,8 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 ---@field event fun(self: self, event: "游戏-消息", event_id: integer, callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
 ---@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
+---@field event fun(self: self, event: "玩家-平台道具变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台道具变化)): Trigger
+---@field event fun(self: self, event: "玩家-平台商城窗口变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台商城窗口变化)): Trigger
 ---@field event fun(self: self, event: "控制台-输入", callback: fun(trg: Trigger, data: EventParam.控制台-输入)): Trigger
 ---@field event fun(self: self, event: "控制台-请求补全", callback: fun(trg: Trigger, data: EventParam.控制台-请求补全)): Trigger
 ---@field event fun(self: self, event: "对话框-点击", callback: fun(trg: Trigger, data: EventParam.对话框-点击)): Trigger
@@ -3802,6 +3830,8 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Player, event: "本地-鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.本地-鼠标-悬停)): Trigger
 ---@field event fun(self: Player, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
 ---@field event fun(self: Player, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
+---@field event fun(self: Player, event: "玩家-平台道具变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台道具变化)): Trigger
+---@field event fun(self: Player, event: "玩家-平台商城窗口变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台商城窗口变化)): Trigger
 
 ---@class Projectile
 ---@field event fun(self: Projectile, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
