@@ -50,7 +50,7 @@ function M:__init(ip, port, options)
         self:update()
     end)
     if self.options.timeout and self.options.timeout > 0 then
-        y3.ctimer.wait(self.options.timeout, function ()
+        y3.ltimer.wait(self.options.timeout, function ()
             if self.state ~= 'started' then
                 return
             end
