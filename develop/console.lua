@@ -69,7 +69,12 @@ function M.input(input)
     end
 
     if input:sub(1, 1) == '.' then
-        y3.sync.send('$console', input)
+        y3.player.with_local(function (local_player)
+            y3.sync.send('$console', {
+                input = input,
+                player = local_player,
+            })
+        end)
         return
     end
 
@@ -90,21 +95,17 @@ y3.game:event('控制台-输入', function (trg, data)
     M.input(input)
 end)
 
-y3.sync.onSync('$console', function (input)
+y3.sync.onSync('$console', function (data)
     if not y3.game.is_debug_mode() then
         return
     end
-    if type(input) ~= 'string' then
+    if type(data) ~= 'table' then
         return
     end
-    local content = input:sub(2)
-    local strs = {}
-    for str in content:gmatch('[^%s]+') do
-        strs[#strs+1] = str
+    if type(data.input) ~= 'string' then
+        return
     end
-
-    local command = table.remove(strs, 1)
-    y3.develop.command.execute(command, table.unpack(strs))
+    y3.develop.command.input('.', data.input, data.player)
 end)
 
 y3.sync.onSync('$run', function (code)

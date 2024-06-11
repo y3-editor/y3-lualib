@@ -157,14 +157,22 @@ y3.reload.onBeforeReload(function (reload, willReload)
 end)
 
 y3.game:event('玩家-发送消息', function (trg, data)
+    M.input('.', data.str1, data.player)
+end)
+
+-- 输入作弊指令
+---@param prefix string
+---@param input string
+---@param player? Player
+function M.input(prefix, input, player)
     if not y3.game.is_debug_mode() then
         return
     end
-    if not y3.util.stringStartWith(data.str1, '.') then
+    if not y3.util.stringStartWith(input, prefix) then
         return
     end
 
-    local content = data.str1:sub(2)
+    local content = input:sub(1 + #prefix)
     local strs = {}
     for str in content:gmatch('[^%s]+') do
         strs[#strs+1] = str
@@ -180,7 +188,7 @@ y3.game:event('玩家-发送消息', function (trg, data)
         return
     end
     info.onCommand(table.unpack(strs))
-end)
+end
 
 -- 执行作弊指令
 ---@param command string
