@@ -63,6 +63,9 @@ log = New 'Log' {
         return GameAPI.get_cur_game_time():float()
     end,
     print = function (level, message, timeStamp)
+        if upload_traceback then
+            upload_traceback(message)
+        end
         local logger = y3.config.log.logger
         if logger then
             y3.config.log.logger = nil
