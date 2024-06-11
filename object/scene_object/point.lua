@@ -90,7 +90,7 @@ end
 
 ---@return Point
 function M:get_point()
-	return self
+    return self
 end
 
 -- 移动点
