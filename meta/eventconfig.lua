@@ -934,7 +934,6 @@ M.config["单位-即将死亡"] = {
     object = "Unit",
     params = {
     },
-    master = "target_unit"
 }
 
 ---@alias EventParam.单位-死亡 EventParam.ET_UNIT_DIE

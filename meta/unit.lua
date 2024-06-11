@@ -915,6 +915,11 @@ function Unit:api_stop_dissolve() end
 ---@param a py.Fixed # a
 function Unit:api_set_ghost_color(r, g, b, a) end
 
+--设置残影颜色(HEX)
+---@param color string # hex
+---@param a py.Fixed # a
+function Unit:api_set_ghost_color_hex(color, a) end
+
 --设置残影时间
 ---@param interval py.Fixed # interval
 ---@param duration py.Fixed # duration
@@ -971,6 +976,10 @@ function Unit:api_set_unit_anim_state_name(anim_state_name) end
 ---@param color_b number # B
 function Unit:set_unit_outlined_color(color_r, color_g, color_b) end
 
+--设置单位的描边颜色(HEX)
+---@param color string # R
+function Unit:set_unit_outlined_color_hex(color) end
+
 --开关单位描边效果
 ---@param flag boolean # 开关
 function Unit:set_unit_outlined_enable(flag) end
@@ -982,8 +991,9 @@ function Unit:set_unit_outlined_enable(flag) end
 ---@param time? py.Fixed # 持续时间
 ---@param cycle_time? py.Fixed # 循环周期
 ---@param stack_count? integer # 效果层数
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.ModifierEntity # 魔法效果
-function Unit:api_add_modifier(modifier_key, from_unit, from_ability, time, cycle_time, stack_count) end
+function Unit:api_add_modifier(modifier_key, from_unit, from_ability, time, cycle_time, stack_count, lua_table) end
 
 --获取单位身上指定编号的的效果层数
 ---@param modifier_key py.ModifierKey # 效果编号
@@ -1035,8 +1045,9 @@ function Unit:api_get_all_modifiers() end
 ---@param ability_id py.AbilityKey # 技能编号
 ---@param ability_index? py.AbilityIndex # 技能槽位编号
 ---@param ability_level? integer # 技能等级
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.Ability # 技能
-function Unit:api_add_ability(ability_type, ability_id, ability_index, ability_level) end
+function Unit:api_add_ability(ability_type, ability_id, ability_index, ability_level, lua_table) end
 
 --单位根据槽位移除技能
 ---@param ability_type integer # 技能类型
@@ -1210,8 +1221,9 @@ function Unit:api_has_item_key(item_no) end
 
 --给单位添加物品名
 ---@param item_no py.ItemKey # 物品编号
+---@param slot_type? py.SlotType # 槽位类型
 ---@return py.Item # 创建的物品实体
-function Unit:api_add_item(item_no) end
+function Unit:api_add_item(item_no, slot_type) end
 
 --给单位删除物品名
 ---@param item_key py.ItemKey # 物品编号

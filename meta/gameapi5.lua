@@ -2507,6 +2507,12 @@ function GameAPI.get_rank_player_global_archive_value(rank_key, num) end
 ---@return string # 昵称
 function GameAPI.get_archive_rank_player_nickname(archive_key, num) end
 
+--获取玩家指定的个人存档栏位的第n名玩家昵称的后缀id
+---@param archive_key integer # 玩家存档栏位
+---@param num integer # 第n名
+---@return string # 后缀id
+function GameAPI.get_archive_rank_player_tag(archive_key, num) end
+
 --获取玩家指定的个人存档栏位的第n名玩家的存档值
 ---@param archive_key integer # 玩家存档栏位
 ---@param num integer # 第n名
@@ -2751,11 +2757,11 @@ function GameAPI.get_cascaded_shadow_enable() end
 function GameAPI.get_dynamic_shadow_cascades() end
 
 --获取级联阴影距离
----@return number # 距离
+---@return py.Fixed # 距离
 function GameAPI.get_dynamic_shadow_distance_movable_light() end
 
 --获取阴影距离
----@return number # 距离
+---@return py.Fixed # 距离
 function GameAPI.get_cascaded_shadow_distance() end
 
 --获取光源Float属性
@@ -2821,6 +2827,11 @@ function GameAPI.change_mini_map_img_with_icon(role, image_id) end
 ---@param color_type integer # 显示模式
 function GameAPI.change_mini_map_color_type(role, color_type) end
 
+--开启小地图迷雾显示
+---@param role py.Role # 玩家
+---@param enable integer # 显示模式
+function GameAPI.enable_player_mini_map_fog_img(role, enable) end
+
 --开启绘制单位路径线
 ---@param role py.Role # 玩家
 ---@param unit py.Unit # 单位
@@ -2882,6 +2893,11 @@ function GameAPI.replace_point_texture(area, texture_type, new_texture_type) end
 ---@param position py.Point # 点
 ---@return integer # 纹理类型
 function GameAPI.get_texture_type(position) end
+
+--获取指定点的纹理类型
+---@param position py.Point # 点
+---@return integer # 纹理类型
+function GameAPI.get_point_texture(position) end
 
 --修改玩家的地表纹理
 ---@param role py.Role # 玩家
@@ -3384,7 +3400,8 @@ function GameAPI.get_ui_comp_opacity(comp_name) end
 ---@param role py.Role # 玩家
 ---@param unit py.Unit # 单位对象
 ---@param comp_name string # 控件名
-function GameAPI.set_buff_on_ui_comp(role, unit, comp_name) end
+---@param effect? integer # BUFF效果类型
+function GameAPI.set_buff_on_ui_comp(role, unit, comp_name, effect) end
 
 --绑定物品实体到道具栏控件
 ---@param role py.Role # 玩家
@@ -3452,7 +3469,17 @@ function GameAPI.set_ui_model_id(role, comp_name, model_id) end
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
 ---@param model_unit py.Unit # 单位
-function GameAPI.set_ui_model_unit(role, comp_name, model_unit) end
+---@param clone_effect? boolean # 继承特效
+---@param clone_attach? boolean # 继承挂接模型
+---@param clone_material? boolean # 继承材质变化
+function GameAPI.set_ui_model_unit(role, comp_name, model_unit, clone_effect, clone_attach, clone_material) end
+
+--播放魔法效果表现到模型控件
+---@param modifier_key py.ModifierKey # 魔法效果类型
+---@param modifier_state integer # 播放枚举
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+function GameAPI.set_modifier_on_ui_model(modifier_key, modifier_state, role, comp_name) end
 
 --设置玩家的商店控件的目标商店单位
 ---@param role py.Role # 玩家
@@ -3727,7 +3754,7 @@ function GameAPI.get_combo_box_cur_value(comp_id) end
 
 --获取滑动条当前值
 ---@param comp_id string # 滑动条
----@return number # value
+---@return py.Fixed # value
 function GameAPI.get_slider_cur_percent(comp_id) end
 
 --设置滑动条当前值
@@ -4429,9 +4456,9 @@ function GameAPI.api_get_attr_name(attr_key) end
 function GameAPI.create_ability_editor_data(old_entity_no) end
 
 --获取技能类型的释放技能
----@param old_entity_no py.AbilityKey # 技能物编
+---@param ability_key py.AbilityKey # 技能物编
 ---@return py.AbilityCastType # 技能释放类型
-function GameAPI.api_get_ability_type_cast_type(old_entity_no) end
+function GameAPI.api_get_ability_type_cast_type(ability_key) end
 
 --创建新投射物物编
 ---@param old_entity_no py.ProjectileKey # 投射物物编
@@ -5412,8 +5439,9 @@ function GameAPI.get_random_seed() end
 ---@param pos py.FVector3 # 位置
 ---@param angle py.Fixed # 朝向
 ---@param role_or_unit py.Role # 所属玩家
+---@param lua_table? py.Table # 用户自定义配置表
 ---@return py.Unit # 创建出的单位
-function GameAPI.create_unit(key, pos, angle, role_or_unit) end
+function GameAPI.create_unit(key, pos, angle, role_or_unit, lua_table) end
 
 --创建单位
 ---@param key py.UnitKey # 单位编号
@@ -5543,6 +5571,10 @@ function GameAPI.create_projectile_in_scene(p_key, location, face, owner_unit_or
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@return py.ProjectileEntity # 创建出的投掷物
 function GameAPI.create_projectile_in_scene_new(p_key, location, owner_unit_or_player, face, related_ability, duration, is_open_duration, height, visibility, immediately, use_sys_d_destroy_way) end
+
+--新建空玩家组
+---@return py.RoleGroup # 玩家组
+function GameAPI.create_role_group() end
 
 --将玩家添加到玩家组
 ---@param role py.Role # 玩家
