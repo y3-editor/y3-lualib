@@ -151,4 +151,11 @@ function M:get_distance_with(other)
     return GameAPI.get_points_dis(self.handle, other.handle):float()
 end
 
+--获取圆形范围内的随机点
+function M:get_random_point(radius)
+    local p = GameAPI.get_random_point_in_circular(self.handle, Fix32(radius))
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return M.get_by_handle(p)
+end
+
 return M
