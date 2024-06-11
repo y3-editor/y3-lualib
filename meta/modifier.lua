@@ -173,3 +173,11 @@ function ModifierEntity:api_set_modifier_halo_influence_rng(value) end
 --设置魔法效果的图标
 ---@param icon integer # 图标
 function ModifierEntity:api_set_modifier_icon(icon) end
+
+--魔法效果添加标签
+---@param tag string # 标签
+function ModifierEntity:api_add_modifier_tag(tag) end
+
+--魔法效果去除标签
+---@param tag string # 标签
+function ModifierEntity:api_remove_modifier_tag(tag) end

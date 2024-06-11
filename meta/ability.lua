@@ -118,6 +118,10 @@ function Ability:api_set_ability_build_rotate(value) end
 ---@param new_build_id py.UnitKey # 单位物编ID
 function Ability:api_set_ability_build_id(new_build_id) end
 
+--设置技能的限制建造区域
+---@param area py.Area # 区域对象
+function Ability:api_set_ability_build_area(area) end
+
 --设置扇形指示器半径
 ---@param value py.Fixed # 指示器半径
 function Ability:api_set_ability_sector_radius(value) end
@@ -332,3 +336,35 @@ function Ability:api_clear_tag() end
 --设置是否为永久性技能
 ---@param is_permanent_ability boolean # 是否为永久性技能
 function Ability:api_set_ability_is_permanent(is_permanent_ability) end
+
+--增加技能的筛选单位的tag
+---@param tag string # 标签
+function Ability:api_add_filter_unit_tag(tag) end
+
+--移除技能的筛选单位的tag
+---@param tag string # 标签
+---@return string # 标签
+function Ability:api_remove_filter_unit_tag(tag) end
+
+--增加技能的筛选物品的tag
+---@param tag string # 标签
+function Ability:api_add_filter_item_tag(tag) end
+
+--移除技能的筛选物品的tag
+---@param tag string # 标签
+---@return string # 标签
+function Ability:api_remove_filter_item_tag(tag) end
+
+--增加技能的筛选可破坏物的tag
+---@param tag string # 标签
+function Ability:api_add_collection_destructible_tags(tag) end
+
+--移除技能的筛选可破坏物的tag
+---@param tag string # 标签
+---@return string # 标签
+function Ability:api_remove_collection_destructible_tags(tag) end
+
+--是否可被当前技能筛选
+---@param actor py.Actor # 单位/物品/可破坏物
+---@return boolean # 是否可被筛选
+function Ability:api_can_be_filtered_by_ability(actor) end

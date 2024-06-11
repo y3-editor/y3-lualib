@@ -4,6 +4,124 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--技能选取的目标单位
+---@param ability py.Ability # 技能
+---@param runtime_id? integer # runtime_id
+---@return py.Unit # 单位
+function GameAPI.get_target_unit_in_ability(ability, runtime_id) end
+
+--技能选取的目标物品
+---@param ability py.Ability # 技能
+---@param runtime_id? integer # runtime_id
+---@return py.Item # 物品
+function GameAPI.get_target_item_in_ability(ability, runtime_id) end
+
+--技能选取的目标可破坏物
+---@param ability py.Ability # 技能
+---@param runtime_id? integer # runtime_id
+---@return py.Destructible # 可破坏物
+function GameAPI.get_target_dest_in_ability(ability, runtime_id) end
+
+--筛选范围内单位(废弃)
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 形状
+---@return py.UnitGroup # 单位组
+function GameAPI.filter_unit_id_list_in_area(pos, shape) end
+
+--筛选范围内单位
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 形状
+---@param belong_role_group? py.Role # 属于玩家或玩家组
+---@param visible_role? py.Role # 对玩家可见
+---@param invisible_role? py.Role # 对玩家不可见
+---@param exclude_unit_group? py.UnitGroup # 不在单位组内
+---@param with_tag? string # 具有标签
+---@param without_tag? string # 不具有标签
+---@param entity_no? py.UnitKey # 单位名称
+---@param exclude_unit? py.Unit # 排除单位
+---@param unit_type? py.UnitType # 单位种类
+---@param in_state? integer # 具有状态
+---@param not_in_state? integer # 不具有状态
+---@param include_dead? boolean # 是否包括死亡单位
+---@param max_count? integer # 数量上限
+---@param sort_type? py.SortType # 排序类型
+---@param filter_ability? py.Ability # 筛选技能
+---@return py.UnitGroup # 单位组
+function GameAPI.filter_unit_id_list_in_area_v2(pos, shape, belong_role_group, visible_role, invisible_role, exclude_unit_group, with_tag, without_tag, entity_no, exclude_unit, unit_type, in_state, not_in_state, include_dead, max_count, sort_type, filter_ability) end
+
+--筛选范围内投射物
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 形状
+---@param sort_type? py.SortType # 排序类型
+---@return py.ProjectileGroup # 投射物组
+function GameAPI.filter_projectile_id_list_in_area(pos, shape, sort_type) end
+
+--筛选带有tag的投射物
+---@param tag string # tag
+---@return py.ProjectileGroup # 投射物组
+function GameAPI.get_all_projectiles_with_tag(tag) end
+
+--按阵营编号获取阵营对象
+---@param camp_id py.CampID # 阵营编号
+---@return py.Camp # 阵营对象
+function GameAPI.get_camp_by_camp_id(camp_id) end
+
+--按玩家编号获取阵营编号
+---@param role_id py.RoleID # 玩家编号
+---@return py.Camp # 阵营编号
+function GameAPI.get_camp_id_by_role_id(role_id) end
+
+--按玩家编号获取玩家对象
+---@param role_id py.RoleID # 玩家编号
+---@return py.Role # 玩家
+function GameAPI.get_role_by_role_id(role_id) end
+
+--按整型获取玩家对象
+---@param role_id integer # 玩家编号
+---@return py.Role # 玩家
+function GameAPI.get_role_by_int(role_id) end
+
+--获取阵营存活单位数量
+---@param camp_id py.CampID # 阵营编号
+---@return integer # 单位数量
+function GameAPI.get_alive_unit_num_by_camp_id(camp_id) end
+
+--所有玩家
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_all_role_ids() end
+
+--阵营所有玩家
+---@param camp py.Camp # 阵营对象
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_role_ids_by_camp(camp) end
+
+--特定类型玩家
+---@param role_type integer # 玩家类型
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_role_ids_by_type(role_type) end
+
+--同盟玩家
+---@param role py.Role # 玩家
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_ally_ids_by_role(role) end
+
+--获取某玩家敌对玩家组
+---@param role py.Role # 玩家
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_enemy_ids_by_role(role) end
+
+--获取获胜玩家组
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_victorious_role_ids() end
+
+--获取失利玩家组
+---@return py.RoleGroup # 玩家组
+function GameAPI.get_defeated_role_ids() end
+
+--三维属性是否开启
+---@return boolean # 是否开启
+function GameAPI.api_if_pri_attr_state_open() end
+
 --判断单位敌对关系
 ---@param unit1 py.Unit # 单位
 ---@param unit2 py.Unit # 单位
@@ -900,7 +1018,7 @@ function GameAPI.get_road_point_num(road_point_list) end
 function GameAPI.get_last_created_unit() end
 
 --最近创建子触发器
----@return integer # 子触发器ID
+---@return py.DynamicTriggerInstance # 子触发器ID
 function GameAPI.get_last_created_trigger() end
 
 --最近创建投射物
@@ -927,8 +1045,9 @@ function GameAPI.get_item_group_in_area(area) end
 ---@param point py.Point # 区域对象
 ---@param shape py.Shape # 形状
 ---@param sort_type? py.SortType # 排序类型
+---@param filter_ability? py.Ability # 筛选技能
 ---@return py.ItemGroup # 物品组
-function GameAPI.get_all_items_in_shapes(point, shape, sort_type) end
+function GameAPI.get_all_items_in_shapes(point, shape, sort_type, filter_ability) end
 
 --向ui发送附带dict的事件
 ---@param s string # 事件名称

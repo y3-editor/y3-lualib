@@ -492,6 +492,12 @@ function Unit:api_get_attr_name(attr_key) end
 ---@param val py.Fixed # 经验值
 function Unit:api_set_changed_exp_in_event(val) end
 
+--获取单位类型某个技能位的技能类型
+---@param abilityType py.AbilityType # 技能类型
+---@param abilityIndex py.AbilityIndex # 技能槽位
+---@return py.AbilityKey # 技能类型
+function Unit:api_get_abilityKey_by_type_and_index(abilityType, abilityIndex) end
+
 --单位停止移动
 function Unit:api_stop_move() end
 
@@ -1247,6 +1253,11 @@ function Unit:api_remove_item(stack_cnt, item) end
 ---@return py.Item # 物品对象
 function Unit:api_get_item_by_slot(slot_type, slot_idx) end
 
+--获取单位栏位剩余空间
+---@param slot_type py.SlotType # 背包槽位
+---@return integer # 整型
+function Unit:api_get_slot_capacity(slot_type) end
+
 --移动物品
 ---@param item py.Item # 物品
 ---@param slot_type py.SlotType # 背包槽位
@@ -1435,7 +1446,8 @@ function Unit:api_remove_tech(tech_no) end
 
 --发布命令
 ---@param command py.UnitCommand # 命令
-function Unit:api_release_command(command) end
+---@param enqueue? boolean # 是否进队列
+function Unit:api_release_command(command, enqueue) end
 
 --设置单位默认跳转状态
 ---@param behavior py.UnitBehavior # 默认跳转状态

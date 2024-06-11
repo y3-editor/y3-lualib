@@ -936,6 +936,11 @@ function GameAPI.get_function_return_value(func_id, actor, context, params_expr,
 ---@param params_dict py.Dict # 参数字典
 function GameAPI.send_event_custom(event_id, params_dict) end
 
+--发送自定义事件
+---@param event_id integer # 事件ID
+---@param params_dict py.Dict # 参数字典
+function GameAPI.send_event_custom_client(event_id, params_dict) end
+
 --发送自定义广播事件
 ---@param event_id integer # 事件ID
 ---@param params_dict py.Dict # 参数字典
@@ -2432,6 +2437,9 @@ function GameAPI.get_game_mode() end
 --暂停游戏
 function GameAPI.pause_game() end
 
+--进行一次内存垃圾回收以释放内存。会导致游戏短暂卡顿，建议在切场景等能够接收卡顿的时机调用
+function GameAPI.api_collect_garbage() end
+
 --为玩家结束游戏
 ---@param role py.Role # 玩家
 ---@param result string # 战斗结果
@@ -2562,6 +2570,10 @@ function GameAPI.api_set_enable_eca_snapshot(enable, filter_mode, filter_set) en
 --设置不同步详细日志级别。越详细越利于定位不同步产生点,但性能消耗会增高
 ---@param tag integer # mask用于控制开启哪些日志，0xFFFFFFFF全部开启，默认开启16+32。各bit含义>> 1：运动器tick，2：运动器碰撞检测，4：寻路回调，8：寻路坐标更新，16：血量变化，32：坐标瞬变
 function GameAPI.api_set_detail_snapshot_enable_tag(tag) end
+
+--离线模式设置播放速率
+---@param scale number # 播放速率
+function GameAPI.api_set_time_scale(scale) end
 
 --本地玩家编号
 ---@return py.RoleID # 玩家编号
@@ -4148,6 +4160,12 @@ function GameAPI.get_world_height_by_ui_screen_point() end
 ---@return number # 索引
 function GameAPI.get_tab_widget_current_index(role, comp_uid) end
 
+--界面-设置标签页控件当前选中页索引
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param index integer # 索引
+function GameAPI.set_tab_widget_current_index(role, comp_uid, index) end
+
 --界面-获取控件路径
 ---@param role py.Role # 玩家
 ---@param comp_uid string # 控件uid
@@ -4422,6 +4440,29 @@ function GameAPI.set_ui_effect_focus_pos(role, comp_name, x, y, z) end
 ---@param play_speed number # 播放速度
 function GameAPI.set_ui_effect_play_speed(role, comp_name, play_speed) end
 
+--设置列表启用/禁止滚动
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param enable boolean # 是否启用
+function GameAPI.set_ui_scrollview_scroll(role, comp_uid, enable) end
+
+--视频控件开始播放视频
+---@param role py.Role # 玩家
+---@param url string # url
+---@param ease_in_time? number # 淡入时长
+---@param ease_out_time? number # 淡出时长
+---@param ease_type? integer # 曲线类型
+function GameAPI.play_ui_video(role, url, ease_in_time, ease_out_time, ease_type) end
+
+--视频控件停止播放视频
+---@param role py.Role # 玩家
+function GameAPI.stop_ui_video(role) end
+
+--视频控件设置音量
+---@param role py.Role # 玩家
+---@param volume number # 音量
+function GameAPI.set_ui_video_volume(role, volume) end
+
 --创建新单位物编
 ---@param old_entity_no py.UnitKey # 单位物编
 ---@return py.UnitKey # 单位物编key
@@ -4449,6 +4490,53 @@ function GameAPI.convert_unit_attr_m2cm(attr, value) end
 ---@param attr_key string # 属性key
 ---@return string # 属性名
 function GameAPI.api_get_attr_name(attr_key) end
+
+--获取建造消耗
+---@param entity_no py.UnitKey # 单位物编ID
+---@param res_key py.RoleResKey # 玩家属性
+---@return py.Fixed # 消耗数值
+function GameAPI.get_build_res_cost(entity_no, res_key) end
+
+--设置建造消耗
+---@param entity_no py.UnitKey # 单位物编ID
+---@param res_key py.RoleResKey # 玩家属性
+---@param val py.Fixed # 消耗数值
+function GameAPI.set_build_res_cost(entity_no, res_key, val) end
+
+--获取建造时间
+---@param entity_no py.UnitKey # 单位物编ID
+---@return py.Fixed # 建造时间
+function GameAPI.get_build_time(entity_no) end
+
+--设置建造时间
+---@param entity_no py.UnitKey # 单位物编ID
+---@param build_time py.Fixed # 建造时间
+function GameAPI.set_build_time(entity_no, build_time) end
+
+--获取建造进度
+---@param unit py.Unit # 单位
+---@return py.Fixed # 建造进度
+function GameAPI.get_construction_progress(unit) end
+
+--设置建造进度
+---@param unit py.Unit # 单位
+---@param progress py.Fixed # 建造进度
+function GameAPI.set_construction_progress(unit, progress) end
+
+--获取建造进度
+---@param unit py.Unit # 单位
+---@return py.Fixed # 建造速率
+function GameAPI.get_construction_factor(unit) end
+
+--设置建造速率
+---@param unit py.Unit # 单位
+---@param factor py.Fixed # 建造速率
+function GameAPI.set_construction_factor(unit, factor) end
+
+--取消单位建造
+---@param unit py.Unit # 单位
+---@param return_res? boolean # 是否返还资源
+function GameAPI.cancel_construction(unit, return_res) end
 
 --创建新技能物编
 ---@param old_entity_no py.AbilityKey # 技能物编
@@ -4533,6 +4621,11 @@ function GameAPI.set_mouse_follower_model_anim(role, anim_name, anim_speed, star
 ---@param y py.UnitGroup # 单位组
 function GameAPI.set_build_pointer_move_grids(x, y) end
 
+--设置建造指示器移动格子数偏移
+---@param x integer # X偏移
+---@param y integer # Y偏移
+function GameAPI.set_build_pointer_move_grids_offset(x, y) end
+
 --当前是否为观战模式
 ---@return boolean # 是否为观战模式
 function GameAPI.is_in_watch_mode() end
@@ -4564,6 +4657,15 @@ function GameAPI.api_get_select_unit_first(role_id) end
 --获取玩家选中单位组(单位ID列表)
 ---@param role_id py.RoleID # 玩家ID
 function GameAPI.api_get_select_unit_group(role_id) end
+
+--获取玩家是否按下命令队列按键
+---@param role py.RoleID # 玩家ID
+---@return boolean # 是否按下
+function GameAPI.is_command_queue_key_down(role) end
+
+--获取命令队列功能是否开启
+---@return boolean # 是否开启
+function GameAPI.is_command_queue_enabled() end
 
 --查询副本信息
 ---@return py.Table # 副本信息
@@ -5788,120 +5890,3 @@ function GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, sta
 ---@param return_cm? boolean # 是否返回cm
 ---@return py.Fixed # 实数
 function GameAPI.get_ability_conf_formula_attr_with_unit(ability_id, attr_name, level, stack_count, unit, return_cm) end
-
---技能选取的目标单位
----@param ability py.Ability # 技能
----@param runtime_id? integer # runtime_id
----@return py.Unit # 单位
-function GameAPI.get_target_unit_in_ability(ability, runtime_id) end
-
---技能选取的目标物品
----@param ability py.Ability # 技能
----@param runtime_id? integer # runtime_id
----@return py.Item # 物品
-function GameAPI.get_target_item_in_ability(ability, runtime_id) end
-
---技能选取的目标可破坏物
----@param ability py.Ability # 技能
----@param runtime_id? integer # runtime_id
----@return py.Destructible # 可破坏物
-function GameAPI.get_target_dest_in_ability(ability, runtime_id) end
-
---筛选范围内单位(废弃)
----@param pos py.Vector3 # 坐标
----@param shape py.Shape # 形状
----@return py.UnitGroup # 单位组
-function GameAPI.filter_unit_id_list_in_area(pos, shape) end
-
---筛选范围内单位
----@param pos py.Vector3 # 坐标
----@param shape py.Shape # 形状
----@param belong_role_group? py.Role # 属于玩家或玩家组
----@param visible_role? py.Role # 对玩家可见
----@param invisible_role? py.Role # 对玩家不可见
----@param exclude_unit_group? py.UnitGroup # 不在单位组内
----@param with_tag? string # 具有标签
----@param without_tag? string # 不具有标签
----@param entity_no? py.UnitKey # 单位名称
----@param exclude_unit? py.Unit # 排除单位
----@param unit_type? py.UnitType # 单位种类
----@param in_state? integer # 具有状态
----@param not_in_state? integer # 不具有状态
----@param include_dead? boolean # 是否包括死亡单位
----@param max_count? integer # 数量上限
----@param sort_type? py.SortType # 排序类型
----@return py.UnitGroup # 单位组
-function GameAPI.filter_unit_id_list_in_area_v2(pos, shape, belong_role_group, visible_role, invisible_role, exclude_unit_group, with_tag, without_tag, entity_no, exclude_unit, unit_type, in_state, not_in_state, include_dead, max_count, sort_type) end
-
---筛选范围内投射物
----@param pos py.Vector3 # 坐标
----@param shape py.Shape # 形状
----@param sort_type? py.SortType # 排序类型
----@return py.ProjectileGroup # 投射物组
-function GameAPI.filter_projectile_id_list_in_area(pos, shape, sort_type) end
-
---筛选带有tag的投射物
----@param tag string # tag
----@return py.ProjectileGroup # 投射物组
-function GameAPI.get_all_projectiles_with_tag(tag) end
-
---按阵营编号获取阵营对象
----@param camp_id py.CampID # 阵营编号
----@return py.Camp # 阵营对象
-function GameAPI.get_camp_by_camp_id(camp_id) end
-
---按玩家编号获取阵营编号
----@param role_id py.RoleID # 玩家编号
----@return py.Camp # 阵营编号
-function GameAPI.get_camp_id_by_role_id(role_id) end
-
---按玩家编号获取玩家对象
----@param role_id py.RoleID # 玩家编号
----@return py.Role # 玩家
-function GameAPI.get_role_by_role_id(role_id) end
-
---按整型获取玩家对象
----@param role_id integer # 玩家编号
----@return py.Role # 玩家
-function GameAPI.get_role_by_int(role_id) end
-
---获取阵营存活单位数量
----@param camp_id py.CampID # 阵营编号
----@return integer # 单位数量
-function GameAPI.get_alive_unit_num_by_camp_id(camp_id) end
-
---所有玩家
----@return py.RoleGroup # 玩家组
-function GameAPI.get_all_role_ids() end
-
---阵营所有玩家
----@param camp py.Camp # 阵营对象
----@return py.RoleGroup # 玩家组
-function GameAPI.get_role_ids_by_camp(camp) end
-
---特定类型玩家
----@param role_type integer # 玩家类型
----@return py.RoleGroup # 玩家组
-function GameAPI.get_role_ids_by_type(role_type) end
-
---同盟玩家
----@param role py.Role # 玩家
----@return py.RoleGroup # 玩家组
-function GameAPI.get_ally_ids_by_role(role) end
-
---获取某玩家敌对玩家组
----@param role py.Role # 玩家
----@return py.RoleGroup # 玩家组
-function GameAPI.get_enemy_ids_by_role(role) end
-
---获取获胜玩家组
----@return py.RoleGroup # 玩家组
-function GameAPI.get_victorious_role_ids() end
-
---获取失利玩家组
----@return py.RoleGroup # 玩家组
-function GameAPI.get_defeated_role_ids() end
-
---三维属性是否开启
----@return boolean # 是否开启
-function GameAPI.api_if_pri_attr_state_open() end
