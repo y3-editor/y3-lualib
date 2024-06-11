@@ -22,6 +22,27 @@ function M:in_shape(pos, shape)
     return self
 end
 
+-- 形状 - 在圆形区域内
+---@param cent Point | Unit | Item
+---@param radius number
+---@return self
+function M:in_range(cent, radius)
+    if cent.type == 'unit' then
+        ---@cast cent Unit
+        cent = cent:get_point()
+    elseif cent.type == 'item' then
+        ---@cast cent Item
+        cent = cent:get_point()
+    else
+        ---@cast cent Point
+        ---@private
+        self._pos   = cent
+    end
+    ---@private
+    self._shape = y3.shape.create_circular_shape(radius)
+    return self
+end
+
 -- 条件 - 属于某个玩家
 ---@param p Player?
 ---@return self
