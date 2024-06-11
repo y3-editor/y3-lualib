@@ -86,20 +86,20 @@ function M:not_is(u)
 end
 
 -- 条件 - 拥有某个特定的状态
----@param state integer
+---@param state integer | y3.Const.UnitEnumState
 ---@return self
 function M:in_state(state)
     ---@private
-    self._in_state = state
+    self._in_state = state | (y3.const.UnitEnumState[state] or state)
     return self
 end
 
 -- 条件 - 不拥有某个特定的状态
----@param state integer
+---@param state integer | y3.Const.UnitEnumState
 ---@return self
 function M:not_in_state(state)
     ---@private
-    self._not_in_state = state
+    self._not_in_state = state | (y3.const.UnitEnumState[state] or state)
     return self
 end
 
