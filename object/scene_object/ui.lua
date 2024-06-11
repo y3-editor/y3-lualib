@@ -329,7 +329,14 @@ function M:set_ui_model_id(modelid)
     return self
 end
 
-
+--设置UI模型控件的单位
+---@param model_unit Unit 单位
+---@param clone_effect? boolean # 继承特效
+---@param clone_attach? boolean # 继承挂接模型
+---@param clone_material? boolean # 继承材质变化
+function M:set_ui_model_unit(model_unit, clone_effect, clone_attach, clone_material)
+    GameAPI.set_ui_model_unit(self.player.handle, self.handle, model_unit.handle, clone_effect, clone_attach, clone_material)
+end
 
 --改变小地图图片
 ---@param player Player 玩家
