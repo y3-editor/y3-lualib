@@ -37,4 +37,25 @@ function M.tonumber(n)
     end
 end
 
+---@param v any
+---@param recursive? boolean
+---@return any
+function M.as_lua(v, recursive)
+    local tp = type(v)
+    if tp == 'table' then
+        if recursive then
+            for k, vv in pairs(v) do
+                v[k] = M.as_lua(vv, true)
+            end
+        end
+    elseif tp == 'userdata' then
+        local mt = getmetatable(v)
+        local name = mt and mt.__name
+        if name == 'LuaFix32' then
+            v = v:float()
+        end
+    end
+    return v
+end
+
 return M

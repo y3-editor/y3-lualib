@@ -652,9 +652,14 @@ end
 
 ---获取表
 ---@param name string 表名
+---@param as_lua? boolean 是否将表中的数据转换为Lua的数据类型，例如Fix32转number
 ---@return table tb 表
-function M.get_table(name)
-    return GameAPI.get_table(name)
+function M.get_table(name, as_lua)
+    local t = GameAPI.get_table(name)
+    if as_lua then
+        t = y3.helper.as_lua(t, true)
+    end
+    return t
 end
 
 ---表是否存在字段
