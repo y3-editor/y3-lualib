@@ -160,17 +160,29 @@ end
 ---@param builder table py.Dict
 ---@param args Mover.CreateData.Base
 function M.wrap_base_args(builder, args)
-    builder.collision_type               = args.hit_type or 0
-    builder.collision_radius             = Fix32(args.hit_radius or 0.0)
-    builder.is_face_angle                = args.face_angle or false
-    builder.is_multi_collision           = args.hit_same or false
-    builder.unit_collide_interval        = Fix32(args.hit_interval or 0.0)
-    builder.terrain_block                = args.terrain_block or false
-    builder.terrain_collide_interval     = Fix32(args.block_interval or 0.0)
-    builder.priority                     = args.priority or 1
-    builder.is_absolute_height           = args.absolute_height or false
-    --builder.set_related_unit            (args.unit and args.unit.handle or nil)
-    --builder.set_related_ability         (args.ability and args.ability.handle or nil)
+    if GlobalAPI.lua_get_python_empty_dict then
+        builder.collision_type               = args.hit_type or 0
+        builder.collision_radius             = Fix32(args.hit_radius or 0.0)
+        builder.is_face_angle                = args.face_angle or false
+        builder.is_multi_collision           = args.hit_same or false
+        builder.unit_collide_interval        = Fix32(args.hit_interval or 0.0)
+        builder.terrain_block                = args.terrain_block or false
+        builder.terrain_collide_interval     = Fix32(args.block_interval or 0.0)
+        builder.priority                     = args.priority or 1
+        builder.is_absolute_height           = args.absolute_height or false
+    else
+        builder.set_collision_type          (args.hit_type or 0)
+        builder.set_collision_radius        (Fix32(args.hit_radius or 0.0))
+        builder.set_is_face_angle           (args.face_angle or false)
+        builder.set_is_multi_collision      (args.hit_same or false)
+        builder.set_unit_collide_interval   (Fix32(args.hit_interval or 0.0))
+        builder.set_terrain_block           (args.terrain_block or false)
+        builder.set_terrain_collide_interval(Fix32(args.block_interval or 0.0))
+        builder.set_priority                (args.priority or 1)
+        builder.set_is_absolute_height      (args.absolute_height or false)
+        --builder.set_related_unit            (args.unit and args.unit.handle or nil)
+        --builder.set_related_ability         (args.ability and args.ability.handle or nil)
+    end
 end
 
 ---@private
