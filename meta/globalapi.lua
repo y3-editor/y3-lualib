@@ -713,9 +713,6 @@ function GlobalAPI.pos_in_str(str1, sub_str) end
 ---@return py.ProjectileKey # 投射物类型
 function GlobalAPI.api_int_to_key(integer) end
 
---停止对lua gc的控制
-function GlobalAPI.api_stop_luagc_control() end
-
 --将投射物类型转化为整数
 ---@param key py.ProjectileKey # 投射物类型
 ---@return integer # 整数

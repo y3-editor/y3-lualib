@@ -278,6 +278,16 @@ function M:get_ability_by_seq(seq)
     return y3.ability.get_by_handle(py_ability)
 end
 
+---comment 获取普攻技能
+---@return Ability?
+function M:get_common_attack()
+    local py_ability = self.handle:api_get_common_atk_ability()
+
+    if py_ability then
+        return y3.ability.get_by_handle(py_ability)
+    end
+end
+
 ---获取单位背包槽位上的物品
 ---@param type y3.Const.SlotType | y3.Const.ShiftSlotTypeAlias 槽位类型
 ---@param slot integer 位置
@@ -407,6 +417,18 @@ end
 function M:remove_state(state_enum)
     self.phandle:api_remove_state(y3.const.UnitEnumState[state_enum] or state_enum)
 end
+---添加多个状态
+---@param state_enum integer 状态
+function M:add_multi_state(state_enum)
+    self.handle:api_add_multi_state(state_enum)
+end
+
+---移除多个状态
+---@param state_enum integer 状态
+function M:remove_multi_state(state_enum)
+    self.handle:api_remove_multi_state(state_enum)
+end
+
 
 ---添加状态
 ---@param state_enum integer|y3.Const.UnitEnumState 状态名
@@ -1351,6 +1373,13 @@ function M:get_collision_radius()
     return self.phandle:api_get_unit_collision_radius():float()
 end
 
+---comment 设置单位碰撞半径
+---@param radius number 
+function M:set_collision_radius(radius)
+    ---@diagnostic disable-next-line: undefined-field
+    self.handle:api_set_unit_collision_radius(radius)
+end
+
 ---获取单位所属玩家
 ---@return Player player 单位所属玩家
 function M:get_owner()
@@ -1540,6 +1569,12 @@ end
 ---@return py.Texture image 单位的头像
 function M:get_icon()
     return GameAPI.get_icon_id_by_unit_type(self:get_key()) --[[@as py.Texture]]
+end
+
+---是否是建筑
+---@return boolean
+function M:is_building()
+    return self.handle:api_get_type() == y3.const.UnitCategory['BUILDING']
 end
 
 ---获取单位类型的头像

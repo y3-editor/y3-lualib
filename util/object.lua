@@ -77,9 +77,11 @@ function Unit:__init(key)
 end
 
 --以此单位为模板创建新的单位物编
+---@param new_default_key py.UnitKey
+---@param data table
 ---@return EditorObject.Unit
-function Unit:new()
-    local new_key = GameAPI.create_unit_editor_data(self.key)
+function Unit:new(new_default_key, data)
+    local new_key = GameAPI.create_unit_editor_data_lua(self.key, new_default_key, data)
     return M.unit[new_key]
 end
 
@@ -207,9 +209,11 @@ function Ability:__init(key)
 end
 
 --以此技能为模板创建新的技能物编
+---@param new_default_key py.AbilityKey
+---@param data table
 ---@return EditorObject.Ability
-function Ability:new()
-    local new_key = GameAPI.create_ability_editor_data(self.key)
+function Ability:new(new_default_key, data)
+    local new_key = GameAPI.create_ability_editor_data_lua(self.key, new_default_key, data)
     return M.ability[new_key]
 end
 

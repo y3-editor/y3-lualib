@@ -34,21 +34,21 @@ M.IterKey = {
 }
 
 M.UnitCategory = {
-    ['HERO'] = 1,
-    ['BUILDING'] = 2,
-    ['CREATURE'] = 4,
+    HERO = 1,
+    BUILDING = 2,
+    CREATURE = 4,
 }
 
 M.PatrolType = {
-    ['ONE_WAY'] = 0,
-    ['BACK_AND_FORTH'] = 1,
-    ['LOOP'] = 2,
+    ONE_WAY = 0,
+    BACK_AND_FORTH = 1,
+    LOOP = 2,
 }
 
 M.UnitState = {
-    ['ALIVE'] = 'Alive',
-    ['DEAD'] = 'Dead',
-    ['DISSOLVE'] = 'Dissolve',
+    ALIVE = 'Alive',
+    DEAD = 'Dead',
+    DISSOLVE = 'Dissolve',
 }
 
 ---@enum(key) y3.Const.UnitAttr
@@ -88,6 +88,37 @@ M.UnitAttr = {
     ['夜晚扇形视野半径'] = 'vision_sector_night',
     ['白天扇形视野夹角'] = 'vision_sector_angle_day',
     ['夜晚扇形视野夹角'] = 'vision_sector_angle_night',
+}
+
+M.UnitKeyFloatAttr = {
+    ['ROTATE_SPEED'] = 'rotate_speed', -- 转身速度
+    ['CANCEL_ALARM_RANGE'] = 'cancel_alarm_range', -- 取消警戒范围
+    ['ALARM_RANGE'] = 'alarm_range', -- 警戒范围
+    ['BODY_SIZE'] = 'body_size', -- 缩放
+    ['CD_REDUCE'] = 'cd_reduce', -- 冷却缩减
+    ['VISION_RNG'] = 'vision_rng', -- 视野范围
+    ['HP_MAX'] = 'hp_max', -- 最大生命
+    ['HP_REC'] = 'hp_rec', -- 生命恢复
+    ['MP_MAX'] = 'mp_max', -- 最大魔法
+    ['MP_REC'] = 'mp_rec', -- 魔法恢复
+    ['ORI_SPEED'] = 'ori_speed', -- 施法速度
+    ['ATTACK_PHY'] = 'attack_phy', -- 物理攻击力
+    ['ATTACK_MAG'] = 'attack_mag', -- 法术攻击力
+    ['DEFENSE_PHY'] = 'defense_phy', -- 物理防御力
+    ['DEFENSE_MAG'] = 'defense_mag', -- 法术防御力
+    ['ATTACK_SPEED'] = 'attack_speed', -- 攻击速度
+    ['CRITICAL_CHANCE'] = 'critical_chance', -- 暴击率
+    ['CRITICAL_DMG'] = 'critical_dmg', -- 暴击伤害
+    ['PENE_PHY'] = 'pene_phy', -- 物理穿透
+    ['PENE_MAG'] = 'pene_mag', -- 法术穿透
+    ['VAMPIRE_PHY'] = 'vampire_phy', -- 物理吸血
+    ['VAMPIRE_MAG'] = 'vampire_mag', -- 法术吸血
+    ['PENE_PHY_RATIO'] = 'pene_phy_ratio', -- 物理穿透
+    ['PENE_MAG_RATIO'] = 'pene_mag_ratio', -- 法术穿透
+    ['DMG_REDUCTION'] = 'dmg_reduction', -- 伤害减免
+    ['HIT_RATE'] = 'hit_rate', -- 命中率
+    ['DODGE_RATE'] = 'dodge_rate', -- 躲避率
+    ['ATTACK_RANGE'] = 'attack_range', -- 攻速
 }
 
 ---@enum(key) y3.Const.UnitAttrType
@@ -130,9 +161,9 @@ M.UnitEnumState = {
 M.PlayerAttr = {}
 
 M.ModifyType = {
-    ['ADD'] = 0,
-    ['SUB'] = 1,
-    ['SET'] = 2,
+    ADD = 0,
+    SUB = 1,
+    SET = 2,
 }
 
 ---@alias y3.Const.DamageType
@@ -148,16 +179,16 @@ M.DamageTypeMap = {
 
 ---@enum y3.Const.DMGType
 M.DMGType = {
-    ['PHY'] = 0,
-    ['MAG'] = 1,
-    ['REAL'] = 2,
+    PHY = 0,
+    MAG = 1,
+    REAL = 2,
 }
 
 M.AbilityCategory = {
-    ['COMMON_ATK'] = 1,
-    ['COMMON_ABILITY'] = 2,
-    ['HERO_ABILITY'] = 3,
-    ['PASSIVE_ABILITY'] = 0,
+    COMMON_ATK = 1,
+    COMMON_ABILITY = 2,
+    HERO_ABILITY = 3,
+    PASSIVE_ABILITY = 0,
 }
 
 ---@alias y3.Const.AbilityTypeAlias
@@ -179,11 +210,11 @@ M.AbilityType = {
 }
 
 M.AbilityCastType = {
-    ['COMMON_ATK'] = 1,
-    ['ACTIVE_ABILITY'] = 2,
-    ['PASSIVE_ABILITY'] = 3,
-    ['BUILDING_ABILITY'] = 4,
-    ['PICK_ABILITY'] = 6,
+    COMMON_ATK = 1,
+    ACTIVE_ABILITY = 2,
+    PASSIVE_ABILITY = 3,
+    BUILDING_ABILITY = 4,
+    PICK_ABILITY = 6,
 }
 
 ---@enum y3.Const.AbilityIndex
@@ -207,11 +238,11 @@ M.AbilityIndex = {
 
 ---@enum y3.Const.RoleType
 M.RoleType = {
-    ['USER'] = 1,
-    ['COMPUTER'] = 2,
-    ['AI_EASY'] = 5,
-    ['AI_HARD'] = 6,
-    ['OBSERVER'] = 10,
+    USER = 1,
+    COMPUTER = 2,
+    AI_EASY = 5,
+    AI_HARD = 6,
+    OBSERVER = 10,
 }
 
 ---@enum y3.Const.RoleStatus
@@ -233,11 +264,11 @@ M.MovementObstacleProcessType = {
 
 ---@enum y3.Const.MouseKey
 M.MouseKey = {
-    ['LEFT'] = 0xF0, -- 左键
-    ['RIGHT'] = 0xF1, -- 右键
-    ['MIDDLE'] = 0xF2, -- 中键
-    ['WHEEL_UP'] = 0xF3, -- 上滚
-    ['WHEEL_DOWN'] = 0xF4, -- 下滚
+    LEFT = 0xF0, -- 左键
+    RIGHT = 0xF1, -- 右键
+    MIDDLE = 0xF2, -- 中键
+    WHEEL_UP = 0xF3, -- 上滚
+    WHEEL_DOWN = 0xF4, -- 下滚
 }
 
 ---@enum y3.Const.KeyboardKey
@@ -917,5 +948,33 @@ M.CollisionLayers = {
 
 ---@enum(key) y3.Const.SceneUI
 M.SceneUI = {}
+
+--TODO：和 UnitEnumState 重复
+---@enum y3.Const.CombatBuff
+M.CombatBuff = {
+    ["禁止普攻"] = 1 << 1,
+    ["禁止施法"] = 1 << 2,
+    ["禁止移动"] = 1 << 3,
+    ["禁止转向"] = 1 << 4,
+    ["动画定帧"] = 1 << 5,
+    ["无法施加运动"] = 1 << 6,
+    ["无法被技能指示器锁定"] = 1 << 7,
+    ["无法被选中"] = 1 << 8,
+    ["隐身"] = 1 << 9,
+    ["无视静态碰撞"] = 1 << 10,
+    ["无视动态碰撞"] = 1 << 11,
+    ["不会死亡"] = 1 << 12,
+    ["无敌"] = 1 << 13,
+    ["无法控制"] = 1 << 14,
+    ["无法被攻击"] = 1 << 15,
+    ["AI无视"] = 1 << 16,
+    ["物理伤害免疫"] = 1 << 17,
+    ["魔法伤害免疫"] = 1 << 18,
+    ["负面魔法效果免疫"] = 1 << 19,
+    ["隐藏"] = 1 << 20,
+    ["无法被筛选器选中"] = 1 << 21,
+    ["真实伤害免疫"] = 1 << 22,
+    ["禁止使用道具"] = 1 << 23,
+}
 
 return M

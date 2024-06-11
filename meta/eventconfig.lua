@@ -934,6 +934,7 @@ M.config["单位-即将死亡"] = {
     object = "Unit",
     params = {
     },
+    master = "target_unit"
 }
 
 ---@alias EventParam.单位-死亡 EventParam.ET_UNIT_DIE
@@ -3110,6 +3111,25 @@ end\
     },
 }
 
+---@alias EventParam.技能-建造技能释放前 EventParam.ET_BUILD_SKILL_BEFORE_RELEASE
+M.config["技能-建造技能释放前"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "建造技能释放前触发",
+    extraArgs = {
+    },
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
+    key = "ET_BUILD_SKILL_BEFORE_RELEASE",
+    name = "技能-建造技能释放前",
+    object = "Ability",
+    params = {
+    },
+}
+
 ---@alias EventParam.技能-关闭指示器 EventParam.ET_STOP_SKILL_POINTER
 M.config["技能-关闭指示器"] = {
     __class__ = "EventConfigBuilder",
@@ -3636,6 +3656,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "选中-单位组", callback: fun(trg: Trigger, data: EventParam.选中-单位组)): Trigger
 ---@field event fun(self: self, event: "本地-选中-单位组", callback: fun(trg: Trigger, data: EventParam.本地-选中-单位组)): Trigger
 ---@field event fun(self: self, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field event fun(self: self, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: self, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: self, event: "物品-获得", callback: fun(trg: Trigger, data: EventParam.物品-获得)): Trigger
 ---@field event fun(self: self, event: "物品-进入物品栏", callback: fun(trg: Trigger, data: EventParam.物品-进入物品栏)): Trigger
@@ -3690,6 +3711,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
 ---@field event fun(self: Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field event fun(self: Ability, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 
 ---@class Area
@@ -3873,6 +3895,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Unit, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
 ---@field event fun(self: Unit, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
 ---@field event fun(self: Unit, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field event fun(self: Unit, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger

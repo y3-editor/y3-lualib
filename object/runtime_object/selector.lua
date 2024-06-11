@@ -23,7 +23,7 @@ function M:in_shape(pos, shape)
 end
 
 -- 条件 - 属于某个玩家
----@param p Player
+---@param p Player?
 ---@return self
 function M:of_player(p)
     ---@private
@@ -68,7 +68,7 @@ function M:with_tag(tag)
 end
 
 -- 条件 - 不拥有特定标签
----@param tag string
+---@param tag string?
 ---@return self
 function M:without_tag(tag)
     ---@private
