@@ -1390,6 +1390,18 @@ M.config["本地-骨骼碰撞"] = {
     },
 }
 
+---@alias EventParam.物理-骨骼碰撞 EventParam.ET_DETECT_BONE_COLLISON
+M.config["物理-骨骼碰撞"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "骨骼碰撞时触发",
+    extraArgs = {
+    },
+    key = "ET_DETECT_BONE_COLLISON",
+    name = "物理-骨骼碰撞",
+    params = {
+    },
+}
+
 ---@alias EventParam.未知-ET_ITEM_ATTACHED_ATTR_CHANGED EventParam.ET_ITEM_ATTACHED_ATTR_CHANGED
 M.config["未知-ET_ITEM_ATTACHED_ATTR_CHANGED"] = {
     __class__ = "EventConfigBuilder",
@@ -3113,7 +3125,7 @@ end\
 ---@alias EventParam.技能-建造技能释放前 EventParam.ET_BUILD_SKILL_BEFORE_RELEASE
 M.config["技能-建造技能释放前"] = {
     __class__ = "EventConfigBuilder",
-    desc = "建造技能释放前触发",
+    desc = "建造技能的命令将要发布时",
     extraArgs = {
     },
     extraObjs = {
@@ -3592,6 +3604,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
 ---@field event fun(self: self, event: "本地-骨骼碰撞", callback: fun(trg: Trigger, data: EventParam.本地-骨骼碰撞)): Trigger
+---@field event fun(self: self, event: "物理-骨骼碰撞", callback: fun(trg: Trigger, data: EventParam.物理-骨骼碰撞)): Trigger
 ---@field event fun(self: self, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
 ---@field event fun(self: self, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
 ---@field event fun(self: self, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
@@ -3956,6 +3969,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: EditorObject.Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field event fun(self: EditorObject.Ability, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 
 ---@class EditorObject.Buff
@@ -4073,6 +4087,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: EditorObject.Unit, event: "效果-即将获得", callback: fun(trg: Trigger, data: EventParam.效果-即将获得)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "效果-覆盖", callback: fun(trg: Trigger, data: EventParam.效果-覆盖)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
