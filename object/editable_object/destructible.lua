@@ -25,12 +25,13 @@ end
 function M:__init(py_destructible)
     self.handle = py_destructible
     self.phandle = y3.py_proxy.wrap(py_destructible)
-    self.id     = py_destructible:api_get_id()
+    self.id     = py_destructible:api_get_id() or 0
     return self
 end
 
 function M:__del()
     M.ref_manager:remove(self.id)
+    y3.py_proxy.kill(self.phandle)
     if self._removed_by_py then
         return
     end
@@ -90,37 +91,37 @@ end
 ---可破坏物能否被技能指示器选中
 ---@return boolean is_lockable 能否被选中
 function M:can_be_ability_target()
-    return self.phandle:api_is_ability_target()
+    return self.phandle:api_is_ability_target() or false
 end
 
 ---可破坏物能否被攻击
 ---@return boolean is_attackable 能否被攻击
 function M:can_be_attacked()
-    return self.phandle:api_is_attacked()
+    return self.phandle:api_is_attacked() or false
 end
 
 ---可破坏物能否被选中
 ---@return boolean is_selectable 能否被选中
 function M:can_be_selected()
-    return self.phandle:api_is_selected()
+    return self.phandle:api_is_selected() or false
 end
 
 ---可破坏物能否被采集
----@return boolean is_collectable 能否被选中
+---@return boolean is_collectable 能否被采集
 function M:can_be_collected()
-    return self.phandle:api_is_collected()
+    return self.phandle:api_is_collected() or false
 end
 
 ---可破坏物是否可见
 ---@return boolean is_visible 是否可见
 function M:is_visible()
-    return self.phandle:api_is_visible()
+    return self.phandle:api_is_visible() or false
 end
 
 ---可破坏物是否存活
 ---@return boolean is_alive 是否存活
 function M:is_alive()
-    return self.phandle:api_is_alive()
+    return self.phandle:api_is_alive() or false
 end
 
 ---@param killer_unit Unit 凶手
@@ -312,13 +313,13 @@ end
 ---获取可破坏物的名称
 ---@return string name 可破坏物的名称
 function M:get_name()
-    return self.phandle:api_get_str_attr("name")
+    return self.phandle:api_get_str_attr("name") or ''
 end
 
 ---获取可破坏物描述
 ---@return string description 描述
 function M:get_description()
-    return self.phandle:api_get_str_attr("description")
+    return self.phandle:api_get_str_attr("description") or ''
 end
 
 ---获取可破坏物的生命值
@@ -330,43 +331,43 @@ end
 ---获取可破坏物的资源名称
 ---@return string source_name 资源名称
 function M:get_resource_name()
-    return self.phandle:api_get_str_attr("source_desc")
+    return self.phandle:api_get_str_attr("source_desc") or ''
 end
 
 ---获取可破坏物的生命值
 ---@return number hp 可破坏物的生命值
 function M:get_max_hp()
-    return self.phandle:api_get_float_attr("hp_max"):float()
+    return y3.helper.tonumber(self.phandle:api_get_float_attr("hp_max")) or 0.0
 end
 
 ---获取可破坏物的当前资源数
 ---@return number source_number 当前资源数
 function M:get_resource()
-    return self.phandle:api_get_dest_cur_source_nums()
+    return self.phandle:api_get_dest_cur_source_nums() or 0.0
 end
 
 ---获取可破坏物的最大资源数
 ---@return number max_number 最大资源数
 function M:get_max_resource()
-    return self.phandle:api_get_dest_max_source_nums()
+    return self.phandle:api_get_dest_max_source_nums() or 0.0
 end
 
 ---获取可破坏物的玩家属性名
 ---@return py.RoleResKey player_res_key 玩家属性
 function M:get_resource_type()
-    return self.phandle:api_get_role_res_of_dest()
+    return self.phandle:api_get_role_res_of_dest() or ''
 end
 
 ---获取可破坏物的物品类型ID
 ---@return py.ItemKey item_key 物品类型ID
 function M:get_item_type()
-    return self.phandle:api_get_item_type_of_dest()
+    return self.phandle:api_get_item_type_of_dest() or 0
 end
 
 ---获取可破坏物的模型
 ---@return py.ModelKey model_key 模型id
 function M:get_model()
-    return self.phandle:api_get_dest_model()
+    return self.phandle:api_get_dest_model() or 0
 end
 
 ---获取可破坏物的高度

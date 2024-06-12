@@ -10,7 +10,7 @@ M.table_cache = setmetatable({}, { __mode = 'k' })
 ---@param slot integer
 ---@return boolean
 function M.load_boolean(player, slot)
-    return player.handle:get_save_data_bool_value(slot)
+    return player.handle:get_save_data_bool_value(slot) or false
 end
 
 -- 保存玩家的存档数据（布尔）
@@ -26,7 +26,7 @@ end
 ---@param slot integer
 ---@return integer
 function M.load_integer(player, slot)
-    return player.handle:get_save_data_int_value(slot)
+    return player.handle:get_save_data_int_value(slot) or 0
 end
 
 -- 保存玩家的存档数据（整数）
@@ -58,7 +58,7 @@ end
 ---@param slot integer
 ---@return string
 function M.load_string(player, slot)
-    return player.handle:get_save_data_str_value(slot)
+    return player.handle:get_save_data_str_value(slot) or ''
 end
 
 -- 保存玩家的存档数据（字符串）
@@ -116,7 +116,7 @@ end
 ---@param slot integer
 ---@return table
 function M.load_table_with_cover_enable(player, slot)
-    local save_data = player.handle:get_save_data_table_value(slot)
+    local save_data = player.handle:get_save_data_table_value(slot) or {}
     local create_proxy
 
     ---@type Proxy.Config

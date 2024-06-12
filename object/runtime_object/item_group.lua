@@ -19,7 +19,13 @@ function M.create_lua_item_group_from_py(py_item_group)
     return item_group
 end
 
-y3.py_converter.register_py_to_lua('py.ItemGroup', M.create_lua_item_group_from_py)
+---@param py_item_group py.ItemGroup
+---@return ItemGroup
+function M.get_by_handle(py_item_group)
+    return M.create_lua_item_group_from_py(py_item_group)
+end
+
+y3.py_converter.register_py_to_lua('py.ItemGroup', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.ItemGroup', function (lua_value)
     return lua_value.handle
 end)
@@ -47,6 +53,10 @@ function M.get_all_items_in_shapes(point,shape)
         shape.handle
     )
     return M.create_lua_item_group_from_py(py_item_group)
+end
+
+function M.create()
+    return M.get_by_handle(GameAPI.create_unit_group()--[[@as py.ItemGroup]])
 end
 
 return M

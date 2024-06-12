@@ -33,6 +33,7 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
+    y3.py_proxy.kill(self.phandle)
     if self._removed_by_py then
         return
     end
@@ -77,7 +78,7 @@ end)
 ---获取投射物的类型ID
 ---@return py.ProjectileKey projectile_key
 function M:get_key()
-    return self.phandle:api_get_key()
+    return self.phandle:api_get_key() or 0
 end
 
 ---是否存在
@@ -96,20 +97,23 @@ end
 ---获取投射物剩余持续时间
 ---@return number duration 投射物剩余持续时间
 function M:get_left_time()
-    return self.phandle:api_get_left_time()
+    return self.phandle:api_get_left_time() or 0.0
 end
 
 ---获取投射物的拥有者
----@return Unit unit 投射物的拥有者
+---@return Unit? unit 投射物的拥有者
 function M:get_owner()
     local py_unit = self.phandle:api_get_owner()
+    if not py_unit then
+        return nil
+    end
     return y3.unit.get_by_handle(py_unit)
 end
 
 ---获取投射物朝向
 ---@return number angle 投射物朝向
 function M:get_facing()
-    return self.phandle:api_get_face_angle()
+    return self.phandle:api_get_face_angle() or 0.0
 end
 
 ---获取投射物所在点

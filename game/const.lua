@@ -238,6 +238,7 @@ M.AbilityIndex = {
 
 ---@enum y3.Const.RoleType
 M.RoleType = {
+    NONE = 0,
     USER = 1,
     COMPUTER = 2,
     AI_EASY = 5,
@@ -447,6 +448,7 @@ M.ShiftSlotType = {
 
 ---@enum y3.Const.EffectType
 M.ModifierEffectType = {
+    ['NONE'] = 0,
     ['NORMAL'] = 1,
     ['POSITIVE'] = 2,
     ['NEGATIVE'] = 3,
@@ -454,6 +456,7 @@ M.ModifierEffectType = {
 
 ---@enum y3.Const.ModifierType
 M.ModifierType = {
+    ['NONE'] = 0,
     ['NORMAL'] = 1,
     ['HALO'] = 2,
     ['HALO_EFFECT'] = 3,

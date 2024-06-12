@@ -246,6 +246,15 @@ function M.createTreeNode(name, optional)
     return treeNode
 end
 
+function M.create()
+    local suc, port = pcall(require, 'log.helper_port')
+    if not suc or math.type(port) ~= 'integer' then
+        return
+    end
+
+    createClient(port)
+end
+
 --注册一个方法
 M.registerMethod('command', function (params)
     y3.develop.console.input(params.data)
@@ -256,12 +265,7 @@ y3.game:event_on('$Y3-初始化', function ()
         return
     end
 
-    local suc, port = pcall(require, 'log.helper_port')
-    if not suc or math.type(port) ~= 'integer' then
-        return
-    end
-
-    createClient(port)
+    M.create()
 end)
 
 return M

@@ -37,6 +37,7 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
+    y3.py_proxy.kill(self.phandle)
     if self._removed_by_py then
         return
     end
@@ -93,19 +94,19 @@ end
 ---是否受冷却缩减影响
 ---@return boolean is_influenced 是否受冷却缩减影响
 function M:is_cd_reduce()
-    return self.phandle:api_get_influenced_by_cd_reduce()
+    return self.phandle:api_get_influenced_by_cd_reduce() or false
 end
 
 ---消耗生命是否会死亡
 ---@return boolean is_cost 消耗生命是否会死亡
 function M:is_cost_hp_can_die()
-    return self.phandle:api_get_cost_hp_can_die()
+    return self.phandle:api_get_cost_hp_can_die() or false
 end
 
 ---生命不足是否可以释放
 ---@return boolean can_cast 生命不足是否可以释放
 function M:can_cast_when_hp_insufficient()
-    return self.phandle:api_get_can_cast_when_hp_insufficient()
+    return self.phandle:api_get_can_cast_when_hp_insufficient() or false
 end
 
 ---是否具有标签
@@ -161,7 +162,7 @@ end
 -- 获取技能等级
 ---@return integer level 等级
 function M:get_level()
-    return self.phandle:api_get_level()
+    return self.phandle:api_get_level() or 0
 end
 
 ---增加冷却时间
@@ -250,7 +251,7 @@ end
 ---@return string
 function M:get_description()
     ---@diagnostic disable-next-line: param-type-mismatch
-    return self.phandle:api_get_str_attr("desc")
+    return self.phandle:api_get_str_attr("desc") or ''
 end
 
 ---学习技能
@@ -354,13 +355,13 @@ end
 ---获取技能种类
 ---@return y3.Const.AbilityType type 技能种类
 function M:get_type()
-    return self.phandle:api_get_type()
+    return self.phandle:api_get_type() or 0
 end
 
 ---获取技能所在技能位
 ---@return y3.Const.AbilityIndex index 技能所在技能位
 function M:get_slot()
-    return self.phandle:api_get_ability_index()
+    return self.phandle:api_get_ability_index() or 0
 end
 
 ---获取技能消耗的玩家属性值
@@ -373,13 +374,13 @@ end
 ---获取技能释放类型 AbilityCastType
 ---@return py.AbilityCastType type 技能释放类型
 function M:get_cast_type()
-    return self.phandle:api_get_ability_cast_type()
+    return self.phandle:api_get_ability_cast_type() or 0
 end
 
 ---自动施法是否开启
 ---@return boolean is_enabled 是否开启
 function M:is_autocast_enabled()
-    return self.phandle:api_is_autocast_enabled()
+    return self.phandle:api_is_autocast_enabled() or false
 end
 
 ---获取技能公式类型的kv
@@ -400,7 +401,7 @@ end
 ---@param key y3.Const.AbilityIntAttr | string 键值key
 ---@return number value 值
 function M:get_int_attr(key)
-    return self.phandle:api_get_int_attr(y3.const.AbilityIntAttr[key] or key)
+    return self.phandle:api_get_int_attr(y3.const.AbilityIntAttr[key] or key) or 0
 end
 
 ---获取字符串属性
@@ -408,13 +409,16 @@ end
 ---@return string value 值
 function M:get_string_attr(key)
     ---@diagnostic disable-next-line: param-type-mismatch
-    return self.phandle:api_get_str_attr(key)
+    return self.phandle:api_get_str_attr(key) or ''
 end
 
 ---获取技能的拥有者
----@return Unit owner 技能拥有者
+---@return Unit? owner 技能拥有者
 function M:get_owner()
     local py_unit = self.phandle:api_get_owner()
+    if not py_unit then
+        return nil
+    end
     return y3.unit.get_by_handle(py_unit)
 end
 
@@ -591,7 +595,7 @@ end
 ---获取技能的指示器类型
 ---@return y3.Const.AbilityPointerType
 function M:get_skill_pointer()
-    return self.phandle:api_get_ability_skill_pointer()
+    return self.phandle:api_get_ability_skill_pointer() or 0
 end
 
 ---获取技能类型的指示器类型
