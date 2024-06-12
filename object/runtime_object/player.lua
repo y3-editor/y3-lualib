@@ -34,7 +34,7 @@ end)
 function M:__init(py_player)
     self.handle = py_player
     self.phandle = y3.py_proxy.wrap(py_player)
-    self.id     = py_player:get_role_id_num()
+    self.id     = py_player:get_role_id_num() or 0
     return self
 end
 
@@ -80,7 +80,7 @@ y3.py_converter.register_py_to_lua('py.RoleID', M.get_by_id)
 ---@param py_player py.Role
 ---@return Player
 function M.get_by_handle(py_player)
-    local id = y3.py_proxy.wrap(py_player):get_role_id_num()
+    local id = y3.py_proxy.wrap(py_player):get_role_id_num() or 0
     return M.get_by_id(id)
 end
 
@@ -102,20 +102,20 @@ end
 ---@param index  integer 存档key
 ---@return boolean bool_value 布尔型玩家存档数据
 function M:get_save_data_bool_value(index)
-    return self.phandle:get_save_data_bool_value(index)
+    return self.phandle:get_save_data_bool_value(index) or false
 end
 
 ---玩家是否中途加入
 ---@return boolean is_middle_join 是否中途加入
 function M:is_middle_join()
-    return self.phandle:is_middle_join()
+    return self.phandle:is_middle_join() or false
 end
 
 ---玩家间是否是敌对关系
 ---@param player Player 玩家
 ---@return boolean is_enemy 是否是敌对关系
 function M:is_enemy(player)
-    return self.phandle:players_is_enemy(player.handle)
+    return self.phandle:players_is_enemy(player.handle) or false
 end
 
 ---设置名字
@@ -203,7 +203,7 @@ end
 ---@param assist_key py.RecordKey 辅助键名
 ---@return boolean is_conf 是否被占用
 function M:is_operation_key_occupied(key,assist_key)
-    return self.phandle:api_is_conf_of_editable_game_func(key, assist_key)
+    return self.phandle:api_is_conf_of_editable_game_func(key, assist_key) or false
 end
 
 ---设置玩家的基础操作快捷键（过滤掉禁止设置的） 
@@ -228,7 +228,7 @@ end
 ---@param assist_key py.RecordKey 键盘按键
 ---@return py.EditableGameFunc shortcut 基础操作
 function M:get_operation_key(key, assist_key)
-    return self.phandle:api_get_editable_game_func_of_shortcut(key, assist_key)
+    return self.phandle:api_get_editable_game_func_of_shortcut(key, assist_key) or 0
 end
 
 ---设置科技等级
@@ -296,21 +296,21 @@ end
 ---@param point Point 点
 ---@return boolean visible 点对于玩家可见
 function M:is_visible(point)
-    return self.phandle:is_point_visible_to_player(point.handle)
+    return self.phandle:is_point_visible_to_player(point.handle) or false
 end
 
 ---某个位置是否处于玩家的迷雾中
 ---@param point Point 点
 ---@return boolean is_point_in_fog 点在迷雾中
 function M:is_in_fog(point)
-    return self.phandle:is_point_in_fog(point.handle)
+    return self.phandle:is_point_in_fog(point.handle) or false
 end
 
 ---某个位置是否处于玩家的黑色阴影中
 ---@param point Point 点
 ---@return boolean is_point_in_shadow 点在黑色阴影中
 function M:is_in_shadow(point)
-    return self.phandle:is_point_in_shadow(point.handle)
+    return self.phandle:is_point_in_shadow(point.handle) or false
 end
 
 
@@ -326,31 +326,31 @@ end
 ---获取玩家ID
 ---@return integer role_id_num 玩家ID
 function M:get_id()
-    return self.phandle:get_role_id_num()
+    return self.phandle:get_role_id_num() or 0
 end
 
 ---获取玩家颜色
 ---@return string HEX颜色
 function M:get_color()
-    return self.phandle:api_get_role_color()
+    return self.phandle:api_get_role_color() or ''
 end
 
 ---获取玩家游戏状态
 ---@return y3.Const.RoleStatus role_status 玩家游戏状态
 function M:get_state()
-    return self.phandle:get_role_status()
+    return self.phandle:get_role_status() or 2
 end
 
 ---获取玩家控制者类型
 ---@return y3.Const.RoleType role_type 玩家控制者类型
 function M:get_controller()
-    return self.phandle:get_role_type()
+    return self.phandle:get_role_type() or 0
 end
 
 ---获取玩家名字
 ---@return string role_name 玩家名字
 function M:get_name()
-    return self.phandle:get_role_name()
+    return self.phandle:get_role_name() or ''
 end
 
 ---获取经验获得率
@@ -363,13 +363,13 @@ end
 ---获取队伍ID
 ---@return integer camp_id 队伍ID
 function M:get_team_id()
-    return self.phandle:get_camp_id_num()
+    return self.phandle:get_camp_id_num() or 0
 end
 
 ---表格型玩家存档数据
 ---@deprecated
 ---@param key integer 存档key
----@return table table_value 表格型玩家存档数据
+---@return table? table_value 表格型玩家存档数据
 function M:get_save_data_table(key)
     return self.phandle:get_save_data_table_value(key)
 end
@@ -379,7 +379,7 @@ end
 ---@param key integer 存档key
 ---@return string str_value 字符串玩家存档数据
 function M:get_save_data_string(key)
-    return self.phandle:get_save_data_str_value(key)
+    return self.phandle:get_save_data_str_value(key) or ''
 end
 
 ---实数型存档数据
@@ -395,21 +395,21 @@ end
 ---@param key integer 存档key
 ---@return integer int_value 整数型存档数据
 function M:get_save_data_int(key)
-    return self.phandle:get_save_data_int_value(key)
+    return self.phandle:get_save_data_int_value(key) or 0
 end
 
 ---获取整数存档玩家排名
 ---@param key integer 存档key
 ---@return integer rank_num 整数存档玩家排名
 function M:get_rank_num(key)
-    return self.phandle:get_player_archive_rank_num(key)
+    return self.phandle:get_player_archive_rank_num(key) or 0
 end
 
 ---获取科技等级
 ---@param tech_id py.TechKey 科技id
 ---@return integer tech_level 科技等级
 function M:get_tech_level(tech_id)
-    return self.phandle:api_get_tech_level(tech_id)
+    return self.phandle:api_get_tech_level(tech_id) or 0
 end
 
 ---获取玩家平台头像
@@ -422,20 +422,20 @@ end
 ---@param id py.StoreKey 平台道具id
 ---@return integer store_item_cnt 平台道具数量
 function M:get_store_item_number(id)
-    return self.phandle:get_store_item_cnt(id)
+    return self.phandle:get_store_item_cnt(id) or 0
 end
 
 ---玩家平台道具到期时间戳
 ---@param id py.StoreKey 平台道具id
 ---@return integer store_item_end_time 平台道具到期时间戳
 function M:get_store_item_end_time(id)
-    return self.phandle:get_store_item_expired_time(id)
+    return self.phandle:get_store_item_expired_time(id) or 0
 end
 
 ---获取玩家平台等级
 ---@return integer map_level 平台等级
 function M:get_platform_level()
-    return self.phandle:get_role_plat_map_level()
+    return self.phandle:get_role_plat_map_level() or 0
 end
 
 ---玩家在玩家组中
@@ -449,6 +449,9 @@ end
 ---@return UnitGroup unit_group 单位组
 function M:get_all_units()
     local py_unit_group = self.phandle:get_all_unit_id()
+    if not py_unit_group then
+        return y3.unit_group.create()
+    end
     return y3.unit_group.get_by_handle(py_unit_group)
 end
 
@@ -539,7 +542,7 @@ end
 ---获取玩家唯一名称
 ---@return string name 属性名称
 function M:get_platform_name()
-    return self.phandle:get_role__unique_name()
+    return self.phandle:get_role__unique_name() or ''
 end
 
 ---获取玩家加密UUID

@@ -214,3 +214,9 @@ function os.clock_banned() end
 
 ---@param message string
 function upload_traceback(message) end
+
+---@param state_enum integer
+function Unit:api_add_multi_state(state_enum) end
+
+---@param state_enum integer
+function Unit:api_remove_multi_state(state_enum) end

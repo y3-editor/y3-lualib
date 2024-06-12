@@ -5,7 +5,7 @@ y3.eca.def '获取单位所有者'
     -- 声明返回值的ECA类型
     : with_return('玩家', 'Player')
     ---@param unit Unit
-    ---@return Player
+    ---@return Player?
     : call(function (unit)
         -- unit 已经是Lua框架的Unit类型
         local p = unit:get_owner()
