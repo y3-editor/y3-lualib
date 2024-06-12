@@ -5,19 +5,19 @@
 local ProjectileEntity = {}
 
 --投射物本身对象
----@return py.Unit # 投射物本身对象
+---@return py.Unit? # 投射物本身对象
 function ProjectileEntity:api_get_self() end
 
 --获取单位ID
----@return py.UnitID # 单位ID
+---@return py.UnitID? # 单位ID
 function ProjectileEntity:api_get_id() end
 
 --投射物编号
----@return py.ProjectileKey # 投射物的key
+---@return py.ProjectileKey? # 投射物的key
 function ProjectileEntity:api_get_key() end
 
 --投射物产生者
----@return py.Unit # 投射物产生者
+---@return py.Unit? # 投射物产生者
 function ProjectileEntity:api_get_owner() end
 
 --销毁投射物对象
@@ -59,23 +59,23 @@ function ProjectileEntity:api_set_duration(duration) end
 function ProjectileEntity:api_add_duration(extra_time) end
 
 --获取投射物剩余持续时间
----@return number # 投射物剩余持续时间
+---@return number? # 投射物剩余持续时间
 function ProjectileEntity:api_get_left_time() end
 
 --获取投射物高度
----@return number # 投射物高度
+---@return number? # 投射物高度
 function ProjectileEntity:api_get_height() end
 
 --获取投射物角度
----@return number # 投射物的角度
+---@return number? # 投射物的角度
 function ProjectileEntity:api_get_face_angle() end
 
 --获取投射物位置
----@return py.FVector3 # 投射物位置
+---@return py.FVector3? # 投射物位置
 function ProjectileEntity:api_get_position() end
 
 --获取投射物朝向
----@return py.FVector3 # 投射物朝向
+---@return py.FVector3? # 投射物朝向
 function ProjectileEntity:api_get_face_dir() end
 
 --投射物抬高
@@ -87,12 +87,12 @@ function ProjectileEntity:api_raise_height(y) end
 function ProjectileEntity:api_set_is_sleeping(is_sleeping) end
 
 --获取投射物是否休眠
----@return boolean # 是否休眠
+---@return boolean? # 是否休眠
 function ProjectileEntity:api_get_is_sleeping() end
 
 --获取投射物的字符串属性
 ---@param attr_name string # 属性名称
----@return string # 字符串类型返回值
+---@return string? # 字符串类型返回值
 function ProjectileEntity:api_get_str_attr(attr_name) end
 
 --设置投射物的字符串属性
@@ -115,7 +115,7 @@ function ProjectileEntity:api_remove_tag(tag) end
 function ProjectileEntity:api_play_sound_by_proj_for_role_relation(camp_target, sid, loop) end
 
 --获取投射物的玩家
----@return py.Role # 玩家
+---@return py.Role? # 玩家
 function ProjectileEntity:get_projectile_role() end
 
 --设置投射物对玩家的可见性

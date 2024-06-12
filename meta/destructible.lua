@@ -55,16 +55,16 @@ function Destructible:api_set_face_angle(angle) end
 
 --获取可破坏物的整型属性
 ---@param attr_name string # 属性名称
----@return integer # 整数类型返回值
+---@return integer? # 整数类型返回值
 function Destructible:api_get_int_attr(attr_name) end
 
 --获取可破坏物的编号
----@return py.DestructibleKey # 可破坏物编号
+---@return py.DestructibleKey? # 可破坏物编号
 function Destructible:api_get_key() end
 
 --获取可破坏物的字符串属性
 ---@param attr_name string # 属性名称
----@return string # 字符串类型返回值
+---@return string? # 字符串类型返回值
 function Destructible:api_get_str_attr(attr_name) end
 
 --设置可破坏物的字符串属性
@@ -74,92 +74,92 @@ function Destructible:api_set_str_attr(attr_name, value) end
 
 --获取可破坏物的布尔值属性
 ---@param attr_name string # 属性名称
----@return boolean # 布尔类型返回值
+---@return boolean? # 布尔类型返回值
 function Destructible:api_get_bool_attr(attr_name) end
 
 --获取可破坏物的浮点数属性
 ---@param attr_name string # 属性名称
----@return py.Fixed # 浮点类型返回值
+---@return py.Fixed? # 浮点类型返回值
 function Destructible:api_get_float_attr(attr_name) end
 
 --获取可破坏物所属阵营id
----@return py.CampID # 阵营ID
+---@return py.CampID? # 阵营ID
 function Destructible:api_get_camp_id() end
 
 --获取可破坏物位置
----@return py.FVector3 # 单位位置
+---@return py.FVector3? # 单位位置
 function Destructible:api_get_position() end
 
 --获取可破坏物的id
----@return py.DestructibleID # 可破坏物id
+---@return py.DestructibleID? # 可破坏物id
 function Destructible:api_get_id() end
 
 --获取可破坏物的x轴缩放
----@return number # 缩放的值
+---@return number? # 缩放的值
 function Destructible:api_get_x_scale() end
 
 --获取可破坏物的y轴缩放
----@return number # 缩放的值
+---@return number? # 缩放的值
 function Destructible:api_get_y_scale() end
 
 --获取可破坏物的z轴缩放
----@return number # 缩放的值
+---@return number? # 缩放的值
 function Destructible:api_get_z_scale() end
 
 --获取可破坏物的旋转角度
----@return number # 角度值
+---@return number? # 角度值
 function Destructible:api_get_angle() end
 
 --获取可破坏物模型
----@return py.ModelKey # 模型编号
+---@return py.ModelKey? # 模型编号
 function Destructible:api_get_dest_model() end
 
 --可破坏物能否被技能指示器选中
----@return boolean # 布尔值
+---@return boolean? # 布尔值
 function Destructible:api_is_ability_target() end
 
 --可破坏物能否被普通攻击
----@return boolean # 布尔值
+---@return boolean? # 布尔值
 function Destructible:api_is_attacked() end
 
 --可破坏物能否被选中
----@return boolean # 布尔值
+---@return boolean? # 布尔值
 function Destructible:api_is_selected() end
 
 --可破坏物能否被采集
----@return boolean # 布尔值
+---@return boolean? # 布尔值
 function Destructible:api_is_collected() end
 
 --可破坏物是否可见
----@return boolean # 布尔值
+---@return boolean? # 布尔值
 function Destructible:api_is_visible() end
 
 --可破坏物是否存活
----@return boolean # 布尔值
+---@return boolean? # 布尔值
 function Destructible:api_is_alive() end
 
 --获取可破坏物的当前资源
----@return integer # 布尔值
+---@return integer? # 布尔值
 function Destructible:api_get_dest_cur_source_nums() end
 
 --获取可破坏物的最大资源
----@return integer # 布尔值
+---@return integer? # 布尔值
 function Destructible:api_get_dest_max_source_nums() end
 
 --获取可破坏物的玩家属性
----@return py.RoleResKey # 玩家属性
+---@return py.RoleResKey? # 玩家属性
 function Destructible:api_get_role_res_of_dest() end
 
 --获取可破坏物的物品类型
----@return py.ItemKey # 物品类型
+---@return py.ItemKey? # 物品类型
 function Destructible:api_get_item_type_of_dest() end
 
 --获取可破坏物的面向角度
----@return py.Fixed # 可破坏物的面向角度
+---@return py.Fixed? # 可破坏物的面向角度
 function Destructible:api_get_dest_face_angle() end
 
 --获取可破坏物的高度
----@return py.Fixed # 可破坏物的高度
+---@return py.Fixed? # 可破坏物的高度
 function Destructible:api_get_dest_height_offset() end
 
 --复活可破坏物
