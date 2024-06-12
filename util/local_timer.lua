@@ -35,7 +35,6 @@ M.total_paused_ms = 0
 ---@private
 M.paused_ms = 0
 
-local frame_interval = 30
 local cur_frame = 0
 local cur_ms = 0
 local id = 0
@@ -82,7 +81,7 @@ function M:set_time_out()
                        + self.total_paused_ms
     else
         self.target_ms = self.init_ms
-                       + self.time * (self.runned_count + 1) * 1000 // frame_interval
+                       + self.time * (self.runned_count + 1) * 1000 // y3.config.logic_frame
                        + self.total_paused_ms
     end
 
@@ -316,7 +315,7 @@ local desk = {}
 local function update_frame()
     cur_frame = cur_frame + 1
 
-    local target_ms = cur_frame * 1000 // frame_interval
+    local target_ms = cur_frame * 1000 // y3.config.logic_frame
     for ti = cur_ms, target_ms do
         local queue = timer_queues[ti]
         if queue then
