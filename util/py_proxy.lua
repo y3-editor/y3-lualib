@@ -1,7 +1,10 @@
 ---@class PyProxy
 local M = Class 'PyProxy'
 
-local RAW = {'<RAW>'}
+local isExist = GameAPI.common_is_exist
+
+local RAW  = {'<RAW>'}
+local DEAD = {'<DEAD>'}
 
 local proxyMT = { __index = function (self, key)
     local raw = self[RAW]
@@ -9,6 +12,9 @@ local proxyMT = { __index = function (self, key)
     local tp = type(f)
     if tp == 'function' then
         self[key] = function (_, ...)
+            if self[DEAD] and not isExist(raw) then
+                return nil
+            end
             return f(raw, ...)
         end
         return self[key]
@@ -23,6 +29,9 @@ local proxyMT = { __index = function (self, key)
             return f
         end
         self[key] = function (_, ...)
+            if self[DEAD] and not isExist(raw) then
+                return nil
+            end
             return call(f, raw, ...)
         end
         return self[key]
@@ -41,7 +50,10 @@ function M.wrap(handle)
         if type(handle) ~= 'userdata' then
             return handle
         end
-        p = setmetatable({ [RAW] = handle }, proxyMT)
+        p = setmetatable({
+            [RAW]  = handle,
+            [DEAD] = false,
+        }, proxyMT)
         cachedMap[handle] = p
     end
     return p
@@ -55,6 +67,12 @@ function M.unwrap(handle)
         return handle[RAW] or handle
     end
     return handle
+end
+
+function M.kill(phandle)
+    if phandle[DEAD] == false then
+        phandle[DEAD] = true
+    end
 end
 
 return M

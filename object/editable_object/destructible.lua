@@ -31,6 +31,7 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
+    y3.py_proxy.kill(self.phandle)
     if self._removed_by_py then
         return
     end
