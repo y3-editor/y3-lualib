@@ -208,6 +208,14 @@ m.snapshot = private(function ()
     local find
     local mark = private {}
 
+    local function isGCObject(v)
+        local tp = type(v)
+        return tp == 'table'
+            or tp == 'userdata'
+            or tp == 'function'
+            or tp == 'thread'
+    end
+
     local function findTable(t, result)
         result = result or {}
         local mt = getmetatable(t)
@@ -227,7 +235,7 @@ m.snapshot = private(function ()
             if not wk then
                 local keyInfo = find(k)
                 if keyInfo then
-                    if wv then
+                    if wv and isGCObject(v) then
                         find(v)
                         local valueResults = mark[v]
                         if valueResults then
@@ -249,7 +257,7 @@ m.snapshot = private(function ()
             if not wv then
                 local valueInfo = find(v)
                 if valueInfo then
-                    if wk then
+                    if wk and isGCObject(k) then
                         find(k)
                         local keyResults = mark[k]
                         if keyResults then
