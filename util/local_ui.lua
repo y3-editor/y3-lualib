@@ -1,6 +1,6 @@
 --本地UI逻辑框架
 ---@class LocalUILogic
----@field private _main UI
+---@field private _main? UI
 ---@overload fun(main?: string | UI): self
 local M = Class 'LocalUILogic'
 
@@ -89,13 +89,18 @@ function M:make_instance(kv)
     instance._on_inits = self._on_inits
     instance._prefab_infos = self._prefab_infos
 
-    if kv then
-        for k, v in pairs(kv) do
-            instance:storage_set(k, v)
-        end
-    end
+    instance:apply_kv(kv)
 
     return instance
+end
+
+---@param kv? table
+function M:apply_kv(kv)
+    if kv then
+        for k, v in pairs(kv) do
+            self:storage_set(k, v)
+        end
+    end
 end
 
 --附着到一个UI上
@@ -118,7 +123,7 @@ function M:attach(ui, kv)
     ---@private
     ---@type table<string, UI|false>
     self._childs = setmetatable({}, { __index = function (t, k)
-        local ui = self._main:get_child(k)
+        local ui = self._main and self._main:get_child(k)
         t[k] = ui or false
         return t[k]
     end })
@@ -135,6 +140,10 @@ function M:attach(ui, kv)
     ---@type table<string, table<string, LocalUILogic[]>>
     self._prefab_instances = y3.util.multiTable(3)
 
+    ---@package
+    ---@type table<string, table<string, LocalUILogic[]>>
+    self._prefab_pool = y3.util.multiTable(3)
+
     self._childs[''] = self._main
     self:init()
     self:refresh('*')
@@ -142,6 +151,10 @@ function M:attach(ui, kv)
     self:register_events()
 
     return self
+end
+
+function M:detach()
+    self._main = nil
 end
 
 --将子控件的属性绑定到单位的属性
@@ -224,11 +237,18 @@ function M:refresh_prefab(update_name, count, on_create)
             goto continue
         end
         local instances = self._prefab_instances[info.child_name][update_name]
+        local pool = self._prefab_pool[info.child_name][update_name]
 
         if count and count ~= #instances then
             if count < #instances then
                 for i = count + 1, #instances do
-                    instances[i]:remove()
+                    local ui = instances[i]._main
+                    if ui then
+                        pool[#pool+1] = instances[i]
+                        ui:set_visible(false)
+                    else
+                        instances[i]:remove()
+                    end
                     instances[i] = nil
                 end
             else
@@ -238,10 +258,22 @@ function M:refresh_prefab(update_name, count, on_create)
                         xpcall(on_create, log.error, i, kv)
                     end
 
-                    local prefab = y3.ui_prefab.create(local_player, info.prefab_name, parent)
-                    local ui = prefab:get_child()
-                    ---@cast ui -?
-                    local instance = info.ui_template:attach(ui, kv)
+                    ---@type LocalUILogic?
+                    local instance = table.remove(pool)
+                    if instance then
+                        local ui = instance._main
+                        if ui then
+                            ui:set_visible(true)
+                        end
+                        instance:apply_kv(kv)
+                        instance:init()
+                        instance:refresh('*')
+                    else
+                        local ui = y3.ui_prefab.create(local_player, info.prefab_name, parent):get_child()
+                        ---@cast ui -?
+                        instance = info.ui_template:attach(ui, kv)
+                    end
+
                     instances[i] = instance
                 end
             end
@@ -293,7 +325,7 @@ function M:get_refresh_targets(name)
     return targets
 end
 
----@private
+---@package
 function M:init()
     for _, info in ipairs(self._on_inits) do
         local ui = self._childs[info.name]
