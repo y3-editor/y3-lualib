@@ -15,16 +15,16 @@ local local_player = y3.player.get_local()
 
 ---@class LocalUILogic.OnRefreshInfo
 ---@field name string
----@field on_refresh fun(ui: UI, local_player: Player)
+---@field on_refresh fun(ui: UI, local_player: Player, kv: table)
 
 ---@class LocalUILogic.OnInitInfo
 ---@field name string
----@field on_init fun(ui: UI, local_player: Player)
+---@field on_init fun(ui: UI, local_player: Player, kv: table)
 
 ---@class LocalUILogic.OnEventInfo
 ---@field name string
 ---@field event y3.Const.UIEvent
----@field on_event fun(ui: UI, local_player: Player)
+---@field on_event fun(ui: UI, local_player: Player, kv: table)
 
 ---@param path_or_ui? string | UI
 function M:__init(path_or_ui)
@@ -81,14 +81,15 @@ end
 
 --附着到一个UI上
 ---@param ui UI
----@param kv? table # 数据用 `storage_get` 方法获取
+---@param kv? table # 数据会在事件里传给你
+---@return self
 function M:attach(ui, kv)
     assert(not self._main, '已经附着到UI上了！')
     --如果自己是模板，就复制一个实例出来再附着
     if self._as_template then
         local instance = self:make_instance(kv)
         instance:attach(ui)
-        return
+        return instance
     end
     self._main = ui
     for _, v in ipairs(self._bind_unit_attr) do
@@ -116,6 +117,8 @@ function M:attach(ui, kv)
     self:refresh('*')
 
     self:register_events()
+
+    return self
 end
 
 --将子控件的属性绑定到单位的属性
@@ -142,7 +145,7 @@ end
 --订阅控件刷新，回调函数在 *本地玩家* 环境中执行。
 --使用空字符串表示主控件。
 ---@param child_name string
----@param on_refresh fun(ui: UI, local_player: Player)
+---@param on_refresh fun(ui: UI, local_player: Player, kv: table)
 function M:on_refresh(child_name, on_refresh)
     table.insert(self._on_refreshs, {
         name = child_name,
@@ -153,7 +156,7 @@ end
 --订阅控件的本地事件，回调函数在 *本地玩家* 环境中执行。
 ---@param child_name string
 ---@param event y3.Const.UIEvent
----@param callback fun(ui: UI, local_player: Player)
+---@param callback fun(ui: UI, local_player: Player, kv: table)
 function M:on_event(child_name, event, callback)
     table.insert(self._on_events, {
         name = child_name,
@@ -164,7 +167,7 @@ end
 
 --订阅控件的初始化事件，回调函数在 *本地玩家* 环境中执行。
 ---@param child_name string
----@param on_init fun(ui: UI, local_player: Player)
+---@param on_init fun(ui: UI, local_player: Player, kv: table)
 function M:on_init(child_name, on_init)
     table.insert(self._on_inits, {
         name = child_name,
@@ -178,7 +181,7 @@ function M:register_events()
         local ui = self._childs[info.name]
         if ui then
             ui:add_local_event(info.event, function ()
-                info.on_event(ui, local_player)
+                info.on_event(ui, local_player, self:storage_all())
             end)
         end
     end
@@ -215,7 +218,7 @@ function M:init()
     for _, info in ipairs(self._on_inits) do
         local ui = self._childs[info.name]
         if ui then
-            info.on_init(ui, local_player)
+            info.on_init(ui, local_player, self:storage_all())
         end
     end
 end
@@ -237,7 +240,7 @@ function M:refresh(name, player)
     for _, info in ipairs(infos) do
         local ui = self._childs[info.name]
         if ui then
-            info.on_refresh(ui, local_player)
+            info.on_refresh(ui, local_player, self:storage_all())
         end
     end
 end
