@@ -1888,7 +1888,7 @@ end
 function M:get_owner_player()
     local role_id = self.phandle:api_get_role_id()
     if not role_id then
-        return nil
+        return y3.player(31)
     end
     return y3.player.get_by_id(role_id)
 end
