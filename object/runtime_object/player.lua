@@ -413,9 +413,17 @@ function M:get_tech_level(tech_id)
 end
 
 ---获取玩家平台头像
----@return integer icon 平台头像
+---@return string icon 平台头像
 function M:get_platform_icon()
-    return self.phandle:get_role_status() == 1 and GameAPI.get_role_platform_icon(self.handle) or 999
+    return self.phandle:get_role_status() == 1
+        and GameAPI.get_role_platform_icon(self.handle) --[[@as string]]
+        or ''
+end
+
+--获取玩家平台唯一ID
+---@return integer plat_aid 平台唯一ID
+function M:get_platform_id()
+    return math.tointeger(GameAPI.get_player_plat_aid(self.handle)) or 0
 end
 
 ---玩家平台道具数量
