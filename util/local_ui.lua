@@ -15,16 +15,22 @@ local local_player = y3.player.get_local()
 
 ---@class LocalUILogic.OnRefreshInfo
 ---@field name string
----@field on_refresh fun(ui: UI, local_player: Player, kv: table)
+---@field on_refresh fun(ui: UI, local_player: Player, instance: LocalUILogic)
 
 ---@class LocalUILogic.OnInitInfo
 ---@field name string
----@field on_init fun(ui: UI, local_player: Player, kv: table)
+---@field on_init fun(ui: UI, local_player: Player, instance: LocalUILogic)
 
 ---@class LocalUILogic.OnEventInfo
 ---@field name string
 ---@field event y3.Const.UIEvent
----@field on_event fun(ui: UI, local_player: Player, kv: table)
+---@field on_event fun(ui: UI, local_player: Player, instance: LocalUILogic)
+
+---@class LocalUILogic.PrefabInfo
+---@field child_name string
+---@field prefab_name string
+---@field update_name string
+---@field ui_template LocalUILogic
 
 ---@param path_or_ui? string | UI
 function M:__init(path_or_ui)
@@ -42,6 +48,9 @@ function M:__init(path_or_ui)
     ---@package
     ---@type LocalUILogic.OnInitInfo[]
     self._on_inits = {}
+    ---@package
+    ---@type LocalUILogic.PrefabInfo[]
+    self._prefab_infos = {}
 
     if type(path_or_ui) == 'string' then
         y3.ltimer.wait(0, function ()
@@ -54,6 +63,15 @@ function M:__init(path_or_ui)
     end
 end
 
+function M:__del()
+    if self._main then
+        self._main:remove()
+    end
+end
+function M:remove()
+    Delete(self)
+end
+
 ---@package
 function M:as_template()
     ---@private
@@ -62,13 +80,14 @@ end
 
 ---@private
 ---@param kv? table
----@return self
+---@return LocalUILogic
 function M:make_instance(kv)
     local instance = New 'LocalUILogic' ()
     instance._bind_unit_attr = self._bind_unit_attr
     instance._on_refreshs = self._on_refreshs
     instance._on_events = self._on_events
     instance._on_inits = self._on_inits
+    instance._prefab_infos = self._prefab_infos
 
     if kv then
         for k, v in pairs(kv) do
@@ -81,8 +100,8 @@ end
 
 --附着到一个UI上
 ---@param ui UI
----@param kv? table # 数据会在事件里传给你
----@return self
+---@param kv? table # 数据使用 `instance:storage_get` 获取
+---@return LocalUILogic
 function M:attach(ui, kv)
     assert(not self._main, '已经附着到UI上了！')
     --如果自己是模板，就复制一个实例出来再附着
@@ -111,6 +130,10 @@ function M:attach(ui, kv)
         t[k] = uis
         return t[k]
     end })
+
+    ---@package
+    ---@type table<string, table<string, LocalUILogic[]>>
+    self._prefab_instances = y3.util.multiTable(3)
 
     self._childs[''] = self._main
     self:init()
@@ -141,11 +164,9 @@ function M:bind_unit_attr(child_name, ui_attr, unit_attr)
     child:bind_unit_attr(ui_attr, unit_attr)
 end
 
-
 --订阅控件刷新，回调函数在 *本地玩家* 环境中执行。
---使用空字符串表示主控件。
----@param child_name string
----@param on_refresh fun(ui: UI, local_player: Player, kv: table)
+---@param child_name string # 空字符串表示主控件
+---@param on_refresh fun(ui: UI, local_player: Player, instance: LocalUILogic)
 function M:on_refresh(child_name, on_refresh)
     table.insert(self._on_refreshs, {
         name = child_name,
@@ -154,9 +175,9 @@ function M:on_refresh(child_name, on_refresh)
 end
 
 --订阅控件的本地事件，回调函数在 *本地玩家* 环境中执行。
----@param child_name string
+---@param child_name string # 空字符串表示主控件
 ---@param event y3.Const.UIEvent
----@param callback fun(ui: UI, local_player: Player, kv: table)
+---@param callback fun(ui: UI, local_player: Player, instance: LocalUILogic)
 function M:on_event(child_name, event, callback)
     table.insert(self._on_events, {
         name = child_name,
@@ -166,13 +187,72 @@ function M:on_event(child_name, event, callback)
 end
 
 --订阅控件的初始化事件，回调函数在 *本地玩家* 环境中执行。
----@param child_name string
----@param on_init fun(ui: UI, local_player: Player, kv: table)
+---@param child_name string # 空字符串表示主控件
+---@param on_init fun(ui: UI, local_player: Player, instance: LocalUILogic)
 function M:on_init(child_name, on_init)
     table.insert(self._on_inits, {
         name = child_name,
         on_init = on_init
     })
+end
+
+--绑定元件
+---@param child_name string # 空字符串表示主控件
+---@param prefab_name string # 元件名称
+---@param ui_template LocalUILogic # 使用 `y3.local_ui.template` 创建的模板来初始化新建的元件
+---@param update_name? string # 用于 `update_prefab` 的名称，默认为元件名称
+function M:bind_prefab(child_name, prefab_name, ui_template, update_name)
+    table.insert(self._prefab_infos, {
+        child_name = child_name,
+        prefab_name = prefab_name,
+        ui_template = ui_template,
+        update_name = update_name or prefab_name,
+    })
+end
+
+--刷新元件
+---@param update_name string # 要刷新的元件名
+---@param count? integer # 修改元件数量
+---@param on_create? fun(index: integer, kv: table) # 创建新的元件时回调，`kv` 中默认会将 `index` 设置为这是第几个元件。
+function M:refresh_prefab(update_name, count, on_create)
+    for _, info in ipairs(self._prefab_infos) do
+        if info.update_name ~= update_name then
+            goto continue
+        end
+        local parent = self._childs[info.child_name]
+        if not parent then
+            goto continue
+        end
+        local instances = self._prefab_instances[info.child_name][update_name]
+
+        if count and count ~= #instances then
+            if count < #instances then
+                for i = count + 1, #instances do
+                    instances[i]:remove()
+                    instances[i] = nil
+                end
+            else
+                for i = #instances + 1, count do
+                    local kv = { index = i }
+                    if on_create then
+                        xpcall(on_create, log.error, i, kv)
+                    end
+
+                    local prefab = y3.ui_prefab.create(local_player, info.prefab_name, parent)
+                    local ui = prefab:get_child()
+                    ---@cast ui -?
+                    local instance = info.ui_template:attach(ui, kv)
+                    instances[i] = instance
+                end
+            end
+        end
+
+        for _, instance in ipairs(instances) do
+            instance:refresh('')
+        end
+        ::continue::
+    end
+
 end
 
 ---@private
@@ -181,7 +261,7 @@ function M:register_events()
         local ui = self._childs[info.name]
         if ui then
             ui:add_local_event(info.event, function ()
-                info.on_event(ui, local_player, self:storage_all())
+                info.on_event(ui, local_player, self)
             end)
         end
     end
@@ -218,7 +298,7 @@ function M:init()
     for _, info in ipairs(self._on_inits) do
         local ui = self._childs[info.name]
         if ui then
-            info.on_init(ui, local_player, self:storage_all())
+            info.on_init(ui, local_player, self)
         end
     end
 end
@@ -240,7 +320,7 @@ function M:refresh(name, player)
     for _, info in ipairs(infos) do
         local ui = self._childs[info.name]
         if ui then
-            info.on_refresh(ui, local_player, self:storage_all())
+            info.on_refresh(ui, local_player, self)
         end
     end
 end
