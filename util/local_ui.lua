@@ -1,7 +1,7 @@
 --本地UI逻辑框架
 ---@class LocalUILogic
 ---@field private _main UI
----@overload fun(main_name: string): self
+---@overload fun(main?: string | UI): self
 local M = Class 'LocalUILogic'
 
 ---@class LocalUILogic: Storage
@@ -26,12 +26,11 @@ local local_player = y3.player.get_local()
 ---@field event y3.Const.UIEvent
 ---@field on_event fun(ui: UI, local_player: Player)
 
-function M:__init(main_name)
+---@param path_or_ui? string | UI
+function M:__init(path_or_ui)
     if y3.game.is_debug_mode() then
         all_instances[self] = true
     end
-    ---@private
-    self._main_name = main_name
     ---@private
     self._bind_unit_attr = {}
     ---@package
@@ -44,35 +43,79 @@ function M:__init(main_name)
     ---@type LocalUILogic.OnInitInfo[]
     self._on_inits = {}
 
-    y3.ltimer.wait(0, function ()
-        self._main = y3.ui.get_ui(local_player, self._main_name)
-        assert(self._main)
-        for _, v in ipairs(self._bind_unit_attr) do
-            self:bind_unit_attr(v.child_name, v.ui_attr, v.unit_attr)
+    if type(path_or_ui) == 'string' then
+        y3.ltimer.wait(0, function ()
+            local main = y3.ui.get_ui(local_player, path_or_ui)
+            self:attach(main)
+        end)
+    end
+    if type(path_or_ui) == 'table' then
+        self:attach(path_or_ui)
+    end
+end
+
+---@package
+function M:as_template()
+    ---@private
+    self._as_template = true
+end
+
+---@private
+---@param kv? table
+---@return self
+function M:make_instance(kv)
+    local instance = New 'LocalUILogic' ()
+    instance._bind_unit_attr = self._bind_unit_attr
+    instance._on_refreshs = self._on_refreshs
+    instance._on_events = self._on_events
+    instance._on_inits = self._on_inits
+
+    if kv then
+        for k, v in pairs(kv) do
+            instance:storage_set(k, v)
         end
+    end
 
-        ---@private
-        ---@type table<string, UI|false>
-        self._childs = setmetatable({}, { __index = function (t, k)
-            local ui = self._main:get_child(k)
-            t[k] = ui or false
-            return t[k]
-        end })
+    return instance
+end
 
-        ---@private
-        ---@type table<string, LocalUILogic.OnRefreshInfo[]>
-        self._refresh_targets = setmetatable({}, { __index = function (t, k)
-            local uis = self:get_refresh_targets(k)
-            t[k] = uis
-            return t[k]
-        end })
+--附着到一个UI上
+---@param ui UI
+---@param kv? table # 数据用 `storage_get` 方法获取
+function M:attach(ui, kv)
+    assert(not self._main, '已经附着到UI上了！')
+    --如果自己是模板，就复制一个实例出来再附着
+    if self._as_template then
+        local instance = self:make_instance(kv)
+        instance:attach(ui)
+        return
+    end
+    self._main = ui
+    for _, v in ipairs(self._bind_unit_attr) do
+        self:bind_unit_attr(v.child_name, v.ui_attr, v.unit_attr)
+    end
 
-        self._childs[''] = self._main
-        self:init()
-        self:refresh('*')
+    ---@private
+    ---@type table<string, UI|false>
+    self._childs = setmetatable({}, { __index = function (t, k)
+        local ui = self._main:get_child(k)
+        t[k] = ui or false
+        return t[k]
+    end })
 
-        self:register_events()
-    end)
+    ---@private
+    ---@type table<string, LocalUILogic.OnRefreshInfo[]>
+    self._refresh_targets = setmetatable({}, { __index = function (t, k)
+        local uis = self:get_refresh_targets(k)
+        t[k] = uis
+        return t[k]
+    end })
+
+    self._childs[''] = self._main
+    self:init()
+    self:refresh('*')
+
+    self:register_events()
 end
 
 --将子控件的属性绑定到单位的属性
@@ -213,3 +256,23 @@ y3.reload.onBeforeReload(function (reload, willReload)
         end
     end
 end)
+
+---@class LocalUILogic.API
+local API = {}
+
+--创建一个本地UI逻辑
+---@param path_or_ui string | UI
+---@return LocalUILogic
+function API.create(path_or_ui)
+    return New 'LocalUILogic' (path_or_ui)
+end
+
+--创建一个本地UI逻辑的模板，之后调用 `attach` 方法附着到一个UI上。
+---@return LocalUILogic
+function API.template()
+    local logic = New 'LocalUILogic' ()
+    logic:as_template()
+    return logic
+end
+
+return API

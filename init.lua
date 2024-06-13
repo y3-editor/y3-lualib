@@ -105,8 +105,7 @@ y3.network      = require 'y3.util.network'
 y3.eca          = require 'y3.util.eca_helper'
 y3.base64       = require 'y3.util.base64'
 y3.aes          = require 'y3.util.aes'
-
-require 'y3.util.local_ui_logic'
+y3.local_ui     = require 'y3.util.local_ui'
 
 pcall(function ()
     require 'y3-helper.meta'

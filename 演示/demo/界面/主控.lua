@@ -1,6 +1,6 @@
 -- 整个UI系统是异步的，请注意不要使用同步功能
 
-local MAIN = New 'LocalUILogic' ('Y3主控')
+local MAIN = y3.local_ui.create('Y3主控')
 
 MAIN:bind_unit_attr('头像.属性.攻击速度.文本', '文本', '攻击速度')
 MAIN:bind_unit_attr('头像.属性.移动速度.文本', '文本', '移动速度')
