@@ -1884,7 +1884,7 @@ function M:set_move_collision(collision_layer, enable)
 end
 
 -- 获取所属玩家
----@return Player?
+---@return Player
 function M:get_owner_player()
     local role_id = self.phandle:api_get_role_id()
     if not role_id then
