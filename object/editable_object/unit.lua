@@ -1549,6 +1549,9 @@ end
 ---获取单位名称
 ---@return string unit_name  单位名称
 function M:get_name()
+    if not self.phandle.api_get_name then
+        return '<无效单位>'
+    end
     return self.phandle:api_get_name() or ''
 end
 
