@@ -28,9 +28,8 @@ local local_player = y3.player.get_local()
 
 ---@class LocalUILogic.PrefabInfo
 ---@field child_name string
----@field prefab_name string
----@field update_name string
----@field ui_template LocalUILogic
+---@field prefab_logic LocalUILogic
+---@field prefab_token any
 
 ---@param path_or_ui? string | UI
 function M:__init(path_or_ui)
@@ -73,9 +72,12 @@ function M:remove()
 end
 
 ---@package
-function M:as_template()
+---@param prefab_name string
+function M:as_prefab(prefab_name)
     ---@private
     self._as_template = true
+    ---@private
+    self._prefab_name = prefab_name
 end
 
 ---@private
@@ -211,33 +213,31 @@ end
 
 --绑定元件
 ---@param child_name string # 空字符串表示主控件
----@param prefab_name string # 元件名称
----@param ui_template LocalUILogic # 使用 `y3.local_ui.template` 创建的模板来初始化新建的元件
----@param update_name? string # 用于 `update_prefab` 的名称，默认为元件名称
-function M:bind_prefab(child_name, prefab_name, ui_template, update_name)
+---@param prefab_logic LocalUILogic # 使用 `y3.local_ui.prefab` 创建的元件逻辑
+---@param prefab_token? any # 如果你在不同的控件下绑定了相同的元件且需要分开刷新，可以为它们设置不同的 token
+function M:bind_prefab(child_name, prefab_logic, prefab_token)
     table.insert(self._prefab_infos, {
         child_name = child_name,
-        prefab_name = prefab_name,
-        ui_template = ui_template,
-        update_name = update_name or prefab_name,
+        prefab_logic = prefab_logic,
+        prefab_token = prefab_token or prefab_logic,
     })
 end
 
 --刷新元件
----@param update_name string # 要刷新的元件名
+---@param prefab_token any # 要刷新的元件，默认为绑定时的元件逻辑
 ---@param count? integer # 修改元件数量
 ---@param on_create? fun(index: integer, kv: table) # 创建新的元件时回调，`kv` 中默认会将 `index` 设置为这是第几个元件。
-function M:refresh_prefab(update_name, count, on_create)
+function M:refresh_prefab(prefab_token, count, on_create)
     for _, info in ipairs(self._prefab_infos) do
-        if info.update_name ~= update_name then
+        if info.prefab_token ~= prefab_token then
             goto continue
         end
         local parent = self._childs[info.child_name]
         if not parent then
             goto continue
         end
-        local instances = self._prefab_instances[info.child_name][update_name]
-        local pool = self._prefab_pool[info.child_name][update_name]
+        local instances = self._prefab_instances[info.child_name][prefab_token]
+        local pool = self._prefab_pool[info.child_name][prefab_token]
 
         if count and count ~= #instances then
             if count < #instances then
@@ -269,9 +269,9 @@ function M:refresh_prefab(update_name, count, on_create)
                         instance:init()
                         instance:refresh('*')
                     else
-                        local ui = y3.ui_prefab.create(local_player, info.prefab_name, parent):get_child()
+                        local ui = y3.ui_prefab.create(local_player, info.prefab_logic._prefab_name, parent):get_child()
                         ---@cast ui -?
-                        instance = info.ui_template:attach(ui, kv)
+                        instance = info.prefab_logic:attach(ui, kv)
                     end
 
                     instances[i] = instance
@@ -382,11 +382,12 @@ function API.create(path_or_ui)
     return New 'LocalUILogic' (path_or_ui)
 end
 
---创建一个本地UI逻辑的模板，之后调用 `attach` 方法附着到一个UI上。
+--创建一个用于元件的本地UI逻辑
+---@param prefab_name string
 ---@return LocalUILogic
-function API.template()
+function API.prefab(prefab_name)
     local logic = New 'LocalUILogic' ()
-    logic:as_template()
+    logic:as_prefab(prefab_name)
     return logic
 end
 
