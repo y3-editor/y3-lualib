@@ -81,6 +81,9 @@ local function getTostring(obj)
     if type(str) ~= 'string' then
         return nil
     end
+    if #str > 100 then
+        str = str:sub(1, 100) .. '...(len=' .. #str .. ')'
+    end
     return str
 end
 
