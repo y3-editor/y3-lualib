@@ -120,8 +120,8 @@ local function formatName(obj)
         return 'string:' .. str
     elseif tp == 'function' then
         local info = getinfo(obj, 'S')
-        if info.what == 'c' then
-            return formatObject(obj, 'function', 'C')
+        if info.what == 'C' then
+            return formatObject(obj, 'function', '=[C]')
         elseif info.what == 'main' then
             return formatObject(obj, 'function', 'main')
         else
@@ -211,6 +211,19 @@ m.snapshot = private(function ()
     local find
     local mark = private {}
 
+    local originFormatName = formatName
+    local formatCache = private {}
+
+    local function formatName(obj)
+        if obj == nil then
+            return originFormatName(obj)
+        end
+        if not formatCache[obj] then
+            formatCache[obj] = originFormatName(obj)
+        end
+        return formatCache[obj]
+    end
+
     local function isGCObject(v)
         local tp = type(v)
         return tp == 'table'
@@ -284,7 +297,7 @@ m.snapshot = private(function ()
         if MTInfo then
             result[#result+1] = private {
                 type = 'metatable',
-                name = '',
+                name = formatName(getmetatable(t)),
                 info = MTInfo,
             }
         end
@@ -331,7 +344,7 @@ m.snapshot = private(function ()
         if MTInfo then
             result[#result+1] = private {
                 type = 'metatable',
-                name = '',
+                name = formatName(getmetatable(u)),
                 info = MTInfo,
             }
         end
