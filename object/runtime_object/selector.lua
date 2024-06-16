@@ -43,8 +43,26 @@ function M:in_range(cent, radius)
     return self
 end
 
--- 条件 - 属于某个玩家
----@param p Player?
+-- 条件 - 是某个玩家的敌人
+---@param p Player
+---@return self
+function M:is_enemy(p)
+    ---@private
+    self._owner_player = y3.player_group.get_enemy_player_group_by_player(p)
+    return self
+end
+
+-- 条件 - 是某个玩家的同盟
+---@param p Player
+---@return self
+function M:is_ally(p)
+    ---@private
+    self._owner_player = y3.player_group.get_ally_player_group_by_player(p)
+    return self
+end
+
+-- 条件 - 属于某个玩家或某个玩家组
+---@param p Player | PlayerGroup
 ---@return self
 function M:of_player(p)
     ---@private
