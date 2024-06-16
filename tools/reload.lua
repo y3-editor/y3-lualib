@@ -217,13 +217,14 @@ end
 
 --立即执行回调函数，之后每当发生重载时，
 --会再次执行这个回调函数。
----@generic R
----@param callback fun(trash: fun(obj: any)): R?
----@return R
+---@generic R1, R2
+---@param callback fun(trash: fun(obj: R2): R2): R1?
+---@return R1
 function M.recycle(callback)
     local trashList = {}
     local function trash(obj)
         trashList[#trashList+1] = obj
+        return obj
     end
     M.onBeforeReload(function ()
         for _, obj in ipairs(trashList) do

@@ -22,3 +22,13 @@ function M:storage_get(key)
     end
     return self.storage_table[key]
 end
+
+-- 获取存储数据的容器
+---@return table
+function M:storage_all()
+    if not self.storage_table then
+        ---@private
+        self.storage_table = {}
+    end
+    return self.storage_table
+end

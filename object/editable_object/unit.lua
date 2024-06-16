@@ -1404,11 +1404,11 @@ function M:set_collision_radius(radius)
 end
 
 ---获取单位所属玩家
----@return Player? player 单位所属玩家
+---@return Player player 单位所属玩家
 function M:get_owner()
     local py_player = self.phandle:api_get_role()
     if not py_player then
-        return nil
+        return y3.player(31)
     end
     return y3.player.get_by_handle(py_player)
 end
@@ -1549,6 +1549,9 @@ end
 ---获取单位名称
 ---@return string unit_name  单位名称
 function M:get_name()
+    if not self.phandle.api_get_name then
+        return '<无效单位>'
+    end
     return self.phandle:api_get_name() or ''
 end
 
@@ -1884,11 +1887,11 @@ function M:set_move_collision(collision_layer, enable)
 end
 
 -- 获取所属玩家
----@return Player?
+---@return Player
 function M:get_owner_player()
     local role_id = self.phandle:api_get_role_id()
     if not role_id then
-        return nil
+        return y3.player(31)
     end
     return y3.player.get_by_id(role_id)
 end

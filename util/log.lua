@@ -63,9 +63,10 @@ log = New 'Log' {
         return GameAPI.get_cur_game_time():float()
     end,
     print = function (level, message, timeStamp)
+        local message_with_level = string.format('[%5s]%s', level, message)
         if level == 'error' or level == 'fatal' then
             if upload_traceback then
-                upload_traceback(message)
+                upload_traceback(message_with_level)
             end
         end
         local logger = y3.config.log.logger
@@ -87,13 +88,13 @@ log = New 'Log' {
             end
         end
         if y3.config.log.toConsole then
-            consoleprint(message)
+            consoleprint(message_with_level)
         end
         if y3.config.log.toGame then
-            print_to_game(message)
+            print_to_game(message_with_level)
         end
         if y3.config.log.toHelper then
-            y3.develop.helper.print(message)
+            y3.develop.helper.print(message_with_level)
         end
     end,
     traceback = function (message, level)
@@ -113,9 +114,19 @@ log = New 'Log' {
 --等价于 `log.debug`。另外在开发模式中，还会确保打印到游戏窗口中。
 ---@param ... any
 function print(...)
-    local message = log.debug(...)
-    if  y3.game.is_debug_mode()
-    and not y3.config.log.toGame then
-        print_to_game(message)
+    local strs = {...}
+    for i = 1, select('#', ...) do
+        strs[i] = tostring(strs[i])
     end
+    local message = table.concat(strs, '\t')
+    if y3.game.is_debug_mode() then
+        print_to_game(message)
+        print_to_game(message)
+        y3.develop.helper.print(message)
+    end
+
+    local printter = log.option.print
+    log.option.print = nil
+    log.debug(...)
+    log.option.print = printter
 end

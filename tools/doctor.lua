@@ -81,6 +81,9 @@ local function getTostring(obj)
     if type(str) ~= 'string' then
         return nil
     end
+    if #str > 100 then
+        str = str:sub(1, 100) .. '...(len=' .. #str .. ')'
+    end
     return str
 end
 
@@ -117,8 +120,8 @@ local function formatName(obj)
         return 'string:' .. str
     elseif tp == 'function' then
         local info = getinfo(obj, 'S')
-        if info.what == 'c' then
-            return formatObject(obj, 'function', 'C')
+        if info.what == 'C' then
+            return formatObject(obj, 'function', '=[C]')
         elseif info.what == 'main' then
             return formatObject(obj, 'function', 'main')
         else
@@ -208,6 +211,27 @@ m.snapshot = private(function ()
     local find
     local mark = private {}
 
+    local originFormatName = formatName
+    local formatCache = private {}
+
+    local function formatName(obj)
+        if obj == nil then
+            return originFormatName(obj)
+        end
+        if not formatCache[obj] then
+            formatCache[obj] = originFormatName(obj)
+        end
+        return formatCache[obj]
+    end
+
+    local function isGCObject(v)
+        local tp = type(v)
+        return tp == 'table'
+            or tp == 'userdata'
+            or tp == 'function'
+            or tp == 'thread'
+    end
+
     local function findTable(t, result)
         result = result or {}
         local mt = getmetatable(t)
@@ -227,7 +251,7 @@ m.snapshot = private(function ()
             if not wk then
                 local keyInfo = find(k)
                 if keyInfo then
-                    if wv then
+                    if wv and isGCObject(v) then
                         find(v)
                         local valueResults = mark[v]
                         if valueResults then
@@ -249,7 +273,7 @@ m.snapshot = private(function ()
             if not wv then
                 local valueInfo = find(v)
                 if valueInfo then
-                    if wk then
+                    if wk and isGCObject(k) then
                         find(k)
                         local keyResults = mark[k]
                         if keyResults then
@@ -273,7 +297,7 @@ m.snapshot = private(function ()
         if MTInfo then
             result[#result+1] = private {
                 type = 'metatable',
-                name = '',
+                name = formatName(getmetatable(t)),
                 info = MTInfo,
             }
         end
@@ -320,7 +344,7 @@ m.snapshot = private(function ()
         if MTInfo then
             result[#result+1] = private {
                 type = 'metatable',
-                name = '',
+                name = formatName(getmetatable(u)),
                 info = MTInfo,
             }
         end

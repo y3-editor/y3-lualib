@@ -1,7 +1,7 @@
 -- 整个UI系统是异步的，请注意不要使用同步功能
 local MAIN = require 'y3.演示.demo.界面.主控'
 
-local DESC = New 'LocalUILogic' ('Y3描述')
+local DESC = y3.local_ui.create('Y3描述')
 
 ---@type Ability?
 local current_ability

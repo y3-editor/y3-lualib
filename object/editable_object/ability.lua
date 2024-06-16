@@ -48,6 +48,7 @@ function M:__del()
         y3.ltimer.loop_frame(1, function (timer, count)
             if not GameAPI.ability_is_exist(self.handle)
             or self._removed_by_py then
+                timer:remove()
                 return
             end
             self.phandle:api_remove()

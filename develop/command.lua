@@ -135,7 +135,7 @@ M.register('CT', {
         local lines = {}
         for _, result in ipairs(results) do
             result[1] = 'root'
-            lines[#lines+1] = table.concat(result, '->')
+            lines[#lines+1] = table.concat(result, '\n\t')
         end
         local content = table.concat(lines, '\n')
         ---@diagnostic disable-next-line: undefined-global

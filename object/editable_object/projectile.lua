@@ -97,7 +97,7 @@ end
 ---获取投射物剩余持续时间
 ---@return number duration 投射物剩余持续时间
 function M:get_left_time()
-    return self.phandle:api_get_left_time() or 0.0
+    return y3.helper.tonumber(self.phandle:api_get_left_time()) or 0.0
 end
 
 ---获取投射物的拥有者

@@ -15,7 +15,7 @@ local M = Class 'Trigger'
 ---@alias Trigger.CallBack fun(trg: Trigger, ...): any, any, any, any
 
 
-M.all_triggers = setmetatable({}, y3.util.MODE_K)
+M.all_triggers = setmetatable({}, y3.util.MODE_V)
 
 ---@param event Event
 ---@param event_args? any[]
