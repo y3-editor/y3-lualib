@@ -41,7 +41,7 @@ local function runCode(code)
     end
     if not f then
         assert(err)
-        print_to_console((err:gsub('console:1:', 'Error: ')))
+        print_to_console((err:gsub('console:1:', '[Error]: ')))
         return
     end
     local ok, result = pcall(f)
