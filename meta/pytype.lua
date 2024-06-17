@@ -31,6 +31,8 @@
 ---@class py.CampID: integer
 --单位ID
 ---@class py.UnitID: integer
+--装饰物ID
+---@class py.DecoID: integer
 --主控单位ID
 ---@class py.HighLightUnitID: integer
 --投射物ID
@@ -169,6 +171,8 @@
 ---@class py.RoleGroup: py.UIntList
 --物品对象
 ---@class py.Item: py.DynamicTypeMeta
+--装饰物对象
+---@class py.DecoList: py.List
 --声音对象
 ---@class py.SoundEntity: py.DynamicTypeMeta
 --物品组
@@ -283,6 +287,8 @@
 ---@class py.MouseWheel: integer
 --
 ---@class py.GameMode: integer
+--
+---@class py.MapId: string
 --
 ---@class py.StartMode: integer
 --

@@ -5621,6 +5621,114 @@ event.ET_TRIGGER_UI_VIDEO_END_EVENT = {
     },
 }
 
+---@class EventParam.ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+
+--UI输入框获取焦点事件
+event.ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+
+--UI输入框失去焦点事件
+event.ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+}
+
+---@class EventParam.ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT
+---@field player Player # 玩家
+---@field ui_event_name string # ui事件变量名
+---@field comp_name string # 触发事件控件名称
+---@field str1 string # 文本内容
+
+--UI输入框内容改变事件
+event.ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__ui_event_name",
+        type = "string",
+        lua_name = "ui_event_name",
+        lua_type = "string",
+        desc = "ui事件变量名",
+        lua_desc = "ui事件变量名",
+    },
+    [3] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+    [4] = {
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "文本内容",
+        lua_desc = "文本内容",
+    },
+}
+
 ---@class EventParam.ET_GLOBAL_EVENT_TO_UI_WITH_DICT
 ---@field event_name string # ui事件名
 ---@field args py.Dict # 参数
@@ -7042,6 +7150,7 @@ event.ET_START_SKILL_POINTER = {
 ---@field player Player # 玩家
 ---@field unit Unit # 释放单位
 ---@field ability_seq py.AbilitySeq # 技能Seq
+---@field new_unit_key py.UnitKey # 要建造单位的物编ID
 ---@field ability_target_pos Point # 施法目标位置
 ---@field idx integer # 建造事件唯一ID
 
@@ -7072,6 +7181,14 @@ event.ET_BUILD_SKILL_BEFORE_RELEASE = {
         lua_desc = "技能Seq",
     },
     [4] = {
+        name = "__new_unit_key",
+        type = "py.UnitKey",
+        lua_name = "new_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "要建造单位的物编ID",
+        lua_desc = "要建造单位的物编ID",
+    },
+    [5] = {
         name = "__ability_target_pos",
         type = "py.Point",
         lua_name = "ability_target_pos",
@@ -7079,7 +7196,7 @@ event.ET_BUILD_SKILL_BEFORE_RELEASE = {
         desc = "施法目标位置",
         lua_desc = "施法目标位置",
     },
-    [5] = {
+    [6] = {
         name = "__idx",
         type = "integer",
         lua_name = "idx",
