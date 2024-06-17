@@ -246,13 +246,20 @@ function M.createTreeNode(name, optional)
     return treeNode
 end
 
-function M.create()
-    local suc, port = pcall(require, 'log.helper_port')
-    if not suc or math.type(port) ~= 'integer' then
-        return
-    end
+--初始化与《Y3开发助手》的连接。如果用VSCode启动游戏，会自动连接。
+--其他情况若有需求可以调用此函数连接。
+---@param port? integer
+function M.create(port)
+    if port then
+        createClient(port)
+    else
+        local suc, port = pcall(require, 'log.helper_port')
+        if not suc or math.type(port) ~= 'integer' then
+            return
+        end
 
-    createClient(port)
+        createClient(port)
+    end
 end
 
 --注册一个方法
