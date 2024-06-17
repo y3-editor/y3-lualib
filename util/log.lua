@@ -121,7 +121,6 @@ function print(...)
     local message = table.concat(strs, '\t')
     if y3.game.is_debug_mode() then
         print_to_game(message)
-        print_to_game(message)
         y3.develop.helper.print(message)
     end
 
