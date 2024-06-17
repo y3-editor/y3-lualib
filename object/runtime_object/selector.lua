@@ -205,6 +205,7 @@ function M:get()
         ---@diagnostic disable-next-line: param-type-mismatch
         pos.handle,
         shape.handle,
+        ---@diagnostic disable-next-line: param-type-mismatch
         self._owner_player and self._owner_player.handle or nil,
         self._visible_player and self._visible_player.handle or nil,
         self._invisible_player and self._invisible_player.handle or nil,
