@@ -55,6 +55,8 @@ local function print_to_game(message)
     y3.ui.display_message(y3.player.get_local(), remove_bad_utf8(table.concat(log_cache, '\n')), 60)
 end
 
+local enable_print = true
+
 ---@diagnostic disable-next-line: lowercase-global
 log = New 'Log' {
     level = 'trace',
@@ -88,13 +90,19 @@ log = New 'Log' {
             end
         end
         if y3.config.log.toConsole then
-            consoleprint(message_with_level)
+            if enable_print then
+                consoleprint(message_with_level)
+            end
         end
         if y3.config.log.toGame then
-            print_to_game(message_with_level)
+            if enable_print then
+                print_to_game(message_with_level)
+            end
         end
         if y3.config.log.toHelper then
-            y3.develop.helper.print(message_with_level)
+            if enable_print then
+                y3.develop.helper.print(message_with_level)
+            end
         end
     end,
     traceback = function (message, level)
@@ -120,12 +128,12 @@ function print(...)
     end
     local message = table.concat(strs, '\t')
     if y3.game.is_debug_mode() then
+        consoleprint(message)
         print_to_game(message)
         y3.develop.helper.print(message)
     end
 
-    local printter = log.option.print
-    log.option.print = nil
+    enable_print = false
     log.debug(...)
-    log.option.print = printter
+    enable_print = true
 end
