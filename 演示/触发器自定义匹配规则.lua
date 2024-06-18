@@ -1,3 +1,30 @@
+y3.game:event_on('#417修改', 1, function(trg, ...)
+    print('只有这里收到了, 整数参数')
+end)
+
+y3.game:event_on('#417修改', 2, function(trg, ...)
+    print('整数参数')
+end)
+
+y3.game:event_on('#417修改', '1', function (trg, ...)
+    print('只有这里收到了, 字符串参数')
+end)
+
+y3.game:event_on('#417修改', '2', function(trg, ...)
+    print('字符串参数')
+end)
+
+y3.game:event_on('#417修改', y3.player(1), function(trg, ...)
+    print('只有这里收到了,  Y3实例')
+end)
+
+y3.game:event_on('#417修改', y3.player(2), function(trg, ...)
+    print('Y3实例')
+end)
+
+
+
+
 y3.game:event("键盘-按下", y3.const.KeyboardKey["F1"], function(trg, data)
     ---@param args any[]
     ---@param match_func fun(fire_args: any[]?, event_args: any[]?): boolean
@@ -47,4 +74,12 @@ y3.game:event("键盘-按下", y3.const.KeyboardKey["F1"], function(trg, data)
 
 
     data.player:event_notify('获得')
+
+
+
+    y3.game:event_dispatch_with_args('#417修改', 1)
+    y3.game:event_dispatch_with_args('#417修改', '1')
+    y3.game:event_dispatch_with_args('#417修改', y3.player(1))
+
+
 end)
