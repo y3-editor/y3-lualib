@@ -153,6 +153,15 @@ function M:set_image_color(r, g, b, a)
     return self
 end
 
+--设置图片颜色(hex)
+---@param color string hex
+---@param a number 透明度
+---@return self
+function M:set_image_color_hex(color, a)
+    GameAPI.set_ui_image_color_hex(self.player.handle, self.handle, color, a)
+    return self
+end
+
 --设置文本
 ---@param str string 文本
 ---@return self
