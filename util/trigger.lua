@@ -80,9 +80,25 @@ end
 ---@return boolean
 function M:is_match_args(fire_args)
     local event_args = self._event_args
-    if fire_args == event_args  then
-        return true
+    local event_type = type(event_args)
+
+    -- 如果类型不同直接返回false
+    if event_type ~= type(fire_args) then
+        return false
     end
+
+    -- 如果不是table 直接判断值是不是相等
+    if event_type ~= "table" then
+        return event_args == fire_args
+    end
+
+    -- 判断是不是Y3实例, 如果是, 返回对象是否相等
+    ---@diagnostic disable-next-line: undefined-field
+    if event_args.__name then
+        return event_args == fire_args
+    end
+    
+    -- 最后在假定是数组进行判断
     local fire_args_n = fire_args and #fire_args or 0
     local event_args_n = event_args and #event_args or 0
     -- 事件参数数量多余触发器参数数量，肯定不匹配，返回false
