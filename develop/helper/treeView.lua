@@ -82,10 +82,6 @@ function Node:__init(name, optional)
     self.id = Node.maxID
 
     Node.nodeMap[self.id] = self
-
-    if optional.onInit then
-        xpcall(optional.onInit, log.error, self)
-    end
 end
 
 function Node:__del()
@@ -174,7 +170,7 @@ function Node:refresh()
     if not Node.nodeMap[self.id] then
         return
     end
-    if not self._visible then
+    if not self._inited then
         return
     end
     helper.notify('refreshTreeNode', {
@@ -195,6 +191,12 @@ function Node:changeVisible(visible)
     end
     self._visible = visible
     if visible then
+        if not self._inited then
+            self._inited = true
+            if self.optional.onInit then
+                xpcall(self.optional.onInit, log.error, self)
+            end
+        end
         if self.optional.onVisible then
             xpcall(self.optional.onVisible, log.error, self)
         end
