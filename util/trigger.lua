@@ -82,6 +82,10 @@ function M:is_match_args(fire_args)
     local event_args = self._event_args
     local event_type = type(event_args)
 
+    if event_args == nil then
+        return true
+    end
+
     -- 如果类型不同直接返回false
     if event_type ~= type(fire_args) then
         return false
