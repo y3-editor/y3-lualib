@@ -56,7 +56,8 @@ end
 ---@field description? string # 描述
 ---@field icon? string # 图标
 ---@field tooltip? string # 提示
----@field package childs? Develop.Helper.TreeNode[]
+---@field childs? Develop.Helper.TreeNode[]
+---@field package lastChilds? Develop.Helper.TreeNode[]
 ---@overload fun(name: string, optional: Develop.Helper.TreeNode.Optional): Develop.Helper.TreeNode
 local Node = Class 'Develop.Helper.TreeNode'
 Extends('Develop.Helper.TreeNode', 'GCHost')
@@ -92,8 +93,8 @@ function Node:__del()
 
     self:changeVisible(false)
 
-    if self.childs then
-        for _, child in ipairs(self.childs) do
+    if self.lastChilds then
+        for _, child in ipairs(self.lastChilds) do
             Delete(child)
         end
     end
@@ -156,7 +157,19 @@ Node.__setter.icon = function (self, icon)
     self:refresh()
 end
 
----@package
+---@private
+Node._childs = nil
+
+Node.__getter.childs = function (self)
+    return self._childs or self.optional.childs
+end
+
+Node.__setter.childs = function (self, childs)
+    self._childs = childs
+    self:refresh()
+end
+
+--刷新此节点
 function Node:refresh()
     if not Node.nodeMap[self.id] then
         return
@@ -237,7 +250,7 @@ helper.registerMethod('getTreeNode', function (params)
         desc = node.description,
         tip  = node.tooltip,
         icon = node.icon,
-        hasChilds = (node.optional.childs or node.optional.childsGetter) and true,
+        hasChilds = (node.childs or node.optional.childsGetter) and true,
         canClick  = node.optional.onClick and true,
     }
 end)
@@ -249,7 +262,7 @@ helper.registerMethod('getChildTreeNodes', function (params)
     if not node then
         return
     end
-    local childs = node.optional.childs
+    local childs = node.childs
     local childsGetter = node.optional.childsGetter
     if not childs and not childsGetter then
         return
@@ -267,7 +280,7 @@ helper.registerMethod('getChildTreeNodes', function (params)
 
     ---@param newChilds Develop.Helper.TreeNode[]
     local function updateChilds(newChilds)
-        local lastChilds = node.childs
+        local lastChilds = node.lastChilds
         if lastChilds and lastChilds ~= newChilds then
             local newMap = {}
             for _, v in ipairs(newChilds) do
@@ -279,7 +292,7 @@ helper.registerMethod('getChildTreeNodes', function (params)
                 end
             end
         end
-        node.childs = newChilds
+        node.lastChilds = newChilds
     end
 
     if childsGetter then

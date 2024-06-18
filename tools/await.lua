@@ -1,5 +1,5 @@
 ---@class Await
-local M = Class 'Await'
+local M = {}
 
 ---@type fun(traceback: string)?
 local errorHandler
