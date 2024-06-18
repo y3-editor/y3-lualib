@@ -63,11 +63,9 @@ function M.awaitRequest(method, params)
     if not client then
         return
     end
-    local co = coroutine.running()
-    M.request(method, params, function (data)
-        coroutine.resume(co, data)
+    return y3.await.yield(function (resume)
+        M.request(method, params, resume)
     end)
-    coroutine.yield()
 end
 
 --向《Y3开发助手》发送通知

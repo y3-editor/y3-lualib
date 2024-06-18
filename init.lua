@@ -13,6 +13,7 @@ y3.class   = require 'y3.tools.class'
 y3.util    = require 'y3.tools.utility'
 y3.json    = require 'y3.tools.json'
 y3.inspect = require 'y3.tools.inspect'
+y3.await   = require 'y3.tools.await'
 pcall(function ()
     y3.doctor = require 'y3.tools.doctor'
 end)
@@ -128,6 +129,10 @@ end)
 GlobalAPI.api_stop_luagc_control()
 collectgarbage 'restart'
 collectgarbage 'generational'
+
+--对await进行一些配置
+y3.await.setErrorHandler(log.error)
+y3.await.setSleepWaker(y3.ltimer.wait)
 
 log.info('LuaLib版本：', y3.version)
 
