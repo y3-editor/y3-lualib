@@ -49,6 +49,7 @@ end
 ---@field onClick? fun(node: Develop.Helper.TreeNode) # 当节点被点击时调用
 ---@field onExpand? fun(node: Develop.Helper.TreeNode) # 当节点被展开时调用
 ---@field onCollapse? fun(node: Develop.Helper.TreeNode) # 当节点被折叠时调用
+---@field onInit? fun(node: Develop.Helper.TreeNode) # 当节点创建后调用，只会调用一次
 
 ---@class Develop.Helper.TreeNode: GCHost, Class.Base
 ---@field name string
@@ -80,6 +81,10 @@ function Node:__init(name, optional)
     self.id = Node.maxID
 
     Node.nodeMap[self.id] = self
+
+    if optional.onInit then
+        xpcall(optional.onInit, log.error, self)
+    end
 end
 
 function Node:__del()
