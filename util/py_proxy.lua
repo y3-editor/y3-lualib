@@ -6,6 +6,8 @@ local isExist = GameAPI.common_is_exist
 local RAW  = {'<RAW>'}
 local DEAD = {'<DEAD>'}
 
+local dummy = function () end
+
 local proxyMT = { __index = function (self, key)
     local raw = self[RAW]
     local f = raw[key]
@@ -35,6 +37,11 @@ local proxyMT = { __index = function (self, key)
             return call(f, raw, ...)
         end
         return self[key]
+    end
+    if tp == 'nil' then
+        if self[DEAD] and not isExist(raw) then
+            return dummy
+        end
     end
     return f
 end }
