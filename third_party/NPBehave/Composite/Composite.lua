@@ -1,3 +1,4 @@
+local ipairs = ipairs
 local superName = "NPBehave.Container"
 
 ---@class NPBehave.Composite.Composite: NPBehave.Container

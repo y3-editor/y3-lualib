@@ -1,3 +1,4 @@
+local assert = assert
 ---@class NPBehave.Decorator.WaitForCondition : NPBehave.Decorator.Decorator
 ---@overload fun(condition: fun():boolean, checkInterval: number, randomVariance: number, decoratee: NPBehave.Node): self
 local WaitForCondition = Class(NPBehave.ClassName.WaitForCondition)

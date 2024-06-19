@@ -1,3 +1,4 @@
+local assert = assert
 ---@class NPBehave.Container: NPBehave.Node
 ---@overload fun(name: string): self
 ---@field Collapse boolean 崩溃

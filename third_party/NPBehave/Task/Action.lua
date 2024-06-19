@@ -1,3 +1,4 @@
+local assert = assert
 ---@class NPBehave.Task.Action
 ---@overload fun(data: NPBehave.Task.Action.InitParam): self
 local Action = Class("NPBehave.Task.Action")
@@ -76,19 +77,21 @@ end
 function Action:OnUpdateFunc()
     local result = self._multiFrameFunc(false)
     if result ~= NPBehaveTaskActionResult.Progress and result ~= NPBehaveTaskActionResult.Blocked then
-        self.RootNode.Clock:RemoveUpdateObserver(self.OnUpdateFunc)
+        self.RootNode.Clock:RemoveUpdateObserver(self:bind(self.OnUpdateFunc))
         self:Stopped(result == NPBehaveTaskActionResult.Success)
     end
 end
+
 ---@private
 function Action:OnUpdateFunc2()
-    local result = self._multiFrameFunc2(self._bWasBlocked and NPBehaveTaskActionRequest.Start or NPBehaveTaskActionRequest.Update)
+    local result = self._multiFrameFunc2(self._bWasBlocked and NPBehaveTaskActionRequest.Start or
+        NPBehaveTaskActionRequest.Update)
     if result == NPBehaveTaskActionResult.Blocked then
         self._bWasBlocked = true
     elseif result == NPBehaveTaskActionResult.Progress then
         self._bWasBlocked = false
     else
-        self.RootNode.Clock:RemoveUpdateObserver(self.OnUpdateFunc2)
+        self.RootNode.Clock:RemoveUpdateObserver(self:bind(self.OnUpdateFunc2))
         self:Stopped(result == NPBehaveTaskActionResult.Success)
     end
 end
@@ -98,16 +101,19 @@ end
 function Action:DoCancel()
     if self._multiFrameFunc ~= nil then
         local result = self._multiFrameFunc(true)
-        assert(result ~= NPBehaveTaskActionResult.Progress, "The Task has to return Result.SUCCESS, Result.FAILED/BLOCKED after being cancelled!")
-        self.RootNode.Clock:RemoveUpdateObserver(self.OnUpdateFunc)
+        assert(result ~= NPBehaveTaskActionResult.Progress,
+            "The Task has to return Result.SUCCESS, Result.FAILED/BLOCKED after being cancelled!")
+        self.RootNode.Clock:RemoveUpdateObserver(self:bind(self.OnUpdateFunc))
         self:Stopped(result == NPBehaveTaskActionResult.Success)
     elseif self._multiFrameFunc2 ~= nil then
         local result = self._multiFrameFunc2(NPBehaveTaskActionRequest.Cancel)
-        assert(result ~= NPBehaveTaskActionResult.Progress, "The Task has to return Result.SUCCESS or Result.FAILED/BLOCKED after being cancelled!")
-        self.RootNode.Clock:RemoveUpdateObserver(self.OnUpdateFunc2)
+        assert(result ~= NPBehaveTaskActionResult.Progress,
+            "The Task has to return Result.SUCCESS or Result.FAILED/BLOCKED after being cancelled!")
+        self.RootNode.Clock:RemoveUpdateObserver(self:bind(self.OnUpdateFunc2))
         self:Stopped(result == NPBehaveTaskActionResult.Success)
     else
         assert(false, "DoStop called for a single frame action on " .. tostring(self))
     end
 end
+
 return Action
