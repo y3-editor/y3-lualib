@@ -443,6 +443,12 @@ function M:remove_multi_state(state_enum)
     self.handle:api_remove_multi_state(state_enum)
 end
 
+---是否有某个状态
+---@param state_enum integer 状态
+---@return boolean?
+function M:has_state(state_enum)
+    return self.handle:api_has_state(state_enum)
+end
 
 ---添加状态
 ---@param state_enum integer|y3.Const.UnitEnumState 状态名
@@ -1775,6 +1781,8 @@ function M:is_in_battle()
 end
 
 ---是否有指定状态
+--> 请改用 `has_state` 方法
+---@deprecated
 ---@param state_name integer 状态
 ---@return boolean has_buff_status 有指定状态
 function M:has_buff_status(state_name)
