@@ -24,7 +24,6 @@ local M = Class 'Develop.Command'
 ---@private
 ---@type table<string, Develop.Command.Info>
 M.commands = {}
-M.params = {}
 
 -- 注册作弊指令（指令名称无视大小写）
 ---@param command string
@@ -241,7 +240,7 @@ function M.getAllCommands()
     end)
 end
 
----@return table
+---@return Develop.Command.ExecuteParam
 function M.getParams()
     return M.params
 end
