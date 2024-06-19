@@ -1,4 +1,5 @@
-local superName = "NPBehave.Decorator.Decorator"
+local assert = assert
+local superName = NPBehave.ClassName.Decorator
 
 ---@class NPBehave.Root: NPBehave.Decorator.Decorator
 ---@field private _blackboard NPBehave.Blackboard
@@ -7,11 +8,10 @@ local superName = "NPBehave.Decorator.Decorator"
 ---@field Clock NPBehave.Clock `__getter`
 ---@field package __super NPBehave.Decorator.Decorator
 ---@overload fun(mainNode: NPBehave.Node, blackboard: NPBehave.Blackboard, clock: NPBehave.Clock): self
-local Root = Class("NPBehave.Root", superName, function (self, super, ...)
+local Root = Class("NPBehave.Root", superName, function(self, super, ...)
     local mainNode = ...
     super("Root", mainNode)
 end)
-
 
 
 ---@diagnostic disable-next-line: undefined-field
@@ -61,7 +61,7 @@ function Root:DoCancel()
     if self.Decoratee.IsActive then
         self.Decoratee:CancelWithoutReturnResult()
     else
-        self._clock:RemoveTimer(self.Decoratee.Start)
+        self._clock:RemoveTimer(self.Decoratee:bind(self.Decoratee.Start))
     end
 end
 

@@ -1,3 +1,5 @@
+local ipairs = ipairs
+local assert = assert
 local superName = NPBehave.ClassName.Composite
 
 ---@class NPBehave.Composite.Selector: NPBehave.Composite.Composite

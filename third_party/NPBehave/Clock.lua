@@ -1,3 +1,7 @@
+local assert = assert
+local pairs = pairs
+local tableInsert = table.insert
+local New = New
 ---@class NPBehave.Clock.AddTimerStruct
 ---@field public TimerId number
 ---@field public Timer NPBehave.Clock.Timer
@@ -5,7 +9,7 @@
 local AddTimerStruct = Class("NPBehave.Clock.AddTimerStruct")
 
 ---@class NPBehave.Clock.Timer
----@field Action? fun()
+---@field Action? NPBehave.Tool.BindCallback
 ---@overload fun(): NPBehave.Clock.Timer
 local Timer = Class("NPBehave.Clock.Timer")
 ---@return self
@@ -35,10 +39,11 @@ local Clock = Class("NPBehave.Clock")
 function Clock:__init()
     ---@type {[fun()]: number}
     self._timerLookup = {}
-    --TODO 可能需要换成有序字典
-    ---@type {[number]: NPBehave.Clock.Timer}
-    self._timers = NPBehave.Util.OrderedTable()
-    -- self._timers = util.container({})
+    ---@private
+    ---@class SortedDictionary.Clock: SortedDictionary --@ 由于不支持泛型提示, 必须手动添加类型提示
+    ---@field package get fun(self:self, key: number): NPBehave.Clock.Timer
+    ---@field package add fun(self:self, key: number, value: NPBehave.Clock.Timer)
+    self._timers = New('SortedDictionary')()
     ---@type {[fun()]: boolean} 用于标记需要移除的计时器, 模拟`hashset`
     self._removeTimers = {}
     ---@type {[fun()]: NPBehave.Clock.AddTimerStruct}
@@ -56,7 +61,7 @@ end
 ---注册一个具有随机方差的计时器函数
 ---@param delay number 延迟时间(以毫秒为单位)
 ---@param repeat_count number 重复次数, 设为 -1 则重复直至取消注册.
----@param action fun() 回调函数
+---@param action NPBehave.Tool.BindCallback 回调函数
 ---@param randomVariance? number 随机方差
 function Clock:AddTimer(delay, repeat_count, action, randomVariance)
     randomVariance = randomVariance or 0.0
@@ -70,11 +75,11 @@ function Clock:AddTimer(delay, repeat_count, action, randomVariance)
             timerId = self._timerNum
             self._timerNum = self._timerNum + 1
             self._timerLookup[action] = timerId
-            self._timers[timerId] = self:GetTimerFromPool()
+            self._timers:add(timerId, self:GetTimerFromPool())
         else
             timerId = self._timerLookup[action]
         end
-        timer = self._timers[timerId]
+        timer = self._timers:get(timerId)
     else
         if not self._addTimers[action] then
             timerId = self._timerNum
@@ -101,13 +106,13 @@ function Clock:AddTimer(delay, repeat_count, action, randomVariance)
 end
 
 ---移除计时器
----@param action fun() 回调函数
+---@param action NPBehave.Tool.BindCallback 回调函数
 function Clock:RemoveTimer(action)
     if not self._isInUpdate then
         if self._timerLookup[action] then
             local timerId = self._timerLookup[action]
-            self._timers[timerId].Used = false
-            self._timers[timerId] = nil
+            self._timers:get(timerId).Used = false
+            self._timers:remove(timerId)
             self._timerLookup[action] = nil
         end
     else
@@ -125,7 +130,7 @@ function Clock:RemoveTimer(action)
 end
 
 ---检查是否存在计时器
----@param action fun() 回调函数
+---@param action NPBehave.Tool.BindCallback 回调函数
 ---@return boolean
 function Clock:HasTimer(action)
     if not self._isInUpdate then
@@ -142,19 +147,20 @@ function Clock:HasTimer(action)
 end
 
 ---注册一个每帧都会调用的函数
----@param action function 要调用的函数
+---@param action NPBehave.Tool.BindCallback 要调用的函数
 function Clock:AddUpdateObserver(action)
     self:AddTimer(0.0, -1, action)
 end
 
 ---移除每帧调用的函数
----@param action function 要移除的函数
+---@param action NPBehave.Tool.BindCallback 要移除的函数
 function Clock:RemoveUpdateObserver(action)
     self:RemoveTimer(action)
 end
+
 ---检查是否存在每帧调用的函数
----@param action function 要检查的函数
----@return boolean 是否存在每帧调用的函数
+---@param action NPBehave.Tool.BindCallback 要检查的函数
+---@return boolean @是否存在每帧调用的函数
 function Clock:HasUpdateObserver(action)
     return self:HasTimer(action)
 end
@@ -165,12 +171,11 @@ function Clock:Update(deltaTime)
     self.ElapsedTime = self.ElapsedTime + deltaTime
 
     self._isInUpdate = true
-    for timerId, timer in pairs(self._timers) do
+    for timerId, timer in self._timers:SortedPairs() do
         assert(timer.Used)
         if self._removeTimers[timer.Action] then
             goto continue
         end
-
         if timer.ScheduledTime <= self.ElapsedTime then
             if timer.Repeat == 0 then
                 self:RemoveTimer(timer.Action)
@@ -183,24 +188,24 @@ function Clock:Update(deltaTime)
         end
         ::continue::
     end
-
     for action, _ in pairs(self._removeTimers) do
         local timerId = self._timerLookup[action]
-        assert(self._timers[timerId].Used)
-        self._timers[timerId].Used = false
-        self._timers[timerId] = nil
+        assert(self._timers:get(timerId).Used)
+        self._timers:get(timerId).Used = false
+        self._timers:remove(timerId)
+
         self._timerLookup[action] = nil
     end
 
     for action, addTimer in pairs(self._addTimers) do
         if self._timerLookup[action] then
-            self._timers[self._timerLookup[action]].Used = false
-            self._timers[self._timerLookup[action]] = nil
+            self._timers:get(self._timerLookup[action]).Used = false
+            self._timers:remove(self._timerLookup[action])
         end
+        assert(addTimer.Timer.Used)
         local timerId = addTimer.TimerId
-        self._timers[addTimer.TimerId] = addTimer.Timer
+        self._timers:add(timerId, addTimer.Timer)
         self._timerLookup[action] = timerId
-        assert(self._timers[timerId].Used)
     end
 
     self._addTimers = {}
@@ -208,7 +213,6 @@ function Clock:Update(deltaTime)
 
     self._isInUpdate = false
 end
-
 
 ---从池中获取计时器
 ---@return NPBehave.Clock.Timer timer 计时器
@@ -232,12 +236,11 @@ function Clock:GetTimerFromPool()
     if timer == nil then
         timer = New("NPBehave.Clock.Timer")()
         self._currentTimerPoolIndex = 0
-        table.insert(self._timerPool, timer)
+        tableInsert(self._timerPool, timer)
     end
 
     timer.Used = true
     return timer
 end
-
 
 return Clock
