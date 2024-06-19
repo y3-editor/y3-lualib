@@ -24,6 +24,7 @@ local M = Class 'Develop.Command'
 ---@private
 ---@type table<string, Develop.Command.Info>
 M.commands = {}
+M.params = {}
 
 -- 注册作弊指令（指令名称无视大小写）
 ---@param command string
@@ -197,6 +198,7 @@ function M.input(prefix, input, player)
         command = command,
         args = strs,
         player = player,
+        info = info,
     }
 end
 
@@ -216,6 +218,7 @@ function M.executeEX(param)
     local command = param.command:lower()
     local info = M.commands[command]
     assert(info, '作弊指令不存在: ' .. param.command)
+    M.params = param
     if info.onCommand then
         info.onCommand(table.unpack(param.args))
     end
@@ -236,6 +239,11 @@ function M.getAllCommands()
     return y3.util.getTableKeys(M.commands, function (a, b)
         return M.getCommandInfo(a).priority > M.getCommandInfo(b).priority
     end)
+end
+
+---@return table
+function M.getParams()
+    return M.params
 end
 
 return M
