@@ -278,7 +278,7 @@ function M:refresh_prefab(prefab_token, count, on_create)
         end
 
         for _, instance in ipairs(instances) do
-            instance:refresh('')
+            instance:refresh('*')
         end
         ::continue::
     end
