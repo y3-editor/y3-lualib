@@ -135,9 +135,10 @@ function M:set_visible(visible)
 end
 
 --设置图片
----@param img py.Texture 图片id
+---@param img py.Texture | string 图片id
 ---@return self
 function M:set_image(img)
+    ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.set_ui_comp_image_with_icon(self.player.handle, self.handle, img)
     return self
 end
