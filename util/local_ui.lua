@@ -6,6 +6,8 @@ local M = Class 'LocalUILogic'
 
 ---@class LocalUILogic: Storage
 Extends('LocalUILogic', 'Storage')
+---@class LocalUILogic: GCHost
+Extends('LocalUILogic', 'GCHost')
 
 ---@type table<LocalUILogic, boolean>
 local all_instances = setmetatable({}, { __mode = 'k' })
@@ -62,11 +64,6 @@ function M:__init(path_or_ui)
     end
 end
 
-function M:__del()
-    if self._main then
-        self._main:remove()
-    end
-end
 function M:remove()
     Delete(self)
 end
@@ -272,6 +269,7 @@ function M:refresh_prefab(prefab_token, count, on_create)
                         local ui = y3.ui_prefab.create(local_player, info.prefab_logic._prefab_name, parent):get_child()
                         ---@cast ui -?
                         instance = info.prefab_logic:attach(ui, kv)
+                        self:bindGC(ui)
                     end
 
                     instances[i] = instance
@@ -375,11 +373,19 @@ end)
 ---@class LocalUILogic.API
 local API = {}
 
+---@package
+API.instance_map = {}
+
 --创建一个本地UI逻辑
 ---@param path_or_ui string | UI
 ---@return LocalUILogic
 function API.create(path_or_ui)
-    return New 'LocalUILogic' (path_or_ui)
+    if API.instance_map[path_or_ui] then
+        API.instance_map[path_or_ui]:remove()
+    end
+    local local_ui = New 'LocalUILogic' (path_or_ui)
+    API.instance_map[path_or_ui] = local_ui
+    return local_ui
 end
 
 --创建一个用于元件的本地UI逻辑
