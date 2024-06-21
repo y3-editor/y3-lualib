@@ -31,6 +31,7 @@ IsInstanceOf = y3.class.isInstanceOf
 require 'y3.util.log'
 y3.reload  = require 'y3.tools.reload'
 y3.sandbox = require 'y3.tools.sandbox'
+y3.hash    = require 'y3.tools.SDBMHash'
 
 ---@diagnostic disable-next-line: lowercase-global
 include  = y3.reload.include
