@@ -38,6 +38,7 @@ end
 
 ---@param name string
 ---@param callback function
+---@return Trigger
 function Event:event(name, callback)
     if not self.event_manager then
         ---@private
@@ -46,7 +47,8 @@ function Event:event(name, callback)
     if not gameEvents[name] then
         gameEvents[name] = initGameEventProxy(self, name)
     end
-    self.event_manager:event(name, nil, callback)
+   local trg = self.event_manager:event(name, nil, callback)
+   return trg
 end
 
 ---@class EditorObject.Unit: EditorObject.DataModule
