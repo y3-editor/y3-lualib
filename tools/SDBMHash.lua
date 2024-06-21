@@ -5,7 +5,10 @@ local max = 0x7fffffff
 ---@overload fun(): SDBMHash
 local M = Class 'SDBMHash'
 
-M.cache = nil
+function M:__init()
+    ---@private
+    self.cache = {}
+end
 
 ---@param str string
 ---@return integer
