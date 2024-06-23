@@ -426,6 +426,7 @@ function M:add_state(state_enum)
 end
 
 ---移除状态
+-- 只有移除次数等同添加次数时才能移除状态
 ---@param state_enum integer|y3.Const.UnitEnumState 状态名
 function M:remove_state(state_enum)
     self.phandle:api_remove_state(y3.const.UnitEnumState[state_enum] or state_enum)
