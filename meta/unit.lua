@@ -606,9 +606,9 @@ function Unit:get_unit_path_length_between_points(point_start, point_end) end
 
 --播放动画
 ---@param name string # 动画名称
----@param rate? number # 播放倍率
----@param init_time? number # 开始时间(s)
----@param end_time? number # 结束时间(s)，正数 -1 表示不结束
+---@param rate number # 播放倍率
+---@param init_time number # 开始时间(s)
+---@param end_time number # 结束时间(s)，正数 -1 表示不结束
 ---@param loop? boolean # 是否循环
 ---@param return_idle? boolean # 播放结束后是否恢复idle
 function Unit:api_play_animation(name, rate, init_time, end_time, loop, return_idle) end

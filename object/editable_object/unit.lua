@@ -1082,9 +1082,9 @@ end
 --*******************播放动画全局统一
 ---播放动画
 ---@param anim_name string 动画名
----@param speed? number 速度
----@param start_time? number 开始时间
----@param end_time? number 结束时间
+---@param speed number 速度
+---@param start_time number 开始时间
+---@param end_time number 结束时间
 ---@param is_loop? boolean 是否循环
 ---@param is_back_normal? boolean 是否返回默认状态
 function M:play_animation(anim_name, speed, start_time, end_time, is_loop, is_back_normal)
