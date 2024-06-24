@@ -289,6 +289,11 @@ function M:set_input_field_focus()
     return self
 end
 
+--设置列表视图百分比
+---@param percent number # 百分比
+function M:set_list_view_percent(percent)
+    GameAPI.set_list_view_percent(self.player.handle, self.handle, percent)
+end
 
 --绑定技能对象到控件
 ---@param skill Ability 技能对象
