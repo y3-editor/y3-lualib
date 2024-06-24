@@ -599,4 +599,13 @@ function M.has_tag_by_key(tag, item_key)
     return GameAPI.item_key_has_tag(item_key, tag)
 end
 
+--获取物品的所有标签
+---@param item_key py.ItemKey
+---@return string[]
+function M.get_tags_by_key(item_key)
+    local utags = y3.object.item[item_key].data.tags
+    local tags = y3.helper.unpack_list(utags)
+    return tags
+end
+
 return M
