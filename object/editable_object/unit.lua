@@ -630,9 +630,20 @@ end
 
 -- 命令跟随单位
 ---@param target Unit
+---@param refresh_interval? number 刷新间隔
+---@param near_offset? number 跟随距离
+---@param far_offset? number 重新跟随距离
+---@param follow_angle? number 跟随角度
+---@param follow_dead_target? boolean 是否跟随死亡单位
 ---@return py.UnitCommand
-function M:follow(target)
-    local command = GameAPI.create_unit_command_follow(target.handle)
+function M:follow(target, refresh_interval, near_offset, far_offset, follow_angle, follow_dead_target)
+    local command = GameAPI.create_unit_command_follow(target.handle
+        , Fix32(refresh_interval or 0.5)
+        , Fix32(near_offset or -1)
+        , Fix32(far_offset or -1)
+        , Fix32(follow_angle or -10000)
+        , follow_dead_target or false
+    )
     self:command(command)
     return command
 end
