@@ -813,6 +813,8 @@ function M:send_chat(player, msg)
 end
 
 --创建悬浮文字
+--> 请改用 `UI.create_floating_text2`
+---@deprecated
 ---@param point Point 点
 ---@param text_type y3.Const.HarmTextType 跳字类型
 ---@param str string 文字
@@ -822,6 +824,26 @@ function M.create_floating_text(point, text_type, str, player_group, jump_word_t
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.create_harm_text_ex(point.handle, y3.const.HarmTextType[text_type] or text_type, str, (player_group or y3.player_group.get_all_players()).handle, jump_word_track or 0)
+end
+
+--创建悬浮文字
+---@param point Point 点
+---@param text_type y3.Const.FloatTextType | string | integer 跳字类型
+---@param str string 文字
+---@param jump_word_track? y3.Const.FloatTextJumpType 跳字轨迹类型，如果不传会使用随机轨迹
+---@param player_group? PlayerGroup 可见的玩家组。传入 `nil` 表示所有玩家都可见
+function M.create_floating_text2(point, text_type, str, jump_word_track, player_group)
+    GameAPI.create_harm_text_ex(
+        -- TODO 见问题2
+        ---@diagnostic disable-next-line: param-type-mismatch
+        point.handle,
+        ---@diagnostic disable-next-line: param-type-mismatch
+        y3.const.FloatTextType[text_type] or text_type,
+        str,
+        (player_group or y3.player_group.get_all_players()).handle,
+        ---@diagnostic disable-next-line: param-type-mismatch
+        y3.const.FloatTextJumpType[jump_word_track] or jump_word_track or 0
+    )
 end
 
 --设置窗口类型

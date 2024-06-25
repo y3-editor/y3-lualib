@@ -884,6 +884,37 @@ M.HarmTextType = {
     ['致盲'] = 118,
 }
 
+---@enum(key) y3.Const.FloatTextType
+M.FloatTextType = {
+    ['物理伤害'] = 'physics',
+    ['魔法伤害'] = 'magic',
+    ['真实伤害'] = 'real',
+    ['治疗'] = 'heal',
+    ['获取金币'] = 'get_gold',
+    ['系统字体'] = 0,
+    --
+    ['微软雅黑'] = 'MSYH',
+    ['华康黑体W9'] = 'HKHeiW9',
+    ['华康黑体W12'] = 'HKHeiW12',
+    ['华康标题宋W9'] = 'HKSongW9',
+    ['华康魏碑W7'] = 'HKWeiBeiW7',
+    ['华康新综艺体W7'] = 'HKXinZongYiW7',
+    ['华康新综艺体W9'] = 'HKXinZongYiW9',
+    ['华康圆体W5'] = 'HKYuanW5',
+    ['华康圆体W7'] = 'HKYuanW7',
+    ['华康圆体W9'] = 'HKYuanW9',
+}
+
+--TODO：应该解析文件
+---@enum(key) y3.Const.FloatTextJumpType
+M.FloatTextJumpType = {
+    ['伤害_左上'] = 934231441,
+    ['伤害_中上'] = 934269508,
+    ['伤害_右上'] = 934266669,
+    ['伤害_左下'] = 934252831,
+    ['金币跳字'] = 934277693,
+}
+
 ---@alias y3.Const.UIRelativeParentPosType
 ---| '顶部'
 ---| '底部'
