@@ -272,12 +272,18 @@ end
 
 ---播放动画
 ---@param anim_name string 动画名字
----@param start_time number 开始时间
----@param end_time number 结束时间
----@param is_loop boolean 是否循环
----@param speed number 速度
+---@param start_time? number 开始时间
+---@param end_time? number 结束时间(默认-1表示播放到最后)
+---@param is_loop? boolean 是否循环
+---@param speed? number 速度
 function M:play_animation(anim_name, start_time, end_time, is_loop, speed)
-    self.phandle:api_play_animation(anim_name, start_time, end_time, is_loop, speed)
+    self.phandle:api_play_animation(
+        anim_name,
+        start_time or 0,
+        end_time or -1,
+        is_loop or false,
+        speed or 1
+    )
 end
 
 ---停止动画
