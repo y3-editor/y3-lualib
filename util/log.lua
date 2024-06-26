@@ -131,9 +131,10 @@ function print(...)
         consoleprint(message)
         print_to_game(message)
         y3.develop.helper.print(message)
+        enable_print = false
+        log.debug(...)
+        enable_print = true
+    else
+        log.debug(...)
     end
-
-    enable_print = false
-    log.debug(...)
-    enable_print = true
 end
