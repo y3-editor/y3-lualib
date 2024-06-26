@@ -296,15 +296,16 @@ function M:set_list_view_percent(percent)
 end
 
 --绑定技能对象到控件
----@param skill Ability 技能对象
+---@param skill? Ability 技能对象
 ---@return self
 function M:set_skill_on_ui_comp(skill)
-    GameAPI.set_skill_on_ui_comp(self.player.handle, skill.handle, self.handle)
+    local handle = skill and skill.handle or nil
+    GameAPI.set_skill_on_ui_comp(self.player.handle, handle, self.handle)
     return self
 end
 
 --绑定技能
----@param ability Ability 技能对象
+---@param ability? Ability 技能对象
 ---@return self
 function M:bind_ability(ability)
     return self:set_skill_on_ui_comp(ability)
