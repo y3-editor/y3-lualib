@@ -812,6 +812,12 @@ function M:send_chat(player, msg)
     return self
 end
 
+--获取复选框当前选中状态
+---@return boolean # 当前选中状态
+function M:get_checkbox_selected()
+    return GameAPI.get_checkbox_selected(self.player.handle, self.handle)
+end
+
 --创建悬浮文字
 --> 请改用 `UI.create_floating_text2`
 ---@deprecated
