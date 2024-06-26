@@ -35,9 +35,7 @@ local local_player = y3.player.get_local()
 
 ---@param path_or_ui? string | UI
 function M:__init(path_or_ui)
-    if y3.game.is_debug_mode() then
-        all_instances[self] = true
-    end
+    all_instances[self] = true
     ---@private
     self._bind_unit_attr = {}
     ---@package

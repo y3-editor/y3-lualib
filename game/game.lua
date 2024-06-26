@@ -538,8 +538,12 @@ function M.get_start_mode()
 end
 
 -- 是否是调试模式
+---@param ignore_config? boolean # 是否忽略用户的设置
 ---@return boolean
-function M.is_debug_mode()
+function M.is_debug_mode(ignore_config)
+    if ignore_config then
+        return M.get_start_mode() == 1
+    end
     if y3.config.debug == true then
         return true
     end
