@@ -303,6 +303,7 @@ M.KeyboardKey = {
     ['LBRACKET'] = 0x1A, -- [
     ['RBRACKET'] = 0x1B, -- ]
     ['RETURN'] = 0x1C, -- Enter
+    ['ENTER'] = 0x1C, -- Enter
     ['LCTRL'] = 0x1D, -- 左Ctrl
     ['A'] = 0x1E, -- A
     ['S'] = 0x1F, -- S
