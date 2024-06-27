@@ -161,4 +161,33 @@ function M:on_remove(callback)
     self._on_remove = callback
 end
 
+--添加标签
+---@param tag any
+function M:add_tag(tag)
+    if not self._tags then
+        ---@private
+        self._tags = {}
+    end
+    self._tags[tag] = true
+end
+
+--是否有标签
+---@param tag any
+---@return boolean
+function M:has_tag(tag)
+    if not self._tags then
+        return false
+    end
+    return self._tags[tag] ~= nil
+end
+
+--移除标签
+---@param tag any
+function M:remove_tag(tag)
+    if not self._tags then
+        return
+    end
+    self._tags[tag] = nil
+end
+
 return M

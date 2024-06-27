@@ -1,3 +1,4 @@
+local ipairs = ipairs
 ---@class NPBehave.Decorator.BlackboardQuery : NPBehave.Decorator.ObservingDecorator
 ---@overload fun(keys: string[], stopsOnChange: NPBehave.Enum.Stops, query: fun():boolean, decoratee: NPBehave.Node): self
 local BlackboardQuery = Class(NPBehave.ClassName.BlackboardQuery)
@@ -25,6 +26,7 @@ end
 ---@protected
 function BlackboardQuery:StartObserving()
     for _, key in ipairs(self._keys) do
+        ---@diagnostic disable-next-line: param-type-mismatch
         self.RootNode.Blackboard:AddObserver(key, self:bind(self.OnValueChanged))
     end
 end
@@ -33,6 +35,7 @@ end
 ---@protected
 function BlackboardQuery:StopObserving()
     for _, key in ipairs(self._keys) do
+        ---@diagnostic disable-next-line: param-type-mismatch
         self.RootNode.Blackboard:RemoveObserver(key, self:bind(self.OnValueChanged))
     end
 end

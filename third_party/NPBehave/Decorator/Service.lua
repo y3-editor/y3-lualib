@@ -1,3 +1,4 @@
+local stringFormat = string.format
 ---@class NPBehave.Decorator.Service
 ---@overload fun(interval: number, service: fun(), decoratee: NPBehave.Node, randomVariation: number): self
 local Service = Class("NPBehave.Decorator.Service")
@@ -20,7 +21,7 @@ function Service:__init(interval, service, decoratee, randomVariation)
     self._randomVariation = randomVariation or interval * 0.05;
 
     if self._interval > 0.0 then
-        self.Label = string.format("%s...%s", self._interval - self._randomVariation,
+        self.Label = stringFormat("%s...%s", self._interval - self._randomVariation,
             self._interval + self._randomVariation)
     else
         self.Label = "every tick"
@@ -32,10 +33,10 @@ end
 ---@protected
 function Service:DoStart()
     if self._interval <= 0 then
-        self.Clock:AddUpdateObserver(self._serviceMethod)
+        self.Clock:AddUpdateObserver(self:bind(self._serviceMethod))
         self._serviceMethod()
     elseif self._randomVariation <= 0 then
-        self.Clock:AddTimer(self._interval, -1, self._serviceMethod)
+        self.Clock:AddTimer(self._interval, -1, self:bind(self._serviceMethod))
         self._serviceMethod()
     else
         self:InvokeServiceMethodWithRandomVariation()
@@ -53,9 +54,9 @@ end
 ---@protected
 function Service:DoChildStopped(child, result)
     if self._interval <= 0 then
-        self.Clock:RemoveUpdateObserver(self._serviceMethod)
+        self.Clock:RemoveUpdateObserver(self:bind(self._serviceMethod))
     elseif self._randomVariation <= 0 then
-        self.Clock:RemoveTimer(self._serviceMethod)
+        self.Clock:RemoveTimer(self:bind(self._serviceMethod))
     else
         self.Clock:RemoveTimer(self:bind(self.InvokeServiceMethodWithRandomVariation))
     end

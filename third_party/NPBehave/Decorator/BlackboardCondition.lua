@@ -1,3 +1,5 @@
+local assert = assert
+local type = type
 ---@class NPBehave.Decorator.BlackboardCondition
 ---@overload fun(key: string, op: NPBehave.Enum.Operator, value: any, stopsOnChange: NPBehave.Enum.Stops, decoratee: NPBehave.Node): self
 local BlackboardCondition = Class(NPBehave.ClassName.BlackboardCondition)
@@ -27,12 +29,14 @@ end
 ---override<br>
 ---@protected
 function BlackboardCondition:StartObserving()
+    ---@diagnostic disable-next-line: param-type-mismatch
     self.RootNode.Blackboard:AddObserver(self._key, self:bind(self.OnValueChanged))
 end
 
 ---override<br>
 ---@protected
 function BlackboardCondition:StopObserving()
+    ---@diagnostic disable-next-line: param-type-mismatch
     self.RootNode.Blackboard:RemoveObserver(self._key, self:bind(self.OnValueChanged))
 end
 

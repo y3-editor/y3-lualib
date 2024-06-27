@@ -36,7 +36,7 @@ Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 ```
 ]]
 ---@overload fun(self: self, event_name:string, callback:Trigger.CallBack):Trigger
----@overload fun(self: self, event_name:string, args:any[], callback:Trigger.CallBack):Trigger
+---@overload fun(self: self, event_name:string, args:any[] | any, callback:Trigger.CallBack):Trigger
 function M:event_on(...)
     if not rawget(self, 'custom_event_manager') then
         self.custom_event_manager = New 'EventManager' (self)
@@ -139,7 +139,7 @@ end
 
 -- 发起带事件参数的自定义事件（回执模式）
 ---@param event_name string
----@param args any[]
+---@param args any[] | any
 ---@param ... any
 ---@return any, any, any, any
 function M:event_dispatch_with_args(event_name, args, ...)

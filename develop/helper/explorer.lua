@@ -162,14 +162,9 @@ function M.createRestartGameButton()
     local node = y3.develop.helper.createTreeNode('重启游戏', {
         icon = 'warning',
         tooltip = '省的你输入 `.rr`',
-        childs = {
-            y3.develop.helper.createTreeNode('确认重启', {
-                icon = 'warning',
-                onClick = function ()
-                    y3.develop.command.execute('RR')
-                end,
-            })
-        },
+        onClick = function ()
+            y3.develop.command.execute('RR')
+        end,
     })
 
     return node

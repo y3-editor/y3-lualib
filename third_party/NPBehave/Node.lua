@@ -12,8 +12,8 @@
 ---@overload fun(name: string): self
 local Node = Class("NPBehave.Node")
 
----@class NPBehave.Node: FuncUtil
-Extends('NPBehave.Node', "FuncUtil")
+---@class NPBehave.Node: NPBehave.Tool.MethodDecorator
+Extends('NPBehave.Node', "NPBehave.Tool.MethodDecorator")
 
 
 

@@ -49,7 +49,7 @@ end
 ---@field onClick? fun(node: Develop.Helper.TreeNode) # 当节点被点击时调用
 ---@field onExpand? fun(node: Develop.Helper.TreeNode) # 当节点被展开时调用
 ---@field onCollapse? fun(node: Develop.Helper.TreeNode) # 当节点被折叠时调用
----@field onInit? fun(node: Develop.Helper.TreeNode) # 当节点创建后调用，只会调用一次
+---@field onInit? fun(node: Develop.Helper.TreeNode) # 当节点创建第一次可见时调用
 
 ---@class Develop.Helper.TreeNode: GCHost, Class.Base
 ---@field name string
@@ -82,10 +82,6 @@ function Node:__init(name, optional)
     self.id = Node.maxID
 
     Node.nodeMap[self.id] = self
-
-    if optional.onInit then
-        xpcall(optional.onInit, log.error, self)
-    end
 end
 
 function Node:__del()
@@ -174,7 +170,7 @@ function Node:refresh()
     if not Node.nodeMap[self.id] then
         return
     end
-    if not self._visible then
+    if not self._inited then
         return
     end
     helper.notify('refreshTreeNode', {
@@ -195,6 +191,12 @@ function Node:changeVisible(visible)
     end
     self._visible = visible
     if visible then
+        if not self._inited then
+            self._inited = true
+            if self.optional.onInit then
+                xpcall(self.optional.onInit, log.error, self)
+            end
+        end
         if self.optional.onVisible then
             xpcall(self.optional.onVisible, log.error, self)
         end

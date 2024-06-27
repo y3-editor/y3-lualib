@@ -426,6 +426,7 @@ function M:add_state(state_enum)
 end
 
 ---移除状态
+-- 只有移除次数等同添加次数时才能移除状态
 ---@param state_enum integer|y3.Const.UnitEnumState 状态名
 function M:remove_state(state_enum)
     self.phandle:api_remove_state(y3.const.UnitEnumState[state_enum] or state_enum)
@@ -443,6 +444,12 @@ function M:remove_multi_state(state_enum)
     self.handle:api_remove_multi_state(state_enum)
 end
 
+---是否有某个状态
+---@param state_enum integer 状态
+---@return boolean?
+function M:has_state(state_enum)
+    return self.handle:api_has_state(state_enum)
+end
 
 ---添加状态
 ---@param state_enum integer|y3.Const.UnitEnumState 状态名
@@ -623,9 +630,20 @@ end
 
 -- 命令跟随单位
 ---@param target Unit
+---@param refresh_interval? number 刷新间隔
+---@param near_offset? number 跟随距离
+---@param far_offset? number 重新跟随距离
+---@param follow_angle? number 跟随角度
+---@param follow_dead_target? boolean 是否跟随死亡单位
 ---@return py.UnitCommand
-function M:follow(target)
-    local command = GameAPI.create_unit_command_follow(target.handle)
+function M:follow(target, refresh_interval, near_offset, far_offset, follow_angle, follow_dead_target)
+    local command = GameAPI.create_unit_command_follow(target.handle
+        , Fix32(refresh_interval or 0.5)
+        , Fix32(near_offset or -1)
+        , Fix32(far_offset or -1)
+        , Fix32(follow_angle or -10000)
+        , follow_dead_target or false
+    )
     self:command(command)
     return command
 end
@@ -1078,17 +1096,17 @@ end
 ---@param anim_name string 动画名
 ---@param speed? number 速度
 ---@param start_time? number 开始时间
----@param end_time? number 结束时间
+---@param end_time? number 结束时间(默认-1表示播到最后)
 ---@param is_loop? boolean 是否循环
 ---@param is_back_normal? boolean 是否返回默认状态
 function M:play_animation(anim_name, speed, start_time, end_time, is_loop, is_back_normal)
     self.phandle:api_play_animation(
         anim_name,
-        speed,
-        start_time,
-        end_time,
-        is_loop,
-        is_back_normal
+        speed or 1,
+        start_time or 0,
+        end_time or -1,
+        is_loop or false,
+        is_back_normal or false
     )
 end
 
@@ -1775,6 +1793,8 @@ function M:is_in_battle()
 end
 
 ---是否有指定状态
+--> 请改用 `has_state` 方法
+---@deprecated
 ---@param state_name integer 状态
 ---@return boolean has_buff_status 有指定状态
 function M:has_buff_status(state_name)

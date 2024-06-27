@@ -1,10 +1,14 @@
+local tableInsert = table.insert
+local tableRemove = table.remove
+local pairs = pairs
+local ipairs = ipairs
 ---@class NPBehave.Blackboard
 ---@field private _parentBlackboard? NPBehave.Blackboard
 ---@overload fun(clock: NPBehave.Clock, parent?: NPBehave.Blackboard): NPBehave.Blackboard
 local Blackboard = Class("NPBehave.Blackboard")
 
----@class NPBehave.Blackboard: FuncUtil
-Extends('NPBehave.Blackboard', "FuncUtil")
+---@class NPBehave.Blackboard: NPBehave.Tool.MethodDecorator
+Extends('NPBehave.Blackboard', "NPBehave.Tool.MethodDecorator")
 
 ---@enum NPBehaveBlackboardType
 local NPBehaveBlackboardType = {
@@ -41,7 +45,7 @@ function Blackboard:__init(clock, parent)
     ---@type {[string]: any}
     self._data = {}
     ---@type {[string]: fun(type: NPBehaveBlackboardType, value: any)[]}
-    self._observers = {}  -- 观察者, 实际执行的函数
+    self._observers = {} -- 观察者, 实际执行的函数
     self._isNotifying = false
     ---@type {[string]: fun(type: NPBehaveBlackboardType, value: any)[]}
     self._addObservers = {}
@@ -70,7 +74,7 @@ function Blackboard:Disable()
         self._parentBlackboard._children[self] = nil
     end
     if self._clock then
-        self._clock:RemoveTimer(self.NotifyObservers)
+        self._clock:RemoveTimer(self:bind(self.NotifyObservers))
     end
 end
 
@@ -83,12 +87,12 @@ function Blackboard:Set(key, value)
     else
         if not self._data[key] then
             self._data[key] = value
-            table.insert(self._notifications, Notification(key, NPBehaveBlackboardType.Add, value))
+            tableInsert(self._notifications, Notification(key, NPBehaveBlackboardType.Add, value))
             self._clock:AddTimer(0, 0, self:bind(self.NotifyObservers))
         else
             if (self._data[key] == nil and value ~= nil) or (self._data[key] ~= nil and self._data[key] ~= value) then
                 self._data[key] = value
-                table.insert(self._notifications, Notification(key, NPBehaveBlackboardType.Change, value))
+                tableInsert(self._notifications, Notification(key, NPBehaveBlackboardType.Change, value))
                 self._clock:AddTimer(0, 0, self:bind(self.NotifyObservers))
             end
         end
@@ -107,14 +111,10 @@ end
 function Blackboard:Unset(key)
     if self._data[key] then
         self._data[key] = nil
-        table.insert(self._notifications, Notification(key, NPBehaveBlackboardType.Remove, nil))
+        tableInsert(self._notifications, Notification(key, NPBehaveBlackboardType.Remove, nil))
         self._clock:AddTimer(0, 0, self:bind(self.NotifyObservers))
     end
 end
-
---[[ 
-    string|number|integer|boolean|table|nil
- ]]
 
 ---获取键值
 ---@param key string
@@ -148,20 +148,20 @@ function Blackboard:AddObserver(key, observer)
     local observers = self:GetObserverList(self._observers, key)
     if not self._isNotifying then
         if not ListContains(observers, observer) then
-            table.insert(observers, observer)
+            tableInsert(observers, observer)
         end
     else
         if not ListContains(observers, observer) then
             local addObservers = self:GetObserverList(self._addObservers, key)
             if not ListContains(addObservers, observer) then
-                table.insert(addObservers, observer)
+                tableInsert(addObservers, observer)
             end
         end
 
         local removeObservers = self:GetObserverList(self._removeObservers, key)
         for i, v in ipairs(removeObservers) do
             if v == observer then
-                table.remove(removeObservers, i)
+                tableRemove(removeObservers, i)
                 break
             end
         end
@@ -176,7 +176,7 @@ function Blackboard:RemoveObserver(key, observer)
     if not self._isNotifying then
         for i, v in ipairs(observers) do
             if v == observer then
-                table.remove(observers, i)
+                tableRemove(observers, i)
                 break
             end
         end
@@ -184,14 +184,14 @@ function Blackboard:RemoveObserver(key, observer)
         local removeObservers = self:GetObserverList(self._removeObservers, key)
         if not ListContains(removeObservers, observer) then
             if ListContains(observers, observer) then
-                table.insert(removeObservers, observer)
+                tableInsert(removeObservers, observer)
             end
         end
 
         local addObservers = self:GetObserverList(self._addObservers, key)
         for i, v in ipairs(addObservers) do
             if v == observer then
-                table.remove(addObservers, i)
+                tableRemove(addObservers, i)
                 break
             end
         end
@@ -206,11 +206,11 @@ function Blackboard:NotifyObservers()
 
     self._notificationsDispatch = {}
     for _, notification in ipairs(self._notifications) do
-        table.insert(self._notificationsDispatch, notification)
+        tableInsert(self._notificationsDispatch, notification)
     end
     for child in pairs(self._children) do
         for _, notification in ipairs(self._notifications) do
-            table.insert(child._notifications, notification)
+            tableInsert(child._notifications, notification)
         end
         child._clock:AddTimer(0, 0, child:bind(self.NotifyObservers))
     end
@@ -237,7 +237,7 @@ function Blackboard:NotifyObservers()
     for key in pairs(self._addObservers) do
         local observers = self:GetObserverList(self._observers, key)
         for _, observer in ipairs(self._addObservers[key]) do
-            table.insert(observers, observer)
+            tableInsert(observers, observer)
         end
     end
     for key in pairs(self._removeObservers) do
@@ -245,7 +245,7 @@ function Blackboard:NotifyObservers()
         for _, action in pairs(self._removeObservers[key]) do
             for i, observer in ipairs(observers) do
                 if observer == action then
-                    table.remove(observers, i)
+                    tableRemove(observers, i)
                     break
                 end
             end
@@ -269,4 +269,5 @@ function Blackboard:GetObserverList(target, key)
     end
     return observers
 end
+
 return Blackboard

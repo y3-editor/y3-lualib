@@ -135,9 +135,10 @@ function M:set_visible(visible)
 end
 
 --设置图片
----@param img py.Texture 图片id
+---@param img py.Texture | string 图片id
 ---@return self
 function M:set_image(img)
+    ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.set_ui_comp_image_with_icon(self.player.handle, self.handle, img)
     return self
 end
@@ -150,6 +151,15 @@ end
 ---@return self
 function M:set_image_color(r, g, b, a)
     GameAPI.set_ui_image_color(self.player.handle, self.handle, r, g, b, a)
+    return self
+end
+
+--设置图片颜色(hex)
+---@param color string hex
+---@param a number 透明度
+---@return self
+function M:set_image_color_hex(color, a)
+    GameAPI.set_ui_image_color_hex(self.player.handle, self.handle, color, a)
     return self
 end
 
@@ -279,17 +289,23 @@ function M:set_input_field_focus()
     return self
 end
 
+--设置列表视图百分比
+---@param percent number # 百分比
+function M:set_list_view_percent(percent)
+    GameAPI.set_list_view_percent(self.player.handle, self.handle, percent)
+end
 
 --绑定技能对象到控件
----@param skill Ability 技能对象
+---@param skill? Ability 技能对象
 ---@return self
 function M:set_skill_on_ui_comp(skill)
-    GameAPI.set_skill_on_ui_comp(self.player.handle, skill.handle, self.handle)
+    local handle = skill and skill.handle or nil
+    GameAPI.set_skill_on_ui_comp(self.player.handle, handle, self.handle)
     return self
 end
 
 --绑定技能
----@param ability Ability 技能对象
+---@param ability? Ability 技能对象
 ---@return self
 function M:bind_ability(ability)
     return self:set_skill_on_ui_comp(ability)
@@ -797,7 +813,15 @@ function M:send_chat(player, msg)
     return self
 end
 
+--获取复选框当前选中状态
+---@return boolean # 当前选中状态
+function M:get_checkbox_selected()
+    return GameAPI.get_checkbox_selected(self.player.handle, self.handle)
+end
+
 --创建悬浮文字
+--> 请改用 `UI.create_floating_text2`
+---@deprecated
 ---@param point Point 点
 ---@param text_type y3.Const.HarmTextType 跳字类型
 ---@param str string 文字
@@ -807,6 +831,26 @@ function M.create_floating_text(point, text_type, str, player_group, jump_word_t
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.create_harm_text_ex(point.handle, y3.const.HarmTextType[text_type] or text_type, str, (player_group or y3.player_group.get_all_players()).handle, jump_word_track or 0)
+end
+
+--创建悬浮文字
+---@param point Point 点
+---@param text_type y3.Const.FloatTextType | string | integer 跳字类型
+---@param str string 文字
+---@param jump_word_track? y3.Const.FloatTextJumpType 跳字轨迹类型，如果不传会使用随机轨迹
+---@param player_group? PlayerGroup 可见的玩家组。传入 `nil` 表示所有玩家都可见
+function M.create_floating_text2(point, text_type, str, jump_word_track, player_group)
+    GameAPI.create_harm_text_ex(
+        -- TODO 见问题2
+        ---@diagnostic disable-next-line: param-type-mismatch
+        point.handle,
+        ---@diagnostic disable-next-line: param-type-mismatch
+        y3.const.FloatTextType[text_type] or text_type,
+        str,
+        (player_group or y3.player_group.get_all_players()).handle,
+        ---@diagnostic disable-next-line: param-type-mismatch
+        y3.const.FloatTextJumpType[jump_word_track] or jump_word_track or 0
+    )
 end
 
 --设置窗口类型
