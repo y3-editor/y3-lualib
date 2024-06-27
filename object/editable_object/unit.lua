@@ -1387,7 +1387,7 @@ end
 ---获取单位飞行高度
 ---@return number height 单位飞行高度
 function M:get_height()
-    return self.phandle:api_get_height():float()
+    return y3.helper.tonumber(self.phandle:api_get_height()) or 0.0
 end
 
 ---获取单位转身速度
