@@ -17,7 +17,6 @@ end
 ---@return string
 function M.decode(base64)
     local res = y3_crypto.base64_decode(base64)
-    res = res:gsub('\0+$', '')
     return res
 end
 

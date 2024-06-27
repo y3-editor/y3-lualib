@@ -10,12 +10,7 @@ M.syncMap = {}
 ---@param id string # 以 `$` 开头的 id 保留为内部使用
 ---@param data Serialization.SupportTypes
 function M.send(id, data)
-    --TODO 先把来源玩家放到数据里传过去
-    local bin = y3.base64.encode(y3.dump.encode({
-        data = data,
-        ---@diagnostic disable-next-line: deprecated
-        source = y3.player.get_local()
-    }))
+    local bin = y3.dump.encode(data)
     broadcast_lua_msg(id, bin)
 end
 
@@ -33,11 +28,11 @@ y3.game:event('游戏-接收广播信息', function (trg, data)
     if not callback then
         return
     end
-    local suc, value = pcall(y3.dump.decode, y3.base64.decode(data.broadcast_lua_msg_content))
+    local suc, value = pcall(y3.dump.decode, data.broadcast_lua_msg_content)
     if not suc then
         return
     end
-    xpcall(callback, log.error, value.data, value.source)
+    xpcall(callback, log.error, value, data.player)
 end)
 
 return M
