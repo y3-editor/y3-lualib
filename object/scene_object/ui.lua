@@ -300,6 +300,7 @@ end
 ---@return self
 function M:set_skill_on_ui_comp(skill)
     local handle = skill and skill.handle or nil
+    ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.set_skill_on_ui_comp(self.player.handle, handle, self.handle)
     return self
 end
