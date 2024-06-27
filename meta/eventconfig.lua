@@ -2961,7 +2961,7 @@ M.config["本地-选中-单位"] = {
 ---@alias EventParam.选中-取消 EventParam.CANCEL_SELECT_UNIT
 M.config["选中-取消"] = {
     __class__ = "EventConfigBuilder",
-    desc = "玩家的选中状态被取消时触发",
+    desc = "玩家主动取消选中时触发",
     extraArgs = {
     },
     key = "CANCEL_SELECT_UNIT",
@@ -2979,6 +2979,32 @@ M.config["本地-选中-取消"] = {
     },
     key = "ET_ASYNC_CANCEL_SELECT_UNIT",
     name = "本地-选中-取消",
+    object = "Player",
+    params = {
+    },
+}
+
+---@alias EventParam.选中-失去单位 EventParam.LOST_SELECT_UNIT
+M.config["选中-失去单位"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "玩家被动失去对单位的选中状态时触发",
+    extraArgs = {
+    },
+    key = "LOST_SELECT_UNIT",
+    name = "选中-失去单位",
+    object = "Player",
+    params = {
+    },
+}
+
+---@alias EventParam.本地-选中-失去单位 EventParam.ET_ASYNC_LOST_SELECT_UNIT
+M.config["本地-选中-失去单位"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "本地玩家被动失去对单位的选中状态时触发",
+    extraArgs = {
+    },
+    key = "ET_ASYNC_LOST_SELECT_UNIT",
+    name = "本地-选中-失去单位",
     object = "Player",
     params = {
     },
@@ -3666,6 +3692,8 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "本地-选中-单位", callback: fun(trg: Trigger, data: EventParam.本地-选中-单位)): Trigger
 ---@field event fun(self: self, event: "选中-取消", callback: fun(trg: Trigger, data: EventParam.选中-取消)): Trigger
 ---@field event fun(self: self, event: "本地-选中-取消", callback: fun(trg: Trigger, data: EventParam.本地-选中-取消)): Trigger
+---@field event fun(self: self, event: "选中-失去单位", callback: fun(trg: Trigger, data: EventParam.选中-失去单位)): Trigger
+---@field event fun(self: self, event: "本地-选中-失去单位", callback: fun(trg: Trigger, data: EventParam.本地-选中-失去单位)): Trigger
 ---@field event fun(self: self, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
 ---@field event fun(self: self, event: "本地-选中-物品", callback: fun(trg: Trigger, data: EventParam.本地-选中-物品)): Trigger
 ---@field event fun(self: self, event: "玩家-检测到作弊", callback: fun(trg: Trigger, data: EventParam.玩家-检测到作弊)): Trigger
@@ -3811,6 +3839,8 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Player, event: "本地-选中-单位", callback: fun(trg: Trigger, data: EventParam.本地-选中-单位)): Trigger
 ---@field event fun(self: Player, event: "选中-取消", callback: fun(trg: Trigger, data: EventParam.选中-取消)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-取消", callback: fun(trg: Trigger, data: EventParam.本地-选中-取消)): Trigger
+---@field event fun(self: Player, event: "选中-失去单位", callback: fun(trg: Trigger, data: EventParam.选中-失去单位)): Trigger
+---@field event fun(self: Player, event: "本地-选中-失去单位", callback: fun(trg: Trigger, data: EventParam.本地-选中-失去单位)): Trigger
 ---@field event fun(self: Player, event: "选中-物品", callback: fun(trg: Trigger, data: EventParam.选中-物品)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-物品", callback: fun(trg: Trigger, data: EventParam.本地-选中-物品)): Trigger
 ---@field event fun(self: Player, event: "玩家-检测到作弊", callback: fun(trg: Trigger, data: EventParam.玩家-检测到作弊)): Trigger
