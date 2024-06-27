@@ -138,6 +138,7 @@
 ---@field is_meele boolean
 --是否开关技能（暂不生效）  
 ---@field is_toggle boolean
+--zh_value  
 --ID
 ---@field key number
 ---@field kv Object.Ability.Kv
@@ -200,6 +201,7 @@
 ---@field annotation string
 ---@field desc string
 ---@field etype number
+--zh_value  
 --ID
 ---@field key string
 ---@field prop_cls string
@@ -239,6 +241,7 @@
 ---@field influence_rng number
 --是否对光环的拥有者添加光环效果
 ---@field is_influence_self boolean
+--zh_value  
 --ID
 ---@field key number
 ---@field kv Object.Buff.Kv
@@ -497,7 +500,7 @@
 ---@field intelligence number
 --鼠标悬浮到物品上时显示的名称样式
 ---@field item_billboard_type number
---ID  
+--zh_value  
 --ID
 ---@field key number
 --玩家自定义  
@@ -597,6 +600,7 @@
 --特效配置  
 ---@field effect_friend any[]
 ---@field icon number
+--zh_value  
 --ID
 ---@field key number
 ---@field kv Object.Projectile.Kv
@@ -913,7 +917,7 @@
 --无法移动时仍然保持目标  
 --该字段未勾选时，在目标移动出自身的警戒范围后，且自身不能移动时，会立即开始寻找一个新的攻击目标。多用于定点守卫。
 ---@field keep_target boolean
---ID  
+--zh_value  
 --单位的唯一表示
 ---@field key number
 --玩家自定义  

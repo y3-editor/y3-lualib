@@ -59,6 +59,21 @@ event.ET_GAME_SNAPSHOT_MISMATCH = {
     },
 }
 
+---@class EventParam.ET_SCENE_PRESET_LOADING_FINISH
+---@field scene_preset py.ScenePreset # 场景预设hash
+
+--地形预设变更加载完成
+event.ET_SCENE_PRESET_LOADING_FINISH = {
+    [1] = {
+        name = "__scene_preset",
+        type = "py.ScenePreset",
+        lua_name = "scene_preset",
+        lua_type = "py.ScenePreset",
+        desc = "场景预设hash",
+        lua_desc = "场景预设hash",
+    },
+}
+
 ---@class EventParam.ET_RECV_TRIGGER
 ---@field trigger_id py.TriggerID # 触发器id
 
@@ -5541,7 +5556,7 @@ event.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT = {
 ---@field player Player # 玩家
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
----@field int1 integer # 自定义信息
+---@field ui_tab_widget_index integer # 索引值
 
 --ui标签页点击事件
 event.ET_TRIGGER_UI_TABWIDGET_CHANGE_EVENT = {
@@ -5570,12 +5585,12 @@ event.ET_TRIGGER_UI_TABWIDGET_CHANGE_EVENT = {
         lua_desc = "触发事件控件名称",
     },
     [4] = {
-        name = "__int1",
+        name = "__ui_tab_widget_index",
         type = "integer",
-        lua_name = "int1",
+        lua_name = "ui_tab_widget_index",
         lua_type = "integer",
-        desc = "自定义信息",
-        lua_desc = "自定义信息",
+        desc = "索引值",
+        lua_desc = "索引值",
     },
 }
 
@@ -6820,6 +6835,54 @@ event.ET_ASYNC_CANCEL_SELECT_UNIT = {
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
+    },
+}
+
+---@class EventParam.LOST_SELECT_UNIT
+---@field player Player # 玩家
+---@field unit Unit # 点击到单位
+
+--失去选中单位
+event.LOST_SELECT_UNIT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "点击到单位id",
+        lua_desc = "点击到单位",
+    },
+}
+
+---@class EventParam.ET_ASYNC_LOST_SELECT_UNIT
+---@field player Player # 玩家
+---@field unit Unit # 点击到单位
+
+--异步失去单位选中
+event.ET_ASYNC_LOST_SELECT_UNIT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "点击到单位id",
+        lua_desc = "点击到单位",
     },
 }
 

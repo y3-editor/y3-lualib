@@ -207,6 +207,9 @@ function Unit:api_get_is_sleeping() end
 ---@param inherit_passive_ability? boolean # 是否继承隐藏技能
 function Unit:api_unit_transformation(entity_no, inherit_composite_attr, inherit_unit_attr, inherit_kv, inherit_hero_ability, inherit_common_ability, inherit_passive_ability) end
 
+--单位-队列重置
+function Unit:api_queue_reset() end
+
 --获取 attr_other
 ---@param key string # 属性名
 ---@return py.Fixed? # 属性值

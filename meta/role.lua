@@ -524,3 +524,8 @@ function Role:request_create_private_dungeon(level_id, game_mode, max_player) en
 --请求加入私有副本
 ---@param token string # 房间口令
 function Role:request_join_private_dungeon(token) end
+
+--请求加入公有副本
+---@param level_id py.Map # 关卡id
+---@param game_mode py.GameMode # 游戏模式
+function Role:request_join_public_dungeon(level_id, game_mode) end

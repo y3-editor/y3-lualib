@@ -4,6 +4,275 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--设置全局触发器UI_EFFECT_CAMERA_MODE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_effect_camera_mode(key, value) end
+
+--设置全局触发器UI_EFFECT_CAMERA_MODE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_effect_camera_mode(actor, key, value) end
+
+--设置全局触发器UI_EQUIP_SLOT_USE_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_equip_slot_use_type(key, index, value) end
+
+--设置全局触发器UI_EQUIP_SLOT_USE_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_equip_slot_use_type(actor, key, index, value) end
+
+--设置全局触发器UI_EQUIP_SLOT_USE_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_equip_slot_use_type(key, value) end
+
+--设置全局触发器UI_EQUIP_SLOT_USE_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_equip_slot_use_type(actor, key, value) end
+
+--设置全局触发器UI_EQUIP_SLOT_DRAG_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_equip_slot_drag_type(key, index, value) end
+
+--设置全局触发器UI_EQUIP_SLOT_DRAG_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_equip_slot_drag_type(actor, key, index, value) end
+
+--设置全局触发器UI_EQUIP_SLOT_DRAG_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_equip_slot_drag_type(key, value) end
+
+--设置全局触发器UI_EQUIP_SLOT_DRAG_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_equip_slot_drag_type(actor, key, value) end
+
+--设置全局触发器UI_LAYOUT_CLIPPING_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_layout_clipping_type(key, index, value) end
+
+--设置全局触发器UI_LAYOUT_CLIPPING_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_layout_clipping_type(actor, key, index, value) end
+
+--设置全局触发器UI_LAYOUT_CLIPPING_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_layout_clipping_type(key, value) end
+
+--设置全局触发器UI_LAYOUT_CLIPPING_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_layout_clipping_type(actor, key, value) end
+
+--设置全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_text_over_length_handling_type(key, index, value) end
+
+--设置全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_text_over_length_handling_type(actor, key, index, value) end
+
+--设置全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_text_over_length_handling_type(key, value) end
+
+--设置全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_text_over_length_handling_type(actor, key, value) end
+
+--设置全局触发器UI_ANIM数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.UIAnimKey # 值
+function GameAPI.set_trigger_list_variable_ui_anim(key, index, value) end
+
+--设置全局触发器UI_ANIM数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.UIAnimKey # 值
+function GameAPI.set_trigger_list_actor_variable_ui_anim(actor, key, index, value) end
+
+--设置全局触发器UI_ANIM非数组变量
+---@param key string # 变量名称
+---@param value? py.UIAnimKey # 值
+function GameAPI.set_trigger_variable_ui_anim(key, value) end
+
+--设置全局触发器UI_ANIM非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.UIAnimKey # 值
+function GameAPI.set_trigger_actor_variable_ui_anim(actor, key, value) end
+
+--设置全局触发器UI_ANIM_CURVE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_anim_curve(key, index, value) end
+
+--设置全局触发器UI_ANIM_CURVE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_anim_curve(actor, key, index, value) end
+
+--设置全局触发器UI_ANIM_CURVE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_anim_curve(key, value) end
+
+--设置全局触发器UI_ANIM_CURVE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_anim_curve(actor, key, value) end
+
+--设置全局触发器UI_ANIM_PLAY_MODE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_ui_anim_play_mode(key, index, value) end
+
+--设置全局触发器UI_ANIM_PLAY_MODE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_ui_anim_play_mode(actor, key, index, value) end
+
+--设置全局触发器UI_ANIM_PLAY_MODE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_ui_anim_play_mode(key, value) end
+
+--设置全局触发器UI_ANIM_PLAY_MODE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_ui_anim_play_mode(actor, key, value) end
+
+--设置全局触发器UI_TEXT_FONT_NAME数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? string # 值
+function GameAPI.set_trigger_list_variable_ui_text_font_name(key, index, value) end
+
+--设置全局触发器UI_TEXT_FONT_NAME数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? string # 值
+function GameAPI.set_trigger_list_actor_variable_ui_text_font_name(actor, key, index, value) end
+
+--设置全局触发器UI_TEXT_FONT_NAME非数组变量
+---@param key string # 变量名称
+---@param value? string # 值
+function GameAPI.set_trigger_variable_ui_text_font_name(key, value) end
+
+--设置全局触发器UI_TEXT_FONT_NAME非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? string # 值
+function GameAPI.set_trigger_actor_variable_ui_text_font_name(actor, key, value) end
+
+--设置全局触发器AUDIO_CHANNEL数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_audio_channel(key, index, value) end
+
+--设置全局触发器AUDIO_CHANNEL数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_audio_channel(actor, key, index, value) end
+
+--设置全局触发器AUDIO_CHANNEL非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_audio_channel(key, value) end
+
+--设置全局触发器AUDIO_CHANNEL非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_audio_channel(actor, key, value) end
+
+--设置全局触发器UNIT_ENTITY数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Unit # 值
+function GameAPI.set_trigger_list_variable_unit_entity(key, index, value) end
+
+--设置全局触发器UNIT_ENTITY数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.Unit # 值
+function GameAPI.set_trigger_list_actor_variable_unit_entity(actor, key, index, value) end
+
+--设置全局触发器UNIT_ENTITY非数组变量
+---@param key string # 变量名称
+---@param value? py.Unit # 值
+function GameAPI.set_trigger_variable_unit_entity(key, value) end
+
+--设置全局触发器UNIT_ENTITY非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.Unit # 值
+function GameAPI.set_trigger_actor_variable_unit_entity(actor, key, value) end
+
+--设置全局触发器UNIT_GROUP数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.UnitGroup # 值
+function GameAPI.set_trigger_list_variable_unit_group(key, index, value) end
+
+--设置全局触发器UNIT_GROUP数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.UnitGroup # 值
+function GameAPI.set_trigger_list_actor_variable_unit_group(actor, key, index, value) end
+
+--设置全局触发器UNIT_GROUP非数组变量
+---@param key string # 变量名称
+---@param value? py.UnitGroup # 值
+function GameAPI.set_trigger_variable_unit_group(key, value) end
+
 --设置全局触发器UNIT_GROUP非数组 组变量
 ---@param actor py.Actor # 单位实体
 ---@param key string # 变量名称
@@ -249,6 +518,54 @@ function GameAPI.set_trigger_variable_damage_armor_type(key, value) end
 ---@param key string # 变量名称
 ---@param value? integer # 值
 function GameAPI.set_trigger_actor_variable_damage_armor_type(actor, key, value) end
+
+--设置全局触发器DECO_ENTITY数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.DecoList # 值
+function GameAPI.set_trigger_list_variable_deco_entity(key, index, value) end
+
+--设置全局触发器DECO_ENTITY数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.DecoList # 值
+function GameAPI.set_trigger_list_actor_variable_deco_entity(actor, key, index, value) end
+
+--设置全局触发器DECO_ENTITY非数组变量
+---@param key string # 变量名称
+---@param value? py.DecoList # 值
+function GameAPI.set_trigger_variable_deco_entity(key, value) end
+
+--设置全局触发器DECO_ENTITY非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.DecoList # 值
+function GameAPI.set_trigger_actor_variable_deco_entity(actor, key, value) end
+
+--设置全局触发器SCENE_PRESET数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.ScenePreset # 值
+function GameAPI.set_trigger_list_variable_scene_preset(key, index, value) end
+
+--设置全局触发器SCENE_PRESET数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? py.ScenePreset # 值
+function GameAPI.set_trigger_list_actor_variable_scene_preset(actor, key, index, value) end
+
+--设置全局触发器SCENE_PRESET非数组变量
+---@param key string # 变量名称
+---@param value? py.ScenePreset # 值
+function GameAPI.set_trigger_variable_scene_preset(key, value) end
+
+--设置全局触发器SCENE_PRESET非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? py.ScenePreset # 值
+function GameAPI.set_trigger_actor_variable_scene_preset(actor, key, value) end
 
 --设置全局触发器ITEM_ENTITY数组变量子项
 ---@param key string # 变量名称
@@ -1858,6 +2175,30 @@ function GameAPI.set_trigger_variable_random_pool_drop(key, value) end
 ---@param value? integer # 值
 function GameAPI.set_trigger_actor_variable_random_pool_drop(actor, key, value) end
 
+--设置全局触发器DEBUG_SHAPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_variable_debug_shape(key, index, value) end
+
+--设置全局触发器DEBUG_SHAPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@param value? integer # 值
+function GameAPI.set_trigger_list_actor_variable_debug_shape(actor, key, index, value) end
+
+--设置全局触发器DEBUG_SHAPE非数组变量
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_variable_debug_shape(key, value) end
+
+--设置全局触发器DEBUG_SHAPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param value? integer # 值
+function GameAPI.set_trigger_actor_variable_debug_shape(actor, key, value) end
+
 --设置全局触发器DYNAMIC_TRIGGER_INSTANCE数组变量子项
 ---@param key string # 变量名称
 ---@param index integer # 下标
@@ -3132,6 +3473,42 @@ function GameAPI.set_ui_direction_list_value(l, i, v) end
 ---@return py.List # 列表
 function GameAPI.get_ui_direction_n_list(n, v) end
 
+--获取DECO_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.DecoList # 值
+function GameAPI.get_deco_entity_list_value(l, i) end
+
+--设置DECO_ENTITY数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.DecoList # 值
+function GameAPI.set_deco_entity_list_value(l, i, v) end
+
+--生成n个值为v的DECO_ENTITY数组
+---@param n integer # 长度
+---@param v? py.DecoList # 值
+---@return py.List # 列表
+function GameAPI.get_deco_entity_n_list(n, v) end
+
+--获取SCENE_PRESET数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return py.ScenePreset # 值
+function GameAPI.get_scene_preset_list_value(l, i) end
+
+--设置SCENE_PRESET数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v py.ScenePreset # 值
+function GameAPI.set_scene_preset_list_value(l, i, v) end
+
+--生成n个值为v的SCENE_PRESET数组
+---@param n integer # 长度
+---@param v? py.ScenePreset # 值
+---@return py.List # 列表
+function GameAPI.get_scene_preset_n_list(n, v) end
+
 --获取RANDOM_POOL数组中某项
 ---@param l py.List # 列表
 ---@param i integer # 下标
@@ -3888,6 +4265,42 @@ function GameAPI.set_ui_anim_play_mode_list_value(l, i, v) end
 ---@return py.List # 列表
 function GameAPI.get_ui_anim_play_mode_n_list(n, v) end
 
+--获取DEBUG_SHAPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return integer # 值
+function GameAPI.get_debug_shape_list_value(l, i) end
+
+--设置DEBUG_SHAPE数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v integer # 值
+function GameAPI.set_debug_shape_list_value(l, i, v) end
+
+--生成n个值为v的DEBUG_SHAPE数组
+---@param n integer # 长度
+---@param v? integer # 值
+---@return py.List # 列表
+function GameAPI.get_debug_shape_n_list(n, v) end
+
+--获取UI_TEXT_FONT_NAME数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@return string # 值
+function GameAPI.get_ui_text_font_name_list_value(l, i) end
+
+--设置UI_TEXT_FONT_NAME数组中某项
+---@param l py.List # 列表
+---@param i integer # 下标
+---@param v string # 值
+function GameAPI.set_ui_text_font_name_list_value(l, i, v) end
+
+--生成n个值为v的UI_TEXT_FONT_NAME数组
+---@param n integer # 长度
+---@param v? string # 值
+---@return py.List # 列表
+function GameAPI.get_ui_text_font_name_n_list(n, v) end
+
 --获取DAMAGE_ATTACK_TYPE数组中某项
 ---@param l py.List # 列表
 ---@param i integer # 下标
@@ -4547,6 +4960,12 @@ function GameAPI.set_unit_key_ui_anim_curve_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_unit_key_ui_anim_play_mode_kv(item_key, key, value) end
+
+--预设库 添加UI_TEXT_FONT_NAME键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_ui_text_font_name_kv(item_key, key, value) end
 
 --预设库 添加AUDIO_CHANNEL键值对
 ---@param item_key integer # prefab库ID
@@ -5310,6 +5729,12 @@ function GameAPI.set_item_key_ui_anim_curve_kv(item_key, key, value) end
 ---@param value string # 键值名称
 function GameAPI.set_item_key_ui_anim_play_mode_kv(item_key, key, value) end
 
+--预设库 添加UI_TEXT_FONT_NAME键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_text_font_name_kv(item_key, key, value) end
+
 --预设库 添加AUDIO_CHANNEL键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -5579,429 +6004,3 @@ function GameAPI.set_item_key_point_list_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_item_key_rectangle_kv(item_key, key, value) end
-
---预设库 添加ROUND_AREA键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_round_area_kv(item_key, key, value) end
-
---预设库 添加POLYGON键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_polygon_kv(item_key, key, value) end
-
---预设库 添加CAMERA键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_camera_kv(item_key, key, value) end
-
---预设库 添加CAMLINE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_camline_kv(item_key, key, value) end
-
---预设库 添加POINT_LIGHT键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_point_light_kv(item_key, key, value) end
-
---预设库 添加SPOT_LIGHT键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_spot_light_kv(item_key, key, value) end
-
---预设库 添加FOG键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_fog_kv(item_key, key, value) end
-
---预设库 添加SCENE_SOUND键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_scene_sound_kv(item_key, key, value) end
-
---预设库 添加MODEL键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_model_kv(item_key, key, value) end
-
---预设库 添加LIVE2D键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_live2d_kv(item_key, key, value) end
-
---预设库 添加SFX_ENTITY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_sfx_entity_kv(item_key, key, value) end
-
---预设库 添加SFX_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_sfx_key_kv(item_key, key, value) end
-
---预设库 添加LINK_SFX_ENTITY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_link_sfx_entity_kv(item_key, key, value) end
-
---预设库 添加LINK_SFX_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_link_sfx_key_kv(item_key, key, value) end
-
---预设库 添加CURSOR_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_cursor_key_kv(item_key, key, value) end
-
---预设库 添加ANGLE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_angle_kv(item_key, key, value) end
-
---预设库 添加TEXTURE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_texture_kv(item_key, key, value) end
-
---预设库 添加SEQUENCE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_sequence_kv(item_key, key, value) end
-
---预设库 添加SPINE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_spine_kv(item_key, key, value) end
-
---预设库 添加PHYSICS_OBJECT键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_physics_object_kv(item_key, key, value) end
-
---预设库 添加PHYSICS_ENTITY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_physics_entity_kv(item_key, key, value) end
-
---预设库 添加PHYSICS_OBJECT_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_physics_object_key_kv(item_key, key, value) end
-
---预设库 添加PHYSICS_ENTITY_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_physics_entity_key_kv(item_key, key, value) end
-
---预设库 添加RIGID_BODY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_rigid_body_kv(item_key, key, value) end
-
---预设库 添加RIGID_BODY_GROUP键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_rigid_body_group_kv(item_key, key, value) end
-
---预设库 添加COLLIDER键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_collider_kv(item_key, key, value) end
-
---预设库 添加JOINT键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_joint_kv(item_key, key, value) end
-
---预设库 添加REACTION键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_reaction_kv(item_key, key, value) end
-
---预设库 添加REACTION_GROUP键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_reaction_group_kv(item_key, key, value) end
-
---预设库 添加DYNAMIC_TRIGGER_INSTANCE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_dynamic_trigger_instance_kv(item_key, key, value) end
-
---预设库 添加TABLE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_table_kv(item_key, key, value) end
-
---预设库 添加RANDOM_POOL键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_random_pool_kv(item_key, key, value) end
-
---预设库 添加SCENE_UI键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_scene_ui_kv(item_key, key, value) end
-
---预设库 添加DAMAGE_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_damage_type_kv(item_key, key, value) end
-
---预设库 添加HARM_TEXT_TYPE_NEW键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_harm_text_type_new_kv(item_key, key, value) end
-
---预设库 添加FONT_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_font_type_kv(item_key, key, value) end
-
---预设库 添加JUMP_WORD_TRACK键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_jump_word_track_kv(item_key, key, value) end
-
---预设库 添加NEW_TIMER键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_new_timer_kv(item_key, key, value) end
-
---预设库 添加TECH_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_tech_key_kv(item_key, key, value) end
-
---预设库 添加STORE_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_store_key_kv(item_key, key, value) end
-
---预设库 添加KEYBOARD_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_keyboard_key_kv(item_key, key, value) end
-
---预设库 添加FUNC_KEYBOARD_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_func_keyboard_key_kv(item_key, key, value) end
-
---预设库 添加MOUSE_KEY键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_mouse_key_kv(item_key, key, value) end
-
---预设库 添加MOUSE_WHEEL键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_mouse_wheel_kv(item_key, key, value) end
-
---预设库 添加MAP键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_map_kv(item_key, key, value) end
-
---预设库 添加POST_EFFECT键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_post_effect_kv(item_key, key, value) end
-
---预设库 添加UNIT_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_unit_type_kv(item_key, key, value) end
-
---预设库 添加UNIT_COMMAND_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_unit_command_type_kv(item_key, key, value) end
-
---预设库 添加UNIT_GROUP_COMMAND_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_unit_group_command_type_kv(item_key, key, value) end
-
---预设库 添加MINI_MAP_COLOR_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_mini_map_color_type_kv(item_key, key, value) end
-
---预设库 添加UNIT_BEHAVIOR键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_unit_behavior_kv(item_key, key, value) end
-
---预设库 添加CURVED_PATH键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_curved_path_kv(item_key, key, value) end
-
---预设库 添加CURVED_PATH_3D键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_curved_path_3d_kv(item_key, key, value) end
-
---预设库 添加RESCUE_SEEKER_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_rescue_seeker_type_kv(item_key, key, value) end
-
---预设库 添加RESCUER_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_rescuer_type_kv(item_key, key, value) end
-
---预设库 添加STORE_ITEM_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_item_key_store_item_type_kv(item_key, key, value) end
-
---预设库 添加BOOLEAN键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_boolean_kv(item_key, key, value) end
-
---预设库 添加INTEGER键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_integer_kv(item_key, key, value) end
-
---预设库 添加FLOAT键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_float_kv(item_key, key, value) end
-
---预设库 添加STRING键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_string_kv(item_key, key, value) end
-
---预设库 添加UI_COMP键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_comp_kv(item_key, key, value) end
-
---预设库 添加UI_COMP_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_comp_type_kv(item_key, key, value) end
-
---预设库 添加UI_COMP_EVENT_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_comp_event_type_kv(item_key, key, value) end
-
---预设库 添加UI_COMP_ATTR键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_comp_attr_kv(item_key, key, value) end
-
---预设库 添加UI_COMP_ALIGN_TYPE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_comp_align_type_kv(item_key, key, value) end
-
---预设库 添加UI_PREFAB键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_prefab_kv(item_key, key, value) end
-
---预设库 添加UI_PREFAB_INSTANCE键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_prefab_instance_kv(item_key, key, value) end
-
---预设库 添加UI_PREFAB_INS_UID键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_prefab_ins_uid_kv(item_key, key, value) end
-
---预设库 添加UI_DIRECTION键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_direction_kv(item_key, key, value) end
-
---预设库 添加UI_MODEL_CAMERA_MOD键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_model_camera_mod_kv(item_key, key, value) end
-
---预设库 添加UI_BTN_STATUS键值对
----@param item_key integer # prefab库ID
----@param key integer # 编号
----@param value string # 键值名称
-function GameAPI.set_ability_key_ui_btn_status_kv(item_key, key, value) end
