@@ -1200,6 +1200,7 @@ end
 ---@field time? number 持续时间
 ---@field pulse? number 心跳周期
 ---@field stacks? integer 层数
+---@field data? table 自定义数据
 
 ---给单位添加魔法效果
 ---@param data Buff.AddData
@@ -1211,7 +1212,8 @@ function M:add_buff(data)
         data.ability and data.ability.handle or nil,
         Fix32(data.time or -1),
         Fix32(data.pulse or 0.0),
-        data.stacks or 1
+        data.stacks or 1,
+        data.data or nil
     )
     if not py_buff then
         return nil
