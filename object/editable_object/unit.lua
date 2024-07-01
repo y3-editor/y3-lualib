@@ -1947,7 +1947,7 @@ end
 --- 造成伤害
 ---@class Unit.DamageData
 ---@field target Unit|Item|Destructible
----@field type y3.Const.DamageType
+---@field type y3.Const.DamageType | integer # 也可以传任意数字
 ---@field damage number
 ---@field ability? Ability # 关联技能
 ---@field text_type? y3.Const.DamageTextType # 跳字类型
