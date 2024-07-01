@@ -5,6 +5,9 @@
 ---@overload fun(player: Player, py_ui_prefab: string): self
 local M = Class 'UIPrefab'
 
+---@class UIPrefab: KV
+Extends('UIPrefab', 'KV')
+
 M.type = 'ui_prefab'
 
 ---@param player Player
