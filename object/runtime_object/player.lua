@@ -426,6 +426,35 @@ function M:get_platform_id()
     return math.tointeger(GameAPI.get_player_plat_aid(self.handle)) or 0
 end
 
+--获取玩家的此地图平台等级
+---@return integer
+function M:get_map_level()
+    return self.phandle:get_role_plat_map_level() or 0
+end
+
+--获取玩家在本地图的平台等级排名
+---@return integer
+function M:get_map_level_rank()
+    return self.phandle:api_get_map_level_rank() or 0
+end
+
+--获取玩家在本地图的累计局数
+function M:get_played_times()
+    return self.phandle:api_get_played_times() or 0
+end
+
+--获取玩家当前地图的成就点数
+function M:get_achieve_point()
+    return self.phandle:api_get_role_achieve_point() or 0
+end
+
+--判断指定成就是否解锁
+---@param id string
+---@return boolean
+function M:is_achieve_unlock(id)
+    return self.phandle:api_get_role_achieve_unlock(id) or false
+end
+
 ---玩家平台道具数量
 ---@param id py.StoreKey 平台道具id
 ---@return integer store_item_cnt 平台道具数量
