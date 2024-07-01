@@ -676,12 +676,12 @@ function M:bind_player_prop(uiAttr, player, attr_or_var, accuracy)
 end
 
 --绑定全局变量到玩家界面控件的属性
----@param uiAttr string 界面控件属性
+---@param uiAttr y3.Const.UIAttr | string 界面控件属性
 ---@param globalVar string 全局属性
----@param accuracy integer 小数精度
+---@param accuracy? integer 小数精度
 ---@return self
 function M:bind_global_variable(uiAttr, globalVar, accuracy)
-    GameAPI.set_ui_comp_bind_var(self.player.handle, self.handle, uiAttr, globalVar, accuracy)
+    GameAPI.set_ui_comp_bind_var(self.player.handle, self.handle, y3.const.UIAttr[uiAttr] or uiAttr, globalVar, accuracy or 0)
     return self
 end
 
