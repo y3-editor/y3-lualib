@@ -657,4 +657,11 @@ function M:display_message(message, localize)
     GameAPI.show_msg_to_role(self.handle, message, localize or false)
 end
 
+-- 上传埋点数据
+---@param key string
+---@param cnt integer
+function M:upload_tracking_data(key, cnt)
+    GameAPI.api_upload_user_tracking_data(self.handle, key, cnt)
+end
+
 return M
