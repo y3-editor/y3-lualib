@@ -157,114 +157,64 @@ function M.wrap_callbacks(mover_data)
 end
 
 ---@private
----@param builder table py.Dict
+---@param builder py.MoverBaseBuilder
 ---@param args Mover.CreateData.Base
 function M.wrap_base_args(builder, args)
-    if GlobalAPI.lua_get_python_empty_dict then
-        builder.collision_type               = args.hit_type or 0
-        builder.collision_radius             = Fix32(args.hit_radius or 0.0)
-        builder.is_face_angle                = args.face_angle or false
-        builder.is_multi_collision           = args.hit_same or false
-        builder.unit_collide_interval        = Fix32(args.hit_interval or 0.0)
-        builder.terrain_block                = args.terrain_block or false
-        builder.terrain_collide_interval     = Fix32(args.block_interval or 0.0)
-        builder.priority                     = args.priority or 1
-        builder.is_absolute_height           = args.absolute_height or false
-    else
-        builder.set_collision_type          (args.hit_type or 0)
-        builder.set_collision_radius        (Fix32(args.hit_radius or 0.0))
-        builder.set_is_face_angle           (args.face_angle or false)
-        builder.set_is_multi_collision      (args.hit_same or false)
-        builder.set_unit_collide_interval   (Fix32(args.hit_interval or 0.0))
-        builder.set_terrain_block           (args.terrain_block or false)
-        builder.set_terrain_collide_interval(Fix32(args.block_interval or 0.0))
-        builder.set_priority                (args.priority or 1)
-        builder.set_is_absolute_height      (args.absolute_height or false)
-        --builder.set_related_unit            (args.unit and args.unit.handle or nil)
-        --builder.set_related_ability         (args.ability and args.ability.handle or nil)
-    end
+    builder.set_collision_type          (args.hit_type or 0)
+    builder.set_collision_radius        (Fix32(args.hit_radius or 0.0))
+    builder.set_is_face_angle           (args.face_angle or false)
+    builder.set_is_multi_collision      (args.hit_same or false)
+    builder.set_unit_collide_interval   (Fix32(args.hit_interval or 0.0))
+    builder.set_terrain_block           (args.terrain_block or false)
+    builder.set_terrain_collide_interval(Fix32(args.block_interval or 0.0))
+    builder.set_priority                (args.priority or 1)
+    builder.set_is_absolute_height      (args.absolute_height or false)
+    --builder.set_related_unit            (args.unit and args.unit.handle or nil)
+    --builder.set_related_ability         (args.ability and args.ability.handle or nil)
 end
 
 ---@private
 ---@param args Mover.CreateData.Line
 ---@return table
 function M.wrap_line_args(args)
-    if GlobalAPI.lua_get_python_empty_dict then
-        local builder = GlobalAPI.lua_get_python_empty_dict()
-        M.wrap_base_args(builder, args)
-        builder.angle                       = Fix32(args.angle)
-        builder.max_dist                    = Fix32(args.distance)
-        builder.init_velocity               = Fix32(args.speed)
-        builder.acceleration                = Fix32(args.acceleration or 0.0)
-        builder.max_velocity                = Fix32(args.max_speed or 99999.0)
-        builder.min_velocity                = Fix32(args.min_speed or 0.0)
-        builder.init_height                 = Fix32(args.init_height or 0.0)
-        builder.fin_height                  = Fix32(args.fin_height or 0.0)
-        builder.parabola_height             = Fix32(args.parabola_height or 0.0)
-        builder.is_parabola_height          = args.parabola_height ~= nil
-        -- builder.is_open_init_height         = (args.init_height ~= nil)
-        -- builder.is_open_fin_height          = (args.fin_height ~= nil)
+    local builder = StraightMoverArgs()
+    M.wrap_base_args(builder, args)
+    builder.set_angle              (Fix32(args.angle))
+    builder.set_max_dist           (Fix32(args.distance))
+    builder.set_init_velocity      (Fix32(args.speed))
+    builder.set_acceleration       (Fix32(args.acceleration or 0.0))
+    builder.set_max_velocity       (Fix32(args.max_speed or 99999.0))
+    builder.set_min_velocity       (Fix32(args.min_speed or 0.0))
+    builder.set_init_height        (Fix32(args.init_height or 0.0))
+    builder.set_fin_height         (Fix32(args.fin_height or 0.0))
+    builder.set_parabola_height    (Fix32(args.parabola_height or 0.0))
+    builder.set_is_parabola_height (args.parabola_height ~= nil)
+    builder.set_is_open_init_height(args.init_height ~= nil)
+    builder.set_is_open_fin_height (args.fin_height ~= nil)
 
-        return builder
-    else
-        local builder = StraightMoverArgs()
-        M.wrap_base_args(builder, args)
-        builder.set_angle              (Fix32(args.angle))
-        builder.set_max_dist           (Fix32(args.distance))
-        builder.set_init_velocity      (Fix32(args.speed))
-        builder.set_acceleration       (Fix32(args.acceleration or 0.0))
-        builder.set_max_velocity       (Fix32(args.max_speed or 99999.0))
-        builder.set_min_velocity       (Fix32(args.min_speed or 0.0))
-        builder.set_init_height        (Fix32(args.init_height or 0.0))
-        builder.set_fin_height         (Fix32(args.fin_height or 0.0))
-        builder.set_parabola_height    (Fix32(args.parabola_height or 0.0))
-        builder.set_is_parabola_height (args.parabola_height ~= nil)
-        builder.set_is_open_init_height(args.init_height ~= nil)
-        builder.set_is_open_fin_height (args.fin_height ~= nil)
-
-        return builder
-    end
+    return builder
 end
 
 ---@private
 ---@param args Mover.CreateData.Target
 ---@return table
 function M.wrap_target_args(args)
-    if GlobalAPI.lua_get_python_empty_dict then
-        local builder = GlobalAPI.lua_get_python_empty_dict()
-        M.wrap_base_args(builder, args)
-        builder.stop_distance_to_target     = Fix32(args.target_distance or 0.0)
-        builder.init_velocity               = Fix32(args.speed)
-        builder.acceleration                = Fix32(args.acceleration or 0.0)
-        builder.max_velocity                = Fix32(args.max_speed or 99999.0)
-        builder.min_velocity                = Fix32(args.min_speed or 0.0)
-        builder.init_height                 = Fix32(args.height or 0.0)
-        builder.bind_point                  = args.bind_point or ''
-        -- builder.is_open_init_height         = args.height ~= nil
-        -- builder.is_parabola_height          = args.parabola_height ~= nil
-        builder.parabola_height             = Fix32(args.parabola_height or 0.0)
-        -- builder.is_open_bind_point          = args.bind_point ~= nil
-        builder.target_unit_id              = args.target:get_id()
+    local builder = ChasingMoverArgs()
+    M.wrap_base_args(builder, args)
+    builder.set_stop_distance_to_target(Fix32(args.target_distance or 0.0))
+    builder.set_init_velocity          (Fix32(args.speed))
+    builder.set_acceleration           (Fix32(args.acceleration or 0.0))
+    builder.set_max_velocity           (Fix32(args.max_speed or 99999.0))
+    builder.set_min_velocity           (Fix32(args.min_speed or 0.0))
+    builder.set_init_height            (Fix32(args.height or 0.0))
+    builder.set_bind_point             (args.bind_point or '')
+    builder.set_is_open_init_height    (args.height ~= nil)
+    builder.set_is_parabola_height     (args.parabola_height ~= nil)
+    builder.set_parabola_height        (Fix32(args.parabola_height or 0.0))
+    builder.set_is_open_bind_point     (args.bind_point ~= nil)
+    builder.set_target_unit_id         (args.target:get_id())
 
-        return builder
-    else
-        local builder = ChasingMoverArgs()
-        M.wrap_base_args(builder, args)
-        builder.set_stop_distance_to_target(Fix32(args.target_distance or 0.0))
-        builder.set_init_velocity          (Fix32(args.speed))
-        builder.set_acceleration           (Fix32(args.acceleration or 0.0))
-        builder.set_max_velocity           (Fix32(args.max_speed or 99999.0))
-        builder.set_min_velocity           (Fix32(args.min_speed or 0.0))
-        builder.set_init_height            (Fix32(args.height or 0.0))
-        builder.set_bind_point             (args.bind_point or '')
-        builder.set_is_open_init_height    (args.height ~= nil)
-        builder.set_is_parabola_height     (args.parabola_height ~= nil)
-        builder.set_parabola_height        (Fix32(args.parabola_height or 0.0))
-        builder.set_is_open_bind_point     (args.bind_point ~= nil)
-        builder.set_target_unit_id         (args.target:get_id())
-
-        return builder
-    end
+    return builder
 end
 
 ---@private
@@ -282,96 +232,51 @@ function M.wrap_curve_args(args)
         return Fix32Vec2(lua_object:get_x(), lua_object:get_y())
     end)
 
-    if GlobalAPI.lua_get_python_empty_dict then
-        local builder = GlobalAPI.lua_get_python_empty_dict()
-        M.wrap_base_args(builder, args)
-        builder.angle                   = Fix32(args.angle)
-        builder.max_dist                = Fix32(args.distance)
-        builder.init_velocity           = Fix32(args.speed)
-        builder.acceleration            = Fix32(args.acceleration or 0.0)
-        builder.path                    = path
-        builder.max_velocity            = Fix32(args.max_speed or 99999.0)
-        builder.min_velocity            = Fix32(args.min_speed or 0.0)
-        builder.init_height             = Fix32(args.init_height or 0.0)
-        builder.fin_height              = Fix32(args.fin_height or 0.0)
-        -- builder.is_open_init_height     = args.init_height ~= nil
+    local builder = CurvedMoverArgs()
+    M.wrap_base_args(builder, args)
+    builder.set_angle              (Fix32(args.angle))
+    builder.set_max_dist           (Fix32(args.distance))
+    builder.set_init_velocity      (Fix32(args.speed))
+    builder.set_acceleration       (Fix32(args.acceleration or 0.0))
+    builder.set_path               (path)
+    builder.set_max_velocity       (Fix32(args.max_speed or 99999.0))
+    builder.set_min_velocity       (Fix32(args.min_speed or 0.0))
+    builder.set_init_height        (Fix32(args.init_height or 0.0))
+    builder.set_fin_height         (Fix32(args.fin_height or 0.0))
+    builder.set_is_open_init_height(args.init_height ~= nil)
 
-        return builder
-    else
-        local builder = CurvedMoverArgs()
-        M.wrap_base_args(builder, args)
-        builder.set_angle              (Fix32(args.angle))
-        builder.set_max_dist           (Fix32(args.distance))
-        builder.set_init_velocity      (Fix32(args.speed))
-        builder.set_acceleration       (Fix32(args.acceleration or 0.0))
-        builder.set_path               (path)
-        builder.set_max_velocity       (Fix32(args.max_speed or 99999.0))
-        builder.set_min_velocity       (Fix32(args.min_speed or 0.0))
-        builder.set_init_height        (Fix32(args.init_height or 0.0))
-        builder.set_fin_height         (Fix32(args.fin_height or 0.0))
-        builder.set_is_open_init_height(args.init_height ~= nil)
-
-        return builder
-    end
+    return builder
 end
 
 ---@private
 ---@param args Mover.CreateData.Round
 ---@return table
 function M.wrap_round_args(args)
-    if GlobalAPI.lua_get_python_empty_dict then
-        local target = args.target
-        local builder = GlobalAPI.lua_get_python_empty_dict()
-        M.wrap_base_args(builder, args)
-        if target.type == 'unit' then
-            ---@cast target Unit
-            builder.is_to_unit = true
-            builder.target_unit_id = target:get_id()
-        else
-            ---@cast target Point
-            builder.is_to_unit = false
-            -- TODO 见问题2
-            ---@diagnostic disable-next-line: param-type-mismatch
-            local x, y = target:get_x(), target:get_y()
-            builder.target_pos = Fix32Vec2(x / 100.0, y / 100.0)
-        end
-        builder.circle_radius          = Fix32(args.radius or 0.0)
-        builder.angle_velocity         = Fix32(args.angle_speed or 0.0)
-        builder.init_angle             = Fix32(args.init_angle or 0.0)
-        builder.counterclockwise       = args.clock_wise == false and 2 or 1
-        builder.round_time             = Fix32(args.round_time or 0)
-        builder.centrifugal_velocity   = Fix32(args.radius_speed or 0.0)
-        builder.lifting_velocity       = Fix32(args.lifting_speed or 0.0)
-        --builder.set_init_height            (Fix32(args.height or 0.0))
-
-        return builder
+    local target = args.target
+    local builder = RoundMoverArgs()
+    M.wrap_base_args(builder, args)
+    if target.type == 'unit' then
+        ---@cast target Unit
+        builder.set_is_to_unit(true)
+        builder.set_target_unit_id(target:get_id())
     else
-        local target = args.target
-        local builder = RoundMoverArgs()
-        M.wrap_base_args(builder, args)
-        if target.type == 'unit' then
-            ---@cast target Unit
-            builder.set_is_to_unit(true)
-            builder.set_target_unit_id(target:get_id())
-        else
-            ---@cast target Point
-            builder.set_is_to_unit(false)
-            -- TODO 见问题2
-            ---@diagnostic disable-next-line: param-type-mismatch
-            local x, y = target:get_x(), target:get_y()
-            builder.set_target_pos(Fix32Vec2(x / 100.0, y / 100.0))
-        end
-        builder.set_circle_radius          (Fix32(args.radius or 0.0))
-        builder.set_angle_velocity         (Fix32(args.angle_speed or 0.0))
-        builder.set_init_angle             (Fix32(args.init_angle or 0.0))
-        builder.set_counterclockwise       (args.clock_wise == false and 2 or 1)
-        builder.set_round_time             (Fix32(args.round_time or 0))
-        builder.set_centrifugal_velocity   (Fix32(args.radius_speed or 0.0))
-        builder.set_lifting_velocity       (Fix32(args.lifting_speed or 0.0))
-        --builder.set_init_height            (Fix32(args.height or 0.0))
-
-        return builder
+        ---@cast target Point
+        builder.set_is_to_unit(false)
+        -- TODO 见问题2
+        ---@diagnostic disable-next-line: param-type-mismatch
+        local x, y = target:get_x(), target:get_y()
+        builder.set_target_pos(Fix32Vec2(x / 100.0, y / 100.0))
     end
+    builder.set_circle_radius          (Fix32(args.radius or 0.0))
+    builder.set_angle_velocity         (Fix32(args.angle_speed or 0.0))
+    builder.set_init_angle             (Fix32(args.init_angle or 0.0))
+    builder.set_counterclockwise       (args.clock_wise == false and 2 or 1)
+    builder.set_round_time             (Fix32(args.round_time or 0))
+    builder.set_centrifugal_velocity   (Fix32(args.radius_speed or 0.0))
+    builder.set_lifting_velocity       (Fix32(args.lifting_speed or 0.0))
+    --builder.set_init_height            (Fix32(args.height or 0.0))
+
+    return builder
 end
 
 ---@private
