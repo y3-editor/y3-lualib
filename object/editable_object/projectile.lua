@@ -287,4 +287,13 @@ function M:get_ability()
     return nil
 end
 
+--设置投射物的可见性
+---@param visible boolean # 是否可见
+---@param player_or_group? Player | PlayerGroup # 应用于哪些玩家，默认为所有玩家
+function M:set_visible(visible, player_or_group)
+    player_or_group = player_or_group or y3.player_group.get_all_players()
+    ---@diagnostic disable-next-line: param-type-mismatch
+    self.phandle:api_set_projectile_visible(player_or_group.handle, visible)
+end
+
 return M
