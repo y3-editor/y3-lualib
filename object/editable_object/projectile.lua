@@ -50,8 +50,11 @@ M.ref_manager = New 'Ref' ('Projectile', function (id)
 end)
 
 ---@param py_projectile py.ProjectileEntity
----@return Projectile projectile
+---@return Projectile? projectile
 function M.get_by_handle(py_projectile)
+    if not py_projectile then
+        return nil
+    end
     local id = y3.py_proxy.wrap(py_projectile):api_get_id()
     local projectile = M.ref_manager:get(id)
     return projectile
@@ -181,7 +184,7 @@ function M.create(data)
             data.remove_immediately or false,
             data.remove_immediately == nil and true or false
         )
-        return M.get_by_handle(py_obj)
+        return M.get_by_handle(py_obj) --[[@as Projectile]]
     else
         ---@cast target Unit
         local py_obj = GameAPI.create_projectile_on_socket(
@@ -199,7 +202,7 @@ function M.create(data)
             data.remove_immediately or false,
             data.remove_immediately == nil and true or false
         )
-        return M.get_by_handle(py_obj)
+        return M.get_by_handle(py_obj) --[[@as Projectile]]
     end
 end
 

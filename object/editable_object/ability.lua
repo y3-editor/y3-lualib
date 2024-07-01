@@ -66,8 +66,11 @@ end)
 
 ---通过py层的技能实例获取lua层的技能实例
 ---@param py_ability py.Ability # py层的技能实例
----@return Ability ability # 返回在lua层初始化后的lua层技能实例
+---@return Ability? ability # 返回在lua层初始化后的lua层技能实例
 function M.get_by_handle(py_ability)
+    if not py_ability then
+        return nil
+    end
     local id = y3.py_proxy.wrap(py_ability):api_get_ability_global_id()
     return M.ref_manager:get(id, py_ability)
 end

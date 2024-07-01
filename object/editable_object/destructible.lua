@@ -49,8 +49,11 @@ end)
 
 ---通过py层的可破坏物实例获取lua层的可破坏物对象
 ---@param  py_destructible py.Destructible
----@return Destructible
+---@return Destructible?
 function M.get_by_handle(py_destructible)
+    if not py_destructible then
+        return nil
+    end
     local id = y3.py_proxy.wrap(py_destructible):api_get_id()
     local dest = M.ref_manager:get(id)
     return dest
@@ -63,7 +66,7 @@ end)
 
 -- 通过可破坏物的唯一ID获取lua的可破坏物对象
 ---@param id py.DestructibleID
----@return Destructible
+---@return Destructible?
 function M.get_by_id(id)
     local py_destructible = GameAPI.get_dest_by_id(id)
     return M.get_by_handle(py_destructible)
@@ -415,7 +418,7 @@ function M.create_destructible(type_id, point, angle, scale_x, scale_y, scale_z,
     if not height then height = 0 end
     local py_destructible = GameAPI.create_destructible_new(type_id, point.handle, Fix32(angle), Fix32(scale_x), Fix32(scale_y), Fix32(scale_z), Fix32(height))
 
-    return y3.destructible.get_by_handle(py_destructible)
+    return y3.destructible.get_by_handle(py_destructible) --[[@as Destructible]]
 end
 
 ---获取可破坏物类型的名称

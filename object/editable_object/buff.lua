@@ -60,8 +60,11 @@ end)
 
 ---通过py层的魔法效果实例获取lua层的魔法效果实例
 ---@param  py_buff py.ModifierEntity # py层的魔法效果实例
----@return Buff # 返回在lua层初始化后的lua层魔法效果实例
+---@return Buff? # 返回在lua层初始化后的lua层魔法效果实例
 function M.get_by_handle(py_buff)
+    if not py_buff then
+        return nil
+    end
     local id = y3.py_proxy.wrap(py_buff):api_get_modifier_unique_id()
     return M.ref_manager:get(id, py_buff)
 end

@@ -57,9 +57,10 @@ function M.wrap(handle)
         if type(handle) ~= 'userdata' then
             return handle
         end
+        ---@cast handle py.DynamicTypeMeta
         p = setmetatable({
             [RAW]  = handle,
-            [DEAD] = false,
+            [DEAD] = not isExist(handle),
         }, proxyMT)
         cachedMap[handle] = p
     end

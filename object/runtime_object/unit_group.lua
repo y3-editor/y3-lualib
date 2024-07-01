@@ -112,16 +112,22 @@ function M:get_first()
 end
 
 --获取单位组中随机一个单位
----@return Unit unit 单位组中随机一个单位
+---@return Unit? unit 单位组中随机一个单位
 function M:get_random()
     local py_unit = GameAPI.get_random_unit_in_unit_group(self.handle)
+    if not py_unit then
+        return nil
+    end
     return y3.unit.get_by_handle(py_unit)
 end
 
 --获取单位组内最后一个单位
----@return Unit unit 最后一个单位
+---@return Unit? unit 最后一个单位
 function M:get_last()
     local py_unit = GameAPI.get_last_unit_in_group(self.handle)
+    if not py_unit then
+        return nil
+    end
     return y3.unit.get_by_handle(py_unit)
 end
 

@@ -59,8 +59,11 @@ end)
 
 ---通过py层的单位实例获取lua层的单位实例
 ---@param py_unit py.Unit
----@return Unit
+---@return Unit?
 function M.get_by_handle(py_unit)
+    if not py_unit then
+        return nil
+    end
     local id = y3.py_proxy.wrap(py_unit):api_get_id()
     local unit = M.ref_manager:get(id)
     return unit
@@ -341,7 +344,7 @@ function M.create_unit(owner, unit_id, point, direction)
         ---@diagnostic disable-next-line: param-type-mismatch
         owner.handle
     )
-    return M.get_by_handle(py_unit)
+    return M.get_by_handle(py_unit) --[[@as Unit]]
 end
 
 ---杀死单位

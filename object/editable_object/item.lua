@@ -59,8 +59,11 @@ end)
 
 ---通过py层的技能实例获取lua层的道具实例
 ---@param  py_item py.Item py层的道具实例
----@return Item # 返回在lua层初始化后的lua层道具实例
+---@return Item? # 返回在lua层初始化后的lua层道具实例
 function M.get_by_handle(py_item)
+    if not py_item then
+        return nil
+    end
     local id = y3.py_proxy.wrap(py_item):api_get_id() or 0
     return M.get_by_id(id)
 end
@@ -501,7 +504,7 @@ function M.create_item(point, item_key, player)
         player = y3.player(31)
     end
     local py_item = GameAPI.create_item_by_id(point.handle, item_key, player.handle)
-    return M.get_by_handle(py_item)
+    return M.get_by_handle(py_item) --[[@as Item]]
 end
 
 ---获取物品购买售价
