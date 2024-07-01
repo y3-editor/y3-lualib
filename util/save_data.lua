@@ -88,7 +88,7 @@ end
 ---@param t table
 function M.save_table(player, slot, t)
     assert(type(t) == 'table', '数据类型必须是表！')
-    t = y3.proxy.rawRecusive(t)
+    t = y3.proxy.raw(t) or t
     player.handle:set_save_data_table_value(slot, t)
     M.upload_save_data(player)
 end
@@ -200,41 +200,51 @@ function M.load_table_with_cover_disable(player, slot)
 
     ---@type Proxy.Config
     local proxy_config = {
-        anySetter = function (self, raw, key, value, config)
+        anySetter = function (self, raw, key, value, config, custom)
             if type(key) ~= 'string'
             and math.type(key) ~= 'integer' then
                 error('表的key必须是字符串或者整数')
             end
             local vtype = type(value)
             if vtype == 'table' then
-                error('禁止覆盖模式下表不能作为存档的值')
-            end
-            if  vtype ~= 'nil'
-            and vtype ~= 'string'
-            and vtype ~= 'boolean'
-            and vtype ~= 'number' then
+                if next(value) ~= nil then
+                    error('禁止覆盖模式下非空表不能作为存档的值')
+                end
+                if custom >= 3 then
+                    error('存档表最多只支持3层嵌套')
+                end
+                if y3.proxy.raw(value) then
+                    value = y3.proxy.raw(value)
+                end
+            elseif vtype ~= 'nil'
+            and    vtype ~= 'string'
+            and    vtype ~= 'boolean'
+            and    vtype ~= 'number' then
                 error('存档的值只能是基础类型')
             end
 
             set_value(key, value)
         end,
-        anyGetter = function (self, raw, key, config)
+        anyGetter = function (self, raw, key, config, custom)
             local value = get_value(key)
+            if type(value) == 'table' then
+                return create_proxy(value, custom + 1)
+            end
 
             return value
         end
     }
 
-    function create_proxy(raw)
+    function create_proxy(raw, level)
         if M.table_cache[raw] then
             return M.table_cache[raw]
         end
-        local v = y3.proxy.new(raw, proxy_config)
+        local v = y3.proxy.new(raw, proxy_config, level)
         M.table_cache[raw] = v
         return v
     end
 
-    local proxy_save_data = create_proxy(save_data)
+    local proxy_save_data = create_proxy(save_data, 0)
 
     return proxy_save_data
 end
