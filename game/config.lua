@@ -72,6 +72,8 @@ M.log = y3.proxy.new({
 --每秒的逻辑帧率，请将其设置为与你地图中设置的一致。
 --目前默认为30帧，未来默认会读取你地图中的设置。
 --必须在游戏开始时就设置好，请勿中途修改。
-M.logic_frame = 30
+M.logic_frame = GameAPI.api_get_logic_fps
+            and GameAPI.api_get_logic_fps()
+            or  30
 
 return M
