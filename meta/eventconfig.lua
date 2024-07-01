@@ -2582,6 +2582,75 @@ end\
     },
 }
 
+---@alias EventParam.界面-滑动条变化 EventParam.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT
+M.config["界面-滑动条变化"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "滑动条变化时触发",
+    extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    return ui\
+end\
+",
+            desc = "ui",
+            name = "ui",
+            type = "UI",
+        },
+    },
+    key = "ET_TRIGGER_UI_SLIDER_CHANGE_EVENT",
+    name = "界面-滑动条变化",
+    object = "Player",
+    params = {
+    },
+}
+
+---@alias EventParam.界面-聊天框可见性变化 EventParam.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT
+M.config["界面-聊天框可见性变化"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "聊天框可见性变化时触发",
+    extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    return ui\
+end\
+",
+            desc = "ui",
+            name = "ui",
+            type = "UI",
+        },
+    },
+    key = "ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT",
+    name = "界面-聊天框可见性变化",
+    object = "Player",
+    params = {
+    },
+}
+
+---@alias EventParam.界面-复选框变化 EventParam.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT
+M.config["界面-复选框变化"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "复选框变化时触发",
+    extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    return ui\
+end\
+",
+            desc = "ui",
+            name = "ui",
+            type = "UI",
+        },
+    },
+    key = "ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT",
+    name = "界面-复选框变化",
+    object = "Player",
+    params = {
+    },
+}
+
 ---@alias EventParam.键盘-按下 EventParam.ET_KEYBOARD_KEY_DOWN_EVENT
 M.config["键盘-按下"] = {
     __class__ = "EventConfigBuilder",
@@ -3668,6 +3737,9 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
 ---@field event fun(self: self, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
 ---@field event fun(self: self, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: self, event: "界面-滑动条变化", callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
+---@field event fun(self: self, event: "界面-聊天框可见性变化", callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
+---@field event fun(self: self, event: "界面-复选框变化", callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
 ---@field event fun(self: self, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
 ---@field event fun(self: self, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
 ---@field event fun(self: self, event: "本地-键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
@@ -3815,6 +3887,9 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.本地-选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: Player, event: "界面-滑动条变化", callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
+---@field event fun(self: Player, event: "界面-聊天框可见性变化", callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
+---@field event fun(self: Player, event: "界面-复选框变化", callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
 ---@field event fun(self: Player, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
 ---@field event fun(self: Player, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
 ---@field event fun(self: Player, event: "本地-键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger

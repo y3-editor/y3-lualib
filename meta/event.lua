@@ -5362,6 +5362,7 @@ event.ET_TRIGGER_COMPONENT_EVENT = {
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
 ---@field float1 number # 自定义信息
+---@field ui UI # ui
 
 --ui滑动条事件
 event.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT = {
@@ -5397,6 +5398,17 @@ event.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT = {
         desc = "自定义信息",
         lua_desc = "自定义信息",
     },
+    [5] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
+    },
 }
 
 ---@class EventParam.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT
@@ -5404,6 +5416,7 @@ event.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT = {
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
 ---@field bool1 boolean # 自定义信息
+---@field ui UI # ui
 
 --ui聊天框元件可见性改变事件
 event.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT = {
@@ -5438,6 +5451,17 @@ event.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT = {
         lua_type = "boolean",
         desc = "自定义信息",
         lua_desc = "自定义信息",
+    },
+    [5] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
     },
 }
 
@@ -5515,6 +5539,7 @@ event.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT = {
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
 ---@field bool1 boolean # 自定义信息
+---@field ui UI # ui
 
 --ui复选框事件
 event.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT = {
@@ -5549,6 +5574,17 @@ event.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT = {
         lua_type = "boolean",
         desc = "自定义信息",
         lua_desc = "自定义信息",
+    },
+    [5] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
     },
 }
 
