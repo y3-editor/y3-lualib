@@ -1,12 +1,12 @@
 --镜头
 ---@class Camera
----@field handle integer
+---@field handle py.Camera
 ---@overload fun(py_camera: py.Camera): self
 local M = Class 'Camera'
 
 M.type = 'camera'
 
----@param py_camera integer
+---@param py_camera py.Camera
 ---@return self
 function M:__init(py_camera)
     self.handle = py_camera
@@ -20,10 +20,31 @@ function M.get_by_handle(py_camera)
     return camera
 end
 
+-- 获取摆放在场景上的镜头
+---@param res_id integer
+---@return Camera
+function M.get_by_res_id(res_id)
+    return M.get_by_handle(res_id)
+end
+
 y3.py_converter.register_py_to_lua('py.Camera', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Camera', function (lua_value)
     return lua_value.handle
 end)
+
+-- 引用镜头
+---@param player_or_group? Player | PlayerGroup # 玩家或玩家组，默认为所有玩家
+---@param duration? number # 过渡时间，默认为0
+---@param slope_mode? y3.Const.CameraMoveMode # 过渡模式，默认为匀速
+function M:apply(player_or_group, duration, slope_mode)
+    GameAPI.apply_camera_conf(
+        ---@diagnostic disable-next-line: param-type-mismatch
+        (player_or_group or y3.player_group.get_all_players()).handle,
+        self.handle,
+        duration or 0,
+        y3.const.CameraMoveMode[slope_mode] or 0
+    )
+end
 
 ---玩家镜头是否正在播放动画
 ---@param player Player 玩家

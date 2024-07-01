@@ -482,10 +482,11 @@ M.DialogDebugType = {
     ['INFO'] = 3,
 }
 
+---@enum(key) y3.Const.CameraMoveMode
 M.CameraMoveMode = {
-    ['ACC'] = 1,
-    ['SMOOTH'] = 0,
-    ['DEC'] = 2,
+    ['匀速'] = 0,
+    ['匀加速'] = 1,
+    ['匀减速'] = 2,
 }
 
 M.CameraShakeMode = {
