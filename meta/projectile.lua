@@ -67,7 +67,7 @@ function ProjectileEntity:api_get_left_time() end
 function ProjectileEntity:api_get_height() end
 
 --获取投射物角度
----@return number? # 投射物的角度
+---@return py.Fixed? # 投射物的角度
 function ProjectileEntity:api_get_face_angle() end
 
 --获取投射物位置

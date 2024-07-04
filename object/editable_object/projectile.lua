@@ -116,8 +116,13 @@ end
 ---获取投射物朝向
 ---@return number angle 投射物朝向
 function M:get_facing()
-    return self.phandle:api_get_face_angle() or 0.0
+    local py_fixed = self.phandle:api_get_face_angle()
+    if py_fixed then
+        return py_fixed:float()
+    end
+    return 0.0
 end
+
 
 ---获取投射物所在点
 ---@return Point point 投射物所在点
