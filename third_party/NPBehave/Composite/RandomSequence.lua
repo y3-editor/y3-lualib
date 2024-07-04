@@ -12,7 +12,7 @@ end)
 function RandomSequence:__init(...)
     self._currentIndex = 0
     self._randomizedOrder = {}
-    for i = 1, self.Children do
+    for i = 1, #self.Children do
         self._randomizedOrder[i] = i
     end
     return self
