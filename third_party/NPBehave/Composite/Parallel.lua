@@ -6,7 +6,7 @@ local superName = NPBehave.ClassName.Composite
 ---@class NPBehave.Composite.Parallel: NPBehave.Composite.Composite
 Extends(NPBehave.ClassName.Parallel, superName, function(self, super, ...)
     local args = { select(3, ...) }
-    super("Parallel", args)
+    super("Parallel", table.unpack(args))
 end)
 
 --TODO 待验证
