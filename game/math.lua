@@ -94,4 +94,6 @@ function M.get_random_seed()
     return GameAPI.get_random_seed()
 end
 
+M.tonumber = y3.helper.tonumber
+
 return M

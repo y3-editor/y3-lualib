@@ -27,7 +27,7 @@ function M.pack_list(lua_list, unwrapper)
     return py_list
 end
 
----@param n number | py.Fixed | nil
+---@param n? y3.Number
 ---@return number?
 function M.tonumber(n)
     if not n then
