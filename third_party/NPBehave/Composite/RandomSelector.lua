@@ -7,12 +7,12 @@ local RandomSelector = Class(NPBehave.ClassName.RandomSelector, superName, funct
     super("Random Selector", ...)
 end)
 
----@param children NPBehave.Node[]
+---@param ... NPBehave.Node
 ---@return self
-function RandomSelector:__init(children)
+function RandomSelector:__init(...)
     self._currentIndex = 0
     self._randomizedOrder = {}
-    for i = 1, #children do
+    for i = 1, #self.Children do
         self._randomizedOrder[i] = i
     end
     return self

@@ -7,12 +7,12 @@ local RandomSequence = Class(NPBehave.ClassName.RandomSequence, superName, funct
     super("Random Sequence", ...)
 end)
 
----@param children NPBehave.Node[]
+---@param ... NPBehave.Node
 ---@return self
-function RandomSequence:__init(children)
+function RandomSequence:__init(...)
     self._currentIndex = 0
     self._randomizedOrder = {}
-    for i = 1, #children do
+    for i = 1, self.Children do
         self._randomizedOrder[i] = i
     end
     return self
