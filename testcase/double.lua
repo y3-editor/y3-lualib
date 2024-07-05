@@ -24,6 +24,7 @@ local function isNaN(a)
 end
 
 -- 基础等价
+--eq(xdouble(1), 1) -- 由于Lua重载运算符的规则限制，无法进行这种等价判断
 eq(xdouble(1),          xdouble(1))
 eq(xdouble(xdouble(1)), xdouble(1))
 eq(xdouble(1),          Fix32(1.0))
