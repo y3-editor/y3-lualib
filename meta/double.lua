@@ -1,6 +1,14 @@
 ---@meta _
 
 ---@class XDouble
+---@operator unm:  XDouble
+---@operator add:  XDouble
+---@operator sub:  XDouble
+---@operator mul:  XDouble
+---@operator div:  XDouble
+---@operator mod:  XDouble
+---@operator pow:  XDouble
+---@operator idiv: XDouble
 local M = {}
 
 ---@param num y3.Number | string
