@@ -40,6 +40,23 @@ function M.tonumber(n)
     end
 end
 
+---@param n? y3.Number
+---@return 'number' | 'Fix32' | 'XDouble' | nil
+function M.number_type(n)
+    local tp = type(n)
+    if tp == 'number' then
+        return 'number'
+    elseif tp == 'userdata' then
+        if n['__name'] == 'LuaFix32' then
+            return 'Fix32'
+        end
+        if n['__name'] == 'xDouble' then
+            return 'XDouble'
+        end
+    end
+    return nil
+end
+
 ---@param v any
 ---@param recursive? boolean
 ---@return any

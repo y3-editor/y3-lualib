@@ -14,7 +14,7 @@ local Unit = Class 'py.Unit'
 ---@class py.ProjectileEntity
 local Projectile = Class 'py.ProjectileEntity'
 
----@param luaNumber number
+---@param luaNumber number | string
 ---@return py.Fixed Fixed
 function Fix32(luaNumber) end
 
