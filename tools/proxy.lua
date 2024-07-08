@@ -64,7 +64,16 @@ local metatable = {
     end,
     __pairs = function (self)
         local raw = rawget(self, RAW)
-        return pairs(raw)
+        local t = {}
+        for k in pairs(raw) do
+            t[k] = self[k]
+        end
+        for k in pairs(self) do
+            if k ~= RAW and k ~= CONFIG and k ~= CUSTOM then
+                t[k] = self[k]
+            end
+        end
+        return next, t, nil
     end,
     __len = function (self)
         local raw = rawget(self, RAW)
