@@ -188,19 +188,48 @@ function M.load_table_with_cover_disable(player, slot)
         end)
     end
 
-    local function set_value(key, value)
-        player.handle:set_save_table_key_value(slot, key, value, '', '', '')
+    local function unpack_path(key, path)
+        local key1 = path and path[1]
+        if not key1 then
+            key1 = key
+            key = ''
+        end
+        local key2 = path and path[2]
+        if not key2 then
+            key2 = key
+            key = ''
+        end
+        local key3 = path and path[3] or key
+        return key1, key2, key3
+    end
+
+    local function set_value(key, value, path)
+        local key1, key2, key3 = unpack_path(key, path)
+        player.handle:set_save_table_key_value(slot
+            , key1
+            , value
+            , key2
+            , key3
+            , ''
+        )
         update_save_data()
     end
 
-    local function get_value(key)
-    ---@diagnostic disable-next-line: param-type-mismatch
-        return player.handle:get_save_table_key_value(slot, key, '', '', nil, '')
+    local function get_value(key, path)
+        local key1, key2, key3 = unpack_path(key, path)
+        return player.handle:get_save_table_key_value(slot
+            , key1
+            , key2
+            , key3
+            ---@diagnostic disable-next-line: param-type-mismatch
+            , nil
+            , ''
+        )
     end
 
     ---@type Proxy.Config
     local proxy_config = {
-        anySetter = function (self, raw, key, value, config, custom)
+        anySetter = function (self, raw, key, value, config, path)
             if type(key) ~= 'string'
             and math.type(key) ~= 'integer' then
                 error('表的key必须是字符串或者整数')
@@ -210,7 +239,7 @@ function M.load_table_with_cover_disable(player, slot)
                 if next(value) ~= nil then
                     error('禁止覆盖模式下非空表不能作为存档的值')
                 end
-                if custom >= 3 then
+                if path and #path >= 3 then
                     error('存档表最多只支持3层嵌套')
                 end
                 if y3.proxy.raw(value) then
@@ -223,28 +252,30 @@ function M.load_table_with_cover_disable(player, slot)
                 error('存档的值只能是基础类型')
             end
 
-            set_value(key, value)
+            set_value(key, value, path)
         end,
-        anyGetter = function (self, raw, key, config, custom)
-            local value = get_value(key)
+        anyGetter = function (self, raw, key, config, path)
+            local value = get_value(key, path)
             if type(value) == 'table' then
-                return create_proxy(value, custom + 1)
+                local new_path = path and { table.unpack(path) } or {}
+                new_path[#new_path+1] = key
+                return create_proxy(value, new_path)
             end
 
             return value
         end
     }
 
-    function create_proxy(raw, level)
+    function create_proxy(raw, path)
         if M.table_cache[raw] then
             return M.table_cache[raw]
         end
-        local v = y3.proxy.new(raw, proxy_config, level)
+        local v = y3.proxy.new(raw, proxy_config, path)
         M.table_cache[raw] = v
         return v
     end
 
-    local proxy_save_data = create_proxy(save_data, 0)
+    local proxy_save_data = create_proxy(save_data)
 
     return proxy_save_data
 end
