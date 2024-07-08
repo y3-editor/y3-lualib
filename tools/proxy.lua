@@ -68,7 +68,7 @@ local metatable = {
         for k in pairs(raw) do
             t[k] = self[k]
         end
-        for k in pairs(self) do
+        for k in next, self do
             if k ~= RAW and k ~= CONFIG and k ~= CUSTOM then
                 t[k] = self[k]
             end
