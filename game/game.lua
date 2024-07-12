@@ -876,7 +876,7 @@ end
 ---@field post? boolean # post 请求还是 get 请求
 ---@field port? integer # 端口号
 ---@field timeout? number # 超时时间，默认为2秒
----@field headers? table # 请求头
+---@field headers? table | py.Dict # 请求头
 
 --发送 http 请求，成功或失败都会触发回调，
 --成功时回调的参数是 http 返回的 body，失败时回调的参数是 `nil`
@@ -885,12 +885,16 @@ end
 ---@param callback? fun(body?: string)
 ---@param options? HttpRequestOptions
 function M:request_url(url, body, callback, options)
+    local headers = options and options.headers
+    if type(headers) == 'table' then
+        headers = y3.helper.py_dict(headers)
+    end
     request_url(url
         , options and options.post or false
         , body
         , options and options.port
         , options and options.timeout or 2
-        , options and options.headers
+        , headers
         , callback
     )
 end

@@ -78,4 +78,16 @@ function M.as_lua(v, recursive)
     return v
 end
 
+---@param t? table
+---@return py.Dict
+function M.py_dict(t)
+    local dict = GlobalAPI.lua_get_python_empty_dict()
+    if t then
+        for k, v in pairs(t) do
+            dict[k] = v
+        end
+    end
+    return dict
+end
+
 return M
