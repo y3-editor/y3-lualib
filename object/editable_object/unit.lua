@@ -164,10 +164,10 @@ end
 ---移动物品
 ---@param item Item 物品
 ---@param type y3.Const.ShiftSlotTypeAlias
----@param index integer 槽位
----@param force boolean 是否强制移动，`true`: 如果目标有物品，则移动到另一个空格中；`false`: 如果目标有物品，则要移动的物品会掉落
+---@param index? integer 槽位
+---@param force? boolean 是否强制移动，`true`: 如果目标有物品，则移动到另一个空格中；`false`: 如果目标有物品，则要移动的物品会掉落
 function M:shift_item(item, type, index, force)
-    self.phandle:api_shift_item_new(item.handle, y3.const.ShiftSlotType[type], index, force)
+    self.phandle:api_shift_item_new(item.handle, y3.const.ShiftSlotType[type], index or 0, force or false)
 end
 
 -- 交换物品
