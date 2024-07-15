@@ -66,6 +66,8 @@ function set_py_index(obj, index, value) end
 
 python = {}
 
+function python.debug_ns_timestamp() end
+
 --------------- 运动器构造 ------------------
 
 ---@class py.MoverBaseBuilder
