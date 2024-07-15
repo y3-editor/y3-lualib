@@ -129,26 +129,24 @@ M.register_lua_to_py('py.Fixed', function (number)
     return Fix32(number)
 end)
 
----@type Proxy.Config
-local proxy_config = {
-    recursive = true,
-    cache = true,
-    updateRaw = true,
-    anyGetter = function (self, raw, key, config, custom)
-        local v = raw[key]
-        local tp = type(v)
-        if tp == 'userdata' then
-            ---@diagnostic disable-next-line: undefined-field
-            return M.py_to_lua(v.__name, v)
-        end
-        if tp == 'table' then
-            return y3.proxy.new(v, config)
-        end
-        return v
-    end
-}
 M.register_py_to_lua('table', function (py_table)
-    return y3.proxy.new(py_table, proxy_config)
+    return y3.proxy.new(py_table, {
+        recursive = true,
+        cache = true,
+        updateRaw = true,
+        anyGetter = function (self, raw, key, config, custom)
+            local v = raw[key]
+            local tp = type(v)
+            if tp == 'userdata' then
+                ---@diagnostic disable-next-line: undefined-field
+                return M.py_to_lua(v.__name, v)
+            end
+            if tp == 'table' then
+                return y3.proxy.new(v, config)
+            end
+            return v
+        end
+    })
 end)
 
 return M
