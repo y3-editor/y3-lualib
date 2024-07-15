@@ -172,6 +172,7 @@ end
 
 -- 交换物品
 -- 如果目标位置是空的，则相当于把物品移动了过去
+---@deprecated
 ---@param item Item 物品
 ---@param type y3.Const.ShiftSlotTypeAlias
 ---@param index integer 槽位
