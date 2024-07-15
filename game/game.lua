@@ -703,12 +703,14 @@ end
 
 ---设置对象基础材质颜色
 ---@param obj Unit|Item|Destructible
----@param r integer
----@param g integer
----@param b integer
----@param a integer
-function M.set_object_color(obj, r, g, b, a)
-    GameAPI.api_change_obj_base_color(obj.handle, r, g, b, a)
+---@param r integer # 红色（0~255）
+---@param g integer # 绿色（0~255）
+---@param b integer # 蓝色（0~255）
+---@param a? integer # 强度（0~100）
+---@param o? number # 不透明度（0~1）
+function M.set_object_color(obj, r, g, b, a, o)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    GameAPI.api_change_obj_base_color(obj.handle, r, g, b, a or 50, o or -1)
 end
 
 ---设置对象的菲涅尔效果
