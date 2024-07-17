@@ -204,7 +204,7 @@ end
 ---是否正在重载
 ---@return boolean
 function M.isReloading()
-    return self._reloading == true
+    return M._reloading == true
 end
 
 -- 注册在重载之前的回调
