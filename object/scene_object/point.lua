@@ -70,22 +70,28 @@ end)
 ---点的x坐标
 ---@return number
 function M:get_x()
-    local x = GlobalAPI.get_fixed_coord_index(self.handle, 0):float()
-    return x
+    if not self.x then
+        self.x = GlobalAPI.get_fixed_coord_index(self.handle, 0):float()
+    end
+    return self.x
 end
 
 ---点的y坐标
 ---@return number
 function M:get_y()
-    local y = GlobalAPI.get_fixed_coord_index(self.handle, 2):float()
-    return y
+    if not self.y then
+        self.y = GlobalAPI.get_fixed_coord_index(self.handle, 2):float()
+    end
+    return self.y
 end
 
 ---点的z坐标
 ---@return number
 function M:get_z()
-    local z = GlobalAPI.get_fixed_coord_index(self.handle, 1):float()
-    return z
+    if not self.z then
+        self.z = GlobalAPI.get_fixed_coord_index(self.handle, 1):float()
+    end
+    return self.z
 end
 
 ---@return Point
@@ -114,7 +120,11 @@ function M.create(x, y, z)
     local py_point = GlobalAPI.coord_to_point(Fix32(x), Fix32(y), Fix32(z or 0))
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return M.get_by_handle(py_point)
+    local p = M.get_by_handle(py_point)
+    p.x = x
+    p.y = y
+    p.z = z or 0
+    return p
 end
 
 ---点向方向偏移
