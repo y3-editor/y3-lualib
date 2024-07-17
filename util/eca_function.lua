@@ -101,7 +101,9 @@ end
 --执行的函数
 ---@param func function
 function M:call(func)
-    assert(Bind[self.call_name] == nil, ('不能重复定义绑定函数: %s'):format(self.call_name))
+    if Bind[self.call_name] and not y3.reload.isReloading() then
+        error(('不能重复定义绑定函数: %s'):format(self.call_name))
+    end
     self.func = func
     local function error_handler(...)
         log.error('在【' .. self.call_name .. '】中发生错误：\n', ...)

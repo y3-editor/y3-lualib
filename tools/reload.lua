@@ -71,6 +71,7 @@ function M:isValidName(name)
 end
 
 function M:fire()
+    self._reloading = true
     log.info('=========== reload start ===========')
 
     local beforeReloadCallbacksNoReload = {}
@@ -113,6 +114,7 @@ function M:fire()
         xpcall(data.callback, log.error, self, self:isValidName(data.name))
     end
     log.info('=========== reload finish ===========')
+    self._reloading = false
 end
 
 ---@private
@@ -197,6 +199,12 @@ function M.reload(optional)
     optional = optional or M.defaultReloadOptional
     local reload = New 'Reload' (optional)
     reload:fire()
+end
+
+---是否正在重载
+---@return boolean
+function M.isReloading()
+    return self._reloading == true
 end
 
 -- 注册在重载之前的回调
