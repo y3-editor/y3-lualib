@@ -147,12 +147,14 @@ end
 ---@return unknown
 ---@return unknown loaderdata
 function require(modname)
-    M.includeStack[#M.includeStack+1] = false
-    local suc, result, loaderdata = xpcall(originRequire, debug.traceback, modname)
-    M.includeStack[#M.includeStack] = nil
-    if not suc then
-        error(result)
+    if package.loaded[modname] ~= nil then
+        return package.loaded[modname], nil
     end
+    M.includeStack[#M.includeStack+1] = false
+    local _ <close> = y3.util.defer(function ()
+        M.includeStack[#M.includeStack] = nil
+    end)
+    local result, loaderdata = originRequire(modname)
     if loaderdata ~= nil then
         M.modNameMap[loaderdata] = modname
     end
