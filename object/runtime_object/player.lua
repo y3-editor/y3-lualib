@@ -326,7 +326,7 @@ end
 ---获取玩家ID
 ---@return integer role_id_num 玩家ID
 function M:get_id()
-    return self.phandle:get_role_id_num() or 0
+    return self.id
 end
 
 ---获取玩家颜色
@@ -344,7 +344,11 @@ end
 ---获取玩家控制者类型
 ---@return y3.Const.RoleType role_type 玩家控制者类型
 function M:get_controller()
-    return self.phandle:get_role_type() or 0
+    if not self._cotroller then
+        ---@private
+        self._cotroller = self.phandle:get_role_type() or 0
+    end
+    return self._cotroller
 end
 
 ---获取玩家名字
