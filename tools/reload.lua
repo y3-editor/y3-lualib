@@ -71,7 +71,7 @@ function M:isValidName(name)
 end
 
 function M:fire()
-    self._reloading = true
+    M._reloading = true
     log.info('=========== reload start ===========')
 
     local beforeReloadCallbacksNoReload = {}
@@ -114,7 +114,7 @@ function M:fire()
         xpcall(data.callback, log.error, self, self:isValidName(data.name))
     end
     log.info('=========== reload finish ===========')
-    self._reloading = false
+    M._reloading = false
 end
 
 ---@private
