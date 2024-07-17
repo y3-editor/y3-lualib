@@ -249,8 +249,12 @@
 ---@class py.Grid: py.DynamicTypeMeta
 --绑定单位界面
 ---@class py.BinUnitPanel: string
---
+--模型实体
 ---@class py.ModelEntity: integer
+--挂接模型实体
+---@class py.AttachModelEntity: py.Actor
+--挂接模型实体组
+---@class py.AttachModelEntityGroup: py.ActorList
 --
 ---@class py.RoleRes: string
 --镜头预设
@@ -293,6 +297,8 @@
 ---@class py.MapId: string
 --
 ---@class py.StartMode: integer
+--
+---@class py.UppassEnv: string
 --
 ---@class py.EditableGameFunc: integer
 --

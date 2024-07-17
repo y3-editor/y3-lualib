@@ -1116,6 +1116,21 @@ event.ET_UNIT_CONSTRUCT_FINISH = {
     },
 }
 
+---@class EventParam.ET_UNIT_BEFORE_ONE_KICK_REPAIR
+---@field unit Unit # 要释放维修技能的单位
+
+--单次维修命令发布前
+event.ET_UNIT_BEFORE_ONE_KICK_REPAIR = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "要释放维修技能的单位",
+        lua_desc = "要释放维修技能的单位",
+    },
+}
+
 ---@class EventParam.ET_ON_UNIT_TRANSFORMATION
 ---@field unit Unit # 单位
 ---@field old_unit_key py.UnitKey # 老的单位物编
@@ -2927,6 +2942,74 @@ event.ET_UNIT_CREATE_SLAVE = {
 
 --单位动画播放完成
 event.UNIT_ANIMATION_FINISHED_EVENT = {}
+
+---@class EventParam.ET_UNIT_LOAD_DEFAULT_AI
+
+--单位切换默认行为
+event.ET_UNIT_LOAD_DEFAULT_AI = {}
+
+---@class EventParam.ET_UNIT_TRY_ACQUIRE_TARGET
+---@field unit Unit # 单位
+
+--单位即将尝试索敌
+event.ET_UNIT_TRY_ACQUIRE_TARGET = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位id",
+        lua_desc = "单位",
+    },
+}
+
+---@class EventParam.ET_UNIT_TRY_PICK_ITEM
+---@field item Item # 物品
+---@field equip_slot_type py.SlotType # 背包类型
+
+--单位即将拾取物品
+event.ET_UNIT_TRY_PICK_ITEM = {
+    [1] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "物品id",
+        lua_desc = "物品",
+    },
+    [2] = {
+        name = "__equip_slot_type",
+        type = "py.SlotType",
+        lua_name = "equip_slot_type",
+        lua_type = "py.SlotType",
+        desc = "背包类型",
+        lua_desc = "背包类型",
+    },
+}
+
+---@class EventParam.ET_UNIT_ACQUIRED_TARGET
+---@field unit Unit # 单位
+---@field target_unit Unit # 目标单位
+
+--单位发现目标
+event.ET_UNIT_ACQUIRED_TARGET = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位id",
+        lua_desc = "单位",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "目标单位",
+        lua_desc = "目标单位",
+    },
+}
 
 ---@class EventParam.ET_DETECT_BONE_COLLISON
 ---@field source_unit Unit # 无描述

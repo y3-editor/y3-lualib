@@ -273,6 +273,18 @@ function GlobalAPI.fvector2_to_str(f) end
 ---@return string # 字符串
 function GlobalAPI.float_to_str(f, num) end
 
+--整数转换为字符串
+---@param i integer # 整数
+---@param num? integer # 保留位数
+---@return string # 字符串
+function GlobalAPI.int_to_string(i, num) end
+
+--定点数转字符串
+---@param f number # 浮点数
+---@param num integer # 保留位数
+---@param rule? integer # 保留规则
+function GlobalAPI.float_to_str_new(f, num, rule) end
+
 --浮点Vector3转字符串
 ---@param f py.Vector3 # Vector3
 ---@return string # 字符串
@@ -1041,6 +1053,31 @@ function GlobalAPI.get_iter_random_pool_archive_key(v) end
 ---@param v integer # int
 ---@return integer # int
 function GlobalAPI.get_iter_random_pool_archive_increment(v) end
+
+--获取生成随机数错误码
+---@param v integer # int
+---@return integer # int
+function GlobalAPI.get_random_number_err_code(v) end
+
+--读取服务器随机数的值
+---@param v integer # int
+---@return integer # int
+function GlobalAPI.get_random_number_value(v) end
+
+--读取服务器随机数的时间戳
+---@param v integer # int
+---@return integer # int
+function GlobalAPI.get_random_number_time_stamp(v) end
+
+--读取服务器随机数的组ID
+---@param v string # str
+---@return string # str
+function GlobalAPI.get_random_number_group_id(v) end
+
+--获取指定只读随机存档的剩余次数
+---@param v integer # int
+---@return integer # int
+function GlobalAPI.get_random_number_remain_count(v) end
 
 --还给lua一个空python table
 ---@return py.Dict # Dict

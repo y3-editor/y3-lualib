@@ -91,7 +91,7 @@
 ---@field collection_animation_loop boolean
 --是否在采集完成后继续采集（仅在技能冷却时间为0时生效）
 ---@field collection_continuously boolean
---可破坏物标签要求
+--技能索敌时只会搜索带有指定标签的可破坏物
 ---@field collection_destructible_tags any[]
 --如果单位当前生命值不满足消耗时施放技能，则该项为true时单位会死亡，为false时会保留1点生命值
 ---@field cost_hp_can_die boolean
@@ -112,11 +112,11 @@
 --索敌条件 - 类型  
 --按种类选取目标。
 ---@field filter_condition_type number
---物品标签要求
+--技能索敌时只会搜索带有指定标签的物品
 ---@field filter_item_tags any[]
 --过滤效果单位  
 ---@field filter_modifier_unit number
---单位标签要求
+--技能索敌时只会搜索带有指定标签的单位
 ---@field filter_unit_tags any[]
 --受击特效
 ---@field hit_sfx_list any[]
@@ -187,7 +187,7 @@
 --用于对技能的分类处理。为技能贴上标签后可以对其进行更方便的关系，例如编写游戏逻辑：所有拥有XX标签的技能等级+1
 ---@field tags any[]
 --特殊筛选（只有尸体有效）  
---特殊的技能目标筛选规则
+--配置技能索敌时的特殊筛选规则（如排除自己、允许无敌等）
 ---@field target_attribute number
 --主题  
 ---@field theme number
@@ -640,7 +640,8 @@
 --锁敌范围  
 --单位的警戒范围(AI)
 ---@field alarm_range number
---当单位转向时，如果转向角度小于该值，则移速不会受影响。
+--允许移动的角度差  
+--当单位转向时，如果转向角度小于该值，则会直接朝目标方向移动；反之会边转向，边移动。
 ---@field angle_tolerance number
 --防御类型  
 --单位的护甲类型，具体效果可在游戏规则中查看
@@ -1076,7 +1077,8 @@
 --特殊状态  
 --特殊状态下会播放的动画
 ---@field special_idle_anim string
---当单位转向时，移动速度会受到一定的影响
+--转向时移动速度系数  
+--当单位转向时，移动速度会受到一定的影响。
 ---@field speed_ratio_in_turn number
 --移动动画播放速率系数  
 --单位移动时动画的播放速度

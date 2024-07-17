@@ -32,10 +32,6 @@ function Unit:api_get_camp() end
 ---@return py.UnitType? # 单位类型
 function Unit:api_get_type() end
 
---获取单位名称
----@return string? # 单位名称
-function Unit:api_get_name() end
-
 --添加定时器
 ---@param time py.Fixed # 定时时长
 ---@param callback function # 超时函数
@@ -188,6 +184,10 @@ function Unit:api_get_ai_battle_target_unit() end
 --获取单位的跟随单位
 ---@return py.Unit? # 跟随的单位
 function Unit:api_get_ai_follow_target_unit() end
+
+--设置跟随单位成功后是否退出跟随
+---@param exit_follow_on_succ boolean # 是否退出
+function Unit:api_set_ai_exit_follow_on_succ_once(exit_follow_on_succ) end
 
 --设置单位是否休眠
 ---@param is_sleeping boolean # 是否休眠
@@ -366,7 +366,8 @@ function Unit:api_get_hpp() end
 ---@param source_unit? py.Unit # 来源单位
 ---@param harm_text_enum string # 跳字枚举
 ---@param jump_word_track? integer # 跳字轨迹
-function Unit:api_heal(hp_change, jump_word, related_ability, source_unit, harm_text_enum, jump_word_track) end
+---@param pos_socket string # 挂接点
+function Unit:api_heal(hp_change, jump_word, related_ability, source_unit, harm_text_enum, jump_word_track, pos_socket) end
 
 --获取输出伤害统计值
 ---@return py.Fixed? # 输出伤害统计值
@@ -406,6 +407,10 @@ function Unit:api_set_recycle_on_remove(recycle) end
 --设置单位名称
 ---@param name string # 名称
 function Unit:api_set_name(name) end
+
+--获取单位名称
+---@return string? # 单位名称
+function Unit:api_get_name() end
 
 --设置单位白天视野
 ---@param value number # 视野
@@ -606,6 +611,14 @@ function Unit:set_move_channel_air(air_limitation) end
 ---@param point_start py.Unit # 单位
 ---@param point_end py.Point # 起始点
 function Unit:get_unit_path_length_between_points(point_start, point_end) end
+
+--单位沿方向移动（摇杆等）
+---@param x number # 方向x轴
+---@param y number # 方向y轴
+function Unit:roaming_along(x, y) end
+
+--停止沿方向移动
+function Unit:stop_roaming() end
 
 --播放动画
 ---@param name string # 动画名称
@@ -923,6 +936,13 @@ function Unit:api_stop_dissolve() end
 ---@param b py.Fixed # b
 ---@param a py.Fixed # a
 function Unit:api_set_ghost_color(r, g, b, a) end
+
+--设置残影颜色
+---@param r py.Fixed # r
+---@param g py.Fixed # g
+---@param b py.Fixed # b
+---@param a py.Fixed # a
+function Unit:api_set_ghost_color_norm(r, g, b, a) end
 
 --设置残影颜色(HEX)
 ---@param color string # hex
@@ -1499,3 +1519,21 @@ function Unit:api_get_is_rescuing() end
 --单位 - 获取单位是否正在救援后返回
 ---@return boolean? # 值
 function Unit:api_get_is_rescue_returning() end
+
+--单位 - 尝试触发AI更新
+function Unit:api_try_update_ai() end
+
+--单位 - 执行下一命令
+function Unit:api_do_next_command() end
+
+--单位 - 获取命令队列是否为空
+---@return boolean? # 值
+function Unit:api_is_command_queue_empty() end
+
+--单位 - 设置维修目标单位
+---@param repair_target py.Unit # 维修目标单位
+function Unit:api_set_repair_target_unit(repair_target) end
+
+--单位 - 设置维修技能
+---@param ability py.Ability # 维修技能
+function Unit:api_set_repair_ability(ability) end

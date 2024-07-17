@@ -4,6 +4,708 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--预设库 添加CURSOR_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_cursor_key_kv(item_key, key, value) end
+
+--预设库 添加ANGLE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_angle_kv(item_key, key, value) end
+
+--预设库 添加TEXTURE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_texture_kv(item_key, key, value) end
+
+--预设库 添加SEQUENCE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_sequence_kv(item_key, key, value) end
+
+--预设库 添加SPINE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_spine_kv(item_key, key, value) end
+
+--预设库 添加PHYSICS_OBJECT键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_physics_object_kv(item_key, key, value) end
+
+--预设库 添加PHYSICS_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_physics_entity_kv(item_key, key, value) end
+
+--预设库 添加PHYSICS_OBJECT_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_physics_object_key_kv(item_key, key, value) end
+
+--预设库 添加PHYSICS_ENTITY_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_physics_entity_key_kv(item_key, key, value) end
+
+--预设库 添加RIGID_BODY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_rigid_body_kv(item_key, key, value) end
+
+--预设库 添加RIGID_BODY_GROUP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_rigid_body_group_kv(item_key, key, value) end
+
+--预设库 添加COLLIDER键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_collider_kv(item_key, key, value) end
+
+--预设库 添加JOINT键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_joint_kv(item_key, key, value) end
+
+--预设库 添加REACTION键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_reaction_kv(item_key, key, value) end
+
+--预设库 添加REACTION_GROUP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_reaction_group_kv(item_key, key, value) end
+
+--预设库 添加DYNAMIC_TRIGGER_INSTANCE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_dynamic_trigger_instance_kv(item_key, key, value) end
+
+--预设库 添加TABLE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_table_kv(item_key, key, value) end
+
+--预设库 添加RANDOM_POOL键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_random_pool_kv(item_key, key, value) end
+
+--预设库 添加SCENE_UI键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_scene_ui_kv(item_key, key, value) end
+
+--预设库 添加DAMAGE_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_damage_type_kv(item_key, key, value) end
+
+--预设库 添加HARM_TEXT_TYPE_NEW键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_harm_text_type_new_kv(item_key, key, value) end
+
+--预设库 添加FONT_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_font_type_kv(item_key, key, value) end
+
+--预设库 添加JUMP_WORD_TRACK键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_jump_word_track_kv(item_key, key, value) end
+
+--预设库 添加NEW_TIMER键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_new_timer_kv(item_key, key, value) end
+
+--预设库 添加TECH_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_tech_key_kv(item_key, key, value) end
+
+--预设库 添加STORE_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_store_key_kv(item_key, key, value) end
+
+--预设库 添加KEYBOARD_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_keyboard_key_kv(item_key, key, value) end
+
+--预设库 添加FUNC_KEYBOARD_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_func_keyboard_key_kv(item_key, key, value) end
+
+--预设库 添加MOUSE_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_mouse_key_kv(item_key, key, value) end
+
+--预设库 添加MOUSE_WHEEL键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_mouse_wheel_kv(item_key, key, value) end
+
+--预设库 添加MAP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_map_kv(item_key, key, value) end
+
+--预设库 添加POST_EFFECT键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_post_effect_kv(item_key, key, value) end
+
+--预设库 添加UNIT_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_unit_type_kv(item_key, key, value) end
+
+--预设库 添加UNIT_COMMAND_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_unit_command_type_kv(item_key, key, value) end
+
+--预设库 添加UNIT_GROUP_COMMAND_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_unit_group_command_type_kv(item_key, key, value) end
+
+--预设库 添加MINI_MAP_COLOR_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_mini_map_color_type_kv(item_key, key, value) end
+
+--预设库 添加UNIT_BEHAVIOR键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_unit_behavior_kv(item_key, key, value) end
+
+--预设库 添加CURVED_PATH键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_curved_path_kv(item_key, key, value) end
+
+--预设库 添加CURVED_PATH_3D键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_curved_path_3d_kv(item_key, key, value) end
+
+--预设库 添加RESCUE_SEEKER_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_rescue_seeker_type_kv(item_key, key, value) end
+
+--预设库 添加RESCUER_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_rescuer_type_kv(item_key, key, value) end
+
+--预设库 添加STORE_ITEM_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_unit_key_store_item_type_kv(item_key, key, value) end
+
+--预设库 添加BOOLEAN键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_boolean_kv(item_key, key, value) end
+
+--预设库 添加INTEGER键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_integer_kv(item_key, key, value) end
+
+--预设库 添加FLOAT键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_float_kv(item_key, key, value) end
+
+--预设库 添加STRING键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_string_kv(item_key, key, value) end
+
+--预设库 添加UI_COMP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_comp_kv(item_key, key, value) end
+
+--预设库 添加UI_COMP_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_comp_type_kv(item_key, key, value) end
+
+--预设库 添加UI_COMP_EVENT_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_comp_event_type_kv(item_key, key, value) end
+
+--预设库 添加UI_COMP_ATTR键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_comp_attr_kv(item_key, key, value) end
+
+--预设库 添加UI_COMP_ALIGN_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_comp_align_type_kv(item_key, key, value) end
+
+--预设库 添加UI_PREFAB键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_prefab_kv(item_key, key, value) end
+
+--预设库 添加UI_PREFAB_INSTANCE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_prefab_instance_kv(item_key, key, value) end
+
+--预设库 添加UI_PREFAB_INS_UID键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_prefab_ins_uid_kv(item_key, key, value) end
+
+--预设库 添加UI_DIRECTION键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_direction_kv(item_key, key, value) end
+
+--预设库 添加UI_MODEL_CAMERA_MOD键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_model_camera_mod_kv(item_key, key, value) end
+
+--预设库 添加UI_BTN_STATUS键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_btn_status_kv(item_key, key, value) end
+
+--预设库 添加UI_SCROLLVIEW_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_scrollview_type_kv(item_key, key, value) end
+
+--预设库 添加UI_GRIDVIEW_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_gridview_type_kv(item_key, key, value) end
+
+--预设库 添加UI_GRIDVIEW_BAR_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_gridview_bar_type_kv(item_key, key, value) end
+
+--预设库 添加UI_EFFECT_CAMERA_MODE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_effect_camera_mode_kv(item_key, key, value) end
+
+--预设库 添加UI_EQUIP_SLOT_USE_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_equip_slot_use_type_kv(item_key, key, value) end
+
+--预设库 添加UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_equip_slot_drag_type_kv(item_key, key, value) end
+
+--预设库 添加UI_LAYOUT_CLIPPING_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_layout_clipping_type_kv(item_key, key, value) end
+
+--预设库 添加UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_text_over_length_handling_type_kv(item_key, key, value) end
+
+--预设库 添加UI_POS_ADAPT_MODE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_pos_adapt_mode_kv(item_key, key, value) end
+
+--预设库 添加UI_ANIM键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_anim_kv(item_key, key, value) end
+
+--预设库 添加UI_ANIM_CURVE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_anim_curve_kv(item_key, key, value) end
+
+--预设库 添加UI_ANIM_PLAY_MODE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_anim_play_mode_kv(item_key, key, value) end
+
+--预设库 添加UI_TEXT_FONT_NAME键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_text_font_name_kv(item_key, key, value) end
+
+--预设库 添加UI_ECA_ANIM_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ui_eca_anim_type_kv(item_key, key, value) end
+
+--预设库 添加AUDIO_CHANNEL键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_audio_channel_kv(item_key, key, value) end
+
+--预设库 添加UNIT_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_unit_entity_kv(item_key, key, value) end
+
+--预设库 添加UNIT_GROUP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_unit_group_kv(item_key, key, value) end
+
+--预设库 添加UNIT_NAME键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_unit_name_kv(item_key, key, value) end
+
+--预设库 添加UNIT_NAME_POOL键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_unit_name_pool_kv(item_key, key, value) end
+
+--预设库 添加UNIT_WRITE_ATTRIBUTE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_unit_write_attribute_kv(item_key, key, value) end
+
+--预设库 添加ATTR_ELEMENT键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_attr_element_kv(item_key, key, value) end
+
+--预设库 添加ATTR_ELEMENT_READ键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_attr_element_read_kv(item_key, key, value) end
+
+--预设库 添加MOVER_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_mover_entity_kv(item_key, key, value) end
+
+--预设库 添加IMAGE_QUALITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_image_quality_kv(item_key, key, value) end
+
+--预设库 添加WINDOW_TYPE_SETTING键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_window_type_setting_kv(item_key, key, value) end
+
+--预设库 添加DAMAGE_ATTACK_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_damage_attack_type_kv(item_key, key, value) end
+
+--预设库 添加ITEM_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_item_entity_kv(item_key, key, value) end
+
+--预设库 添加ITEM_GROUP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_item_group_kv(item_key, key, value) end
+
+--预设库 添加ITEM_NAME键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_item_name_kv(item_key, key, value) end
+
+--预设库 添加ITEM_STACK_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_item_stack_type_kv(item_key, key, value) end
+
+--预设库 添加ABILITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ability_kv(item_key, key, value) end
+
+--预设库 添加ABILITY_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ability_type_kv(item_key, key, value) end
+
+--预设库 添加ABILITY_CAST_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ability_cast_type_kv(item_key, key, value) end
+
+--预设库 添加ABILITY_NAME键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_ability_name_kv(item_key, key, value) end
+
+--预设库 添加SLOT_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_slot_type_kv(item_key, key, value) end
+
+--预设库 添加SKILL_POINTER_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_skill_pointer_type_kv(item_key, key, value) end
+
+--预设库 添加MODIFIER_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_modifier_entity_kv(item_key, key, value) end
+
+--预设库 添加MODIFIER_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_modifier_type_kv(item_key, key, value) end
+
+--预设库 添加MODIFIER_EFFECT_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_modifier_effect_type_kv(item_key, key, value) end
+
+--预设库 添加MODIFIER键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_modifier_kv(item_key, key, value) end
+
+--预设库 添加PROJECTILE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_projectile_kv(item_key, key, value) end
+
+--预设库 添加PROJECTILE_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_projectile_entity_kv(item_key, key, value) end
+
+--预设库 添加PROJECTILE_GROUP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_projectile_group_kv(item_key, key, value) end
+
+--预设库 添加DESTRUCTIBLE_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_destructible_entity_kv(item_key, key, value) end
+
+--预设库 添加DESTRUCTIBLE_NAME键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_destructible_name_kv(item_key, key, value) end
+
+--预设库 添加SOUND_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_sound_entity_kv(item_key, key, value) end
+
+--预设库 添加AUDIO_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_audio_key_kv(item_key, key, value) end
+
+--预设库 添加GAME_MODE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_game_mode_kv(item_key, key, value) end
+
+--预设库 添加PLAYER键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_player_kv(item_key, key, value) end
+
+--预设库 添加PLAYER_GROUP键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_player_group_kv(item_key, key, value) end
+
+--预设库 添加ROLE_RES_KEY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_role_res_key_kv(item_key, key, value) end
+
+--预设库 添加ROLE_STATUS键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_role_status_kv(item_key, key, value) end
+
+--预设库 添加ROLE_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_role_type_kv(item_key, key, value) end
+
+--预设库 添加ROLE_RELATION键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_role_relation_kv(item_key, key, value) end
+
+--预设库 添加TEAM键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_team_kv(item_key, key, value) end
+
+--预设库 添加POINT键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_point_kv(item_key, key, value) end
+
+--预设库 添加VECTOR3键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_vector3_kv(item_key, key, value) end
+
+--预设库 添加ROTATION键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_rotation_kv(item_key, key, value) end
+
+--预设库 添加POINT_LIST键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_point_list_kv(item_key, key, value) end
+
+--预设库 添加RECTANGLE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_rectangle_kv(item_key, key, value) end
+
 --预设库 添加ROUND_AREA键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -51,6 +753,12 @@ function GameAPI.set_item_key_fog_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_item_key_scene_sound_kv(item_key, key, value) end
+
+--预设库 添加ATTACH_MODEL_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_item_key_attach_model_entity_kv(item_key, key, value) end
 
 --预设库 添加MODEL键值对
 ---@param item_key integer # prefab库ID
@@ -478,6 +1186,12 @@ function GameAPI.set_ability_key_ui_layout_clipping_type_kv(item_key, key, value
 ---@param value string # 键值名称
 function GameAPI.set_ability_key_ui_text_over_length_handling_type_kv(item_key, key, value) end
 
+--预设库 添加UI_POS_ADAPT_MODE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_ability_key_ui_pos_adapt_mode_kv(item_key, key, value) end
+
 --预设库 添加UI_ANIM键值对
 ---@param item_key integer # prefab库ID
 ---@param key integer # 编号
@@ -501,6 +1215,12 @@ function GameAPI.set_ability_key_ui_anim_play_mode_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_ability_key_ui_text_font_name_kv(item_key, key, value) end
+
+--预设库 添加UI_ECA_ANIM_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_ability_key_ui_eca_anim_type_kv(item_key, key, value) end
 
 --预设库 添加AUDIO_CHANNEL键值对
 ---@param item_key integer # prefab库ID
@@ -621,6 +1341,12 @@ function GameAPI.set_ability_key_ability_cast_type_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_ability_key_ability_name_kv(item_key, key, value) end
+
+--预设库 添加SLOT_TYPE键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_ability_key_slot_type_kv(item_key, key, value) end
 
 --预设库 添加SKILL_POINTER_TYPE键值对
 ---@param item_key integer # prefab库ID
@@ -819,6 +1545,12 @@ function GameAPI.set_ability_key_fog_kv(item_key, key, value) end
 ---@param key integer # 编号
 ---@param value string # 键值名称
 function GameAPI.set_ability_key_scene_sound_kv(item_key, key, value) end
+
+--预设库 添加ATTACH_MODEL_ENTITY键值对
+---@param item_key integer # prefab库ID
+---@param key integer # 编号
+---@param value string # 键值名称
+function GameAPI.set_ability_key_attach_model_entity_kv(item_key, key, value) end
 
 --预设库 添加MODEL键值对
 ---@param item_key integer # prefab库ID
@@ -2387,6 +3119,12 @@ function GameAPI.add_road_tag(road, tag) end
 ---@param tag string # tag
 function GameAPI.remove_road_tag(road, tag) end
 
+--区域是否拥有某tags
+---@param area py.Area # 区域
+---@param tag string # tag
+---@return boolean # 布尔值
+function GameAPI.if_area_has_tag(area, tag) end
+
 --圆形区域是否拥有某tags
 ---@param area py.Area # 区域
 ---@param tag string # tag
@@ -2871,6 +3609,10 @@ function GameAPI.get_game_mode() end
 ---@return py.MapId # 地图版本id
 function GameAPI.get_map_id() end
 
+--获取当前uppass env
+---@return py.UppassEnv # uppass env
+function GameAPI.get_uppass_env() end
+
 --暂停游戏
 function GameAPI.pause_game() end
 
@@ -2918,11 +3660,14 @@ function GameAPI.request_switch_level(level_id_str) end
 function GameAPI.get_current_level() end
 
 --创建地形预设
----@param translateX number # 水平中心值
----@param translateY number # 竖直中心值
+---@param point py.Point # 点
 ---@param level_id_str py.Map # 关卡ID
 ---@param rotate? integer # 旋转角度
-function GameAPI.load_sub_scene(translateX, translateY, level_id_str, rotate) end
+---@param has_light? boolean # 是否携带灯光
+---@param has_decoration? boolean # 是否携带装饰物
+---@param has_fog? boolean # 是否携带雾效
+---@param has_collision? boolean # 是否携带碰撞
+function GameAPI.load_sub_scene(point, level_id_str, rotate, has_light, has_decoration, has_fog, has_collision) end
 
 --获取当前地图的指定key的存档值
 ---@param key string # 指定的全局存档key值
@@ -3012,7 +3757,7 @@ function GameAPI.api_set_enable_eca_snapshot(enable, filter_mode, filter_set) en
 ---@param tag integer # mask用于控制开启哪些日志，0xFFFFFFFF全部开启，默认开启16+32。各bit含义>> 1：运动器tick，2：运动器碰撞检测，4：寻路回调，8：寻路坐标更新，16：血量变化，32：坐标瞬变
 function GameAPI.api_set_detail_snapshot_enable_tag(tag) end
 
---离线模式设置播放速率
+--设置播放速率
 ---@param scale number # 播放速率
 function GameAPI.api_set_time_scale(scale) end
 
@@ -3420,6 +4165,10 @@ function GameAPI.get_screen_x_resolution() end
 ---@return integer # value
 function GameAPI.get_screen_y_resolution() end
 
+--设置鼠标是否可见
+---@param visible boolean # 是否可见
+function GameAPI.set_mouse_cursor_visible(visible) end
+
 --判断玩家单位类型前置条件满足需求
 ---@param player py.Role # 玩家
 ---@param unity_key py.UnitKey # 单位类型
@@ -3680,6 +4429,20 @@ function GameAPI.hide_ui_comp_animation(role, comp_name, anim_name) end
 ---@param y number # y
 function GameAPI.set_ui_comp_pos(role, comp_name, x, y) end
 
+--设置ui组件坐标百分比
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+---@param x number # x
+---@param y number # y
+function GameAPI.set_ui_comp_pos_percent(role, comp_name, x, y) end
+
+--设置ui组件坐标适配模式
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+---@param x_mode integer # x_mode
+---@param y_mode integer # y_mode
+function GameAPI.set_ui_comp_pos_mode(role, comp_name, x_mode, y_mode) end
+
 --设置ui组件坐标没有转化
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
@@ -3734,10 +4497,10 @@ function GameAPI.set_ui_comp_sequence(role, comp_name, image_id) end
 --播放序列帧
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
----@param loop? py.Sequence # 图片
----@param space? boolean # 循环
----@param start_frame? number # 间隔
----@param end_frame? integer # 开始帧
+---@param loop? boolean # 循环
+---@param space? number # 间隔
+---@param start_frame? integer # 开始帧
+---@param end_frame? integer # 结束帧
 function GameAPI.play_ui_comp_sequence(role, comp_name, loop, space, start_frame, end_frame) end
 
 --停止播放序列帧
@@ -3778,6 +4541,15 @@ function GameAPI.set_ui_comp_visible(role, visible, comp_name) end
 ---@param b number # B
 ---@param a number # A
 function GameAPI.set_ui_comp_font_color(role, comp_name, r, g, b, a) end
+
+--设置ui文本颜色
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+---@param r number # R
+---@param g number # G
+---@param b number # B
+---@param a number # A
+function GameAPI.set_ui_comp_font_color_norm(role, comp_name, r, g, b, a) end
 
 --设置ui文本颜色(HEX)
 ---@param role py.Role # 玩家
@@ -4476,6 +5248,18 @@ function GameAPI.set_ui_comp_bind_format(role, comp_name, format_str) end
 ---@param percent number # 百分比
 function GameAPI.set_list_view_percent(role, comp_name, percent) end
 
+--获取列表当前百分比位置
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@return number # 百分比
+function GameAPI.get_list_view_percent(role, comp_name) end
+
+--设置列表反向排布
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@param enable boolean # 开启/关闭反向排布
+function GameAPI.set_list_view_layout_reverse(role, comp_name, enable) end
+
 --获得玩家的界面模块实例
 ---@param role py.Role # 玩家
 ---@param uid string # 界面模块实例uid
@@ -4544,6 +5328,12 @@ function GameAPI.set_ui_comp_anim_scale(role, comp_name, start_x, start_y, end_x
 ---@param duration number # 持续时间
 ---@param ease_type? integer # 曲线类型
 function GameAPI.set_ui_comp_anim_rotate(role, comp_name, start_rotation, end_rotation, duration, ease_type) end
+
+--设置动画旋转
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@param anim_type integer # 动画类型
+function GameAPI.stop_eca_anim(role, comp_name, anim_type) end
 
 --设置使用物品操作方式
 ---@param role py.Role # 玩家
@@ -4801,6 +5591,16 @@ function GameAPI.set_ui_gridview_bar_image(role, comp_uid, direction, image) end
 ---@param a number # A
 function GameAPI.set_ui_gridview_bar_color(role, comp_uid, direction, r, g, b, a) end
 
+--设置网格列表横向/纵向滚动条图片颜色
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件名
+---@param direction integer # 横向/纵向
+---@param r number # R
+---@param g number # G
+---@param b number # B
+---@param a number # A
+function GameAPI.set_ui_gridview_bar_color_norm(role, comp_uid, direction, r, g, b, a) end
+
 --设置网格列表横向/纵向滚动条九宫开关
 ---@param role py.Role # 玩家
 ---@param comp_uid string # 控件名
@@ -4842,6 +5642,15 @@ function GameAPI.set_ui_effect_id(role, comp_name, effect_id, is_loop) end
 ---@param b number # B
 ---@param a number # A
 function GameAPI.set_ui_effect_background_color(role, comp_name, r, g, b, a) end
+
+--设置特效控件的背景颜色
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+---@param r number # R
+---@param g number # G
+---@param b number # B
+---@param a number # A
+function GameAPI.set_ui_effect_background_color_norm(role, comp_name, r, g, b, a) end
 
 --设置特效控件的镜头视野
 ---@param role py.Role # 玩家
@@ -4919,6 +5728,17 @@ function GameAPI.get_ui_comp_modifier(comp_id) end
 ---@param font_name string # 字体
 function GameAPI.set_ui_text_font_name(role, comp_name, font_name) end
 
+--获取鼠标是否悬浮在UI上
+---@param role py.Role # 玩家
+function GameAPI.get_is_cursor_blocked_by_ui(role) end
+
+--世界坐标转小地图坐标
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@param x number # x
+---@param y number # y
+function GameAPI.get_minimap_node_pos_from_world_pos(role, comp_name, x, y) end
+
 --创建新单位物编
 ---@param old_entity_no py.UnitKey # 单位物编
 ---@return py.UnitKey # 单位物编key
@@ -4993,6 +5813,51 @@ function GameAPI.set_construction_factor(unit, factor) end
 ---@param unit py.Unit # 单位
 ---@param return_res? boolean # 是否返还资源
 function GameAPI.cancel_construction(unit, return_res) end
+
+--开启WAR3仇恨系统：反击、救援行为过程中不再产生新的指令，其索敌通过扩展索敌范围实现
+---@param b boolean # 开关
+function GameAPI.set_enable_war3_threat_group(b) end
+
+--开启WAR3中警戒强制返回特性：处于警戒状态下追逐敌人超过一定时间没有攻击到后强制移动回初始点（返回期间不攻击）
+---@param b boolean # 开关
+function GameAPI.set_enable_war3_caution_force_return(b) end
+
+--开启仿WAR3的AI特性，详见set_enable_war3_threat_group、set_enable_war3_caution_force_return
+---@param b boolean # 开关
+function GameAPI.set_enable_war3_ai_features(b) end
+
+--设置索敌目标。在【即将尝试索敌】或【发现目标】事件中修改索敌目标。在【即将尝试索敌】中指定目标可以跳过后续内置索敌从而节省一定性能，而在【发现目标】中修改索敌目标则不能
+---@param target py.Unit # 目标
+function GameAPI.set_cur_ai_target(target) end
+
+--阻止单位拾取
+function GameAPI.stop_unit_pick_item() end
+
+--阻止单位拾取
+---@param unit_id py.UnitID # UnitID
+---@param slot_type py.SlotType # SlotType
+---@return py.SlotType # 目标栏位
+function GameAPI.get_pick_item_slot(unit_id, slot_type) end
+
+--[性能]限制单次索敌遍历数量上限，对性能有提升。开启后索敌不再完整遍历检查警戒范围内的所有目标，而是在找到最多该数量个单位后直接退出遍历，以当前最优目标作为最终目标。可能导致索敌到的单位不是实际最优的（有其他单位距离更近、仇恨等级更高的没有被遍历到）。如果玩法对索敌准确性要求不高且性能压力较大，则建议开启
+---@param l integer # 上限。小于等于0则不开启
+function GameAPI.set_target_search_limit(l) end
+
+--[性能]限制最小索敌间隔帧数，对性能有提升。开启后，单位的每两次完整索敌之间需要间隔一定时间，期间单位会尽可能保持上个目标（除非上个目标无效了）。可能导致单位索敌更新不及时，如果玩法对索敌准确性要求不高/微操比重不高且性能压力较大，则建议开启
+---@param interval integer # 间隔帧数。小于等于0则不开启。（游戏默认30帧为1秒）
+function GameAPI.set_search_target_keep_frame(interval) end
+
+--[性能]简化警戒范围检测，对性能有提升。开启后会导致特定场景下索敌准确性降低（敌方单位之间移速差距较大且进出警戒范围频繁），大部分情况下副作用不明显，建议视情况开启
+---@param l boolean # 是否开启
+function GameAPI.set_enable_simple_attack_sensor(l) end
+
+--[性能]统一范围检测判定方式为碰撞半径检测，对性能有提升。由于历史原因，光环和商店的范围判定是不考虑单位自身碰撞半径的，而警戒和攻击范围的判定是考虑单位碰撞半径的，同时存在两套判定规则在一定程度上增加了性能消耗。开启此开关后会使上述的范围判定全都考虑自身碰撞半径，这样可以简化Y3内部的实现，使得游戏性能得到提升。出于兼容性考虑，此开关默认关闭。如果判断此改动无副作用的话，建议开启
+---@param l boolean # 是否开启
+function GameAPI.set_enable_new_sensor_rule(l) end
+
+--[性能]启用动态范围检测刷新频率，对性能有提升。开启后游戏会动态根据当前场上单位数量等因素调整范围检测刷新频率，避免因为计算量过大/频率过高而导致游戏卡顿。副作用为单位的警戒响应、魔法效果光环进出判定的即时性会略微降低，但如果游戏性能问题相比起来更严重，则建议开启
+---@param l boolean # 是否开启
+function GameAPI.set_enable_dynamic_sensor_tick_gap(l) end
 
 --创建新技能物编
 ---@param old_entity_no py.AbilityKey # 技能物编
@@ -5076,786 +5941,3 @@ function GameAPI.set_mouse_follower_anim_speed(role, anim_speed) end
 ---@param is_loop? boolean # 是否循环播放
 ---@param is_back_to_default? boolean # 是否回到默认动画
 function GameAPI.set_mouse_follower_model_anim(role, anim_name, anim_speed, start_time, end_time, is_loop, is_back_to_default) end
-
---设置建造指示器移动格子数
----@param x py.RoleID # 玩家ID
----@param y py.UnitGroup # 单位组
-function GameAPI.set_build_pointer_move_grids(x, y) end
-
---设置建造指示器移动格子数偏移
----@param x integer # X偏移
----@param y integer # Y偏移
-function GameAPI.set_build_pointer_move_grids_offset(x, y) end
-
---当前是否为观战模式
----@return boolean # 是否为观战模式
-function GameAPI.is_in_watch_mode() end
-
---获取当前被观战的玩家
----@return py.RoleID # 被观战玩家
-function GameAPI.get_cur_watching_player() end
-
---获取观战状态
----@return py.WatchingModeStatus # 观战模式状态
-function GameAPI.get_watching_mode_status() end
-
---模拟指定玩家
----@param role py.Role # 模拟的玩家
-function GameAPI.set_watcher_simulate_player(role) end
-
---禁用/启用切换被观战玩家按键
----@param enable boolean # 是否可以切换被观战玩家
-function GameAPI.enable_switch_watch_player_shortcut(enable) end
-
---获取玩家选中的单个单位
----@param role_id py.RoleID # 玩家ID
-function GameAPI.api_get_select_unit_single(role_id) end
-
---获取玩家选中的第一个单位
----@param role_id py.RoleID # 玩家ID
-function GameAPI.api_get_select_unit_first(role_id) end
-
---获取玩家选中单位组(单位ID列表)
----@param role_id py.RoleID # 玩家ID
-function GameAPI.api_get_select_unit_group(role_id) end
-
---获取玩家是否按下命令队列按键
----@param role py.RoleID # 玩家ID
----@return boolean # 是否按下
-function GameAPI.is_command_queue_key_down(role) end
-
---获取命令队列功能是否开启
----@return boolean # 是否开启
-function GameAPI.is_command_queue_enabled() end
-
---查询副本信息
----@return py.Table # 副本信息
-function GameAPI.get_dungeon_info() end
-
---获取COLLIDER所属的刚体
----@param collider py.Collider # Collider
----@return py.RigidBody # Body
-function GameAPI.api_get_collider_body(collider) end
-
---设置碰撞体的布尔类型属性
----@param collider py.RigidBody # 刚体
----@param attr_name string # 布尔类型属性
----@param value py.Fixed # 值
-function GameAPI.api_set_collider_bool_attr(collider, attr_name, value) end
-
---获取碰撞体的布尔类型属性
----@param collider py.RigidBody # 刚体
----@param attr_name string # 布尔类型属性
-function GameAPI.api_get_collider_bool_attr(collider, attr_name) end
-
---设置碰撞体的实数类型属性
----@param collider py.RigidBody # 刚体
----@param attr_name string # 实数类型属性
----@param value boolean # 值
-function GameAPI.api_set_collider_float_attr(collider, attr_name, value) end
-
---碰撞器的自身碰撞类别是否有指定类型
----@param collider py.Collider # 碰撞器
----@param mask py.Fixed # mask
----@return boolean # 布尔值
-function GameAPI.api_is_collider_collision_category(collider, mask) end
-
---碰撞器的目标碰撞类别是否有指定类型
----@param collider py.Collider # 碰撞器
----@param mask py.Fixed # mask
----@return boolean # 布尔值
-function GameAPI.api_is_collider_collide_with_mask(collider, mask) end
-
---碰撞器的自身碰撞类别是否有玩家
----@param collider py.Collider # 碰撞器
----@return boolean # 布尔值
-function GameAPI.api_is_collider_collision_category_player(collider) end
-
---碰撞器的自身碰撞类别是否有地面
----@param collider py.Collider # 碰撞器
----@return boolean # 布尔值
-function GameAPI.api_is_collider_collision_category_floor(collider) end
-
---获得碰撞器的自身碰撞类别
----@param collider py.Collider # 碰撞器
----@return integer # mask
-function GameAPI.api_get_collider_collision_category(collider) end
-
---获得碰撞器的目标碰撞类别
----@param collider py.Collider # 碰撞器
----@return integer # mask
-function GameAPI.api_get_collider_collide_with_mask(collider) end
-
---设置碰撞器的自身碰撞类别
----@param collider py.Collider # 碰撞器
----@param mask integer # mask
-function GameAPI.api_set_collider_collision_category(collider, mask) end
-
---获得碰撞器的目标碰撞类别
----@param collider py.Collider # 碰撞器
----@param mask integer # mask
-function GameAPI.api_set_collider_collide_with_mask(collider, mask) end
-
---根据jid获取joint
----@param jid integer # joint ID
----@return py.Joint # Joint
-function GameAPI.api_get_joint_by_bid(jid) end
-
---创建固定关节
----@param pos py.FVector3 # 创建位置
----@param body_1 py.RigidBody # 刚体
----@param body_2 py.RigidBody # 刚体
----@param enable_collision? boolean # 检测碰撞
----@return py.RigidBody # Body
-function GameAPI.api_create_fixed_joint(pos, body_1, body_2, enable_collision) end
-
---销毁关节
----@param joint py.Joint # 关节
-function GameAPI.api_destroy_joint(joint) end
-
---根据id获取逻辑物理组件
----@param id integer # 物理组件id
----@return py.PhysicsEntity # PhysicsEntity
-function GameAPI.api_get_physics_entity_by_id(id) end
-
---根据id获取物理组件
----@param comp_id integer # joint ID
----@return py.PhysicsObject # PhysicsObject
-function GameAPI.api_get_physics_object_by_id(comp_id) end
-
---根据名称获取逻辑物理组件中的rigidbody
----@param entity py.PhysicsEntity # 物理组件
----@param name string # 名称
----@return py.RigidBody # RigidBody
-function GameAPI.api_get_rigid_body_in_physics_entity(entity, name) end
-
---获取单位或者物理组件的位置
----@param unit py.Actor # 单位或物理组件
----@return py.FVector3 # Position
-function GameAPI.api_get_unit_or_physics_entity_pos(unit) end
-
---射线检测
----@param start_point py.FVector3 # 起点
----@param end_point py.FVector3 # 终点
----@param query_filter? py.PhysicsFilter # 过滤器
----@return py.RigidBodyGroup # 是否有重叠
-function GameAPI.api_physics_raycast(start_point, end_point, query_filter) end
-
---获得射线检测首次碰撞点
----@param start_point py.FVector3 # 起点
----@param end_point py.FVector3 # 终点
----@param query_filter? py.PhysicsFilter # 过滤器
----@return py.FVector3 # 碰撞点
-function GameAPI.api_get_physics_raycast_first_point(start_point, end_point, query_filter) end
-
---设置物理组件可见性(以及是否为生效状态)
----@param physics_object_id py.Actor # 物理组件
----@param is_visible boolean # 是否可见
-function GameAPI.api_set_physics_object_activated_and_visible(physics_object_id, is_visible) end
-
---设置逻辑物理组件可见性(以及是否为生效状态)
----@param entity py.Actor # 物理组件
----@param is_visible boolean # 是否可见
-function GameAPI.api_set_physics_entity_activated_and_visible(entity, is_visible) end
-
---单位/逻辑物理组件之间是否有重叠
----@param entity_1 py.Actor # 单位/逻辑物理组件
----@param entity_2 py.Actor # 单位/逻辑物理组件
----@return boolean # 是否有重叠
-function GameAPI.api_check_physics_is_overlapping(entity_1, entity_2) end
-
---单位/逻辑物理组件之间是否有碰撞
----@param entity_1 py.Actor # 单位/逻辑物理组件
----@param entity_2 py.Actor # 单位/逻辑物理组件
----@return boolean # 是否有重叠
-function GameAPI.api_check_physics_is_contacting(entity_1, entity_2) end
-
---创建物理组件
----@param physics_object_id py.PhysicsObjectKey # 物理组件类型
----@param translation py.FVector3 # 位置
----@param direction py.FVector3 # 朝向
----@return py.PhysicsObject # 物理组件
-function GameAPI.api_create_physics_object(physics_object_id, translation, direction) end
-
---创建逻辑物理组件
----@param physics_entity_id py.PhysicsObjectKey # 物理组件类型
----@param translation py.FVector3 # 位置
----@param direction py.FVector3 # 朝向
----@param scale? py.Fixed # 缩放
-function GameAPI.api_create_physics_entity(physics_entity_id, translation, direction, scale) end
-
---删除物理组件
----@param physics_object_id py.Actor # 逻辑物理组件
-function GameAPI.api_del_physics_object(physics_object_id) end
-
---删除逻辑物理组件
----@param physics_entity py.Actor # 逻辑物理组件
-function GameAPI.api_del_physics_entity(physics_entity) end
-
---逻辑物理组件是否存在
----@param entity? py.PhysicsEntity # 逻辑物理组件
----@return boolean # 布尔值
-function GameAPI.api_physics_entity_is_exist(entity) end
-
---逻辑物理组件中指定刚体的模型播放动画
----@param entity py.PhysicsEntity # 物理组件
----@param body py.RigidBody # 刚体
----@param anim_name string # 动画名称
----@param loop? boolean # 是否循环
----@param play_speed? py.Fixed # 速度
-function GameAPI.api_physics_play_animation(entity, body, anim_name, loop, play_speed) end
-
---获得逻辑物理组件的状态
----@param entity py.PhysicsEntity # 物理组件
----@return py.PhysicsEntityState # 状态
-function GameAPI.api_get_physics_entity_state(entity) end
-
---设置逻辑物理组件状态
----@param entity py.PhysicsEntity # 物理组件
----@param state py.PhysicsEntityState # 状态
-function GameAPI.api_set_entity_state(entity, state) end
-
---设置逻辑物理组件的激活状态
----@param entity py.PhysicsEntity # 物理组件
----@param is_active boolean # 激活状态
----@param visible? boolean # 可见性
-function GameAPI.api_set_entity_active(entity, is_active, visible) end
-
---判断逻辑物理组件是激活状态
----@param entity py.PhysicsEntity # 物理组件
----@return boolean # 激活状态
-function GameAPI.api_is_physics_entity_active(entity) end
-
---判断逻辑物理组件是关闭状态
----@param entity py.PhysicsEntity # 物理组件
----@return boolean # 关闭状态
-function GameAPI.api_is_physics_entity_deactive(entity) end
-
---根据id获得逻辑物理组件
----@param entity_id py.Fixed # id
----@return py.PhysicsEntity # 逻辑物理组件
-function GameAPI.api_get_physics_entity(entity_id) end
-
---设置重力加速度
----@param gravity py.FVector3 # 重力加速度
-function GameAPI.api_set_gravity(gravity) end
-
---创建特效到逻辑物理组件
----@param entity py.PhysicsEntity # 逻辑物理组件
----@param body_name string # 刚体名称
----@param sfx_id py.Fixed # 特效ID
----@param b_follow_rotate? boolean # 是否跟随旋转
----@param b_follow_scale? boolean # 是否跟随缩放
----@param position? py.Vector3 # 偏移
----@param scale? py.Fixed # 缩放
----@param rotation? py.Vector3 # 旋转
----@param duration? py.Fixed # 持续时间
----@param immediately? boolean # 是否播放完移除
----@return py.Sfx # 特效
-function GameAPI.api_create_sfx_on_rigid(entity, body_name, sfx_id, b_follow_rotate, b_follow_scale, position, scale, rotation, duration, immediately) end
-
---获取逻辑物理组件类型
----@param entity py.PhysicsEntity # 逻辑物理组件
----@return integer # 类型
-function GameAPI.api_get_physics_entity_type(entity) end
-
---销毁逻辑物理组件
----@param entity py.PhysicsEntity # 逻辑物理组件
-function GameAPI.api_destroy_physics_entity(entity) end
-
---设置逻辑物理组件旋转（欧拉角）
----@param entity py.PhysicsEntity # 逻辑物理组件
----@param rotation py.FRotation # 欧拉角
-function GameAPI.api_physics_entity_set_orientation(entity, rotation) end
-
---逻辑物理组件是否有指定tag
----@param entity py.PhysicsEntity # 逻辑物理组件
----@param tag string # tag
----@return boolean # 布尔值
-function GameAPI.api_physics_entity_has_tag(entity, tag) end
-
---逻辑物理组件添加tag
----@param entity py.PhysicsEntity # 逻辑物理组件
----@param tag string # tag
-function GameAPI.api_physics_entity_add_tag(entity, tag) end
-
---逻辑物理组件删除tag
----@param entity py.PhysicsEntity # 逻辑物理组件
----@param tag string # tag
-function GameAPI.api_physics_entity_remove_tag(entity, tag) end
-
---世界坐标转换屏幕坐标
----@param world_pos py.Vector3 # 世界坐标
-function GameAPI.api_world_pos_to_camera_pos(world_pos) end
-
---世界坐标转换屏幕边缘坐标
----@param world_pos py.Vector3 # 世界坐标
----@param delta_dis py.Fixed # 定点数
-function GameAPI.api_world_pos_to_screen_edge_pos(world_pos, delta_dis) end
-
---创建物理过滤器
----@param collision_category integer # 自身碰撞标签
----@param collide_with_mask integer # 目标碰撞标签
----@param ignore_trigger boolean # 是否忽略触发器
----@param ignore_non_trigger boolean # 是否忽略非触发器
----@param ignore_static_rb boolean # 是否忽略静态刚体
----@param ignore_dynamic_rb boolean # 是否忽略动态刚体
----@param ignore_kinematic_rb boolean # 是否忽略运动学刚体
----@return py.PhysicsFilter # 过滤器
-function GameAPI.api_create_physics_filter(collision_category, collide_with_mask, ignore_trigger, ignore_non_trigger, ignore_static_rb, ignore_dynamic_rb, ignore_kinematic_rb) end
-
---获取单位的rigidBody
----@param unit py.Unit # 单位
----@return py.RigidBody # RigidBody
-function GameAPI.api_get_rigid_body_in_unit(unit) end
-
---设置物理主控单位
----@param unit py.Unit # 单位
----@param ragdoll_collide? boolean # Ragdoll是否碰撞
-function GameAPI.set_physics_ctrl_unit(unit, ragdoll_collide) end
-
---获取物理主控单位
----@param role py.Role # 玩家
----@return py.Unit # 单位
-function GameAPI.get_physics_ctrl_unit(role) end
-
---设置主控单位可见性visual
----@param unit py.Unit # 单位
----@param is_visible boolean # 可见性
----@param only_self? boolean # 仅自己生效
----@param only_self_friend? boolean # 仅自己和友军生效
----@param only_enemy? boolean # 仅对敌军生效
-function GameAPI.api_set_cc_visibility(unit, is_visible, only_self, only_self_friend, only_enemy) end
-
---创建单位
----@param key py.UnitKey # 单位编号
----@param location py.FVector3 # 位置
----@param direction py.FVector3 # 朝向
----@param role_or_unit py.Role # 所属玩家
----@return py.Unit # 创建出的单位
-function GameAPI.create_unit_at_vector3(key, location, direction, role_or_unit) end
-
---单位传送到指定坐标
----@param unit py.Unit # 单位
----@param position py.FVector3 # 目标坐标
----@param clear_speed boolean # 是否清除速度
-function GameAPI.api_unit_transmit_3d(unit, position, clear_speed) end
-
---复活单位
----@param unit py.Unit # 单位
----@param position py.FVector3 # 复活位置
----@param clear_speed boolean # 清除速度
-function GameAPI.api_revive_unit_3d(unit, position, clear_speed) end
-
---获取角色所处状态机节点名称
----@param unit py.Unit # 单位
----@return string # 状态机节点名称
-function GameAPI.api_get_character_state_name(unit) end
-
---让单位lookat镜头
----@param unit py.Unit # 单位
-function GameAPI.cc_look_at_camera(unit) end
-
---让单位lookat目标单位
----@param unit py.Unit # 单位
----@param other_unit py.Unit # 单位
-function GameAPI.cc_look_at_other_unit(unit, other_unit) end
-
---取消单位lookat
----@param unit py.Unit # 单位
-function GameAPI.cc_cancel_look_at(unit) end
-
---获取单位周围的随机单位
----@param unit py.Unit # 单位
----@param radius py.Fixed # 距离
----@return py.Unit # 随机单位
-function GameAPI.cc_get_random_unit_around(unit, radius) end
-
---动画状态机状态判断
----@param state1 py.CcAsmState # 动画机状态
----@param state2 py.CcAsmState # 动画机状态
----@return boolean # 是否相等
-function GameAPI.api_check_asm_state(state1, state2) end
-
---获取单位碰撞盒里最近的抓取单位（测试用）
----@param unit py.Unit # 单位
----@return py.Unit # 距离最近的单位
-function GameAPI.api_get_grab_character(unit) end
-
---抓取技能
----@param source py.Unit # 施法单位
----@param target py.Unit # 目标单位
-function GameAPI.api_grab(source, target) end
-
---判断 - 是否可以施放暴揍技能
----@param source py.Unit # 施法单位
----@param target py.Unit # 目标单位
----@param bind string # 绑点名称
----@return boolean # 是否可以施放
-function GameAPI.check_catch_other_character(source, target, bind) end
-
---暴揍技能
----@param source py.Unit # 施法单位
----@param target py.Unit # 目标单位
----@param state integer # 暴揍动作
----@param duration py.Fixed # 持续时间
----@param bind string # 绑点名称
-function GameAPI.api_physics_catch(source, target, state, duration, bind) end
-
---移除手部黏连状态
----@param unit py.Unit # 单位
----@param handtype py.CcHandID # 左手/右手
-function GameAPI.api_disconnect_hand(unit, handtype) end
-
---移除双手的黏连状态
----@param unit py.Unit # 单位
-function GameAPI.api_disconnect_both_hands(unit) end
-
---检查手部是否处于黏连状态
----@param unit py.Unit # 单位
----@param handtype py.CcHandID # 左手/右手
----@return boolean # 是否黏连
-function GameAPI.api_check_hand_connection(unit, handtype) end
-
---主控角色做预定义行为
----@param unit py.Unit # 角色
----@param cc_action py.CcActionID # 预定义行为ID
----@param cc_hand? py.CcHandID # 左手/右手
-function GameAPI.cc_do_predefined_action(unit, cc_action, cc_hand) end
-
---重载角色动画状态
----@param unit py.Unit # 角色
----@param anim_status py.CcAnimationMachineStatus # 动画机节点名字
----@param anim_name string # 动画名
-function GameAPI.api_override_anim_status(unit, anim_status, anim_name) end
-
---判断单位上半身行动受限
----@param unit py.Unit # 单位
----@return boolean # 是否受限
-function GameAPI.is_upper_body_limited(unit) end
-
---投掷技能
----@param unit py.Unit # 施法单位
-function GameAPI.api_physics_throw(unit) end
-
---拾取物品
----@param unit py.Unit # 施法单位
-function GameAPI.api_physics_pick_up(unit) end
-
---拾取指定物品
----@param unit py.Unit # 单位
----@param item py.Unit # 物品
-function GameAPI.api_physics_pick_up_item(unit, item) end
-
---单位丢弃物理道具
----@param unit py.Unit # 单位
-function GameAPI.api_physics_drop(unit) end
-
---施加倒地状态
----@param unit py.Unit # 施加目标
----@param duration py.Fixed # 持续时间
-function GameAPI.api_physics_hit_down_unit(unit, duration) end
-
---获取抓举单位
----@param unit py.Unit # 单位
-function GameAPI.api_get_grab_unit(unit) end
-
---检查是否处于抓举状态
----@param unit py.Unit # 单位
----@return boolean # 是否处于抓举状态
-function GameAPI.api_check_grab_state(unit) end
-
---获取手持物品
----@param unit py.Unit # 单位
-function GameAPI.api_get_pick_item(unit) end
-
---检查是否手持物品
----@param unit py.Unit # 单位
----@return boolean # 是否手持物品
-function GameAPI.api_check_physics_unit_pick_item_exist(unit) end
-
---增加击倒值
----@param unit py.Unit # 单位
----@param down_value py.Fixed # 击倒值
-function GameAPI.api_add_unit_down_value(unit, down_value) end
-
---开始使用手持道具
----@param unit py.Unit # 单位
-function GameAPI.api_character_try_begin_use(unit) end
-
---结束使用手持道具
----@param unit py.Unit # 单位
-function GameAPI.api_character_try_end_use(unit) end
-
---设置动画状态机为物理状态
----@param unit py.Unit # 单位
----@param duration py.Fixed # 持续时间
-function GameAPI.api_set_entity_anim_state_machine_physics(unit, duration) end
-
---获取角色移动速度
----@param unit py.Unit # 单位
----@return py.FVector3 # 速度
-function GameAPI.api_physics_unit_get_move_speed(unit) end
-
---设置单位旋转（欧拉角）
----@param unit py.Unit # 单位
----@param rotation py.FRotation # X
-function GameAPI.api_physics_unit_set_orientation(unit, rotation) end
-
---主控角色做预定义表情
----@param unit py.Unit # 角色
----@param cc_emo py.CcEmo # 预定义表情ID
----@param duration py.Fixed # 表情播放时长
-function GameAPI.cc_change_emo(unit, cc_emo, duration) end
-
---单位切换状态机
----@param unit py.Unit # 单位
----@param state_name string # 状态机名称
-function GameAPI.api_asm_jump_to_state(unit, state_name) end
-
---设置角色squash
----@param unit py.Unit # 角色
----@param squash py.Fixed # squash
-function GameAPI.api_set_unit_squash(unit, squash) end
-
---设置单位移动
----@param unit py.Unit # 单位
----@param move_direction py.MoveDirection # 方向
-function GameAPI.api_set_unit_move(unit, move_direction) end
-
---设置单位停止移动
----@param unit py.Unit # 单位
----@param move_direction py.MoveDirection # 方向
-function GameAPI.api_set_unit_stop_move(unit, move_direction) end
-
---通知改键
----@param enable boolean # 是否使用
-function GameAPI.api_notify_custom_key(enable) end
-
---设置单位跳跃
----@param unit py.Unit # 单位
-function GameAPI.api_set_unit_jump(unit) end
-
---设置单位跑(角色配置的跑步速度)
----@param unit py.Unit # 单位
-function GameAPI.api_set_unit_run(unit) end
-
---设置单位走(角色配置的走路速度)
----@param unit py.Unit # 单位
-function GameAPI.api_set_unit_walk(unit) end
-
---设置单位速度
----@param unit py.Unit # 单位
----@param speed py.Fixed # 速度
-function GameAPI.api_set_unit_speed(unit, speed) end
-
---设置语音指令
----@param is_on boolean # 是否开启
-function GameAPI.api_set_audio_cc(is_on) end
-
---根据bid获取rigidBody
----@param bid integer # body ID
----@return py.RigidBody # RigidBody
-function GameAPI.api_get_rigid_body_by_bid(bid) end
-
---刚体添加球形碰撞器
----@param body py.RigidBody # 刚体
----@param pos py.FVector3 # pos
----@param radius py.Fixed # radius
----@param euler_angle? py.FVector3 # euler_angle
----@param is_trigger? boolean # is_trigger
-function GameAPI.api_add_sphere_collider(body, pos, radius, euler_angle, is_trigger) end
-
---根据名称获取物理组件中的rigidbody
----@param physics_object py.PhysicsEntity # 物理组件
----@param name string # 名称
----@return py.RigidBody # RigidBody
-function GameAPI.api_get_rigid_body_in_physics_object(physics_object, name) end
-
---获取刚体所属的单位
----@param body py.RigidBody # 刚体
----@return py.Unit # Owner
-function GameAPI.api_get_rigid_body_owner_unit(body) end
-
---获取刚体所属的逻辑物理组件
----@param body py.RigidBody # 刚体
----@return py.PhysicsEntity # Owner
-function GameAPI.api_get_rigid_body_owner_physics_entity(body) end
-
---向刚体施加力
----@param body py.RigidBody # 刚体
----@param force py.Fixed # 力度
----@param direction py.FVector3 # 方向
----@return py.RigidBody # RigidBody
-function GameAPI.api_add_force_to_rigid_body(body, force, direction) end
-
---给刚体叠加速度
----@param body py.RigidBody # 刚体
----@param speed py.Fixed # 速度的大小
----@param direction py.FVector3 # 速度的方向
----@return py.RigidBody # RigidBody
-function GameAPI.api_add_velocity_to_rigid_body(body, speed, direction) end
-
---获取刚体的位置
----@param body py.RigidBody # 刚体
----@return py.FVector3 # Position
-function GameAPI.api_get_rigid_body_pos(body) end
-
---设置刚体的位置
----@param body py.RigidBody # 刚体
----@param pos py.FVector3 # pos
-function GameAPI.api_set_rigid_body_pos(body, pos) end
-
---设置刚体的朝向
----@param body py.RigidBody # 刚体
----@param direction py.FRotation # direction
-function GameAPI.api_set_rigid_body_direction(body, direction) end
-
---设置刚体的刚体类型
----@param body py.RigidBody # 刚体
----@param body_type string # 刚体类型
-function GameAPI.api_set_rigid_body_type(body, body_type) end
-
---设置刚体的布尔类型属性
----@param body py.RigidBody # 刚体
----@param attr_name string # 布尔类型属性
----@param value boolean # 值
-function GameAPI.api_set_rigid_body_bool_attr(body, attr_name, value) end
-
---设置刚体有效性
----@param body py.RigidBody # 刚体
----@param is_active boolean # 是否有效
-function GameAPI.api_set_rigidbody_active(body, is_active) end
-
---设置刚体模型可见性
----@param body py.PhysicsEntity # 物理组件
----@param visible py.RigidBody # 刚体
-function GameAPI.api_set_rigidbody_visible(body, visible) end
-
---获取刚体有效性
----@param body py.RigidBody # 刚体
----@return boolean # 是否有效
-function GameAPI.api_get_rigidbody_active(body) end
-
---设置刚体速度
----@param body py.RigidBody # 刚体
----@param speed py.Fixed # 速度大小
----@param direction py.FVector3 # 速度方向
-function GameAPI.api_set_rigidbody_velocity(body, speed, direction) end
-
---获得刚体速度
----@param body py.RigidBody # 刚体
----@return py.FVector3 # 速度
-function GameAPI.api_get_rigidbody_velocity(body) end
-
---设置刚体角速度
----@param body py.RigidBody # 刚体
----@param angular_velocity py.FVector3 # 角速度
-function GameAPI.api_set_rigidbody_angular_velocity(body, angular_velocity) end
-
---设置刚体角速度
----@param body py.RigidBody # 刚体
-function GameAPI.api_get_rigidbody_angular_velocity(body) end
-
---获得刚体朝向
----@param body py.RigidBody # 刚体
----@return py.FVector3 # 朝向
-function GameAPI.api_get_rigidbody_forward(body) end
-
---获得范围内的刚体组
----@param position py.FVector3 # 位置
----@param radius number # 半径
----@param collision_category? integer # 自身碰撞类别
----@param collide_with_mask? integer # 目标碰撞类别
----@param ignore_trigger? boolean # 忽略触发器
----@param ignore_non_trigger? boolean # 忽略非触发器
----@param ignore_non_rigid? boolean # 忽略非刚体
----@param ignore_dynamic? boolean # 忽略动态物体
----@param ignore_kinematic? boolean # 忽略运动学物体
----@param ignore_static? boolean # 忽略静态物体
----@param ignore_logic_body? boolean # 忽略逻辑物体
----@param ignore_non_logic_body? boolean # 忽略非逻辑物体
----@return py.RigidBodyGroup # 刚体组
-function GameAPI.api_get_rigid_body_group_in_range(position, radius, collision_category, collide_with_mask, ignore_trigger, ignore_non_trigger, ignore_non_rigid, ignore_dynamic, ignore_kinematic, ignore_static, ignore_logic_body, ignore_non_logic_body) end
-
---替换刚体模型
----@param body py.RigidBody # 刚体
----@param id py.ModelKey # 模型id
-function GameAPI.api_replace_rigid_body_model(body, id) end
-
---还原刚体上一个模型
----@param body py.RigidBody # 刚体
-function GameAPI.api_restore_rigid_body_last_model(body) end
-
---获得刚体中指定名字的碰撞器
----@param body py.RigidBody # 刚体
----@param name string # 碰撞器名字
----@return py.Collider # Collider
-function GameAPI.api_get_rigid_body_collider(body, name) end
-
---刚体是否有指定tag
----@param body py.RigidBody # 刚体
----@param tag string # tag
----@return boolean # 布尔值
-function GameAPI.api_is_rigid_has_tag(body, tag) end
-
---获取刚体质量
----@param body py.RigidBody # 刚体
----@return py.Fixed # 质量
-function GameAPI.api_rigid_body_get_mass(body) end
-
---设置刚体模型缩放
----@param body py.RigidBody # 刚体
----@param scale_x number # x缩放
----@param scale_y number # y缩放
----@param scale_z number # z缩放
-function GameAPI.api_rigid_body_set_scale(body, scale_x, scale_y, scale_z) end
-
---刚体按照指定轴旋转
----@param body py.RigidBody # 刚体
----@param axis py.Vector3 # 轴
----@param angle py.Fixed # 角度
-function GameAPI.api_rigid_body_angle_axis(body, axis, angle) end
-
---扔出刚体
----@param body py.PhysicsEntity # 刚体
----@param start py.Vector3 # 抛出点
----@param forward py.Vector3 # 抛出方向
----@param length py.Fixed # 抛出距离
----@param speed py.Fixed # 水平速度
-function GameAPI.api_throw_rigid_body(body, start, forward, length, speed) end
-
---设置刚体的相对坐标系的速度
----@param body py.RigidBody # 刚体
----@param speed py.Fixed # 速度大小
----@param direction py.FVector3 # 速度方向
-function GameAPI.api_set_rigid_body_reference_frame_velocity(body, speed, direction) end
-
---设置刚体绑定目标刚体的相对坐标系
----@param body py.RigidBody # 刚体
----@param target py.RigidBody # 目标刚体
-function GameAPI.api_set_rigid_body_add_reference_frame(body, target) end
-
---设置刚体移除目标刚体的相对坐标系
----@param body py.RigidBody # 刚体
----@param target py.RigidBody # 目标刚体
-function GameAPI.api_set_rigid_body_remove_reference_frame(body, target) end
-
---把刚体的本地坐标转到全局坐标
----@param body py.RigidBody # 刚体
----@param local_pos py.FVector3 # local_pos
-function GameAPI.api_transform_local_to_global_coords(body, local_pos) end
-
---添加刚体到刚体组
----@param body py.Unit # 刚体
----@param group py.RigidBodyGroup # 刚体组
-function GameAPI.api_add_rigid_body_to_group(body, group) end
-
---从刚体组中移除刚体
----@param group py.UnitGroup # 刚体组
----@param body py.Unit # 刚体
-function GameAPI.api_remove_rigid_body_in_group(group, body) end
-
---删除REACTION
----@param reaction py.Reaction # Reaction
-function GameAPI.api_delete_reaction(reaction) end
