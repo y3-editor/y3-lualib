@@ -13,13 +13,14 @@ local proxyMT = { __index = function (self, key)
     local f = raw[key]
     local tp = type(f)
     if tp == 'function' then
-        self[key] = function (_, ...)
+        local function middleman(_, ...)
             if self[DEAD] and not isExist(raw) then
                 return nil
             end
             return f(raw, ...)
         end
-        return self[key]
+        self[key] = middleman
+        return middleman
     end
     if tp == 'userdata' then
         local mt = getmetatable(f)
@@ -30,13 +31,14 @@ local proxyMT = { __index = function (self, key)
         if not call then
             return f
         end
-        self[key] = function (_, ...)
+        local function middleman(_, ...)
             if self[DEAD] and not isExist(raw) then
                 return nil
             end
             return call(f, raw, ...)
         end
-        return self[key]
+        self[key] = middleman
+        return middleman
     end
     if tp == 'nil' then
         if self[DEAD] and not isExist(raw) then
