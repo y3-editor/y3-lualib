@@ -29,7 +29,12 @@ function M.startTimer()
     M.queue = {}
     ---@private
     M.timer = y3.ltimer.loop(1, function ()
+        local c = 0
         for i, buffer in pairs(M.queue) do
+            c = c + 1
+            if c > 10000 then
+                break
+            end
             buffer.passedTime = buffer.passedTime + 1
             if buffer.passedTime > buffer.atLeast then
                 M.queue[i] = nil
