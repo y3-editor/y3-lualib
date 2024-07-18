@@ -20,7 +20,7 @@ M.unrefTimeAtLeast = 5
 ---@private
 M.allowWeakRef = false
 
----@type table<string, Ref>
+---@type table<string, Ref[]>
 M.all_managers = {}
 
 ---@generic T: string
@@ -46,7 +46,10 @@ function M:__init(className, new)
     ---@private
     self.waitingListOld = {}
 
-    M.all_managers[className] = self
+    if not M.all_managers[className] then
+        M.all_managers[className] = setmetatable({}, y3.util.MODE_V)
+    end
+    table.insert(M.all_managers[className], self)
 end
 
 -- 获取指定key的对象，如果不存在，则使用所有的参数创建并返回

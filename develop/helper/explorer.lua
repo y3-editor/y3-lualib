@@ -90,7 +90,7 @@ end
 
 ---@return Develop.Helper.TreeNode
 function M.createRefWatcher()
-    local ref = require 'y3.util.ref'
+    local reflib = require 'y3.util.ref'
 
     local function countTable(t)
         local n = 0
@@ -105,24 +105,28 @@ function M.createRefWatcher()
         tooltip = 'Lua持有的对象数量( 存活 | 死亡 | 未回收 )',
         childsGetter = function (node)
             local childs = {}
-            for className, manager in y3.util.sortPairs(ref.all_managers) do
+            for className, refs in y3.util.sortPairs(reflib.all_managers) do
                 ---@type ClientTimer?
                 local timer
                 childs[#childs+1] = y3.develop.helper.createTreeNode(className, {
                     onVisible = function (child)
                         timer = y3.ctimer.loop(1, function ()
-                            ---@diagnostic disable-next-line: invisible
-                            local strong = manager.strongRefMap
-                            ---@diagnostic disable-next-line: invisible
-                            local weak  = manager.weakRefMap
-                            ---@diagnostic disable-next-line: invisible
-                            local young = manager.waitingListYoung
-                            ---@diagnostic disable-next-line: invisible
-                            local old   = manager.waitingListOld
+                            local strongCount = 0
+                            local weakCount   = 0
+                            local youngCount  = 0
+                            local oldCount    = 0
+                            for _, ref in pairs(refs) do
+                                ---@diagnostic disable-next-line: invisible
+                                strongCount = strongCount + countTable(ref.strongRefMap)
+                                ---@diagnostic disable-next-line: invisible
+                                weakCount   = weakCount   + countTable(ref.weakRefMap)
+                                ---@diagnostic disable-next-line: invisible
+                                youngCount  = youngCount  + countTable(ref.waitingListYoung)
+                                ---@diagnostic disable-next-line: invisible
+                                oldCount    = oldCount    + countTable(ref.waitingListOld)
+                            end
 
-                            local strongCount = countTable(strong)
-                            local aliveCount  = strongCount - countTable(young) - countTable(old)
-                            local weakCount   = countTable(weak)
+                            local aliveCount  = strongCount - youngCount - oldCount
                             child.description = string.format('%d | %d | %d'
                                 , aliveCount
                                 , strongCount - aliveCount
@@ -141,6 +145,16 @@ function M.createRefWatcher()
             end
             return childs
         end,
+        onInit = function (node)
+            local last = countTable(reflib.all_managers)
+            node:bindGC(y3.ctimer.loop(1, function (timer, count, local_player)
+                local now = countTable(reflib.all_managers)
+                if now ~= last then
+                    last = now
+                    node:refresh()
+                end
+            end))
+        end
     })
 
     return node
