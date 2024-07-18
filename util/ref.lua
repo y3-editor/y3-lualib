@@ -86,6 +86,10 @@ function M:remove(key)
         ---@private
         self.updateTimer = y3.ltimer.loop(self.unrefTimeAtLeast, function ()
             self:updateWaitingList()
+            if not next(self.waitingListOld) then
+                self.updateTimer:remove()
+                self.updateTimer = nil
+            end
         end)
     end
 end
