@@ -408,6 +408,7 @@ end
 ---@param source_unit? Unit 单位
 ---@param text_type? string 跳字类型
 function M:heals(value, skill, source_unit, text_type)
+    ---@diagnostic disable-next-line: missing-parameter
     self.phandle:api_heal(Fix32(value), text_type ~= nil, skill and skill.handle or nil, source_unit and source_unit.handle or nil, text_type or '')
 end
 
@@ -1966,6 +1967,7 @@ end
 
 ---@param data Unit.DamageData
 function M:damage(data)
+    ---@diagnostic disable-next-line: missing-parameter
     GameAPI.apply_damage(
         self.handle,
         data.ability and data.ability.handle or nil,
