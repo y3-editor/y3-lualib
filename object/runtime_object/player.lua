@@ -360,8 +360,13 @@ end
 ---获取经验获得率
 ---@return number exp_rate 经验获得率
 function M:get_exp_rate()
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return self.phandle:get_role_exp_rate()
+    local number = self.phandle:get_role_exp_rate()
+    -- 在调用过 set_exp_rate 后, 会导致 number 返回值类型变为 userdata
+    if number and type(number) == "userdata" then
+    ---@diagnostic disable-next-line: undefined-field
+        return number:float() --[[@as number]]
+    end
+    return number --[[@as number]]
 end
 
 ---获取队伍ID
