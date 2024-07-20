@@ -7,6 +7,8 @@
 local M = Class 'Projectile'
 M.type = 'projectile'
 
+---@class Projectile: Storage
+Extends('Projectile', 'Storage')
 ---@class Projectile: GCHost
 Extends('Projectile', 'GCHost')
 ---@class Projectile: ObjectEvent
