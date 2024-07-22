@@ -438,6 +438,12 @@ m.snapshot = private(function ()
         return result
     end
 
+    local stringInfo = private {
+        count = 0,
+        totalSize = 0,
+        largeStrings = private {},
+    }
+
     function find(obj)
         if mark[obj] then
             return mark[obj]
@@ -458,6 +464,12 @@ m.snapshot = private(function ()
         elseif tp == 'thread' then
             mark[obj] = private {}
             mark[obj] = findThread(obj, mark[obj])
+        elseif tp == 'string' then
+            stringInfo.count = stringInfo.count + 1
+            stringInfo.totalSize = stringInfo.totalSize + #obj
+            if #obj >= 10000 then
+                stringInfo.largeStrings[#stringInfo.largeStrings+1] = obj
+            end
         else
             return nil
         end
@@ -468,20 +480,20 @@ m.snapshot = private(function ()
     end
 
     -- TODO: Lua 5.1中，主线程与_G都不在注册表里
-    local result = private {
+    local root = private {
         name = formatName(registry),
         type = 'root',
         info = find(registry),
     }
     if not registry[1] then
-        result.info[#result.info+1] = private {
+        root.info[#root.info+1] = private {
             type = 'thread',
             name = 'main',
             info = findMainThread(),
         }
     end
     if not registry[2] then
-        result.info[#result.info+1] = private {
+        root.info[#root.info+1] = private {
             type = '_G',
             name = '_G',
             info = find(_G),
@@ -495,12 +507,16 @@ m.snapshot = private(function ()
         ['function']  = getmetatable(function () end),
         ['thread']    = getmetatable(ccreate(function () end)),
     } do
-        result.info[#result.info+1] = private {
+        root.info[#root.info+1] = private {
             type = 'metatable',
             name = name,
             info = find(mt),
         }
     end
+    local result = {
+        root = root,
+        stringInfo = stringInfo,
+    }
     if m._cache then
         m._lastCache = result
     end
@@ -576,22 +592,23 @@ m.catch = private(function (...)
         end
     end
 
-    search(report)
+    search(report.root)
 
     return result
 end)
 
----@alias Doctor.Report {point: string, count: integer, name: string, childs: integer}
+---@alias Doctor.Report { point: string, count: integer, name: string, childs: integer }
+---@alias Doctor.StringInfo { count: integer, totalSize: integer, largeStrings: string[] }
 
 --- 生成一个内存快照的报告。
 --- 你应当将其输出到一个文件里再查看。
----@return Doctor.Report[]
+---@return { report: Doctor.Report[], stringInfo: Doctor.StringInfo }
 m.report = private(function ()
     local snapshot = m.snapshot()
     local cache = {}
     local mark = {}
 
-    local function scan(t)
+    local function scanRoot(t)
         local obj = t.info.object
         local tp = type(obj)
         if tp == 'table'
@@ -613,17 +630,20 @@ m.report = private(function ()
         if not mark[t.info] then
             mark[t.info] = true
             for _, child in ipairs(t.info) do
-                scan(child)
+                scanRoot(child)
             end
         end
     end
 
-    scan(snapshot)
+    scanRoot(snapshot.root)
     local list = {}
     for _, info in pairs(cache) do
         list[#list+1] = info
     end
-    return list
+    return {
+        report = list,
+        stringInfo = snapshot.stringInfo,
+    }
 end)
 
 --- 在进行快照相关操作时排除掉的对象。
@@ -639,10 +659,10 @@ end)
 m.compare = private(function (old, new)
     local newHash = {}
     local ret = {}
-    for _, info in ipairs(new) do
+    for _, info in ipairs(new.root) do
         newHash[info.point] = info
     end
-    for _, info in ipairs(old) do
+    for _, info in ipairs(old.root) do
         if newHash[info.point] then
             ret[#ret + 1] = {
                 old = info,

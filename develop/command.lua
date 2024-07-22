@@ -107,18 +107,29 @@ M.register('RD', {
 
 M.register('SS', {
     desc = '生成内存快照',
-    onCommand = function ()
+    onCommand = function (includeString)
         collectgarbage()
         collectgarbage()
         local reports = y3.doctor.report()
         local lines = {}
-        for _, report in ipairs(reports) do
+        lines[#lines+1] = '===GCObject==='
+        for _, report in ipairs(reports.report) do
             lines[#lines+1] = string.format('%16s(%d): %s'
                 , report.point
                 , report.count
                 , report.name
             )
         end
+        if includeString then
+            lines[#lines+1] = '===String==='
+            lines[#lines+1]  = string.format('TotalNum:  %d', reports.stringInfo.count)
+            lines[#lines+1]  = string.format('TotalSize: %.3fKB', reports.stringInfo.totalSize / 1024)
+            lines[#lines+1] = '===Large Strings==='
+            for _, str in ipairs(reports.stringInfo.largeStrings) do
+                lines[#lines+1] = string.format('(↓↓↓ Len = %.3fKB)\n%s...\n(↑↑↑ Len = %.3fKB)', #str / 1024, str:sub(1, 1000), #str / 1024)
+            end
+        end
+        lines[#lines+1] = '===Finish==='
         local content = table.concat(lines, '\n')
         ---@diagnostic disable-next-line: undefined-global
         py_write_file(lua_script_path .. '/log/snapshot.txt', 'w', content)
