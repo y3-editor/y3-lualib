@@ -135,10 +135,6 @@ Y3的Lua虚拟机进行过修改与定制，详细请参阅[这篇文档](./doc/
 
 </pre>
 
-# 想要做的事情
-
-见 [开发计划](./开发计划.md)
-
 # 贡献者
 
 ![GitHub Contributors Image](https://contrib.rocks/image?repo=y3-editor/y3-lualib)
