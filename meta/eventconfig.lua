@@ -43,6 +43,18 @@ M.config["游戏-追帧完成"] = {
     },
 }
 
+---@alias EventParam.游戏-逻辑不同步 EventParam.ET_GAME_SNAPSHOT_MISMATCH
+M.config["游戏-逻辑不同步"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_GAME_SNAPSHOT_MISMATCH",
+    name = "游戏-逻辑不同步",
+    params = {
+    },
+}
+
 ---@alias EventParam.未知-ET_RECV_TRIGGER EventParam.ET_RECV_TRIGGER
 M.config["未知-ET_RECV_TRIGGER"] = {
     __class__ = "EventConfigBuilder",
@@ -3636,6 +3648,7 @@ M.config["对话框-点击按钮"] = {
 ---@class Game
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
+---@field event fun(self: self, event: "游戏-逻辑不同步", callback: fun(trg: Trigger, data: EventParam.游戏-逻辑不同步)): Trigger
 ---@field event fun(self: self, event: "游戏-结束", callback: fun(trg: Trigger, data: EventParam.游戏-结束)): Trigger
 ---@field event fun(self: self, event: "游戏-暂停", callback: fun(trg: Trigger, data: EventParam.游戏-暂停)): Trigger
 ---@field event fun(self: self, event: "游戏-恢复", callback: fun(trg: Trigger, data: EventParam.游戏-恢复)): Trigger
