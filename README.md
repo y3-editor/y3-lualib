@@ -95,7 +95,7 @@ Y3的Lua虚拟机进行过修改与定制，详细请参阅[这篇文档](./doc/
 
 ### 如何使用日志
 
-在代码中使用 `log.info('日志内容')` 写日志，在开发模式中日志会写到脚本目录的 `log/lua_player01.log` 中。在平台上运行时日志会写到地图目录的 `custom/lua_player01.log` 中。文件名后两位数字代表你在游戏中的玩家ID，在本地多开时会生成多个日志文件。在平台上运行时，完整的日志路径大概是 `.../kkduizhan/Games/y3/2.0/game/LocalData/etc/maps/<加密地图名>/custom/lua_player01.log` 。
+在代码中使用 `log.info('日志内容')` 写日志，在开发模式中日志会写到脚本目录的 `.log/lua_player01.log` 中。在平台上运行时日志会写到地图目录的 `custom/lua_player01.log` 中。文件名后两位数字代表你在游戏中的玩家ID，在本地多开时会生成多个日志文件。在平台上运行时，完整的日志路径大概是 `.../kkduizhan/Games/y3/2.0/game/LocalData/etc/maps/<加密地图名>/custom/lua_player01.log` 。
 
 如果你只是想快速的临时看一下，可以直接使用 `print('内容')` ，这些内容会直接在游戏内显示。上传地图前别忘了去掉 `print` 。
 

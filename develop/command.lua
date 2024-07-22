@@ -132,8 +132,8 @@ M.register('SS', {
         lines[#lines+1] = '===Finish==='
         local content = table.concat(lines, '\n')
         ---@diagnostic disable-next-line: undefined-global
-        py_write_file(lua_script_path .. '/log/snapshot.txt', 'w', content)
-        log.debug('快照已保存到 script/log/snapshot.txt')
+        py_write_file(lua_script_path .. '/.log/snapshot.txt', 'w', content)
+        log.debug('快照已保存到 script/.log/snapshot.txt')
     end
 })
 
@@ -150,8 +150,8 @@ M.register('CT', {
         end
         local content = table.concat(lines, '\n')
         ---@diagnostic disable-next-line: undefined-global
-        py_write_file(lua_script_path .. '/log/catch.txt', 'w', content)
-        log.debug('快照已保存到 script/log/catch.txt')
+        py_write_file(lua_script_path .. '/.log/catch.txt', 'w', content)
+        log.debug('快照已保存到 script/.log/catch.txt')
     end
 })
 
