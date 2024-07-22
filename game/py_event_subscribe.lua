@@ -152,6 +152,9 @@ local function extract_addition(event_name, extra_args)
             table.remove(py_args, i)
             return py_addition, py_args
         end
+        if param.resolve then
+            py_args[i] = param.resolve(py_args[i])
+        end
     end
     return nil, py_args
 end

@@ -2602,6 +2602,14 @@ end\
     name = "界面-滑动条变化",
     object = "Player",
     params = {
+        [1] = {
+            desc = "目标控件",
+            name = "ui",
+            resolve = function (ui)
+                return ui.handle
+            end,
+            type = "UI",
+        },
     },
 }
 
@@ -2625,6 +2633,14 @@ end\
     name = "界面-聊天框可见性变化",
     object = "Player",
     params = {
+        [1] = {
+            desc = "目标控件",
+            name = "ui",
+            resolve = function (ui)
+                return ui.handle
+            end,
+            type = "UI",
+        },
     },
 }
 
@@ -2648,6 +2664,14 @@ end\
     name = "界面-复选框变化",
     object = "Player",
     params = {
+        [1] = {
+            desc = "目标控件",
+            name = "ui",
+            resolve = function (ui)
+                return ui.handle
+            end,
+            type = "UI",
+        },
     },
 }
 
@@ -3737,9 +3761,9 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
 ---@field event fun(self: self, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
 ---@field event fun(self: self, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
----@field event fun(self: self, event: "界面-滑动条变化", callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
----@field event fun(self: self, event: "界面-聊天框可见性变化", callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
----@field event fun(self: self, event: "界面-复选框变化", callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
+---@field event fun(self: self, event: "界面-滑动条变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
+---@field event fun(self: self, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
+---@field event fun(self: self, event: "界面-复选框变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
 ---@field event fun(self: self, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
 ---@field event fun(self: self, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
 ---@field event fun(self: self, event: "本地-键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
@@ -3887,9 +3911,9 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.本地-选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
----@field event fun(self: Player, event: "界面-滑动条变化", callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
----@field event fun(self: Player, event: "界面-聊天框可见性变化", callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
----@field event fun(self: Player, event: "界面-复选框变化", callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
+---@field event fun(self: Player, event: "界面-滑动条变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
+---@field event fun(self: Player, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
+---@field event fun(self: Player, event: "界面-复选框变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
 ---@field event fun(self: Player, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
 ---@field event fun(self: Player, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
 ---@field event fun(self: Player, event: "本地-键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
