@@ -438,22 +438,24 @@ function M:remove_state(state_enum)
 end
 
 ---添加多个状态
+---使用 `y3.const.UnitEnumState` 中的枚举值
 ---@param state_enum integer 状态
 function M:add_multi_state(state_enum)
     self.handle:api_add_multi_state(state_enum)
 end
 
 ---移除多个状态
+---使用 `y3.const.UnitEnumState` 中的枚举值
 ---@param state_enum integer 状态
 function M:remove_multi_state(state_enum)
     self.handle:api_remove_multi_state(state_enum)
 end
 
 ---是否有某个状态
----@param state_enum integer 状态
+---@param state_enum integer|y3.Const.UnitEnumState 状态名
 ---@return boolean?
 function M:has_state(state_enum)
-    return self.handle:api_has_state(state_enum)
+    return self.handle:api_has_state(y3.const.UnitEnumState[state_enum] or state_enum)
 end
 
 ---添加状态
