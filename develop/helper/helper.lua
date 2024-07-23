@@ -151,7 +151,7 @@ local onReadyCallbacks = {}
 local function createClient(port)
     client = network.connect('127.0.0.1', port, {
         update_interval = 0.05,
-        timeout = 5,
+        timeout = nil,
     })
 
     client:on_connected(function (self)
