@@ -360,8 +360,7 @@ end
 ---获取经验获得率
 ---@return number exp_rate 经验获得率
 function M:get_exp_rate()
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return self.phandle:get_role_exp_rate()
+    return y3.helper.tonumber(self.phandle:get_role_exp_rate()) or 0.0
 end
 
 ---获取队伍ID
