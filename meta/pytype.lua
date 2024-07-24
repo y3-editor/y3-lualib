@@ -185,6 +185,8 @@
 ---@class py.DestructibleID: integer
 --可破坏物编号
 ---@class py.DestructibleKey: integer
+--装饰物编号
+---@class py.DecoKey: integer
 --GameAPI对象
 ---@class py.GameAPI: py.DynamicTypeMeta
 --玩家

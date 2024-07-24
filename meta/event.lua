@@ -2964,18 +2964,18 @@ event.ET_UNIT_TRY_ACQUIRE_TARGET = {
 }
 
 ---@class EventParam.ET_UNIT_TRY_PICK_ITEM
----@field item Item # 物品
+---@field unit Unit # 单位
 ---@field equip_slot_type py.SlotType # 背包类型
 
 --单位即将拾取物品
 event.ET_UNIT_TRY_PICK_ITEM = {
     [1] = {
-        name = "__item_id",
-        type = "py.ItemID",
-        lua_name = "item",
-        lua_type = "Item",
-        desc = "物品id",
-        lua_desc = "物品",
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位id",
+        lua_desc = "单位",
     },
     [2] = {
         name = "__equip_slot_type",
@@ -5759,6 +5759,7 @@ event.ET_TRIGGER_UI_VIDEO_END_EVENT = {
 ---@field player Player # 玩家
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
+---@field ui UI # ui
 
 --UI输入框获取焦点事件
 event.ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT = {
@@ -5786,12 +5787,24 @@ event.ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT = {
         desc = "触发事件控件名称",
         lua_desc = "触发事件控件名称",
     },
+    [4] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
+    },
 }
 
 ---@class EventParam.ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT
 ---@field player Player # 玩家
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
+---@field ui UI # ui
 
 --UI输入框失去焦点事件
 event.ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT = {
@@ -5819,6 +5832,17 @@ event.ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT = {
         desc = "触发事件控件名称",
         lua_desc = "触发事件控件名称",
     },
+    [4] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
+    },
 }
 
 ---@class EventParam.ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT
@@ -5826,6 +5850,7 @@ event.ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT = {
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
 ---@field str1 string # 文本内容
+---@field ui UI # ui
 
 --UI输入框内容改变事件
 event.ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT = {
@@ -5860,6 +5885,17 @@ event.ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT = {
         lua_type = "string",
         desc = "文本内容",
         lua_desc = "文本内容",
+    },
+    [5] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
     },
 }
 

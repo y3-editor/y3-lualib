@@ -2687,6 +2687,99 @@ end\
     },
 }
 
+---@alias EventParam.本地-界面-输入框获取焦点 EventParam.ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT
+M.config["本地-界面-输入框获取焦点"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    return ui\
+end\
+",
+            desc = "ui",
+            name = "ui",
+            type = "UI",
+        },
+    },
+    key = "ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT",
+    name = "本地-界面-输入框获取焦点",
+    object = "Player",
+    params = {
+        [1] = {
+            desc = "输入框控件",
+            name = "ui",
+            resolve = function (ui)
+                return ui.handle
+            end,
+            type = "UI",
+        },
+    },
+}
+
+---@alias EventParam.本地-界面-输入框失去焦点 EventParam.ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT
+M.config["本地-界面-输入框失去焦点"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    return ui\
+end\
+",
+            desc = "ui",
+            name = "ui",
+            type = "UI",
+        },
+    },
+    key = "ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT",
+    name = "本地-界面-输入框失去焦点",
+    object = "Player",
+    params = {
+        [1] = {
+            desc = "输入框控件",
+            name = "ui",
+            resolve = function (ui)
+                return ui.handle
+            end,
+            type = "UI",
+        },
+    },
+}
+
+---@alias EventParam.本地-界面-输入框内容改变 EventParam.ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT
+M.config["本地-界面-输入框内容改变"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    return ui\
+end\
+",
+            desc = "ui",
+            name = "ui",
+            type = "UI",
+        },
+    },
+    key = "ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT",
+    name = "本地-界面-输入框内容改变",
+    object = "Player",
+    params = {
+        [1] = {
+            desc = "输入框控件",
+            name = "ui",
+            resolve = function (ui)
+                return ui.handle
+            end,
+            type = "UI",
+        },
+    },
+}
+
 ---@alias EventParam.键盘-按下 EventParam.ET_KEYBOARD_KEY_DOWN_EVENT
 M.config["键盘-按下"] = {
     __class__ = "EventConfigBuilder",
@@ -3777,6 +3870,9 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "界面-滑动条变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
 ---@field event fun(self: self, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
 ---@field event fun(self: self, event: "界面-复选框变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
+---@field event fun(self: self, event: "本地-界面-输入框获取焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框获取焦点)): Trigger
+---@field event fun(self: self, event: "本地-界面-输入框失去焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框失去焦点)): Trigger
+---@field event fun(self: self, event: "本地-界面-输入框内容改变", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框内容改变)): Trigger
 ---@field event fun(self: self, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
 ---@field event fun(self: self, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
 ---@field event fun(self: self, event: "本地-键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
@@ -3927,6 +4023,9 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Player, event: "界面-滑动条变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
 ---@field event fun(self: Player, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
 ---@field event fun(self: Player, event: "界面-复选框变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
+---@field event fun(self: Player, event: "本地-界面-输入框获取焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框获取焦点)): Trigger
+---@field event fun(self: Player, event: "本地-界面-输入框失去焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框失去焦点)): Trigger
+---@field event fun(self: Player, event: "本地-界面-输入框内容改变", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框内容改变)): Trigger
 ---@field event fun(self: Player, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
 ---@field event fun(self: Player, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
 ---@field event fun(self: Player, event: "本地-键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
