@@ -597,13 +597,33 @@ end
 
 --播放时间轴动画
 ---@param player Player 玩家
----@param anim string 动画
----@param speed number 播放速度
----@param isloop boolean 是否循环
-function M.play_timeline_animation(player, anim, speed, isloop)
+---@param anim string | y3.Const.UIAnimKey 动画
+---@param speed? number 播放速度
+---@param mode? boolean | '保持' | '常规' | '往复' | '循环'  播放模式
+---@param start? integer 开始帧
+---@param finish? integer 结束帧
+function M.play_timeline_animation(player, anim, speed, mode, start, finish)
+    local playMode
+    if mode == true or mode == '循环' then
+        playMode = 3
+    elseif mode == '保持' then
+        playMode = 0
+    elseif mode == '常规' then
+        playMode = 1
+    elseif mode == '往复' then
+        playMode = 2
+    end
     -- TODO 见问题7
     ---@diagnostic disable-next-line: redundant-parameter
-    GameAPI.play_ui_comp_anim(player.handle, anim, speed, isloop)
+    GameAPI.play_ui_comp_anim_new(
+        player.handle,
+    ---@diagnostic disable-next-line: param-type-mismatch
+        y3.const.UIAnimKey[anim] or anim,
+        start,
+        finish,
+        speed,
+        playMode
+    )
 end
 
 --播放动画移动

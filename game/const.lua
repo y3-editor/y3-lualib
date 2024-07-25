@@ -920,6 +920,9 @@ M.FloatTextJumpType = {
     ['金币跳字'] = 934277693,
 }
 
+---@enum(key) y3.Const.UIAnimKey
+M.UIAnimKey = {}
+
 ---@alias y3.Const.UIRelativeParentPosType
 ---| '顶部'
 ---| '底部'
