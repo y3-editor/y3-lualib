@@ -603,7 +603,7 @@ function M.get_current_server_time(time_zone)
     local init_time_stamp = GameAPI.get_game_init_time_stamp()
     local runned_sec, runned_ms = math.modf(GameAPI.get_cur_game_time():float())
     local time_stamp = init_time_stamp + runned_sec
-    local time_zone_stamp = time_stamp + (time_zone or 0) * 3600
+    local time_zone_stamp = time_stamp + ((time_zone or 0) - 8) * 3600
     local result = os.date('!*t', time_zone_stamp) --[[@as ServerTime]]
     result.msec = math.floor(runned_ms * 1000)
     result.timestamp = time_stamp
