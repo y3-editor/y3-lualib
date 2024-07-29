@@ -63,7 +63,7 @@ end)
 ---@param key string 属性名
 ---@return number 属性值
 function M:get_light_attribute(key)
-    return GameAPI.get_light_float_attr_value(self.handle, key):float()
+    return y3.helper.tonumber(GameAPI.get_light_float_attr_value(self.handle, key)) or 0.0
 end
 
 

@@ -320,7 +320,7 @@ end
 function M:get_attr(key)
     key = y3.const.PlayerAttr[key] or key
     ---@cast key py.RoleResKey
-    return self.phandle:get_role_res(key):float()
+    return y3.helper.tonumber(self.phandle:get_role_res(key)) or 0.0
 end
 
 ---获取玩家ID
@@ -390,7 +390,7 @@ end
 ---@param key integer 存档key
 ---@return number int_value 实数型存档数据
 function M:get_save_data_float(key)
-    return self.phandle:get_save_data_fixed_value(key):float()
+    return y3.helper.tonumber(self.phandle:get_save_data_fixed_value(key)) or 0.0
 end
 
 ---获取整数型存档数据
@@ -544,7 +544,7 @@ function M:get_mouse_ui_x_percent()
     if not y3.config.sync.mouse then
         error('必须先设置 `y3.config.sync.mouse = true`')
     end
-    return GameAPI.get_role_ui_x_per(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_role_ui_x_per(self.handle)) or 0.0
 end
 
 ---获取玩家鼠标屏幕坐标y的占比。
@@ -554,7 +554,7 @@ function M:get_mouse_ui_y_percent()
     if not y3.config.sync.mouse then
         error('必须先设置 `y3.config.sync.mouse = true`')
     end
-    return GameAPI.get_role_ui_y_per(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_role_ui_y_per(self.handle)) or 0.0
 end
 
 ---获取鼠标在屏幕上的X坐标

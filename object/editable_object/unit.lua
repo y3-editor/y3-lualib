@@ -1254,7 +1254,7 @@ end
 ---@param index integer 序号
 ---@return number cd 默认间隔时间
 function M:get_goods_cd(page, index)
-    return self.phandle:api_get_shop_item_default_cd(page, index):float()
+    return y3.helper.tonumber(self.phandle:api_get_shop_item_default_cd(page, index)) or 0.0
 end
 
 ---获取商店商品的剩余恢复时间
@@ -1262,7 +1262,7 @@ end
 ---@param index integer 序号
 ---@return number recovery_time 剩余恢复时间
 function M:get_goods_remaining_cd(page, index)
-    return self.phandle:api_get_shop_item_residual_cd(page, index):float()
+    return y3.helper.tonumber(self.phandle:api_get_shop_item_residual_cd(page, index)) or 0.0
 end
 
 ---获取所有的商店物品
@@ -1284,62 +1284,62 @@ end
 ---获取当前生命值
 ---@return number current_unit_hp 当前生命值
 function M:get_hp()
-    return self.phandle:api_get_float_attr("hp_cur"):float()
+    return y3.helper.tonumber(self.phandle:api_get_float_attr("hp_cur")) or 0.0
 end
 
 ---获取当前魔法值
 ---@return number current_mp 当前魔法值
 function M:get_mp()
-    return self.phandle:api_get_float_attr("mp_cur"):float()
+    return y3.helper.tonumber(self.phandle:api_get_float_attr("mp_cur")) or 0
 end
 
 ---获取最终属性
 ---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@return number
 function M:get_final_attr(attr_name)
-    return self.phandle:api_get_float_attr(y3.const.UnitAttr[attr_name] or attr_name):float()
+    return y3.helper.tonumber(self.phandle:api_get_float_attr(y3.const.UnitAttr[attr_name] or attr_name)) or 0.0
 end
 
 ---获取属性（额外）
 ---@param attr_name string | y3.Const.UnitAttr 属性名
 ---@return number
 function M:get_attr_other(attr_name)
-    return self.phandle:api_get_attr_other(y3.const.UnitAttr[attr_name] or attr_name):float()
+    return y3.helper.tonumber(self.phandle:api_get_attr_other(y3.const.UnitAttr[attr_name] or attr_name)) or 0.0
 end
 
 ---获取单属性（基础）
 ---@param attr_name string | y3.Const.UnitAttr
 ---@return number attr_base 单位基础属性类型的属性
 function M:get_attr_base(attr_name)
-    return self.phandle:api_get_attr_base(y3.const.UnitAttr[attr_name] or attr_name):float()
+    return y3.helper.tonumber(self.phandle:api_get_attr_base(y3.const.UnitAttr[attr_name] or attr_name)) or 0.0
 end
 
 ---获取属性（基础加成）
 ---@param attr_name string | y3.Const.UnitAttr
 ---@return number
 function M:get_attr_base_ratio(attr_name)
-    return self.phandle:api_get_attr_base_ratio(y3.const.UnitAttr[attr_name] or attr_name):float()
+    return y3.helper.tonumber(self.phandle:api_get_attr_base_ratio(y3.const.UnitAttr[attr_name] or attr_name)) or 0.0
 end
 
 ---获取属性（增益）
 ---@param attr_name string | y3.Const.UnitAttr
 ---@return number
 function M:get_attr_bonus(attr_name)
-    return self.phandle:api_get_attr_bonus(y3.const.UnitAttr[attr_name] or attr_name):float()
+    return y3.helper.tonumber(self.phandle:api_get_attr_bonus(y3.const.UnitAttr[attr_name] or attr_name)) or 0.0
 end
 
 ---获取属性（最终加成）
 ---@param attr_name string | y3.Const.UnitAttr
 ---@return number
 function M:get_attr_all_ratio(attr_name)
-    return self.phandle:api_get_attr_all_ratio(y3.const.UnitAttr[attr_name] or attr_name):float()
+    return y3.helper.tonumber(self.phandle:api_get_attr_all_ratio(y3.const.UnitAttr[attr_name] or attr_name)) or 0.0
 end
 
 ---获取属性（增益加成）
 ---@param attr_name string | y3.Const.UnitAttr
 ---@return number
 function M:get_attr_bonus_ratio(attr_name)
-    return self.phandle:api_get_attr_bonus_ratio(y3.const.UnitAttr[attr_name] or attr_name):float()
+    return y3.helper.tonumber(self.phandle:api_get_attr_bonus_ratio(y3.const.UnitAttr[attr_name] or attr_name)) or 0.0
 end
 
 ---获取属性（默认为实际属性）
@@ -1384,13 +1384,13 @@ end
 ---@param attr_name string | y3.Const.UnitAttr
 ---@return number unit_attribute_growth 单位属性成长
 function M.get_attr_growth_by_key(unit_key, attr_name)
-    return GameAPI.api_get_attr_growth(unit_key, y3.const.UnitAttr[attr_name] or attr_name):float()
+    return y3.helper.tonumber(GameAPI.api_get_attr_growth(unit_key, y3.const.UnitAttr[attr_name] or attr_name)) or 0.0
 end
 
 ---获取单位剩余生命周期
 ---@return number
 function M:get_life_cycle()
-    return self.phandle:api_get_life_cycle():float()
+    return y3.helper.tonumber(self.phandle:api_get_life_cycle()) or 0.0
 end
 
 ---获取单位飞行高度
@@ -1402,25 +1402,25 @@ end
 ---获取单位转身速度
 ---@return number turning_speed 单位转身速度
 function M:get_turning_speed()
-    return self.phandle:api_get_turn_speed():float()
+    return y3.helper.tonumber(self.phandle:api_get_turn_speed()) or 0.0
 end
 
 ---获取单位警戒范围
 ---@return number alert_range 单位警戒范围
 function M:get_alert_range()
-    return self.phandle:api_get_unit_alarm_range():float()
+    return y3.helper.tonumber(self.phandle:api_get_unit_alarm_range()) or 0.0
 end
 
 ---获取单位取消警戒的范围
 ---@return number cancel_alert_range 单位取消警戒的范围
 function M:get_cancel_alert_range()
-    return self.phandle:api_get_unit_cancel_alarm_range():float()
+    return y3.helper.tonumber(self.phandle:api_get_unit_cancel_alarm_range()) or 0.0
 end
 
 ---获取单位碰撞半径
 ---@return number collision_radius 单位碰撞半径
 function M:get_collision_radius()
-    return self.phandle:api_get_unit_collision_radius():float()
+    return y3.helper.tonumber(self.phandle:api_get_unit_collision_radius()) or 0.0
 end
 
 ---comment 设置单位碰撞半径
@@ -1452,19 +1452,19 @@ end
 ---@param player_attr_name py.RoleResKey 玩家属性名
 ---@return number player_attr 单位被击杀玩家属性
 function M:get_reward_res(player_attr_name)
-    return self.phandle:api_get_unit_reward_res(player_attr_name):float()
+    return y3.helper.tonumber(self.phandle:api_get_unit_reward_res(player_attr_name)) or 0.0
 end
 
 ---获取单位缩放
 ---@return number model_scale 单位缩放
 function M:get_scale()
-    return self.phandle:api_get_model_scale():float()
+    return y3.helper.tonumber(self.phandle:api_get_model_scale()) or 0.0
 end
 
 ---获取单位选择圈缩放
 ---@return number range_scale 选择圈缩放
 function M:get_unit_selection_range_scale()
-    return GameAPI.get_select_circle_scale(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_select_circle_scale(self.handle)) or 0.0
 end
 
 ---获取单位的X轴缩放
@@ -1488,7 +1488,7 @@ end
 ---获取商店的购买范围
 ---@return number purchase_range 购买范围
 function M:get_shop_range()
-    return self.phandle:api_get_shop_range():float()
+    return y3.helper.tonumber(self.phandle:api_get_shop_range()) or 0.0
 end
 
 ---获取单位等级
@@ -1673,7 +1673,7 @@ end
 ---获取单位的朝向
 ---@return number angle 单位的朝向
 function M:get_facing()
-    return self.phandle:get_face_angle():float()
+    return y3.helper.tonumber(self.phandle:get_face_angle()) or 0.0
 end
 
 ---获得护甲类型

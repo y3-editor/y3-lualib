@@ -334,7 +334,7 @@ end
 ---获取可破坏物的生命值
 ---@return number cur_hp 生命值
 function M:get_hp()
-    return self.phandle:api_get_float_attr("hp_cur"):float()
+    return y3.helper.tonumber(self.phandle:api_get_float_attr("hp_cur")) or 0.0
 end
 
 ---获取可破坏物的资源名称
@@ -382,13 +382,13 @@ end
 ---获取可破坏物的高度
 ---@return number height 高度
 function M:get_height()
-    return self.phandle:api_get_dest_height_offset():float()
+    return y3.helper.tonumber(self.phandle:api_get_dest_height_offset()) or 0.0
 end
 
 ---获取可破坏物的面向角度
 ---@return number rotation 面向角度
 function M:get_facing()
-    return self.phandle:api_get_dest_face_angle():float()
+    return y3.helper.tonumber(self.phandle:api_get_dest_face_angle()) or 0.0
 end
 
 ---获取可破坏物对象的位置

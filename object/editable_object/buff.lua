@@ -167,7 +167,7 @@ end
 ---获取魔法效果的剩余持续时间
 ---@return number time 剩余持续时间
 function M:get_time()
-    return self.phandle:api_get_residue_time():float()
+    return y3.helper.tonumber(self.phandle:api_get_residue_time()) or 0.0
 end
 
 ---获取魔法效果类型
@@ -191,7 +191,7 @@ end
 ---获取魔法效果的护盾
 ---@return number shield 护盾值
 function M:get_shield()
-    return self.phandle:api_get_float_attr("cur_properties_shield"):float()
+    return y3.helper.tonumber(self.phandle:api_get_float_attr("cur_properties_shield")) or 0.0
 end
 
 ---获取所属光环
@@ -207,13 +207,13 @@ end
 ---获取魔法效果循环周期
 ---@return number time 循环周期
 function M:get_cycle_time()
-    return self.phandle:api_get_cycle_time():float()
+    return y3.helper.tonumber(self.phandle:api_get_cycle_time()) or 0.0
 end
 
 ---魔法效果的已持续时间
 ---@return number duration 持续时间
 function M:get_passed_time()
-    return self.phandle:api_get_passed_time():float()
+    return y3.helper.tonumber(self.phandle:api_get_passed_time()) or 0.0
 end
 
 ---获取魔法效果的光环效果类型ID

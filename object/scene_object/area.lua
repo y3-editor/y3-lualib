@@ -188,7 +188,7 @@ end
 ---@return number 半径
 function M:get_radius()
     if self.shape == M.SHAPE.CIRCLE then
-        return GameAPI.get_circle_area_radius(self.handle--[[@as py.CirArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_circle_area_radius(self.handle--[[@as py.CirArea]])) or 0.0
     end
     return 0
 end
@@ -197,10 +197,10 @@ end
 ---@return number X坐标
 function M:get_min_x()
     if self.shape == M.SHAPE.CIRCLE then
-        return GameAPI.get_circle_area_min_x(self.handle--[[@as py.CirArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_circle_area_min_x(self.handle--[[@as py.CirArea]])) or 0.0
     end
     if self.shape == M.SHAPE.RECTANGLE then
-        return GameAPI.get_rect_area_min_x(self.handle--[[@as py.RecArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_rect_area_min_x(self.handle--[[@as py.RecArea]])) or 0.0
     end
     return 0
 end
@@ -209,10 +209,10 @@ end
 ---@return number Y坐标
 function M:get_min_y()
     if self.shape == M.SHAPE.CIRCLE then
-        return GameAPI.get_circle_area_min_y(self.handle--[[@as py.CirArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_circle_area_min_y(self.handle--[[@as py.CirArea]])) or 0.0
     end
     if self.shape == M.SHAPE.RECTANGLE then
-        return GameAPI.get_rect_area_min_y(self.handle--[[@as py.RecArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_rect_area_min_y(self.handle--[[@as py.RecArea]])) or 0.0
     end
     return 0
 end
@@ -221,10 +221,10 @@ end
 ---@return number X坐标
 function M:get_max_x()
     if self.shape == M.SHAPE.CIRCLE then
-        return GameAPI.get_circle_area_max_x(self.handle--[[@as py.CirArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_circle_area_max_x(self.handle--[[@as py.CirArea]])) or 0.0
     end
     if self.shape == M.SHAPE.RECTANGLE then
-        return GameAPI.get_rect_area_max_x(self.handle--[[@as py.RecArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_rect_area_max_x(self.handle--[[@as py.RecArea]])) or 0.0
     end
     return 0
 end
@@ -233,10 +233,10 @@ end
 ---@return number Y坐标
 function M:get_max_y()
     if self.shape == M.SHAPE.CIRCLE then
-        return GameAPI.get_circle_area_max_y(self.handle--[[@as py.CirArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_circle_area_max_y(self.handle--[[@as py.CirArea]])) or 0.0
     end
     if self.shape == M.SHAPE.RECTANGLE then
-        return GameAPI.get_rect_area_max_y(self.handle--[[@as py.RecArea]]):float()
+        return y3.helper.tonumber(GameAPI.get_rect_area_max_y(self.handle--[[@as py.RecArea]])) or 0.0
     end
     return 0
 end

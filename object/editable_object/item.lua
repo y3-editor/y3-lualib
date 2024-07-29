@@ -265,7 +265,7 @@ end
 ---@param key string 属性key
 ---@return number
 function M:get_attribute(key)
-    return self.phandle:api_get_attr("ATTR_BASE", key):float()
+    return y3.helper.tonumber(self.phandle:api_get_attr("ATTR_BASE", key)) or 0.0
 end
 
 ---设置增益属性
@@ -286,7 +286,7 @@ end
 ---@param key string 属性key
 ---@return number
 function M:get_bonus_attribute(key)
-    return self.phandle:api_get_attr("ATTR_BONUS", key):float()
+    return y3.helper.tonumber(self.phandle:api_get_attr("ATTR_BONUS", key)) or 0.0
 end
 ---设置生命值
 ---@param value number 生命值
@@ -405,7 +405,7 @@ end
 ---获取物品的生命值
 ---@return number hp 物品的生命值
 function M:get_hp()
-    return self.phandle:api_get_hp():float()
+    return y3.helper.tonumber(self.phandle:api_get_hp()) or 0.0
 end
 
 ---获取物品名
@@ -423,13 +423,13 @@ end
 ---获取物品缩放
 ---@return number scale 物品缩放
 function M:get_scale()
-    return self.phandle:api_get_scale():float()
+    return y3.helper.tonumber(self.phandle:api_get_scale()) or 0.0
 end
 
 ---获取物品的朝向
 ---@return number angel 朝向
 function M:get_facing()
-    return self.phandle:api_get_face_angle():float()
+    return y3.helper.tonumber(self.phandle:api_get_face_angle()) or 0.0
 end
 
 ---获取物品的主动技能
@@ -514,7 +514,7 @@ end
 function M.get_item_buy_price_by_key(item_key, key)
     key = y3.const.PlayerAttr[key] or key
     ---@cast key py.RoleResKey
-    return GameAPI.get_item_buy_price(item_key, key):float()
+    return y3.helper.tonumber(GameAPI.get_item_buy_price(item_key, key)) or 0.0
 end
 
 ---获取物品出售售价
@@ -524,7 +524,7 @@ end
 function M.get_item_sell_price_by_key(item_key, key)
     key = y3.const.PlayerAttr[key] or key
     ---@cast key py.RoleResKey
-    return GameAPI.get_item_sell_price(item_key, key):float()
+    return y3.helper.tonumber(GameAPI.get_item_sell_price(item_key, key)) or 0.0
 end
 
 ---获得区域内所有物品

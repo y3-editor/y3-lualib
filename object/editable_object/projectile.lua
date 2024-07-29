@@ -96,7 +96,7 @@ end
 ---@return number height 高度
 function M:get_height()
     ---@diagnostic disable-next-line: undefined-field
-    return self.phandle:api_get_height():float()
+    return y3.helper.tonumber(self.phandle:api_get_height()) or 0.0
 end
 
 ---获取投射物剩余持续时间

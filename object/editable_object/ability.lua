@@ -279,7 +279,7 @@ end
 ---获取技能施法范围
 ---@return number # 施法范围
 function M:get_range()
-    return self.phandle:api_get_ability_cast_range():float()
+    return y3.helper.tonumber(self.phandle:api_get_ability_cast_range()) or 0.0
 end
 
 ---设置技能玩家属性消耗
@@ -354,7 +354,7 @@ end
 ---获取技能当前剩余充能时间
 ---@return number
 function M:get_charge_time()
-    return self.phandle:api_get_stack_cd_left_time():float()
+    return y3.helper.tonumber(self.phandle:api_get_stack_cd_left_time()) or 0.0
 end
 
 ---获取技能种类
@@ -373,7 +373,7 @@ end
 ---@param key string 属性key
 ---@return number cost 玩家属性值
 function M:get_player_attr_cost(key)
-    return self.phandle:api_get_ability_player_attr_cost(key):float()
+    return y3.helper.tonumber(self.phandle:api_get_ability_player_attr_cost(key)) or 0.0
 end
 
 ---获取技能释放类型 AbilityCastType
@@ -392,14 +392,14 @@ end
 ---@param key string 键值key
 ---@return number value 值
 function M:get_formula_kv(key)
-    return self.phandle:api_calc_ability_formula_kv(key):float()
+    return y3.helper.tonumber(self.phandle:api_calc_ability_formula_kv(key)) or 0.0
 end
 
 ---获取实数属性
 ---@param key y3.Const.AbilityFloatAttr | string 键值key
 ---@return number value 值
 function M:get_float_attr(key)
-    return self.phandle:api_get_float_attr(y3.const.AbilityFloatAttr[key] or key):float()
+    return y3.helper.tonumber(self.phandle:api_get_float_attr(y3.const.AbilityFloatAttr[key] or key)) or 0.0
 end
 
 ---获取整数属性
@@ -430,7 +430,7 @@ end
 ---获取当前冷却时间
 ---@return number time 当前冷却时间
 function M:get_cd()
-    return self.phandle:api_get_cd_left_time():float()
+    return y3.helper.tonumber(self.phandle:api_get_cd_left_time()) or 0.0
 end
 
 ---是否存在
@@ -501,7 +501,7 @@ end
 ---@param key string 键值key
 ---@return number value 值
 function M.get_float_attr_by_key(ability_key, key)
-    return GameAPI.get_ability_conf_float_attr(ability_key, key):float()
+    return y3.helper.tonumber(GameAPI.get_ability_conf_float_attr(ability_key, key)) or 0.0
 end
 
 --获取技能类型整数属性
@@ -556,7 +556,7 @@ end
 ---@param unit_hp_cur number 单位当前生命
 ---@return number value 值
 function M.get_formula_attr_by_key(ability_id, attr_name, level, stack_count, unit_hp_max, unit_hp_cur)
-    return GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, stack_count, Fix32(unit_hp_max), Fix32(unit_hp_cur)):float()
+    return y3.helper.tonumber(GameAPI.get_ability_conf_formula_attr(ability_id, attr_name, level, stack_count, Fix32(unit_hp_max), Fix32(unit_hp_cur))) or 0.0
 end
 
 --获取技能类型字符串属性

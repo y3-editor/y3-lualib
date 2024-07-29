@@ -42,7 +42,7 @@ end
 ---@param slot integer
 ---@return number
 function M.load_real(player, slot)
-    return player.handle:get_save_data_fixed_value(slot):float()
+    return y3.helper.tonumber(player.handle:get_save_data_fixed_value(slot)) or 0.0
 end
 
 -- 保存玩家的存档数据（实数）

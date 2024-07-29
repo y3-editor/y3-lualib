@@ -457,7 +457,7 @@ end
 ---@param secondary_attr string 二级属性
 ---@return number coefficient 系数
 function M.get_compound_attributes(primary_attribute, secondary_attr)
-    return GameAPI.get_slave_coeff(primary_attribute, secondary_attr):float()
+    return y3.helper.tonumber(GameAPI.get_slave_coeff(primary_attribute, secondary_attr)) or 0.0
 end
 
 ---是否开启三维属性
@@ -514,13 +514,13 @@ end
 ---游戏已运行的时间
 ---@return number time  时间
 function M.current_game_run_time()
-    return GameAPI.get_cur_game_time():float()
+    return y3.helper.tonumber(GameAPI.get_cur_game_time()) or 0.0
 end
 
 ---获取游戏当前昼夜时间
 ---@return number time 时间
 function M.get_day_night_time()
-    return GameAPI.get_cur_day_and_night_time():float()
+    return y3.helper.tonumber(GameAPI.get_cur_day_and_night_time()) or 0.0
 end
 
 ---获取伤害系数
@@ -528,7 +528,7 @@ end
 ---@param area_type integer 护甲类型
 ---@return number factor 伤害系数
 function M.get_damage_ratio(attack_type, area_type)
-    return GameAPI.get_damage_ratio(attack_type, area_type):float()
+    return y3.helper.tonumber(GameAPI.get_damage_ratio(attack_type, area_type)) or 0.0
 end
 
 ---获取本局游戏环境

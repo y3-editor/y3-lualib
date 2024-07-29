@@ -135,7 +135,7 @@ local function kv_load_from_handle(handle, key, lua_type)
         return GameAPI.get_kv_pair_value_integer(handle, key)
     end
     if lua_type == 'number' then
-        return GameAPI.get_kv_pair_value_float(handle, key):float()
+        return y3.helper.tonumber(GameAPI.get_kv_pair_value_float(handle, key)) or 0.0
     end
     if lua_type == 'string' then
         return GameAPI.get_kv_pair_value_string(handle, key)

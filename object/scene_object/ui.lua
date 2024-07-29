@@ -899,61 +899,61 @@ end
 --获取本地控件相对坐标的X
 ---@return number x x相对坐标
 function M:get_relative_x()
-    return GameAPI.get_ui_comp_pos_x(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_pos_x(self.handle)) or 0.0
 end
 
 --获取本地控件相对坐标的Y
 ---@return number y y坐标
 function M:get_relative_y()
-    return GameAPI.get_ui_comp_pos_y(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_pos_y(self.handle)) or 0.0
 end
 
 --获取本地控件绝对坐标的X
 ---@return number x x绝对坐标
 function M:get_absolute_x()
-    return GameAPI.get_ui_comp_world_pos_x(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_world_pos_x(self.handle)) or 0.0
 end
 
 --获取本地控件绝对坐标的Y
 ---@return number y y绝对坐标
 function M:get_absolute_y()
-    return GameAPI.get_ui_comp_world_pos_y(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_world_pos_y(self.handle)) or 0.0
 end
 
 --获取本地控件相对旋转
 ---@return number rot 相对旋转
 function M:get_relative_rotation()
-    return GameAPI.get_ui_comp_rotation(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_rotation(self.handle)) or 0.0
 end
 
 --获取本地控件绝对旋转
 ---@return number rot 绝对旋转
 function M:get_absolute_rotation()
-    return GameAPI.get_ui_comp_world_rotation(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_world_rotation(self.handle)) or 0.0
 end
 
 --获取本地控件相对缩放的X
 ---@return number x x相对缩放
 function M:get_relative_scale_x()
-    return GameAPI.get_ui_comp_scale_x(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_scale_x(self.handle)) or 0.0
 end
 
 --获取本地控件相对缩放的Y
 ---@return number y y绝对缩放
 function M:get_relative_scale_y()
-    return GameAPI.get_ui_comp_scale_y(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_scale_y(self.handle)) or 0.0
 end
 
 --获取本地控件绝对缩放的X
 ---@return number x x绝对缩放
 function M:get_absolute_scale_x()
-    return GameAPI.get_ui_comp_world_scale_x(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_world_scale_x(self.handle)) or 0.0
 end
 
 --获取本地控件绝对缩放的Y
 ---@return number y y绝对缩放
 function M:get_absolute_scale_y()
-    return GameAPI.get_ui_comp_world_scale_y(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_ui_comp_world_scale_y(self.handle)) or 0.0
 end
 
 --设置动画旋转
@@ -974,7 +974,7 @@ end
 --获取滑动条当前值
 ---@return number slider_value 滑动条当前值
 function M:get_slider_current_value()
-    return GameAPI.get_slider_cur_percent(self.handle):float()
+    return y3.helper.tonumber(GameAPI.get_slider_cur_percent(self.handle)) or 0.0
 end
 
 --获得界面控件名
@@ -1018,7 +1018,7 @@ function M:get_real_width()
         return r
     else
         ---@cast r py.Fixed
-        return r:float()
+        return y3.helper.tonumber(r) or 0.0
     end
 end
 
@@ -1034,7 +1034,7 @@ function M:get_real_height()
         return r
     else
         ---@cast r py.Fixed
-        return r:float()
+        return y3.helper.tonumber(r) or 0.0
     end
 end
 

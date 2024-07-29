@@ -154,7 +154,7 @@ end
 function M:get_angle_with(other)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return GameAPI.get_points_angle(self.handle, other.handle):float()
+    return y3.helper.tonumber(GameAPI.get_points_angle(self.handle, other.handle)) or 0.0
 end
 
 -- 获取与另一个点的距离
@@ -163,7 +163,7 @@ end
 function M:get_distance_with(other)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    return GameAPI.get_points_dis(self.handle, other.handle):float()
+    return y3.helper.tonumber(GameAPI.get_points_dis(self.handle, other.handle)) or 0.0
 end
 
 --获取圆形范围内的随机点

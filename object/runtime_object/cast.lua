@@ -66,7 +66,7 @@ function M:get_angle()
     if not angle then
         return 0.0
     end
-    return angle:float()
+    return y3.helper.tonumber(angle) or 0.0
 end
 
 -- 获取施法目标物品
