@@ -62,7 +62,7 @@ log = New 'Log' {
     level = 'trace',
     file  = log_file,
     clock = function ()
-        return y3.helper.tonumber(GameAPI.get_cur_game_time()) or 0.0
+        return GameAPI.get_cur_game_time():float()
     end,
     print = function (level, message, timeStamp)
         local message_with_level = string.format('[%5s]%s', level, message)
