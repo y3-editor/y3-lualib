@@ -127,14 +127,18 @@ end
 ---@return function?
 ---@return any[]?
 local function extract_addition(event_name, extra_args)
-    if not extra_args then
-        return nil, nil
-    end
     local config = event_configs.config[event_name]
     if not config then
         return nil, nil
     end
 
+    local extra_count = extra_args and #extra_args or 0
+    if extra_count < #config.params then
+        error('事件的参数不足！')
+    end
+    if not extra_args then
+        return nil, nil
+    end
     local py_args = {}
     for i = 1, #extra_args do
         py_args[i] = extra_args[i]
