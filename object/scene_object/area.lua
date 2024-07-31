@@ -29,9 +29,22 @@ M.ref_manager = New 'Ref' ('Area', function (id, shape)
         py_area = GameAPI.get_polygon_area_by_res_id(id)
     elseif shape == nil then
         py_area = GameAPI.get_circle_area_by_res_id(id)
-            or    GameAPI.get_rec_area_by_res_id(id)
-            or    GameAPI.get_polygon_area_by_res_id(id)
-        assert(py_area)
+        if py_area then
+            shape = M.SHAPE.CIRCLE
+            goto FOUND
+        end
+        py_area = GameAPI.get_rec_area_by_res_id(id)
+        if py_area then
+            shape = M.SHAPE.RECTANGLE
+            goto FOUND
+        end
+        py_area = GameAPI.get_polygon_area_by_res_id(id)
+        if py_area then
+            shape = M.SHAPE.POLYGON
+            goto FOUND
+        end
+        error('未找到区域')
+        ::FOUND::
     else
         error('不支持的区域类型')
     end
