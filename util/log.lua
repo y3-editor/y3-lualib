@@ -64,6 +64,7 @@ log = New 'Log' {
     clock = function ()
         return GameAPI.get_cur_game_time():float()
     end,
+    startTime = GameAPI.get_game_init_time_stamp(),
     print = function (level, message, timeStamp)
         local message_with_level = string.format('[%5s]%s', level, message)
         if level == 'error' or level == 'fatal' then

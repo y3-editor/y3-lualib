@@ -71,6 +71,7 @@ end
 ---@field logLevel? table<Log.Level, integer> # 自定义日志等级
 ---@field needTraceBack? table<Log.Level, boolean> # 是否需要打印堆栈信息
 ---@field clock? fun(): number # 获取当前时间，需要精确到毫秒
+---@field startTime? integer # 日志开始的时间戳，若不提供则会使用`os.time`获取
 ---@field traceback? (fun(message: string, level: integer): string) # 获取堆栈的函数，默认为debug.traceback
 
 ---@param path string
@@ -127,7 +128,7 @@ function M:__init(option)
     ---@private
     self.startClock = self.clock()
     ---@private
-    self.startTime  = os.time()
+    self.startTime  = option.startTime or os.time()
 end
 
 ---@private
@@ -136,7 +137,7 @@ function M:getTimeStamp()
     local deltaClock = self.clock() - self.startClock
     local deltaSec, ms = math.modf(deltaClock)
     local sec = self.startTime + deltaSec
-    local timeStamp = os.date('%m-%d %H:%M:%S', sec) --[[@as string]]
+    local timeStamp = os.date('!%m-%d %H:%M:%S', sec) --[[@as string]]
     timeStamp = ('%s.%03.f'):format(timeStamp, ms * 1000)
     return timeStamp
 end
