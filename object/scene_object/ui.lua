@@ -51,12 +51,25 @@ M.comp_id = y3.proxy.new({}, {
     end
 })
 
+---@class Player
+---@field package _ui_cache table<string, UI>
+
 ---通过py层的界面实例获取lua层的界面实例
 ---@param player Player
 ---@param handle string
 ---@return UI
 function M.get_by_handle(player, handle)
-    local ui = New 'UI' (player, handle)
+    if not player._ui_cache then
+        player._ui_cache = setmetatable({}, {
+            __mode = 'v',
+            __index = function (t, k)
+                local ui = New 'UI' (player, k)
+                t[k] = ui
+                return ui
+            end
+        })
+    end
+    local ui = player._ui_cache[handle]
     return ui
 end
 
