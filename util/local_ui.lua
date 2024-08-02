@@ -291,6 +291,8 @@ function M:register_events()
             ui:add_local_event(info.event, function ()
                 info.on_event(ui, local_player, self)
             end)
+        else
+            log.error('控件不存在！', info.name)
         end
     end
 end
@@ -327,6 +329,8 @@ function M:init()
         local ui = self._childs[info.name]
         if ui then
             info.on_init(ui, local_player, self)
+        else
+            log.error('控件不存在！', info.name)
         end
     end
 end
@@ -349,6 +353,8 @@ function M:refresh(name, player)
         local ui = self._childs[info.name]
         if ui then
             info.on_refresh(ui, local_player, self)
+        else
+            log.error('控件不存在！', info.name)
         end
     end
 end
