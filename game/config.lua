@@ -76,4 +76,9 @@ M.logic_frame = GameAPI.api_get_logic_fps
             and GameAPI.api_get_logic_fps()
             or  30
 
+M.cache = {
+    ---是否对UI进行缓存。需要保证你没有在ECA中操作UI。
+    ui = false,
+}
+
 return M

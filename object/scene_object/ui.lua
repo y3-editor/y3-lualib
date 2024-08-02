@@ -17,6 +17,10 @@ function M:__init(player, handle)
 end
 
 function M:__del()
+    local parent_ui = self:get_parent()
+    if parent_ui ~= nil then
+        parent_ui:remove_get_child_cache(self.name)
+    end
     GameAPI.del_ui_comp(self.player.handle, self.handle)
 end
 
@@ -1000,11 +1004,33 @@ end
 ---@param name string
 ---@return UI? ui_comp ui控件
 function M:get_child(name)
-    local py_ui = GameAPI.get_comp_by_path(self.player.handle, self.handle, name)
+    local py_ui
+    if not y3.config.cache.ui then
+        py_ui = GameAPI.get_comp_by_path(self.player.handle, self.handle, name)
+    else
+        if not self._get_child_py_ui_cache then
+            ---@private
+            self._get_child_py_ui_cache = setmetatable({}, {
+                __index = function(t, k)
+                    local py_ui_ = GameAPI.get_comp_by_path(self.player.handle, self.handle, k)
+                    t[k] = py_ui_
+                    return py_ui_
+                end
+            })
+        end
+        py_ui = self._get_child_py_ui_cache[name]
+    end
     if not py_ui or py_ui == '' then
         return nil
     end
     return y3.ui.get_by_handle(self.player, py_ui)
+end
+
+---@package
+function M:remove_get_child_cache(name)
+    if self._get_child_py_ui_cache then
+        self._get_child_py_ui_cache[name] = nil
+    end
 end
 
 --获得控件宽度
@@ -1269,6 +1295,10 @@ end
 ---@param keep_rotation? boolean # 保持旋转
 ---@param keep_scale? boolean # 保持缩放
 function M:set_ui_comp_parent(parent_uid, keep_pos, keep_rotation, keep_scale)
+    local parent_ui = self:get_parent()
+    if parent_ui ~= nil then
+        parent_ui:remove_get_child_cache(self.name)
+    end
     GameAPI.set_ui_comp_parent(self.player.handle, self.handle, parent_uid, keep_pos, keep_rotation, keep_scale)
 end
 
