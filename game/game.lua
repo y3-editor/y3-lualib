@@ -593,6 +593,7 @@ end
 
 ---@class ServerTime: osdate
 ---@field timestamp integer # 时间戳
+---@field time_zone_stamp integer # 计算过时区后的时间戳
 ---@field msec integer # 毫秒
 ---@field time_zone integer # 时区
 
@@ -600,13 +601,14 @@ end
 ---@param time_zone? integer # 时区，默认为0。获取中国的时间请传入8。
 ---@return ServerTime
 function M.get_current_server_time(time_zone)
-    local init_time_stamp = GameAPI.get_game_init_time_stamp()
+    local init_time_stamp = GameAPI.get_game_init_time_stamp() - 8 * 3600
     local runned_sec, runned_ms = math.modf(GameAPI.get_cur_game_time():float())
     local time_stamp = init_time_stamp + runned_sec
-    local time_zone_stamp = time_stamp + ((time_zone or 0) - 8) * 3600
+    local time_zone_stamp = time_stamp + (time_zone or 0) * 3600
     local result = os.date('!*t', time_zone_stamp) --[[@as ServerTime]]
     result.msec = math.floor(runned_ms * 1000)
     result.timestamp = time_stamp
+    result.time_zone_stamp = time_zone_stamp
     result.time_zone = time_zone or 0
     return result
 end
