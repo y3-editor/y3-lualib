@@ -71,10 +71,10 @@
 ---@class py.AttackTargetHitType: integer
 --物品ID
 ---@class py.ItemID: integer
---物品编号
----@class py.ItemKey: integer
 --物品堆叠类型
 ---@class py.ItemStackType: integer
+--物品编号
+---@class py.ItemKey: integer
 --字典
 ---@class py.Dict: py.DynamicTypeMeta
 --
@@ -207,7 +207,7 @@
 ---@class py.LightID: integer
 --光源
 ---@class py.Light: py.DynamicTypeMeta
---
+--点光源
 ---@class py.PointLight: py.Light
 --方向光源
 ---@class py.SpotLight: py.Light
@@ -251,12 +251,12 @@
 ---@class py.Grid: py.DynamicTypeMeta
 --绑定单位界面
 ---@class py.BinUnitPanel: string
---模型实体
----@class py.ModelEntity: integer
 --挂接模型实体
 ---@class py.AttachModelEntity: py.Actor
 --挂接模型实体组
 ---@class py.AttachModelEntityGroup: py.ActorList
+--
+---@class py.ModelEntity: integer
 --
 ---@class py.RoleRes: string
 --镜头预设
@@ -333,7 +333,7 @@
 ---@class py.Mover: py.DynamicTypeMeta
 --信号类型
 ---@class py.SignalType: integer
---
+--信号可见类型
 ---@class py.SignalVisibleType: integer
 --鼠标编号
 ---@class py.CursorKey: integer
@@ -343,7 +343,7 @@
 ---@class py.PlatformDecoType: integer
 --签到天数类型
 ---@class py.PlatformSigninType: integer
---
+--玩家社区互动类型
 ---@class py.PlatformCommunityType: integer
 --物理组件
 ---@class py.PhysicsObject: py.Actor
@@ -379,7 +379,7 @@
 ---@class py.Map: integer
 --移动方向
 ---@class py.MoveDirection: integer
---观战模式状态
----@class py.WatchingModeStatus: integer
 --画质
 ---@class py.ImageQuality: integer
+--观战模式状态
+---@class py.WatchingModeStatus: integer

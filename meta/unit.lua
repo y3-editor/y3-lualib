@@ -456,10 +456,6 @@ function Unit:api_get_unit_pkg_cnt() end
 ---@return py.Fixed? # 动态碰撞半径
 function Unit:api_get_unit_collision_radius() end
 
---设置单位动态碰撞半径
----@param radius number # 半径
-function Unit:api_set_unit_collision_radius(radius) end
-
 --获取单位被击杀经验
 ---@return integer? # 经验值
 function Unit:api_get_unit_reward_exp() end
@@ -566,11 +562,11 @@ function Unit:api_set_turn_speed(turn_speed) end
 ---@return py.Fixed? # 转身速度
 function Unit:api_get_turn_speed() end
 
---设置动画移动速度-跑（用于控制跑的动画播放速度）
+--设置动画移动基准速度。会同时修改跑和走的基准速度，如果要区分跑和走，还需额外单独设置走的基准速度(api_set_anim_walk_speed)
 ---@param base_speed py.Fixed # 动画移动速度
 function Unit:api_set_base_speed(base_speed) end
 
---设置动画移动速度-走（用于控制走的动画播放速度）
+--设置动画移动基准速度(仅走)
 ---@param speed py.Fixed # 动画移动速度
 function Unit:api_set_anim_walk_speed(speed) end
 
@@ -1186,6 +1182,14 @@ function Unit:api_add_state(state_id) end
 ---@param state_id integer # 状态ID
 function Unit:api_remove_state(state_id) end
 
+--给单位施加状态
+---@param state_id integer # 状态ID
+function Unit:api_add_multi_state(state_id) end
+
+--给单位去除状态
+---@param state_id integer # 状态ID
+function Unit:api_remove_multi_state(state_id) end
+
 --是否在战斗状态
 ---@return boolean? # 是否在战斗状态
 function Unit:api_is_in_battle_state() end
@@ -1228,6 +1232,22 @@ function Unit:api_get_unit_attack_count_per_second() end
 --获取普攻技能
 ---@return py.Ability? # 普攻
 function Unit:api_get_common_atk_ability() end
+
+--设置单位简易普攻骰子最大值
+---@param dice_max_value integer # 最大值
+function Unit:api_set_simple_atk_dice_max_value(dice_max_value) end
+
+--获取单位简易普攻骰子最大值
+---@return integer? # 骰子最大值
+function Unit:api_get_simple_atk_dice_max_value() end
+
+--设置单位简易普攻骰子最大值
+---@param dice_count integer # 最大值
+function Unit:api_set_simple_atk_dice_count(dice_count) end
+
+--获取单位简易普攻骰子个数
+---@return integer? # 骰子最大值
+function Unit:api_get_simple_atk_dice_count() end
 
 --单位是否拥有物品
 ---@param item py.Item # 物品

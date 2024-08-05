@@ -3565,6 +3565,41 @@ function GameAPI.get_trigger_list_variable_all_destructible_name(key) end
 ---@return py.List # 数组型变量值
 function GameAPI.get_trigger_list_actor_variable_all_destructible_name(actor, key) end
 
+--获取全局触发器DECO_NAME非数组变量
+---@param key string # 变量名称
+---@return py.DecoKey # 值
+function GameAPI.get_trigger_variable_deco_name(key) end
+
+--获取触发器DECO_NAME非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.DecoKey # 值
+function GameAPI.get_trigger_actor_variable_deco_name(actor, key) end
+
+--获取全局触发器DECO_NAME数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return py.DecoKey # 值
+function GameAPI.get_trigger_list_variable_deco_name(key, index) end
+
+--获取触发器DECO_NAME数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return py.DecoKey # 值
+function GameAPI.get_trigger_list_actor_variable_deco_name(actor, key, index) end
+
+--获取全局触发器DECO_NAME数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_deco_name(key) end
+
+--获取触发器DECO_NAME 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_deco_name(actor, key) end
+
 --获取全局触发器SOUND_ENTITY非数组变量
 ---@param key string # 变量名称
 ---@return py.SoundEntity # 值
@@ -5844,38 +5879,3 @@ function GameAPI.get_trigger_list_actor_variable_all_map(actor, key) end
 ---@param key string # 变量名称
 ---@return py.UnitType # 值
 function GameAPI.get_trigger_variable_unit_type(key) end
-
---获取触发器UNIT_TYPE非数组 组变量
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return py.UnitType # 值
-function GameAPI.get_trigger_actor_variable_unit_type(actor, key) end
-
---获取全局触发器UNIT_TYPE数组变量子项
----@param key string # 变量名称
----@param index integer # 下标
----@return py.UnitType # 值
-function GameAPI.get_trigger_list_variable_unit_type(key, index) end
-
---获取触发器UNIT_TYPE数组 组变量子项
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@param index integer # 下标
----@return py.UnitType # 值
-function GameAPI.get_trigger_list_actor_variable_unit_type(actor, key, index) end
-
---获取全局触发器UNIT_TYPE数组变量
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_variable_all_unit_type(key) end
-
---获取触发器UNIT_TYPE 组变量数组
----@param actor py.Actor # 单位实体
----@param key string # 变量名称
----@return py.List # 数组型变量值
-function GameAPI.get_trigger_list_actor_variable_all_unit_type(actor, key) end
-
---获取全局触发器CURVED_PATH非数组变量
----@param key string # 变量名称
----@return py.CurvedPath # 值
-function GameAPI.get_trigger_variable_curved_path(key) end

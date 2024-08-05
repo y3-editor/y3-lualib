@@ -1054,31 +1054,16 @@ function GlobalAPI.get_iter_random_pool_archive_key(v) end
 ---@return integer # int
 function GlobalAPI.get_iter_random_pool_archive_increment(v) end
 
---获取生成随机数错误码
----@param v integer # int
----@return integer # int
-function GlobalAPI.get_random_number_err_code(v) end
-
---读取服务器随机数的值
----@param v integer # int
----@return integer # int
-function GlobalAPI.get_random_number_value(v) end
-
---读取服务器随机数的时间戳
----@param v integer # int
----@return integer # int
-function GlobalAPI.get_random_number_time_stamp(v) end
-
---读取服务器随机数的组ID
----@param v string # str
----@return string # str
-function GlobalAPI.get_random_number_group_id(v) end
-
---获取指定只读随机存档的剩余次数
----@param v integer # int
----@return integer # int
-function GlobalAPI.get_random_number_remain_count(v) end
-
 --还给lua一个空python table
 ---@return py.Dict # Dict
 function GlobalAPI.lua_get_python_empty_dict() end
+
+--时间戳转化为日期
+---@param v integer # int
+---@return string # str
+function GlobalAPI.timestamp_to_str(v) end
+
+--字符串转时间戳
+---@param v string # str
+---@return integer # int
+function GlobalAPI.str_to_timestamp(v) end

@@ -181,6 +181,10 @@ function Role:get_save_table_key_value(save_slot, key1, key2, key3, default_valu
 ---@param use_proxy? boolean # 进行代理上传
 function Role:upload_save_data(use_proxy) end
 
+--强制上传玩家非实时存档
+---@param use_proxy? boolean # 进行代理上传
+function Role:force_upload_save_data(use_proxy) end
+
 --增加当前地图的指定key的存档值
 ---@param key string # 全局存档key值
 ---@param value integer # 增加的数值

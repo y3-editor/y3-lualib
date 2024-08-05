@@ -4,6 +4,114 @@
 ---@class py.GameAPI
 GameAPI = {}
 
+--返回拾取物品的目标栏位
+---@param unit_id py.ItemID # ItemID
+---@param slot_type py.SlotType # SlotType
+---@return py.SlotType # 目标栏位
+function GameAPI.get_pick_item_slot(unit_id, slot_type) end
+
+--获取单位某个技能位的技能类型
+---@param unit_key py.UnitKey # 单位类型
+---@param abilityType py.AbilityType # 技能类型
+---@param abilityIndex py.AbilityIndex # 技能槽位
+---@return py.AbilityKey # 技能类型
+function GameAPI.api_get_abilityKey_by_unitkey(unit_key, abilityType, abilityIndex) end
+
+--创建新技能物编
+---@param old_entity_no py.AbilityKey # 技能物编
+---@return py.AbilityKey # 技能物编
+function GameAPI.create_ability_editor_data(old_entity_no) end
+
+--获取技能类型的释放技能
+---@param ability_key py.AbilityKey # 技能物编
+---@return py.AbilityCastType # 技能释放类型
+function GameAPI.api_get_ability_type_cast_type(ability_key) end
+
+--创建新投射物物编
+---@param old_entity_no py.ProjectileKey # 投射物物编
+---@return py.ProjectileKey # 投射物物编
+function GameAPI.create_projectile_editor_data(old_entity_no) end
+
+--创建新可破坏物物编
+---@param old_entity_no py.DestructibleKey # 可破坏物物编
+---@return py.DestructibleKey # 可破坏物物编
+function GameAPI.create_destructible_editor_data(old_entity_no) end
+
+--设置装饰物显隐
+---@param deco_list py.DecoList # 装饰物列表
+---@param visible boolean # 是否显隐
+function GameAPI.set_deco_visible(deco_list, visible) end
+
+--创建装饰物
+---@param point py.FVector3 # 位置
+---@param deco_type py.DecoKey # 装饰物类型
+---@param angle py.Fixed # 角度
+---@param height_offset? py.Fixed # 高度
+---@return py.DecoList # 创建出的装饰物
+function GameAPI.create_deco(point, deco_type, angle, height_offset) end
+
+--删除装饰物
+---@param deco_list py.DecoList # 装饰物
+function GameAPI.delete_deco(deco_list) end
+
+--获取指定对象类型的物编数据
+---@param data_type string # 对象类型
+---@param key integer # 物编key
+---@return py.Dict # 物编数据
+function GameAPI.api_get_editor_type_data(data_type, key) end
+
+--设置指定对象类型的物编数据
+---@param data_type string # 对象类型
+---@param key integer # 物编key
+---@param data py.Dict # 物编数据
+function GameAPI.api_set_editor_type_data(data_type, key, data) end
+
+--设置鼠标挂接物
+---@param _type integer # 类型
+---@param entity_no integer # 模型/特效id
+---@param role py.Role # 玩家
+function GameAPI.set_mouse_follower(_type, entity_no, role) end
+
+--取消鼠标挂接物
+---@param role py.Role # 玩家
+function GameAPI.cancel_mouse_follower(role) end
+
+--设置鼠标挂接物的偏移
+---@param role py.Role # 玩家
+---@param offset_x number # 偏移X
+---@param offset_y number # 偏移Y
+---@param offset_z number # 偏移Z
+function GameAPI.set_mouse_follower_offset(role, offset_x, offset_y, offset_z) end
+
+--设置鼠标挂接物的旋转角度
+---@param role py.Role # 玩家
+---@param rotation_x number # X
+---@param rotation_y number # Y
+---@param rotation_z number # Z
+function GameAPI.set_mouse_follower_rotation(role, rotation_x, rotation_y, rotation_z) end
+
+--设置鼠标挂接物的缩放比列
+---@param role py.Role # 玩家
+---@param scale_x number # X
+---@param scale_y number # Y
+---@param scale_z number # Z
+function GameAPI.set_mouse_follower_scale(role, scale_x, scale_y, scale_z) end
+
+--设置鼠标挂接物的动画速度
+---@param role py.Role # 玩家
+---@param anim_speed number # 速度
+function GameAPI.set_mouse_follower_anim_speed(role, anim_speed) end
+
+--设置鼠标挂接物模型播放动画
+---@param role py.Role # 玩家
+---@param anim_name string # 动画名
+---@param anim_speed? number # 动画速率
+---@param start_time? number # 开始时间
+---@param end_time? number # 结束时间
+---@param is_loop? boolean # 是否循环播放
+---@param is_back_to_default? boolean # 是否回到默认动画
+function GameAPI.set_mouse_follower_model_anim(role, anim_name, anim_speed, start_time, end_time, is_loop, is_back_to_default) end
+
 --设置建造指示器移动格子数
 ---@param x py.RoleID # 玩家ID
 ---@param y py.UnitGroup # 单位组
@@ -1044,11 +1152,6 @@ function GameAPI.get_illusion_caller_unit(illusion_unit) end
 ---@return py.ProjectileEntity # 创建出的投掷物
 function GameAPI.create_projectile_on_socket(p_key, socket_unit, socket_name, face, owner_unit_or_player, related_ability, visibility, duration, is_open_duration, immediately, use_sys_d_destroy_way) end
 
---改变投射物所属玩家
----@param projectile py.ProjectileEntity # 投射物
----@param player py.Actor # 玩家
-function GameAPI.change_projectile_owner_player(projectile, player) end
-
 --创建一个投掷物
 ---@param p_key py.ProjectileKey # 投掷物编号
 ---@param location py.FVector3 # 位置
@@ -1346,22 +1449,12 @@ function GameAPI.filter_unit_id_list_in_area(pos, shape) end
 ---@return py.UnitGroup # 单位组
 function GameAPI.filter_unit_id_list_in_area_v2(pos, shape, belong_role_group, visible_role, invisible_role, exclude_unit_group, with_tag, without_tag, entity_no, exclude_unit, unit_type, in_state, not_in_state, include_dead, max_count, sort_type, filter_ability) end
 
---得到区域内的投射物id列表
----@param area py.Area # 区域对象
----@return py.ProjectileGroup # 物品组
-function GameAPI.get_projectile_group_in_area(area) end
-
 --筛选范围内投射物
 ---@param pos py.Vector3 # 坐标
 ---@param shape py.Shape # 形状
 ---@param sort_type? py.SortType # 排序类型
 ---@return py.ProjectileGroup # 投射物组
 function GameAPI.filter_projectile_id_list_in_area(pos, shape, sort_type) end
-
---得到投射物类型对应的投射物组
----@param key py.ProjectileKey # 投射物类型
----@return py.ProjectileGroup # 物品组
-function GameAPI.get_projectile_group_by_key(key) end
 
 --筛选带有tag的投射物
 ---@param tag string # tag
@@ -1637,6 +1730,12 @@ function GameAPI.camera_set_param_yaw(role, yaw, move_time) end
 ---@param move_time? py.Fixed # 时间
 function GameAPI.camera_set_param_rotate(role, rotate_type, angle, move_time) end
 
+--设置镜头参数distance
+---@param role py.Role # 玩家
+---@param distance py.Fixed # 焦点距离
+---@param move_time? py.Fixed # 时间
+function GameAPI.camera_set_param_distance(role, distance, move_time) end
+
 --设置镜头碰撞参数
 ---@param role py.Role # 玩家
 ---@param enable_collider boolean # 碰撞开关
@@ -1648,12 +1747,6 @@ function GameAPI.camera_set_param_collide(role, enable_collider, MinDist, Smooth
 ---@param role py.Role # 玩家
 ---@param radius number # 最小焦距
 function GameAPI.camera_set_param_collide_radius(role, radius) end
-
---设置镜头参数distance
----@param role py.Role # 玩家
----@param distance py.Fixed # 焦点距离
----@param move_time? py.Fixed # 时间
-function GameAPI.camera_set_param_distance(role, distance, move_time) end
 
 --旋转镜头俯仰角（角度，时间）
 ---@param role py.Role # 玩家
@@ -1937,12 +2030,6 @@ function GameAPI.get_random_int(min_num, max_num) end
 ---@return py.Fixed # 随机定点数
 function GameAPI.get_random_fixed(min_num, max_num) end
 
---保底伪随机数Roll点
----@param event_name string # 事件名
----@param event_odds number # 期望概率(百分数)
----@return boolean # 布尔值
-function GameAPI.api_get_pseudo_random(event_name, event_odds) end
-
 --随机角度
 ---@return py.Fixed # 随机定点数
 function GameAPI.get_random_angle() end
@@ -1962,51 +2049,6 @@ function GameAPI.get_unit_group_num(unit_group) end
 ---@param unit_group py.UnitGroup # 单位组
 ---@return py.UnitGroup # 单位组
 function GameAPI.refresh_unit_group(unit_group) end
-
---遍历魔法效果的得到特效
----@param modifier_entity py.ModifierEntity # 魔法效果
----@return py.List # 特效idList
-function GameAPI.refresh_get_effect_on_modifier(modifier_entity) end
-
---遍历魔法效果的失去特效
----@param modifier_entity py.ModifierEntity # 魔法效果
----@return py.List # 特效idList
-function GameAPI.refresh_loss_effect_on_modifier(modifier_entity) end
-
---获得遍历到的特效
----@param effect_id string # 特效ID拼接Str
----@return py.Sfx # 特效实体
-function GameAPI.get_effect_on_modifier(effect_id) end
-
---遍历魔法效果的挂接模型
----@param modifier_entity py.ModifierEntity # 魔法效果
----@return py.List # 挂接模型idList
-function GameAPI.refresh_attach_model_on_modifier(modifier_entity) end
-
---获得遍历到的模型
----@param attach_model_id string # 模型ID拼接Str
----@return string # 模型ID拼接Str
-function GameAPI.get_attach_model_on_modifier(attach_model_id) end
-
---挂接模型实体转字符串
----@param attach_model_id string # 模型ID拼接Str
----@return string # 字符串
-function GameAPI.attach_model_entity_to_str(attach_model_id) end
-
---播放动画
----@param attach_model_id string # 模型ID拼接Str
----@param name string # 动画名称
----@param rate? number # 播放倍率
----@param init_time? number # 开始时间(s)
----@param end_time? number # 结束时间(s)，正数 -1 表示不结束
----@param loop? boolean # 是否循环
----@param return_idle? boolean # 播放结束后是否恢复idle
-function GameAPI.play_attach_model_animation(attach_model_id, name, rate, init_time, end_time, loop, return_idle) end
-
---停止播放动画
----@param attach_model_id string # 模型ID拼接Str
----@param name string # 动画名称
-function GameAPI.stop_attach_model_animation(attach_model_id, name) end
 
 --遍历时过滤投射物组
 ---@param proj_group py.UnitGroup # 投射物组
@@ -2423,16 +2465,6 @@ function GameAPI.create_unit_group() end
 ---@param unit py.Unit # 单位
 ---@param unit_group py.UnitGroup # 单位组
 function GameAPI.add_unit_to_group(unit, unit_group) end
-
---添加投射物到投射物组
----@param Projectile py.ProjectileEntity # 投射物
----@param Projectile_group py.ProjectileGroup # 投射物组
-function GameAPI.add_projectile_to_group(Projectile, Projectile_group) end
-
---获取投射物的所属玩家
----@param project py.ProjectileEntity # 投射物
----@return py.Role # 玩家
-function GameAPI.get_role_of_projectile(project) end
 
 --批量设置全局触发器数组变量
 ---@param table py.List # 组合列表，格式为[[数组变量名称，类型（'INTEGER', 'BOOLEAN', 'FLOAT', 'STRING'），列表值（[值，值，......]）],[.....]]
@@ -3233,11 +3265,6 @@ function GameAPI.model_entity_to_str(obj) end
 ---@return string # 字符串
 function GameAPI.model_key_to_str(val) end
 
---live2d类型转字符串
----@param val py.Live2dKey # live2d编号
----@return string # 字符串
-function GameAPI.live2d_key_to_str(val) end
-
 --字符串转模型类型
 ---@param val string # 字符串
 ---@return py.ModelKey # 模型编号
@@ -3537,14 +3564,14 @@ function GameAPI.set_billboard_picture_group(unit, node_name, icon_id, role) end
 ---@param role py.Role # 玩家
 function GameAPI.lobby_exit_game(role) end
 
+--获取本地玩家镜头焦点
+---@return py.FVector3 # 镜头焦点
+function GameAPI.get_local_player_camera_focus() end
+
 --请求购买平台道具
 ---@param role py.Role # 玩家
 ---@param store_key py.StoreKey # 平台道具类型
 function GameAPI.open_platform_shop(role, store_key) end
-
---获取本地玩家镜头焦点
----@return py.FVector3 # 镜头焦点
-function GameAPI.get_local_player_camera_focus() end
 
 --平台道具是否相等
 ---@param store_key1 py.StoreKey # 平台道具
@@ -3601,7 +3628,83 @@ function GameAPI.get_plain_text_from_rich_text(rich_text) end
 ---@return boolean # 布尔值
 function GameAPI.api_is_point_in_shape(check_point, center_point, shape) end
 
+--保底伪随机数Roll点
+---@param event_name string # 事件名
+---@param event_odds number # 期望概率(百分数)
+---@return boolean # 布尔值
+function GameAPI.api_get_pseudo_random(event_name, event_odds) end
+
 --广播本地消息
 ---@param msg_id string # msg_id
 ---@param msg_content string # msg_content
 function GameAPI.api_broadcast_msg(msg_id, msg_content) end
+
+--得到区域内的投射物id列表
+---@param area py.Area # 区域对象
+---@return py.ProjectileGroup # 物品组
+function GameAPI.get_projectile_group_in_area(area) end
+
+--得到投射物类型对应的投射物组
+---@param key py.ProjectileKey # 投射物类型
+---@return py.ProjectileGroup # 物品组
+function GameAPI.get_projectile_group_by_key(key) end
+
+--添加投射物到投射物组
+---@param Projectile py.ProjectileEntity # 投射物
+---@param Projectile_group py.ProjectileGroup # 投射物组
+function GameAPI.add_projectile_to_group(Projectile, Projectile_group) end
+
+--获取投射物的所属玩家
+---@param project py.ProjectileEntity # 投射物
+---@return py.Role # 玩家
+function GameAPI.get_role_of_projectile(project) end
+
+--改变投射物所属玩家
+---@param projectile py.ProjectileEntity # 投射物
+---@param player py.Actor # 玩家
+function GameAPI.change_projectile_owner_player(projectile, player) end
+
+--遍历魔法效果的得到特效
+---@param modifier_entity py.ModifierEntity # 魔法效果
+---@return py.List # 特效idList
+function GameAPI.refresh_get_effect_on_modifier(modifier_entity) end
+
+--遍历魔法效果的失去特效
+---@param modifier_entity py.ModifierEntity # 魔法效果
+---@return py.List # 特效idList
+function GameAPI.refresh_loss_effect_on_modifier(modifier_entity) end
+
+--获得遍历到的特效
+---@param effect_id string # 特效ID拼接Str
+---@return py.Sfx # 特效实体
+function GameAPI.get_effect_on_modifier(effect_id) end
+
+--遍历魔法效果的挂接模型
+---@param modifier_entity py.ModifierEntity # 魔法效果
+---@return py.List # 挂接模型idList
+function GameAPI.refresh_attach_model_on_modifier(modifier_entity) end
+
+--获得遍历到的模型
+---@param attach_model_id string # 模型ID拼接Str
+---@return string # 模型ID拼接Str
+function GameAPI.get_attach_model_on_modifier(attach_model_id) end
+
+--挂接模型实体转字符串
+---@param attach_model_id string # 模型ID拼接Str
+---@return string # 字符串
+function GameAPI.attach_model_entity_to_str(attach_model_id) end
+
+--播放动画
+---@param attach_model_id string # 模型ID拼接Str
+---@param name string # 动画名称
+---@param rate? number # 播放倍率
+---@param init_time? number # 开始时间(s)
+---@param end_time? number # 结束时间(s)，正数 -1 表示不结束
+---@param loop? boolean # 是否循环
+---@param return_idle? boolean # 播放结束后是否恢复idle
+function GameAPI.play_attach_model_animation(attach_model_id, name, rate, init_time, end_time, loop, return_idle) end
+
+--停止播放动画
+---@param attach_model_id string # 模型ID拼接Str
+---@param name string # 动画名称
+function GameAPI.stop_attach_model_animation(attach_model_id, name) end
