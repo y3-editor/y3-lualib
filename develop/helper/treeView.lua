@@ -73,7 +73,8 @@ Node.nodeMap = {}
 ---@param optional Develop.Helper.TreeNode.Optional
 function Node:__init(name, optional)
     optional = optional or {}
-    self.name = name
+    ---@package
+    self._name = name
     self.optional = optional
     self.description = optional.description
     self.tooltip = optional.tooltip
@@ -94,6 +95,18 @@ function Node:__del()
             Delete(child)
         end
     end
+end
+
+Node.__getter.name = function (self)
+    return self._name
+end
+
+Node.__setter.name = function (self, name)
+    if self._name == name then
+        return
+    end
+    self._name = name
+    self:refresh()
 end
 
 ---@package
@@ -270,6 +283,8 @@ helper.registerMethod('getChildTreeNodes', function (params)
         return
     end
 
+    node:changeExpanded(true)
+
     ---@param nodes Develop.Helper.TreeNode[]
     ---@return integer[]
     local function packList(nodes)
@@ -282,7 +297,7 @@ helper.registerMethod('getChildTreeNodes', function (params)
 
     ---@param newChilds Develop.Helper.TreeNode[]
     local function updateChilds(newChilds)
-        local lastChilds = node.lastChilds
+        local lastChilds = node.childs
         if lastChilds and lastChilds ~= newChilds then
             local newMap = {}
             for _, v in ipairs(newChilds) do
@@ -294,7 +309,7 @@ helper.registerMethod('getChildTreeNodes', function (params)
                 end
             end
         end
-        node.lastChilds = newChilds
+        node.childs = newChilds
     end
 
     if childsGetter then
