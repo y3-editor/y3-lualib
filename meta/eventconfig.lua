@@ -3148,6 +3148,17 @@ M.config["本地-选中-单位"] = {
     __class__ = "EventConfigBuilder",
     desc = "本地玩家选中单位时触发",
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local unit_id = data._py_params['__unit_id']\
+                or  data._py_params['__destructible_id']\
+    return y3.unit.get_by_id(unit_id)\
+end\
+",
+            desc = "点击的单位",
+            name = "unit",
+            type = "Unit",
+        },
     },
     key = "ET_ASYNC_SELECT_UNIT",
     name = "本地-选中-单位",
