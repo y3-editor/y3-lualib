@@ -305,8 +305,8 @@ function M.event_unregister(event_name, extra_args)
     end
 end
 
-new_global_trigger(M.next_id(), 'GAME_INIT', 'ET_GAME_INIT', true).on_event = function ()
+y3.ctimer.wait_frame(1, function ()
     M.need_enable_trigger_manualy = true
-end
+end)
 
 return M
