@@ -6941,7 +6941,7 @@ event.ET_SELECT_UNIT = {
 
 ---@class EventParam.ET_ASYNC_SELECT_UNIT
 ---@field player Player # 玩家
----@field unit Unit # 点击到单位
+---@field unit Unit # 点击的单位
 
 --异步玩家选中单位
 event.ET_ASYNC_SELECT_UNIT = {
@@ -6954,12 +6954,16 @@ event.ET_ASYNC_SELECT_UNIT = {
         lua_desc = "玩家",
     },
     [2] = {
-        name = "__unit_id",
-        type = "py.UnitID",
+        name = nil,
+        type = nil,
         lua_name = "unit",
         lua_type = "Unit",
-        desc = "点击到单位id",
-        lua_desc = "点击到单位",
+        lua_desc = "点击的单位",
+        lua_code = function (data)
+            local unit_id = data._py_params['__unit_id']
+                        or  data._py_params['__destructible_id']
+            return y3.unit.get_by_id(unit_id)
+        end,
     },
 }
 
