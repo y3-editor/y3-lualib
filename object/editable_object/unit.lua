@@ -1423,8 +1423,9 @@ function M:get_collision_radius()
     return y3.helper.tonumber(self.phandle:api_get_unit_collision_radius()) or 0.0
 end
 
----comment 设置单位碰撞半径
----@param radius number 
+---设置单位碰撞半径
+---@deprecated
+---@param radius number
 function M:set_collision_radius(radius)
     ---@diagnostic disable-next-line: undefined-field
     self.handle:api_set_unit_collision_radius(radius)
