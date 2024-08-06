@@ -67,6 +67,9 @@ function M.get_by_handle(player, handle)
         player._ui_cache = setmetatable({}, {
             __mode = 'v',
             __index = function (t, k)
+                if not k then
+                    return nil
+                end
                 local ui = New 'UI' (player, k)
                 t[k] = ui
                 return ui
