@@ -127,11 +127,6 @@ pcall(function ()
     end
 end)
 
---使用分代垃圾回收
-GlobalAPI.api_stop_luagc_control()
-collectgarbage 'restart'
-collectgarbage 'generational'
-
 --对await进行一些配置
 y3.await.setErrorHandler(log.error)
 y3.await.setSleepWaker(y3.ltimer.wait)
@@ -139,3 +134,11 @@ y3.await.setSleepWaker(y3.ltimer.wait)
 log.info('LuaLib版本：', y3.version)
 
 y3.game:event_dispatch('$Y3-初始化')
+
+--自己控制GC
+GlobalAPI.api_stop_luagc_control()
+-- collectgarbage('generational')
+-- collectgarbage('incremental')
+-- collectgarbage('restart')
+local collector = require 'y3.tools.collector'
+collector.start()
