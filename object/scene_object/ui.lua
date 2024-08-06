@@ -21,7 +21,11 @@ function M:__del()
     if parent_ui ~= nil then
         parent_ui:remove_get_child_cache(self.name)
     end
-    GameAPI.del_ui_comp(self.player.handle, self.handle)
+    local player = self.player
+    if player._ui_cache then
+        player._ui_cache[self.handle] = nil
+    end
+    GameAPI.del_ui_comp(player.handle, self.handle)
 end
 
 function M:__tostring()
