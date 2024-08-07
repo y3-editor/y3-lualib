@@ -311,6 +311,19 @@ function M:get_all_unit_in_area()
     return units
 end
 
+---区域内阵营所有单位
+---@param camp py.Camp
+---@return Unit[] 单位组
+function M:get_unit_in_area_by_camp(camp)
+    local u = {}
+    for _, player in ipairs(y3.player_group.get_player_group_by_camp(camp):pick()) do
+        for _, unit in ipairs(self:get_unit_group_in_area(player):pick()) do
+            table.insert(u, unit)
+        end
+    end
+    return u
+end
+
 ---区域内玩家单位(单位组)
 ---@param player Player 玩家
 ---@return UnitGroup 单位组
