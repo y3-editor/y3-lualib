@@ -258,6 +258,10 @@ end
 
 local compiledAttrLayout
 
+---@param unit Unit
+---@param layout table
+---@param nodes Develop.Helper.TreeNode[]
+---@return Develop.Helper.TreeNode[]
 local function makeAttrList(unit, layout, nodes)
     local list = {}
 
@@ -288,6 +292,35 @@ local function makeAttrList(unit, layout, nodes)
                 ---@diagnostic disable-next-line: undefined-field
                 node.optional.updateAttr(node)
             end,
+            onClick = function (node)
+                y3.develop.helper.createInputBox({
+                    title = string.format('修改 "%s(%d)" 的 "%s"'
+                        , unit:get_name()
+                        , unit:get_id()
+                        , def.name
+                    ),
+                    value = ('%.3f'):format(unit:get_attr(def.name))
+                        : gsub('(%..-)0+$', '%1')
+                        : gsub('%.$', ''),
+                    prompt = '具体用法请查看 readme',
+                    validateInput = function (value)
+                        if value == '' then
+                            return '请输入要修改的值!'
+                        end
+                        local num = tonumber(value)
+                        if num then
+                            return nil
+                        else
+                            return '不是有效数字!'
+                        end
+                    end
+                }):show(function (value)
+                    local num = tonumber(value)
+                    if num then
+                        unit:set_attr(def.name, num)
+                    end
+                end)
+            end
         })
         list[#list+1] = node
         nodes[#nodes+1] = node

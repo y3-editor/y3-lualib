@@ -244,6 +244,14 @@ function M.createTreeNode(name, optional)
     return treeNode
 end
 
+---在《Y3开发助手》上创建一个输入框
+---@param optional? Develop.Helper.InputBox.Optional
+---@return Develop.Helper.InputBox
+function M.createInputBox(optional)
+    local inputBox = New 'Develop.Helper.InputBox' (optional)
+    return inputBox
+end
+
 ---@private
 M._inited = false
 

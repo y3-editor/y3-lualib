@@ -48,6 +48,24 @@
 
 * `debugger?`: `boolean` 是否需要启动调试器。如果省略，会根据当前是否附加了调试器来决定是否需要调试器。
 
+## showInputBox
+
+创建一个输入框
+
+* `id`: `integer` 唯一ID
+* `title?`: `string` 标题
+* `value?`: `string` 初始值
+* `valueSelection?`: `[integer, integer]` 初始选中的文本范围(光标位置，第一个字符前为0)
+* `prompt?`: `string` 提示
+* `placeHolder?`: `string` 占位符
+* `password?`: `boolean` 是否是密码框
+* `ignoreFocusOut?`: `boolean` 是否在失去焦点时关闭
+* `hasValidateInput?`: `boolean` 是否有 `validateInput` 回调
+
+返回输入结果
+
+* `input?`: `string` 输入的内容。
+
 # Y3开发助手 -> 游戏
 
 ## command
@@ -100,3 +118,10 @@
 
 * `id`: `integer` 节点的唯一ID
 * `expanded`: `boolean` 是否展开
+
+## inputBoxValidate
+
+检查输入框的输入合法性
+
+* `id`: `integer` 输入框的唯一id
+* `input`: `string` 输入的内容
