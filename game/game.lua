@@ -414,6 +414,13 @@ function M.restart_game(fast_restart)
     GameAPI.request_new_round(fast_restart)
 end
 
+---设置游戏运行速率
+---@param speed number 速率
+function M.set_game_speed(speed)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    GameAPI.api_change_time_scale(speed)
+end
+
 ---开启软暂停
 function M.enable_soft_pause()
     GameAPI.api_soft_pause_game()
