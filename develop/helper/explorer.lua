@@ -192,7 +192,41 @@ M.attrLayout = [[
 魔法 ${魔法} / ${最大魔法}
     最大魔法
     魔法恢复
-其他
+移动速度
+物理攻击
+    攻击速度
+    攻击间隔
+    攻击范围
+    暴击率
+    暴击伤害
+    物理穿透
+    物理穿透比例
+    物理吸血
+    伤害加成
+    命中率
+法术攻击
+    法术攻击
+    法术穿透
+    法术穿透比例
+    法术吸血
+    冷却缩减
+物理防御
+    法术防御
+    被治疗加成
+    躲避率
+    受伤减免
+主属性
+    力量
+    敏捷
+    智力
+白天视野
+    白天扇形视野半径
+    白天扇形视野夹角
+    夜晚视野
+    夜晚扇形视野半径
+    夜晚扇形视野夹角
+    真实视野
+自定义属性
     ...
 ]]
 
@@ -293,6 +327,9 @@ local function makeAttrList(unit, layout, nodes)
                 node.optional.updateAttr(node)
             end,
             onClick = function (node)
+                if not y3.const.UnitAttr[def.name] then
+                    return
+                end
                 y3.develop.helper.createInputBox({
                     title = string.format('修改 "%s(%d)" 的 "%s"'
                         , unit:get_name()
