@@ -101,12 +101,14 @@ Node.__getter.name = function (self)
     return self._name
 end
 
+---@param self Develop.Helper.TreeNode
+---@param name string
 Node.__setter.name = function (self, name)
     if self._name == name then
         return
     end
     self._name = name
-    self:refresh()
+    self:update()
 end
 
 ---@package
@@ -125,7 +127,7 @@ Node.__setter.description = function (self, desc)
         return
     end
     self._description = desc
-    self:refresh()
+    self:update()
 end
 
 ---@package
@@ -144,7 +146,7 @@ Node.__setter.tooltip = function (self, tooltip)
         return
     end
     self._tooltip = tooltip
-    self:refresh()
+    self:update()
 end
 
 ---@package
@@ -163,22 +165,46 @@ Node.__setter.icon = function (self, icon)
         return
     end
     self._icon = icon
-    self:refresh()
+    self:update()
 end
 
----@private
+---@package
 Node._childs = nil
 
 Node.__getter.childs = function (self)
     return self._childs or self.optional.childs
 end
 
+---@param self Develop.Helper.TreeNode
+---@param childs Develop.Helper.TreeNode[]
 Node.__setter.childs = function (self, childs)
     self._childs = childs
     self:refresh()
 end
 
---刷新此节点
+---@private
+Node._updateTimer = nil
+
+---更新此节点的数据（不包含子节点）。
+function Node:update()
+    if not Node.nodeMap[self.id] then
+        return
+    end
+    if not self._inited then
+        return
+    end
+    if self._updateTimer then
+        return
+    end
+    self._updateTimer = y3.ctimer.wait_frame(1, function (timer, count, local_player)
+        self._updateTimer = nil
+        local info = self:makeNodeInfo()
+        info.complete = true
+        helper.notify('refreshTreeNode', info)
+    end)
+end
+
+---通知子节点有变化。
 function Node:refresh()
     if not Node.nodeMap[self.id] then
         return
@@ -250,6 +276,18 @@ function Node:isExpanded()
     return self._expanded
 end
 
+function Node:makeNodeInfo()
+    return {
+        id   = self.id,
+        name = self.name,
+        desc = self.description,
+        tip  = self.tooltip,
+        icon = self.icon,
+        hasChilds = (self.childs or self.optional.childsGetter) and true,
+        canClick  = self.optional.onClick and true,
+    }
+end
+
 helper.registerMethod('getTreeNode', function (params)
     ---@type integer
     local id = params.id
@@ -260,14 +298,7 @@ helper.registerMethod('getTreeNode', function (params)
 
     node:changeVisible(true)
 
-    return {
-        name = node.name,
-        desc = node.description,
-        tip  = node.tooltip,
-        icon = node.icon,
-        hasChilds = (node.childs or node.optional.childsGetter) and true,
-        canClick  = node.optional.onClick and true,
-    }
+    return node:makeNodeInfo()
 end)
 
 helper.registerMethod('getChildTreeNodes', function (params)

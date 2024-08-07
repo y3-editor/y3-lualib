@@ -22,9 +22,16 @@
 
 ## refreshTreeNode
 
-通知一下节点发生了变化，Y3开发助手之后可以用 `getTreeNode` 重新获取数据
+通知一下节点发生了变化
 
 * `id`: `integer` 节点的唯一ID
+* `complete?`: `boolean` 是否是个完整推送。如果不是，之后助手可以用 `getTreeNode` 重新获取数据
+* `name?`: `string` 节点的名称
+* `desc?`: `string` 节点的描述
+* `tip?`: `string` 悬停提示
+* `icon?`: `string` 节点的图标
+* `hasChilds?`: `boolean` 是否可以展开
+* `canClick?`: `boolean` 是否可以点击
 
 ## command
 

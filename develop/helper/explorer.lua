@@ -349,6 +349,7 @@ function M.createSelectingButton()
                 else
                     node.description = '未选中单位'
                 end
+                node:refresh()
             end
 
             y3.player.with_local(function (local_player)
