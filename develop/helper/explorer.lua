@@ -184,7 +184,7 @@ function M.createRestartGameButton()
     return node
 end
 
----你可以自己重新定义排版，语法自己研究吧
+---给这个变量重新赋值即可重新定义排版，语法自己研究吧
 M.attrLayout = [[
 生命 ${生命} / ${最大生命}
     最大生命
@@ -210,15 +210,17 @@ M.attrLayout = [[
     法术穿透比例
     法术吸血
     冷却缩减
-物理防御
+防御 ${物理防御} | ${法术防御}
+    物理防御
     法术防御
     被治疗加成
     躲避率
     受伤减免
-主属性
+属性 ${力量} | ${敏捷} | ${智力}
     力量
     敏捷
     智力
+    主属性
 白天视野
     白天扇形视野半径
     白天扇形视野夹角
@@ -339,7 +341,7 @@ local function makeAttrList(unit, layout, nodes)
                     value = ('%.3f'):format(unit:get_attr(def.name))
                         : gsub('(%..-)0+$', '%1')
                         : gsub('%.$', ''),
-                    prompt = '具体用法请查看 readme',
+                    prompt = '目前只支持修改基础值',
                     validateInput = function (value)
                         if value == '' then
                             return '请输入要修改的值!'
