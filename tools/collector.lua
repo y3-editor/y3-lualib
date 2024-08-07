@@ -13,7 +13,7 @@ local function make_collector()
         collectgarbage('generational', 20, 1000)
         collectgarbage('stop')
         local mem = collectgarbage 'count'
-        limit = math.max(mem * 5, 200 * 1000)
+        limit = mem * 5
     end
     local function change_to_incremental()
         -- collectgarbage()
