@@ -47,7 +47,7 @@ local function make_collector()
         elseif state == '增量' then
             local delta = limit * incre_rate
             local full = collectgarbage('step', math.floor(delta))
-            M.print(('增量步进率：%.f'):format(incre_rate * 10000))
+            M.print(('增量步进率：%.f，步进值：% 7.3fM'):format(incre_rate * 10000, delta / 1000))
             mem = collectgarbage 'count'
             if mem > last_mem then
                 incre_rate = incre_rate * (mem / last_mem) + 0.0001
