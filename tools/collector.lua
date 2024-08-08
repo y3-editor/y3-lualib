@@ -55,6 +55,7 @@ local function make_collector()
             last_mem = mem
 
             if full then
+                M.print('完成了一次增量周期')
                 incre_count = incre_count + 1
                 if mem * 5 < limit or incre_count > 5 then
                     state = '切换为分代'
