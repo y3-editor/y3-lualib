@@ -341,10 +341,14 @@ local function makeAttrList(unit, layout, nodes)
                     value = ('%.3f'):format(unit:get_attr(def.name))
                         : gsub('(%..-)0+$', '%1')
                         : gsub('%.$', ''),
-                    prompt = '目前只支持修改基础值',
+                    prompt = '修改基础值。使用 + 开头表示增加值。',
                     validateInput = function (value)
                         if value == '' then
                             return '请输入要修改的值!'
+                        end
+                        local op = value:sub(1, 1)
+                        if op == '+' then
+                            value = value:sub(2)
                         end
                         local num = tonumber(value)
                         if num then
@@ -354,8 +358,24 @@ local function makeAttrList(unit, layout, nodes)
                         end
                     end
                 }):show(function (value)
+                    if not value then
+                        return
+                    end
+                    local op = value:sub(1, 1)
+                    if op == '+' then
+                        value = value:sub(2)
+                    end
                     local num = tonumber(value)
-                    if num then
+                    if not num then
+                        return
+                    end
+                    if op == '+' then
+                        y3.develop.code.sync_run('unit:add_attr(name, num)', {
+                            unit = unit,
+                            name = def.name,
+                            num = num,
+                        })
+                    else
                         y3.develop.code.sync_run('unit:set_attr(name, num)', {
                             unit = unit,
                             name = def.name,
