@@ -328,10 +328,7 @@ local function makeAttrList(unit, layout, nodes)
                 ---@diagnostic disable-next-line: undefined-field
                 node.optional.updateAttr(node)
             end,
-            onClick = function (node)
-                if not y3.const.UnitAttr[def.name] then
-                    return
-                end
+            onClick = y3.const.UnitAttr[def.name] and function (node)
                 y3.develop.helper.createInputBox({
                     title = string.format('修改 "%s(%d)" 的 "%s"'
                         , unit:get_name()
@@ -383,7 +380,7 @@ local function makeAttrList(unit, layout, nodes)
                         })
                     end
                 end)
-            end
+            end or nil,
         })
         list[#list+1] = node
         nodes[#nodes+1] = node
