@@ -90,18 +90,14 @@ log = New 'Log' {
                 GameAPI.print_to_dialog(3, message)
             end
         end
-        if y3.config.log.toConsole then
-            if enable_print then
+        if enable_print then
+            if y3.config.log.toConsole then
                 consoleprint(message_with_level)
             end
-        end
-        if y3.config.log.toGame then
-            if enable_print then
+            if y3.config.log.toGame then
                 print_to_game(message_with_level)
             end
-        end
-        if y3.config.log.toHelper then
-            if enable_print then
+            if y3.config.log.toHelper then
                 y3.develop.helper.print(message_with_level)
             end
         end

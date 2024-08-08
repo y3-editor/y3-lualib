@@ -81,4 +81,11 @@ M.cache = {
     ui = false,
 }
 
+M.code = {
+    ---在非debug模式下是否允许执行本地代码。
+    enable_local = false,
+    ---在非debug模式下是否允许执行其他玩家广播过来的远程代码。
+    enable_remote = false,
+}
+
 return M

@@ -31,20 +31,10 @@ local function print_to_console(message)
     y3.develop.helper.print(message)
 end
 
----@param code string
+---@param ok boolean
+---@param result any
 ---@return any
-local function runCode(code)
-    local returnedCode = 'return ' .. code
-    local f, err = load(returnedCode, '=console')
-    if not f then
-        f, err = load(code, '=console')
-    end
-    if not f then
-        assert(err)
-        print_to_console((err:gsub('console:1:', '[Error]: ')))
-        return
-    end
-    local ok, result = pcall(f)
+function M.show_result(ok, result)
     if not ok then
         print_to_console(result)
         return
@@ -70,7 +60,7 @@ function M.input(input)
 
     if input:sub(1, 1) == '.' then
         y3.player.with_local(function (local_player)
-            y3.sync.send('$console', {
+            y3.sync.send('$command', {
                 input = input,
                 player = local_player,
             })
@@ -80,11 +70,12 @@ function M.input(input)
 
     if input:sub(1, 1) == '!' then
         local code = input:sub(2)
-        y3.sync.send('$run', code)
+        y3.develop.code.sync_run(code, '$console')
         return
     end
 
-    runCode(input)
+    local ok, result = y3.develop.code.run(input)
+    M.show_result(ok, result)
 end
 
 y3.game:event('控制台-输入', function (trg, data)
@@ -95,7 +86,13 @@ y3.game:event('控制台-输入', function (trg, data)
     M.input(input)
 end)
 
-y3.sync.onSync('$console', function (data)
+y3.develop.code.on_sync('$console', {
+    complete = function (suc, result, data)
+        M.show_result(suc, result)
+    end
+})
+
+y3.sync.onSync('$command', function (data)
     if not y3.game.is_debug_mode() then
         return
     end
@@ -106,16 +103,6 @@ y3.sync.onSync('$console', function (data)
         return
     end
     y3.develop.command.input('.', data.input, data.player)
-end)
-
-y3.sync.onSync('$run', function (code)
-    if not y3.game.is_debug_mode() then
-        return
-    end
-    if type(code) ~= 'string' then
-        return
-    end
-    runCode(code)
 end)
 
 ---@param word string

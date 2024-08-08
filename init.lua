@@ -117,6 +117,7 @@ end)
 y3.develop = {}
 y3.develop.command = include 'y3.develop.command'
 y3.develop.arg     = require 'y3.develop.arg'
+y3.develop.code    = require 'y3.develop.code'
 y3.develop.console = include 'y3.develop.console'
 y3.develop.helper  = require 'y3.develop.helper'
 
