@@ -10,10 +10,10 @@ local function make_collector()
     local limit = 500 * 1000
     local function change_to_generational()
         state = 'generational'
-        collectgarbage('generational', 20, 1000)
+        collectgarbage('generational', 20, 500)
         collectgarbage('stop')
         local mem = collectgarbage 'count'
-        limit = mem * 5
+        limit = mem * 2
     end
     local function change_to_incremental()
         -- collectgarbage()
