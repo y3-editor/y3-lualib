@@ -504,11 +504,4 @@ function M.create()
     end)
 end
 
-y3.game:event_on('$Y3-初始化', function ()
-    if not y3.game.is_debug_mode() then
-        return
-    end
-    M.create()
-end)
-
 return M

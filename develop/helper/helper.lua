@@ -1,5 +1,6 @@
-local network = require 'y3.util.network'
-local console = require 'y3.develop.console'
+local network  = require 'y3.util.network'
+local console  = require 'y3.develop.console'
+local explorer = require 'y3.develop.helper.explorer'
 
 local nextID = y3.util.counter()
 
@@ -265,6 +266,7 @@ function M.init(port)
     M._inited = true
     if port then
         createClient(port)
+        explorer.create()
     else
         local suc, port = pcall(require, 'log.helper_port')
         if not suc or math.type(port) ~= 'integer' then
@@ -272,6 +274,7 @@ function M.init(port)
         end
 
         createClient(port)
+        explorer.create()
     end
 end
 
