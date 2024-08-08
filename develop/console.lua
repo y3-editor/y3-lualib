@@ -70,7 +70,7 @@ function M.input(input)
 
     if input:sub(1, 1) == '!' then
         local code = input:sub(2)
-        y3.develop.code.sync_run(code, '$console')
+        y3.develop.code.sync_run(code, nil, '$console')
         return
     end
 

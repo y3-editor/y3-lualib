@@ -356,7 +356,11 @@ local function makeAttrList(unit, layout, nodes)
                 }):show(function (value)
                     local num = tonumber(value)
                     if num then
-                        unit:set_attr(def.name, num)
+                        y3.develop.code.sync_run('unit:set_attr(name, num)', {
+                            unit = unit,
+                            name = def.name,
+                            num = num,
+                        })
                     end
                 end)
             end

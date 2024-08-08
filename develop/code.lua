@@ -67,11 +67,11 @@ end
 
 ---广播后同步执行代码，必须由本地发起
 ---@param code string # 要执行的代码
+---@param data? table<string, any> # 数据，代码里可以直接访问到
 ---@param id? string # 处理器ID
----@param data? Serialization.SupportTypes # 附加数据
 ---@return boolean # 是否执行成功
 ---@return string? # 错误消息
-function M.sync_run(code, id, data)
+function M.sync_run(code, data, id)
     local debug_mode = y3.game.is_debug_mode()
 
     if not debug_mode then
@@ -92,8 +92,8 @@ function M.sync_run(code, id, data)
 
     y3.sync.send('$sync_run', {
         code = code,
-        id = id,
         data = data,
+        id = id,
     })
 
     return true
@@ -121,6 +121,8 @@ y3.sync.onSync('$sync_run', function (data, source)
     local env
     if handler and handler.env then
         env = handler.env(data)
+    elseif data.data then
+        env = setmetatable(data.data, { __index = _ENV })
     end
 
     local f, fcode, err = M.wrap_code(data.code, env)
@@ -129,7 +131,7 @@ y3.sync.onSync('$sync_run', function (data, source)
         return
     end
 
-    local ok, result = pcall(f)
+    local ok, result = pcall(f, data.data)
     if not ok then
         log.error(result)
         if handler and handler.complete then
