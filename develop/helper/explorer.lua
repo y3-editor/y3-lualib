@@ -1,5 +1,5 @@
-local watcher     = require 'y3.develop.watcher'
-local watcherTree = require 'y3.develop.helper.watcher'
+local watcher = require 'y3.develop.watcher'
+local attr    = require 'y3.develop.helper.attr'
 
 ---@class Develop.Helper.Explorer
 local M = Class 'Develop.Helper.Explorer'
@@ -330,64 +330,7 @@ local function makeAttrList(unit, layout, nodes)
                 node.optional.updateAttr(node)
             end,
             onClick = y3.const.UnitAttr[def.name] and function (node)
-                y3.develop.helper.createInputBox({
-                    title = string.format('修改 "%s(%d)" 的 "%s"'
-                        , unit:get_name()
-                        , unit:get_id()
-                        , def.name
-                    ),
-                    value = ('%.3f'):format(unit:get_attr(def.name))
-                        : gsub('(%..-)0+$', '%1')
-                        : gsub('%.$', ''),
-                    prompt = '修改基础值。使用 + 开头表示增加值。',
-                    validateInput = function (value)
-                        if value == '' then
-                            return '请输入要修改的值!'
-                        end
-                        if value == '~' then
-                            return nil
-                        end
-                        local op = value:sub(1, 1)
-                        if op == '+' then
-                            value = value:sub(2)
-                        end
-                        local num = tonumber(value)
-                        if num then
-                            return nil
-                        else
-                            return '不是有效数字!'
-                        end
-                    end
-                }):show(function (value)
-                    if not value then
-                        return
-                    end
-                    if value == '~' then
-                        watcherTree.add(unit, def.name)
-                        return
-                    end
-                    local op = value:sub(1, 1)
-                    if op == '+' then
-                        value = value:sub(2)
-                    end
-                    local num = tonumber(value)
-                    if not num then
-                        return
-                    end
-                    if op == '+' then
-                        y3.develop.code.sync_run('unit:add_attr(name, num)', {
-                            unit = unit,
-                            name = def.name,
-                            num = num,
-                        })
-                    else
-                        y3.develop.code.sync_run('unit:set_attr(name, num)', {
-                            unit = unit,
-                            name = def.name,
-                            num = num,
-                        })
-                    end
-                end)
+                attr.show_modify(unit, def.name)
             end or nil,
         })
         list[#list+1] = node
