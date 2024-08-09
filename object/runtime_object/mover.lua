@@ -243,7 +243,9 @@ function M.wrap_curve_args(args)
     builder.set_min_velocity       (Fix32(args.min_speed or 0.0))
     builder.set_init_height        (Fix32(args.init_height or 0.0))
     builder.set_fin_height         (Fix32(args.fin_height or 0.0))
-    builder.set_is_open_init_height(args.init_height ~= nil)
+    if builder.set_is_open_init_height then
+        builder.set_is_open_init_height(args.init_height ~= nil)
+    end
 
     return builder
 end
