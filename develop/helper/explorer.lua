@@ -1,4 +1,5 @@
-local watcher = require 'y3.develop.watcher'
+local watcher     = require 'y3.develop.watcher'
+local watcherTree = require 'y3.develop.helper.watcher'
 
 ---@class Develop.Helper.Explorer
 local M = Class 'Develop.Helper.Explorer'
@@ -343,6 +344,9 @@ local function makeAttrList(unit, layout, nodes)
                         if value == '' then
                             return '请输入要修改的值!'
                         end
+                        if value == '~' then
+                            return nil
+                        end
                         local op = value:sub(1, 1)
                         if op == '+' then
                             value = value:sub(2)
@@ -356,6 +360,10 @@ local function makeAttrList(unit, layout, nodes)
                     end
                 }):show(function (value)
                     if not value then
+                        return
+                    end
+                    if value == '~' then
+                        watcherTree.add(unit, def.name)
                         return
                     end
                     local op = value:sub(1, 1)

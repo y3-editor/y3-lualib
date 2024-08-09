@@ -15,12 +15,15 @@ end
 -- 则会立即移除该对象并返回 `nil`，
 -- 否则会返回该对象。
 ---@generic T: table
----@param obj T
+---@param obj T | function
 ---@return T
 function GCHost:bindGC(obj)
     if not self._gccontainer then
         ---@private
         self._gccontainer = New 'GC' ()
+    end
+    if type(obj) == 'function' then
+        obj = New 'GCNode' (obj)
     end
     return self._gccontainer:add(obj)
 end

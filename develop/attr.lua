@@ -18,6 +18,19 @@ end
 
 ---@alias Develop.Attr.Condition fun(unit: Unit, value: number): boolean
 
+---@param str string
+---@return Develop.Attr.Condition?
+---@return string?
+function M.compileConditionString(str)
+    local firstToken = str:match('^%s*([=<>~]+)')
+    if not firstToken then
+        str = '== ' .. str
+    end
+    local code = [[local unit, value = ...;return value ]] .. str:gsub('`([^`]+)`', [[unit:get_attr('%1')]])
+    local f, err = load(code, code, 't', _ENV)
+    return f, err
+end
+
 ---@private
 ---@param value number | string | Develop.Attr.Condition
 ---@return Develop.Attr.Condition
@@ -31,12 +44,7 @@ function M:compileCondition(value)
         end
     end
     if type(value) == 'string' then
-        local firstToken = value:match('^%s*([=<>~]+)')
-        if not firstToken then
-            value = '== ' .. value
-        end
-        local code = [[local _u, _v = ...;return _v ]] .. value:gsub('`([^`]+)`', [[_u:get_attr('%1')]])
-        local f, err = load(code, code, 't', _ENV)
+        local f, err = M.compileConditionString(value)
         if not f then
             error('属性表达式错误：' .. err)
         end
