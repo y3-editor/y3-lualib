@@ -110,7 +110,7 @@ function API.compileCondition(value)
         return value, nil
     end
     if type(value) == 'number' then
-        return function (v)
+        return function (unit, v)
             return v == value
         end, ('== %.2f'):format(value)
     end
