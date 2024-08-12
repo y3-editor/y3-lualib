@@ -1,6 +1,7 @@
 local network  = require 'y3.util.network'
 local console  = require 'y3.develop.console'
 local explorer = require 'y3.develop.helper.explorer'
+local attr     = require 'y3.develop.helper.attr'
 
 local nextID = y3.util.counter()
 
@@ -251,6 +252,15 @@ end
 function M.createInputBox(optional)
     local inputBox = New 'Develop.Helper.InputBox' (optional)
     return inputBox
+end
+
+---在《Y3开发助手》上创建一个属性监视器
+---@param unit Unit # 要监视的单位
+---@param attrType y3.Const.UnitAttr # 属性名
+---@param condition? Develop.Attr.Accept # 断点表达式，如 `>= 100`，``` <= `最大生命` / 2 ```
+---@return Develop.Helper.TreeNode
+function M.createAttrWatcher(unit, attrType, condition)
+    return attr.add(unit, attrType, condition)
 end
 
 ---@private

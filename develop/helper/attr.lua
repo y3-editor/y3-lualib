@@ -1,3 +1,5 @@
+local dattr = require 'y3.develop.attr'
+
 ---@class Develop.Helper.Attr
 local M = Class 'Develop.Helper.Attr'
 
@@ -7,11 +9,11 @@ local API = {}
 function M:__init()
     ---@type Develop.Helper.TreeNode[]
     self.childs = {}
-    self.root = y3.develop.helper.createTreeNode('属性监视', {
+    self.root = y3.develop.helper.createTreeNode('属性监控', {
         icon = 'compass',
         childs = self.childs,
     })
-    self.tree = y3.develop.helper.createTreeView('属性监视', self.root)
+    self.tree = y3.develop.helper.createTreeView('属性监控', self.root)
 end
 
 function M:__del()
@@ -23,7 +25,7 @@ end
 ---@return Develop.Helper.TreeNode
 ---@return fun(value: Develop.Attr.Accept) # 设置断点
 function M:add(unit, attr)
-    local core = y3.develop.attr.create(unit, attr)
+    local core = dattr.create(unit, attr)
     local name = string.format('%s(%d): %s'
         , unit:get_name()
         , unit:get_id()
@@ -84,7 +86,7 @@ function M:add(unit, attr)
                     if value == '' then
                         return nil
                     end
-                    local f, err = y3.develop.attr.compileCondition(value)
+                    local f, err = dattr.compileCondition(value)
                     if not f then
                         return '表达式错误：' .. err .. '\n' .. prompt
                     end
@@ -197,7 +199,7 @@ function API.show_modify(unit, attr, options)
             end
             local op = value:sub(1, 1)
             if op == '>' or op == '<' or op == '=' or op == '~' then
-                local f, err = y3.develop.attr.compileCondition(value)
+                local f, err = dattr.compileCondition(value)
                 if f then
                     return nil
                 else
