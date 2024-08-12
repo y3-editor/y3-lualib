@@ -2,8 +2,8 @@
 
 local unit = y3.unit.get_by_res_id(1)
 
--- 当单位的移动速度恰好变为300时引发一个特殊的异常断点
-y3.develop.helper.createAttrWatcher(unit, '移动速度', 300)
+-- 当单位的最大生命恰好变为1000时引发一个特殊的异常断点
+y3.develop.helper.createAttrWatcher(unit, '最大生命', 1000)
 
 -- 当单位的生命值低至最大生命的一半时引发一个特殊的异常断点
 y3.develop.helper.createAttrWatcher(unit, '生命', '<= `最大生命` / 2')
