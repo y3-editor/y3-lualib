@@ -97,6 +97,10 @@ function Node:__del()
     end
 end
 
+function Node:remove()
+    Delete(self)
+end
+
 Node.__getter.name = function (self)
     return self._name
 end

@@ -28,6 +28,7 @@ function M:add(unit, attr)
         , unit:get_id()
         , attr
     )
+    local watch
     local node = y3.develop.helper.createTreeNode(name, {
         onInit = function (node)
             node:bindGC(y3.ltimer.loop(0.5, function (timer, count)
@@ -36,6 +37,69 @@ function M:add(unit, attr)
         end,
         onClick = function (node)
             API.show_modify(unit, attr)
+        end,
+        childsGetter = function (node)
+            return {
+                y3.develop.helper.createTreeNode('监控', {
+                    icon = 'eye',
+                    onClick = function (watchNode)
+                        local prompt = '请输入表达式，如 “>= 100”，“<= `最大生命` / 2”'
+                        y3.develop.helper.createInputBox {
+                            title = '监控属性变化',
+                            value = '',
+                            prompt = prompt,
+                            validateInput = function (value)
+                                if value == '' then
+                                    return nil
+                                end
+                                local f, err = core:compileConditionString(value)
+                                if not f then
+                                    return '表达式错误：' .. err .. '\n' .. prompt
+                                end
+                                return nil
+                            end,
+                        }:show(function (value)
+                            if not value then
+                                return
+                            end
+                            if value == '' then
+                                watchNode.description = nil
+                                if watch then
+                                    watch:remove()
+                                    watch = nil
+                                end
+                                return
+                            end
+                            watch = core:watch(value, function (_, watch, oldValue)
+                                local template = [[
+
+已触发属性监控：
+%s(%d)：%s
+%s -> %s
+
+监控表达式为：
+%s]]
+                                local msg = string.format(template
+                                    , unit:get_name()
+                                    , unit:get_id()
+                                    , attr
+                                    , ('%.2f'):format(oldValue)
+                                    , ('%.2f'):format(unit:get_attr(attr))
+                                    , watch.conditionStr
+                                )
+                                pcall(error, msg)
+                            end)
+                            watchNode.description = watch.conditionStr
+                        end)
+                    end,
+                }),
+                y3.develop.helper.createTreeNode('删除', {
+                    icon = 'trash',
+                    onClick = function ()
+                        node:remove()
+                    end,
+                }),
+            }
         end
     })
     node:bindGC(core)
