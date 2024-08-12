@@ -30,6 +30,7 @@
 * `desc?`: `string` 节点的描述
 * `tip?`: `string` 悬停提示
 * `icon?`: `string` 节点的图标
+* `check?`: `boolean` 当前的复选框状态
 * `hasChilds?`: `boolean` 是否可以展开
 * `canClick?`: `boolean` 是否可以点击
 
@@ -86,6 +87,7 @@
 * `desc?`: `string` 节点的描述
 * `tip?`: `string` 悬停提示
 * `icon?`: `string` 节点的图标
+* `check?`: `boolean` 当前的复选框状态
 * `hasChilds?`: `boolean` 是否可以展开
 * `canClick?`: `boolean` 是否可以点击
 
@@ -125,3 +127,10 @@
 
 * `id`: `integer` 输入框的唯一id
 * `input`: `string` 输入的内容
+
+## changeTreeNodeCheckBox
+
+树形视图节点复选框变化
+
+* `id`: `integer` 节点的唯一ID
+* `checked`: `boolean` 是否被勾选

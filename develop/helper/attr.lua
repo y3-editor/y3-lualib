@@ -42,6 +42,7 @@ function M:add(unit, attr)
             return {
                 y3.develop.helper.createTreeNode('监控', {
                     icon = 'eye',
+                    check = true,
                     onClick = function (watchNode)
                         local prompt = '请输入表达式，如 “>= 100”，“<= `最大生命` / 2”'
                         y3.develop.helper.createInputBox {
@@ -62,15 +63,18 @@ function M:add(unit, attr)
                             if not value then
                                 return
                             end
+                            if watch then
+                                watch:remove()
+                                watch = nil
+                            end
                             if value == '' then
                                 watchNode.description = nil
-                                if watch then
-                                    watch:remove()
-                                    watch = nil
-                                end
                                 return
                             end
                             watch = core:watch(value, function (_, watch, oldValue)
+                                if not watchNode.check then
+                                    return
+                                end
                                 local template = [[
 
 已触发属性监控：
@@ -90,6 +94,7 @@ function M:add(unit, attr)
                                 pcall(error, msg)
                             end)
                             watchNode.description = watch.conditionStr
+                            watchNode.check = true
                         end)
                     end,
                 }),

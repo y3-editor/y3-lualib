@@ -42,6 +42,7 @@ end
 ---@field icon? string # 图标，见 https://code.visualstudio.com/api/references/icons-in-labels#icon-listing
 ---@field description? string # 描述
 ---@field tooltip? string # 提示
+---@field check? boolean # 复选框状态，应该要配合 `onCheck` 与 `onUnCheck` 使用
 ---@field childs? Develop.Helper.TreeNode[] # 子节点列表。如果子节点计算量较大，可以改用 `childsGetter` 来获取子节点
 ---@field childsGetter? fun(node: Develop.Helper.TreeNode): Develop.Helper.TreeNode[] # 当试图展开节点时，会调用这个函数获取子节点，和 `childs` 互斥
 ---@field onVisible? fun(node: Develop.Helper.TreeNode) # 当节点能被看到时调用
@@ -50,12 +51,15 @@ end
 ---@field onExpand? fun(node: Develop.Helper.TreeNode) # 当节点被展开时调用
 ---@field onCollapse? fun(node: Develop.Helper.TreeNode) # 当节点被折叠时调用
 ---@field onInit? fun(node: Develop.Helper.TreeNode) # 当节点创建第一次可见时调用
+---@field onCheck? fun(node: Develop.Helper.TreeNode) # 当节点复选框被勾选时调用
+---@field onUnCheck? fun(node: Develop.Helper.TreeNode) # 当节点复选框被取消勾选时调用
 
 ---@class Develop.Helper.TreeNode: GCHost, Class.Base
 ---@field name string
 ---@field description? string # 描述
 ---@field icon? string # 图标
 ---@field tooltip? string # 提示
+---@field check? boolean # 复选框状态
 ---@field childs? Develop.Helper.TreeNode[]
 ---@field package lastChilds? Develop.Helper.TreeNode[]
 ---@overload fun(name: string, optional: Develop.Helper.TreeNode.Optional): Develop.Helper.TreeNode
@@ -76,9 +80,10 @@ function Node:__init(name, optional)
     ---@package
     self._name = name
     self.optional = optional
-    self.description = optional.description
-    self.tooltip = optional.tooltip
-    self.icon = optional.icon
+    self._description = optional.description
+    self._tooltip = optional.tooltip
+    self._icon = optional.icon
+    self._check = optional.check
     Node.maxID = Node.maxID + 1
     self.id = Node.maxID
 
@@ -172,6 +177,22 @@ Node.__setter.icon = function (self, icon)
     self:update()
 end
 
+---@param self Develop.Helper.TreeNode
+---@param check boolean
+Node.__setter.check = function (self, check)
+    if self._check == check then
+        return
+    end
+    self._check = check
+    self:update()
+end
+
+---@param self Develop.Helper.TreeNode
+---@return boolean
+Node.__getter.check = function (self)
+    return self._check
+end
+
 ---@package
 Node._childs = nil
 
@@ -250,6 +271,17 @@ function Node:changeVisible(visible)
     end
 end
 
+---@param checked boolean
+function Node:changeChecked(checked)
+    self._check = checked
+    if checked and self.optional.onCheck then
+        xpcall(self.optional.onCheck, log.error, self)
+    end
+    if not checked and self.optional.onUnCheck then
+        xpcall(self.optional.onUnCheck, log.error, self)
+    end
+end
+
 ---@return boolean
 function Node:isVisible()
     return self._visible
@@ -282,11 +314,12 @@ end
 
 function Node:makeNodeInfo()
     return {
-        id   = self.id,
-        name = self.name,
-        desc = self.description,
-        tip  = self.tooltip,
-        icon = self.icon,
+        id        = self.id,
+        name      = self.name,
+        desc      = self.description,
+        tip       = self.tooltip,
+        icon      = self.icon,
+        check     = self.check,
         hasChilds = (self.childs or self.optional.childsGetter) and true,
         canClick  = self.optional.onClick and true,
     }
@@ -386,5 +419,14 @@ helper.registerMethod('changeTreeNodeExpanded', function (params)
     local node = Node.nodeMap[id]
     if node then
         node:changeExpanded(params.expanded)
+    end
+end)
+
+helper.registerMethod('changeTreeNodeCheckBox', function (params)
+    ---@type integer
+    local id = params.id
+    local node = Node.nodeMap[id]
+    if node then
+        node:changeChecked(params.checked)
     end
 end)
