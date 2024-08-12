@@ -411,7 +411,7 @@ end
 ---开始新一轮游戏
 ---@param fast_restart boolean 快速重置
 function M.restart_game(fast_restart)
-    GameAPI.request_new_round(fast_restart)
+    M.switch_level(M.get_level())
 end
 
 ---设置游戏运行速率
