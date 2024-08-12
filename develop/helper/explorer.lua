@@ -330,7 +330,9 @@ local function makeAttrList(unit, layout, nodes)
                 node.optional.updateAttr(node)
             end,
             onClick = y3.const.UnitAttr[def.name] and function (node)
-                attr.show_modify(unit, def.name)
+                attr.show_modify(unit, def.name, {
+                    can_create_watch = true,
+                })
             end or nil,
         })
         list[#list+1] = node

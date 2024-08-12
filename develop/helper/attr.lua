@@ -1,7 +1,7 @@
----@class Develop.Helper.Watcher
-local M = Class 'Develop.Helper.Watcher'
+---@class Develop.Helper.Attr
+local M = Class 'Develop.Helper.Attr'
 
----@class Develop.Helper.Watcher.API
+---@class Develop.Helper.Attr.API
 local API = {}
 
 function M:__init()
@@ -21,6 +21,7 @@ end
 ---@param unit Unit
 ---@param attr y3.Const.UnitAttr
 ---@return Develop.Helper.TreeNode
+---@return fun(value: string) # 设置断点
 function M:add(unit, attr)
     local core = y3.develop.attr.create(unit, attr)
     local name = string.format('%s(%d): %s'
@@ -28,7 +29,71 @@ function M:add(unit, attr)
         , unit:get_id()
         , attr
     )
+
     local watch
+    local break_point
+    local function set_break_point(value)
+        if not value then
+            return
+        end
+        if watch then
+            watch:remove()
+            watch = nil
+        end
+        if value == '' then
+            break_point.description = nil
+            return
+        end
+        watch = core:watch(value, function (_, watch, oldValue)
+            if not break_point.check then
+                return
+            end
+            local template = [[
+
+已触发属性断点：
+%s(%d)：%s
+%s -> %s
+
+断点表达式为：
+%s]]
+            local msg = string.format(template
+                , unit:get_name()
+                , unit:get_id()
+                , attr
+                , ('%.2f'):format(oldValue)
+                , ('%.2f'):format(unit:get_attr(attr))
+                , watch.conditionStr
+            )
+            pcall(error, msg)
+        end)
+        break_point.description = watch.conditionStr
+        break_point.check = true
+        break_point:bindGC(watch)
+    end
+
+    break_point = y3.develop.helper.createTreeNode('断点', {
+        icon = 'eye',
+        check = true,
+        onClick = function ()
+            local prompt = '请输入表达式，如 “>= 100”，“<= `最大生命` / 2”'
+            y3.develop.helper.createInputBox {
+                title = '监控属性变化',
+                value = '',
+                prompt = prompt,
+                validateInput = function (value)
+                    if value == '' then
+                        return nil
+                    end
+                    local f, err = y3.develop.attr.compileCondition(value)
+                    if not f then
+                        return '表达式错误：' .. err .. '\n' .. prompt
+                    end
+                    return nil
+                end,
+            }:show(set_break_point)
+        end,
+    })
+
     local node = y3.develop.helper.createTreeNode(name, {
         onInit = function (node)
             node:bindGC(y3.ltimer.loop(0.5, function (timer, count)
@@ -40,62 +105,31 @@ function M:add(unit, attr)
         end,
         childsGetter = function (node)
             return {
-                y3.develop.helper.createTreeNode('监控', {
-                    icon = 'eye',
-                    check = true,
-                    onClick = function (watchNode)
-                        local prompt = '请输入表达式，如 “>= 100”，“<= `最大生命` / 2”'
-                        y3.develop.helper.createInputBox {
-                            title = '监控属性变化',
-                            value = '',
-                            prompt = prompt,
-                            validateInput = function (value)
-                                if value == '' then
-                                    return nil
-                                end
-                                local f, err = core:compileConditionString(value)
-                                if not f then
-                                    return '表达式错误：' .. err .. '\n' .. prompt
-                                end
-                                return nil
-                            end,
-                        }:show(function (value)
-                            if not value then
-                                return
-                            end
-                            if watch then
-                                watch:remove()
-                                watch = nil
-                            end
-                            if value == '' then
-                                watchNode.description = nil
-                                return
-                            end
-                            watch = core:watch(value, function (_, watch, oldValue)
-                                if not watchNode.check then
-                                    return
-                                end
-                                local template = [[
+                break_point,
+                y3.develop.helper.createTreeNode('详情', {
+                    icon = 'info',
+                    onInit = function (node)
+                        local attrTypes = {'基础', '基础加成', '增益', '增益加成', '最终加成'}
+                        local childs = {}
 
-已触发属性监控：
-%s(%d)：%s
-%s -> %s
+                        for _, attr_type in ipairs(attrTypes) do
+                            childs[#childs+1] = y3.develop.helper.createTreeNode(attr_type, {
+                                onClick = function (node)
+                                    API.show_modify(unit, attr, {
+                                        attr_type = attr_type,
+                                    })
+                                end
+                            })
+                        end
 
-监控表达式为：
-%s]]
-                                local msg = string.format(template
-                                    , unit:get_name()
-                                    , unit:get_id()
-                                    , attr
-                                    , ('%.2f'):format(oldValue)
-                                    , ('%.2f'):format(unit:get_attr(attr))
-                                    , watch.conditionStr
-                                )
-                                pcall(error, msg)
-                            end)
-                            watchNode.description = watch.conditionStr
-                            watchNode.check = true
-                        end)
+                        node:bindGC(y3.ltimer.loop(0.5, function (timer, count)
+                            for i, child in ipairs(childs) do
+                                local attrValue = unit:get_attr(attr, attrTypes[i])
+                                child.description = ('%.2f'):format(attrValue)
+                            end
+                        end)):execute()
+
+                        node.childs = childs
                     end,
                 }),
                 y3.develop.helper.createTreeNode('删除', {
@@ -115,37 +149,57 @@ function M:add(unit, attr)
 
     self.childs[#self.childs+1] = node
     self.root:refresh()
-    return node
+    return node, set_break_point
 end
 
 ---@param unit Unit
 ---@param attr y3.Const.UnitAttr
 ---@return Develop.Helper.TreeNode
+---@return fun(value: string) # 设置断点
 function API.add(unit, attr)
     return API.create():add(unit, attr)
 end
 
+---@class Develop.Helper.Attr.ModifyOptions
+---@field attr_type? y3.Const.UnitAttrType
+---@field can_create_watch? boolean
+
 ---@param unit Unit
 ---@param attr y3.Const.UnitAttr
-function API.show_modify(unit, attr)
+---@param options? Develop.Helper.Attr.ModifyOptions
+function API.show_modify(unit, attr, options)
+    local attr_type = options and options.attr_type
+    local can_create_watch = options and options.can_create_watch or false
+    local prompt = ('修改%s值。使用 + 开头表示增加值。'):format(attr_type or '基础')
+    if can_create_watch then
+        prompt = prompt .. '使用 ~ 创建一个新的监视。使用表达式创建断点。'
+    end
     y3.develop.helper.createInputBox({
         title = string.format('修改 "%s(%d)" 的 "%s"'
             , unit:get_name()
             , unit:get_id()
             , attr
         ),
-        value = ('%.3f'):format(unit:get_attr(attr))
+        value = ('%.3f'):format(unit:get_attr(attr, attr_type))
             : gsub('(%..-)0+$', '%1')
             : gsub('%.$', ''),
-        prompt = '修改基础值。使用 + 开头表示增加值。使用 ~ 创建一个新的监视。',
+        prompt = prompt,
         validateInput = function (value)
             if value == '' then
                 return '请输入要修改的值!'
             end
-            if value == '~' then
+            if value == '~' and can_create_watch then
                 return nil
             end
             local op = value:sub(1, 1)
+            if op == '>' or op == '<' or op == '=' or op == '~' then
+                local f, err = y3.develop.attr.compileCondition(value)
+                if f then
+                    return nil
+                else
+                    return '断点表达式错误：' .. err
+                end
+            end
             if op == '+' then
                 value = value:sub(2)
             end
@@ -160,11 +214,16 @@ function API.show_modify(unit, attr)
         if not value then
             return
         end
-        if value == '~' then
+        if value == '~' and can_create_watch then
             API.add(unit, attr)
             return
         end
         local op = value:sub(1, 1)
+        if op == '>' or op == '<' or op == '=' or op == '~' then
+            local _, set_break_point = API.add(unit, attr)
+            set_break_point(value)
+            return
+        end
         if op == '+' then
             value = value:sub(2)
         end
@@ -173,25 +232,27 @@ function API.show_modify(unit, attr)
             return
         end
         if op == '+' then
-            y3.develop.code.sync_run('unit:add_attr(name, num)', {
+            y3.develop.code.sync_run('unit:add_attr(name, num, attr_type)', {
                 unit = unit,
                 name = attr,
                 num = num,
+                attr_type = attr_type,
             })
         else
-            y3.develop.code.sync_run('unit:set_attr(name, num)', {
+            y3.develop.code.sync_run('unit:set_attr(name, num, attr_type)', {
                 unit = unit,
                 name = attr,
                 num = num,
+                attr_type = attr_type,
             })
         end
     end)
 end
 
----@return Develop.Helper.Watcher
+---@return Develop.Helper.Attr
 function API.create()
     if not API.instance then
-        API.instance = New 'Develop.Helper.Watcher' ()
+        API.instance = New 'Develop.Helper.Attr' ()
     end
     return API.instance
 end

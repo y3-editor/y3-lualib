@@ -2,6 +2,9 @@
 ---@overload fun(unit: Unit, attr: y3.Const.UnitAttr):Develop.Attr
 local M = Class 'Develop.Attr'
 
+---@class Develop.Attr.API
+local API = {}
+
 ---@class Develop.Attr: GCHost
 Extends('Develop.Attr', 'GCHost')
 
@@ -21,7 +24,7 @@ end
 ---@param str string
 ---@return Develop.Attr.Condition?
 ---@return string?
-function M:compileConditionString(str)
+local function compileConditionString(str)
     local firstToken = str:match('^%s*([=<>~]+)')
     if not firstToken then
         str = '== ' .. str
@@ -39,34 +42,11 @@ end
 
 ---@alias Develop.Attr.Accept number | string | Develop.Attr.Condition
 
----@package
----@param value Develop.Attr.Accept
----@return Develop.Attr.Condition
----@return string?
-function M:compileCondition(value)
-    if type(value) == 'function' then
-        return value, nil
-    end
-    if type(value) == 'number' then
-        return function (v)
-            return v == value
-        end, ('== %.2f'):format(value)
-    end
-    if type(value) == 'string' then
-        local f, msg = M:compileConditionString(value)
-        if not f then
-            error('属性表达式错误：' .. msg)
-        end
-        return f, msg
-    end
-    error('不支持的条件类型' .. type(value))
-end
-
 ---@alias Develop.Attr.Watch.Callback fun(attr: Develop.Attr, watch: Develop.Attr.Watch, oldValue: number)
 
 ---@class Develop.Attr.Watch
 ---@field trigger Trigger
----@field condition Develop.Attr.Condition
+---@field condition? Develop.Attr.Condition
 ---@field callback fun(attr: Develop.Attr, watch: Develop.Attr.Watch)
 ---@field attr Develop.Attr
 ---@field conditionStr? string
@@ -78,7 +58,7 @@ local Watch = Class 'Develop.Attr.Watch'
 ---@param callback Develop.Attr.Watch.Callback
 function Watch:__init(attr, value, callback)
     self.attr = attr
-    self.condition, self.conditionStr = attr:compileCondition(value)
+    self.condition, self.conditionStr = API.compileCondition(value)
     self.callback = callback
     self.isSatisfied = self.condition(attr.unit, attr.unit:get_attr(attr.attr))
 
@@ -115,14 +95,30 @@ function M:watch(value, callback)
     return watch
 end
 
----@class Develop.Attr.API
-local API = {}
-
 ---@param unit Unit
 ---@param attr y3.Const.UnitAttr
 ---@return Develop.Attr
 function API.create(unit, attr)
     return New 'Develop.Attr' (unit, attr)
+end
+
+---@param value Develop.Attr.Accept
+---@return Develop.Attr.Condition?
+---@return string?
+function API.compileCondition(value)
+    if type(value) == 'function' then
+        return value, nil
+    end
+    if type(value) == 'number' then
+        return function (v)
+            return v == value
+        end, ('== %.2f'):format(value)
+    end
+    if type(value) == 'string' then
+        local f, msg = compileConditionString(value)
+        return f, msg
+    end
+    error('不支持的条件类型' .. type(value))
 end
 
 return API
