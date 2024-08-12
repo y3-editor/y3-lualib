@@ -21,7 +21,7 @@ end
 ---@param unit Unit
 ---@param attr y3.Const.UnitAttr
 ---@return Develop.Helper.TreeNode
----@return fun(value: string) # 设置断点
+---@return fun(value: Develop.Attr.Accept) # 设置断点
 function M:add(unit, attr)
     local core = y3.develop.attr.create(unit, attr)
     local name = string.format('%s(%d): %s'
@@ -154,10 +154,14 @@ end
 
 ---@param unit Unit
 ---@param attr y3.Const.UnitAttr
+---@param condition? Develop.Attr.Accept
 ---@return Develop.Helper.TreeNode
----@return fun(value: string) # 设置断点
-function API.add(unit, attr)
-    return API.create():add(unit, attr)
+function API.add(unit, attr, condition)
+    local node, set_break_point = API.create():add(unit, attr)
+    if condition then
+        set_break_point(condition)
+    end
+    return node
 end
 
 ---@class Develop.Helper.Attr.ModifyOptions
@@ -220,8 +224,7 @@ function API.show_modify(unit, attr, options)
         end
         local op = value:sub(1, 1)
         if op == '>' or op == '<' or op == '=' or op == '~' then
-            local _, set_break_point = API.add(unit, attr)
-            set_break_point(value)
+            API.add(unit, attr, value)
             return
         end
         if op == '+' then
