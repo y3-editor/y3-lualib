@@ -80,7 +80,7 @@ function M:add(unit, attr)
             local prompt = '请输入表达式，如 “>= 100”，“<= `最大生命` / 2”'
             y3.develop.helper.createInputBox {
                 title = '监控属性变化',
-                value = '',
+                value = watch and watch.conditionStr,
                 prompt = prompt,
                 validateInput = function (value)
                     if value == '' then
