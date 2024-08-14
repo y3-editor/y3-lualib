@@ -87,6 +87,7 @@ y3.py_event_sub.new_global_trigger('ET_LOSS_MODIFIER', function (data)
     if not py_modifier then
         return
     end
+    py_modifier = y3.py_proxy.fetch(py_modifier) or py_modifier
     local id = py_modifier:api_get_modifier_unique_id()
     local buff = M.ref_manager:fetch(id)
     if not buff then

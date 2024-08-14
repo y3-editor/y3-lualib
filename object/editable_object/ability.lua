@@ -87,9 +87,20 @@ y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
     return lua_value.handle
 end)
 
-y3.game:event('技能-失去', function (trg, data)
-    data.ability._removed_by_py = true
-    data.ability:remove()
+y3.py_event_sub.new_global_trigger('ET_ABILITY_LOSE', function (data)
+    ---@type py.Ability
+    local py_ability = data['__ability']
+    if not py_ability then
+        return
+    end
+    py_ability = y3.py_proxy.fetch(py_ability) or py_ability
+    local id = py_ability:api_get_ability_global_id()
+    local ability = M.ref_manager:fetch(id)
+    if not ability then
+        return
+    end
+    ability._removed_by_py = true
+    ability:remove()
 end)
 
 function M:get_key()

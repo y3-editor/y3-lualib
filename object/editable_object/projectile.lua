@@ -75,9 +75,20 @@ y3.py_converter.register_lua_to_py('py.Projectile', function (lua_value)
 end)
 y3.py_converter.register_py_to_lua('py.ProjectileID', M.get_by_id)
 
-y3.game:event('投射物-死亡', function (trg, data)
-    data.projectile._removed_by_py = true
-    data.projectile:remove()
+y3.py_event_sub.new_global_trigger('ET_DEATH_PROJECTILE', function (data)
+    ---@type py.ProjectileEntity
+    local py_proj = data['projectile']
+    if not py_proj then
+        return
+    end
+    py_proj = y3.py_proxy.fetch(py_proj) or py_proj
+    local id = py_proj:api_get_id()
+    local projectile = M.ref_manager:fetch(id)
+    if not projectile then
+        return
+    end
+    projectile._removed_by_py = true
+    projectile:remove()
 end)
 
 ---获取投射物的类型ID

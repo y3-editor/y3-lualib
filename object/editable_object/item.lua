@@ -83,9 +83,14 @@ end
 
 y3.py_converter.register_py_to_lua('py.ItemID', M.get_by_id)
 
-y3.game:event('物品-移除', function (trg, data)
-    data.item._removed_by_py = true
-    data.item:remove()
+y3.py_event_sub.new_global_trigger('ET_ITEM_ON_DESTROY', function (data)
+    local id = data['__item_id']
+    local item = M.ref_manager:fetch(id)
+    if not item then
+        return
+    end
+    item._removed_by_py = true
+    item:remove()
 end)
 
 ---是否存在

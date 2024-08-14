@@ -74,9 +74,14 @@ end
 
 y3.py_converter.register_py_to_lua('py.DestructibleID', M.get_by_id)
 
-y3.game:event('可破坏物-移除', function (trg, data)
-    data.destructible._removed_by_py = true
-    data.destructible:remove()
+y3.py_event_sub.new_global_trigger('ET_DEST_DELETE', function (data)
+    local id = data['__destructible_id']
+    local destructible = M.ref_manager:fetch(id)
+    if not destructible then
+        return
+    end
+    destructible._removed_by_py = true
+    destructible:remove()
 end)
 
 ---是否存在

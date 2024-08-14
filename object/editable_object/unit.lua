@@ -109,9 +109,14 @@ end
 
 y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)
 
-y3.game:event('单位-移除后', function (trg, data)
-    data.unit._removed_by_py = true
-    data.unit:remove()
+y3.py_event_sub.new_global_trigger('ET_UNIT_DELETE', function (data)
+    local id = data['__unit_id']
+    local unit = M.ref_manager:fetch(id)
+    if not unit then
+        return
+    end
+    unit._removed_by_py = true
+    unit:remove()
 end)
 
 ---是否存在

@@ -85,4 +85,11 @@ function M.kill(phandle)
     end
 end
 
+---@generic T
+---@param handle T
+---@return T?
+function M.fetch(handle)
+    return cachedMap[handle]
+end
+
 return M
