@@ -305,6 +305,17 @@ function M.event_unregister(event_name, extra_args)
     end
 end
 
+---@param event_id string
+---@param callback fun(data: table)
+function M.new_global_trigger(event_id, callback)
+    local trigger_id = M.next_id()
+    local py_trigger = new_global_trigger(trigger_id, event_id, event_id, true)
+
+    py_trigger.on_event = function (trigger, event, actor, data)
+        callback(data)
+    end
+end
+
 y3.ctimer.wait_frame(1, function ()
     M.need_enable_trigger_manualy = true
 end)

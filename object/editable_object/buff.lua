@@ -81,9 +81,19 @@ y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
     return lua_value.handle
 end)
 
-y3.game:event('效果-失去', function (trg, data)
-    data.buff._removed_by_py = true
-    data.buff:remove()
+y3.py_event_sub.new_global_trigger('ET_LOSS_MODIFIER', function (data)
+    ---@type py.ModifierEntity
+    local py_modifier = data['__modifier']
+    if not py_modifier then
+        return
+    end
+    local id = py_modifier:api_get_modifier_unique_id()
+    local buff = M.ref_manager:fetch(id)
+    if not buff then
+        return
+    end
+    buff._removed_by_py = true
+    buff:remove()
 end)
 
 ---是否具有标签

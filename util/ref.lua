@@ -52,7 +52,7 @@ function M:__init(className, new)
     table.insert(M.all_managers[className], self)
 end
 
--- 获取指定key的对象，如果不存在，则使用所有的参数创建并返回
+---获取指定key的对象，如果不存在，则使用所有的参数创建并返回
 ---@param key Ref.ValidKeyType
 ---@param ... any
 ---@return any
@@ -60,6 +60,20 @@ function M:get(key, ...)
     if not key then
         return nil
     end
+    local obj = self:fetch(key)
+    if obj then
+        return obj
+    end
+    obj = self.newMethod(key, ...)
+    self.strongRefMap[key] = obj
+    self.weakRefMap[key] = nil
+    return obj
+end
+
+---获取指定key
+---@param key Ref.ValidKeyType
+---@return any
+function M:fetch(key)
     local strongRefMap = self.strongRefMap
     if strongRefMap[key] then
         return strongRefMap[key]
@@ -70,12 +84,10 @@ function M:get(key, ...)
             return weakRefMap[key]
         end
     end
-    local obj = self.newMethod(key, ...)
-    strongRefMap[key] = obj
-    return obj
+    return nil
 end
 
--- 移除指定的key
+---移除指定的key
 ---@param key Ref.ValidKeyType
 function M:remove(key)
     self.waitingListYoung[key] = true
