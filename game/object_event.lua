@@ -97,7 +97,7 @@ function M:subscribe_event(event_name, ...)
     return extra_args, callback, unsubscribe
 end
 
-local function getMaster(datas, config, lua_params)
+local function get_master(datas, config, lua_params)
     local master = config.master
     if master then
         return lua_params[master]
@@ -117,7 +117,7 @@ local function event_notify(event_name, extra_args, lua_params)
         return
     end
     local datas = event_datas[config.key]
-    local master = getMaster(datas, config, lua_params)
+    local master = get_master(datas, config, lua_params)
     if not master then
         return
     end
