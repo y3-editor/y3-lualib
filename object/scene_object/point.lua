@@ -117,7 +117,8 @@ end
 ---@param z? number 点Z坐标
 ---@return Point
 function M.create(x, y, z)
-    local py_point = GlobalAPI.coord_to_point(Fix32(x), Fix32(y), Fix32(z or 0))
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local py_point = GlobalAPI.float_to_vector3(x, y, z or 0)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     local p = M.get_by_handle(py_point)
