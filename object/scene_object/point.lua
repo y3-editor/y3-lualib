@@ -118,7 +118,7 @@ end
 ---@return Point
 function M.create(x, y, z)
     ---@diagnostic disable-next-line: param-type-mismatch
-    local py_point = GlobalAPI.float_to_vector3(x, y, z or 0)
+    local py_point = GlobalAPI.float_to_vector3(x, z or 0, y)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     local p = M.get_by_handle(py_point)
