@@ -979,7 +979,8 @@
 ---@field name string|integer
 ---@field need_preview_billboard boolean
 --单位状态  
---进入游戏时，为单位附加的初始状态
+--进入游戏时,为单位附加的初始状态  
+--状态会记录层数，初始为1层。每次添加/移除状态会增加/减少一层。
 ---@field ori_bits number
 --移速数值  
 --单位每秒移动的距离。

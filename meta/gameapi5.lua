@@ -3834,8 +3834,9 @@ function GameAPI.api_set_detail_snapshot_enable_tag(tag) end
 function GameAPI.api_set_time_scale(scale) end
 
 --绑定摇杆单位
+---@param role py.Role # 玩家
 ---@param unit py.Unit # 绑定单位
-function GameAPI.set_joystick_target(unit) end
+function GameAPI.set_joystick_target(role, unit) end
 
 --本地玩家编号
 ---@return py.RoleID # 玩家编号
@@ -4246,19 +4247,23 @@ function GameAPI.get_screen_y_resolution() end
 function GameAPI.set_mouse_cursor_visible(visible) end
 
 --小地图遮罩透明度
+---@param role py.Role # 玩家
 ---@param alpha number # 透明度
-function GameAPI.set_mini_map_alpha(alpha) end
+function GameAPI.set_mini_map_alpha(role, alpha) end
 
 --小地图遮罩颜色
----@param R integer # R
----@param G integer # G
----@param B integer # B
----@param A integer # A
-function GameAPI.set_mini_map_color_int(R, G, B, A) end
+---@param role py.Role # 玩家
+---@param colorR integer # R
+---@param colorG integer # G
+---@param colorB integer # B
+---@param colorA integer # A
+function GameAPI.set_mini_map_color_int(role, colorR, colorG, colorB, colorA) end
 
 --小地图遮罩颜色
----@param rgba_hex string # value
-function GameAPI.set_mini_map_color_str(rgba_hex) end
+---@param role py.Role # 玩家
+---@param rgb_hex string # rgb
+---@param alpha number # a
+function GameAPI.set_mini_map_color_str(role, rgb_hex, alpha) end
 
 --判断玩家单位类型前置条件满足需求
 ---@param player py.Role # 玩家
@@ -4473,7 +4478,7 @@ function GameAPI.set_ui_image_color_hex(role, comp_uid, color, a) end
 ---@return string # 图片颜色hex值
 function GameAPI.get_ui_image_color(comp_uid) end
 
---【异步】界面-获取控件的真实长度
+--【异步】界面-获取控件的真实宽度
 ---@param role py.Role # 玩家
 ---@param comp_uid string # 控件名
 function GameAPI.get_role_ui_comp_real_width(role, comp_uid) end
@@ -5938,6 +5943,6 @@ function GameAPI.set_alarm_range_limit(limit) end
 function GameAPI.set_ai_tick_limit(limit) end
 
 --阻止单位拾取物品
----@param unit_id py.ItemID # ItemID
+---@param unit_id py.UnitID # UnitID
 ---@param slot_type py.SlotType # SlotType
 function GameAPI.stop_unit_pick_item(unit_id, slot_type) end

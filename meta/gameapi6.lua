@@ -17,6 +17,10 @@ function GameAPI.get_pick_item_slot(unit_id, slot_type) end
 ---@return py.AbilityKey # 技能类型
 function GameAPI.api_get_abilityKey_by_unitkey(unit_key, abilityType, abilityIndex) end
 
+--[性能] 设置是否开启空闲时lua自动gc逻辑，默认关闭lua-gc，帧率空闲时进行LUA_GCSTEP; 设置为False后可以自行控制lua-gc
+---@param enable boolean # 是否开启
+function GameAPI.set_enable_auto_lua_gc(enable) end
+
 --创建新技能物编
 ---@param old_entity_no py.AbilityKey # 技能物编
 ---@return py.AbilityKey # 技能物编
@@ -26,6 +30,11 @@ function GameAPI.create_ability_editor_data(old_entity_no) end
 ---@param ability_key py.AbilityKey # 技能物编
 ---@return py.AbilityCastType # 技能释放类型
 function GameAPI.api_get_ability_type_cast_type(ability_key) end
+
+--整数转技能类型
+---@param num integer # 整数
+---@return py.AbilityKey # 技能物编
+function GameAPI.get_ability_type_by_int(num) end
 
 --创建新投射物物编
 ---@param old_entity_no py.ProjectileKey # 投射物物编
@@ -178,6 +187,26 @@ function GameAPI.get_h_nearest_unit_with_quick_tag(position, tag_idx, check_aliv
 ---@param tag_idx integer # 标签ID
 ---@return py.UnitGroup # 单位组
 function GameAPI.get_unit_ids_with_quick_tag(tag_idx) end
+
+--平台外部服务器设置接口
+---@param aes_key string # AESKey
+---@param public_key string # PublicKey
+---@param external_url string # ExternalUrl
+function GameAPI.init_external_http_config(aes_key, public_key, external_url) end
+
+--平台外部连接登录
+---@param api_path string # 外部API路径
+---@param external_data string # 自定义数据
+---@return boolean # 调用结果
+function GameAPI.platform_http_login(api_path, external_data) end
+
+--平台外部http请求
+---@param api string # 外部API路径
+---@param is_post boolean # 是否是post请求
+---@param data string # body数据
+---@param disable_in_connect? boolean # 是否禁用在connect中
+---@return string # 调用结果
+function GameAPI.platform_http_request(api, is_post, data, disable_in_connect) end
 
 --获取COLLIDER所属的刚体
 ---@param collider py.Collider # Collider
@@ -2150,6 +2179,47 @@ function GameAPI.len_of_var(var) end
 ---@param goods_id string # 物品ID
 function GameAPI.request_buy_mall_coin(player, goods_id) end
 
+--请求服务器时间
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_message_from_server(lua_func, context) end
+
+--请求服务器获取玩家使用道具
+---@param role py.Role # 玩家
+---@param count integer # 数量
+---@param no integer # 道具ID
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_server_role_use_item(role, count, no, lua_func, context) end
+
+--执行服务器随机池掉落策略
+---@param role py.Role # 玩家
+---@param pool_id integer # 随机池ID
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_server_random_pool_result(role, pool_id, lua_func, context) end
+
+--请求服务器获取商品信息
+---@param role py.Role # 玩家
+---@param goods_id integer # 商品ID
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_server_mall_goods_info(role, goods_id, lua_func, context) end
+
+--请求服务器获取商城消耗货币
+---@param role py.Role # 玩家
+---@param amount integer # 数量
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_server_consume_mall_coin(role, amount, lua_func, context) end
+
+--请求服务器获取商城dlc状态
+---@param role py.Role # 玩家
+---@param goods_id integer # 商品ID
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_server_mall_dlc_status(role, goods_id, lua_func, context) end
+
 --获取三维属性的slave系数
 ---@param pri string # 三维属性
 ---@param slave string # slave属性
@@ -3590,26 +3660,6 @@ function GameAPI.api_world_pos_to_camera_pos_2d(world_pos) end
 ---@return py.Point # 屏幕坐标
 function GameAPI.api_world_pos_to_screen_edge_pos_2d(world_pos, delta_dis) end
 
---平台外部服务器设置接口
----@param aes_key string # AESKey
----@param public_key string # PublicKey
----@param external_url string # ExternalUrl
-function GameAPI.init_external_http_config(aes_key, public_key, external_url) end
-
---平台外部连接登录
----@param api_path string # 外部API路径
----@param external_data string # 自定义数据
----@return boolean # 调用结果
-function GameAPI.platform_http_login(api_path, external_data) end
-
---平台外部http请求
----@param api string # 外部API路径
----@param is_post boolean # 是否是post请求
----@param data string # body数据
----@param disable_in_connect? boolean # 是否禁用在connect中
----@return string # 调用结果
-function GameAPI.platform_http_request(api, is_post, data, disable_in_connect) end
-
 --上传反作弊数值统计
 ---@param role py.Role # 玩家
 ---@param args py.List # 自定义参数
@@ -3689,6 +3739,11 @@ function GameAPI.refresh_attach_model_on_modifier(modifier_entity) end
 ---@return string # 模型ID拼接Str
 function GameAPI.get_attach_model_on_modifier(attach_model_id) end
 
+--背包类型转字符串
+---@param slot_type py.SlotType # 背包类型
+---@return string # 字符串
+function GameAPI.slot_type_to_str(slot_type) end
+
 --挂接模型实体转字符串
 ---@param attach_model_id string # 模型ID拼接Str
 ---@return string # 字符串
@@ -3708,3 +3763,6 @@ function GameAPI.play_attach_model_animation(attach_model_id, name, rate, init_t
 ---@param attach_model_id string # 模型ID拼接Str
 ---@param name string # 动画名称
 function GameAPI.stop_attach_model_animation(attach_model_id, name) end
+
+--获取属性自动恢复间隔
+function GameAPI.api_get_autorec_interval() end

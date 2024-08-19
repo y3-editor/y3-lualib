@@ -502,6 +502,9 @@ function Unit:api_set_changed_exp_in_event(val) end
 ---@return py.AbilityKey? # 技能类型
 function Unit:api_get_abilityKey_by_type_and_index(abilityType, abilityIndex) end
 
+--获取每tick的单位生命恢复
+function Unit:api_get_hprec_pertick() end
+
 --单位停止移动
 function Unit:api_stop_move() end
 
@@ -615,6 +618,11 @@ function Unit:roaming_along(x, y) end
 
 --停止沿方向移动
 function Unit:stop_roaming() end
+
+--沿方向移动
+---@param point py.Point # 目标点
+---@param offset number # offset
+function Unit:roaming_to(point, offset) end
 
 --播放动画
 ---@param name string # 动画名称
