@@ -696,4 +696,23 @@ function M:upload_tracking_data(key, cnt)
     GameAPI.api_upload_user_tracking_data(self.handle, key, cnt)
 end
 
+---请求执行随机池掉落
+---执行完毕后调用回调函数，返回的参数如下：
+---* `code`: 结果代码
+---  + `0`: 成功
+---  + `1`: 不满足触发间隔
+---  + `2`: 不满足每日限制
+---  + `999`: 服务器无法连接，必须在平台上才能测试
+---* `result`: 结果表，`key` 表示影响的存档编号，`value` 表示改变的值
+---@param id integer # 随机池的编号
+---@param callback fun(code: 0|1|2|999, result: { [integer]: integer }) # 执行完毕后的回调函数
+function M:request_random_pool(id, callback)
+    local response = {}
+    GameAPI.lua_request_server_random_pool_result(self.handle, id, function ()
+        local code = response['__random_pool_ret_code']
+        local result = y3.helper.dict_to_table(response['__random_pool_result_dict'])
+        xpcall(callback, log.error, code, result)
+    end, response)
+end
+
 return M

@@ -73,6 +73,8 @@ function M.as_lua(v, recursive)
         local name = mt and mt.__name
         if name == 'LuaFix32' then
             v = v:float()
+        elseif name == 'xDouble' then
+            v = v:float()
         end
     end
     return v
@@ -88,6 +90,22 @@ function M.py_dict(t)
         end
     end
     return dict
+end
+
+---将py.Dict转换为table
+---@param dict py.Dict
+---@return table
+function M.dict_to_table(dict)
+    local keys = {}
+    for k in python.iter(dict) do
+        keys[#keys+1] = k
+    end
+    table.sort(keys)
+    local t = {}
+    for _, k in ipairs(keys) do
+        t[k] = dict[k]
+    end
+    return t
 end
 
 return M
