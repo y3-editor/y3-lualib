@@ -7,7 +7,6 @@ local rawset         = rawset
 local pcall          = pcall
 local tostring       = tostring
 local select         = select
-local stderr         = io.stderr
 local sformat        = string.format
 local getregistry    = debug.getregistry
 local getmetatable   = debug.getmetatable
@@ -23,11 +22,10 @@ local registry       = getregistry()
 local ccreate        = coroutine.create
 local setmetatable   = setmetatable
 local error          = error
+local multiUserValue = _VERSION == 'Lua 5.4'
+local hasPoint       = pcall(sformat, '%p', _G)
 
 _ENV = nil
-
-local hasPoint       = pcall(sformat, '%p', _G)
-local multiUserValue = not pcall(getuservalue, stderr, '')
 
 local function getPoint(obj)
     if hasPoint then

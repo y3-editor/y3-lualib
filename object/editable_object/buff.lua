@@ -36,7 +36,7 @@ end
 function M:__init(id, py_modifier)
     self.id     = id
     self.handle = py_modifier
-    self.phandle = y3.py_proxy.wrap(py_modifier)
+    self.phandle = y3.py_proxy.wrap(py_modifier, GameAPI.modifier_is_exist)
     return self
 end
 
@@ -65,7 +65,7 @@ function M.get_by_handle(py_buff)
     if not py_buff then
         return nil
     end
-    local id = y3.py_proxy.wrap(py_buff):api_get_modifier_unique_id()
+    local id = y3.py_proxy.wrap(py_buff, GameAPI.modifier_is_exist):api_get_modifier_unique_id()
     return M.ref_manager:get(id, py_buff)
 end
 
@@ -338,5 +338,13 @@ function M:set_cycle_time(time)
     self.phandle:api_set_cycle_time(Fix32(time))
 end
 
+function M:is_destroyed()
+    ---@diagnostic disable-next-line: undefined-field
+    local yes = self.phandle:api_is_destroyed()
+    if yes == nil then
+        return true
+    end
+    return yes
+end
 
 return M

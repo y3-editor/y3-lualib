@@ -31,7 +31,7 @@ end
 function M:__init(id, py_ability)
     self.id     = id
     self.handle = py_ability
-    self.phandle = y3.py_proxy.wrap(py_ability)
+    self.phandle = y3.py_proxy.wrap(py_ability, GameAPI.ability_is_exist)
     return self
 end
 
@@ -71,7 +71,7 @@ function M.get_by_handle(py_ability)
     if not py_ability then
         return nil
     end
-    local id = y3.py_proxy.wrap(py_ability):api_get_ability_global_id()
+    local id = y3.py_proxy.wrap(py_ability, GameAPI.ability_is_exist):api_get_ability_global_id()
     return M.ref_manager:get(id, py_ability)
 end
 
@@ -647,6 +647,15 @@ function M:get_item()
         return nil
     end
     return y3.item.get_by_handle(py_item)
+end
+
+function M:is_destroyed()
+---@diagnostic disable-next-line: undefined-field
+    local yes = self.phandle:api_is_destroyed()
+    if yes == nil then
+        return true
+    end
+    return yes
 end
 
 return M

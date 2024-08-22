@@ -159,7 +159,7 @@ M.register('RR', {
     desc = '重启游戏',
     onCommand = function ()
         y3.develop.helper.prepareForRestart {
-            debugger = y3.develop.wait_debugger,
+            debugger = WAIT_DBG,
         }
         y3.game.restart_game(true)
     end

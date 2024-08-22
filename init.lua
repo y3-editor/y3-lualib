@@ -1,5 +1,11 @@
+arg = GameAPI.lua_get_start_args()
+
 pcall(function ()
     LDBG = require "y3.debugger":start "127.0.0.1:12399"
+    if arg['lua_wait_debugger'] == 'true' then
+        WAIT_DBG = true
+        LDBG:event 'wait'
+    end
 end)
 
 -- 全局方法类，提供各种全局方法
@@ -60,7 +66,9 @@ y3.helper       = require 'y3.game.helper'
 y3.ground       = require 'y3.game.ground'
 y3.config       = require 'y3.game.config'
 y3.kv           = require 'y3.game.kv'
+y3.timer        = require 'y3.object.runtime_object.timer'
 y3.py_proxy     = require 'y3.util.py_proxy'
+y3.ltimer       = require 'y3.util.local_timer'
 
 y3.unit         = require 'y3.object.editable_object.unit'
 y3.ability      = require 'y3.object.editable_object.ability'
@@ -76,7 +84,6 @@ y3.mover        = require 'y3.object.runtime_object.mover'
 y3.particle     = require 'y3.object.runtime_object.particle'
 y3.player       = require 'y3.object.runtime_object.player'
 y3.player_group = require 'y3.object.runtime_object.player_group'
-y3.timer        = require 'y3.object.runtime_object.timer'
 y3.unit_group   = require 'y3.object.runtime_object.unit_group'
 y3.projectile_group = require 'y3.object.runtime_object.projectile_group'
 y3.selector     = require 'y3.object.runtime_object.selector'
@@ -99,7 +106,6 @@ y3.ui_prefab    = require 'y3.object.scene_object.ui_prefab'
 y3.shape        = require 'y3.object.scene_object.shape'
 
 y3.object       = require 'y3.util.object'
-y3.ltimer       = require 'y3.util.local_timer'
 y3.save_data    = require 'y3.util.save_data'
 y3.dump         = require 'y3.util.dump'
 y3.sync         = require 'y3.util.sync'
@@ -116,17 +122,9 @@ end)
 
 y3.develop = {}
 y3.develop.command = include 'y3.develop.command'
-y3.develop.arg     = require 'y3.develop.arg'
 y3.develop.code    = require 'y3.develop.code'
 y3.develop.console = include 'y3.develop.console'
 y3.develop.helper  = require 'y3.develop.helper'
-
-pcall(function ()
-    if LDBG and y3.develop.arg['lua_wait_debugger'] == 'true' then
-        y3.develop.wait_debugger = true
-        LDBG:event 'wait'
-    end
-end)
 
 --对await进行一些配置
 y3.await.setErrorHandler(log.error)

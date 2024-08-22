@@ -36,6 +36,8 @@ function M:__init(className, new)
     -- 强引用
     ---@private
     self.strongRefMap = {}
+    ---@private
+    self.strongSize = 0
     -- 弱引用
     ---@private
     self.weakRefMap = setmetatable({}, y3.util.MODE_V)
@@ -50,6 +52,7 @@ function M:__init(className, new)
         M.all_managers[className] = setmetatable({}, y3.util.MODE_V)
     end
     table.insert(M.all_managers[className], self)
+    self:checkDeleted()
 end
 
 ---获取指定key的对象，如果不存在，则使用所有的参数创建并返回
@@ -67,6 +70,7 @@ function M:get(key, ...)
     obj = self.newMethod(key, ...)
     self.strongRefMap[key] = obj
     self.weakRefMap[key] = nil
+    self.strongSize = self.strongSize + 1
     return obj
 end
 
@@ -90,6 +94,9 @@ end
 ---移除指定的key
 ---@param key Ref.ValidKeyType
 function M:remove(key)
+    if self.waitingListOld[key] then
+        return
+    end
     self.waitingListYoung[key] = true
     self.waitingListOld[key] = nil
 
@@ -119,6 +126,7 @@ function M:updateWaitingList()
         if obj then
             strongRef[key] = nil
             weakRef[key] = obj
+            self.strongSize = self.strongSize - 1
         end
         old[key] = nil
     end
@@ -126,6 +134,35 @@ function M:updateWaitingList()
     -- 将青年代升级为老年代
     self.waitingListOld   = young
     self.waitingListYoung = old -- 这里复用了一下已被清空的上次老年代
+end
+
+local index = 0
+
+---@private
+function M:checkDeleted()
+    index = index + 1
+    local lastSize = self.strongSize
+    local lastID = nil
+    local strongRefMap = self.strongRefMap
+    y3.ltimer.wait(index * 0.2, function ()
+        y3.ltimer.loop(5, function ()
+            local delta = self.strongSize - lastSize
+            lastSize = self.strongSize
+            if not strongRefMap[lastID] then
+                lastID = nil
+            end
+            for _ = 1, delta * 2 + 10 do
+                local id, obj = next(strongRefMap, lastID)
+                lastID = id
+                if not id then
+                    break
+                end
+                if obj.is_destroyed and obj:is_destroyed() then
+                    self:remove(lastID)
+                end
+            end
+        end)
+    end)
 end
 
 return M

@@ -1,12 +1,12 @@
 ---@class PyProxy
 local M = Class 'PyProxy'
 
-local isExist = GameAPI.common_is_exist
-
 local RAW  = {'<RAW>'}
 local DEAD = {'<DEAD>'}
+local ISEXISTS = {'<ISEXISTS>'}
 
 local dummy = function () end
+local return_true = function () return true end
 
 local proxyMT = { __index = function (self, key)
     local raw = self[RAW]
@@ -14,7 +14,7 @@ local proxyMT = { __index = function (self, key)
     local tp = type(f)
     if tp == 'function' then
         local function middleman(_, ...)
-            if self[DEAD] and not isExist(raw) then
+            if self[DEAD] and not self[ISEXISTS](raw) then
                 return nil
             end
             return f(raw, ...)
@@ -32,7 +32,7 @@ local proxyMT = { __index = function (self, key)
             return f
         end
         local function middleman(_, ...)
-            if self[DEAD] and not isExist(raw) then
+            if self[DEAD] and not self[ISEXISTS](raw) then
                 return nil
             end
             return call(f, raw, ...)
@@ -41,7 +41,7 @@ local proxyMT = { __index = function (self, key)
         return middleman
     end
     if tp == 'nil' then
-        if self[DEAD] and not isExist(raw) then
+        if self[DEAD] and not self[ISEXISTS](raw) then
             return dummy
         end
     end
@@ -52,17 +52,19 @@ local cachedMap = setmetatable({}, { __mode = 'k' })
 
 ---@generic T
 ---@param handle T
+---@param is_exists? fun(handle: T): boolean
 ---@return T
-function M.wrap(handle)
+function M.wrap(handle, is_exists)
     local p = cachedMap[handle]
     if not p then
         if type(handle) ~= 'userdata' then
             return handle
         end
-        ---@cast handle py.DynamicTypeMeta
+        ---@cast handle any
         p = setmetatable({
-            [RAW]  = handle,
-            [DEAD] = not isExist(handle),
+            [RAW]      = handle,
+            [DEAD]     = is_exists and not is_exists(handle) or false,
+            [ISEXISTS] = is_exists or return_true,
         }, proxyMT)
         cachedMap[handle] = p
     end

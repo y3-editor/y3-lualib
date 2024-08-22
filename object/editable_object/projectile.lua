@@ -28,7 +28,7 @@ end
 ---@return self
 function M:__init(id, py_projectile)
     self.handle = py_projectile
-    self.phandle = y3.py_proxy.wrap(py_projectile)
+    self.phandle = y3.py_proxy.wrap(py_projectile, GameAPI.projectile_is_exist)
     self.id     = id
     return self
 end
@@ -57,7 +57,7 @@ function M.get_by_handle(py_projectile)
     if not py_projectile then
         return nil
     end
-    local id = y3.py_proxy.wrap(py_projectile):api_get_id()
+    local id = y3.py_proxy.wrap(py_projectile, GameAPI.projectile_is_exist):api_get_id()
     local projectile = M.ref_manager:get(id)
     return projectile
 end
@@ -307,6 +307,15 @@ function M:set_visible(visible, player_or_group)
     player_or_group = player_or_group or y3.player_group.get_all_players()
     ---@diagnostic disable-next-line: param-type-mismatch
     self.phandle:api_set_projectile_visible(player_or_group.handle, visible)
+end
+
+function M:is_destroyed()
+    ---@diagnostic disable-next-line: undefined-field
+    local yes = self.phandle:api_is_destroyed()
+    if yes == nil then
+        return true
+    end
+    return yes
 end
 
 return M

@@ -24,7 +24,7 @@ end
 ---@return self
 function M:__init(py_destructible)
     self.handle = py_destructible
-    self.phandle = y3.py_proxy.wrap(py_destructible)
+    self.phandle = y3.py_proxy.wrap(py_destructible, GameAPI.destructible_is_exist)
     self.id     = py_destructible:api_get_id() or 0
     return self
 end
@@ -54,7 +54,7 @@ function M.get_by_handle(py_destructible)
     if not py_destructible then
         return nil
     end
-    local id = y3.py_proxy.wrap(py_destructible):api_get_id()
+    local id = y3.py_proxy.wrap(py_destructible, GameAPI.destructible_is_exist):api_get_id()
     local dest = M.ref_manager:get(id)
     return dest
 end
@@ -475,6 +475,15 @@ function M.pick_in_shape(point, shape)
         table.insert(lua_table,y3.destructible.get_by_handle(iter_destructible))
     end
     return lua_table
+end
+
+function M:is_destroyed()
+    ---@diagnostic disable-next-line: undefined-field
+    local yes = self.phandle:api_is_destroyed()
+    if yes == nil then
+        return true
+    end
+    return yes
 end
 
 return M

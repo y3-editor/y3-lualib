@@ -32,7 +32,7 @@ end
 ---@return self
 function M:__init(py_unit_id, py_unit)
     self.handle = py_unit
-    self.phandle = y3.py_proxy.wrap(py_unit)
+    self.phandle = y3.py_proxy.wrap(py_unit, GameAPI.unit_is_exist)
     self.id     = py_unit_id
     return self
 end
@@ -64,7 +64,7 @@ function M.get_by_handle(py_unit)
     if not py_unit then
         return nil
     end
-    local id = y3.py_proxy.wrap(py_unit):api_get_id()
+    local id = y3.py_proxy.wrap(py_unit, GameAPI.unit_is_exist):api_get_id()
     local unit = M.ref_manager:get(id)
     return unit
 end
@@ -2020,6 +2020,14 @@ end
 ---@return py.CampID
 function M:get_camp_id()
     return self.phandle:api_get_camp_id() or 0
+end
+
+function M:is_destroyed()
+    local yes = self.phandle:api_is_destroyed()
+    if yes == nil then
+        return true
+    end
+    return yes
 end
 
 return M
