@@ -415,12 +415,22 @@ function M:get_tech_level(tech_id)
     return self.phandle:api_get_tech_level(tech_id) or 0
 end
 
+---@private
+---@type string
+M._platform_icon = nil
+
 ---获取玩家平台头像
 ---@return string icon 平台头像
 function M:get_platform_icon()
-    return self.phandle:get_role_status() == 1
-        and GameAPI.get_role_platform_icon(self.handle) --[[@as string]]
-        or ''
+    if not self._platform_icon then
+        local suc, res = pcall(GameAPI.get_role_platform_icon, self.handle)
+        if suc then
+            self._platform_icon = res --[[@as string]]
+        else
+            self._platform_icon = ''
+        end
+    end
+    return self._platform_icon
 end
 
 --获取玩家平台唯一ID
