@@ -336,6 +336,7 @@ function M:get_color()
 end
 
 ---获取玩家游戏状态
+---@see y3.Const.RoleStatus
 ---@return y3.Const.RoleStatus role_status 玩家游戏状态
 function M:get_state()
     return self.phandle:get_role_status() or 2
