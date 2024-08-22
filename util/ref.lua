@@ -94,9 +94,6 @@ end
 ---移除指定的key
 ---@param key Ref.ValidKeyType
 function M:remove(key)
-    if self.waitingListOld[key] then
-        return
-    end
     self.waitingListYoung[key] = true
     self.waitingListOld[key] = nil
 
@@ -158,7 +155,7 @@ function M:checkDeleted()
                     break
                 end
                 if obj.is_destroyed and obj:is_destroyed() then
-                    self:remove(lastID)
+                    obj:remove()
                 end
             end
         end)
