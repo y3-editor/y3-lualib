@@ -82,6 +82,7 @@ function python.debug_ns_timestamp() end
 ---@field set_related_unit             fun(related_unit?: py.Unit)
 ---@field set_related_ability          fun(related_ability?: py.Ability)
 ---@field set_is_absolute_height       fun(is_absolute_height: boolean)
+---@field dict                         py.Dict
 
 ---@class py.MoverLineBuilder: py.MoverBaseBuilder
 ---@field set_angle               fun(angle: py.Fixed)

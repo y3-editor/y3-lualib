@@ -276,7 +276,10 @@ function M.wrap_round_args(args)
     builder.set_round_time             (Fix32(args.round_time or 0))
     builder.set_centrifugal_velocity   (Fix32(args.radius_speed or 0.0))
     builder.set_lifting_velocity       (Fix32(args.lifting_speed or 0.0))
-    --builder.set_init_height            (Fix32(args.height or 0.0))
+    -- hack
+    -- 这都能被我找出来，真是太🐮🍺🌶
+    builder.dict['init_height']        = (Fix32(args.height or 0.0))
+    builder.dict['is_open_bind_point'] = (args.height ~= nil)
 
     return builder
 end
