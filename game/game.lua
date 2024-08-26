@@ -910,9 +910,11 @@ function M:request_url(url, body, callback, options)
     )
 end
 
+local download_icon_queue = {}
+
 ---下载玩家平台头像，下载完毕后调用回调函数
 ---@param url string # 头像下载地址
----@param icon string # 头像路径，如果本地已有头像则不会下载而是立即调用回调函数
+---@param icon integer # 头像路径，如果本地已有头像则不会下载而是立即调用回调函数
 ---@param callback fun(real_path: string) # 下载完毕后的回调函数
 function M.download_platform_icon(url, icon, callback)
     ---@diagnostic disable-next-line: undefined-field
@@ -920,7 +922,23 @@ function M.download_platform_icon(url, icon, callback)
     if not download then
         return
     end
-    download(url, icon, callback)
+    download_icon_queue[#download_icon_queue+1] = {
+        url = url,
+        icon = icon,
+        callback = callback
+    }
+    if #download_icon_queue == 1 then
+        local function download_one()
+            local data = table.remove(download_icon_queue, 1)
+            download(data.url, data.icon, function (real_path)
+                xpcall(data.callback, log.error, real_path)
+                if #download_icon_queue > 0 then
+                    download_one()
+                end
+            end)
+        end
+        download_one()
+    end
 end
 
 _G['OnTick'] = function ()

@@ -158,33 +158,39 @@ function M:set_visible(visible)
     return self
 end
 
+---@private
+M._image_version = 0
+
 ---设置图片
 ---@param img py.Texture | string 图片id
 ---@return self
 function M:set_image(img)
+    self._image_version = self._image_version + 1
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.set_ui_comp_image_with_icon(self.player.handle, self.handle, img)
     return self
 end
 
----@private
-M._url_version = 0
-
 ---设置来自网络的图片
 ---@param url string 图片url
----@param aid? string 图片的唯一id，如果不指定会从url中提取。如果本地已经有该aid的图片，会直接使用本地图片
+---@param aid? integer 图片的唯一id，如果不指定会从url中提取。如果本地已经有该aid的图片，会直接使用本地图片
 ---@return self
 function M:set_image_url(url, aid)
-    local version = self._url_version + 1
-    self._url_version = version
+    local version = self._image_version + 1
+    self._image_version = version
     if not aid then
         aid = url:match('.+/(.+)$'):gsub('%.[^%.]+$', '')
     end
     y3.game.download_platform_icon(url, aid, function (real_path)
-        if version ~= self._url_version then
+        if version ~= self._image_version then
             return
         end
-        self:set_image(real_path)
+        y3.ltimer.wait(0.1, function (timer, count)
+            if version ~= self._image_version then
+                return
+            end
+            self:set_image(real_path)
+        end)
     end)
     return self
 end
