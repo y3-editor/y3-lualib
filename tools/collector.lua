@@ -107,8 +107,8 @@ function M.init()
     end
     M._inited = true
     ---@private
-    M.log = y3.game.is_debug_mode()
-            and io.open(script_path:match('^(.-)%?') .. '/.log/gctrace.log', 'w+b')
+    M.log = io.open(script_path:match('^(.-)%?') .. '/.log/gctrace.log', 'w+b')
+        or  io.open('gctrace.log', 'w+b')
 
     if M.log then
         M.log:setvbuf 'no'
