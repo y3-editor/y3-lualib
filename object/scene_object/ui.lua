@@ -173,7 +173,7 @@ end
 
 ---设置来自网络的图片
 ---@param url string 图片url
----@param aid? integer 图片的唯一id，如果不指定会从url中提取。如果本地已经有该aid的图片，会直接使用本地图片
+---@param aid? string 图片的唯一id，如果不指定会从url中提取。如果本地已经有该aid的图片，会直接使用本地图片。必须是操作系统可用的文件名。
 ---@return self
 function M:set_image_url(url, aid)
     local version = self._image_version + 1

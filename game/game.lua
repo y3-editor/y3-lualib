@@ -914,7 +914,7 @@ local download_icon_queue = {}
 
 ---下载玩家平台头像，下载完毕后调用回调函数
 ---@param url string # 头像下载地址
----@param icon integer # 头像路径，如果本地已有头像则不会下载而是立即调用回调函数
+---@param icon string # 头像路径，如果本地已有头像则不会下载而是立即调用回调函数
 ---@param callback fun(real_path: string) # 下载完毕后的回调函数
 function M.download_platform_icon(url, icon, callback)
     ---@diagnostic disable-next-line: undefined-field
