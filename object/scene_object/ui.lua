@@ -185,7 +185,9 @@ function M:set_image_url(url, aid)
         if version ~= self._image_version then
             return
         end
-        y3.ltimer.wait(0.1, function (timer, count)
+        -- 必须要延迟一小会儿，否则同时设置多张
+        -- 图片时会出现几张图片设置失败的情况
+        y3.ltimer.wait(0.1, function ()
             if version ~= self._image_version then
                 return
             end
