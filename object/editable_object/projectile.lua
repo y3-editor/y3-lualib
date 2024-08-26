@@ -311,7 +311,7 @@ end
 
 function M:is_destroyed()
     ---@diagnostic disable-next-line: undefined-field
-    local yes = self.phandle:api_is_destroyed()
+    local yes = self.phandle:is_destroyed()
     if yes == nil then
         return true
     end
