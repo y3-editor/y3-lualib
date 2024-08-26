@@ -434,6 +434,18 @@ function M:get_platform_icon()
     return self._platform_icon
 end
 
+---获取玩家平台头像下载地址
+---@return string icon_url 平台头像下载地址
+function M:get_platform_icon_url()
+    ---@diagnostic disable-next-line: undefined-field
+    local get_url = GameAPI.get_role_platform_url
+    if not get_url then
+        return ''
+    end
+    local url = get_url(self.handle)
+    return url
+end
+
 --获取玩家平台唯一ID
 ---@return integer plat_aid 平台唯一ID
 function M:get_platform_id()
