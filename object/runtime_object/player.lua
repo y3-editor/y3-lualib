@@ -443,7 +443,7 @@ function M:get_platform_icon_url()
         return ''
     end
     local url = get_url(self.handle)
-    return url
+    return url or ''
 end
 
 --获取玩家平台唯一ID
