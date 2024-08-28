@@ -328,7 +328,7 @@ function M:init()
     for _, info in ipairs(self._on_inits) do
         local ui = self._childs[info.name]
         if ui then
-            info.on_init(ui, local_player, self)
+            xpcall(info.on_init, log.error, ui, local_player, self)
         else
             log.error('控件不存在！', info.name)
         end
@@ -352,7 +352,7 @@ function M:refresh(name, player)
     for _, info in ipairs(infos) do
         local ui = self._childs[info.name]
         if ui then
-            info.on_refresh(ui, local_player, self)
+            xpcall(info.on_refresh, log.error, ui, local_player, self)
         else
             log.error('控件不存在！', info.name)
         end
