@@ -179,7 +179,7 @@ function M:set_image_url(url, aid)
     local version = self._image_version + 1
     self._image_version = version
     if not aid then
-        aid = url:match('.+/(.+)$'):gsub('%.[^%.]+$', '')
+        aid = (url:match('.+/(.+)$') or ''):gsub('%.[^%.]+$', '') or ''
     end
     y3.game.download_platform_icon(url, aid, function (real_path)
         if version ~= self._image_version then
