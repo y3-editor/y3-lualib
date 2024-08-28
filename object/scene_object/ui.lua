@@ -1344,4 +1344,10 @@ function M:clear_ui_comp_image()
     GameAPI.clear_ui_comp_image(self.player.handle, self.handle)
 end
 
+---设置列表允许/禁止滚动
+---@param enable boolean # 是否允许滚动
+function M:set_scrollview_scroll(enable)
+    GameAPI.set_ui_scrollview_scroll(self.player.handle, self.handle, enable)
+end
+
 return M
