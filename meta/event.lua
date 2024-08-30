@@ -5556,6 +5556,7 @@ event.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT = {
 ---@field equip_slot_item Item # 物品
 ---@field equip_slot_unit Unit # 单位
 ---@field equip_slot_is_begin boolean # 是否拖拽开始
+---@field ui UI # ui
 
 --UI装备栏拖拽事件
 event.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT = {
@@ -5614,6 +5615,17 @@ event.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT = {
         lua_type = "boolean",
         desc = "是否拖拽开始",
         lua_desc = "是否拖拽开始",
+    },
+    [8] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
     },
 }
 
