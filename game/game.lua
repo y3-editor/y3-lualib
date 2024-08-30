@@ -608,7 +608,12 @@ end
 ---@param time_zone? integer # 时区，默认为0。获取中国的时间请传入8。
 ---@return ServerTime
 function M.get_current_server_time(time_zone)
-    local init_time_stamp = GameAPI.get_game_init_time_stamp() - 8 * 3600
+    local init_time_stamp = GameAPI.get_game_init_time_stamp()
+    if y3.game.is_debug_mode(true) then
+        -- 本地启动游戏时时间戳有问题，算上了本地时区。
+        -- 平台上启动游戏是正确的。
+        init_time_stamp = init_time_stamp - 8 * 3600
+    end
     local runned_sec, runned_ms = math.modf(GameAPI.get_cur_game_time():float())
     local time_stamp = init_time_stamp + runned_sec
     local time_zone_stamp = time_stamp + (time_zone or 0) * 3600
