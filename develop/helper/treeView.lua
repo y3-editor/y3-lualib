@@ -209,6 +209,10 @@ end
 
 ---@private
 Node._updateTimer = nil
+---@private
+Node._updateCooldown = false
+---@private
+Node._needUpdate = false
 
 ---更新此节点的数据（不包含子节点）。
 function Node:update()
@@ -221,11 +225,24 @@ function Node:update()
     if self._updateTimer then
         return
     end
+    if self._updateCooldown then
+        self._needUpdate = true
+        return
+    end
     self._updateTimer = y3.ctimer.wait_frame(1, function (timer, count, local_player)
         self._updateTimer = nil
         local info = self:makeNodeInfo()
         info.complete = true
         helper.notify('refreshTreeNode', info)
+    end)
+    self._updateCooldown = true
+    y3.ctimer.wait(0.5, function ()
+        local needUpdate = self._needUpdate
+        self._updateCooldown = false
+        self._needUpdate = false
+        if needUpdate then
+            self:update()
+        end
     end)
 end
 
