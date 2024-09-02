@@ -15,8 +15,10 @@ local helper = require 'y3.develop.helper.helper'
 ---@overload fun(optional?: Develop.Helper.InputBox.Optional): Develop.Helper.InputBox
 local M = Class 'Develop.Helper.InputBox'
 
+---@private
 M.maxID = 0
 
+---@private
 ---@type table<integer, Develop.Helper.InputBox>
 M.inputBoxMap = {}
 

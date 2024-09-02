@@ -4,6 +4,60 @@ local attr    = require 'y3.develop.helper.attr'
 ---@class Develop.Helper.Explorer
 local M = Class 'Develop.Helper.Explorer'
 
+---@type number
+M.gameSpeed = M.gameSpeed or 4
+
+M.gameSpeedApply = M.gameSpeedApply or false
+
+M.gamePaused = M.gamePaused or false
+
+function M.createGameSpeed()
+    return y3.develop.helper.createTreeNode('速度', {
+        description = string.format('%.1f', M.gameSpeed),
+        tooltip = '游戏速度',
+        onClick = function (node)
+            y3.develop.helper.createInputBox {
+                title = '设置游戏速度',
+                value = string.format('%.1f', M.gameSpeed),
+                validateInput = function (value)
+                    if not tonumber(value) then
+                        return '请输入数字'
+                    end
+                    if tonumber(value) < 0 then
+                        return '速度不能小于0'
+                    end
+                    if tonumber(value) > 100 then
+                        return '速度不能大于100'
+                    end
+                    return nil
+                end,
+            } :show(function (value)
+                local newSpeed = tonumber(value)
+                if not newSpeed or newSpeed < 0 or newSpeed > 100 then
+                    return
+                end
+                y3.sync.send('$game_speed', newSpeed)
+            end)
+        end,
+        check = M.gameSpeedApply,
+        onCheck = function (node)
+            y3.sync.send('$game_speed_apply', true)
+        end,
+        onUnCheck = function (node)
+            y3.sync.send('$game_speed_apply', false)
+        end,
+    })
+end
+
+function M.createGamePause()
+    return y3.develop.helper.createTreeNode('暂停', {
+        icon = 'debug-pause',
+        onClick = function (node)
+            y3.sync.send('$game_pause', not M.gamePaused)
+        end,
+    })
+end
+
 ---@return Develop.Helper.TreeNode
 function M.createGameTimer()
     local function formatTime(sec)
@@ -15,12 +69,67 @@ function M.createGameTimer()
     local node = y3.develop.helper.createTreeNode('时间', {
         icon = 'clock',
         description = formatTime(y3.ltimer.clock() // 1000),
+        childsGetter = function ()
+            M.gameSpeedButton = M.createGameSpeed()
+            M.gamePauseButton = M.createGamePause()
+            return {
+                M.gameSpeedButton,
+                M.gamePauseButton,
+            }
+        end
     })
     node:bindGC(y3.ltimer.loop(1, function ()
         node.description = formatTime(y3.ltimer.clock() // 1000)
     end))
     return node
 end
+
+---@param source Player
+local function updateGameSpeed(source)
+    local speed = M.gameSpeedApply and M.gameSpeed or 1
+    print(string.format('%s 将游戏速度调整为：%.1f', source, speed))
+    GameAPI.api_set_time_scale(speed)
+end
+
+---@param speed number
+---@param source Player
+y3.sync.onSync('$game_speed', function (speed, source)
+    M.gameSpeed = speed
+    if M.gameSpeedButton then
+        M.gameSpeedButton.description = string.format('%.1f', M.gameSpeed)
+    end
+    updateGameSpeed(source)
+end)
+
+---@param apply boolean
+---@param source Player
+y3.sync.onSync('$game_speed_apply', function (apply, source)
+    M.gameSpeedApply = apply
+    if M.gameSpeedButton then
+        M.gameSpeedButton.check = apply
+    end
+    updateGameSpeed(source)
+end)
+
+y3.sync.onSync('$game_pause', function (pause, source)
+    M.gamePaused = pause
+    if pause then
+        print(string.format('%s 暂停了游戏', source))
+        y3.game.enable_soft_pause()
+    else
+        print(string.format('%s 继续了游戏', source))
+        y3.game.resume_soft_pause()
+    end
+    if M.gamePauseButton then
+        if pause then
+            M.gamePauseButton.name = '继续'
+            M.gamePauseButton.icon = 'debug-start'
+        else
+            M.gamePauseButton.name = '暂停'
+            M.gamePauseButton.icon = 'debug-pause'
+        end
+    end
+end)
 
 ---@return Develop.Helper.TreeNode
 function M.createMemoryWatcher()
