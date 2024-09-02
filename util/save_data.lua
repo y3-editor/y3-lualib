@@ -176,7 +176,7 @@ end
 ---@param slot integer
 ---@return table
 function M.load_table_with_cover_disable(player, slot)
-    local save_data = player.handle:get_save_data_table_value(slot)
+    local save_data = player.handle:get_save_data_table_value(slot) or {}
     local create_proxy
     local update_delay = 0.1
     local update_timer
