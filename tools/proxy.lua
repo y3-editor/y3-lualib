@@ -89,6 +89,10 @@ local metaKV = { __mode = 'kv' }
 ---@param custom? any # 自定义数据
 ---@return T
 function M.new(obj, config, custom)
+    local tp = type(obj)
+    if tp ~= 'table' and tp ~= 'userdata' then
+        error('只有table和userdata可以被代理')
+    end
     config = config or defaultConfig
 
     if config.recursive then
