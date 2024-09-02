@@ -10,7 +10,7 @@ M.table_cache = setmetatable({}, { __mode = 'k' })
 ---@param slot integer
 ---@return boolean
 function M.load_boolean(player, slot)
-    return player.handle:get_save_data_bool_value(slot) or false
+    return player.phandle:get_save_data_bool_value(slot) or false
 end
 
 -- 保存玩家的存档数据（布尔）
@@ -18,7 +18,7 @@ end
 ---@param slot integer
 ---@param value boolean
 function M.save_boolean(player, slot, value)
-    player.handle:set_save_data_bool_value(slot, value)
+    player.phandle:set_save_data_bool_value(slot, value)
 end
 
 -- 获取玩家的存档数据（整数）
@@ -26,7 +26,7 @@ end
 ---@param slot integer
 ---@return integer
 function M.load_integer(player, slot)
-    return player.handle:get_save_data_int_value(slot) or 0
+    return player.phandle:get_save_data_int_value(slot) or 0
 end
 
 -- 保存玩家的存档数据（整数）
@@ -34,7 +34,7 @@ end
 ---@param slot integer
 ---@param value integer
 function M.save_integer(player, slot, value)
-    player.handle:set_save_data_int_value(slot, value)
+    player.phandle:set_save_data_int_value(slot, value)
 end
 
 -- 获取玩家的存档数据（实数）
@@ -42,7 +42,7 @@ end
 ---@param slot integer
 ---@return number
 function M.load_real(player, slot)
-    return y3.helper.tonumber(player.handle:get_save_data_fixed_value(slot)) or 0.0
+    return y3.helper.tonumber(player.phandle:get_save_data_fixed_value(slot)) or 0.0
 end
 
 -- 保存玩家的存档数据（实数）
@@ -50,7 +50,7 @@ end
 ---@param slot integer
 ---@param value number
 function M.save_real(player, slot, value)
-    player.handle:set_save_data_fixed_value(slot, Fix32(value))
+    player.phandle:set_save_data_fixed_value(slot, Fix32(value))
 end
 
 -- 获取玩家的存档数据（字符串）
@@ -58,7 +58,7 @@ end
 ---@param slot integer
 ---@return string
 function M.load_string(player, slot)
-    return player.handle:get_save_data_str_value(slot) or ''
+    return player.phandle:get_save_data_str_value(slot) or ''
 end
 
 -- 保存玩家的存档数据（字符串）
@@ -66,7 +66,7 @@ end
 ---@param slot integer
 ---@param value string
 function M.save_string(player, slot, value)
-    player.handle:set_save_data_str_value(slot, value)
+    player.phandle:set_save_data_str_value(slot, value)
 end
 
 -- 获取玩家的存档数据（表）
@@ -93,7 +93,7 @@ function M.save_table(player, slot, t)
     end
     assert(type(t) == 'table', '数据类型必须是表！')
     t = y3.proxy.raw(t) or t
-    player.handle:set_save_data_table_value(slot, t)
+    player.phandle:set_save_data_table_value(slot, t)
     M.upload_save_data(player)
 end
 
@@ -110,7 +110,7 @@ function M.upload_save_data(player)
     end
     M.timer_map[player] = y3.ltimer.wait(0.1, function ()
         M.timer_map[player] = nil
-        player.handle:upload_save_data()
+        player.phandle:upload_save_data()
         log.info('自动保存存档：', player)
     end)
 end
@@ -120,7 +120,7 @@ end
 ---@param slot integer
 ---@return table
 function M.load_table_with_cover_enable(player, slot)
-    local save_data = player.handle:get_save_data_table_value(slot) or {}
+    local save_data = player.phandle:get_save_data_table_value(slot) or {}
     local create_proxy
 
     ---@type Proxy.Config
@@ -176,7 +176,7 @@ end
 ---@param slot integer
 ---@return table
 function M.load_table_with_cover_disable(player, slot)
-    local save_data = player.handle:get_save_data_table_value(slot) or {}
+    local save_data = player.phandle:get_save_data_table_value(slot) or {}
     local create_proxy
     local update_delay = 0.1
     local update_timer
@@ -187,7 +187,7 @@ function M.load_table_with_cover_disable(player, slot)
         end
         update_timer = y3.ltimer.wait(update_delay, function ()
             update_timer = nil
-            player.handle:upload_save_data()
+            player.phandle:upload_save_data()
             log.info('自动保存存档：', player, slot)
         end)
     end
@@ -209,7 +209,7 @@ function M.load_table_with_cover_disable(player, slot)
 
     local function set_value(key, value, path)
         local key1, key2, key3 = unpack_path(key, path)
-        player.handle:set_save_table_key_value(slot
+        player.phandle:set_save_table_key_value(slot
             , key1
             , value
             , key2
@@ -221,7 +221,7 @@ function M.load_table_with_cover_disable(player, slot)
 
     local function get_value(key, path)
         local key1, key2, key3 = unpack_path(key, path)
-        return player.handle:get_save_table_key_value(slot
+        return player.phandle:get_save_table_key_value(slot
             , key1
             , key2
             , key3
