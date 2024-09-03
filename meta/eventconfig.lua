@@ -495,6 +495,19 @@ M.config["玩家-关系变化"] = {
     },
 }
 
+---@alias EventParam.玩家-重连 EventParam.ET_ROLE_RECONNECT
+M.config["玩家-重连"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "玩家重连时触发",
+    extraArgs = {
+    },
+    key = "ET_ROLE_RECONNECT",
+    name = "玩家-重连",
+    object = "Player",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-建筑升级开始 EventParam.ET_UNIT_BUILD_UPGRADE_START
 M.config["单位-建筑升级开始"] = {
     __class__ = "EventConfigBuilder",
@@ -3806,6 +3819,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "单位-获得科技", callback: fun(trg: Trigger, data: EventParam.单位-获得科技)): Trigger
 ---@field event fun(self: self, event: "单位-失去科技", callback: fun(trg: Trigger, data: EventParam.单位-失去科技)): Trigger
 ---@field event fun(self: self, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
+---@field event fun(self: self, event: "玩家-重连", callback: fun(trg: Trigger, data: EventParam.玩家-重连)): Trigger
 ---@field event fun(self: self, event: "单位-建筑升级开始", callback: fun(trg: Trigger, data: EventParam.单位-建筑升级开始)): Trigger
 ---@field event fun(self: self, event: "单位-建筑升级取消", callback: fun(trg: Trigger, data: EventParam.单位-建筑升级取消)): Trigger
 ---@field event fun(self: self, event: "单位-建筑升级完成", callback: fun(trg: Trigger, data: EventParam.单位-建筑升级完成)): Trigger
@@ -4059,6 +4073,7 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: Player, event: "玩家-科技降低", callback: fun(trg: Trigger, data: EventParam.玩家-科技降低)): Trigger
 ---@field event fun(self: Player, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
 ---@field event fun(self: Player, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
+---@field event fun(self: Player, event: "玩家-重连", callback: fun(trg: Trigger, data: EventParam.玩家-重连)): Trigger
 ---@field event fun(self: Player, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
 ---@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.本地-选中-可破坏物)): Trigger

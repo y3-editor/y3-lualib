@@ -1026,6 +1026,21 @@ event.ET_ROLE_CHANGE_RELATION = {
     },
 }
 
+---@class EventParam.ET_ROLE_RECONNECT
+---@field player Player # 玩家
+
+--玩家断线重连
+event.ET_ROLE_RECONNECT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+}
+
 ---@class EventParam.ET_UNIT_BUILD_UPGRADE_START
 ---@field unit Unit # 开始升级的建筑单位
 
