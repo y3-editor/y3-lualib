@@ -125,6 +125,10 @@ M.register_py_to_lua('LuaFix32', function (py_number)
     return y3.helper.tonumber(py_number)
 end)
 
+M.register_py_to_lua('number', function (py_number)
+    return y3.helper.tonumber(py_number)
+end)
+
 M.register_lua_to_py('py.Fixed', function (number)
     return Fix32(number)
 end)
