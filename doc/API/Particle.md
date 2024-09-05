@@ -160,7 +160,7 @@ number
 ## follow_rotation
 
 ```lua
-integer
+integer|y3.Const.SfxRotateType
 ```
 
 跟随单位旋转的模式，只有当 `target` 的类型为单位时有效
@@ -184,7 +184,7 @@ number
 boolean
 ```
 
-销毁时，是否有过度
+销毁时，是否立刻移除显示效果
 ## scale
 
 ```lua

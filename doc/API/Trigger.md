@@ -2,6 +2,19 @@
 
 触发器
 
+## add_tag
+
+```lua
+(method) Trigger:add_tag(tag: any)
+```
+
+添加标签
+## all_triggers
+
+```lua
+table
+```
+
 ## disable
 
 ```lua
@@ -46,6 +59,14 @@ EventManager?
   -> string?
 ```
 
+## has_tag
+
+```lua
+(method) Trigger:has_tag(tag: any)
+  -> boolean
+```
+
+是否有标签
 ## is_enable
 
 ```lua
@@ -80,6 +101,13 @@ EventManager?
 (method) Trigger:remove()
 ```
 
+## remove_tag
+
+```lua
+(method) Trigger:remove_tag(tag: any)
+```
+
+移除标签
 ## type
 
 ```lua

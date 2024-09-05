@@ -57,7 +57,7 @@ fun(self: Projectile, event: "投射物-创建", callback: fun(trg: Trigger, dat
 
 ```lua
 function Projectile.get_by_handle(py_projectile: py.ProjectileEntity)
-  -> projectile: Projectile
+  -> projectile: Projectile?
 ```
 
 ## get_by_id
@@ -109,7 +109,7 @@ function Projectile.get_by_id(id: py.ProjectileID)
 
 ```lua
 (method) Projectile:get_owner()
-  -> unit: Unit
+  -> unit: Unit?
 ```
 
 获取投射物的拥有者
@@ -148,6 +148,13 @@ py.ProjectileEntity
 
 ```lua
 integer
+```
+
+## is_destroyed
+
+```lua
+(method) Projectile:is_destroyed()
+  -> boolean|unknown
 ```
 
 ## is_exist
@@ -369,6 +376,46 @@ unknown
 设置持续时间
 
 @*param* `duration` — 持续时间
+## set_visible
+
+```lua
+(method) Projectile:set_visible(visible: boolean, player_or_group?: Player|PlayerGroup)
+```
+
+设置投射物的可见性
+
+@*param* `visible` — 是否可见
+
+@*param* `player_or_group` — 应用于哪些玩家，默认为所有玩家
+## storage_all
+
+```lua
+(method) Storage:storage_all()
+  -> table
+```
+
+ 获取存储数据的容器
+## storage_get
+
+```lua
+(method) Storage:storage_get(key: any)
+  -> any
+```
+
+ 获取存储的值
+## storage_set
+
+```lua
+(method) Storage:storage_set(key: any, value: any)
+```
+
+ 存储任意值
+## storage_table
+
+```lua
+table
+```
+
 ## subscribe_event
 
 ```lua
@@ -453,7 +500,7 @@ number
 ## visible_rule
 
 ```lua
-integer
+integer|y3.Const.VisibleType
 ```
 
 粒子特效可见性规则，默认为`1`

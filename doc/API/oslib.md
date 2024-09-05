@@ -3,7 +3,7 @@
 
 
 
-[查看文档](http://www.lua.org/manual/5.4/manual.html#pdf-os)
+[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-os"])
 
 
 ## clock_banned

@@ -103,7 +103,7 @@ type:
 
 ```lua
 (method) Unit:add_item(item_id: py.ItemKey, slot_type?: y3.Const.ShiftSlotTypeAlias)
-  -> Item
+  -> Item?
 ```
 
 单位添加物品
@@ -135,10 +135,20 @@ slot_type:
 增加当前魔法值
 
 @*param* `mp` — 当前魔法值
+## add_multi_state
+
+```lua
+(method) Unit:add_multi_state(state_enum: integer)
+```
+
+添加多个状态
+使用 `y3.const.UnitEnumState` 中的枚举值
+
+@*param* `state_enum` — 状态
 ## add_state
 
 ```lua
-(method) Unit:add_state(state_enum: integer)
+(method) Unit:add_state(state_enum: integer|y3.Const.UnitEnumState)
 ```
 
 添加状态
@@ -147,7 +157,7 @@ slot_type:
 ## add_state_gc
 
 ```lua
-(method) Unit:add_state_gc(state_enum: integer)
+(method) Unit:add_state_gc(state_enum: integer|y3.Const.UnitEnumState)
   -> GCNode
 ```
 
@@ -462,7 +472,7 @@ print('结果为：', result)
 ## event_dispatch_with_args
 
 ```lua
-(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any[], ...any)
+(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any, ...any)
   -> any
   2. any
   3. any
@@ -605,11 +615,21 @@ type:
 ## follow
 
 ```lua
-(method) Unit:follow(target: Unit)
+(method) Unit:follow(target: Unit, refresh_interval?: number, near_offset?: number, far_offset?: number, follow_angle?: number, follow_dead_target?: boolean)
   -> py.UnitCommand
 ```
 
  命令跟随单位
+
+@*param* `refresh_interval` — 刷新间隔
+
+@*param* `near_offset` — 跟随距离
+
+@*param* `far_offset` — 重新跟随距离
+
+@*param* `follow_angle` — 跟随角度
+
+@*param* `follow_dead_target` — 是否跟随死亡单位
 ## get_abilities_by_type
 
 ```lua
@@ -806,7 +826,7 @@ function Unit.get_attr_growth_by_key(unit_key: py.UnitKey, attr_name: string|y3.
 
 ```lua
 function Unit.get_by_handle(py_unit: py.Unit)
-  -> Unit
+  -> Unit?
 ```
 
 通过py层的单位实例获取lua层的单位实例
@@ -863,6 +883,14 @@ function Unit.get_by_string(str: string)
 获取单位碰撞半径
 
 @*return* `collision_radius` — 单位碰撞半径
+## get_common_attack
+
+```lua
+(method) Unit:get_common_attack()
+  -> Ability?
+```
+
+comment 获取普攻技能
 ## get_custom_event_manager
 
 ```lua
@@ -1503,6 +1531,7 @@ py层的单位对象
 ```
 
 是否有指定状态
+> 请改用 `has_state` 方法
 
 @*param* `state_name` — 状态
 
@@ -1543,6 +1572,16 @@ py层的单位对象
 @*param* `collision_layer` — 碰撞类型
 
 @*return* — 是否拥有指定碰撞类型
+## has_state
+
+```lua
+(method) Unit:has_state(state_enum: integer|y3.Const.UnitEnumState)
+  -> boolean?
+```
+
+是否有某个状态
+
+@*param* `state_enum` — 状态名
 ## has_tag
 
 ```lua
@@ -1610,6 +1649,14 @@ integer
 @*param* `target_unit` — 目标单位
 
 @*return* `is_enemy` — 是敌对关系
+## is_building
+
+```lua
+(method) Unit:is_building()
+  -> boolean
+```
+
+是否是建筑
 ## is_casting
 
 ```lua
@@ -1632,6 +1679,13 @@ integer
 @*param* `range` — 范围
 
 @*return* `can_collide` — 是否与点碰撞
+## is_destroyed
+
+```lua
+(method) Unit:is_destroyed()
+  -> boolean
+```
+
 ## is_enemy
 
 ```lua
@@ -1905,7 +1959,7 @@ py.Unit
 
 @*param* `start_time` — 开始时间
 
-@*param* `end_time` — 结束时间
+@*param* `end_time` — 结束时间(默认-1表示播到最后)
 
 @*param* `is_loop` — 是否循环
 
@@ -1947,6 +2001,7 @@ unknown
 ```
 
 移除技能(指定类型)
+> 拼错了，请改用 `Unit:remove_ability_by_key`
 
 @*param* `type` — 技能类型
 
@@ -1970,6 +2025,25 @@ type:
 @*param* `type` — 技能类型
 
 @*param* `slot` — 技能位
+## remove_ability_by_key
+
+```lua
+(method) Unit:remove_ability_by_key(type: y3.Const.AbilityType|y3.Const.AbilityTypeAlias, ability_key: py.AbilityKey)
+```
+
+移除技能(指定类型)
+
+@*param* `type` — 技能类型
+
+@*param* `ability_key` — 物编id
+
+```lua
+type:
+    | '隐藏'
+    | '普通'
+    | '命令'
+    | '英雄'
+```
 ## remove_buffs_by_effect_type
 
 ```lua
@@ -2017,13 +2091,24 @@ type:
 ```
 
 移除运动器
+## remove_multi_state
+
+```lua
+(method) Unit:remove_multi_state(state_enum: integer)
+```
+
+移除多个状态
+使用 `y3.const.UnitEnumState` 中的枚举值
+
+@*param* `state_enum` — 状态
 ## remove_state
 
 ```lua
-(method) Unit:remove_state(state_enum: integer)
+(method) Unit:remove_state(state_enum: integer|y3.Const.UnitEnumState)
 ```
 
 移除状态
+ 只有移除次数等同添加次数时才能移除状态
 
 @*param* `state_enum` — 状态名
 ## remove_tag
@@ -2214,6 +2299,13 @@ function Unit.set_attr_growth(unit_key: py.UnitKey, attr_name: string, value: nu
 设置取消警戒范围
 
 @*param* `range` — 取消警戒范围
+## set_collision_radius
+
+```lua
+(method) Unit:set_collision_radius(radius: number)
+```
+
+设置单位碰撞半径
 ## set_day_vision
 
 ```lua
@@ -2535,7 +2627,7 @@ function Unit.set_attr_growth(unit_key: py.UnitKey, attr_name: string, value: nu
 ## shift_item
 
 ```lua
-(method) Unit:shift_item(item: Item, type: y3.Const.ShiftSlotTypeAlias, index: integer, force: boolean)
+(method) Unit:shift_item(item: Item, type: y3.Const.ShiftSlotTypeAlias, index?: integer, force?: boolean)
 ```
 
 移动物品
@@ -2617,6 +2709,14 @@ type:
 ```
 
 关闭残影
+## storage_all
+
+```lua
+(method) Storage:storage_all()
+  -> table
+```
+
+ 获取存储数据的容器
 ## storage_get
 
 ```lua
@@ -2785,7 +2885,8 @@ y3.Const.DamageTextType
 ## type
 
 ```lua
-y3.Const.DamageType
+integer|y3.Const.DamageType
 ```
 
+也可以传任意数字
 

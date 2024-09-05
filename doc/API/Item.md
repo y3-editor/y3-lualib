@@ -172,7 +172,7 @@ print('结果为：', result)
 ## event_dispatch_with_args
 
 ```lua
-(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any[], ...any)
+(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any, ...any)
   -> any
   2. any
   3. any
@@ -304,7 +304,7 @@ function Item.get_attribute_by_key(item_key: py.ItemKey, key: string)
 
 ```lua
 function Item.get_by_handle(py_item: py.Item)
-  -> Item
+  -> Item?
 ```
 
 通过py层的技能实例获取lua层的道具实例
@@ -609,6 +609,14 @@ function Item.get_num_of_player_attr(item_key: py.ItemKey, role_res_key: py.Role
 物品堆叠数
 
 @*return* `stacks` — 堆叠数
+## get_tags_by_key
+
+```lua
+function Item.get_tags_by_key(item_key: py.ItemKey)
+  -> string[]
+```
+
+获取物品的所有标签
 ## handle
 
 ```lua
@@ -649,6 +657,13 @@ py.ItemID
 ```
 
 物品ID
+## is_destroyed
+
+```lua
+(method) Item:is_destroyed()
+  -> boolean|unknown
+```
+
 ## is_exist
 
 ```lua
@@ -953,6 +968,14 @@ function Item.set_shop_price(id: py.ItemKey, player_attr_name: py.RoleResKey, pr
 设置物品可见性
 
 @*param* `is_visible` — 是否可见
+## storage_all
+
+```lua
+(method) Storage:storage_all()
+  -> table
+```
+
+ 获取存储数据的容器
 ## storage_get
 
 ```lua

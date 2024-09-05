@@ -45,7 +45,7 @@ print('结果为：', result)
 ## event_dispatch_with_args
 
 ```lua
-(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any[], ...any)
+(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any, ...any)
   -> any
   2. any
   3. any

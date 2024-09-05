@@ -18,6 +18,13 @@ EventParam.单位-受到伤害后
 ```
 
  获取关联技能
+## get_attack_type
+
+```lua
+(method) DamageInstance:get_attack_type()
+  -> unknown
+```
+
 ## get_damage
 
 ```lua
@@ -26,6 +33,13 @@ EventParam.单位-受到伤害后
 ```
 
  获取当前伤害
+## get_damage_type
+
+```lua
+(method) DamageInstance:get_damage_type()
+  -> unknown
+```
+
 ## is_critical
 
 ```lua
@@ -48,6 +62,13 @@ EventParam.单位-受到伤害后
 '伤害前'|'伤害后'|'伤害时'
 ```
 
+## origin_damage
+
+```lua
+number
+```
+
+记录一下最开始的原始伤害
 ## set_critical
 
 ```lua

@@ -2,6 +2,8 @@
 
 # [Area](API/Area.md) 区域
 
+# [Await](API/Await.md) 
+
 # [Beam](API/Beam.md) 闪电特效（光束）
 
 # [Buff](API/Buff.md) 魔法效果
@@ -39,8 +41,6 @@
 # [EditorObject](API/EditorObject.md)  物体编辑器
 
 # [Enum](API/Enum.md) 
-
-# [FuncUtil](API/FuncUtil.md) 
 
 # [GCBuffer](API/GCBuffer.md) 
 
@@ -170,6 +170,8 @@
 
 # [Road](API/Road.md) 路径
 
+# [SDBMHash](API/SDBMHash.md) 
+
 # [SandBox](API/SandBox.md) 
 
 # [SaveData](API/SaveData.md) 存档
@@ -181,6 +183,8 @@
 # [ServerTime](API/ServerTime.md) 
 
 # [Shape](API/Shape.md) 形状
+
+# [SortedDictionary](API/SortedDictionary.md) 
 
 # [Sound](API/Sound.md) 声音
 
@@ -204,9 +208,13 @@
 
 # [UnitTest](API/UnitTest.md) 
 
+# [XDouble](API/XDouble.md) 
+
 # [oslib](API/oslib.md) 
 
-[查看文档](http://www.lua.org/manual/5.4/manual.html#pdf-os)
+[查看文档](command:extension.lua.doc?["en-us/54/manual.html/pdf-os"])
 
 # [Const](API/Const.md) 
+
+# [y3](API/y3.md) 
 

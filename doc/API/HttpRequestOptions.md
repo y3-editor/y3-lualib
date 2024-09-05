@@ -3,7 +3,7 @@
 ## headers
 
 ```lua
-table
+table|py.Dict
 ```
 
 请求头

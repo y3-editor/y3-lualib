@@ -40,6 +40,13 @@ function Point.get_by_handle(py_point: Point.HandleType)
 ```
 
  获取与另一个点的距离
+## get_point
+
+```lua
+(method) Point:get_point()
+  -> Point
+```
+
 ## get_point_by_res_id
 
 ```lua
@@ -73,6 +80,14 @@ function Point.get_point_offset_vector(point: Point, direction: number, offset: 
 @*param* `direction` — 偏移方向点
 
 @*param* `offset` — 偏移量
+## get_random_point
+
+```lua
+(method) Point:get_random_point(radius: any)
+  -> Point
+```
+
+获取圆形范围内的随机点
 ## get_x
 
 ```lua
@@ -128,6 +143,24 @@ integer?
 
 ```lua
 string
+```
+
+## x
+
+```lua
+number
+```
+
+## y
+
+```lua
+number
+```
+
+## z
+
+```lua
+number
 ```
 
 

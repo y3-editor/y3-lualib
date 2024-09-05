@@ -11,6 +11,15 @@
 增加魔法效果光环影响范围
 
 @*param* `range` — 影响范围
+## add_cycle_time
+
+```lua
+(method) Buff:add_cycle_time(time: number)
+```
+
+增加魔法效果循环周期
+
+@*param* `time` — 变化时间
 ## add_shield
 
 ```lua
@@ -89,7 +98,7 @@ print('结果为：', result)
 ## event_dispatch_with_args
 
 ```lua
-(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any[], ...any)
+(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any, ...any)
   -> any
   2. any
   3. any
@@ -189,7 +198,7 @@ Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 
 ```lua
 (method) Buff:get_aura()
-  -> aura: Buff
+  -> aura: Buff?
 ```
 
 获取所属光环
@@ -239,7 +248,7 @@ Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 
 ```lua
 function Buff.get_by_handle(py_buff: py.ModifierEntity)
-  -> Buff
+  -> Buff?
 ```
 
 通过py层的魔法效果实例获取lua层的魔法效果实例
@@ -428,6 +437,13 @@ py层的魔法效果对象
 integer
 ```
 
+## is_destroyed
+
+```lua
+(method) Buff:is_destroyed()
+  -> boolean|unknown
+```
+
 ## is_exist
 
 ```lua
@@ -544,6 +560,15 @@ unknown
 设置魔法效果光环影响范围
 
 @*param* `range` — 影响范围
+## set_cycle_time
+
+```lua
+(method) Buff:set_cycle_time(time: number)
+```
+
+设置魔法效果循环周期
+
+@*param* `time` — 循环周期
 ## set_description
 
 ```lua
@@ -589,6 +614,14 @@ unknown
 设置剩余持续时间
 
 @*param* `time` — 剩余持续时间
+## storage_all
+
+```lua
+(method) Storage:storage_all()
+  -> table
+```
+
+ 获取存储数据的容器
 ## storage_get
 
 ```lua
@@ -635,6 +668,13 @@ Ability
 ```
 
 关联技能
+## data
+
+```lua
+table
+```
+
+自定义数据
 ## key
 
 ```lua

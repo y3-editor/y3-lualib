@@ -45,6 +45,19 @@ function Game.current_game_run_time()
 EventManager?
 ```
 
+## download_platform_icon
+
+```lua
+function Game.download_platform_icon(url: string, icon: string, callback: fun(real_path: string))
+```
+
+下载玩家平台头像，下载完毕后调用回调函数
+
+@*param* `url` — 头像下载地址
+
+@*param* `icon` — 头像路径，如果本地已有头像则不会下载而是立即调用回调函数
+
+@*param* `callback` — 下载完毕后的回调函数
 ## enable_grass_by_pos
 
 ```lua
@@ -130,7 +143,7 @@ print('结果为：', result)
 ## event_dispatch_with_args
 
 ```lua
-(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any[], ...any)
+(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any, ...any)
   -> any
   2. any
   3. any
@@ -273,11 +286,13 @@ function Game.get_current_game_mode()
 ## get_current_server_time
 
 ```lua
-function Game.get_current_server_time()
+function Game.get_current_server_time(time_zone?: integer)
   -> ServerTime
 ```
 
-获取当前的服务器时间
+获取当前的服务器时间。为了保证结果的一致性需要你自己指定时区。
+
+@*param* `time_zone` — 时区，默认为0。获取中国的时间请传入8。
 ## get_custom_event_manager
 
 ```lua
@@ -393,6 +408,16 @@ function Game.get_icon_id(id: integer)
 ```
 
 根据图片ID获取图片
+## get_level
+
+```lua
+function Game.get_level()
+  -> py.Map
+```
+
+获取当前关卡
+
+@*return* — 当前关卡
 ## get_obj_icon
 
 ```lua
@@ -426,13 +451,15 @@ function Game.get_start_mode()
 ## get_table
 
 ```lua
-function Game.get_table(name: string)
+function Game.get_table(name: string, as_lua?: boolean)
   -> tb: table
 ```
 
 获取表
 
 @*param* `name` — 表名
+
+@*param* `as_lua` — 是否将表中的数据转换为Lua的数据类型，例如Fix32转number
 
 @*return* `tb` — 表
 ## get_tech_description
@@ -515,15 +542,17 @@ function Game.is_compound_attributes_enabled()
 ## is_debug_mode
 
 ```lua
-function Game.is_debug_mode()
+function Game.is_debug_mode(ignore_config?: boolean)
   -> boolean
 ```
 
  是否是调试模式
+
+@*param* `ignore_config` — 是否忽略用户的设置
 ## locale
 
 ```lua
-function Game.locale(key: string)
+function Game.locale(key: string|integer)
   -> 多语言内容: string
 ```
 
@@ -796,6 +825,15 @@ function Game.set_fog_attribute(fog: table, direction: number, pos_x: number, po
 @*param* `concentration` — 浓度
 
 @*param* `speed` — 流速
+## set_game_speed
+
+```lua
+function Game.set_game_speed(speed: number)
+```
+
+设置游戏运行速率
+
+@*param* `speed` — 速率
 ## set_global_weather
 
 ```lua
@@ -883,10 +921,20 @@ function Game.set_nearby_voice_mode(switch: boolean)
 ## set_object_color
 
 ```lua
-function Game.set_object_color(obj: Destructible|Item|Unit, r: integer, g: integer, b: integer, a: integer)
+function Game.set_object_color(obj: Destructible|Item|Unit, r: integer, g: integer, b: integer, a?: integer, o?: number)
 ```
 
 设置对象基础材质颜色
+
+@*param* `r` — 红色（0~255）
+
+@*param* `g` — 绿色（0~255）
+
+@*param* `b` — 蓝色（0~255）
+
+@*param* `a` — 强度（0~100）
+
+@*param* `o` — 不透明度（0~1）
 ## set_object_fresnel
 
 ```lua
@@ -1362,6 +1410,15 @@ function Game.str_to_unit_type(str: string)
   3. Unsubscribe: function
 ```
 
+## switch_level
+
+```lua
+function Game.switch_level(level_id_str: py.Map)
+```
+
+切换至关卡
+
+@*param* `level_id_str` — 关卡ID
 ## table_has_key
 
 ```lua

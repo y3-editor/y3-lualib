@@ -17,37 +17,43 @@ table
 ## AbilityEventType
 
 ```lua
-table
+enum y3.Const.AbilityEventType
+```
+
+## AbilityFloatAttr
+
+```lua
+enum y3.Const.AbilityFloatAttr
 ```
 
 ## AbilityIndex
 
 ```lua
-table
+enum y3.Const.AbilityIndex
 ```
 
 ## AbilityIntAttr
 
 ```lua
-table
+enum y3.Const.AbilityIntAttr
 ```
 
 ## AbilityPointerType
 
 ```lua
-table
+enum y3.Const.AbilityPointerType
 ```
 
 ## AbilityStrAttr
 
 ```lua
-table
+enum y3.Const.AbilityStrAttr
 ```
 
 ## AbilityType
 
 ```lua
-table
+enum y3.Const.AbilityType
 ```
 
 ## AreaAction
@@ -59,7 +65,7 @@ table
 ## CameraMoveMode
 
 ```lua
-table
+enum y3.Const.CameraMoveMode
 ```
 
 ## CameraShakeMode
@@ -71,7 +77,7 @@ table
 ## CollisionLayers
 
 ```lua
-table
+enum y3.Const.CollisionLayers
 ```
 
 ## CursorState
@@ -83,7 +89,7 @@ table
 ## DMGType
 
 ```lua
-table
+enum y3.Const.DMGType
 ```
 
 ## DamageTypeMap
@@ -95,7 +101,7 @@ table
 ## DestructibleEventType
 
 ```lua
-table
+enum y3.Const.DestructibleEventType
 ```
 
 ## DialogDebugType
@@ -107,7 +113,19 @@ table
 ## EaseType
 
 ```lua
-table
+enum y3.Const.EaseType
+```
+
+## FloatTextJumpType
+
+```lua
+enum y3.Const.FloatTextJumpType
+```
+
+## FloatTextType
+
+```lua
+enum y3.Const.FloatTextType
 ```
 
 ## GameResult
@@ -119,19 +137,19 @@ table
 ## GlobalEventType
 
 ```lua
-table
+enum y3.Const.GlobalEventType
 ```
 
 ## HarmTextType
 
 ```lua
-table
+enum y3.Const.HarmTextType
 ```
 
 ## ItemEventType
 
 ```lua
-table
+enum y3.Const.ItemEventType
 ```
 
 ## IterKey
@@ -143,31 +161,31 @@ table
 ## KeyboardKey
 
 ```lua
-table
+enum y3.Const.KeyboardKey
 ```
 
 ## LinkSfxPointType
 
 ```lua
-table
+enum y3.Const.LinkSfxPointType
 ```
 
 ## ModifierEffectType
 
 ```lua
-table
+enum y3.Const.EffectType
 ```
 
 ## ModifierEventType
 
 ```lua
-table
+enum y3.Const.ModifierEventType
 ```
 
 ## ModifierType
 
 ```lua
-table
+enum y3.Const.ModifierType
 ```
 
 ## ModifyType
@@ -179,7 +197,7 @@ table
 ## MouseKey
 
 ```lua
-table
+enum y3.Const.MouseKey
 ```
 
 ## MovementObstacleProcessType
@@ -209,55 +227,55 @@ table
 ## PlatformEventType
 
 ```lua
-table
+enum y3.Const.PlatformEventType
 ```
 
 ## PlayerAttr
 
 ```lua
-table
+enum y3.Const.PlayerAttr
 ```
 
 ## ProjectileEventType
 
 ```lua
-table
+enum y3.Const.ProjectileEventType
 ```
 
 ## RoleStatus
 
 ```lua
-table
+enum y3.Const.RoleStatus
 ```
 
 ## RoleType
 
 ```lua
-table
+enum y3.Const.RoleType
 ```
 
 ## SfxRotateType
 
 ```lua
-table
+enum y3.Const.SfxRotateType
 ```
 
 ## ShiftSlotType
 
 ```lua
-table
+enum y3.Const.ShiftSlotType
 ```
 
 ## SignalType
 
 ```lua
-table
+enum y3.Const.SignalType
 ```
 
 ## SlotType
 
 ```lua
-table
+enum y3.Const.SlotType
 ```
 
 ## StateAction
@@ -266,16 +284,22 @@ table
 table
 ```
 
+## UIAnimKey
+
+```lua
+enum y3.Const.UIAnimKey
+```
+
 ## UIAttr
 
 ```lua
-table
+enum y3.Const.UIAttr
 ```
 
 ## UIButtonStatus
 
 ```lua
-table
+enum y3.Const.UIButtonStatus
 ```
 
 ## UIComponentType
@@ -293,7 +317,7 @@ table
 ## UIEventType
 
 ```lua
-table
+enum y3.Const.UIEventType
 ```
 
 ## UIHAlignmentType
@@ -317,13 +341,13 @@ table
 ## UnitAttr
 
 ```lua
-table
+enum y3.Const.UnitAttr
 ```
 
 ## UnitAttrType
 
 ```lua
-table
+enum y3.Const.UnitAttrType
 ```
 
 ## UnitCategory
@@ -332,7 +356,19 @@ table
 table
 ```
 
+## UnitEnumState
+
+```lua
+enum y3.Const.UnitEnumState
+```
+
 ## UnitEventType
+
+```lua
+enum y3.Const.UnitEventType
+```
+
+## UnitKeyFloatAttr
 
 ```lua
 table
@@ -347,7 +383,7 @@ table
 ## VisibleType
 
 ```lua
-table
+enum y3.Const.VisibleType
 ```
 
 
@@ -372,6 +408,13 @@ table
     ABILITY_CD_END: string = ET_ABILITY_CD_END,
     ABILITY_SWITCH: string = ET_ABILITY_SWITCH,
 }
+```
+
+
+# y3.Const.AbilityFloatAttr
+
+```lua
+"技能消耗" | "生命值消耗" | "冷却时间" | "技能伤害值" | "释放范围" | "施法开始" | "施法完成" | "施法出手" | "施法引导" | "技能影响范围" | "充能时间"
 ```
 
 
@@ -469,6 +512,13 @@ y3.Const.AbilityTypeAlias:
 
 ```lua
 '命令'|'普通'|'英雄'|'隐藏'
+```
+
+
+# y3.Const.CameraMoveMode
+
+```lua
+"ACC" | "SMOOTH" | "DEC" | "匀速" | "匀加速" | "匀减速"
 ```
 
 
@@ -588,6 +638,7 @@ y3.Const.DamageType:
 
 ```lua
 {
+    NONE: integer = 0,
     NORMAL: integer = 1,
     POSITIVE: integer = 2,
     NEGATIVE: integer = 3,
@@ -600,6 +651,18 @@ y3.Const.DamageType:
 
 ```lua
 y3.Const.AbilityEventType|y3.Const.DestructibleEventType|y3.Const.GlobalEventType|y3.Const.ItemEventType|y3.Const.ModifierEventType...(+4)
+```
+
+
+# y3.Const.FloatTextJumpType
+
+TODO：应该解析文件
+
+
+# y3.Const.FloatTextType
+
+```lua
+"物理伤害" | "魔法伤害" | "真实伤害" | "治疗" | "获取金币" | "系统字体" | "微软雅黑" | "华康黑体W9" | "华康黑体W12" | "华康标题宋W9" | "华康魏碑W7" | "华康新综艺体W7" | "华康新综艺体W9" | "华康圆体W5" | "华康圆体W7" | "华康圆体W9"
 ```
 
 
@@ -722,6 +785,7 @@ y3.Const.AbilityEventType|y3.Const.DestructibleEventType|y3.Const.GlobalEventTyp
     LBRACKET: integer = 26,
     RBRACKET: integer = 27,
     RETURN: integer = 28,
+    ENTER: integer = 28,
     LCTRL: integer = 29,
     A: integer = 30,
     S: integer = 31,
@@ -832,6 +896,7 @@ y3.Const.AbilityEventType|y3.Const.DestructibleEventType|y3.Const.GlobalEventTyp
 
 ```lua
 {
+    NONE: integer = 0,
     NORMAL: integer = 1,
     HALO: integer = 2,
     HALO_EFFECT: integer = 3,
@@ -897,12 +962,20 @@ y3.Const.AbilityEventType|y3.Const.DestructibleEventType|y3.Const.GlobalEventTyp
 
 ```lua
 {
+    NONE: integer = 0,
     USER: integer = 1,
     COMPUTER: integer = 2,
     AI_EASY: integer = 5,
     AI_HARD: integer = 6,
     OBSERVER: integer = 10,
 }
+```
+
+
+# y3.Const.SfxRotateType
+
+```lua
+"跟随节点" | "跟随模型" | "不跟随"
 ```
 
 
@@ -951,6 +1024,13 @@ y3.Const.ShiftSlotTypeAlias:
     PKG: integer = 0,
     BAR: integer = 1,
 }
+```
+
+
+# y3.Const.UIAnimKey
+
+```lua
+
 ```
 
 
@@ -1100,14 +1180,21 @@ y3.Const.UIVAlignmentType:
 # y3.Const.UnitAttr
 
 ```lua
-"生命" | "魔法" | "最大生命" | "生命恢复" | "最大魔法" | "魔法恢复" | "物理攻击" | "法术攻击" | "物理防御" | "法术防御" | "攻击速度" | "冷却缩减" | "命中率" | "躲避率" | "暴击率" | "暴击伤害" | "物理穿透" | "法术穿透" | "物理吸血" | "法术吸血" | "物理穿透比例" | "法术穿透比例" | "受伤减免" | "伤害加成" | "被治疗加成" | "移动速度" | "真实视野" | "攻击间隔" | "攻击范围" | "白天视野" | "夜晚视野" | "白天扇形视野半径" | "夜晚扇形视野半径" | "白天扇形视野夹角" | "夜晚扇形视野夹角"
+"生命" | "魔法" | "最大生命" | "生命恢复" | "最大魔法" | "魔法恢复" | "物理攻击" | "法术攻击" | "物理防御" | "法术防御" | "攻击速度" | "冷却缩减" | "命中率" | "躲避率" | "暴击率" | "暴击伤害" | "物理穿透" | "法术穿透" | "物理吸血" | "法术吸血" | "物理穿透比例" | "法术穿透比例" | "受伤减免" | "伤害加成" | "被治疗加成" | "移动速度" | "真实视野" | "攻击间隔" | "攻击范围" | "白天视野" | "夜晚视野" | "白天扇形视野半径" | "夜晚扇形视野半径" | "白天扇形视野夹角" | "夜晚扇形视野夹角" | "百分比生命恢复"
 ```
 
 
 # y3.Const.UnitAttrType
 
 ```lua
-"基础" | "基础加成" | "增益" | "增益加成" | "总加成"
+"基础" | "基础加成" | "增益" | "增益加成" | "最终加成"
+```
+
+
+# y3.Const.UnitEnumState
+
+```lua
+"禁止普攻" | "禁止施法" | "禁止移动" | "禁止转向" | "动画定帧" | "无法施加运动" | "无法被技能指示器锁定" | "无法被选中" | "隐身" | "无视静态碰撞" | "无视动态碰撞" | "不会死亡" | "无敌" | "无法控制" | "无法被攻击" | "AI无视" | "物理伤害免疫" | "魔法伤害免疫" | "负面魔法效果免疫" | "隐藏" | "无法被筛选器选中" | "真实伤害免疫" | "禁止使用道具"
 ```
 
 

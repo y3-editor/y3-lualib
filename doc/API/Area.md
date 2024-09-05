@@ -273,6 +273,14 @@ function Area.get_rectangle_by_res_id(res_id: py.AreaID)
 区域内玩家单位(单位组)
 
 @*param* `player` — 玩家
+## get_unit_in_area_by_camp
+
+```lua
+(method) Area:get_unit_in_area_by_camp(camp: py.Camp)
+  -> 单位组: Unit[]
+```
+
+区域内阵营所有单位
 ## get_unit_num_in_area
 
 ```lua

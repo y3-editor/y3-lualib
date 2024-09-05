@@ -76,8 +76,8 @@
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -114,7 +114,7 @@ any
 ## AddTimer
 
 ```lua
-(method) NPBehave.Clock:AddTimer(delay: number, repeat_count: number, action: fun(), randomVariance?: number)
+(method) NPBehave.Clock:AddTimer(delay: number, repeat_count: number, action: NPBehave.Tool.BindCallback, randomVariance?: number)
 ```
 
 注册一个具有随机方差的计时器函数
@@ -129,7 +129,7 @@ any
 ## AddUpdateObserver
 
 ```lua
-(method) NPBehave.Clock:AddUpdateObserver(action: function)
+(method) NPBehave.Clock:AddUpdateObserver(action: NPBehave.Tool.BindCallback)
 ```
 
 注册一个每帧都会调用的函数
@@ -155,7 +155,7 @@ number
 ## HasTimer
 
 ```lua
-(method) NPBehave.Clock:HasTimer(action: fun())
+(method) NPBehave.Clock:HasTimer(action: NPBehave.Tool.BindCallback)
   -> boolean
 ```
 
@@ -165,17 +165,19 @@ number
 ## HasUpdateObserver
 
 ```lua
-(method) NPBehave.Clock:HasUpdateObserver(action: function)
-  -> 是否存在每帧调用的函数: boolean
+(method) NPBehave.Clock:HasUpdateObserver(action: NPBehave.Tool.BindCallback)
+  -> boolean
 ```
 
 检查是否存在每帧调用的函数
 
 @*param* `action` — 要检查的函数
+
+@*return* — 是否存在每帧调用的函数
 ## RemoveTimer
 
 ```lua
-(method) NPBehave.Clock:RemoveTimer(action: fun())
+(method) NPBehave.Clock:RemoveTimer(action: NPBehave.Tool.BindCallback)
 ```
 
 移除计时器
@@ -184,7 +186,7 @@ number
 ## RemoveUpdateObserver
 
 ```lua
-(method) NPBehave.Clock:RemoveUpdateObserver(action: function)
+(method) NPBehave.Clock:RemoveUpdateObserver(action: NPBehave.Tool.BindCallback)
 ```
 
 移除每帧调用的函数
@@ -220,7 +222,7 @@ number
 ## Action
 
 ```lua
-fun()?
+(NPBehave.Tool.BindCallback)?
 ```
 
 ## Delay
@@ -433,8 +435,8 @@ override<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -622,8 +624,8 @@ override<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -817,8 +819,8 @@ override<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -1012,8 +1014,8 @@ override<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -1207,8 +1209,8 @@ override<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -1402,8 +1404,8 @@ override<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -1580,8 +1582,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -1850,8 +1852,8 @@ NPBehave.Enum.Stops
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -2074,8 +2076,8 @@ NPBehave.Enum.Stops
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -2292,8 +2294,8 @@ NPBehave.Enum.Stops
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -2482,8 +2484,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -2666,8 +2668,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -2850,8 +2852,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -3034,8 +3036,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -3218,8 +3220,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -3402,8 +3404,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -3619,8 +3621,8 @@ NPBehave.Enum.Stops
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -3803,8 +3805,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -3993,8 +3995,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -4183,8 +4185,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -4367,8 +4369,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -4557,8 +4559,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -4747,8 +4749,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -4936,8 +4938,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -5267,8 +5269,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -5462,8 +5464,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -5626,8 +5628,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -5807,8 +5809,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -5971,8 +5973,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -6155,8 +6157,8 @@ virtual<br>
 ## bind
 
 ```lua
-(method) FuncUtil:bind(func: fun(...any))
-  -> function
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
 ```
 
 函数绑定到对象
@@ -6176,6 +6178,26 @@ table
 
 ```lua
 string
+```
+
+
+# NPBehave.Tool.BindCallback
+
+
+# NPBehave.Tool.MethodDecorator
+
+## bind
+
+```lua
+(method) NPBehave.Tool.MethodDecorator:bind(func: fun(...any))
+  -> NPBehave.Tool.BindCallback
+```
+
+函数绑定到对象
+## funcBindCache
+
+```lua
+table
 ```
 
 

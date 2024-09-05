@@ -85,7 +85,7 @@
 
 可破坏物能否被采集
 
-@*return* `is_collectable` — 能否被选中
+@*return* `is_collectable` — 能否被采集
 ## can_be_selected
 
 ```lua
@@ -139,7 +139,7 @@ fun(self: Destructible, event: "可破坏物-创建", callback: fun(trg: Trigger
 
 ```lua
 function Destructible.get_by_handle(py_destructible: py.Destructible)
-  -> Destructible
+  -> Destructible?
 ```
 
 通过py层的可破坏物实例获取lua层的可破坏物对象
@@ -147,7 +147,7 @@ function Destructible.get_by_handle(py_destructible: py.Destructible)
 
 ```lua
 function Destructible.get_by_id(id: py.DestructibleID)
-  -> Destructible
+  -> Destructible?
 ```
 
  通过可破坏物的唯一ID获取lua的可破坏物对象
@@ -358,6 +358,13 @@ integer
 可破坏物是否存活
 
 @*return* `is_alive` — 是否存活
+## is_destroyed
+
+```lua
+(method) Destructible:is_destroyed()
+  -> boolean|unknown
+```
+
 ## is_exist
 
 ```lua
@@ -475,7 +482,7 @@ function Destructible.pick_in_shape(point: Point, shape: Shape)
 ## play_animation
 
 ```lua
-(method) Destructible:play_animation(anim_name: string, start_time: number, end_time: number, is_loop: boolean, speed: number)
+(method) Destructible:play_animation(anim_name: string, start_time?: number, end_time?: number, is_loop?: boolean, speed?: number)
 ```
 
 播放动画
@@ -484,7 +491,7 @@ function Destructible.pick_in_shape(point: Point, shape: Shape)
 
 @*param* `start_time` — 开始时间
 
-@*param* `end_time` — 结束时间
+@*param* `end_time` — 结束时间(默认-1表示播放到最后)
 
 @*param* `is_loop` — 是否循环
 

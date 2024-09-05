@@ -2,6 +2,19 @@
 
 镜头
 
+## apply
+
+```lua
+(method) Camera:apply(player_or_group?: Player|PlayerGroup, duration?: number, slope_mode?: y3.Const.CameraMoveMode)
+```
+
+ 引用镜头
+
+@*param* `player_or_group` — 玩家或玩家组，默认为所有玩家
+
+@*param* `duration` — 过渡时间，默认为0
+
+@*param* `slope_mode` — 过渡模式，默认为匀速
 ## camera_shake
 
 ```lua
@@ -110,6 +123,14 @@ function Camera.get_by_handle(py_camera: integer)
   -> camera: Camera
 ```
 
+## get_by_res_id
+
+```lua
+function Camera.get_by_res_id(res_id: integer)
+  -> Camera
+```
+
+ 获取摆放在场景上的镜头
 ## get_camera_center_raycast
 
 ```lua
@@ -135,9 +156,10 @@ function Camera.get_player_camera_direction(player: Player)
 ## handle
 
 ```lua
-integer
+py.Camera
 ```
 
+镜头配置
 ## is_camera_playing_timeline
 
 ```lua

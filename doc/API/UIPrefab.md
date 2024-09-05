@@ -56,6 +56,54 @@ function UIPrefab.get_by_handle(player: Player, prefab_name: string)
 string
 ```
 
+## key
+
+```lua
+integer?
+```
+
+## kv_has
+
+```lua
+(method) KV:kv_has(key: string)
+  -> boolean
+```
+
+ 是否拥有指定键值对。可以与ECA互通。
+## kv_key
+
+```lua
+string?
+```
+
+## kv_load
+
+```lua
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
+  -> any
+```
+
+```lua
+lua_type:
+    | 'boolean'
+    | 'number'
+    | 'integer'
+    | 'string'
+    | 'table'
+```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
+## kv_save
+
+```lua
+(method) KV:kv_save(key: string, value: KV.SupportType)
+```
+
+ 保存自定义键值对。可以与ECA互通。
 ## player
 
 ```lua

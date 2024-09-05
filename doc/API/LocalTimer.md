@@ -11,6 +11,14 @@
 table
 ```
 
+## clock
+
+```lua
+function LocalTimer.clock()
+  -> number
+```
+
+获取当前逻辑时间（毫秒）
 ## count
 
 ```lua

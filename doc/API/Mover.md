@@ -62,6 +62,14 @@ function Mover.mover_target(mover_unit: Projectile|Unit, mover_data: Mover.Creat
 ```
 
  打断运动器
+## storage_all
+
+```lua
+(method) Storage:storage_all()
+  -> table
+```
+
+ 获取存储数据的容器
 ## storage_get
 
 ```lua

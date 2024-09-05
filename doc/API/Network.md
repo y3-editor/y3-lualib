@@ -191,7 +191,7 @@ number
 number
 ```
 
-连接超时时间（秒），默认为无限
+连接超时时间（秒），默认为30秒
 ## update_interval
 
 ```lua

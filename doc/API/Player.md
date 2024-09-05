@@ -133,7 +133,7 @@ print('结果为：', result)
 ## event_dispatch_with_args
 
 ```lua
-(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any[], ...any)
+(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any, ...any)
   -> any
   2. any
   3. any
@@ -226,6 +226,14 @@ Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 ```
 
  退出游戏
+## get_achieve_point
+
+```lua
+(method) Player:get_achieve_point()
+  -> integer|true
+```
+
+获取玩家当前地图的成就点数
 ## get_all_units
 
 ```lua
@@ -339,6 +347,22 @@ function Player.get_local()
 > 警告：如果你不确定这个函数在做什么，请不要使用它！
 
 > 已废弃：请改用 `y3.player.with_local`
+## get_map_level
+
+```lua
+(method) Player:get_map_level()
+  -> integer
+```
+
+获取玩家的此地图平台等级
+## get_map_level_rank
+
+```lua
+(method) Player:get_map_level_rank()
+  -> integer
+```
+
+获取玩家在本地图的平台等级排名
 ## get_mouse_pos
 
 ```lua
@@ -420,12 +444,32 @@ function Player.get_local()
 
 ```lua
 (method) Player:get_platform_icon()
-  -> icon: integer
+  -> icon: string
 ```
 
 获取玩家平台头像
 
 @*return* `icon` — 平台头像
+## get_platform_icon_url
+
+```lua
+(method) Player:get_platform_icon_url()
+  -> icon_url: string
+```
+
+获取玩家平台头像下载地址
+
+@*return* `icon_url` — 平台头像下载地址
+## get_platform_id
+
+```lua
+(method) Player:get_platform_id()
+  -> plat_aid: integer
+```
+
+获取玩家平台唯一ID
+
+@*return* `plat_aid` — 平台唯一ID
 ## get_platform_level
 
 ```lua
@@ -456,6 +500,22 @@ function Player.get_local()
 获取玩家唯一名称
 
 @*return* `name` — 属性名称
+## get_platform_uuid
+
+```lua
+(method) Player:get_platform_uuid()
+  -> string
+```
+
+获取玩家加密UUID
+## get_played_times
+
+```lua
+(method) Player:get_played_times()
+  -> integer
+```
+
+获取玩家在本地图的累计局数
 ## get_rank_num
 
 ```lua
@@ -554,7 +614,7 @@ function Player.get_res_name(key: py.RoleResKey)
 
 ```lua
 (method) Player:get_save_data_table(key: integer)
-  -> table_value: table
+  -> table_value: table?
 ```
 
 表格型玩家存档数据
@@ -586,6 +646,19 @@ function Player.get_res_name(key: py.RoleResKey)
 获取玩家游戏状态
 
 @*return* `role_status` — 玩家游戏状态
+See: [y3.Const.RoleStatus](file:///d%3A/y3-2/games/2.0/game/LocalData/Y3%E5%BA%93%E5%BC%80%E5%8F%913/maps/EntryMap/script/y3/game/const.lua#250#9)
+## get_store_item_end_time
+
+```lua
+(method) Player:get_store_item_end_time(id: py.StoreKey)
+  -> store_item_end_time: integer
+```
+
+玩家平台道具到期时间戳
+
+@*param* `id` — 平台道具id
+
+@*return* `store_item_end_time` — 平台道具到期时间戳
 ## get_store_item_number
 
 ```lua
@@ -633,6 +706,14 @@ py.Role
 integer
 ```
 
+## is_achieve_unlock
+
+```lua
+(method) Player:is_achieve_unlock(id: string)
+  -> boolean
+```
+
+判断指定成就是否解锁
 ## is_enemy
 
 ```lua
@@ -791,6 +872,15 @@ lua_type:
 EventManager?
 ```
 
+## open_platform_shop
+
+```lua
+(method) Player:open_platform_shop(id: py.StoreKey)
+```
+
+请求购买平台道具
+
+@*param* `id` — 平台道具id
 ## phandle
 
 ```lua
@@ -804,6 +894,24 @@ py.Role
 unknown
 ```
 
+## request_random_pool
+
+```lua
+(method) Player:request_random_pool(id: integer, callback: fun(code: 0|1|2|999, result: { [integer]: integer }))
+```
+
+请求执行随机池掉落
+执行完毕后调用回调函数，返回的参数如下：
+* `code`: 结果代码
+  + `0`: 成功
+  + `1`: 不满足触发间隔
+  + `2`: 不满足每日限制
+  + `999`: 服务器无法连接，必须在平台上才能测试
+* `result`: 结果表，`key` 表示影响的存档编号，`value` 表示改变的值
+
+@*param* `id` — 随机池的编号
+
+@*param* `callback` — 执行完毕后的回调函数
 ## select_unit
 
 ```lua
@@ -1020,6 +1128,14 @@ TODO:operation在lua层的表示方式待整理 方法名英文待确认
 对玩家开放视野
 
 @*param* `target_player` — 玩家
+## storage_all
+
+```lua
+(method) Storage:storage_all()
+  -> table
+```
+
+ 获取存储数据的容器
 ## storage_get
 
 ```lua
@@ -1063,6 +1179,13 @@ string
 ```
 
 上传存档
+## upload_tracking_data
+
+```lua
+(method) Player:upload_tracking_data(key: string, cnt: integer)
+```
+
+ 上传埋点数据
 ## use_store_item
 
 ```lua

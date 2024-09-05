@@ -28,6 +28,14 @@ function Selector.create()
 ```
 
  进行选取
+## in_range
+
+```lua
+(method) Selector:in_range(cent: Item|Point|Unit, radius: number)
+  -> Selector
+```
+
+ 形状 - 在圆形区域内
 ## in_shape
 
 ```lua
@@ -39,7 +47,7 @@ function Selector.create()
 ## in_state
 
 ```lua
-(method) Selector:in_state(state: integer)
+(method) Selector:in_state(state: integer|y3.Const.UnitEnumState)
   -> Selector
 ```
 
@@ -52,6 +60,32 @@ function Selector.create()
 ```
 
  选项 - 包含死亡的单位
+## ipairs
+
+```lua
+(method) Selector:ipairs()
+  -> fun(table: <V>[], i?: integer):integer, <V>
+  2. Unit[]
+  3. integer
+```
+
+ 进行遍历
+## is_ally
+
+```lua
+(method) Selector:is_ally(p: Player)
+  -> Selector
+```
+
+ 条件 - 是某个玩家的同盟
+## is_enemy
+
+```lua
+(method) Selector:is_enemy(p: Player)
+  -> Selector
+```
+
+ 条件 - 是某个玩家的敌人
 ## is_unit_key
 
 ```lua
@@ -87,7 +121,7 @@ function Selector.create()
 ## not_in_state
 
 ```lua
-(method) Selector:not_in_state(state: integer)
+(method) Selector:not_in_state(state: integer|y3.Const.UnitEnumState)
   -> Selector
 ```
 
@@ -111,11 +145,27 @@ function Selector.create()
 ## of_player
 
 ```lua
-(method) Selector:of_player(p: Player)
+(method) Selector:of_player(p: Player|PlayerGroup)
   -> Selector
 ```
 
- 条件 - 属于某个玩家
+ 条件 - 属于某个玩家或某个玩家组
+## pick
+
+```lua
+(method) Selector:pick()
+  -> Unit[]
+```
+
+ 进行选取
+## sort_type
+
+```lua
+(method) Selector:sort_type(st: Selector.SortType)
+  -> Selector
+```
+
+ 排序 - 按照某种方式排序
 ## with_tag
 
 ```lua
@@ -127,9 +177,16 @@ function Selector.create()
 ## without_tag
 
 ```lua
-(method) Selector:without_tag(tag: string)
+(method) Selector:without_tag(tag?: string)
   -> Selector
 ```
 
  条件 - 不拥有特定标签
+
+# Selector.SortType
+
+```lua
+"由近到远" | "由远到近" | "随机"
+```
+
 

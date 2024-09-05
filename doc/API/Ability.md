@@ -176,7 +176,7 @@ print('结果为：', result)
 ## event_dispatch_with_args
 
 ```lua
-(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any[], ...any)
+(method) CustomEvent:event_dispatch_with_args(event_name: string, args: any, ...any)
   -> any
   2. any
   3. any
@@ -266,7 +266,7 @@ Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 
 ```lua
 function Ability.get_by_handle(py_ability: py.Ability)
-  -> ability: Ability
+  -> ability: Ability?
 ```
 
 通过py层的技能实例获取lua层的技能实例
@@ -324,10 +324,20 @@ function Ability.get_by_id(id: integer)
 ```
 
 获取技能描述
+## get_description_by_key
+
+```lua
+function Ability.get_description_by_key(ability_key: py.AbilityKey)
+  -> des: string
+```
+
+根据技能的key获取技能描述
+
+@*return* `des` — 描述
 ## get_float_attr
 
 ```lua
-(method) Ability:get_float_attr(key: string)
+(method) Ability:get_float_attr(key: string|y3.Const.AbilityFloatAttr)
   -> value: number
 ```
 
@@ -410,7 +420,7 @@ function Ability.get_icon_by_key(ability_key: py.AbilityKey)
 ## get_int_attr
 
 ```lua
-(method) Ability:get_int_attr(key: string)
+(method) Ability:get_int_attr(key: string|y3.Const.AbilityIntAttr)
   -> value: number
 ```
 
@@ -459,6 +469,14 @@ function Ability.get_int_attr_by_key(ability_key: py.AbilityKey, key: string)
  获取技能等级
 
 @*return* `level` — 等级
+## get_max_cd
+
+```lua
+(method) Ability:get_max_cd()
+  -> number
+```
+
+获取技能最大CD
 ## get_name
 
 ```lua
@@ -466,11 +484,21 @@ function Ability.get_int_attr_by_key(ability_key: py.AbilityKey, key: string)
   -> string
 ```
 
+## get_name_by_key
+
+```lua
+function Ability.get_name_by_key(ability_key: py.AbilityKey)
+  -> name: string
+```
+
+根据技能的key获取技能名字
+
+@*return* `name` — 技能名字
 ## get_owner
 
 ```lua
 (method) Ability:get_owner()
-  -> owner: Unit
+  -> owner: Unit?
 ```
 
 获取技能的拥有者
@@ -645,6 +673,13 @@ function Ability.is_cd_reduce_by_key(ability_key: py.AbilityKey)
 消耗生命是否会死亡
 
 @*return* `is_cost` — 消耗生命是否会死亡
+## is_destroyed
+
+```lua
+(method) Ability:is_destroyed()
+  -> boolean|unknown
+```
+
 ## is_exist
 
 ```lua
@@ -854,7 +889,7 @@ unknown
 ## set_float_attr
 
 ```lua
-(method) Ability:set_float_attr(key: string, value: number)
+(method) Ability:set_float_attr(key: string|y3.Const.AbilityFloatAttr, value: number)
 ```
 
 设置实数属性
@@ -874,7 +909,7 @@ unknown
 ## set_int_attr
 
 ```lua
-(method) Ability:set_int_attr(key: string, value: integer)
+(method) Ability:set_int_attr(key: string|y3.Const.AbilityIntAttr, value: integer)
 ```
 
 设置整数属性
@@ -1003,6 +1038,14 @@ function Ability.set_smart_cast_with_pointer(player: Player, state: boolean)
 显示技能指示器
 
 @*param* `player` — 玩家
+## storage_all
+
+```lua
+(method) Storage:storage_all()
+  -> table
+```
+
+ 获取存储数据的容器
 ## storage_get
 
 ```lua

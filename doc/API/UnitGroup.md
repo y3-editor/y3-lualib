@@ -67,7 +67,7 @@ function UnitGroup.get_by_handle(py_unit_group: py.UnitGroup)
 
 ```lua
 (method) UnitGroup:get_last()
-  -> unit: Unit
+  -> unit: Unit?
 ```
 
 获取单位组内最后一个单位
@@ -77,7 +77,7 @@ function UnitGroup.get_by_handle(py_unit_group: py.UnitGroup)
 
 ```lua
 (method) UnitGroup:get_random()
-  -> unit: Unit
+  -> unit: Unit?
 ```
 
 获取单位组中随机一个单位

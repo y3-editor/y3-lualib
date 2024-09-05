@@ -76,6 +76,14 @@ table
 string[]
 ```
 
+## isReloading
+
+```lua
+function Reload.isReloading()
+  -> boolean
+```
+
+是否正在重载
 ## isValidName
 
 ```lua
@@ -110,6 +118,15 @@ function Reload.onBeforeReload(callback: Reload.beforeReloadCallback)
 (Reload.Optional)?
 ```
 
+## recycle
+
+```lua
+function Reload.recycle(callback: fun(trash: fun(obj: <R2>):<R2>):<R1>?)
+  -> <R1>
+```
+
+立即执行回调函数，之后每当发生重载时，
+会再次执行这个回调函数。
 ## reload
 
 ```lua

@@ -55,6 +55,13 @@ string
 
 # Beam.CreateData
 
+## follow_scale
+
+```lua
+boolean
+```
+
+是否跟随缩放（只在起点是单位时生效）
 ## immediate
 
 ```lua

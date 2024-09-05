@@ -38,6 +38,12 @@ unknown
 table
 ```
 
+## projectile
+
+```lua
+unknown
+```
+
 ## unit
 
 ```lua
@@ -138,7 +144,7 @@ lua_type:
 ## new
 
 ```lua
-(method) EditorObject.Ability:new()
+(method) EditorObject.Ability:new(new_default_key?: py.AbilityKey, data?: table)
   -> EditorObject.Ability
 ```
 
@@ -375,6 +381,7 @@ string
 
 ```lua
 (method) EditorObject.Event:event(name: string, callback: function)
+  -> Trigger
 ```
 
 ## event_manager
@@ -550,6 +557,125 @@ string
 ```
 
 
+# EditorObject.Projectile
+
+## data
+
+```lua
+Object.Projectile
+```
+
+投射物的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+> 警告：请确保数据类型正确，否则可能导致崩溃  
+> 警告：如果创建过此投射物再修改数据，行为是未定义的
+## data_key
+
+```lua
+string
+```
+
+## event
+
+```lua
+fun(self: EditorObject.Projectile, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)):Trigger
+```
+
+## event_manager
+
+```lua
+unknown
+```
+
+## get_key
+
+```lua
+fun(self: any):integer
+```
+
+## handle
+
+```lua
+unknown?
+```
+
+## key
+
+```lua
+py.ProjectileKey
+```
+
+投射物编号
+## kv_has
+
+```lua
+(method) KV:kv_has(key: string)
+  -> boolean
+```
+
+ 是否拥有指定键值对。可以与ECA互通。
+## kv_key
+
+```lua
+string
+```
+
+## kv_load
+
+```lua
+(method) KV:kv_load(key: string, lua_type: 'boolean'|'integer'|'number'|'string'|'table'...(+1))
+  -> any
+```
+
+```lua
+lua_type:
+    | 'boolean'
+    | 'number'
+    | 'integer'
+    | 'string'
+    | 'table'
+```
+## kv_remove
+
+```lua
+(method) KV:kv_remove(key: any)
+```
+
+## kv_save
+
+```lua
+(method) KV:kv_save(key: string, value: KV.SupportType)
+```
+
+ 保存自定义键值对。可以与ECA互通。
+## new
+
+```lua
+(method) EditorObject.Projectile:new()
+  -> EditorObject.Projectile
+```
+
+以此投射物为模板创建新的投射物
+## on_create
+
+```lua
+fun(projectile: Projectile)
+```
+
+投射物创建时执行
+## on_remove
+
+```lua
+fun(projectile: Projectile)
+```
+
+投射物销毁时执行
+## type
+
+```lua
+string
+```
+
+
 # EditorObject.Unit
 
 ## data
@@ -643,7 +769,7 @@ lua_type:
 ## new
 
 ```lua
-(method) EditorObject.Unit:new()
+(method) EditorObject.Unit:new(new_default_key?: py.UnitKey, data?: table)
   -> EditorObject.Unit
 ```
 

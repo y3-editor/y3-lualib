@@ -3,19 +3,19 @@
 ## SfxVisibleType
 
 ```lua
-table
+enum Enum.SfxVisibleType
 ```
 
 ## UnitCommandTypeEnum
 
 ```lua
-table
+enum Enum.UnitCommandTypeEnum
 ```
 
 ## UnitGroupCommandTypeEnum
 
 ```lua
-table
+enum Enum.UnitGroupCommandTypeEnum
 ```
 
 
