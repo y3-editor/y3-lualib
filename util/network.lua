@@ -3,7 +3,7 @@
 local M = Class 'Network'
 
 ---@private
----@type 'new' | 'inited' | 'started' | 'connected' | 'disconnected' | 'error' | 'dead'
+---@type 'new' | 'inited' | 'started' | 'connected' | 'disconnected' | 'error' | 'dead' | 'sleep'
 M.state = 'new'
 
 ---@private
@@ -40,7 +40,8 @@ function M:__init(ip, port, options)
         self:update()
     end)
     self.retry_timer = y3.ctimer.loop(self.options.retry_interval, function (t)
-        if self.state ~= 'started' then
+        if  self.state ~= 'started'
+        and self.state ~= 'sleep' then
             t:remove()
             return
         end
@@ -86,6 +87,7 @@ function M:update()
     if self.state == 'new' then
         local ok, suc, err = pcall(self.handle.init, self.handle, self.ip, self.port, self.options.buffer_size)
         if not ok then
+            self.state = 'sleep'
             return
         end
         if not suc then
