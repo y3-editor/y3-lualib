@@ -84,7 +84,10 @@ function M:update()
     end
     self.handle:run_once()
     if self.state == 'new' then
-        local suc, err = self.handle:init(self.ip, self.port, self.options.buffer_size)
+        local ok, suc, err = pcall(self.handle.init, self.handle, self.ip, self.port, self.options.buffer_size)
+        if not ok then
+            return
+        end
         if not suc then
             self:make_error(err)
             return
