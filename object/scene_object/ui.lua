@@ -346,6 +346,13 @@ function M:set_input_field_focus()
     return self
 end
 
+--让输入框失去焦点
+---@return self
+function M:set_input_field_not_focus()
+    GameAPI.set_input_field_not_focus(self.player.handle, self.handle)
+    return self
+end
+
 --设置列表视图百分比
 ---@param percent number # 百分比
 function M:set_list_view_percent(percent)
