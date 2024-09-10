@@ -17,6 +17,9 @@ function M:__init(player, handle)
 end
 
 function M:__del()
+    if self:is_removed() then
+        return
+    end
     local parent_ui = self:get_parent()
     if parent_ui ~= nil then
         parent_ui:remove_get_child_cache(self.name)
@@ -1058,6 +1061,9 @@ function M:get_child(name)
         py_ui = self._get_child_py_ui_cache[name]
     end
     if not py_ui or py_ui == '' then
+        return nil
+    end
+    if not GameAPI.ui_comp_is_exist(py_ui) then
         return nil
     end
     return y3.ui.get_by_handle(self.player, py_ui)
