@@ -69,17 +69,31 @@ function M.save_string(player, slot, value)
     player.phandle:set_save_data_str_value(slot, value)
 end
 
+---@type table<Player, table<integer, [table, boolean]>>
+M.player_tables = y3.util.multiTable(2)
+
 -- 获取玩家的存档数据（表）
 ---@param player Player
 ---@param slot integer
 ---@param disable_cover boolean # 是否禁用覆盖，必须和存档设置中的一致
 ---@return table
 function M.load_table(player, slot, disable_cover)
-    if disable_cover then
-        return M.load_table_with_cover_disable(player, slot)
-    else
-        return M.load_table_with_cover_enable(player, slot)
+    local last_table = M.player_tables[player][slot]
+    if last_table then
+        if last_table[2] == disable_cover then
+            return last_table[1]
+        end
+        error('存档的覆盖类型设置与上次不一致！')
     end
+    last_table = {}
+    M.player_tables[player][slot] = last_table
+    if disable_cover then
+        last_table[1] = M.load_table_with_cover_disable(player, slot)
+    else
+        last_table[1] = M.load_table_with_cover_enable(player, slot)
+    end
+    last_table[2] = disable_cover
+    return last_table[1]
 end
 
 -- 保存玩家的存档数据（表），存档设置中必须使用允许覆盖模式
