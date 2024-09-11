@@ -55,6 +55,18 @@ M.config["游戏-逻辑不同步"] = {
     },
 }
 
+---@alias EventParam.游戏-地形预设加载完成 EventParam.ET_SCENE_PRESET_LOADING_FINISH
+M.config["游戏-地形预设加载完成"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_SCENE_PRESET_LOADING_FINISH",
+    name = "游戏-地形预设加载完成",
+    params = {
+    },
+}
+
 ---@alias EventParam.未知-ET_RECV_TRIGGER EventParam.ET_RECV_TRIGGER
 M.config["未知-ET_RECV_TRIGGER"] = {
     __class__ = "EventConfigBuilder",
@@ -3769,34 +3781,11 @@ M.config["控制台-请求补全"] = {
     },
 }
 
----@alias EventParam.对话框-点击 EventParam.ET_DIALOG_EVENT
-M.config["对话框-点击"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "对话框任意按钮被点击时触发",
-    extraArgs = {
-    },
-    key = "ET_DIALOG_EVENT",
-    name = "对话框-点击",
-    params = {
-    },
-}
-
----@alias EventParam.对话框-点击按钮 EventParam.ET_DIALOG_BUTTON_EVENT
-M.config["对话框-点击按钮"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "对话框按钮被点击时触发",
-    extraArgs = {
-    },
-    key = "ET_DIALOG_BUTTON_EVENT",
-    name = "对话框-点击按钮",
-    params = {
-    },
-}
-
 ---@class Game
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
 ---@field event fun(self: self, event: "游戏-逻辑不同步", callback: fun(trg: Trigger, data: EventParam.游戏-逻辑不同步)): Trigger
+---@field event fun(self: self, event: "游戏-地形预设加载完成", callback: fun(trg: Trigger, data: EventParam.游戏-地形预设加载完成)): Trigger
 ---@field event fun(self: self, event: "游戏-结束", callback: fun(trg: Trigger, data: EventParam.游戏-结束)): Trigger
 ---@field event fun(self: self, event: "游戏-暂停", callback: fun(trg: Trigger, data: EventParam.游戏-暂停)): Trigger
 ---@field event fun(self: self, event: "游戏-恢复", callback: fun(trg: Trigger, data: EventParam.游戏-恢复)): Trigger
@@ -3991,8 +3980,6 @@ M.config["对话框-点击按钮"] = {
 ---@field event fun(self: self, event: "玩家-平台商城窗口变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台商城窗口变化)): Trigger
 ---@field event fun(self: self, event: "控制台-输入", callback: fun(trg: Trigger, data: EventParam.控制台-输入)): Trigger
 ---@field event fun(self: self, event: "控制台-请求补全", callback: fun(trg: Trigger, data: EventParam.控制台-请求补全)): Trigger
----@field event fun(self: self, event: "对话框-点击", callback: fun(trg: Trigger, data: EventParam.对话框-点击)): Trigger
----@field event fun(self: self, event: "对话框-点击按钮", callback: fun(trg: Trigger, data: EventParam.对话框-点击按钮)): Trigger
 
 ---@class Ability
 ---@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
