@@ -34,6 +34,11 @@ event.ET_REPEAT_TIMEOUT_BY_FRAME = {}
 --游戏初始化
 event.ET_GAME_INIT = {}
 
+---@class EventParam.ET_ECA_INIT
+
+--ECA初始化
+event.ET_ECA_INIT = {}
+
 ---@class EventParam.ET_LOADING_END
 
 --Loading结束
@@ -1038,6 +1043,39 @@ event.ET_ROLE_RECONNECT = {
         lua_type = "Player",
         desc = "玩家ID",
         lua_desc = "玩家",
+    },
+}
+
+---@class EventParam.ET_ROLE_ARCHIVE_SET_FAILED
+---@field player Player # 玩家
+---@field archive_slot_name string # 玩家存档槽名称
+---@field error_code integer # 错误码
+
+--玩家存档设置失败
+event.ET_ROLE_ARCHIVE_SET_FAILED = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__archive_slot_name",
+        type = "string",
+        lua_name = "archive_slot_name",
+        lua_type = "string",
+        desc = "玩家存档槽名称",
+        lua_desc = "玩家存档槽名称",
+    },
+    [3] = {
+        name = "__error_code",
+        type = "integer",
+        lua_name = "error_code",
+        lua_type = "integer",
+        desc = "错误码",
+        lua_desc = "错误码",
     },
 }
 
@@ -2727,7 +2765,7 @@ event.ET_UNIT_PRE_ADD_EXP = {
     },
     [2] = {
         name = "__add_exp",
-        type = "py.Fixed",
+        type = "number",
         lua_name = "add_exp",
         lua_type = "number",
         desc = "增加的经验",
@@ -2737,7 +2775,7 @@ event.ET_UNIT_PRE_ADD_EXP = {
 
 ---@class EventParam.ET_UNIT_ON_ADD_EXP
 ---@field unit Unit # 获得经验的单位
----@field add_exp integer # 增加的经验
+---@field add_exp number # 增加的经验
 
 --单位获得经验
 event.ET_UNIT_ON_ADD_EXP = {
@@ -2751,9 +2789,9 @@ event.ET_UNIT_ON_ADD_EXP = {
     },
     [2] = {
         name = "__add_exp",
-        type = "integer",
+        type = "number",
         lua_name = "add_exp",
-        lua_type = "integer",
+        lua_type = "number",
         desc = "增加的经验",
         lua_desc = "增加的经验",
     },
@@ -2958,26 +2996,6 @@ event.ET_UNIT_CREATE_SLAVE = {
 --单位动画播放完成
 event.UNIT_ANIMATION_FINISHED_EVENT = {}
 
----@class EventParam.ET_UNIT_LOAD_DEFAULT_AI
-
---单位切换默认行为
-event.ET_UNIT_LOAD_DEFAULT_AI = {}
-
----@class EventParam.ET_UNIT_TRY_ACQUIRE_TARGET
----@field unit Unit # 单位
-
---单位即将尝试索敌
-event.ET_UNIT_TRY_ACQUIRE_TARGET = {
-    [1] = {
-        name = "__unit_id",
-        type = "py.UnitID",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "单位id",
-        lua_desc = "单位",
-    },
-}
-
 ---@class EventParam.ET_UNIT_TRY_PICK_ITEM
 ---@field unit Unit # 单位
 ---@field equip_slot_type py.SlotType # 背包类型
@@ -3002,6 +3020,26 @@ event.ET_UNIT_TRY_PICK_ITEM = {
     },
 }
 
+---@class EventParam.ET_UNIT_LOAD_DEFAULT_AI
+
+--单位切换默认行为
+event.ET_UNIT_LOAD_DEFAULT_AI = {}
+
+---@class EventParam.ET_UNIT_TRY_ACQUIRE_TARGET
+---@field unit Unit # 单位
+
+--单位即将尝试索敌
+event.ET_UNIT_TRY_ACQUIRE_TARGET = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位id",
+        lua_desc = "单位",
+    },
+}
+
 ---@class EventParam.ET_UNIT_ACQUIRED_TARGET
 ---@field unit Unit # 单位
 ---@field target_unit Unit # 目标单位
@@ -3023,6 +3061,234 @@ event.ET_UNIT_ACQUIRED_TARGET = {
         lua_type = "Unit",
         desc = "目标单位",
         lua_desc = "目标单位",
+    },
+}
+
+---@class EventParam.ET_HITBOX_CONTACT
+---@field source_unit Unit # 攻击单位
+---@field target_unit Unit # 目标单位
+---@field hitbox_name string # 攻击盒
+---@field target_hitbox_name string # 受击盒
+---@field collision_pos py.FPoint # 碰撞点
+---@field collision_normal py.FPoint # 碰撞法向量
+
+--打击盒发生碰撞
+event.ET_HITBOX_CONTACT = {
+    [1] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "攻击单位",
+        lua_desc = "攻击单位",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "目标单位",
+        lua_desc = "目标单位",
+    },
+    [3] = {
+        name = "__hitbox_name",
+        type = "string",
+        lua_name = "hitbox_name",
+        lua_type = "string",
+        desc = "攻击盒",
+        lua_desc = "攻击盒",
+    },
+    [4] = {
+        name = "__target_hitbox_name",
+        type = "string",
+        lua_name = "target_hitbox_name",
+        lua_type = "string",
+        desc = "受击盒",
+        lua_desc = "受击盒",
+    },
+    [5] = {
+        name = "__collision_pos",
+        type = "py.FPoint",
+        lua_name = "collision_pos",
+        lua_type = "py.FPoint",
+        desc = "碰撞点",
+        lua_desc = "碰撞点",
+    },
+    [6] = {
+        name = "__collision_normal",
+        type = "py.FPoint",
+        lua_name = "collision_normal",
+        lua_type = "py.FPoint",
+        desc = "碰撞法向量",
+        lua_desc = "碰撞法向量",
+    },
+}
+
+---@class EventParam.ET_RECEIVE_HITBOX_CONTACT
+---@field source_unit Unit # 攻击单位
+---@field target_unit Unit # 目标单位
+---@field ability Ability # 技能对象
+---@field hitbox_name string # 攻击盒
+---@field target_hitbox_name string # 受击盒
+---@field collision_pos py.FPoint # 碰撞点
+---@field collision_normal py.FPoint # 碰撞法向量
+
+--受击盒碰撞事件
+event.ET_RECEIVE_HITBOX_CONTACT = {
+    [1] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "攻击单位",
+        lua_desc = "攻击单位",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "目标单位",
+        lua_desc = "目标单位",
+    },
+    [3] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "技能对象",
+        lua_desc = "技能对象",
+    },
+    [4] = {
+        name = "__hitbox_name",
+        type = "string",
+        lua_name = "hitbox_name",
+        lua_type = "string",
+        desc = "攻击盒",
+        lua_desc = "攻击盒",
+    },
+    [5] = {
+        name = "__target_hitbox_name",
+        type = "string",
+        lua_name = "target_hitbox_name",
+        lua_type = "string",
+        desc = "受击盒",
+        lua_desc = "受击盒",
+    },
+    [6] = {
+        name = "__collision_pos",
+        type = "py.FPoint",
+        lua_name = "collision_pos",
+        lua_type = "py.FPoint",
+        desc = "碰撞点",
+        lua_desc = "碰撞点",
+    },
+    [7] = {
+        name = "__collision_normal",
+        type = "py.FPoint",
+        lua_name = "collision_normal",
+        lua_type = "py.FPoint",
+        desc = "碰撞法向量",
+        lua_desc = "碰撞法向量",
+    },
+}
+
+---@class EventParam.ET_ABILITY_CAST_PARALLEL
+---@field ability Ability # 技能对象
+
+--技能并发
+event.ET_ABILITY_CAST_PARALLEL = {
+    [1] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "技能对象",
+        lua_desc = "技能对象",
+    },
+}
+
+---@class EventParam.ET_HITBOX_STAY
+---@field unit Unit # 单位
+---@field target_unit Unit # 目标单位
+---@field hitbox_id integer # 打击盒id
+---@field target_hitbox_id integer # 目标打击盒id
+
+--打击盒停留
+event.ET_HITBOX_STAY = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位id",
+        lua_desc = "单位",
+    },
+    [2] = {
+        name = "__target_unit_id",
+        type = "py.UnitID",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "目标单位id",
+        lua_desc = "目标单位",
+    },
+    [3] = {
+        name = "__hitbox_id",
+        type = "integer",
+        lua_name = "hitbox_id",
+        lua_type = "integer",
+        desc = "打击盒id",
+        lua_desc = "打击盒id",
+    },
+    [4] = {
+        name = "__target_hitbox_id",
+        type = "integer",
+        lua_name = "target_hitbox_id",
+        lua_type = "integer",
+        desc = "目标打击盒id",
+        lua_desc = "目标打击盒id",
+    },
+}
+
+---@class EventParam.ET_HITBOX_EXIT
+---@field unit Unit # 单位
+---@field target_unit Unit # 目标单位
+---@field hitbox_id integer # 打击盒id
+---@field target_hitbox_id integer # 目标打击盒id
+
+--打击盒离开
+event.ET_HITBOX_EXIT = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位id",
+        lua_desc = "单位",
+    },
+    [2] = {
+        name = "__target_unit_id",
+        type = "py.UnitID",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "目标单位id",
+        lua_desc = "目标单位",
+    },
+    [3] = {
+        name = "__hitbox_id",
+        type = "integer",
+        lua_name = "hitbox_id",
+        lua_type = "integer",
+        desc = "打击盒id",
+        lua_desc = "打击盒id",
+    },
+    [4] = {
+        name = "__target_hitbox_id",
+        type = "integer",
+        lua_name = "target_hitbox_id",
+        lua_type = "integer",
+        desc = "目标打击盒id",
+        lua_desc = "目标打击盒id",
     },
 }
 
@@ -6597,6 +6863,90 @@ event.ET_ASYNC_MOUSE_WHEEL_EVENT = {
 --本地鼠标移动事件(勿通过该事件进行逻辑操作)
 event.LOCAL_MOUSE_MOVE_EVENT = {}
 
+---@class EventParam.MOUSE_DOWN_RAW_INPUT_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.KeyboardKey # 当前鼠标按键
+---@field pointing_world_pos Point # 鼠标所在位置
+---@field unit_group_id_list UnitGroup # 事件发生时鼠标点中单位
+
+--鼠标点击原始输入事件
+event.MOUSE_DOWN_RAW_INPUT_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.KeyboardKey",
+        lua_name = "current_key",
+        lua_type = "py.KeyboardKey",
+        desc = "当前鼠标按键",
+        lua_desc = "当前鼠标按键",
+    },
+    [3] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "鼠标所在位置",
+        lua_desc = "鼠标所在位置",
+    },
+    [4] = {
+        name = "__unit_group_id_list",
+        type = "py.UnitGroup",
+        lua_name = "unit_group_id_list",
+        lua_type = "UnitGroup",
+        desc = "事件发生时鼠标点中单位",
+        lua_desc = "事件发生时鼠标点中单位",
+    },
+}
+
+---@class EventParam.MOUSE_UP_RAW_INPUT_EVENT
+---@field player Player # 触发按键的玩家
+---@field current_key py.KeyboardKey # 当前鼠标按键
+---@field pointing_world_pos Point # 鼠标所在位置
+---@field unit_group_id_list UnitGroup # 事件发生时鼠标点中单位
+
+--鼠标抬起原始输入事件
+event.MOUSE_UP_RAW_INPUT_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__current_key",
+        type = "py.KeyboardKey",
+        lua_name = "current_key",
+        lua_type = "py.KeyboardKey",
+        desc = "当前鼠标按键",
+        lua_desc = "当前鼠标按键",
+    },
+    [3] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "鼠标所在位置",
+        lua_desc = "鼠标所在位置",
+    },
+    [4] = {
+        name = "__unit_group_id_list",
+        type = "py.UnitGroup",
+        lua_name = "unit_group_id_list",
+        lua_type = "UnitGroup",
+        desc = "事件发生时鼠标点中单位",
+        lua_desc = "事件发生时鼠标点中单位",
+    },
+}
+
 ---@class EventParam.ET_UNIT_EVENT_TO_GLOBAL
 ---@field event_name string # 事件名
 ---@field point Point # 点
@@ -8800,54 +9150,6 @@ event.ET_EVENT_CUSTOM = {
     },
 }
 
----@class EventParam.ET_EVENT_CUSTOM_CLIENT
----@field c_param_1 integer # 事件参数
----@field c_param_dict py.Dict # 自定义参数列表
-
---本地自定义事件
-event.ET_EVENT_CUSTOM_CLIENT = {
-    [1] = {
-        name = "__c_param_1",
-        type = "integer",
-        lua_name = "c_param_1",
-        lua_type = "integer",
-        desc = "事件参数",
-        lua_desc = "事件参数",
-    },
-    [2] = {
-        name = "__c_param_dict",
-        type = "py.Dict",
-        lua_name = "c_param_dict",
-        lua_type = "py.Dict",
-        desc = "自定义参数列表",
-        lua_desc = "自定义参数列表",
-    },
-}
-
----@class EventParam.ET_EVENT_CUSTOM_BROADCAST
----@field c_param_1 integer # 事件参数
----@field c_param_dict py.Dict # 自定义参数列表
-
---自定义广播事件
-event.ET_EVENT_CUSTOM_BROADCAST = {
-    [1] = {
-        name = "__c_param_1",
-        type = "integer",
-        lua_name = "c_param_1",
-        lua_type = "integer",
-        desc = "事件参数",
-        lua_desc = "事件参数",
-    },
-    [2] = {
-        name = "__c_param_dict",
-        type = "py.Dict",
-        lua_name = "c_param_dict",
-        lua_type = "py.Dict",
-        desc = "自定义参数列表",
-        lua_desc = "自定义参数列表",
-    },
-}
-
 ---@class EventParam.UI_VX_EVENT
 ---@field ui_vx_handler string # 动销回调句柄
 ---@field comp_name string # 控件uid
@@ -9397,42 +9699,77 @@ event.ET_LUA_CONSOLE_TIPS = {
     },
 }
 
----@class EventParam.ET_DIALOG_EVENT
----@field dialog_id integer # 对话框id
+---@class EventParam.ET_MALL_NOTIFY_FRIEND_NEW
+---@field str1 string # 申请者名称
 
---对话框-点击
-event.ET_DIALOG_EVENT = {
+--steam大厅收到好友申请事件
+event.ET_MALL_NOTIFY_FRIEND_NEW = {
     [1] = {
-        name = "__dialog_id",
-        type = "integer",
-        lua_name = "dialog_id",
-        lua_type = "integer",
-        desc = "对话框id",
-        lua_desc = "对话框id",
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "申请者名称",
+        lua_desc = "申请者名称",
     },
 }
 
----@class EventParam.ET_DIALOG_BUTTON_EVENT
----@field dialog_id integer # 对话框id
----@field button_id integer # 按钮id
+---@class EventParam.ET_MALL_NOTIFY_FRIEND_DELETE
+---@field int1 integer # 删除者ID
 
---对话框按钮-点击
-event.ET_DIALOG_BUTTON_EVENT = {
+--steam大厅收到被好友删除事件
+event.ET_MALL_NOTIFY_FRIEND_DELETE = {
     [1] = {
-        name = "__dialog_id",
+        name = "__int1",
         type = "integer",
-        lua_name = "dialog_id",
+        lua_name = "int1",
         lua_type = "integer",
-        desc = "对话框id",
-        lua_desc = "对话框id",
+        desc = "删除者ID",
+        lua_desc = "删除者ID",
+    },
+}
+
+---@class EventParam.ET_MALL_NOTIFY_FRIEND_UPDATE
+---@field int1 integer # 好友在线状态
+
+--steam大厅好友在线状态变化事件
+event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
+    [1] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "好友在线状态",
+        lua_desc = "好友在线状态",
+    },
+}
+
+---@class EventParam.ET_MALL_NOTIFY_TEAM_UPDATE
+
+--steam大厅本地玩家队伍发生变化
+event.ET_MALL_NOTIFY_TEAM_UPDATE = {}
+
+---@class EventParam.ET_MALL_NOTIFY_TEAM_INVITE
+---@field int1 integer # 发送方ID
+---@field str1 string # 发送方名称
+
+--steam大厅收到队伍邀请
+event.ET_MALL_NOTIFY_TEAM_INVITE = {
+    [1] = {
+        name = "__int1",
+        type = "integer",
+        lua_name = "int1",
+        lua_type = "integer",
+        desc = "发送方ID",
+        lua_desc = "发送方ID",
     },
     [2] = {
-        name = "__button_id",
-        type = "integer",
-        lua_name = "button_id",
-        lua_type = "integer",
-        desc = "按钮id",
-        lua_desc = "按钮id",
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "发送方名称",
+        lua_desc = "发送方名称",
     },
 }
 
