@@ -98,17 +98,32 @@ function M:subscribe_event(event_name, ...)
 end
 
 local function get_master(datas, config, lua_params)
-    local master = config.master
-    if master then
-        return lua_params[master]
-    end
-    for _, data in ipairs(datas) do
-        if data.lua_type == config.object then
-            master = data.lua_name
-            config.master = master
-            return lua_params[data.lua_name]
+    local master = config.master_data
+    if not master then
+        if config.master then
+            for _, data in ipairs(datas) do
+                if data.lua_name == config.master then
+                    master = data
+                    break
+                end
+            end
+        else
+            for _, data in ipairs(datas) do
+                if data.lua_type == config.object then
+                    master = data
+                    break
+                end
+            end
         end
+        config.master_data = master
     end
+    local py_object = lua_params._py_params[master.name]
+    -- 如果一个py对象从来没有被初始化过，
+    -- 那么他身上一定不会挂载任何事件，可以直接跳过
+    if type(py_object) == 'userdata' and not y3.py_proxy.fetch(py_object) then
+        return nil
+    end
+    return lua_params[master.lua_name]
 end
 
 local function event_notify(event_name, extra_args, lua_params)
