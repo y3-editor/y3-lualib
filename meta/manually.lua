@@ -125,6 +125,7 @@ function python.debug_ns_timestamp() end
 ---@field set_init_height          fun(init_height: py.Fixed)
 ---@field set_fin_height           fun(fin_height: py.Fixed)
 ---@field set_is_open_init_height  fun(is_open_init_height: boolean)
+---@field set_is_open_fin_height   fun(is_open_fin_height: boolean)
 
 ---@class py.MoverRoundBuilder: py.MoverBaseBuilder
 ---@field set_is_to_unit             fun(is_to_unit: boolean)

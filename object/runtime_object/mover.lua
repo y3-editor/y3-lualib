@@ -246,7 +246,9 @@ function M.wrap_curve_args(args)
     if builder.set_is_open_init_height then
         builder.set_is_open_init_height(args.init_height ~= nil)
     end
-
+    if builder.set_is_open_fin_height then
+        builder.set_is_open_fin_height(args.fin_height ~= nil)
+    end
     return builder
 end
 
