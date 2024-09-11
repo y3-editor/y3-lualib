@@ -62,7 +62,7 @@ function M.build_params_lazy_mt(event_data)
             if not param then
                 return nil
             end
-            local nil_map = data._nil_map
+            local nil_map = rawget(data, '_nil_map')
             if nil_map and nil_map[k] then
                 return nil
             end
