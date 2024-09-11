@@ -41,7 +41,7 @@ local proxyMT = { __index = function (self, key)
         return middleman
     end
     if tp == 'nil' then
-        if self[DEAD] and not self[ISEXISTS](raw) then
+        if not self[ISEXISTS](raw) then
             return dummy
         end
     end
