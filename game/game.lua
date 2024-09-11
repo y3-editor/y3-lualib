@@ -873,6 +873,19 @@ function M.world_pos_to_screen_edge_pos(world_pos, delta_dis)
     return x, y
 end
 
+---创建地形预设
+---@param point Point # 点
+---@param level_id string # 关卡ID，通过 `y3.game.get_level()` 获取
+---@param rotate? integer # 旋转角度
+---@param has_light? boolean # 是否携带灯光
+---@param has_decoration? boolean # 是否携带装饰物
+---@param has_fog? boolean # 是否携带雾效
+---@param has_collision? boolean # 是否携带碰撞
+function M.load_sub_scene(point, level_id, rotate, has_light, has_decoration, has_fog, has_collision)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    GameAPI.load_sub_scene(point.handle, level_id, rotate or 0, has_light or false, has_decoration or false, has_fog or false, has_collision or false)
+end
+
 --本地客户端每帧回调此函数  
 --只能注册一个回调，后注册的会覆盖之前的，
 --如有需要请自己在回调中分发
