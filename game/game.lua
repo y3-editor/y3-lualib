@@ -6,6 +6,7 @@ require 'y3.game.object_event'
 local M = Class 'Game'
 
 ---设置物体的材质
+---@deprecated
 ---@param obj Unit
 ---@param mat integer 材质
 ---@param r number 红
