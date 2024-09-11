@@ -59,3 +59,6 @@ end
 -- @detail 接受消息函数不会把消息从缓冲区移除
 function KKNetwork:peek(length)
 end
+
+function KKNetwork:reset()
+end

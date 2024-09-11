@@ -45,8 +45,12 @@ function M:__init(ip, port, options)
             t:remove()
             return
         end
-        self.handle:destroy()
-        self.handle = KKNetwork()
+        if self.handle.reset then
+            self.handle:reset()
+        else
+            self.handle:destroy()
+            self.handle = KKNetwork()
+        end
         self.state = 'new'
         self:update()
     end)
@@ -117,6 +121,7 @@ function M:update()
             self.state = 'disconnected'
             self.handle:stop()
             self:callback('disconnected')
+            self:remove()
             return
         end
         local send_buffer = self._send_buffer
