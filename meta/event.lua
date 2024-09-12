@@ -8821,6 +8821,7 @@ event.ET_SELL_ITEM_CMD = {
 ---@field ability_index py.AbilityIndex # 技能Index
 ---@field ability_seq py.AbilitySeq # 技能SEQ
 ---@field target_item py.Dict # 释放技能参数
+---@field ability Ability # 技能
 
 --释放技能
 event.ET_AI_RELEASE_SKILL_CMD = {
@@ -8863,6 +8864,16 @@ event.ET_AI_RELEASE_SKILL_CMD = {
         lua_type = "py.Dict",
         desc = "释放技能参数",
         lua_desc = "释放技能参数",
+    },
+    [6] = {
+        name = nil,
+        type = nil,
+        lua_name = "ability",
+        lua_type = "Ability",
+        lua_desc = "技能",
+        lua_code = function (data)
+            return data.unit:get_ability_by_seq(data.ability_seq)
+        end,
     },
 }
 

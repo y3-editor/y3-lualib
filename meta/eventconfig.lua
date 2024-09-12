@@ -3649,6 +3649,80 @@ M.config["物品-采集创建"] = {
     },
 }
 
+---@alias EventParam.命令-攻击移动 EventParam.ET_ATTACK_MOVE_CMD
+M.config["命令-攻击移动"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_ATTACK_MOVE_CMD",
+    name = "命令-攻击移动",
+    object = "Unit",
+    params = {
+    },
+}
+
+---@alias EventParam.命令-出售物品 EventParam.ET_SELL_ITEM_CMD
+M.config["命令-出售物品"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_SELL_ITEM_CMD",
+    name = "命令-出售物品",
+    object = "Unit",
+    params = {
+    },
+}
+
+---@alias EventParam.命令-施放技能 EventParam.ET_AI_RELEASE_SKILL_CMD
+M.config["命令-施放技能"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+        [1] = {
+            code = "function (data)\
+    return data.unit:get_ability_by_seq(data.ability_seq)\
+end\
+",
+            desc = "技能",
+            name = "ability",
+            type = "Ability",
+        },
+    },
+    key = "ET_AI_RELEASE_SKILL_CMD",
+    name = "命令-施放技能",
+    object = "Unit",
+    params = {
+    },
+}
+
+---@alias EventParam.命令-巡逻 EventParam.ET_PATROL_CMD
+M.config["命令-巡逻"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_PATROL_CMD",
+    name = "命令-巡逻",
+    object = "Unit",
+    params = {
+    },
+}
+
+---@alias EventParam.命令-移动 EventParam.ET_MOVE_UNIT_TO_TARGET_CMD
+M.config["命令-移动"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_MOVE_UNIT_TO_TARGET_CMD",
+    name = "命令-移动",
+    object = "Unit",
+    params = {
+    },
+}
+
 ---@alias EventParam.鼠标-悬停 EventParam.ET_MOUSE_HOVER_EVENT
 M.config["鼠标-悬停"] = {
     __class__ = "EventConfigBuilder",
@@ -3971,6 +4045,11 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: self, event: "物品-出售", callback: fun(trg: Trigger, data: EventParam.物品-出售)): Trigger
 ---@field event fun(self: self, event: "物品-死亡", callback: fun(trg: Trigger, data: EventParam.物品-死亡)): Trigger
 ---@field event fun(self: self, event: "物品-采集创建", callback: fun(trg: Trigger, data: EventParam.物品-采集创建)): Trigger
+---@field event fun(self: self, event: "命令-攻击移动", callback: fun(trg: Trigger, data: EventParam.命令-攻击移动)): Trigger
+---@field event fun(self: self, event: "命令-出售物品", callback: fun(trg: Trigger, data: EventParam.命令-出售物品)): Trigger
+---@field event fun(self: self, event: "命令-施放技能", callback: fun(trg: Trigger, data: EventParam.命令-施放技能)): Trigger
+---@field event fun(self: self, event: "命令-巡逻", callback: fun(trg: Trigger, data: EventParam.命令-巡逻)): Trigger
+---@field event fun(self: self, event: "命令-移动", callback: fun(trg: Trigger, data: EventParam.命令-移动)): Trigger
 ---@field event fun(self: self, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
 ---@field event fun(self: self, event: "本地-鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.本地-鼠标-悬停)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
@@ -4206,6 +4285,11 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
 ---@field event fun(self: Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
+---@field event fun(self: Unit, event: "命令-攻击移动", callback: fun(trg: Trigger, data: EventParam.命令-攻击移动)): Trigger
+---@field event fun(self: Unit, event: "命令-出售物品", callback: fun(trg: Trigger, data: EventParam.命令-出售物品)): Trigger
+---@field event fun(self: Unit, event: "命令-施放技能", callback: fun(trg: Trigger, data: EventParam.命令-施放技能)): Trigger
+---@field event fun(self: Unit, event: "命令-巡逻", callback: fun(trg: Trigger, data: EventParam.命令-巡逻)): Trigger
+---@field event fun(self: Unit, event: "命令-移动", callback: fun(trg: Trigger, data: EventParam.命令-移动)): Trigger
 
 ---@class EditorObject.Ability
 ---@field event fun(self: EditorObject.Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
@@ -4354,5 +4438,10 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: EditorObject.Unit, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-寻路开始", callback: fun(trg: Trigger, data: EventParam.单位-寻路开始)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-寻路结束", callback: fun(trg: Trigger, data: EventParam.单位-寻路结束)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "命令-攻击移动", callback: fun(trg: Trigger, data: EventParam.命令-攻击移动)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "命令-出售物品", callback: fun(trg: Trigger, data: EventParam.命令-出售物品)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "命令-施放技能", callback: fun(trg: Trigger, data: EventParam.命令-施放技能)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "命令-巡逻", callback: fun(trg: Trigger, data: EventParam.命令-巡逻)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "命令-移动", callback: fun(trg: Trigger, data: EventParam.命令-移动)): Trigger
 
 return M
