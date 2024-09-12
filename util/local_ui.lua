@@ -62,6 +62,7 @@ function M:__init(path_or_ui)
     end
 end
 
+---删除本地UI逻辑
 function M:remove()
     Delete(self)
 end
@@ -223,6 +224,9 @@ end
 ---@param count? integer # 修改元件数量
 ---@param on_create? fun(index: integer, kv: table) # 创建新的元件时回调，`kv` 中默认会将 `index` 设置为这是第几个元件。
 function M:refresh_prefab(prefab_token, count, on_create)
+    if not self._main then
+        error('还未初始化完成，请放到 `on_init` 事件中执行！')
+    end
     for _, info in ipairs(self._prefab_infos) do
         if info.prefab_token ~= prefab_token then
             goto continue
