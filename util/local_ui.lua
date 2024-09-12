@@ -223,7 +223,8 @@ end
 ---@param prefab_token any # 要刷新的元件，默认为绑定时的元件逻辑
 ---@param count? integer # 修改元件数量
 ---@param on_create? fun(index: integer, kv: table) # 创建新的元件时回调，`kv` 中默认会将 `index` 设置为这是第几个元件。
-function M:refresh_prefab(prefab_token, count, on_create)
+---@param on_refresh? fun(ui: UI, local_player: Player, instance: LocalUILogic) # 刷新元件前的回调，你可以趁机通过 `instance:storage_set` 设置元件的属性。
+function M:refresh_prefab(prefab_token, count, on_create, on_refresh)
     if not self._main then
         error('还未初始化完成，请放到 `on_init` 事件中执行！')
     end
@@ -266,7 +267,6 @@ function M:refresh_prefab(prefab_token, count, on_create)
                         end
                         instance:apply_kv(kv)
                         instance:init()
-                        instance:refresh('*')
                     else
                         local ui = y3.ui_prefab.create(local_player, info.prefab_logic._prefab_name, parent):get_child()
                         ---@cast ui -?
@@ -280,6 +280,9 @@ function M:refresh_prefab(prefab_token, count, on_create)
         end
 
         for _, instance in ipairs(instances) do
+            if on_refresh then
+                xpcall(on_refresh, log.error, instance._main, local_player, instance)
+            end
             instance:refresh('*')
         end
         ::continue::
