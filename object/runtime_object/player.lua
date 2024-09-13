@@ -738,4 +738,15 @@ function M:request_random_pool(id, callback)
     end, response)
 end
 
+---请求使用商城道具
+---执行完毕后调用回调函数，通知是否成功
+---@param count integer # 使用数量
+---@param item_id py.StoreKey # 商城道具id
+---@param callback fun(suc: boolean) # 执行完毕后的回调函数
+function M:request_use_item(count, item_id, callback)
+    GameAPI.lua_request_server_role_use_item(self.handle, count, item_id, function (_, suc)
+        callback(suc)
+    end, {})
+end
+
 return M
