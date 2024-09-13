@@ -578,13 +578,16 @@ function M.createRoot(name)
     return root
 end
 
+---@return Develop.Helper.TreeView
 function M.create()
+    local treeView
     y3.player.with_local(function (local_player)
         local name = string.format('仪表盘（%s）', local_player:get_name())
         y3.reload.recycle(function (trash)
-            trash(y3.develop.helper.createTreeView(name, M.createRoot(name)))
+            treeView = trash(y3.develop.helper.createTreeView(name, M.createRoot(name)))
         end)
     end)
+    return treeView
 end
 
 return M

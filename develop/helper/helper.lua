@@ -268,24 +268,28 @@ M._inited = false
 
 --初始化与《Y3开发助手》的连接。如果用VSCode启动游戏，会自动连接。
 --其他情况若有需求可以调用此函数连接。
----@param port? integer
-function M.init(port)
-    if M._inited then
-        return
+---@param port? integer # 目标端口号，若不指定则使用《Y3开发助手》下发的随机端口
+---@param force? boolean # 是否允许重复连接
+---@return { network: Network, explorer: Develop.Helper.TreeView }?
+function M.init(port, force)
+    if M._inited and not force then
+        return nil
     end
     M._inited = true
+    local result = {}
     if port then
-        createClient(port)
-        explorer.create()
+        result.network = createClient(port)
+        result.explorer = explorer.create()
     else
         local suc, port = pcall(require, 'log.helper_port')
         if not suc or math.type(port) ~= 'integer' then
-            return
+            return nil
         end
 
-        createClient(port)
-        explorer.create()
+        result.network = createClient(port)
+        result.explorer = explorer.create()
     end
+    return result
 end
 
 --注册一个方法
