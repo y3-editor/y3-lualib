@@ -167,7 +167,7 @@ function M.load_table_with_cover_enable(player, slot)
             if type(value) == 'table' then
                 return create_proxy(value, custom + 1)
             end
-            return value
+            return y3.helper.as_lua(value)
         end
     }
 
@@ -280,7 +280,7 @@ function M.load_table_with_cover_disable(player, slot)
                 return create_proxy(value, new_path)
             end
 
-            return value
+            return y3.helper.as_lua(value)
         end
     }
 
