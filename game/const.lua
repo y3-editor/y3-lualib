@@ -992,4 +992,15 @@ M.CollisionLayers = {
 ---@enum(key) y3.Const.SceneUI
 M.SceneUI = {}
 
+---@enum(key) y3.Const.PlatFormRoleCommunityType
+M.PlatFormRoleCommunityType = {
+    ['发帖累计获赞'] = 0,
+    ['精华帖数量'] = 1,
+    ['回复帖子的次数'] = 2,
+    ['帖子收到的欢乐数'] = 3,
+    ['是否在社区发过贴'] = 4,
+    ['是否版主'] = 5,
+    ['社区主题数量'] = 6,
+}
+
 return M

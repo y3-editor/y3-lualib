@@ -719,6 +719,13 @@ function M:upload_tracking_data(key, cnt)
     GameAPI.api_upload_user_tracking_data(self.handle, key, cnt)
 end
 
+---获取玩家在社区的互动数据
+---@param community_type y3.Const.PlatFormRoleCommunityType
+---@return integer
+function M:get_community_value(community_type)
+    return self.phandle:api_get_community_value(y3.const.PlatFormRoleCommunityType[community_type] or community_type) or 0
+end
+
 ---请求执行随机池掉落
 ---执行完毕后调用回调函数，返回的参数如下：
 ---* `code`: 结果代码
