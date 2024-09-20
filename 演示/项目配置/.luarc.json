@@ -4,10 +4,19 @@
         "globalapi"
     ],
     "workspace.preloadFileSize": 5000,
+    "runtime.path": [
+        "?.lua",
+        "?/init.lua",
+        "../../../global_script/?.lua",
+        "../../../global_script/?/init.lua"
+    ],
     "runtime.pathStrict": true,
     "runtime.special": {
         "include": "require"
     },
+    "workspace.library": [
+        "../../../global_script"
+    ],
     "hover.expandAlias": false,
     "doc.privateName": ["__*"],
     "diagnostics.groupFileStatus": {
