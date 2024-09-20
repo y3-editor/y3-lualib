@@ -12,7 +12,7 @@ end)
 ---@class Y3
 y3 = {}
 
-y3.version = 240902
+y3.version = 240920
 
 y3.proxy   = require 'y3.tools.proxy'
 y3.class   = require 'y3.tools.class'
@@ -47,6 +47,7 @@ require 'y3.tools.pool'
 require 'y3.tools.gc'
 require 'y3.tools.synthesis'
 
+require 'y3.util.patch'
 require 'y3.util.eca_function'
 require 'y3.util.trigger'
 require 'y3.util.event'
