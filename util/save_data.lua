@@ -192,19 +192,6 @@ end
 function M.load_table_with_cover_disable(player, slot)
     local save_data = player.phandle:get_save_data_table_value(slot) or {}
     local create_proxy
-    local update_delay = 0.1
-    local update_timer
-
-    local function update_save_data()
-        if update_timer then
-            return
-        end
-        update_timer = y3.ltimer.wait(update_delay, function ()
-            update_timer = nil
-            player.phandle:upload_save_data()
-            log.info('自动保存存档：', player, slot)
-        end)
-    end
 
     local function unpack_path(key, path)
         local key1 = path and path[1]
@@ -230,7 +217,6 @@ function M.load_table_with_cover_disable(player, slot)
             , key3
             , ''
         )
-        update_save_data()
     end
 
     local function get_value(key, path)
