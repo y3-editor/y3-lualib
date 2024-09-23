@@ -2743,6 +2743,37 @@ end\
     },
 }
 
+---@alias EventParam.界面-视频播放完成 EventParam.ET_TRIGGER_UI_VIDEO_END_EVENT
+M.config["界面-视频播放完成"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+        [1] = {
+            code = "function (data)\
+    local ui = y3.ui.get_by_handle(data.player, data.comp_name)\
+    return ui\
+end\
+",
+            desc = "ui",
+            name = "ui",
+            type = "UI",
+        },
+    },
+    key = "ET_TRIGGER_UI_VIDEO_END_EVENT",
+    name = "界面-视频播放完成",
+    object = "Player",
+    params = {
+        [1] = {
+            desc = "目标控件",
+            name = "ui",
+            resolve = function (ui)
+                return ui.handle
+            end,
+            type = "UI",
+        },
+    },
+}
+
 ---@alias EventParam.本地-界面-输入框获取焦点 EventParam.ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT
 M.config["本地-界面-输入框获取焦点"] = {
     __class__ = "EventConfigBuilder",
@@ -3990,6 +4021,7 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: self, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
 ---@field event fun(self: self, event: "界面-装备拖拽", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-装备拖拽)): Trigger
 ---@field event fun(self: self, event: "界面-复选框变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
+---@field event fun(self: self, event: "界面-视频播放完成", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-视频播放完成)): Trigger
 ---@field event fun(self: self, event: "本地-界面-输入框获取焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框获取焦点)): Trigger
 ---@field event fun(self: self, event: "本地-界面-输入框失去焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框失去焦点)): Trigger
 ---@field event fun(self: self, event: "本地-界面-输入框内容改变", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框内容改变)): Trigger
@@ -4148,6 +4180,7 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: Player, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
 ---@field event fun(self: Player, event: "界面-装备拖拽", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-装备拖拽)): Trigger
 ---@field event fun(self: Player, event: "界面-复选框变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-复选框变化)): Trigger
+---@field event fun(self: Player, event: "界面-视频播放完成", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-视频播放完成)): Trigger
 ---@field event fun(self: Player, event: "本地-界面-输入框获取焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框获取焦点)): Trigger
 ---@field event fun(self: Player, event: "本地-界面-输入框失去焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框失去焦点)): Trigger
 ---@field event fun(self: Player, event: "本地-界面-输入框内容改变", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框内容改变)): Trigger

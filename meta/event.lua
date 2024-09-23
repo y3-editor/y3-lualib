@@ -6011,6 +6011,7 @@ event.ET_TRIGGER_UI_TABWIDGET_CHANGE_EVENT = {
 ---@field ui_event_name string # ui事件变量名
 ---@field comp_name string # 触发事件控件名称
 ---@field str1 string # 自定义信息
+---@field ui UI # ui
 
 --ui视频播放完成事件
 event.ET_TRIGGER_UI_VIDEO_END_EVENT = {
@@ -6045,6 +6046,17 @@ event.ET_TRIGGER_UI_VIDEO_END_EVENT = {
         lua_type = "string",
         desc = "自定义信息",
         lua_desc = "自定义信息",
+    },
+    [5] = {
+        name = nil,
+        type = nil,
+        lua_name = "ui",
+        lua_type = "UI",
+        lua_desc = "ui",
+        lua_code = function (data)
+            local ui = y3.ui.get_by_handle(data.player, data.comp_name)
+            return ui
+        end,
     },
 }
 
