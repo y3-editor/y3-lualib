@@ -1070,7 +1070,8 @@ function M:get_child(name)
     if not py_ui or py_ui == '' then
         return nil
     end
-    if not GameAPI.ui_comp_is_exist(py_ui) then
+    if  not y3.config.ui.get_removed_child
+    and not GameAPI.ui_comp_is_exist(py_ui) then
         return nil
     end
     return y3.ui.get_by_handle(self.player, py_ui)
