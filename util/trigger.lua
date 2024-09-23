@@ -26,6 +26,7 @@ function M:__init(event, event_args, callback)
     self._callback = callback
     self._id = counter()
     self._event_args = event_args
+    self.event_arg_mode, self.event_arg_target = M.compute_event_args(event_args)
     event:add_trigger(self)
     M.all_triggers[self._id] = self
     return self
@@ -74,30 +75,56 @@ function M:recover_disable_once()
     self._disable_once = nil
 end
 
+---@type 'none' | 'custom' | 'array'
+M.event_arg_mode = 'none'
+
+---@type any
+M.event_arg_target = nil
+
+---@param event_args? any[]
+---@return 'custom' | 'array' | 'none'
+---@return any
+function M.compute_event_args(event_args)
+    if event_args == nil then
+        return 'none', nil
+    end
+    if Type(event_args) then
+        return 'custom', event_args
+    end
+    if type(event_args) == 'table' then
+        if #event_args > 0 then
+            return 'array', event_args[1]
+        else
+            return 'none', nil
+        end
+    else
+        return 'custom', event_args
+    end
+end
+
 -- 检查事件的参数与触发器的参数是否匹配，
 -- 允许事件的参数数量多余触发器的参数数量。
 ---@param fire_args any[]?
+---@param fire_mode 'custom' | 'array' | 'none'
+---@param fire_target any
 ---@return boolean
-function M:is_match_args(fire_args)
-    local event_args = self._event_args
-    local event_type = type(event_args)
+function M:is_match_args(fire_args, fire_mode, fire_target)
+    local event_args   = self._event_args
+    local event_mode   = self.event_arg_mode
+    local event_target = self.event_arg_target
 
-    -- 如果类型不同直接返回false
-    if event_type ~= type(fire_args) then
+    if not fire_mode then
+        fire_mode, fire_target = M.compute_event_args(fire_args)
+    end
+
+    if fire_mode ~= event_mode then
         return false
     end
 
-    -- 如果不是table 直接判断值是不是相等
-    if event_type ~= "table" then
-        return event_args == fire_args
+    if fire_target ~= event_target then
+        return false
     end
 
-    -- 判断是不是Y3实例, 如果是, 返回对象是否相等
-    ---@diagnostic disable-next-line: undefined-field
-    if event_args.__name then
-        return event_args == fire_args
-    end
-    
     -- 最后在假定是数组进行判断
     local fire_args_n = fire_args and #fire_args or 0
     local event_args_n = event_args and #event_args or 0
@@ -113,7 +140,7 @@ function M:is_match_args(fire_args)
     -- 那么他们都不会是nil了
     ---@cast event_args -nil
     ---@cast fire_args -nil
-    for i = 1, event_args_n do
+    for i = 2, event_args_n do
         local event_arg = event_args[i]
         local fire_arg = fire_args[i]
         if fire_arg ~= event_arg then

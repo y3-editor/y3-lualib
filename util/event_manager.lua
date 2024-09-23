@@ -58,10 +58,7 @@ function M:has_event(event_name, event_args)
     if not event then
         return false
     end
-    if event_args then
-        return event:has_matched_trigger(event_args)
-    end
-    return true
+    return event:has_matched_trigger(event_args)
 end
 
 ---@private

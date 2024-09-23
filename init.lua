@@ -32,6 +32,7 @@ Super   = y3.class.super
 Extends = y3.class.extends
 Delete  = y3.class.delete
 IsValid = y3.class.isValid
+Type    = y3.class.type
 IsInstanceOf = y3.class.isInstanceOf
 
 require 'y3.util.log'
@@ -49,7 +50,7 @@ require 'y3.tools.synthesis'
 
 require 'y3.util.patch'
 require 'y3.util.eca_function'
-require 'y3.util.trigger'
+y3.trigger = require 'y3.util.trigger'
 require 'y3.util.event'
 require 'y3.util.event_manager'
 require 'y3.util.custom_event'
