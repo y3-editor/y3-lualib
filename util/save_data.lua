@@ -210,13 +210,21 @@ function M.load_table_with_cover_disable(player, slot)
 
     local function set_value(key, value, path)
         local key1, key2, key3 = unpack_path(key, path)
-        player.phandle:set_save_table_key_value(slot
-            , key1
-            , value
-            , key2
-            , key3
-            , ''
-        )
+        if value == nil then
+            player.phandle:remove_save_table_key_value(slot
+                , key1
+                , key2
+                , key3
+            )
+        else
+            player.phandle:set_save_table_key_value(slot
+                , key1
+                , value
+                , key2
+                , key3
+                , ''
+            )
+        end
     end
 
     local function get_value(key, path)
