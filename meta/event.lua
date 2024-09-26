@@ -9074,6 +9074,21 @@ event.ET_MOVER_UNIT_COLLISION_LEAVE = {}
 --运动器地形碰撞
 event.ET_MOVER_TERRAIN_COLLISION = {}
 
+---@class EventParam.ET_MOVER_KNOCKUP_REACH_PEAK
+
+--击飞运动器到达顶点
+event.ET_MOVER_KNOCKUP_REACH_PEAK = {}
+
+---@class EventParam.ET_MOVER_KNOCKUP_AIRBORNE_START
+
+--击飞运动器浮空开始
+event.ET_MOVER_KNOCKUP_AIRBORNE_START = {}
+
+---@class EventParam.ET_MOVER_KNOCKUP_AIRBORNE_END
+
+--击飞运动器浮空结束
+event.ET_MOVER_KNOCKUP_AIRBORNE_END = {}
+
 ---@class EventParam.ET_CHAT_SEND_GM
 ---@field str1 string # 指令字符串
 ---@field player Player # 玩家
@@ -9723,14 +9738,14 @@ event.ET_LUA_CONSOLE_TIPS = {
 }
 
 ---@class EventParam.ET_MALL_NOTIFY_FRIEND_NEW
----@field str1 string # 申请者名称
+---@field NICK_NAME__ string # 申请者名称
 
 --steam大厅收到好友申请事件
 event.ET_MALL_NOTIFY_FRIEND_NEW = {
     [1] = {
-        name = "__str1",
+        name = "__NICK_NAME__",
         type = "string",
-        lua_name = "str1",
+        lua_name = "NICK_NAME__",
         lua_type = "string",
         desc = "申请者名称",
         lua_desc = "申请者名称",
@@ -9738,14 +9753,14 @@ event.ET_MALL_NOTIFY_FRIEND_NEW = {
 }
 
 ---@class EventParam.ET_MALL_NOTIFY_FRIEND_DELETE
----@field int1 integer # 删除者ID
+---@field PLAYER_AID__ integer # 删除者ID
 
 --steam大厅收到被好友删除事件
 event.ET_MALL_NOTIFY_FRIEND_DELETE = {
     [1] = {
-        name = "__int1",
+        name = "__PLAYER_AID__",
         type = "integer",
-        lua_name = "int1",
+        lua_name = "PLAYER_AID__",
         lua_type = "integer",
         desc = "删除者ID",
         lua_desc = "删除者ID",
@@ -9753,17 +9768,26 @@ event.ET_MALL_NOTIFY_FRIEND_DELETE = {
 }
 
 ---@class EventParam.ET_MALL_NOTIFY_FRIEND_UPDATE
----@field int1 integer # 好友在线状态
+---@field ONLINE_STATE__ integer # 好友在线状态
+---@field PLAYER_AID__ integer # 好友ID
 
 --steam大厅好友在线状态变化事件
 event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
     [1] = {
-        name = "__int1",
+        name = "__ONLINE_STATE__",
         type = "integer",
-        lua_name = "int1",
+        lua_name = "ONLINE_STATE__",
         lua_type = "integer",
         desc = "好友在线状态",
         lua_desc = "好友在线状态",
+    },
+    [2] = {
+        name = "__PLAYER_AID__",
+        type = "integer",
+        lua_name = "PLAYER_AID__",
+        lua_type = "integer",
+        desc = "好友ID",
+        lua_desc = "好友ID",
     },
 }
 
@@ -9773,26 +9797,35 @@ event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
 event.ET_MALL_NOTIFY_TEAM_UPDATE = {}
 
 ---@class EventParam.ET_MALL_NOTIFY_TEAM_INVITE
----@field int1 integer # 发送方ID
----@field str1 string # 发送方名称
+---@field PLAYER_AID__ integer # 发送方ID
+---@field NICK_NAME__ string # 发送方名称
+---@field team_id integer # 队伍ID
 
 --steam大厅收到队伍邀请
 event.ET_MALL_NOTIFY_TEAM_INVITE = {
     [1] = {
-        name = "__int1",
+        name = "__PLAYER_AID__",
         type = "integer",
-        lua_name = "int1",
+        lua_name = "PLAYER_AID__",
         lua_type = "integer",
         desc = "发送方ID",
         lua_desc = "发送方ID",
     },
     [2] = {
-        name = "__str1",
+        name = "__NICK_NAME__",
         type = "string",
-        lua_name = "str1",
+        lua_name = "NICK_NAME__",
         lua_type = "string",
         desc = "发送方名称",
         lua_desc = "发送方名称",
+    },
+    [3] = {
+        name = "__team_id",
+        type = "integer",
+        lua_name = "team_id",
+        lua_type = "integer",
+        desc = "队伍ID",
+        lua_desc = "队伍ID",
     },
 }
 

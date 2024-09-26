@@ -1396,6 +1396,32 @@ M.config["未知-ET_UNIT_CREATE_SLAVE"] = {
     },
 }
 
+---@alias EventParam.单位-即将索敌 EventParam.ET_UNIT_TRY_ACQUIRE_TARGET
+M.config["单位-即将索敌"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_UNIT_TRY_ACQUIRE_TARGET",
+    name = "单位-即将索敌",
+    object = "Unit",
+    params = {
+    },
+}
+
+---@alias EventParam.单位-发现目标 EventParam.ET_UNIT_ACQUIRED_TARGET
+M.config["单位-发现目标"] = {
+    __class__ = "EventConfigBuilder",
+    desc = "",
+    extraArgs = {
+    },
+    key = "ET_UNIT_ACQUIRED_TARGET",
+    name = "单位-发现目标",
+    object = "Unit",
+    params = {
+    },
+}
+
 ---@alias EventParam.本地-骨骼碰撞 EventParam.ET_DETECT_BONE_COLLISON
 M.config["本地-骨骼碰撞"] = {
     __class__ = "EventConfigBuilder",
@@ -3958,6 +3984,8 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: self, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: self, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
+---@field event fun(self: self, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: self, event: "本地-骨骼碰撞", callback: fun(trg: Trigger, data: EventParam.本地-骨骼碰撞)): Trigger
 ---@field event fun(self: self, event: "物理-骨骼碰撞", callback: fun(trg: Trigger, data: EventParam.物理-骨骼碰撞)): Trigger
 ---@field event fun(self: self, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
@@ -4275,6 +4303,8 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: Unit, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: Unit, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
+---@field event fun(self: Unit, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
 ---@field event fun(self: Unit, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
 ---@field event fun(self: Unit, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
@@ -4428,6 +4458,8 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: EditorObject.Unit, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-购买单位", callback: fun(trg: Trigger, data: EventParam.单位-购买单位)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-出售物品", callback: fun(trg: Trigger, data: EventParam.单位-出售物品)): Trigger
