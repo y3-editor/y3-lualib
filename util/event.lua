@@ -201,20 +201,30 @@ end
 
 ---@return fun(): Trigger
 function M:pairs()
+    ---@type Trigger[]
     local triggers = {}
     for trg in self.triggers_common:pairsFast() do
         triggers[#triggers+1] = trg
     end
     if self.triggers_custom then
-        for trg in self.triggers_custom:pairsFast() do
-            triggers[#triggers+1] = trg
+        for _, list in pairs(self.triggers_custom) do
+            for trg in list:pairsFast() do
+                triggers[#triggers+1] = trg
+            end
         end
     end
     if self.triggers_with_args then
-        for trg in self.triggers_with_args:pairsFast() do
-            triggers[#triggers+1] = trg
+        for _, list in pairs(self.triggers_with_args) do
+            for trg in list:pairsFast() do
+                triggers[#triggers+1] = trg
+            end
         end
     end
+
+    table.sort(triggers, function(a, b)
+        return a:get_id() < b:get_id()
+    end)
+
     local i = 0
     return function()
         i = i + 1

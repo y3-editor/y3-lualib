@@ -49,6 +49,10 @@ function M:__tostring()
     return ('{trigger|%d}'):format(self._id)
 end
 
+function M:get_id()
+    return self._id
+end
+
 --禁用触发器
 function M:disable()
     self._enable = false
