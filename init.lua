@@ -1,8 +1,15 @@
 arg = GameAPI.lua_get_start_args()
 
 pcall(function ()
-    LDBG = require "y3.debugger":start "127.0.0.1:12399"
-    if arg['lua_wait_debugger'] == 'true' then
+    if arg['lua_multi_mode'] == 'true' then
+        MULTI_MODE = true
+        local port = 12399 - GameAPI.get_client_role():get_role_id_num()
+        LDBG = require "y3.debugger":start("127.0.0.1:" .. tonumber(port))
+    else
+        LDBG = require "y3.debugger":start "127.0.0.1:12399"
+    end
+    if arg['lua_wait_debugger'] == 'true'
+    or arg['lua_multi_wait_debugger'] == 'true' then
         WAIT_DBG = true
         LDBG:event 'wait'
     end
