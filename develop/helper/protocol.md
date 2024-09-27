@@ -67,6 +67,13 @@
 
 * `input?`: `string` 输入的内容。
 
+## updatePlayer
+
+设置自己的玩家信息
+
+* `name`: `string` 玩家名字
+* `id`: `integer` 玩家ID
+
 # Y3开发助手 -> 游戏
 
 ## command

@@ -157,6 +157,12 @@ local function createClient(port)
     })
 
     client:on_connected(function (self)
+        y3.player.with_local(function (local_player)
+            M.notify('updatePlayer', {
+                name = local_player:get_name(),
+                id   = local_player:get_id(),
+            })
+        end)
         M.print(console.getHelpInfo())
 
         local callbacks = onReadyCallbacks
