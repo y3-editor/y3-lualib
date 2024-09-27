@@ -442,7 +442,7 @@ function M:get_platform_icon_url()
     if not get_url then
         return ''
     end
-    local url = get_url(self.handle)
+    local url = get_url(self.handle) --[[@as string]]
     return url or ''
 end
 
