@@ -213,6 +213,11 @@ os = {}
 ---@return number
 function os.clock_banned() end
 
+---@overload fun():number
+---@overload fun(x: integer): integer
+---@overload fun(m: integer, n: integer): integer
+function math.random_banned(...) end
+
 ---@class py.Dict
 ---@field [any] any
 
