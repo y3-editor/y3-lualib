@@ -79,7 +79,7 @@ end
 ---@param id integer
 ---@return Ability
 function M.get_by_id(id)
-    return M.ref_manager:get(id)
+    return M.ref_manager:fetch(id)
 end
 
 y3.py_converter.register_py_to_lua('py.Ability', M.get_by_handle)
