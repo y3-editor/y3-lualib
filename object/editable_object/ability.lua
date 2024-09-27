@@ -636,7 +636,12 @@ end
 ---进入技能准备施法状态
 ---@param player Player 玩家
 function M:pre_cast(player)
-	GameAPI.start_skill_pointer(player.handle, self.handle)
+    GameAPI.start_skill_pointer(player.handle, self.handle)
+end
+
+---阻止即将开始的施法，只能在“施法-即将开始”事件中使用
+function M:prevent_cast()
+    self.phandle:api_break_ability_in_cs()
 end
 
 --获取技能绑定的物品（技能对象在哪个物品对象上）
