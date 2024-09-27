@@ -134,11 +134,11 @@ function Item:api_change_attr(attr_element_field, attr_key, delta) end
 ---@return py.Fixed? # 属性值
 function Item:api_get_attr(attr_element_field, attr_key) end
 
---设置物品所有者
+--设置物品所有玩家
 ---@param creator py.Role # 所有者
 function Item:api_set_creator(creator) end
 
---获得物品所有者
+--获得物品所有玩家
 ---@return py.Role? # 所有者
 function Item:api_get_creator() end
 
@@ -267,6 +267,12 @@ function Item:api_is_item_visible() end
 --物品替换模型
 ---@param source_model py.ModelKey # 原模型编号
 function Item:api_change_model(source_model) end
+
+--物品替换贴图
+---@param material_id integer # 材质 id
+---@param layer_id integer # layer id
+---@param texture py.Texture # 贴图
+function Item:api_change_texture(material_id, layer_id, texture) end
 
 --取消物品替换模型
 ---@param target_model py.ModelKey # 目标模型名字

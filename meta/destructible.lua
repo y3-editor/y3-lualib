@@ -229,6 +229,12 @@ function Destructible:api_stop_animation(name) end
 ---@param target_model py.ModelKey # 目标模型编号
 function Destructible:api_replace_model(target_model) end
 
+--可破坏物替换贴图
+---@param material_id integer # 材质 id
+---@param layer_id integer # layer id
+---@param texture py.Texture # 贴图
+function Destructible:api_replace_texture(material_id, layer_id, texture) end
+
 --取消可破坏物替换模型
 ---@param target_model py.ModelKey # 目标模型名字
 function Destructible:api_cancel_replace_model(target_model) end

@@ -35,6 +35,7 @@ enum.UnitCommandTypeEnum = {
     HOLD_3D = 17,
     ATTACK_POINT = 18,
     USE_ITEM_ON_TARGET = 19,
+    CUSTOMIZED_MOVE_TO_POS = 21,
 }
 
 --None

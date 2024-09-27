@@ -171,8 +171,6 @@
 ---@class py.RoleGroup: py.UIntList
 --物品对象
 ---@class py.Item: py.DynamicTypeMeta
---装饰物对象
----@class py.DecoList: py.List
 --地形预设
 ---@class py.ScenePreset: integer
 --声音对象

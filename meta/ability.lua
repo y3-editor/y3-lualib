@@ -364,6 +364,13 @@ function Ability:api_add_collection_destructible_tags(tag) end
 ---@return string? # 标签
 function Ability:api_remove_collection_destructible_tags(tag) end
 
+--技能停止
+function Ability:api_ability_stop() end
+
+--设置技能缓存
+---@param can_stash boolean # 是否缓存
+function Ability:api_ability_set_stash(can_stash) end
+
 --是否可被当前技能筛选
 ---@param actor py.Actor # 单位/物品/可破坏物
 ---@return boolean? # 是否可被筛选

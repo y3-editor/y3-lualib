@@ -136,6 +136,11 @@ function Role:set_save_data_str_value(index, value) end
 ---@param value py.Table # 表型参数
 function Role:set_save_data_table_value(index, value) end
 
+--复制表型存档到玩家存档栏位
+---@param src_index integer # 源玩家存档栏位
+---@param dst_index integer # 目标玩家存档栏位
+function Role:copy_save_data_table_value(src_index, dst_index) end
+
 --set_save_table_key_value
 ---@param save_slot integer # 玩家存档栏位
 ---@param key1 string # key1
@@ -498,6 +503,14 @@ function Role:api_get_role_total_consume() end
 ---@return boolean? # 是否打赏该地图
 function Role:api_get_role_is_donated() end
 
+--获取玩家当前地图探险次数
+---@return integer? # 探险次数
+function Role:api_get_number_of_expeditions() end
+
+--获取玩家当前地图探险时长
+---@return integer? # 探险时长
+function Role:api_get_time_of_expeditions() end
+
 --获取玩家商城登录用token
 ---@return string? # 商城token
 function Role:api_get_role_store_params() end
@@ -523,7 +536,8 @@ function Role:pet_http_request(api, is_post, body, timeout, callback) end
 ---@param level_id py.Map # 关卡id
 ---@param game_mode py.GameMode # 游戏模式
 ---@param max_player? integer # 最大人数
-function Role:request_create_private_dungeon(level_id, game_mode, max_player) end
+---@param custom_param string # 自定义参数
+function Role:request_create_private_dungeon(level_id, game_mode, max_player, custom_param) end
 
 --请求加入私有副本
 ---@param token string # 房间口令
@@ -533,3 +547,7 @@ function Role:request_join_private_dungeon(token) end
 ---@param level_id py.Map # 关卡id
 ---@param game_mode py.GameMode # 游戏模式
 function Role:request_join_public_dungeon(level_id, game_mode) end
+
+--获取玩家武将信息
+---@return py.Table? # 玩家武将信息
+function Role:get_role_general_depot() end

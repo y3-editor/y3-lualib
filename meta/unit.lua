@@ -736,6 +736,13 @@ function Unit:set_model_by_tag(tag, model_id) end
 ---@param tag string # 标签
 function Unit:remove_model_by_tag(tag) end
 
+--替换模型贴图
+---@param model py.ModelKey # 目标模型编号
+---@param material integer # 材质 id
+---@param layer integer # layer id
+---@param texture py.Texture # 贴图
+function Unit:change_model_texture(model, material, layer, texture) end
+
 --显示血条倒计时
 ---@param left_time py.Fixed # 倒计时时长, 单位秒
 function Unit:api_show_health_bar_count_down(left_time) end
@@ -1207,6 +1214,10 @@ function Unit:api_is_in_battle_state() end
 ---@return boolean? # 单位是否处于某状态
 function Unit:api_has_state(state_bit) end
 
+--获取单位状态位
+---@return integer? # 单位状态位
+function Unit:api_get_buff_status_bits() end
+
 --单位施放技能
 ---@param ability_type integer # 技能类型
 ---@param ability_index integer # 技能槽位
@@ -1256,6 +1267,10 @@ function Unit:api_set_simple_atk_dice_count(dice_count) end
 --获取单位简易普攻骰子个数
 ---@return integer? # 骰子最大值
 function Unit:api_get_simple_atk_dice_count() end
+
+--获取单位正在释放的技能
+---@return py.Ability? # 技能
+function Unit:api_get_cur_record_ability() end
 
 --单位是否拥有物品
 ---@param item py.Item # 物品
@@ -1491,9 +1506,16 @@ function Unit:api_remove_tech(tech_no) end
 ---@param enqueue? boolean # 是否进队列
 function Unit:api_release_command(command, enqueue) end
 
---设置单位默认跳转状态
+--单位 - 设置默认跳转命令
+---@param command py.UnitCommand # 默认跳转命令
+function Unit:api_set_default_switch_command(command) end
+
+--单位 - 设置默认跳转状态
 ---@param behavior py.UnitBehavior # 默认跳转状态
 function Unit:api_set_default_switch_behavior(behavior) end
+
+--单位 - 跳转到默认命令或状态
+function Unit:api_load_default_ai() end
 
 --单位 - 单位发起求救
 ---@param source_unit py.Unit # 攻击目标

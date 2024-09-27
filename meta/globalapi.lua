@@ -279,6 +279,11 @@ function GlobalAPI.float_to_str(f, num) end
 ---@return string # 字符串
 function GlobalAPI.int_to_string(i, num) end
 
+--整数转换为模型类型
+---@param key integer # 整数
+---@return py.ModelKey # 字符串
+function GlobalAPI.int_to_model_key(key) end
+
 --定点数转字符串
 ---@param f number # 浮点数
 ---@param num integer # 保留位数
@@ -1039,6 +1044,11 @@ function GlobalAPI.get_hour_of_server_timestamp(v) end
 ---@return py.Iterator # Python迭代器
 function GlobalAPI.iter_random_pool_result(v) end
 
+--获取玩家离线存档
+---@param v string # str
+---@return string # str
+function GlobalAPI.get_role_open_archive(v) end
+
 --获取服务器随机池执行结果
 ---@param v integer # int
 ---@return integer # int
@@ -1054,6 +1064,11 @@ function GlobalAPI.get_iter_random_pool_archive_key(v) end
 ---@return integer # int
 function GlobalAPI.get_iter_random_pool_archive_increment(v) end
 
+--获取生成随机数错误码
+---@param v integer # int
+---@return integer # int
+function GlobalAPI.get_random_number_err_code(v) end
+
 --还给lua一个空python table
 ---@return py.Dict # Dict
 function GlobalAPI.lua_get_python_empty_dict() end
@@ -1067,3 +1082,7 @@ function GlobalAPI.timestamp_to_str(v) end
 ---@param v string # str
 ---@return integer # int
 function GlobalAPI.str_to_timestamp(v) end
+
+--获取当前地图预约人数
+---@return integer # 预约人数
+function GlobalAPI.api_get_booked_number() end
