@@ -161,6 +161,7 @@ local function createClient(port)
             M.notify('updatePlayer', {
                 name = local_player:get_name(),
                 id   = local_player:get_id(),
+                multiMode = MULTI_MODE,
             })
         end)
         M.print(console.getHelpInfo())

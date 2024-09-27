@@ -73,6 +73,7 @@
 
 * `name`: `string` 玩家名字
 * `id`: `integer` 玩家ID
+* `multiMode?`: `boolean` 是否是多开模式
 
 # Y3开发助手 -> 游戏
 
