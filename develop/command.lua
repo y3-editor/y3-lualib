@@ -158,12 +158,29 @@ M.register('CT', {
 M.register('RR', {
     desc = '重启游戏',
     onCommand = function ()
-        y3.develop.helper.prepareForRestart {
-            debugger = WAIT_DBG,
-        }
-        y3.game.restart_game(true)
+        y3.sync.send('$restart')
     end
 })
+
+local hasRestartd = false
+y3.sync.onSync('$restart', function ()
+    if hasRestartd then
+        return
+    end
+    hasRestartd = true
+    y3.player.with_local(function (local_player)
+        local arg = GameAPI.lua_get_start_args()
+        y3.develop.helper.prepareForRestart {
+            debugger = arg['lua_wait_debugger'] == 'true'
+                or arg['lua_multi_wait_debugger'] == 'true',
+            id = arg['lua_multi_mode'] == 'true'
+                ---@diagnostic disable-next-line: deprecated
+                and local_player:get_id()
+                or nil,
+        }
+        y3.game.restart_game(true)
+    end)
+end)
 
 y3.reload.onBeforeReload(function (reload, willReload)
     remove_all_triggers_in_include(reload)

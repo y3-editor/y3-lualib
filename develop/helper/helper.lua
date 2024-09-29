@@ -158,10 +158,11 @@ local function createClient(port)
 
     client:on_connected(function (self)
         y3.player.with_local(function (local_player)
+            local arg = GameAPI.lua_get_start_args()
             M.notify('updatePlayer', {
                 name = local_player:get_name(),
                 id   = local_player:get_id(),
-                multiMode = MULTI_MODE,
+                multiMode = arg['lua_multi_mode'] == 'true',
             })
         end)
         M.print(console.getHelpInfo())
@@ -308,6 +309,7 @@ y3.game:event_on('$Y3-初始化', function ()
     if not y3.game.is_debug_mode() then
         return
     end
+    local arg = GameAPI.lua_get_start_args()
     if not arg['lua_dummy'] then
         return
     end
