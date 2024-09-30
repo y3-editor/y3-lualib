@@ -263,6 +263,7 @@ function M.load_table_with_cover_disable(player, slot)
             and    vtype ~= 'number' then
                 error('存档的值只能是基础类型')
             end
+            raw[key] = value
 
             set_value(key, value, path)
         end,
