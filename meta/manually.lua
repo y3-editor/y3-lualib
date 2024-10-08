@@ -227,6 +227,11 @@ function math.random_banned(...) end
 ---@param message string
 function upload_traceback(message) end
 
+---启用 `tracy` 进行性能分析
+---> 对运行性能有较大影响，仅在需要时启用
+---@param enable boolean
+function enable_lua_profile(enable) end
+
 ---@param state_enum integer
 function Unit:api_add_multi_state(state_enum) end
 
