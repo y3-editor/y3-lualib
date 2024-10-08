@@ -2752,6 +2752,7 @@ event.ET_UNIT_EXP_CHANGE = {}
 ---@class EventParam.ET_UNIT_PRE_ADD_EXP
 ---@field unit Unit # 获得经验的单位
 ---@field add_exp number # 增加的经验
+---@field set_exp fun(exp: number) # 修改经验
 
 --单位即将获得经验
 event.ET_UNIT_PRE_ADD_EXP = {
@@ -2770,6 +2771,18 @@ event.ET_UNIT_PRE_ADD_EXP = {
         lua_type = "number",
         desc = "增加的经验",
         lua_desc = "增加的经验",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "set_exp",
+        lua_type = "fun(exp: number)",
+        lua_desc = "修改经验",
+        lua_code = function (data)
+            return function (new_exp)
+                data.unit.phandle:api_set_changed_exp_in_event(new_exp)
+            end
+        end,
     },
 }
 

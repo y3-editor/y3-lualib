@@ -1297,6 +1297,16 @@ M.config["单位-获得经验前"] = {
     desc = "单位获得经验前触发",
     dispatch = true,
     extraArgs = {
+        [1] = {
+            code = "function (data)\
+    return function (new_exp)\
+        data.unit.phandle:api_set_changed_exp_in_event(new_exp)\
+    end\
+end",
+            desc = "修改经验",
+            name = "set_exp",
+            type = "fun(exp: number)",
+        },
     },
     key = "ET_UNIT_PRE_ADD_EXP",
     name = "单位-获得经验前",
