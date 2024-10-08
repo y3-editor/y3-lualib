@@ -536,7 +536,7 @@ function Role:pet_http_request(api, is_post, body, timeout, callback) end
 ---@param level_id py.Map # 关卡id
 ---@param game_mode py.GameMode # 游戏模式
 ---@param max_player? integer # 最大人数
----@param custom_param string # 自定义参数
+---@param custom_param? string # 自定义参数
 function Role:request_create_private_dungeon(level_id, game_mode, max_player, custom_param) end
 
 --请求加入私有副本

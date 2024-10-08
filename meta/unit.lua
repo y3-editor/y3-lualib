@@ -364,9 +364,9 @@ function Unit:api_get_hpp() end
 ---@param jump_word? boolean # 是否跳字
 ---@param related_ability? py.Ability # 关联技能
 ---@param source_unit? py.Unit # 来源单位
----@param harm_text_enum string # 跳字枚举
+---@param harm_text_enum? string # 跳字枚举
 ---@param jump_word_track? integer # 跳字轨迹
----@param pos_socket string # 挂接点
+---@param pos_socket? string # 挂接点
 function Unit:api_heal(hp_change, jump_word, related_ability, source_unit, harm_text_enum, jump_word_track, pos_socket) end
 
 --获取输出伤害统计值

@@ -3065,7 +3065,7 @@ function GameAPI.set_input_field_enable(role, comp_uid, enable) end
 ---@param comp_uid string # 控件uid
 ---@param clipping_type integer # 裁剪模式
 ---@param image_id? integer # 图片id
----@param color string # 颜色
+---@param color? string # 颜色
 ---@param alpha? integer # 不透明度
 function GameAPI.set_layout_clipping_type(role, comp_uid, clipping_type, image_id, color, alpha) end
 
@@ -5454,7 +5454,7 @@ function GameAPI.camera_limit_area_close(role) end
 ---@param offset_x? number # 偏移距离x
 ---@param offset_y? number # 偏移距离y
 ---@param offset_height? number # 偏移高度
----@param socket string # 挂接点
+---@param socket? string # 挂接点
 function GameAPI.camera_set_follow_unit(role, unit, offset_x, offset_y, offset_height, socket) end
 
 --镜头tps跟随某个单位
@@ -5536,7 +5536,7 @@ function GameAPI.set_camera_dof(enable, dist, region, near_trans_region, far_tra
 --向玩家正上方显示提示信息
 ---@param role py.Role # 玩家
 ---@param seconds? number # 持续时间
----@param text string # 信息
+---@param text? string # 信息
 ---@param localize? boolean # 多语言转化
 function GameAPI.api_show_text(role, seconds, text, localize) end
 
@@ -5840,11 +5840,11 @@ function GameAPI.set_damage_ratio(attack_idx, armor_idx, damage_ratio) end
 ---@param critical? boolean # 必定暴击
 ---@param no_miss? boolean # 无视闪避
 ---@param hit_sfx? py.SfxKey # 受击特效
----@param hit_socket string # 挂接点
----@param harm_text_enum string # 跳字枚举
+---@param hit_socket? string # 挂接点
+---@param harm_text_enum? string # 跳字枚举
 ---@param jump_word_track? integer # 跳字轨迹
 ---@param attack_type? integer # 攻击类型
----@param pos_socket string # 跳字起始位置挂节点
+---@param pos_socket? string # 跳字起始位置挂节点
 function GameAPI.apply_damage(source_unit, ability, target_unit, damage_type, damage, jump_word, extra_context, as_normal_hit, critical, no_miss, hit_sfx, hit_socket, harm_text_enum, jump_word_track, attack_type, pos_socket) end
 
 --攻击伤害绝对值
