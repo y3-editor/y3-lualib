@@ -1971,6 +1971,8 @@ end
 ---@field no_miss? boolean # 必定命中
 ---@field particle? py.SfxKey # 特效
 ---@field socket? string # 特效挂点
+---@field attack_type? integer # 攻击类型
+---@field pos_socket? string # 目标挂点
 
 ---@param data Unit.DamageData
 function M:damage(data)
@@ -1991,7 +1993,9 @@ function M:damage(data)
         data.particle or nil,
         data.socket or '',
         data.text_type or 'physics',
-        data.text_track or 0
+        data.text_track or 0,
+        data.attack_type or 0,
+        data.pos_socket or ''
     )
 end
 
