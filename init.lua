@@ -1,8 +1,20 @@
+---@type table<string, string>
 local arg = GameAPI.lua_get_start_args()
 
 pcall(function ()
     if arg['lua_multi_mode'] == 'true' then
-        local port = 12399 - GameAPI.get_client_role():get_role_id_num()
+        local id = GameAPI.get_client_role():get_role_id_num()
+        local debug_me
+        for i in arg['lua_multi_debug_players']:gmatch('%d+') do
+            if tonumber(i) == id then
+                debug_me = true
+                break
+            end
+        end
+        if not debug_me then
+            return
+        end
+        local port = 12399 - id
         LDBG = require "y3.debugger":start("127.0.0.1:" .. tonumber(port))
     else
         LDBG = require "y3.debugger":start "127.0.0.1:12399"
