@@ -93,6 +93,7 @@ function TRGI:__init()
         index = index + 1
         runnedClock[index] = ltimerClock()
         local c1 = osClock()
+        ---@diagnostic disable-next-line: invisible
         runnedCallback[index] = trg._callback
         local a, b, c, d = self.originalExecute(trg, ...)
         runnedCost[index] = osClock() - c1
