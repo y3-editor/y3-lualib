@@ -52,8 +52,6 @@ function M.request(method, params, callback)
     client:send(string.pack('>s4', jsonContent))
 
     requestMap[data.id] = callback
-
-    client:update()
 end
 
 --向《Y3开发助手》发送请求（协程）
@@ -86,8 +84,6 @@ function M.notify(method, params)
     local jsonContent = y3.json.encode(data)
     logger('send:', jsonContent)
     client:send(string.pack('>s4', jsonContent))
-
-    client:update()
 end
 
 ---@private
@@ -108,8 +104,6 @@ function M.response(id, result, err)
     local jsonContent = y3.json.encode(data)
     logger('resp:', jsonContent)
     client:send(string.pack('>s4', jsonContent))
-
-    client:update()
 end
 
 local function handleBody(body)

@@ -31,6 +31,7 @@ function M:__init(ip, port, options)
     self.options.buffer_size = self.options.buffer_size or (1024 * 1024 * 2)
     self.options.update_interval = self.options.update_interval or 0.2
     self.options.retry_interval = self.options.retry_interval or 5
+    log.debug('Network 初始化：', self)
 
     ---@private
     self.update_timer = y3.ctimer.loop(self.options.update_interval, function ()
@@ -45,6 +46,7 @@ function M:__init(ip, port, options)
             t:remove()
             return
         end
+        log.debug('Network 重连：', self, self:is_connecting())
         if self.handle.reset then
             self.handle:reset()
         else
@@ -71,17 +73,27 @@ function M:__del()
     self.retry_timer:remove()
 end
 
+function M:__tostring()
+    return string.format('{Network|%s|%s|%s}'
+        , self.ip
+        , self.port
+        , self.state
+    )
+end
+
 ---@private
 ---@param err any
 function M:make_error(err)
     if self.state == 'dead' then
         return
     end
+    log.debug('Network 错误：', self, err)
     self.state = 'error'
     self:callback('error', err)
     self:remove()
 end
 
+---@private
 function M:update()
     if self.state == 'error' or self.state == 'dead' then
         self:remove()
@@ -91,6 +103,7 @@ function M:update()
     if self.state == 'new' then
         local ok, suc, err = pcall(self.handle.init, self.handle, self.ip, self.port, self.options.buffer_size)
         if not ok then
+            log.debug('Network 初始化失败：', self, suc)
             self.state = 'sleep'
             return
         end
@@ -111,6 +124,7 @@ function M:update()
     end
     if self.state == 'started' then
         if self:is_connecting() then
+            log.debug('Network 已连接：', self)
             self.state = 'connected'
             self:callback('connected')
         end
@@ -118,6 +132,7 @@ function M:update()
     end
     if self.state == 'connected' then
         if not self:is_connecting() then
+            log.debug('Network 断开连接：', self)
             self.state = 'disconnected'
             self.handle:stop()
             self:callback('disconnected')
