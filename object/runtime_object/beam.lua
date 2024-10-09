@@ -48,7 +48,7 @@ function M.create(data)
     local key    = data.key
     local source = data.source
     local target = data.target
-    local time   = data.time or -1
+    local time   = Fix32(data.time or -1)
     local source_height = data.source_height or 0
     local target_height = data.target_height or 0
     local source_socket = data.source_socket or 'origin'
@@ -65,6 +65,7 @@ function M.create(data)
                 source_socket,
                 target.handle,
                 Fix32(target_height),
+                ---@diagnostic disable-next-line: param-type-mismatch
                 time,
                 immediate,
                 immediate == nil,
@@ -78,6 +79,7 @@ function M.create(data)
                 source_socket,
                 target.handle,
                 target_socket,
+                ---@diagnostic disable-next-line: param-type-mismatch
                 time,
                 immediate,
                 immediate == nil,
@@ -94,6 +96,7 @@ function M.create(data)
                 Fix32(source_height),
                 target.handle,
                 Fix32(target_height),
+                ---@diagnostic disable-next-line: param-type-mismatch
                 time,
                 immediate,
                 immediate == nil
@@ -106,6 +109,7 @@ function M.create(data)
                 Fix32(source_height),
                 target.handle,
                 target_socket,
+                ---@diagnostic disable-next-line: param-type-mismatch
                 time,
                 immediate,
                 immediate == nil
