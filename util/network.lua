@@ -139,6 +139,10 @@ function M:update()
             self:remove()
             return
         end
+        local data = self.handle:recv(self.options.buffer_size)
+        if data and #data > 0 then
+            self:callback('data', data)
+        end
         local send_buffer = self._send_buffer
         if #send_buffer > 0 then
             self._send_buffer = ''
@@ -147,10 +151,6 @@ function M:update()
                 self:make_error(err)
                 return
             end
-        end
-        local data = self.handle:recv(self.options.buffer_size)
-        if data and #data > 0 then
-            self:callback('data', data)
         end
         return
     end
