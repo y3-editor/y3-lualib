@@ -41,6 +41,7 @@ function M:__init(ip, port, options)
         self:update()
     end)
     self.retry_timer = y3.ctimer.loop(self.options.retry_interval, function (t)
+        self:update()
         if  self.state ~= 'started'
         and self.state ~= 'sleep' then
             t:remove()
@@ -58,6 +59,7 @@ function M:__init(ip, port, options)
     end)
     if self.options.timeout and self.options.timeout > 0 then
         y3.ltimer.wait(self.options.timeout, function ()
+            self:update()
             if self.state ~= 'started' then
                 return
             end
@@ -67,6 +69,7 @@ function M:__init(ip, port, options)
 end
 
 function M:__del()
+    log.debug('Network 销毁：', self)
     self.state = 'dead'
     self.handle:destroy()
     self.update_timer:remove()
