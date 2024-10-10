@@ -2025,6 +2025,14 @@ function M:get_camp_id()
     return self.phandle:api_get_camp_id() or 0
 end
 
+---@param model py.ModelKey # 目标模型编号
+---@param material integer # 材质 id
+---@param layer integer # layer id
+---@param texture py.Texture # 贴图
+function M:change_model_texture(model, material, layer, texture)
+    self.phandle:change_model_texture(model, material, layer, texture)
+end
+
 function M:is_destroyed()
     local yes = self.phandle:api_is_destroyed()
     if yes == nil then
