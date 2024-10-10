@@ -19,8 +19,6 @@ Extends('Buff', 'CustomEvent')
 Extends('Buff', 'ObjectEvent')
 ---@class Buff: KV
 Extends('Buff', 'KV')
----@class Buff: ObjectEvent
-Extends('Buff', 'ObjectEvent')
 
 function M:__tostring()
     return string.format('{buff|%s|%s} @ %s'
