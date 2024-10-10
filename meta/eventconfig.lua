@@ -658,25 +658,6 @@ M.config["未知-ET_ACTIVE_ABILITY_CHANGED"] = {
     },
 }
 
----@alias EventParam.技能-层数变化 EventParam.ET_ABILITY_STACK_CHANGE
-M.config["技能-层数变化"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "",
-    extraArgs = {
-    },
-    extraObjs = {
-        [1] = {
-            getter = function (self) return self:get_owner() end,
-            luaType = "Unit",
-        },
-    },
-    key = "ET_ABILITY_STACK_CHANGE",
-    name = "技能-层数变化",
-    object = "Ability",
-    params = {
-    },
-}
-
 ---@alias EventParam.技能-学习 EventParam.ET_ABILITY_PLUS_POINT
 M.config["技能-学习"] = {
     __class__ = "EventConfigBuilder",
@@ -691,25 +672,6 @@ M.config["技能-学习"] = {
     },
     key = "ET_ABILITY_PLUS_POINT",
     name = "技能-学习",
-    object = "Ability",
-    params = {
-    },
-}
-
----@alias EventParam.技能-充能进度变化 EventParam.ET_ABILITY_STACK_CD_CHANGE
-M.config["技能-充能进度变化"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "",
-    extraArgs = {
-    },
-    extraObjs = {
-        [1] = {
-            getter = function (self) return self:get_owner() end,
-            luaType = "Unit",
-        },
-    },
-    key = "ET_ABILITY_STACK_CD_CHANGE",
-    name = "技能-充能进度变化",
     object = "Ability",
     params = {
     },
@@ -3959,9 +3921,7 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: self, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
 ---@field event fun(self: self, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
 ---@field event fun(self: self, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
----@field event fun(self: self, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
 ---@field event fun(self: self, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
----@field event fun(self: self, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
 ---@field event fun(self: self, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: self, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
 ---@field event fun(self: self, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
@@ -4132,9 +4092,7 @@ M.config["控制台-请求补全"] = {
 
 ---@class Ability
 ---@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
----@field event fun(self: Ability, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
 ---@field event fun(self: Ability, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
----@field event fun(self: Ability, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
 ---@field event fun(self: Ability, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: Ability, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
 ---@field event fun(self: Ability, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
@@ -4279,9 +4237,7 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: Unit, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
 ---@field event fun(self: Unit, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
 ---@field event fun(self: Unit, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
----@field event fun(self: Unit, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
 ---@field event fun(self: Unit, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
----@field event fun(self: Unit, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
 ---@field event fun(self: Unit, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: Unit, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
 ---@field event fun(self: Unit, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
@@ -4366,9 +4322,7 @@ M.config["控制台-请求补全"] = {
 
 ---@class EditorObject.Ability
 ---@field event fun(self: EditorObject.Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
----@field event fun(self: EditorObject.Ability, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
----@field event fun(self: EditorObject.Ability, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
@@ -4435,9 +4389,7 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: EditorObject.Unit, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-普攻命中", callback: fun(trg: Trigger, data: EventParam.单位-普攻命中)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-普攻造成伤害", callback: fun(trg: Trigger, data: EventParam.单位-普攻造成伤害)): Trigger
----@field event fun(self: EditorObject.Unit, event: "技能-层数变化", callback: fun(trg: Trigger, data: EventParam.技能-层数变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
----@field event fun(self: EditorObject.Unit, event: "技能-充能进度变化", callback: fun(trg: Trigger, data: EventParam.技能-充能进度变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
