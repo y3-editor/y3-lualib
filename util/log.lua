@@ -66,10 +66,6 @@ log = New 'Log' {
     end,
     startTime = (function ()
         local timeStamp = GameAPI.get_game_init_time_stamp()
-        -- 编辑器模式下，时间戳需要减去8小时
-        if GameAPI.api_get_start_mode() == 1 then
-            timeStamp = timeStamp - 8 * 3600
-        end
         return timeStamp
     end)(),
     print = function (level, message, timeStamp)
