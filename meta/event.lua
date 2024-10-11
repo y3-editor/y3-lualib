@@ -6972,6 +6972,228 @@ event.MOUSE_UP_RAW_INPUT_EVENT = {
     },
 }
 
+---@class EventParam.ET_TOUCH_KEY_DOWN_EVENT
+---@field player Player # 触发按键的玩家
+---@field pointing_world_pos Point # 触点指向的世界坐标
+---@field touch_index integer # 当前触点索引
+---@field touch_total integer # 总触点数量
+---@field touch_force number # 触点力度
+---@field is_click_swallowed_by_ui boolean # 点击事件是否被UI吞噬
+
+--移动端触摸按下
+event.ET_TOUCH_KEY_DOWN_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "触点指向的世界坐标",
+        lua_desc = "触点指向的世界坐标",
+    },
+    [3] = {
+        name = "__touch_index",
+        type = "integer",
+        lua_name = "touch_index",
+        lua_type = "integer",
+        desc = "当前触点索引",
+        lua_desc = "当前触点索引",
+    },
+    [4] = {
+        name = "__touch_total",
+        type = "integer",
+        lua_name = "touch_total",
+        lua_type = "integer",
+        desc = "总触点数量",
+        lua_desc = "总触点数量",
+    },
+    [5] = {
+        name = "__touch_force",
+        type = "py.Fixed",
+        lua_name = "touch_force",
+        lua_type = "number",
+        desc = "触点力度",
+        lua_desc = "触点力度",
+    },
+    [6] = {
+        name = "__is_click_swallowed_by_ui",
+        type = "boolean",
+        lua_name = "is_click_swallowed_by_ui",
+        lua_type = "boolean",
+        desc = "点击事件是否被UI吞噬",
+        lua_desc = "点击事件是否被UI吞噬",
+    },
+}
+
+---@class EventParam.ET_TOUCH_KEY_UP_EVENT
+---@field player Player # 触发按键的玩家
+---@field pointing_world_pos Point # 触点指向的世界坐标
+---@field touch_index integer # 当前触点索引
+---@field touch_total integer # 总触点数量
+---@field touch_force number # 触点力度
+---@field is_click_swallowed_by_ui boolean # 点击事件是否被UI吞噬
+
+--移动端触摸抬起
+event.ET_TOUCH_KEY_UP_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "触点指向的世界坐标",
+        lua_desc = "触点指向的世界坐标",
+    },
+    [3] = {
+        name = "__touch_index",
+        type = "integer",
+        lua_name = "touch_index",
+        lua_type = "integer",
+        desc = "当前触点索引",
+        lua_desc = "当前触点索引",
+    },
+    [4] = {
+        name = "__touch_total",
+        type = "integer",
+        lua_name = "touch_total",
+        lua_type = "integer",
+        desc = "总触点数量",
+        lua_desc = "总触点数量",
+    },
+    [5] = {
+        name = "__touch_force",
+        type = "py.Fixed",
+        lua_name = "touch_force",
+        lua_type = "number",
+        desc = "触点力度",
+        lua_desc = "触点力度",
+    },
+    [6] = {
+        name = "__is_click_swallowed_by_ui",
+        type = "boolean",
+        lua_name = "is_click_swallowed_by_ui",
+        lua_type = "boolean",
+        desc = "点击事件是否被UI吞噬",
+        lua_desc = "点击事件是否被UI吞噬",
+    },
+}
+
+---@class EventParam.ET_TOUCH_KEY_MOVE_EVENT
+---@field player Player # 触发按键的玩家
+---@field pointing_world_pos Point # 触点指向的世界坐标
+---@field touch_index integer # 当前触点索引
+---@field touch_total integer # 总触点数量
+---@field touch_force number # 触点力度
+
+--移动端触摸移动
+event.ET_TOUCH_KEY_MOVE_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "触点指向的世界坐标",
+        lua_desc = "触点指向的世界坐标",
+    },
+    [3] = {
+        name = "__touch_index",
+        type = "integer",
+        lua_name = "touch_index",
+        lua_type = "integer",
+        desc = "当前触点索引",
+        lua_desc = "当前触点索引",
+    },
+    [4] = {
+        name = "__touch_total",
+        type = "integer",
+        lua_name = "touch_total",
+        lua_type = "integer",
+        desc = "总触点数量",
+        lua_desc = "总触点数量",
+    },
+    [5] = {
+        name = "__touch_force",
+        type = "py.Fixed",
+        lua_name = "touch_force",
+        lua_type = "number",
+        desc = "触点力度",
+        lua_desc = "触点力度",
+    },
+}
+
+---@class EventParam.ET_TOUCH_KEY_PRESS_EVENT
+---@field player Player # 触发按键的玩家
+---@field pointing_world_pos Point # 触点指向的世界坐标
+---@field touch_index integer # 当前触点索引
+---@field touch_total integer # 总触点数量
+---@field touch_force number # 触点力度
+
+--移动端触摸长按
+event.ET_TOUCH_KEY_PRESS_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "触点指向的世界坐标",
+        lua_desc = "触点指向的世界坐标",
+    },
+    [3] = {
+        name = "__touch_index",
+        type = "integer",
+        lua_name = "touch_index",
+        lua_type = "integer",
+        desc = "当前触点索引",
+        lua_desc = "当前触点索引",
+    },
+    [4] = {
+        name = "__touch_total",
+        type = "integer",
+        lua_name = "touch_total",
+        lua_type = "integer",
+        desc = "总触点数量",
+        lua_desc = "总触点数量",
+    },
+    [5] = {
+        name = "__touch_force",
+        type = "py.Fixed",
+        lua_name = "touch_force",
+        lua_type = "number",
+        desc = "触点力度",
+        lua_desc = "触点力度",
+    },
+}
+
 ---@class EventParam.ET_UNIT_EVENT_TO_GLOBAL
 ---@field event_name string # 事件名
 ---@field point Point # 点
@@ -9841,5 +10063,10 @@ event.ET_MALL_NOTIFY_TEAM_INVITE = {
         lua_desc = "队伍ID",
     },
 }
+
+---@class EventParam.ET_MALL_NOTIFY_ENTER_LOBBY
+
+--steam大厅收到队伍邀请
+event.ET_MALL_NOTIFY_ENTER_LOBBY = {}
 
 return event

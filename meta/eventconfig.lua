@@ -812,32 +812,6 @@ M.config["未知-ET_UNIT_ENTER_MOVER_STATE"] = {
     },
 }
 
----@alias EventParam.单位-开始移动 EventParam.ET_UNIT_START_MOVE
-M.config["单位-开始移动"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "单位开始移动时触发",
-    extraArgs = {
-    },
-    key = "ET_UNIT_START_MOVE",
-    name = "单位-开始移动",
-    object = "Unit",
-    params = {
-    },
-}
-
----@alias EventParam.单位-结束移动 EventParam.ET_UNIT_END_MOVE
-M.config["单位-结束移动"] = {
-    __class__ = "EventConfigBuilder",
-    desc = "单位结束移动时触发",
-    extraArgs = {
-    },
-    key = "ET_UNIT_END_MOVE",
-    name = "单位-结束移动",
-    object = "Unit",
-    params = {
-    },
-}
-
 ---@alias EventParam.单位-移除 EventParam.ET_UNIT_REMOVE
 M.config["单位-移除"] = {
     __class__ = "EventConfigBuilder",
@@ -3928,8 +3902,6 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: self, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
 ---@field event fun(self: self, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
 ---@field event fun(self: self, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
----@field event fun(self: self, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
----@field event fun(self: self, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
 ---@field event fun(self: self, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
 ---@field event fun(self: self, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
 ---@field event fun(self: self, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
@@ -4244,8 +4216,6 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: Unit, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
 ---@field event fun(self: Unit, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
 ---@field event fun(self: Unit, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
----@field event fun(self: Unit, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
----@field event fun(self: Unit, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
 ---@field event fun(self: Unit, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
 ---@field event fun(self: Unit, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
 ---@field event fun(self: Unit, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
@@ -4396,8 +4366,6 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: EditorObject.Unit, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
----@field event fun(self: EditorObject.Unit, event: "单位-开始移动", callback: fun(trg: Trigger, data: EventParam.单位-开始移动)): Trigger
----@field event fun(self: EditorObject.Unit, event: "单位-结束移动", callback: fun(trg: Trigger, data: EventParam.单位-结束移动)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger

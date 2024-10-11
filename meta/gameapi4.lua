@@ -993,8 +993,9 @@ function GameAPI.set_audio_chat_channel(role, channel) end
 ---@param loop boolean # 是否循环
 ---@param fade_in_time? number # 淡入时间
 ---@param fade_out_time? number # 淡出时间
+---@param volume? integer # 音量
 ---@return py.SoundEntity # 声音对象
-function GameAPI.play_sound_for_player(role, sid, loop, fade_in_time, fade_out_time) end
+function GameAPI.play_sound_for_player(role, sid, loop, fade_in_time, fade_out_time, volume) end
 
 --对目标播放音乐
 ---@param unit_key py.UnitKey # 单位编号
@@ -1012,8 +1013,9 @@ function GameAPI.play_sound_for_role_relation(unit_key, camp_target, sid, loop) 
 ---@param fade_out_time? number # 淡出时间
 ---@param ensure_play? boolean # 确保播放
 ---@param loop? boolean # 是否循环
+---@param volume? integer # 音量
 ---@return py.SoundEntity # 声音对象
-function GameAPI.play_3d_sound_for_player(role, sid, position, height, fade_in_time, fade_out_time, ensure_play, loop) end
+function GameAPI.play_3d_sound_for_player(role, sid, position, height, fade_in_time, fade_out_time, ensure_play, loop, volume) end
 
 --跟随单位播放3d音乐
 ---@param role py.Role # 玩家
@@ -1026,8 +1028,9 @@ function GameAPI.play_3d_sound_for_player(role, sid, position, height, fade_in_t
 ---@param offset_x? number # 偏移x
 ---@param offset_y? number # 偏移y
 ---@param offset_z? number # 偏移z
+---@param volume? integer # 音量
 ---@return py.SoundEntity # 声音对象
-function GameAPI.follow_object_play_3d_sound_for_player(role, sid, unit, fade_in_time, fade_out_time, ensure_play, loop, offset_x, offset_y, offset_z) end
+function GameAPI.follow_object_play_3d_sound_for_player(role, sid, unit, fade_in_time, fade_out_time, ensure_play, loop, offset_x, offset_y, offset_z, volume) end
 
 --停止播放音乐
 ---@param role py.Role # 玩家
@@ -1738,8 +1741,11 @@ function GameAPI.steam_get_team_id() end
 function GameAPI.steam_get_player_id() end
 
 --开始匹配
+---@param score integer # 天梯分数
+---@param level_id string # 等级id
+---@param game_mode integer # 游戏模式
 ---@return integer # 开始匹配结果
-function GameAPI.steam_start_match() end
+function GameAPI.steam_start_match(score, level_id, game_mode) end
 
 --取消匹配
 ---@return integer # 取消匹配结果
@@ -1757,12 +1763,12 @@ function GameAPI.steam_get_player_state() end
 ---@return string # 玩家名称
 function GameAPI.steam_get_player_nickname() end
 
---设置当前地图的指定key的存档值
+--设置steam大厅的指定key的全局存档值
 ---@param key string # 全局存档key值
 ---@param value py.Actor # 设置的数值
 function GameAPI.set_steam_global_archive_data(key, value) end
 
---增加当前地图的指定key的存档值
+--增加steam大厅的指定key的全局存档值
 ---@param key string # 全局存档key值
 ---@param value integer # 增加的数值
 function GameAPI.add_steam_global_archive_data(key, value) end
@@ -4839,7 +4845,8 @@ function GameAPI.get_global_weather() end
 ---@param role py.Role # 玩家
 ---@param ability py.Ability # 技能
 ---@param dry_run? boolean # 是否仅模拟不施法
-function GameAPI.start_skill_pointer(role, ability, dry_run) end
+---@param ignore_unit_ids? py.UnitGroup # 忽略单位的id列表
+function GameAPI.start_skill_pointer(role, ability, dry_run, ignore_unit_ids) end
 
 --关闭技能指示器
 ---@param role py.Role # 玩家

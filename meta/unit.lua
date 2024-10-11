@@ -1587,3 +1587,11 @@ function Unit:api_set_repair_target_unit(repair_target) end
 --单位 - 设置维修技能
 ---@param ability py.Ability # 维修技能
 function Unit:api_set_repair_ability(ability) end
+
+--开启锁定移动
+---@param angle_or_target number # 角度
+---@param turn_time_ms? number # 转身时间
+function Unit:api_set_lock_yaw(angle_or_target, turn_time_ms) end
+
+--结束锁定移动
+function Unit:api_set_unlock_yaw() end
