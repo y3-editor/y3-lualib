@@ -107,12 +107,12 @@ function M:wakeup()
     self:set_time_out()
 end
 
--- 立即执行
+---立即执行
 function M:execute(...)
     xpcall(self.on_timer, log.error, self, self.runned_count, ...)
 end
 
--- 移除计时器
+---移除计时器
 function M:remove()
     Delete(self)
 end
@@ -150,7 +150,7 @@ function M:pop()
     end
 end
 
--- 暂停计时器
+---暂停计时器
 function M:pause()
     if self.pausing or self.removed then
         return
@@ -160,7 +160,7 @@ function M:pause()
     self:pop()
 end
 
--- 恢复计时器
+---恢复计时器
 function M:resume()
     if not self.pausing or self.removed then
         return
@@ -175,13 +175,13 @@ function M:resume()
     end
 end
 
--- 是否正在运行
+---是否正在运行
 function M:is_running()
     return  not self.removed
         and not self.pausing
 end
 
--- 获取经过的时间
+---获取经过的时间
 ---@return number
 function M:get_elapsed_time()
     if self.removed then
@@ -196,13 +196,13 @@ function M:get_elapsed_time()
     return (cur_ms - self.start_ms - self.paused_ms) / 1000.0
 end
 
--- 获取初始计数
+---获取初始计数
 ---@return integer
 function M:get_init_count()
     return self.count
 end
 
--- 获取剩余时间
+---获取剩余时间
 ---@return number
 function M:get_remaining_time()
     if self.removed or self.waking_up then
@@ -214,7 +214,7 @@ function M:get_remaining_time()
     return (self.target_ms - cur_ms) / 1000.0
 end
 
--- 获取剩余计数
+---获取剩余计数
 ---@return integer
 function M:get_remaining_count()
     if self.count <= 0 then
@@ -223,7 +223,13 @@ function M:get_remaining_count()
     return self.count - self.runned_count
 end
 
--- 获取计时器设置的时间
+---设置剩余计数（设置为 <= 0 的数值将变为无次数限制）
+---@param count integer
+function M:set_remaining_count(count)
+    self.count = self.runned_count + count
+end
+
+---获取计时器设置的时间
 ---@return number
 function M:get_time_out_time()
     return self.time
@@ -234,7 +240,7 @@ function M:get_include_name()
     return self.include_name
 end
 
--- 等待时间后执行
+---等待时间后执行
 ---@param timeout number
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
@@ -243,7 +249,7 @@ function M.wait(timeout, on_timer)
     return timer
 end
 
--- 等待一定帧数后执行
+---等待一定帧数后执行
 ---@param frame integer
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
@@ -252,7 +258,7 @@ function M.wait_frame(frame, on_timer)
     return timer
 end
 
--- 循环执行
+---循环执行
 ---@param timeout number
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
@@ -261,7 +267,7 @@ function M.loop(timeout, on_timer)
     return timer
 end
 
--- 每经过一定帧数后执行
+---每经过一定帧数后执行
 ---@param frame integer
 ---@param on_timer LocalTimer.OnTimer
 ---@return LocalTimer
@@ -270,7 +276,7 @@ function M.loop_frame(frame, on_timer)
     return timer
 end
 
--- 循环执行，可以指定最大次数
+---循环执行，可以指定最大次数
 ---@param timeout number
 ---@param count integer
 ---@param on_timer LocalTimer.OnTimer
@@ -280,7 +286,7 @@ function M.loop_count(timeout, count, on_timer)
     return timer
 end
 
--- 每经过一定帧数后执行，可以指定最大次数
+---每经过一定帧数后执行，可以指定最大次数
 ---@param frame integer
 ---@param count integer
 ---@param on_timer LocalTimer.OnTimer
@@ -290,7 +296,7 @@ function M.loop_count_frame(frame, count, on_timer)
     return timer
 end
 
--- 遍历所有的计时器，仅用于调试（可能会遍历到已经失效的）
+---遍历所有的计时器，仅用于调试（可能会遍历到已经失效的）
 ---@return fun():LocalTimer?
 function M.pairs()
     local timers = {}
@@ -336,6 +342,12 @@ local function update_frame()
     end
 
     cur_ms = target_ms
+end
+
+function M.debug_fastward(frame_count)
+    for _ = 1, frame_count do
+        update_frame()
+    end
 end
 
 ---@diagnostic disable-next-line: deprecated
