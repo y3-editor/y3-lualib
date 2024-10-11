@@ -63,6 +63,7 @@ end
 ---@field follow_rotation? integer | y3.Const.SfxRotateType 跟随单位旋转的模式，只有当 `target` 的类型为单位时有效
 ---@field follow_scale? boolean 是否跟随单位缩放，只有当 `target` 的类型为单位时有效
 ---@field immediate? boolean 销毁时，是否立刻移除显示效果
+---@field detach? boolean 是否脱离单位，只有当 `target` 的类型为单位时有效
 
 --创建特效到单位或点
 ---@param data Particle.Param.Create
@@ -88,7 +89,8 @@ function M.create(data)
             time,
             angle,
             immediate,
-            immediate == nil
+            immediate == nil,
+            data.detach
         )
         local ptc = New 'Particle' (py_sfx)
         return ptc
