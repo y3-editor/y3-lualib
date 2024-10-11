@@ -180,7 +180,7 @@ y3.sync.onSync('$restart', function ()
                 and local_player:get_id()
                 or nil,
         }
-        y3.game.restart_game(true)
+        y3.game.restart_game()
     end)
 end)
 

@@ -410,8 +410,7 @@ function M.pause_game()
 end
 
 ---开始新一轮游戏
----@param fast_restart boolean 快速重置
-function M.restart_game(fast_restart)
+function M.restart_game()
     M.switch_level(M.get_level())
 end
 
