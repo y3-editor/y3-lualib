@@ -77,4 +77,31 @@ do
     assert(t:get_remaining_time() == 0.5)
 end
 
+do
+    local t = y3.ltimer.loop_count(1, 10, function (timer, count)
+    end)
+
+    assert(t:get_remaining_time() == 1)
+
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 0.5)
+
+    t:set_time_out_time(2)
+    y3.ltimer.debug_fastward(10)
+    assert(t:get_remaining_time() == 0.167)
+
+    y3.ltimer.debug_fastward(5)
+    assert(t:get_remaining_time() == 2)
+
+    y3.ltimer.debug_fastward(30)
+    assert(t:get_remaining_time() == 1)
+
+    y3.ltimer.debug_fastward(60)
+    assert(t:get_remaining_time() == 1)
+
+    t:set_time_out_time(3)
+    y3.ltimer.debug_fastward(30)
+    assert(t:get_remaining_time() == 3)
+end
+
 print('ltimer 测试通过')

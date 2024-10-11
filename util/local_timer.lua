@@ -75,14 +75,31 @@ function M:set_time_out()
         return
     end
 
+    local next_time
+
     if self.mode == 'second' then
-        self.target_ms = self.init_ms
-                       + self.time * (self.runned_count + 1) * 1000.0
-                       + self.total_fixed_ms
+        next_time = self.time * (self.runned_count + 1) * 1000
     else
-        self.target_ms = self.init_ms
-                       + self.time * (self.runned_count + 1) * 1000 // y3.config.logic_frame
-                       + self.total_fixed_ms
+        next_time = self.time * (self.runned_count + 1) * 1000 // y3.config.logic_frame
+    end
+
+    self.target_ms = self.init_ms
+                   + next_time
+                   + self.total_fixed_ms
+
+    if self.changed_time_out_time then
+        self.changed_time_out_time = nil
+        local once_time
+
+        if self.mode == 'second' then
+            once_time = self.time * 1000
+        else
+            once_time = self.time * 1000 // y3.config.logic_frame
+        end
+
+        local target_ms = cur_ms + once_time
+        self.total_fixed_ms = self.total_fixed_ms + target_ms - self.target_ms
+        self.target_ms = target_ms
     end
 
     self:push()
@@ -241,10 +258,18 @@ function M:set_remaining_count(count)
     self.count = self.runned_count + count
 end
 
----获取计时器设置的时间
+---获取计时器周期
 ---@return number
 function M:get_time_out_time()
     return self.time
+end
+
+---设置计时器周期（从下个循环开始生效）
+---@param time number
+function M:set_time_out_time(time)
+    self.time = time
+    ---@private
+    self.changed_time_out_time = true
 end
 
 ---@return string?
