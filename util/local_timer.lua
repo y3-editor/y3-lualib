@@ -30,7 +30,7 @@ M.all_timers = setmetatable({}, y3.util.MODE_V)
 M.runned_count = 0
 
 ---@private
-M.total_paused_ms = 0
+M.total_fixed_ms = 0
 
 ---@private
 M.paused_ms = 0
@@ -78,11 +78,11 @@ function M:set_time_out()
     if self.mode == 'second' then
         self.target_ms = self.init_ms
                        + self.time * (self.runned_count + 1) * 1000.0
-                       + self.total_paused_ms
+                       + self.total_fixed_ms
     else
         self.target_ms = self.init_ms
                        + self.time * (self.runned_count + 1) * 1000 // y3.config.logic_frame
-                       + self.total_paused_ms
+                       + self.total_fixed_ms
     end
 
     self:push()
@@ -168,7 +168,7 @@ function M:resume()
     self.pausing = false
     local paused_ms = cur_ms - self.paused_at
     self.paused_ms = self.paused_ms + paused_ms
-    self.total_paused_ms = self.total_paused_ms + paused_ms
+    self.total_fixed_ms = self.total_fixed_ms + paused_ms
 
     if not self.waking_up then
         self:set_time_out()
@@ -212,6 +212,18 @@ function M:get_remaining_time()
         return (self.target_ms - self.paused_at) / 1000.0
     end
     return (self.target_ms - cur_ms) / 1000.0
+end
+
+---设置剩余时间（不能在计时器到期时设置）
+---@param sec number
+function M:set_remaining_time(sec)
+    if self.removed or self.waking_up then
+        return
+    end
+    local delta = sec * 1000 - self:get_remaining_time() * 1000
+    self.target_ms = self.target_ms + delta
+    self.total_fixed_ms = self.total_fixed_ms + delta
+    self:set_time_out()
 end
 
 ---获取剩余计数

@@ -38,4 +38,43 @@ do
     assert(table.concat(r, ',') == '9,8,7,6,5,1,0')
 end
 
+do
+    local t = y3.ltimer.loop_count(1, 10, function (timer, count)
+    end)
+
+    assert(t:get_remaining_time() == 1)
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 0.5)
+
+    t:set_remaining_time(1)
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 0.5)
+
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 1)
+
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 0.5)
+
+    t:pause()
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 0.5)
+
+    t:set_remaining_time(1)
+    assert(t:get_remaining_time() == 1)
+
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 1)
+
+    t:resume()
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 0.5)
+
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 1)
+
+    y3.ltimer.debug_fastward(15)
+    assert(t:get_remaining_time() == 0.5)
+end
+
 print('ltimer 测试通过')
