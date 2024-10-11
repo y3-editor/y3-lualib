@@ -205,11 +205,12 @@ end
 
 ---@class Develop.Helper.RestartOptions
 ---@field debugger? boolean # 是否需要启动调试器。如果省略，会根据当前是否附加了调试器来决定是否需要调试器。
+---@field id? integer  多开模式下自己的id
 
 --准备重启游戏
----@param options Develop.Helper.RestartOptions
+---@param options? Develop.Helper.RestartOptions
 function M.prepareForRestart(options)
-    M.notify('prepareForRestart', options)
+    M.notify('prepareForRestart', options or {})
 end
 
 ---@param command string
