@@ -278,6 +278,13 @@ function M:remove_tag(tag)
     self.phandle:api_remove_tag(tag)
 end
 
+---是否具有标签
+---@param tag_name string 标签
+---@return boolean has_tag 具有标签
+function M:has_tag(tag_name)
+    return GlobalAPI.has_tag(self.handle, tag_name)
+end
+
 ---播放动画
 ---@param anim_name string 动画名字
 ---@param start_time? number 开始时间
