@@ -123,6 +123,18 @@ function M:add_event(event, name, data)
     return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name, y3.dump.encode(data))
 end
 
+--创建快速界面事件
+---@param event y3.Const.UIEvent 界面事件类型
+---@param callback fun(trg: Trigger, data: EventParam.界面-消息))
+---@param data? Serialization.SupportTypes 自定义数据，在事件中通过 `data` 字段获取
+function M:add_fast_event(event, callback, data)
+    GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, "fast" .. self.handle,
+        y3.dump.encode(data))
+    self.player:event("界面-消息", "fast" .. self.handle, function(trg, data)
+        xpcall(callback, log.error, trg, data)
+    end)
+end
+
 --创建本地界面事件  
 --触发事件后立即调用回调函数，不会与其他玩家同步。
 --
