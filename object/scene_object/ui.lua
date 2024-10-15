@@ -125,7 +125,7 @@ end
 
 --创建快速界面事件
 ---@param event y3.Const.UIEvent 界面事件类型
----@param callback  fun(trg: Trigger, data: EventParam.界面-消息))
+---@param callback fun(trg: Trigger, data: EventParam.界面-消息))
 function M:add_fast_event(event, callback)
     local charset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     local length = 10
