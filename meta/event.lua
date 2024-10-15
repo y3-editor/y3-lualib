@@ -2192,7 +2192,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_FINISH
----@field is_critical_hit number # 是否是暴击
+---@field is_critical_hit boolean # 是否是暴击
 ---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
@@ -2206,9 +2206,9 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 event.ET_UNIT_HURT_OTHER_FINISH = {
     [1] = {
         name = "__is_critical_hit",
-        type = "py.Fixed",
+        type = "boolean",
         lua_name = "is_critical_hit",
-        lua_type = "number",
+        lua_type = "boolean",
         desc = "是否是暴击",
         lua_desc = "是否是暴击",
     },
@@ -2280,7 +2280,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 }
 
 ---@class EventParam.ET_UNIT_BE_HURT_COMPLETE
----@field is_critical_hit number # 是否是暴击
+---@field is_critical_hit boolean # 是否是暴击
 ---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
@@ -2294,9 +2294,9 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 event.ET_UNIT_BE_HURT_COMPLETE = {
     [1] = {
         name = "__is_critical_hit",
-        type = "py.Fixed",
+        type = "boolean",
         lua_name = "is_critical_hit",
-        lua_type = "number",
+        lua_type = "boolean",
         desc = "是否是暴击",
         lua_desc = "是否是暴击",
     },
