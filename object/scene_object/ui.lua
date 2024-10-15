@@ -125,14 +125,29 @@ end
 
 --创建快速界面事件
 ---@param event y3.Const.UIEvent 界面事件类型
----@param callback fun(trg: Trigger, data: EventParam.界面-消息))
----@param data? Serialization.SupportTypes 自定义数据，在事件中通过 `data` 字段获取
-function M:add_fast_event(event, callback, data)
-    GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, "fast" .. self.handle,
-        y3.dump.encode(data))
-    self.player:event("界面-消息", "fast" .. self.handle, function(trg, data)
-        xpcall(callback, log.error, trg, data)
-    end)
+---@param callback  fun(trg: Trigger, data: EventParam.界面-消息))
+function M:add_fast_event(event, callback)
+    local charset = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    local length = 10
+    local function nextString(current)
+        local index = {}
+        for i = 1, length do index[i] = string.find(charset, current:sub(i, i)) end
+        for i = length, 1, -1 do
+            if index[i] < #charset then
+                index[i] = index[i] + 1
+                break
+            else
+                index[i] = 1
+            end
+        end
+        local result = {}
+        for i = 1, length do result[i] = charset:sub(index[i], index[i]) end
+        return table.concat(result)
+    end
+    local sid = nextString(self.player:storage_get("_fast_event") or "0000000000")
+    self.player:storage_set("_fast_event", sid)
+    GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, sid .. self.handle, "")
+    self.player:event("界面-消息", sid .. self.handle, function(trg, data) xpcall(callback, log.error, trg, data) end)
 end
 
 --创建本地界面事件  
