@@ -504,7 +504,7 @@ function M.createUnitButton(unit)
 end
 
 function M.createSelectingButton()
-    local list = New 'LinkedTable' ()
+    local list = y3.linkedTable.create()
 
     local node = y3.develop.helper.createTreeNode('选中单位', {
         icon = 'organization',

@@ -1,20 +1,14 @@
 ---@class LinkedTable
 ---@field package _left  table
 ---@field package _right table
----@overload fun(): self
-local M = Class 'LinkedTable'
+local M = {}
+M.__index = M
 
 ---@private
 M._size = 0
 
 local HEAD = {'<HEAD>'}
 local TAIL = {'<TAIL>'}
-
----@return self
-function M:__init()
-    self:reset()
-    return self
-end
 
 ---@param node any
 ---@return boolean
@@ -207,8 +201,14 @@ end
 ---@return any
 function M:pairsFast(start, revert)
     if revert then
+        if start ~= nil then
+            start = self._right[start]
+        end
         return pairsLeftNode, self, start
     else
+        if start ~= nil then
+            start = self._left[start]
+        end
         return pairsRightNode, self, start
     end
 end
@@ -281,3 +281,26 @@ function M:reset()
 
     self._size = 0
 end
+
+---@param start any
+---@param revert? boolean
+---@return any[]
+function M:toArray(start, revert)
+    local nodes = {}
+    for node in self:pairsFast(start, revert) do
+        nodes[#nodes+1] = node
+    end
+    return nodes
+end
+
+---@class LinkedTable.API
+local API = {}
+
+---@return LinkedTable
+function API.create()
+    local lt = setmetatable({}, M)
+    lt:reset()
+    return lt
+end
+
+return API

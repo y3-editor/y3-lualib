@@ -67,7 +67,7 @@ end
 ---@param ... any
 function M:stack_notify(event_name, event_args, ...)
     if not self.stack_list then
-        self.stack_list = New 'LinkedTable' ()
+        self.stack_list = y3.linkedTable.create()
     end
     local box = table.pack(event_name, event_args, ...)
     self.stack_list:pushTail(box)

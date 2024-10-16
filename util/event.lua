@@ -17,7 +17,7 @@ M.fire_lock = 0
 ---@return self
 function M:__init(event_name)
     self.event_name = event_name
-    self.triggers_common = New 'LinkedTable' ()
+    self.triggers_common = y3.linkedTable.create()
     return self
 end
 
@@ -57,7 +57,7 @@ function M:did_add_trigger(trigger)
             self.triggers_custom = {}
         end
         if not self.triggers_custom[target] then
-            self.triggers_custom[target] = New 'LinkedTable' ()
+            self.triggers_custom[target] = y3.linkedTable.create()
         end
         self.triggers_custom[target]:pushTail(trigger)
     elseif mode == 'array' then
@@ -65,7 +65,7 @@ function M:did_add_trigger(trigger)
             self.triggers_with_args = {}
         end
         if not self.triggers_with_args[target] then
-            self.triggers_with_args[target] = New 'LinkedTable' ()
+            self.triggers_with_args[target] = y3.linkedTable.create()
         end
         self.triggers_with_args[target]:pushTail(trigger)
     end
