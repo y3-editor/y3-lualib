@@ -15,7 +15,7 @@ pcall(function ()
             return
         end
         local port = 12399 - id
-        LDBG = require "y3.debugger":start("127.0.0.1:" .. tonumber(port))
+        LDBG = require "y3.debugger":start("127.0.0.1:" .. tostring(port))
     else
         LDBG = require "y3.debugger":start "127.0.0.1:12399"
     end
