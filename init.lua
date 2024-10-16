@@ -19,9 +19,10 @@ pcall(function ()
     else
         LDBG = require "y3.debugger":start "127.0.0.1:12399"
     end
+    if LDBG then LDBG:event('autoUpdate', false) end
     if arg['lua_wait_debugger'] == 'true'
     or arg['lua_multi_wait_debugger'] == 'true' then
-        LDBG:event 'wait'
+        if LDBG then LDBG:event 'wait' end
     end
 end)
 
@@ -29,7 +30,7 @@ end)
 ---@class Y3
 y3 = {}
 
-y3.version = 241010
+y3.version = 241015
 
 y3.proxy   = require 'y3.tools.proxy'
 y3.class   = require 'y3.tools.class'
@@ -152,6 +153,18 @@ y3.await.setSleepWaker(y3.ltimer.wait)
 log.info('LuaLib版本：', y3.version)
 
 y3.game:event_dispatch('$Y3-初始化')
+
+if LDBG then
+    y3.ltimer.loop_frame(1, function ()
+        LDBG:event 'update'
+    end)
+end
+
+if arg['lua_tracy'] == 'true' then
+    y3.ltimer.wait_frame(0, function ()
+        enable_lua_profile(true)
+    end)
+end
 
 --自己控制GC
 GlobalAPI.api_stop_luagc_control()

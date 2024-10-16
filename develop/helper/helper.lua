@@ -1,6 +1,5 @@
 local network  = require 'y3.util.network'
 local console  = require 'y3.develop.console'
-local explorer = require 'y3.develop.helper.explorer'
 local attr     = require 'y3.develop.helper.attr'
 
 local nextID = y3.util.counter()
@@ -275,6 +274,7 @@ M._inited = false
 ---@param force? boolean # 是否允许重复连接
 ---@return { network: Network, explorer: Develop.Helper.TreeView }?
 function M.init(port, force)
+    local explorer = require 'y3.develop.helper.explorer'
     if M._inited and not force then
         return nil
     end
