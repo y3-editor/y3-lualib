@@ -1,5 +1,6 @@
 local watcher = require 'y3.develop.watcher'
 local attr    = require 'y3.develop.helper.attr'
+local helper  = require 'y3.develop.helper.helper'
 
 ---@class Develop.Helper.Explorer
 local M = Class 'Develop.Helper.Explorer'
@@ -270,6 +271,17 @@ function M.createRefWatcher()
     return node
 end
 
+function M.createTracy()
+    return y3.develop.helper.createTreeNode('启动Tracy', {
+        icon = 'rss',
+        tooltip = '对Lua进行性能分析，但是会大幅影响运行效率',
+        onClick = function ()
+            enable_lua_profile(true)
+            helper.request('createTracy', {})
+        end,
+    })
+end
+
 function M.createReloadButton()
     local node = y3.develop.helper.createTreeNode('重载Lua', {
         icon = 'refresh',
@@ -299,6 +311,7 @@ M.attrLayout = [[
 生命 ${生命} / ${最大生命}
     最大生命
     生命恢复
+    百分比生命恢复
 魔法 ${魔法} / ${最大魔法}
     最大魔法
     魔法恢复
@@ -571,6 +584,7 @@ function M.createRoot(name)
                 M.createTimerWatcher(),
                 M.createTriggerWatcher(),
                 M.createRefWatcher(),
+                M.createTracy(),
                 M.createSelectingButton(),
             }
         end,

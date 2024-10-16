@@ -76,6 +76,10 @@
 * `id`: `integer` 玩家ID
 * `multiMode?`: `boolean` 是否是多开模式
 
+## createTracy
+
+启动tracy
+
 # Y3开发助手 -> 游戏
 
 ## command
