@@ -381,9 +381,10 @@ function M:get_slot()
 end
 
 ---获取技能消耗的玩家属性值
----@param key string 属性key
+---@param key y3.Const.PlayerAttr | string 属性key
 ---@return number cost 玩家属性值
 function M:get_player_attr_cost(key)
+    key = y3.const.PlayerAttr[key] or key
     return y3.helper.tonumber(self.phandle:api_get_ability_player_attr_cost(key)) or 0.0
 end
 
