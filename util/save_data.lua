@@ -147,6 +147,7 @@ function M.load_table_with_cover_enable(player, slot)
             and math.type(key) ~= 'integer' then
                 error('存档的key必须是字符串或者整数')
             end
+            value = y3.helper.as_lua(value)
             local vtype = type(value)
             if  vtype ~= 'nil'
             and vtype ~= 'string'
@@ -246,6 +247,7 @@ function M.load_table_with_cover_disable(player, slot)
             and math.type(key) ~= 'integer' then
                 error('表的key必须是字符串或者整数')
             end
+            value = y3.helper.as_lua(value)
             local vtype = type(value)
             if vtype == 'table' then
                 if next(value) ~= nil then
