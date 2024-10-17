@@ -128,7 +128,10 @@ end
 ---@param callback fun(trg: Trigger)
 ---@return Trigger
 function M:add_fast_event(event, callback)
-    local id = '$fast_event:' .. event
+    local id = string.format('$fast_event:%s@%s'
+        , event
+        , self.handle
+    )
     GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, id, '')
     return self.player:event("界面-消息", id, callback)
 end
