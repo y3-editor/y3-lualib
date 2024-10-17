@@ -125,12 +125,12 @@ end
 
 --创建快速界面事件
 ---@param event y3.Const.UIEvent 界面事件类型
----@param callback fun(trg: Trigger, data: EventParam.界面-消息))
+---@param callback fun(trg: Trigger)
+---@return Trigger
 function M:add_fast_event(event, callback)
-    local id = (self.player:storage_get("_fast_event_id") or 0) + 1
-    self.player:storage_set("_fast_event_id", id)
-    GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, tostring(id) .. self.handle, "")
-    self.player:event("界面-消息", tostring(id) .. self.handle, function(trg, data) xpcall(callback, log.error, trg, data) end)
+    local id = '$fast_event:' .. event
+    GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, id, '')
+    return self.player:event("界面-消息", id, callback)
 end
 
 --创建本地界面事件  
