@@ -859,12 +859,12 @@ end
 ---@return number x, number y
 function M.world_pos_to_screen_edge_pos(world_pos, delta_dis)
     ---@diagnostic disable-next-line: param-type-mismatch
-    local pos = GameAPI.api_world_pos_to_screen_edge_pos(world_pos.handle, delta_dis)
+    local pos = GameAPI.api_world_pos_to_screen_edge_pos(world_pos.handle, Fix32(delta_dis))
     ---@diagnostic disable-next-line: param-type-mismatch
     local x = GlobalAPI.get_fixed_coord_index(pos, 0):float() / 100
     ---@diagnostic disable-next-line: param-type-mismatch
     local y = GlobalAPI.get_fixed_coord_index(pos, 2):float() / 100
-    y = y - 2 * (y - y3.ui:get_window_height() / 2)
+    y = y - 2 * (y - y3.ui.get_window_height() / 2)
     return x, y
 end
 

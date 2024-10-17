@@ -167,6 +167,7 @@ end
 ---@param point Point 目标点
 ---@param count integer 丢弃数量
 function M:drop(point, count)
+    ---@diagnostic disable-next-line: param-type-mismatch
     self.phandle:api_drop_self(point.handle, count)
 end
 

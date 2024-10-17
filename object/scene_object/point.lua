@@ -1,4 +1,4 @@
----@alias Point.HandleType py.FPoint
+---@alias Point.HandleType py.FVector3
 
 --点
 ---@class Point

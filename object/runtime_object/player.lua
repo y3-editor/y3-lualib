@@ -296,13 +296,15 @@ end
 ---@param point Point 点
 ---@return boolean visible 点对于玩家可见
 function M:is_visible(point)
-    return self.phandle:is_point_visible_to_player(point.handle) or false
+    ---@diagnostic disable-next-line: param-type-mismatch
+    return self.phandle:is_point_visible_to_player(point.handle) and true or false
 end
 
 ---某个位置是否处于玩家的迷雾中
 ---@param point Point 点
 ---@return boolean is_point_in_fog 点在迷雾中
 function M:is_in_fog(point)
+    ---@diagnostic disable-next-line: param-type-mismatch
     return self.phandle:is_point_in_fog(point.handle) or false
 end
 
@@ -310,6 +312,7 @@ end
 ---@param point Point 点
 ---@return boolean is_point_in_shadow 点在黑色阴影中
 function M:is_in_shadow(point)
+    ---@diagnostic disable-next-line: param-type-mismatch
     return self.phandle:is_point_in_shadow(point.handle) or false
 end
 
