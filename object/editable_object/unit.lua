@@ -364,6 +364,16 @@ function M:is_casting()
     return self.phandle:api_unit_has_running_ability() or false
 end
 
+---获取正在释放的技能
+---@return Ability?
+function M:get_casting_ability()
+    local py_ability = self.phandle:api_get_cur_record_ability()
+    if not py_ability then
+        return nil
+    end
+    return y3.ability.get_by_handle(py_ability)
+end
+
 ---创建幻象
 ---@param illusion_unit Unit 幻象复制的单位
 ---@param call_unit Unit 召唤单位
