@@ -693,21 +693,6 @@ function m.sortCallbackOfIndex(arr)
     end
 end
 
----@param datas any[]
----@param scores integer[]
----@return SortByScoreCallback
-function m.sortCallbackOfScore(datas, scores)
-    local map = {}
-    for i = 1, #datas do
-        local data = datas[i]
-        local score = scores[i]
-        map[data] = score
-    end
-    return function (v)
-        return map[v]
-    end
-end
-
 ---裁剪字符串
 ---@param str string
 ---@param mode? '"left"'|'"right"'
@@ -722,7 +707,10 @@ function m.trim(str, mode)
     return (str:match '^%s*(.-)%s*$')
 end
 
-function m.expandPath(path)
+---@param path string
+---@param env? { [string]: string }
+---@return string
+function m.expandPath(path, env)
     if path:sub(1, 1) == '~' then
         local home = getenv('HOME')
         if not home then -- has to be Windows
@@ -730,7 +718,9 @@ function m.expandPath(path)
         end
         return home .. path:sub(2)
     elseif path:sub(1, 1) == '$' then
-        path = path:gsub('%$([%w_]+)', getenv)
+        path = path:gsub('%$([%w_]+)', function (name)
+            return env and env[name] or getenv(name) or ''
+        end)
         return path
     end
     return path
@@ -866,13 +856,12 @@ function m.multiTable(count, default)
         end })
     end
     for _ = 3, count do
-        local tt = current
         current = setmetatable({}, { __index = function (t, k)
             if k == nil then
                 return nil
             end
-            t[k] = tt
-            return tt
+            t[k] = current
+            return current
         end })
     end
     return current
@@ -962,6 +951,69 @@ function m.arrayMerge(a, b)
         a[#a+1] = b[i]
     end
     return a
+end
+
+---@generic K
+---@param t { [K]: any }
+---@return K[]
+function m.keysOf(t)
+    local keys = {}
+    for k in pairs(t) do
+        keys[#keys+1] = k
+    end
+    return keys
+end
+
+---@generic V
+---@param t { [any]: V }
+---@return V[]
+function m.valuesOf(t)
+    local values = {}
+    for _, v in pairs(t) do
+        values[#values+1] = v
+    end
+    return values
+end
+
+---@param t table
+---@return integer
+function m.countTable(t)
+    local count = 0
+    for _ in pairs(t) do
+        count = count + 1
+    end
+    return count
+end
+
+---@param arr any[]
+function m.arrayRemoveDuplicate(arr)
+    local mark = {}
+    local offset = 0
+    local len = #arr
+    for i = 1, len do
+        local v = arr[i]
+        if mark[v] then
+            offset = offset + 1
+        else
+            arr[i - offset] = v
+            mark[v] = true
+        end
+    end
+    for i = len - offset + 1, len do
+        arr[i] = nil
+    end
+end
+
+---@generic V, R
+---@param t V[]
+---@param callback fun(v: V, k: integer): R
+---@return R[]
+function m.map(t, callback)
+    local nt = {}
+    for k, v in ipairs(t) do
+        nt[k] = callback(v, k)
+    end
+    return nt
 end
 
 return m
