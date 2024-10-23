@@ -98,11 +98,14 @@ function M.wait(timeout, on_timer, desc)
     desc = desc or make_timer_reason(on_timer)
     ---@type Timer
     local timer
-    local py_timer = GameAPI.add_timer(Fix32(timeout), false, function()
+    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), 0, false, function(data)
+        if not timer then
+            timer = New 'Timer' (data.current_timer, on_timer, 'second', desc)
+        end
         timer:execute()
         timer:remove()
-    end, desc)
-    timer = New 'Timer' (py_timer, on_timer, 'second', desc)
+    end, {}, desc)
+    timer = timer or New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
@@ -135,15 +138,14 @@ function M.loop(timeout, on_timer, desc, immediate)
     immediate = immediate or false
     local timer
     local count = 0
-    local py_timer = GameAPI.add_timer(Fix32(timeout), true, function()
+    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), -1, immediate, function(data)
+        if not timer then
+            timer = New 'Timer' (data.current_timer, on_timer, 'second', desc)
+        end
         count = count + 1
         timer:execute(count)
-    end, desc)
-    timer = New 'Timer' (py_timer, on_timer, 'second', desc)
-    if immediate then
-        count = count + 1
-        timer:execute(count)
-    end
+    end, {}, desc)
+    timer = timer or New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
@@ -179,23 +181,18 @@ function M.count_loop(timeout, times, on_timer, desc, immediate)
     immediate = immediate or false
     local timer
     local count = 0
-    local py_timer = GameAPI.add_timer(Fix32(timeout), true, function()
+    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), times, immediate, function(data)
+        if not timer then
+            timer = New 'Timer' (data.current_timer, on_timer, 'second', desc)
+        end
         count = count + 1
         timer:execute(count)
 
         if count >= times then
             timer:remove()
         end
-    end, desc)
-    timer = New 'Timer' (py_timer, on_timer, 'second', desc)
-    if immediate then
-        count = count + 1
-        timer:execute(count)
-
-        if count >= times then
-            timer:remove()
-        end
-    end
+    end, {}, desc)
+    timer = timer or New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
