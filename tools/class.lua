@@ -191,7 +191,11 @@ function M.new(name, tbl)
     if not class then
         local aliasCreator = M._alias[name]
         if aliasCreator then
-            return aliasCreator
+            return function (...)
+                local instance = aliasCreator(...)
+                instance.__class__ = name
+                return instance
+            end
         end
         M._errorHandler(('class %q not found'):format(name))
     end
@@ -325,6 +329,9 @@ end
 ---@param name string
 function M.runDel(obj, name)
     local class = M._classes[name]
+    if not class then
+        return
+    end
     local data  = M.getConfig(name)
     local extendsCalls = data.extendsCalls
     if extendsCalls then
