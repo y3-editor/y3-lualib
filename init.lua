@@ -51,6 +51,7 @@ Extends = y3.class.extends
 Delete  = y3.class.delete
 IsValid = y3.class.isValid
 Type    = y3.class.type
+Alias   = y3.class.alias
 IsInstanceOf = y3.class.isInstanceOf
 
 require 'y3.util.log'
@@ -58,6 +59,7 @@ y3.reload  = require 'y3.tools.reload'
 y3.sandbox = require 'y3.tools.sandbox'
 y3.hash    = require 'y3.tools.SDBMHash'
 y3.linkedTable = require 'y3.tools.linked-table'
+Alias('LinkedTable', y3.linkedTable.create)
 
 ---@diagnostic disable-next-line: lowercase-global
 include  = y3.reload.include
