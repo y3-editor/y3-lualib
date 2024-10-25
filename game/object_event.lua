@@ -166,4 +166,5 @@ end
 
 return {
     event_notify = event_notify,
+    get_master = get_master,
 }
