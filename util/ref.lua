@@ -110,6 +110,17 @@ function M:remove(key)
     end
 end
 
+---立即移除指定的key
+function M:removeNow(key)
+    if self.strongRefMap[key] then
+        self.strongRefMap[key] = nil
+        self.strongSize = self.strongSize - 1
+    end
+    self.weakRefMap[key] = nil
+    self.waitingListYoung[key] = nil
+    self.waitingListOld[key] = nil
+end
+
 ---@private
 function M:updateWaitingList()
     local young     = self.waitingListYoung
