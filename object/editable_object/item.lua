@@ -390,6 +390,15 @@ function M:get_stack()
     return self.phandle:api_get_stack_cnt() or 0
 end
 
+---获取堆叠类型
+---@return
+---| 0 # 无
+---| 1 # 充能
+---| 2 # 堆叠
+function M:get_stack_type()
+    return self.phandle:api_get_stack_type() or 0
+end
+
 ---物品充能数
 ---@return integer charges 充能数
 function M:get_charge()
