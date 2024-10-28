@@ -34,7 +34,7 @@ local function initGameEventProxy(self, name)
     end
     local datas = event_datas[config.key]
     return y3.game:event(name, function (trg, data)
-        local master = object_event.get_master(datas, config, data)
+        local master = object_event.get_master(datas, config, data, true)
         if not master then
             return
         end

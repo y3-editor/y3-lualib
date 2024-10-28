@@ -97,7 +97,7 @@ function M:subscribe_event(event_name, ...)
     return extra_args, callback, unsubscribe
 end
 
-local function get_master(datas, config, lua_params)
+local function get_master(datas, config, lua_params, force_create)
     local master = config.master_data
     if not master then
         if config.master then
@@ -117,11 +117,13 @@ local function get_master(datas, config, lua_params)
         end
         config.master_data = master
     end
-    local py_object = lua_params._py_params[master.name]
-    -- 如果一个py对象从来没有被初始化过，
-    -- 那么他身上一定不会挂载任何事件，可以直接跳过
-    if type(py_object) == 'userdata' and not y3.py_proxy.fetch(py_object) then
-        return nil
+    if not force_create then
+        local py_object = lua_params._py_params[master.name]
+        -- 如果一个py对象从来没有被初始化过，
+        -- 那么他身上一定不会挂载任何事件，可以直接跳过
+        if type(py_object) == 'userdata' and not y3.py_proxy.fetch(py_object) then
+            return nil
+        end
     end
     return lua_params[master.lua_name]
 end
