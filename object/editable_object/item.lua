@@ -393,7 +393,7 @@ end
 ---| 1 # 充能
 ---| 2 # 堆叠
 function M:get_stack_type()
-    return self.phandle:api_get_stack_type() or 0
+    return self.handle:api_get_stack_type() or 0
 end
 
 ---物品充能数
