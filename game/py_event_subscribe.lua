@@ -1,7 +1,8 @@
 local event_datas   = require 'y3.meta.event'
 local event_configs = require 'y3.meta.eventconfig'
 local game_event    = require 'y3.game.game_event'
-local object_event  = require 'y3.game.object_event'
+-- local object_event  = require 'y3.game.object_event'
+require("y3.game.core_object_event")
 
 ---@class PYEventRegister
 ---@field package need_enable_trigger_manualy boolean
@@ -278,7 +279,7 @@ function M.event_register(event_name, extra_args)
     py_trigger.on_event = function (trigger, event, actor, data)
         local lua_params = M.convert_py_params(py_event_name, data)
         game_event.event_notify(event_name, extra_args, lua_params)
-        object_event.event_notify(event_name, extra_args, lua_params)
+        -- object_event.event_notify(event_name, extra_args, lua_params)
     end
 
     -- 在初始化时注册的事件会自动启用，但之后注册的事件需要手动启用
