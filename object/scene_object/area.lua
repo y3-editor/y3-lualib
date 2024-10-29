@@ -6,8 +6,8 @@
 ---@overload fun(py_area: py.Area, shape: Area.Shape): self
 local M = Class 'Area'
 
----@class Area: ObjectEvent
-Extends('Area', 'ObjectEvent')
+---@class Area: CoreObjectEvent
+Extends('Area', 'CoreObjectEvent')
 ---@class Area: KV
 Extends('Area', 'KV')
 ---@class Area: GCHost

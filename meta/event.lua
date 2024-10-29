@@ -2780,7 +2780,7 @@ event.ET_UNIT_PRE_ADD_EXP = {
         lua_desc = "修改经验",
         lua_code = function (data)
             return function (new_exp)
-                data.unit.phandle:api_set_changed_exp_in_event(new_exp)
+                data.unit.handle:api_set_changed_exp_in_event(new_exp)
             end
         end,
     },

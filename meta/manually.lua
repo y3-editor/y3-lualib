@@ -25,6 +25,12 @@ function Fix32(luaNumber) end
 ---@return py.FixedVec2
 function Fix32Vec2(x, y) end
 
+---@param x number
+---@param y number
+---@param z number
+---@returns py.Point Fix32Vec3
+function Fix32Vec3(x, y, z) end
+
 ---@class py.Fixed
 ---@field float fun(self: self): number
 
@@ -237,5 +243,16 @@ function Unit:api_add_multi_state(state_enum) end
 
 ---@param state_enum integer
 function Unit:api_remove_multi_state(state_enum) end
+
+---comment
+---@param handle any
+---@param py_event_name string
+---@param callback fun(data)
+---@param ... any
+---@return integer seq
+function regist_object_event(handle, py_event_name, callback, ...) end
+
+---@param seq integer
+function unregist_object_event(seq) end
 
 ---@alias y3.Number number | py.Fixed | XDouble
