@@ -163,6 +163,8 @@
 ---@class py.Unit: py.Actor
 --单位组
 ---@class py.UnitGroup: py.UIntList
+--单位编号组
+---@class py.UnitKeyGroup: py.UIntList
 --单位编号池
 ---@class py.UnitKeyPool: py.DynamicTypeMeta
 --镜头配置

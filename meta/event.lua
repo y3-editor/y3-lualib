@@ -1081,6 +1081,8 @@ event.ET_ROLE_ARCHIVE_SET_FAILED = {
 
 ---@class EventParam.ET_UNIT_BUILD_UPGRADE_START
 ---@field unit Unit # 开始升级的建筑单位
+---@field old_unit_key py.UnitKey # 老的单位物编
+---@field new_unit_key py.UnitKey # 新的单位物编
 
 --建筑单位升级开始
 event.ET_UNIT_BUILD_UPGRADE_START = {
@@ -1092,10 +1094,28 @@ event.ET_UNIT_BUILD_UPGRADE_START = {
         desc = "开始升级的建筑单位",
         lua_desc = "开始升级的建筑单位",
     },
+    [2] = {
+        name = "__old_unit_key",
+        type = "py.UnitKey",
+        lua_name = "old_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "老的单位物编",
+        lua_desc = "老的单位物编",
+    },
+    [3] = {
+        name = "__new_unit_key",
+        type = "py.UnitKey",
+        lua_name = "new_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "新的单位物编",
+        lua_desc = "新的单位物编",
+    },
 }
 
 ---@class EventParam.ET_UNIT_BUILD_UPGRADE_CANCEL
 ---@field unit Unit # 取消升级的建筑单位
+---@field old_unit_key py.UnitKey # 老的单位物编
+---@field new_unit_key py.UnitKey # 新的单位物编
 
 --建筑单位升级取消
 event.ET_UNIT_BUILD_UPGRADE_CANCEL = {
@@ -1107,10 +1127,28 @@ event.ET_UNIT_BUILD_UPGRADE_CANCEL = {
         desc = "取消升级的建筑单位",
         lua_desc = "取消升级的建筑单位",
     },
+    [2] = {
+        name = "__old_unit_key",
+        type = "py.UnitKey",
+        lua_name = "old_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "老的单位物编",
+        lua_desc = "老的单位物编",
+    },
+    [3] = {
+        name = "__new_unit_key",
+        type = "py.UnitKey",
+        lua_name = "new_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "新的单位物编",
+        lua_desc = "新的单位物编",
+    },
 }
 
 ---@class EventParam.ET_UNIT_BUILD_UPGRADE_FINISH
 ---@field unit Unit # 升级完成的建筑单位
+---@field old_unit_key py.UnitKey # 老的单位物编
+---@field new_unit_key py.UnitKey # 新的单位物编
 
 --建筑单位升级成功
 event.ET_UNIT_BUILD_UPGRADE_FINISH = {
@@ -1121,6 +1159,22 @@ event.ET_UNIT_BUILD_UPGRADE_FINISH = {
         lua_type = "Unit",
         desc = "升级完成的建筑单位",
         lua_desc = "升级完成的建筑单位",
+    },
+    [2] = {
+        name = "__old_unit_key",
+        type = "py.UnitKey",
+        lua_name = "old_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "老的单位物编",
+        lua_desc = "老的单位物编",
+    },
+    [3] = {
+        name = "__new_unit_key",
+        type = "py.UnitKey",
+        lua_name = "new_unit_key",
+        lua_type = "py.UnitKey",
+        desc = "新的单位物编",
+        lua_desc = "新的单位物编",
     },
 }
 
@@ -2192,7 +2246,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_FINISH
----@field is_critical_hit boolean # 是否是暴击
+---@field is_critical_hit number # 是否是暴击
 ---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
@@ -2206,9 +2260,9 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 event.ET_UNIT_HURT_OTHER_FINISH = {
     [1] = {
         name = "__is_critical_hit",
-        type = "boolean",
+        type = "py.Fixed",
         lua_name = "is_critical_hit",
-        lua_type = "boolean",
+        lua_type = "number",
         desc = "是否是暴击",
         lua_desc = "是否是暴击",
     },
@@ -2294,7 +2348,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 event.ET_UNIT_BE_HURT_COMPLETE = {
     [1] = {
         name = "__is_critical_hit",
-        type = "boolean",
+        type = "py.Fixed",
         lua_name = "is_critical_hit",
         lua_type = "boolean",
         desc = "是否是暴击",
@@ -6972,6 +7026,39 @@ event.MOUSE_UP_RAW_INPUT_EVENT = {
     },
 }
 
+---@class EventParam.MOUSE_MOVE_RAW_INPUT_EVENT
+---@field player Player # 触发按键的玩家
+---@field pointing_world_pos Point # 鼠标所在位置
+---@field unit_group_id_list UnitGroup # 事件发生时鼠标点中单位
+
+--鼠标移动原始输入事件
+event.MOUSE_MOVE_RAW_INPUT_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "触发按键的玩家ID",
+        lua_desc = "触发按键的玩家",
+    },
+    [2] = {
+        name = "__pointing_world_pos",
+        type = "py.Point",
+        lua_name = "pointing_world_pos",
+        lua_type = "Point",
+        desc = "鼠标所在位置",
+        lua_desc = "鼠标所在位置",
+    },
+    [3] = {
+        name = "__unit_group_id_list",
+        type = "py.UnitGroup",
+        lua_name = "unit_group_id_list",
+        lua_type = "UnitGroup",
+        desc = "事件发生时鼠标点中单位",
+        lua_desc = "事件发生时鼠标点中单位",
+    },
+}
+
 ---@class EventParam.ET_TOUCH_KEY_DOWN_EVENT
 ---@field player Player # 触发按键的玩家
 ---@field pointing_world_pos Point # 触点指向的世界坐标
@@ -7999,6 +8086,7 @@ event.ET_START_SKILL_POINTER = {
 ---@field new_unit_key py.UnitKey # 要建造单位的物编ID
 ---@field ability_target_pos Point # 施法目标位置
 ---@field idx integer # 建造事件唯一ID
+---@field ability Ability # 技能
 
 --建造技能释放前
 event.ET_BUILD_SKILL_BEFORE_RELEASE = {
@@ -8049,6 +8137,16 @@ event.ET_BUILD_SKILL_BEFORE_RELEASE = {
         lua_type = "integer",
         desc = "建造事件唯一ID",
         lua_desc = "建造事件唯一ID",
+    },
+    [7] = {
+        name = nil,
+        type = nil,
+        lua_name = "ability",
+        lua_type = "Ability",
+        lua_desc = "技能",
+        lua_code = function (data)
+            return data.unit:get_ability_by_seq(data.ability_seq)
+        end,
     },
 }
 
@@ -10068,5 +10166,35 @@ event.ET_MALL_NOTIFY_TEAM_INVITE = {
 
 --steam大厅收到队伍邀请
 event.ET_MALL_NOTIFY_ENTER_LOBBY = {}
+
+---@class EventParam.ET_MALL_NOTIFY_START_MATCH
+---@field error_code integer # ERROR_CODE
+
+--steam大厅开始匹配
+event.ET_MALL_NOTIFY_START_MATCH = {
+    [1] = {
+        name = "__error_code",
+        type = "integer",
+        lua_name = "error_code",
+        lua_type = "integer",
+        desc = "ERROR_CODE",
+        lua_desc = "ERROR_CODE",
+    },
+}
+
+---@class EventParam.ET_MALL_NOTIFY_CANCEL_MATCH
+---@field error_code integer # ERROR_CODE
+
+--steam大厅取消匹配
+event.ET_MALL_NOTIFY_CANCEL_MATCH = {
+    [1] = {
+        name = "__error_code",
+        type = "integer",
+        lua_name = "error_code",
+        lua_type = "integer",
+        desc = "ERROR_CODE",
+        lua_desc = "ERROR_CODE",
+    },
+}
 
 return event
