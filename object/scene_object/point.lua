@@ -53,6 +53,9 @@ end
 ---@param py_point Point.HandleType
 ---@return Point
 function M.get_by_handle(py_point)
+    if not py_point then
+        error('竟然传入了空的py_point？看看是哪里调用的')
+    end
     local point = New 'Point' (py_point)
     return point
 end
