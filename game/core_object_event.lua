@@ -1,5 +1,4 @@
 local event_configs = require 'y3.meta.eventconfig'
-local event_datas   = require 'y3.meta.event'
 
 ---@class CoreObjectEvent
 ---@field private object_event_manager? EventManager
@@ -35,7 +34,6 @@ local function is_valid_object(self_type, config)
     end
     return false
 end
-
 
 function M:core_subscribe(event_name, ...)
     local config = event_configs.config[event_name]

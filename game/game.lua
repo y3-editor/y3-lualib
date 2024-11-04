@@ -1,5 +1,4 @@
 require 'y3.game.game_event'
-require 'y3.game.object_event'
 
 --游戏接口
 ---@class Game
