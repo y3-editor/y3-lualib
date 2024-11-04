@@ -620,6 +620,23 @@ function M.get_current_server_time(time_zone)
     return result
 end
 
+---请求真实时间。为了保证结果的一致性需要你自己指定时区。
+---@param time_zone integer # 时区，默认为0。获取中国的时间请传入8。
+---@param callback fun(time: ServerTime)
+function M.request_time(time_zone, callback)
+    local context = {}
+    GameAPI.lua_request_message_from_server(function ()
+        local time_stamp = context.__time
+        local time_zone_stamp = time_stamp + (time_zone or 0) * 3600
+        local result = os.date('!*t', time_zone_stamp) --[[@as ServerTime]]
+        result.msec = 0
+        result.timestamp = time_stamp
+        result.time_zone_stamp = time_zone_stamp
+        result.time_zone = time_zone or 0
+        xpcall(callback, log.error, result)
+    end, context)
+end
+
 ---获取初始化横向分辨率
 ---@return integer x_resolution 横向分辨率
 function M.get_game_x_resolution()
