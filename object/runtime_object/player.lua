@@ -4,7 +4,7 @@
 ---@field phandle py.Role
 ---@field id integer
 ---@overload fun(py_player?: py.Role): self
----@overload fun(id: py.RoleID): self
+---@overload fun(id: py.RoleID | integer): self
 local M = Class 'Player'
 
 M.type = 'player'
