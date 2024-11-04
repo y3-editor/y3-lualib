@@ -216,20 +216,16 @@ function M.createRefWatcher()
         tooltip = 'Lua持有的对象数量( 存活 | 死亡 | 未回收 )',
         childsGetter = function (node)
             local childs = {}
-            for className, refs in y3.util.sortPairs(reflib.all_managers) do
+            for className, ref in y3.util.sortPairs(reflib.all_managers) do
                 ---@type ClientTimer?
                 local timer
                 childs[#childs+1] = y3.develop.helper.createTreeNode(className, {
                     onVisible = function (child)
                         timer = y3.ctimer.loop(1, function ()
-                            local strongCount = 0
-                            local weakCount   = 0
-                            for _, ref in pairs(refs) do
-                                ---@diagnostic disable-next-line: invisible
-                                strongCount = strongCount + countTable(ref.strongRefMap)
-                                ---@diagnostic disable-next-line: invisible
-                                weakCount   = weakCount   + countTable(ref.weakRefMap)
-                            end
+                            ---@diagnostic disable-next-line: invisible
+                            local strongCount = countTable(ref.strongRefMap)
+                            ---@diagnostic disable-next-line: invisible
+                            local weakCount   =countTable(ref.weakRefMap)
 
                             child.description = string.format('%d | %d'
                                 , strongCount

@@ -28,31 +28,6 @@ function M:__tostring()
     )
 end
 
----@class Ability
----@field package _castRef? Ref
-
----@param ability Ability
----@param cast_id integer
----@return Cast
-function M.get(ability, cast_id)
-    if not ability._castRef then
-        ability._castRef = New 'Ref' ('Cast', function (id)
-            return New 'Cast' (ability, id)
-        end)
-    end
-    return ability._castRef:get(cast_id)
-end
-
-y3.game:event('施法-结束', function (trg, data)
-    local id = data.cast.cast_id
-    local ability = data.cast.ability
-    local castRef = ability._castRef
-    if not castRef then
-        return
-    end
-    castRef:removeNow(id)
-end)
-
 -- 获取技能
 ---@return Ability
 function M:get_ability()
@@ -107,6 +82,30 @@ function M:get_target_point()
         return nil
     end
     return y3.point.get_by_handle(py_point)
+end
+
+
+---@class Ability
+---@field package _castMap? table<integer, Cast>
+
+---@param ability Ability
+---@param cast_id integer
+---@return Cast
+function M.get(ability, cast_id)
+    if not ability._castMap then
+        ability._castMap = {}
+    end
+    if not ability._castMap[cast_id] then
+        local cast = New 'Cast' (ability, cast_id)
+        ability._castMap[cast_id] = cast
+        ability:event('施法-结束', function (trg, data)
+            local id = data.cast.cast_id
+            if id == cast_id then
+                Delete(cast)
+            end
+        end)
+    end
+    return ability._castMap[cast_id]
 end
 
 return M

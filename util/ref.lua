@@ -12,7 +12,7 @@ local M = Class 'Ref'
 
 ---@alias Ref.ValidKeyType any
 
----@type table<string, Ref[]>
+---@type table<string, Ref>
 M.all_managers = {}
 
 ---@generic T: string
@@ -32,10 +32,7 @@ function M:__init(className, new)
     ---@private
     self.weakRefMap = setmetatable({}, y3.util.MODE_K)
 
-    if not M.all_managers[className] then
-        M.all_managers[className] = setmetatable({}, y3.util.MODE_V)
-    end
-    table.insert(M.all_managers[className], self)
+    M.all_managers[className] = self
 end
 
 ---获取指定key的对象，如果不存在，则使用所有的参数创建并返回
@@ -91,13 +88,11 @@ local logicEntityModuleMap = {
 ---@param entity_module integer
 ---@param entity_uid integer
 _G['notify_entity_destroyed'] = function (entity_module, entity_uid)
-    local managers = M.all_managers[logicEntityModuleMap[entity_module]]
-    if not managers then
+    local manager = M.all_managers[logicEntityModuleMap[entity_module]]
+    if not manager then
         return
     end
-    for _, manager in ipairs(managers) do
-        manager:removeNow(entity_uid)
-    end
+    manager:removeNow(entity_uid)
 end
 
 return M
