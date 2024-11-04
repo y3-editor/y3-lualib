@@ -102,11 +102,7 @@ end
 
 ---立即移除指定的key
 function M:removeNow(key)
-    if self.strongRefMap[key] then
-        self.strongRefMap[key] = nil
-        self.strongSize = self.strongSize - 1
-    end
-    self.weakRefMap[key] = nil
+    self.strongRefMap[key] = nil
     self.waitingListYoung[key] = nil
     self.waitingListOld[key] = nil
 end
@@ -131,6 +127,28 @@ function M:updateWaitingList()
     -- 将青年代升级为老年代
     self.waitingListOld   = young
     self.waitingListYoung = old -- 这里复用了一下已被清空的上次老年代
+end
+
+local logicEntityModuleMap = {
+    [2] = 'Unit',
+    [3] = 'Projectile',
+    [4] = 'Item',
+    [5] = 'Destructible',
+    [7] = 'Ability',
+    [8] = 'Buff',
+}
+
+---黑盒销毁逻辑实体时，使用该方法同步通知Lua层
+---@param entity_module integer
+---@param entity_uid integer
+_G['notify_entity_destroyed'] = function (entity_module, entity_uid)
+    local managers = M.all_managers[logicEntityModuleMap[entity_module]]
+    if not managers then
+        return
+    end
+    for _, manager in ipairs(managers) do
+        manager:removeNow(entity_uid)
+    end
 end
 
 return M
