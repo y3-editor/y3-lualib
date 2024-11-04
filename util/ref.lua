@@ -3,8 +3,7 @@
 目前策略如下：
 
 1. 引擎对象第一次进Lua时，生成对应的Lua对象并添加强引用
-2. 引擎对象被引擎回收后，将Lua对象加入待回收队列
-3. 待回收队列至少5秒后，将Lua对象从强引用改为弱引用
+2. 引擎对象被引擎回收后，将Lua对象从强引用改为弱引用
 --]]
 
 ---@class Ref
@@ -12,13 +11,6 @@
 local M = Class 'Ref'
 
 ---@alias Ref.ValidKeyType any
-
--- 至少在这个时间之后才会释放引用
----@private
-M.unrefTimeAtLeast = 5
--- 是否允许弱引用
----@private
-M.allowWeakRef = false
 
 ---@type table<string, Ref[]>
 M.all_managers = {}
@@ -39,12 +31,6 @@ function M:__init(className, new)
     -- 弱引用
     ---@private
     self.weakRefMap = setmetatable({}, y3.util.MODE_K)
-    -- 待删除列表（青年代）
-    ---@private
-    self.waitingListYoung = {}
-    -- 待删除列表（老年代）
-    ---@private
-    self.waitingListOld = {}
 
     if not M.all_managers[className] then
         M.all_managers[className] = setmetatable({}, y3.util.MODE_V)
@@ -90,30 +76,6 @@ function M:removeNow(key)
     Delete(obj)
     self.strongRefMap[key] = nil
     self.weakRefMap[obj] = true
-    self.waitingListYoung[key] = nil
-    self.waitingListOld[key] = nil
-end
-
----@private
-function M:updateWaitingList()
-    local young     = self.waitingListYoung
-    local old       = self.waitingListOld
-    local strongRef = self.strongRefMap
-    local weakRef   = self.weakRefMap
-
-    -- 遍历老年代，将老年代的对象改为弱引用
-    for key in pairs(old) do
-        local obj = strongRef[key]
-        if obj then
-            strongRef[key] = nil
-            weakRef[obj] = true
-        end
-        old[key] = nil
-    end
-
-    -- 将青年代升级为老年代
-    self.waitingListOld   = young
-    self.waitingListYoung = old -- 这里复用了一下已被清空的上次老年代
 end
 
 local logicEntityModuleMap = {

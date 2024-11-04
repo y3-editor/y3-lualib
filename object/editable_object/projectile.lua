@@ -67,16 +67,6 @@ y3.py_converter.register_lua_to_py('py.Projectile', function (lua_value)
 end)
 y3.py_converter.register_py_to_lua('py.ProjectileID', M.get_by_id)
 
-y3.py_event_sub.new_global_trigger('ET_PRODUCE_PROJECTILE', function (data)
-    ---@type py.ProjectileEntity
-    local py_proj = data['projectile']
-    if not py_proj then
-        return
-    end
-    local id = py_proj:api_get_id()
-    M.ref_manager:removeNow(id)
-end)
-
 ---获取投射物的类型ID
 ---@return py.ProjectileKey projectile_key
 function M:get_key()

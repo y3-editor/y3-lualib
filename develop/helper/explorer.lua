@@ -224,23 +224,15 @@ function M.createRefWatcher()
                         timer = y3.ctimer.loop(1, function ()
                             local strongCount = 0
                             local weakCount   = 0
-                            local youngCount  = 0
-                            local oldCount    = 0
                             for _, ref in pairs(refs) do
                                 ---@diagnostic disable-next-line: invisible
                                 strongCount = strongCount + countTable(ref.strongRefMap)
                                 ---@diagnostic disable-next-line: invisible
                                 weakCount   = weakCount   + countTable(ref.weakRefMap)
-                                ---@diagnostic disable-next-line: invisible
-                                youngCount  = youngCount  + countTable(ref.waitingListYoung)
-                                ---@diagnostic disable-next-line: invisible
-                                oldCount    = oldCount    + countTable(ref.waitingListOld)
                             end
 
-                            local aliveCount  = strongCount - youngCount - oldCount
-                            child.description = string.format('%d | %d | %d'
-                                , aliveCount
-                                , strongCount - aliveCount
+                            child.description = string.format('%d | %d'
+                                , strongCount
                                 , weakCount
                             )
                         end)
