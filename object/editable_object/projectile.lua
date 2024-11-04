@@ -1,7 +1,6 @@
 --投射物
 ---@class Projectile
 ---@field handle py.ProjectileEntity
----@field package _removed_by_py? boolean
 ---@overload fun(id: integer, py_projectile: py.ProjectileEntity): self
 local M = Class 'Projectile'
 M.type = 'projectile'
@@ -32,10 +31,6 @@ function M:__init(id, py_projectile)
 end
 
 function M:__del()
-    M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
     self.handle:api_delete()
 end
 
@@ -80,21 +75,6 @@ y3.py_event_sub.new_global_trigger('ET_PRODUCE_PROJECTILE', function (data)
     end
     local id = py_proj:api_get_id()
     M.ref_manager:removeNow(id)
-end)
-
-y3.py_event_sub.new_global_trigger('ET_DEATH_PROJECTILE', function (data)
-    ---@type py.ProjectileEntity
-    local py_proj = data['projectile']
-    if not py_proj then
-        return
-    end
-    local id = py_proj:api_get_id()
-    local projectile = M.ref_manager:fetch(id)
-    if not projectile then
-        return
-    end
-    projectile._removed_by_py = true
-    projectile:remove()
 end)
 
 ---获取投射物的类型ID

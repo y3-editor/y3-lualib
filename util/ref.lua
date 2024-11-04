@@ -38,7 +38,7 @@ function M:__init(className, new)
     self.strongRefMap = {}
     -- 弱引用
     ---@private
-    self.weakRefMap = setmetatable({}, y3.util.MODE_V)
+    self.weakRefMap = setmetatable({}, y3.util.MODE_K)
     -- 待删除列表（青年代）
     ---@private
     self.waitingListYoung = {}
@@ -66,7 +66,7 @@ function M:get(key, ...)
     end
     obj = self.newMethod(key, ...)
     self.strongRefMap[key] = obj
-    self.weakRefMap[key] = nil
+    self.weakRefMap[obj] = nil
     return obj
 end
 
@@ -81,28 +81,15 @@ function M:fetch(key)
     return nil
 end
 
----移除指定的key
----@param key Ref.ValidKeyType
-function M:remove(key)
-    self.waitingListYoung[key] = true
-    self.waitingListOld[key] = nil
-
-    -- 只有在第一次移除引用时才会开始计时，这样可以错峰（大概？）
-    if not self.updateTimer then
-        ---@private
-        self.updateTimer = y3.ltimer.loop(self.unrefTimeAtLeast, function ()
-            self:updateWaitingList()
-            if not next(self.waitingListOld) then
-                self.updateTimer:remove()
-                self.updateTimer = nil
-            end
-        end)
-    end
-end
-
 ---立即移除指定的key
 function M:removeNow(key)
+    local obj = self.strongRefMap[key]
+    if not obj then
+        return
+    end
+    Delete(obj)
     self.strongRefMap[key] = nil
+    self.weakRefMap[obj] = true
     self.waitingListYoung[key] = nil
     self.waitingListOld[key] = nil
 end
@@ -119,7 +106,7 @@ function M:updateWaitingList()
         local obj = strongRef[key]
         if obj then
             strongRef[key] = nil
-            weakRef[key] = obj
+            weakRef[obj] = true
         end
         old[key] = nil
     end

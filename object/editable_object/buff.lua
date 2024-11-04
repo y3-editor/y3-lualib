@@ -2,7 +2,6 @@
 ---@class Buff
 ---@field handle py.ModifierEntity # py层的魔法效果对象
 ---@field id     integer
----@field package _removed_by_py? boolean
 ---@overload fun(id: integer, py_modifier: py.ModifierEntity): Buff
 local M = Class 'Buff'
 
@@ -37,10 +36,6 @@ function M:__init(id, py_modifier)
 end
 
 function M:__del()
-    M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
     self.handle:api_remove()
 end
 
@@ -74,21 +69,6 @@ y3.py_converter.register_type_alias('py.ModifierEntity', 'Buff')
 y3.py_converter.register_py_to_lua('py.ModifierEntity', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.ModifierEntity', function (lua_value)
     return lua_value.handle
-end)
-
-y3.py_event_sub.new_global_trigger('ET_LOSS_MODIFIER', function (data)
-    ---@type py.ModifierEntity
-    local py_modifier = data['__modifier']
-    if not py_modifier then
-        return
-    end
-    local id = py_modifier:api_get_modifier_unique_id()
-    local buff = M.ref_manager:fetch(id)
-    if not buff then
-        return
-    end
-    buff._removed_by_py = true
-    buff:remove()
 end)
 
 ---是否具有标签

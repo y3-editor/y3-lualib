@@ -2,7 +2,6 @@
 ---@class Unit
 ---@field handle py.Unit # py层的单位对象
 ---@field id integer
----@field package _removed_by_py? boolean
 ---@overload fun(py_unit_id: py.UnitID, py_unit: py.Unit): self
 local M = Class 'Unit'
 
@@ -36,10 +35,6 @@ function M:__init(py_unit_id, py_unit)
 end
 
 function M:__del()
-    M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
     self.handle:api_delete()
 end
 
@@ -105,17 +100,6 @@ function M.get_by_string(str)
 end
 
 y3.py_converter.register_py_to_lua('py.UnitID', M.get_by_id)
-
-y3.py_event_sub.new_global_trigger('ET_UNIT_DELETE', function (data)
-    local id = data['__unit_id']
-    local unit = M.ref_manager:fetch(id)
-    if not unit then
-        return
-    end
-    unit._removed_by_py = true
-    unit:remove()
-    unit.handle:api_clear_all_abilities() --触发技能移除，这段放在lua不是很好，但放在引擎会导致老图报错
-end)
 
 ---是否存在
 ---@return boolean is_exist 是否存在

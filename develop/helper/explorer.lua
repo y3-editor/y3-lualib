@@ -555,9 +555,9 @@ function M.createSelectingButton()
         childsGetter = function (node)
             local childs = {}
 
-            local i = 0
+            ---@param unit Unit
             for unit in list:pairsSafe() do
-                if i <= 10 then
+                if unit:is_exist() and #childs <= 10 then
                     childs[#childs+1] = M.createUnitButton(unit)
                 else
                     list:pop(unit)

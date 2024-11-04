@@ -1,7 +1,6 @@
 --技能
 ---@class Ability
 ---@field handle py.Ability
----@field package _removed_by_py? boolean
 ---@overload fun(id: integer, py_ability: py.Ability): self
 local M = Class 'Ability'
 
@@ -34,17 +33,12 @@ function M:__init(id, py_ability)
 end
 
 function M:__del()
-    M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
     self.handle:api_remove()
     --TODO
     --技能正在放的时候删不掉，需要不停尝试删除
     if GameAPI.ability_is_exist(self.handle) then
         y3.ltimer.loop_frame(1, function (timer, count)
-            if not GameAPI.ability_is_exist(self.handle)
-            or self._removed_by_py then
+            if not GameAPI.ability_is_exist(self.handle) then
                 timer:remove()
                 return
             end
@@ -82,21 +76,6 @@ end
 y3.py_converter.register_py_to_lua('py.Ability', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Ability', function (lua_value)
     return lua_value.handle
-end)
-
-y3.py_event_sub.new_global_trigger('ET_ABILITY_LOSE', function (data)
-    ---@type py.Ability
-    local py_ability = data['__ability']
-    if not py_ability then
-        return
-    end
-    local id = py_ability:api_get_ability_global_id()
-    local ability = M.ref_manager:fetch(id)
-    if not ability then
-        return
-    end
-    ability._removed_by_py = true
-    ability:remove()
 end)
 
 function M:get_key()

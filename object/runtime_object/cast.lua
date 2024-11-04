@@ -50,7 +50,7 @@ y3.game:event('施法-结束', function (trg, data)
     if not castRef then
         return
     end
-    castRef:remove(id)
+    castRef:removeNow(id)
 end)
 
 -- 获取技能

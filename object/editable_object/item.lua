@@ -2,7 +2,6 @@
 ---@class Item
 ---@field handle py.Item
 ---@field id py.ItemID
----@field package _removed_by_py? boolean
 ---@overload fun(id: py.ItemID, py_item: py.Item): self
 local M = Class 'Item'
 
@@ -36,10 +35,6 @@ function M:__init(id, py_item)
 end
 
 function M:__del()
-    M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
     self.handle:api_remove()
 end
 
@@ -79,16 +74,6 @@ function M.get_by_id(id)
 end
 
 y3.py_converter.register_py_to_lua('py.ItemID', M.get_by_id)
-
-y3.py_event_sub.new_global_trigger('ET_ITEM_ON_DESTROY', function (data)
-    local id = data['__item_id']
-    local item = M.ref_manager:fetch(id)
-    if not item then
-        return
-    end
-    item._removed_by_py = true
-    item:remove()
-end)
 
 ---是否存在
 ---@return boolean is_exist 是否存在
