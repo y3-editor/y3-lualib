@@ -1,4 +1,5 @@
 local event_configs = require 'y3.meta.eventconfig'
+local get_master    = require 'y3.util.get_master'
 
 ---@class CoreObjectEvent
 ---@field private object_event_manager? EventManager
@@ -10,6 +11,10 @@ local M = Class 'CoreObjectEvent'
 ---@param ... any
 ---@return Trigger
 function M:event(event_name, ...)
+    local config = event_configs.config[event_name]
+    if config and config.from_global then
+        return self:core_subscribe_from_global(event_name, ...)
+    end
     if not rawget(self, 'object_event_manager') then
         self.object_event_manager = New 'EventManager' (self)
     end
@@ -35,6 +40,7 @@ local function is_valid_object(self_type, config)
     return false
 end
 
+---@private
 function M:core_subscribe(event_name, ...)
     local config = event_configs.config[event_name]
     local self_type = y3.class.type(self)
@@ -106,4 +112,17 @@ function M:core_subscribe(event_name, ...)
         gcHost:bindGC(trigger)
     end
     return trigger
+end
+
+---@private
+function M:core_subscribe_from_global(event_name, ...)
+    local params = { ... }
+    local callback = table.remove(params)
+    params[#params+1] = function (trigger, lua_params)
+        local master = get_master(event_name, lua_params)
+        if master == self then
+            callback(trigger, lua_params)
+        end
+    end
+    return y3.game:event(event_name, table.unpack(params))
 end
