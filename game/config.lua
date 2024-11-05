@@ -92,9 +92,6 @@ M.code = {
 
 ---界面相关设置
 M.ui = {
-    ---获取子控件时是否能获取到已经被移除的子控件。
-    ---（ECA的行为为能获取到，但之后对它的操作会报错）
-    get_removed_child = false,
 }
 
 return M

@@ -213,12 +213,11 @@ function broadcast_lua_msg(id, data) end
 ---@param callback? fun(body?: string)
 function request_url(url, post, body, port, timeout, headers, callback) end
 
----@class oslib
-os = {}
-
+---注意：这个结果是本地的（每个玩家返回的结果都不一样）
 ---@return number
 function os.clock_banned() end
 
+---注意：这个结果是本地的（每个玩家返回的结果都不一样）
 ---@overload fun():number
 ---@overload fun(x: integer): integer
 ---@overload fun(m: integer, n: integer): integer

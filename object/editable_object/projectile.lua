@@ -112,6 +112,9 @@ end
 ---@return Point point 投射物所在点
 function M:get_point()
     local py_point = self.handle:api_get_position()
+    if not py_point then
+        return y3.point.create(0, 0)
+    end
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     return y3.point.get_by_handle(py_point)

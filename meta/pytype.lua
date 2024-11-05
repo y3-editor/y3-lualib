@@ -15,6 +15,8 @@
 ---@class py.FVector3: py.ETypeMeta
 --点
 ---@class py.FPoint: py.FVector3
+--UI点
+---@class py.FUIPoint: py.FVector2
 --Rotation
 ---@class py.FRotation: py.FVector3
 --浮点数Vector2
@@ -55,6 +57,8 @@
 ---@class py.ProjectileKey: integer
 --技能槽位
 ---@class py.AbilityIndex: integer
+--单次技能释放索引编号
+---@class py.AbilityReleaseId: integer
 --技能类型
 ---@class py.AbilityType: integer
 --技能释放类型
@@ -291,6 +295,8 @@
 ---@class py.MouseKey: integer
 --鼠标滚轮
 ---@class py.MouseWheel: integer
+--鼠标按键（仅包含左右键）
+---@class py.MouseKeyWithoutMiddle: integer
 --
 ---@class py.GameMode: integer
 --
@@ -381,3 +387,5 @@
 ---@class py.ImageQuality: integer
 --观战模式状态
 ---@class py.WatchingModeStatus: integer
+--牵引力
+---@class py.Force: integer
