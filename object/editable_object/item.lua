@@ -37,10 +37,6 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
-    self.handle:api_remove()
 end
 
 ---@package
@@ -86,8 +82,7 @@ y3.py_event_sub.new_global_trigger('ET_ITEM_ON_DESTROY', function (data)
     if not item then
         return
     end
-    item._removed_by_py = true
-    item:remove()
+    Delete(item)
 end)
 
 ---是否存在
@@ -157,7 +152,10 @@ end
 
 ---删除物品
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_remove()
+    end
 end
 
 ---丢弃物品到点

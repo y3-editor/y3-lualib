@@ -35,22 +35,6 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
-    self.handle:api_remove()
-    --TODO
-    --技能正在放的时候删不掉，需要不停尝试删除
-    if GameAPI.ability_is_exist(self.handle) then
-        y3.ltimer.loop_frame(1, function (timer, count)
-            if not GameAPI.ability_is_exist(self.handle)
-            or self._removed_by_py then
-                timer:remove()
-                return
-            end
-            self.handle:api_remove()
-        end)
-    end
 end
 
 ---@private
@@ -95,8 +79,7 @@ y3.py_event_sub.new_global_trigger('ET_ABILITY_LOSE', function (data)
     if not ability then
         return
     end
-    ability._removed_by_py = true
-    ability:remove()
+    Delete(ability)
 end)
 
 function M:get_key()
@@ -162,7 +145,21 @@ end
 
 ---移除技能
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_remove()
+        --TODO
+        --技能正在放的时候删不掉，需要不停尝试删除
+        if GameAPI.ability_is_exist(self.handle) then
+            y3.ltimer.loop_frame(1, function (timer, count)
+                if not GameAPI.ability_is_exist(self.handle) then
+                    timer:remove()
+                    return
+                end
+                self.handle:api_remove()
+            end)
+        end
+    end
 end
 
 ---设置技能等级

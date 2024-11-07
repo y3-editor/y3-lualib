@@ -29,10 +29,6 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
-    self.handle:api_delete()
 end
 
 ---@package
@@ -77,8 +73,7 @@ y3.py_event_sub.new_global_trigger('ET_DEST_DELETE', function (data)
     if not destructible then
         return
     end
-    destructible._removed_by_py = true
-    destructible:remove()
+    Delete(destructible)
 end)
 
 ---是否存在
@@ -137,7 +132,10 @@ end
 
 ---删除可破坏物
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_delete()
+    end
 end
 
 ---复活可破坏物

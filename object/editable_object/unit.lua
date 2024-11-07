@@ -37,10 +37,6 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
-    self.handle:api_delete()
 end
 
 ---@package
@@ -112,9 +108,8 @@ y3.py_event_sub.new_global_trigger('ET_UNIT_DELETE', function (data)
     if not unit then
         return
     end
-    unit._removed_by_py = true
-    unit:remove()
     unit.handle:api_clear_all_abilities() --触发技能移除，这段放在lua不是很好，但放在引擎会导致老图报错
+    Delete(unit)
 end)
 
 ---是否存在
@@ -390,7 +385,10 @@ end
 
 ---删除单位
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_delete()
+    end
 end
 
 ---传送到点

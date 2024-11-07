@@ -38,10 +38,6 @@ end
 
 function M:__del()
     M.ref_manager:remove(self.id)
-    if self._removed_by_py then
-        return
-    end
-    self.handle:api_remove()
 end
 
 ---所有魔法效果实例
@@ -87,8 +83,10 @@ y3.py_event_sub.new_global_trigger('ET_LOSS_MODIFIER', function (data)
     if not buff then
         return
     end
-    buff._removed_by_py = true
-    buff:remove()
+    if buff.object_event_manager then
+        buff.object_event_manager:raw_notify("效果-失去", nil, y3.py_event_sub.convert_py_params("ET_LOSS_MODIFIER", data))
+    end
+    Delete(buff)
 end)
 
 ---是否具有标签
@@ -106,7 +104,10 @@ end
 
 ---移除
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_remove()
+    end
 end
 
 ---是否存在
