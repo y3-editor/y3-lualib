@@ -3,7 +3,6 @@
 --点
 ---@class Point
 ---@field handle Point.HandleType
----@field res_id? integer
 ---@overload fun(py_point: Point.HandleType): self
 ---@overload fun(x: number, y: number, z?: number): self
 local M = Class 'Point'
@@ -43,7 +42,6 @@ function M.get_point_by_res_id(res_id)
     if not M.map[res_id] then
         local py_point = GameAPI.get_point_by_res_id(res_id)
         local point = M.get_by_handle(py_point)
-        point.res_id = res_id
         M.map[res_id] = point
     end
     return M.map[res_id]
