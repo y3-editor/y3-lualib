@@ -301,6 +301,7 @@ M.config["玩家-属性变化"] = {
 ---@alias EventParam.玩家-发送指定消息 EventParam.ET_ROLE_INPUT_MSG
 M.config["玩家-发送指定消息"] = {
     desc = "玩家发送指定消息时触发",
+    from_global = true,
     key = "ET_ROLE_INPUT_MSG",
     name = "玩家-发送指定消息",
     object = "Player",
@@ -562,15 +563,8 @@ M.config["技能-沉默状态变化"] = {
 ---@alias EventParam.技能-图标变化 EventParam.ET_ABILITY_ICON_CHANGED
 M.config["技能-图标变化"] = {
     desc = "",
-    extraObjs = {
-        [1] = {
-            getter = function (self) return self:get_owner() end,
-            luaType = "Unit",
-        },
-    },
     key = "ET_ABILITY_ICON_CHANGED",
     name = "技能-图标变化",
-    object = "Ability",
     params = {
     },
 }
@@ -833,7 +827,6 @@ M.config["玩家-属性图标变化"] = {
     desc = "",
     key = "ET_RES_ICON_CHANGED",
     name = "玩家-属性图标变化",
-    object = "Player",
     params = {
     },
 }
@@ -1840,6 +1833,7 @@ M.config["投射物-死亡"] = {
 ---@alias EventParam.界面-消息 EventParam.ET_TRIGGER_COMPONENT_EVENT
 M.config["界面-消息"] = {
     desc = "触发界面上标记的自定义事件后触发",
+    from_global = true,
     key = "ET_TRIGGER_COMPONENT_EVENT",
     name = "界面-消息",
     object = "Player",
@@ -1855,6 +1849,7 @@ M.config["界面-消息"] = {
 ---@alias EventParam.界面-滑动条变化 EventParam.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT
 M.config["界面-滑动条变化"] = {
     desc = "滑动条变化时触发",
+    from_global = true,
     key = "ET_TRIGGER_UI_SLIDER_CHANGE_EVENT",
     name = "界面-滑动条变化",
     object = "Player",
@@ -1873,6 +1868,7 @@ M.config["界面-滑动条变化"] = {
 ---@alias EventParam.界面-聊天框可见性变化 EventParam.ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT
 M.config["界面-聊天框可见性变化"] = {
     desc = "聊天框可见性变化时触发",
+    from_global = true,
     key = "ET_TRIGGER_UI_CHATBOX_VISIBLE_CHANGE_EVENT",
     name = "界面-聊天框可见性变化",
     object = "Player",
@@ -1891,6 +1887,7 @@ M.config["界面-聊天框可见性变化"] = {
 ---@alias EventParam.界面-装备拖拽 EventParam.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT
 M.config["界面-装备拖拽"] = {
     desc = "",
+    from_global = true,
     key = "ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT",
     name = "界面-装备拖拽",
     object = "Player",
@@ -1909,6 +1906,7 @@ M.config["界面-装备拖拽"] = {
 ---@alias EventParam.界面-复选框变化 EventParam.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT
 M.config["界面-复选框变化"] = {
     desc = "复选框变化时触发",
+    from_global = true,
     key = "ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT",
     name = "界面-复选框变化",
     object = "Player",
@@ -1927,6 +1925,7 @@ M.config["界面-复选框变化"] = {
 ---@alias EventParam.界面-视频播放完成 EventParam.ET_TRIGGER_UI_VIDEO_END_EVENT
 M.config["界面-视频播放完成"] = {
     desc = "",
+    from_global = true,
     key = "ET_TRIGGER_UI_VIDEO_END_EVENT",
     name = "界面-视频播放完成",
     object = "Player",
@@ -1945,6 +1944,7 @@ M.config["界面-视频播放完成"] = {
 ---@alias EventParam.本地-界面-输入框获取焦点 EventParam.ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT
 M.config["本地-界面-输入框获取焦点"] = {
     desc = "",
+    from_global = true,
     key = "ET_TRIGGER_UI_INPUT_FIELD_GET_FOCUS_EVENT",
     name = "本地-界面-输入框获取焦点",
     object = "Player",
@@ -1963,6 +1963,7 @@ M.config["本地-界面-输入框获取焦点"] = {
 ---@alias EventParam.本地-界面-输入框失去焦点 EventParam.ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT
 M.config["本地-界面-输入框失去焦点"] = {
     desc = "",
+    from_global = true,
     key = "ET_TRIGGER_UI_INPUT_FIELD_LOST_FOCUS_EVENT",
     name = "本地-界面-输入框失去焦点",
     object = "Player",
@@ -1981,6 +1982,7 @@ M.config["本地-界面-输入框失去焦点"] = {
 ---@alias EventParam.本地-界面-输入框内容改变 EventParam.ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT
 M.config["本地-界面-输入框内容改变"] = {
     desc = "",
+    from_global = true,
     key = "ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT",
     name = "本地-界面-输入框内容改变",
     object = "Player",
@@ -1999,6 +2001,7 @@ M.config["本地-界面-输入框内容改变"] = {
 ---@alias EventParam.键盘-按下 EventParam.ET_KEYBOARD_KEY_DOWN_EVENT
 M.config["键盘-按下"] = {
     desc = "键盘上的某个键按下时触发",
+    from_global = true,
     key = "ET_KEYBOARD_KEY_DOWN_EVENT",
     name = "键盘-按下",
     object = "Player",
@@ -2014,6 +2017,7 @@ M.config["键盘-按下"] = {
 ---@alias EventParam.键盘-抬起 EventParam.ET_KEYBOARD_KEY_UP_EVENT
 M.config["键盘-抬起"] = {
     desc = "键盘上的某个键抬起时触发",
+    from_global = true,
     key = "ET_KEYBOARD_KEY_UP_EVENT",
     name = "键盘-抬起",
     object = "Player",
@@ -2029,6 +2033,7 @@ M.config["键盘-抬起"] = {
 ---@alias EventParam.本地-键盘-按下 EventParam.ET_ASYNC_KEYBOARD_KEY_DOWN_EVENT
 M.config["本地-键盘-按下"] = {
     desc = "键盘上的某个键按下时触发",
+    from_global = true,
     key = "ET_ASYNC_KEYBOARD_KEY_DOWN_EVENT",
     name = "本地-键盘-按下",
     object = "Player",
@@ -2044,6 +2049,7 @@ M.config["本地-键盘-按下"] = {
 ---@alias EventParam.本地-键盘-抬起 EventParam.ET_ASYNC_KEYBOARD_KEY_UP_EVENT
 M.config["本地-键盘-抬起"] = {
     desc = "键盘上的某个键抬起时触发",
+    from_global = true,
     key = "ET_ASYNC_KEYBOARD_KEY_UP_EVENT",
     name = "本地-键盘-抬起",
     object = "Player",
@@ -2059,6 +2065,7 @@ M.config["本地-键盘-抬起"] = {
 ---@alias EventParam.鼠标-按下 EventParam.ET_MOUSE_KEY_DOWN_EVENT
 M.config["鼠标-按下"] = {
     desc = "鼠标上的某个键按下时触发",
+    from_global = true,
     key = "ET_MOUSE_KEY_DOWN_EVENT",
     name = "鼠标-按下",
     object = "Player",
@@ -2074,6 +2081,7 @@ M.config["鼠标-按下"] = {
 ---@alias EventParam.鼠标-抬起 EventParam.ET_MOUSE_KEY_UP_EVENT
 M.config["鼠标-抬起"] = {
     desc = "鼠标上的某个键抬起时触发",
+    from_global = true,
     key = "ET_MOUSE_KEY_UP_EVENT",
     name = "鼠标-抬起",
     object = "Player",
@@ -2089,6 +2097,7 @@ M.config["鼠标-抬起"] = {
 ---@alias EventParam.鼠标-双击 EventParam.MOUSE_KEY_DB_CLICK_EVENT
 M.config["鼠标-双击"] = {
     desc = "鼠标上的某个键双击时触发",
+    from_global = true,
     key = "MOUSE_KEY_DB_CLICK_EVENT",
     name = "鼠标-双击",
     object = "Player",
@@ -2104,6 +2113,7 @@ M.config["鼠标-双击"] = {
 ---@alias EventParam.本地-鼠标-按下 EventParam.ET_ASYNC_MOUSE_KEY_DOWN_EVENT
 M.config["本地-鼠标-按下"] = {
     desc = "鼠标上的某个键按下时触发",
+    from_global = true,
     key = "ET_ASYNC_MOUSE_KEY_DOWN_EVENT",
     name = "本地-鼠标-按下",
     object = "Player",
@@ -2119,6 +2129,7 @@ M.config["本地-鼠标-按下"] = {
 ---@alias EventParam.本地-鼠标-抬起 EventParam.ET_ASYNC_MOUSE_KEY_UP_EVENT
 M.config["本地-鼠标-抬起"] = {
     desc = "鼠标上的某个键抬起时触发",
+    from_global = true,
     key = "ET_ASYNC_MOUSE_KEY_UP_EVENT",
     name = "本地-鼠标-抬起",
     object = "Player",
@@ -2134,6 +2145,7 @@ M.config["本地-鼠标-抬起"] = {
 ---@alias EventParam.本地-鼠标-双击 EventParam.ET_ASYNC_MOUSE_KEY_DB_CLICK_EVENT
 M.config["本地-鼠标-双击"] = {
     desc = "鼠标上的某个键双击时触发",
+    from_global = true,
     key = "ET_ASYNC_MOUSE_KEY_DB_CLICK_EVENT",
     name = "本地-鼠标-双击",
     object = "Player",
@@ -2149,6 +2161,7 @@ M.config["本地-鼠标-双击"] = {
 ---@alias EventParam.鼠标-按下单位 EventParam.MOUSE_KEY_DOWN_UNIT_EVENT
 M.config["鼠标-按下单位"] = {
     desc = "鼠标上的某个键对着单位按下时触发",
+    from_global = true,
     key = "MOUSE_KEY_DOWN_UNIT_EVENT",
     name = "鼠标-按下单位",
     object = "Player",
@@ -2164,6 +2177,7 @@ M.config["鼠标-按下单位"] = {
 ---@alias EventParam.鼠标-抬起单位 EventParam.MOUSE_KEY_UP_UNIT_EVENT
 M.config["鼠标-抬起单位"] = {
     desc = "鼠标上的某个键对着单位抬起时触发",
+    from_global = true,
     key = "MOUSE_KEY_UP_UNIT_EVENT",
     name = "鼠标-抬起单位",
     object = "Player",
@@ -2179,6 +2193,7 @@ M.config["鼠标-抬起单位"] = {
 ---@alias EventParam.鼠标-双击单位 EventParam.MOUSE_KEY_DB_CLICK_UNIT_EVENT
 M.config["鼠标-双击单位"] = {
     desc = "鼠标上的某个键对着单位双击时触发",
+    from_global = true,
     key = "MOUSE_KEY_DB_CLICK_UNIT_EVENT",
     name = "鼠标-双击单位",
     object = "Player",
@@ -2194,6 +2209,7 @@ M.config["鼠标-双击单位"] = {
 ---@alias EventParam.本地-鼠标-按下单位 EventParam.ET_MOUSE_KEY_DOWN_UNIT_EVENT
 M.config["本地-鼠标-按下单位"] = {
     desc = "鼠标上的某个键对着单位按下时触发",
+    from_global = true,
     key = "ET_MOUSE_KEY_DOWN_UNIT_EVENT",
     name = "本地-鼠标-按下单位",
     object = "Player",
@@ -2209,6 +2225,7 @@ M.config["本地-鼠标-按下单位"] = {
 ---@alias EventParam.本地-鼠标-抬起单位 EventParam.ET_MOUSE_KEY_UP_UNIT_EVENT
 M.config["本地-鼠标-抬起单位"] = {
     desc = "鼠标上的某个键对着单位抬起时触发",
+    from_global = true,
     key = "ET_MOUSE_KEY_UP_UNIT_EVENT",
     name = "本地-鼠标-抬起单位",
     object = "Player",
@@ -2224,6 +2241,7 @@ M.config["本地-鼠标-抬起单位"] = {
 ---@alias EventParam.本地-鼠标-双击单位 EventParam.ET_MOUSE_KEY_DB_CLICK_UNIT_EVENT
 M.config["本地-鼠标-双击单位"] = {
     desc = "鼠标上的某个键对着单位双击时触发",
+    from_global = true,
     key = "ET_MOUSE_KEY_DB_CLICK_UNIT_EVENT",
     name = "本地-鼠标-双击单位",
     object = "Player",
@@ -2239,6 +2257,7 @@ M.config["本地-鼠标-双击单位"] = {
 ---@alias EventParam.鼠标-移动 EventParam.MOUSE_MOVE_EVENT
 M.config["鼠标-移动"] = {
     desc = "鼠标移动时触发",
+    from_global = true,
     key = "MOUSE_MOVE_EVENT",
     name = "鼠标-移动",
     object = "Player",
@@ -2249,6 +2268,7 @@ M.config["鼠标-移动"] = {
 ---@alias EventParam.本地-鼠标-移动 EventParam.ET_ASYNC_MOUSE_MOVE_EVENT
 M.config["本地-鼠标-移动"] = {
     desc = "鼠标移动时触发",
+    from_global = true,
     key = "ET_ASYNC_MOUSE_MOVE_EVENT",
     name = "本地-鼠标-移动",
     object = "Player",
@@ -2259,6 +2279,7 @@ M.config["本地-鼠标-移动"] = {
 ---@alias EventParam.鼠标-滚轮 EventParam.ET_MOUSE_WHEEL_EVENT
 M.config["鼠标-滚轮"] = {
     desc = "鼠标滚轮滚动时触发",
+    from_global = true,
     key = "ET_MOUSE_WHEEL_EVENT",
     name = "鼠标-滚轮",
     object = "Player",
@@ -2274,6 +2295,7 @@ M.config["鼠标-滚轮"] = {
 ---@alias EventParam.本地-鼠标-滚轮 EventParam.ET_ASYNC_MOUSE_WHEEL_EVENT
 M.config["本地-鼠标-滚轮"] = {
     desc = "鼠标滚轮滚动时触发",
+    from_global = true,
     key = "ET_ASYNC_MOUSE_WHEEL_EVENT",
     name = "本地-鼠标-滚轮",
     object = "Player",
@@ -2379,6 +2401,7 @@ M.config["玩家-检测到作弊"] = {
 ---@alias EventParam.鼠标-双击物品 EventParam.ET_DOUBLE_CLICK_ITEM
 M.config["鼠标-双击物品"] = {
     desc = "鼠标上左键双击物品时触发",
+    from_global = true,
     key = "ET_DOUBLE_CLICK_ITEM",
     name = "鼠标-双击物品",
     object = "Player",
@@ -2389,6 +2412,7 @@ M.config["鼠标-双击物品"] = {
 ---@alias EventParam.鼠标-双击可破坏物 EventParam.ET_DOUBLE_CLICK_DEST
 M.config["鼠标-双击可破坏物"] = {
     desc = "鼠标上左键双击可破坏物时触发",
+    from_global = true,
     key = "ET_DOUBLE_CLICK_DEST",
     name = "鼠标-双击可破坏物",
     object = "Player",
@@ -2677,6 +2701,7 @@ M.config["命令-移动"] = {
 ---@alias EventParam.鼠标-悬停 EventParam.ET_MOUSE_HOVER_EVENT
 M.config["鼠标-悬停"] = {
     desc = "悬停进入或离开都会触发",
+    from_global = true,
     key = "ET_MOUSE_HOVER_EVENT",
     name = "鼠标-悬停",
     object = "Player",
@@ -2687,6 +2712,7 @@ M.config["鼠标-悬停"] = {
 ---@alias EventParam.本地-鼠标-悬停 EventParam.ET_ASYNC_MOUSE_HOVER_EVENT
 M.config["本地-鼠标-悬停"] = {
     desc = "悬停进入或离开都会触发",
+    from_global = true,
     key = "ET_ASYNC_MOUSE_HOVER_EVENT",
     name = "本地-鼠标-悬停",
     object = "Player",
@@ -2697,6 +2723,7 @@ M.config["本地-鼠标-悬停"] = {
 ---@alias EventParam.玩家-发送消息 EventParam.ET_CHAT_SEND_GM
 M.config["玩家-发送消息"] = {
     desc = "玩家发送任意消息时触发",
+    from_global = true,
     key = "ET_CHAT_SEND_GM",
     name = "玩家-发送消息",
     object = "Player",
@@ -2721,6 +2748,7 @@ M.config["游戏-消息"] = {
 ---@alias EventParam.玩家-语音发言 EventParam.ET_MICRO_SPEAK
 M.config["玩家-语音发言"] = {
     desc = "玩家开始语音和结束语音都会触发",
+    from_global = true,
     key = "ET_MICRO_SPEAK",
     name = "玩家-语音发言",
     object = "Player",
@@ -2751,6 +2779,7 @@ M.config["玩家-平台道具变化"] = {
 ---@alias EventParam.玩家-平台商城窗口变化 EventParam.ET_ROLE_STORE_PAGE_STATE_CHANGED
 M.config["玩家-平台商城窗口变化"] = {
     desc = "平台商城窗口变化事件",
+    from_global = true,
     key = "ET_ROLE_STORE_PAGE_STATE_CHANGED",
     name = "玩家-平台商城窗口变化",
     object = "Player",
@@ -2985,7 +3014,6 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: Ability, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
 ---@field event fun(self: Ability, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: Ability, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
----@field event fun(self: Ability, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
 ---@field event fun(self: Ability, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
 ---@field event fun(self: Ability, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
 ---@field event fun(self: Ability, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
@@ -3058,7 +3086,6 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: Player, event: "玩家-科技变化", callback: fun(trg: Trigger, data: EventParam.玩家-科技变化)): Trigger
 ---@field event fun(self: Player, event: "玩家-关系变化", callback: fun(trg: Trigger, data: EventParam.玩家-关系变化)): Trigger
 ---@field event fun(self: Player, event: "玩家-重连", callback: fun(trg: Trigger, data: EventParam.玩家-重连)): Trigger
----@field event fun(self: Player, event: "玩家-属性图标变化", callback: fun(trg: Trigger, data: EventParam.玩家-属性图标变化)): Trigger
 ---@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.本地-选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
@@ -3130,7 +3157,6 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: Unit, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
 ---@field event fun(self: Unit, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: Unit, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
----@field event fun(self: Unit, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
 ---@field event fun(self: Unit, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
 ---@field event fun(self: Unit, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
 ---@field event fun(self: Unit, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger
@@ -3213,7 +3239,6 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: EditorObject.Ability, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
----@field event fun(self: EditorObject.Ability, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-升级", callback: fun(trg: Trigger, data: EventParam.技能-升级)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "施法-即将开始", callback: fun(trg: Trigger, data: EventParam.施法-即将开始)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "施法-开始", callback: fun(trg: Trigger, data: EventParam.施法-开始)): Trigger
@@ -3280,7 +3305,6 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: EditorObject.Unit, event: "技能-学习", callback: fun(trg: Trigger, data: EventParam.技能-学习)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-可用状态变化", callback: fun(trg: Trigger, data: EventParam.技能-可用状态变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-沉默状态变化", callback: fun(trg: Trigger, data: EventParam.技能-沉默状态变化)): Trigger
----@field event fun(self: EditorObject.Unit, event: "技能-图标变化", callback: fun(trg: Trigger, data: EventParam.技能-图标变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-名称变化", callback: fun(trg: Trigger, data: EventParam.单位-名称变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-小地图图标变化", callback: fun(trg: Trigger, data: EventParam.单位-小地图图标变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-头像变化", callback: fun(trg: Trigger, data: EventParam.单位-头像变化)): Trigger

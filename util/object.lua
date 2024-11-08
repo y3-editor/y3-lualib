@@ -1,6 +1,5 @@
-local object_event  = require 'y3.game.object_event'
 local event_configs = require 'y3.meta.eventconfig'
-local event_datas   = require 'y3.meta.event'
+local get_master    = require 'y3.util.get_master'
 
 -- 物体编辑器
 ---@class EditorObject
@@ -32,9 +31,8 @@ local function initGameEventProxy(self, name)
     if not config or not config.object then
         error(string.format('事件“%s”无法作为对象事件', name))
     end
-    local datas = event_datas[config.key]
     return y3.game:event(name, function (trg, data)
-        local master = object_event.get_master(datas, config, data, true)
+        local master = get_master(name, data)
         if not master then
             return
         end

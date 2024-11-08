@@ -1,7 +1,6 @@
 --投射物
 ---@class Projectile
 ---@field handle py.ProjectileEntity
----@field phandle py.ProjectileEntity
 ---@field package _removed_by_py? boolean
 ---@overload fun(id: integer, py_projectile: py.ProjectileEntity): self
 local M = Class 'Projectile'
@@ -11,8 +10,8 @@ M.type = 'projectile'
 Extends('Projectile', 'Storage')
 ---@class Projectile: GCHost
 Extends('Projectile', 'GCHost')
----@class Projectile: ObjectEvent
-Extends('Projectile', 'ObjectEvent')
+---@class Projectile: CoreObjectEvent
+Extends('Projectile', 'CoreObjectEvent')
 ---@class Projectile: KV
 Extends('Projectile', 'KV')
 
@@ -28,18 +27,12 @@ end
 ---@return self
 function M:__init(id, py_projectile)
     self.handle = py_projectile
-    self.phandle = y3.py_proxy.wrap(py_projectile, GameAPI.projectile_is_exist)
     self.id     = id
     return self
 end
 
 function M:__del()
     M.ref_manager:remove(self.id)
-    y3.py_proxy.kill(self.phandle)
-    if self._removed_by_py then
-        return
-    end
-    self.phandle:api_delete()
 end
 
 ---@package
@@ -57,7 +50,7 @@ function M.get_by_handle(py_projectile)
     if not py_projectile then
         return nil
     end
-    local id = y3.py_proxy.wrap(py_projectile, GameAPI.projectile_is_exist):api_get_id()
+    local id = py_projectile:api_get_id()
     local projectile = M.ref_manager:get(id)
     return projectile
 end
@@ -81,7 +74,6 @@ y3.py_event_sub.new_global_trigger('ET_PRODUCE_PROJECTILE', function (data)
     if not py_proj then
         return
     end
-    py_proj = y3.py_proxy.fetch(py_proj) or py_proj
     local id = py_proj:api_get_id()
     M.ref_manager:removeNow(id)
 end)
@@ -92,20 +84,18 @@ y3.py_event_sub.new_global_trigger('ET_DEATH_PROJECTILE', function (data)
     if not py_proj then
         return
     end
-    py_proj = y3.py_proxy.fetch(py_proj) or py_proj
     local id = py_proj:api_get_id()
     local projectile = M.ref_manager:fetch(id)
     if not projectile then
         return
     end
-    projectile._removed_by_py = true
-    projectile:remove()
+    Delete(projectile)
 end)
 
 ---获取投射物的类型ID
 ---@return py.ProjectileKey projectile_key
 function M:get_key()
-    return self.phandle:api_get_key() or 0
+    return self.handle:api_get_key() or 0
 end
 
 ---是否存在
@@ -118,19 +108,19 @@ end
 ---@return number height 高度
 function M:get_height()
     ---@diagnostic disable-next-line: undefined-field
-    return y3.helper.tonumber(self.phandle:api_get_height()) or 0.0
+    return y3.helper.tonumber(self.handle:api_get_height()) or 0.0
 end
 
 ---获取投射物剩余持续时间
 ---@return number duration 投射物剩余持续时间
 function M:get_left_time()
-    return y3.helper.tonumber(self.phandle:api_get_left_time()) or 0.0
+    return y3.helper.tonumber(self.handle:api_get_left_time()) or 0.0
 end
 
 ---获取投射物的拥有者
 ---@return Unit? unit 投射物的拥有者
 function M:get_owner()
-    local py_unit = self.phandle:api_get_owner()
+    local py_unit = self.handle:api_get_owner()
     if not py_unit then
         return nil
     end
@@ -140,13 +130,13 @@ end
 ---获取投射物朝向
 ---@return number angle 投射物朝向
 function M:get_facing()
-    return y3.helper.tonumber(self.phandle:api_get_face_angle()) or 0.0
+    return y3.helper.tonumber(self.handle:api_get_face_angle()) or 0.0
 end
 
 ---获取投射物所在点
 ---@return Point point 投射物所在点
 function M:get_point()
-    local py_point = self.phandle:api_get_position()
+    local py_point = self.handle:api_get_position()
     if not py_point then
         return y3.point.create(0, 0)
     end
@@ -165,13 +155,13 @@ end
 ---投射物添加标签
 ---@param tag string 标签
 function M:add_tag(tag)
-    self.phandle:api_add_tag(tag)
+    self.handle:api_add_tag(tag)
 end
 
 ---投射物移除标签
 ---@param tag string 标签
 function M:remove_tag(tag)
-    self.phandle:api_remove_tag(tag)
+    self.handle:api_remove_tag(tag)
 end
 
 ---@class Projectile.CreateData
@@ -247,13 +237,16 @@ end
 
 ---销毁
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_delete()
+    end
 end
 
 ---设置高度
 ---@param height number 高度
 function M:set_height(height)
-    self.phandle:api_raise_height(Fix32(height))
+    self.handle:api_raise_height(Fix32(height))
 end
 
 ---设置坐标
@@ -261,13 +254,13 @@ end
 function M:set_point(point)
     -- TODO 见问题3
     ---@diagnostic disable-next-line: param-type-mismatch
-    self.phandle:api_set_position(point.handle)
+    self.handle:api_set_position(point.handle)
 end
 
 ---设置朝向
 ---@param direction number 朝向
 function M:set_facing(direction)
-    self.phandle:api_set_face_angle(direction)
+    self.handle:api_set_face_angle(direction)
 end
 
 ---设置旋转
@@ -275,7 +268,7 @@ end
 ---@param y number y轴
 ---@param z number z轴
 function M:set_rotation(x, y, z)
-    self.phandle:api_set_rotation(x, y, z)
+    self.handle:api_set_rotation(x, y, z)
 end
 
 ---设置缩放
@@ -283,25 +276,25 @@ end
 ---@param y number y轴
 ---@param z number z轴
 function M:set_scale(x, y, z)
-    self.phandle:api_set_scale(x, y, z)
+    self.handle:api_set_scale(x, y, z)
 end
 
 ---设置动画速度
 ---@param speed number
 function M:set_animation_speed(speed)
-    self.phandle:api_set_animation_speed(speed)
+    self.handle:api_set_animation_speed(speed)
 end
 
 ---设置持续时间
 ---@param duration number 持续时间
 function M:set_time(duration)
-    self.phandle:api_set_duration(duration)
+    self.handle:api_set_duration(duration)
 end
 
 ---增加持续时间
 ---@param duration number 持续时间
 function M:add_time(duration)
-    self.phandle:api_add_duration(duration)
+    self.handle:api_add_duration(duration)
 end
 
 ---获得关联技能
@@ -320,12 +313,12 @@ end
 function M:set_visible(visible, player_or_group)
     player_or_group = player_or_group or y3.player_group.get_all_players()
     ---@diagnostic disable-next-line: param-type-mismatch
-    self.phandle:api_set_projectile_visible(player_or_group.handle, visible)
+    self.handle:api_set_projectile_visible(player_or_group.handle, visible)
 end
 
 function M:is_destroyed()
     ---@diagnostic disable-next-line: undefined-field
-    local yes = self.phandle:is_destroyed()
+    local yes = self.handle:is_destroyed()
     if yes == nil then
         return true
     end

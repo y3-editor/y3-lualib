@@ -53,21 +53,18 @@ end
 ---@param py_point Point.HandleType
 ---@return Point
 function M.get_by_handle(py_point)
-    if not py_point then
-        error('竟然传入了空的py_point？看看是哪里调用的')
-    end
-    local point = New 'Point' (py_point)
-    return point
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return py_point
 end
 
 y3.py_converter.register_type_alias('py.Point', 'Point')
 y3.py_converter.register_py_to_lua('py.Point', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Point', function (lua_value)
-    return lua_value.handle
+    return lua_value
 end)
 y3.py_converter.register_py_to_lua('py.Vector3', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Vector3', function (lua_value)
-    return lua_value.handle
+    return lua_value
 end)
 
 ---点的x坐标
@@ -120,15 +117,8 @@ end
 ---@param z? number 点Z坐标
 ---@return Point
 function M.create(x, y, z)
-    ---@diagnostic disable-next-line: param-type-mismatch
-    local py_point = GlobalAPI.float_to_vector3(x, z or 0, y)
-    -- TODO 见问题2
-    ---@diagnostic disable-next-line: param-type-mismatch
-    local p = M.get_by_handle(py_point)
-    p.x = x
-    p.y = y
-    p.z = z or 0
-    return p
+    ---@diagnostic disable-next-line: return-type-mismatch
+    return Fix32Vec3(x / 100, (z or 0) / 100, y / 100)
 end
 
 ---点向方向偏移
