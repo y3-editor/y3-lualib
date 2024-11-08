@@ -30,7 +30,7 @@ end)
 ---@class Y3
 y3 = {}
 
-y3.version = 241104
+y3.version = 241108
 
 y3.proxy   = require 'y3.tools.proxy'
 y3.class   = require 'y3.tools.class'
