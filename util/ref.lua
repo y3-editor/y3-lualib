@@ -104,7 +104,6 @@ end
 function M:removeNow(key)
     if self.strongRefMap[key] then
         self.strongRefMap[key] = nil
-        self.strongSize = self.strongSize - 1
     end
     self.weakRefMap[key] = nil
     self.waitingListYoung[key] = nil
