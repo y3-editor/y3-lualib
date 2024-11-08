@@ -48,7 +48,7 @@ function M:__init(ip, port, options)
             return
         end
         log.debug('Network 重连：', self, self:is_connecting())
-        if self.handle.reset then
+        if self.handle.reset and false then
             self.handle:reset()
         else
             self.handle:destroy()
