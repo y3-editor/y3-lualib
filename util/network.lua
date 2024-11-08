@@ -40,7 +40,7 @@ function M:__init(ip, port, options)
     y3.ctimer.wait(0, function ()
         self:update()
     end)
-    self.retry_timer = y3.ctimer.loop(self.options.retry_interval, function (t)
+    self.retry_timer = y3.ltimer.loop(self.options.retry_interval, function (t)
         self:update()
         if  self.state ~= 'started'
         and self.state ~= 'sleep' then
