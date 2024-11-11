@@ -80,6 +80,7 @@ local RESERVED = {
     ['while']    = true,
 }
 
+---@class Utility
 local m = {}
 
 --- 打印表的结构
