@@ -782,6 +782,12 @@ function M:bind_global_variable(uiAttr, globalVar, accuracy)
     return self
 end
 
+---设置文本格式，如 `%.2f` 表示保留两位小数
+---@param format_str string
+function M:set_text_format(format_str)
+    GameAPI.set_ui_comp_bind_format(self.player.handle, self.handle, format_str)
+end
+
 --解绑界面控件属性绑定
 ---@param uiAttr string 界面控件属性
 ---@return self
