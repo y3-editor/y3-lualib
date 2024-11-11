@@ -115,7 +115,7 @@ function M:attach(ui, kv)
     end
     self._main = ui
     for _, v in ipairs(self._bind_unit_attr) do
-        self:bind_unit_attr(v.child_name, v.ui_attr, v.unit_attr)
+        self:bind_unit_attr(v.child_name, v.ui_attr, v.unit_attr, v.accuracy)
     end
 
     ---@private
@@ -159,12 +159,14 @@ end
 ---@param child_name string
 ---@param ui_attr y3.Const.UIAttr
 ---@param unit_attr y3.Const.UnitAttr | string
-function M:bind_unit_attr(child_name, ui_attr, unit_attr)
+---@param accuracy? integer # 小数精度
+function M:bind_unit_attr(child_name, ui_attr, unit_attr, accuracy)
     if not self._main then
         table.insert(self._bind_unit_attr, {
             child_name = child_name,
             ui_attr = ui_attr,
-            unit_attr = unit_attr
+            unit_attr = unit_attr,
+            accuracy = accuracy,
         })
         return
     end
@@ -172,7 +174,7 @@ function M:bind_unit_attr(child_name, ui_attr, unit_attr)
     if not child then
         return
     end
-    child:bind_unit_attr(ui_attr, unit_attr)
+    child:bind_unit_attr(ui_attr, unit_attr, accuracy)
 end
 
 --订阅控件刷新，回调函数在 *本地玩家* 环境中执行。
