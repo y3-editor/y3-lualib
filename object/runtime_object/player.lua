@@ -25,6 +25,7 @@ M.ref_manager = New 'Ref' ('Player', function (key)
     if not py_player then
         return nil
     end
+    assert(type(py_player) == 'userdata', '参数类型错误:' .. tostring(py_player))
     return New 'Player' (py_player)
 end)
 
@@ -32,7 +33,6 @@ end)
 ---@return self
 function M:__init(py_player)
     self.handle = py_player
-
     self.id     = py_player:get_role_id_num() or 0
     return self
 end
