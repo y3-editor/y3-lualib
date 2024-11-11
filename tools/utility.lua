@@ -693,6 +693,21 @@ function m.sortCallbackOfIndex(arr)
     end
 end
 
+---@param datas any[]
+---@param scores integer[]
+---@return SortByScoreCallback
+function m.sortCallbackOfScore(datas, scores)
+    local map = {}
+    for i = 1, #datas do
+        local data = datas[i]
+        local score = scores[i]
+        map[data] = score
+    end
+    return function (v)
+        return map[v]
+    end
+end
+
 ---裁剪字符串
 ---@param str string
 ---@param mode? '"left"'|'"right"'
