@@ -872,12 +872,13 @@ function m.multiTable(count, default)
         end })
     end
     for _ = 3, count do
+        local tt = current
         current = setmetatable({}, { __index = function (t, k)
             if k == nil then
                 return nil
             end
-            t[k] = current
-            return current
+            t[k] = tt
+            return tt
         end })
     end
     return current
