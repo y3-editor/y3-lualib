@@ -375,3 +375,20 @@ function Ability:api_ability_set_stash(can_stash) end
 ---@param actor py.Actor # 单位/物品/可破坏物
 ---@return boolean? # 是否可被筛选
 function Ability:api_can_be_filtered_by_ability(actor) end
+
+--获取技能的建造目标类型
+function Ability:api_get_ability_build_id() end
+
+--暂停技能冷却
+function Ability:api_pause_cd() end
+
+--恢复技能冷却
+function Ability:api_resume_cd() end
+
+--推进技能到下一个阶段
+---@param runtime_id? integer # runtime_id
+function Ability:api_ability_fast_forward_ability_state(runtime_id) end
+
+--当前技能是否被禁用
+---@return boolean? # 当前技能是否被禁用
+function Ability:api_get_is_ability_forbidden() end

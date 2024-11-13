@@ -128,8 +128,9 @@ function GameAPI.enable_sfx_visible(sfx_entity, role, b_visible) end
 ---@param duration number # 持续时间
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾里显示
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_point(sfx_id, point, face_angle, scale, height, duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_sfx_on_point(sfx_id, point, face_angle, scale, height, duration, immediately, use_sys_d_destroy_way, show_in_fog) end
 
 --创建特效到单位附加点
 ---@param sfx_id py.SfxKey # 特效编号
@@ -157,8 +158,9 @@ function GameAPI.create_sfx_on_unit(sfx_id, unit, socket, b_follow_rotate, b_fol
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param detach? boolean # 是否脱离单位
+---@param show_in_fog? boolean # 迷雾里显示
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_unit_new(sfx_id, unit, socket, rotate_type, b_follow_scale, scale, duration, angle, immediately, use_sys_d_destroy_way, detach) end
+function GameAPI.create_sfx_on_unit_new(sfx_id, unit, socket, rotate_type, b_follow_scale, scale, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog) end
 
 --创建特效到投射物
 ---@param sfx_id py.SfxKey # 特效编号
@@ -219,7 +221,8 @@ function GameAPI.set_sfx_color_hex(sfx_entity, color, w) end
 ---@param scale_x number # x轴缩放
 ---@param scale_y number # y轴缩放
 ---@param scale_z number # z轴缩放
-function GameAPI.set_sfx_scale(sfx_entity, scale_x, scale_y, scale_z) end
+---@param duration? number # 过渡时间
+function GameAPI.set_sfx_scale(sfx_entity, scale_x, scale_y, scale_z, duration) end
 
 --设置特效高度
 ---@param sfx_entity py.Sfx # 特效
@@ -408,15 +411,10 @@ function GameAPI.ordered_table_iterator(t) end
 ---@return py.Iterator # Python迭代器
 function GameAPI.table_iterator_new(t, ordered) end
 
---serialize_to_string
----@param table py.Table # table
----@return string # value
-function GameAPI.serialize_to_string(table) end
-
 --unserialize_by_string
----@param lua string # lua
+---@param archive_table_str string # archive_table_str
 ---@return py.Table # table
-function GameAPI.unserialize_by_string(lua) end
+function GameAPI.unserialize_by_string(archive_table_str) end
 
 --sort_table_by
 ---@param table py.Table # table
@@ -1562,27 +1560,32 @@ function GameAPI.change_mini_map_img(role, image_id) end
 --设置小地图替代图片(图片类型)
 ---@param role py.Role # 玩家
 ---@param image_id py.Texture # 图片
-function GameAPI.change_mini_map_img_with_icon(role, image_id) end
+---@param specify_mini_map? string # 指定的小地图
+function GameAPI.change_mini_map_img_with_icon(role, image_id, specify_mini_map) end
 
 --设置小地图颜色显示模式
 ---@param role py.Role # 玩家
 ---@param color_type integer # 显示模式
-function GameAPI.change_mini_map_color_type(role, color_type) end
+---@param specify_mini_map? string # 指定的小地图
+function GameAPI.change_mini_map_color_type(role, color_type, specify_mini_map) end
 
 --开启小地图迷雾显示
 ---@param role py.Role # 玩家
 ---@param enable integer # 显示模式
-function GameAPI.enable_player_mini_map_fog_img(role, enable) end
+---@param specify_mini_map? string # 指定的小地图
+function GameAPI.enable_player_mini_map_fog_img(role, enable, specify_mini_map) end
 
 --开启绘制单位路径线
 ---@param role py.Role # 玩家
 ---@param unit py.Unit # 单位
-function GameAPI.enable_unit_path_drawing(role, unit) end
+---@param specify_mini_map? string # 指定的小地图
+function GameAPI.enable_unit_path_drawing(role, unit, specify_mini_map) end
 
 --关闭绘制单位路径线
 ---@param role py.Role # 玩家
 ---@param unit py.Unit # 单位
-function GameAPI.disable_unit_path_drawing(role, unit) end
+---@param specify_mini_map? string # 指定的小地图
+function GameAPI.disable_unit_path_drawing(role, unit, specify_mini_map) end
 
 --设置小地图显示区域
 ---@param role py.Role # 玩家
@@ -1716,7 +1719,8 @@ function GameAPI.set_mouse_cursor_visible(visible) end
 --小地图遮罩透明度
 ---@param role py.Role # 玩家
 ---@param alpha number # 透明度
-function GameAPI.set_mini_map_alpha(role, alpha) end
+---@param specify_mini_map? string # 指定的小地图
+function GameAPI.set_mini_map_alpha(role, alpha, specify_mini_map) end
 
 --小地图遮罩颜色
 ---@param role py.Role # 玩家
@@ -1724,13 +1728,15 @@ function GameAPI.set_mini_map_alpha(role, alpha) end
 ---@param colorG integer # G
 ---@param colorB integer # B
 ---@param colorA integer # A
-function GameAPI.set_mini_map_color_int(role, colorR, colorG, colorB, colorA) end
+---@param specify_mini_map? string # 指定的小地图
+function GameAPI.set_mini_map_color_int(role, colorR, colorG, colorB, colorA, specify_mini_map) end
 
 --小地图遮罩颜色
 ---@param role py.Role # 玩家
 ---@param rgb_hex string # rgb
 ---@param alpha number # a
-function GameAPI.set_mini_map_color_str(role, rgb_hex, alpha) end
+---@param specify_mini_map? string # 指定的小地图
+function GameAPI.set_mini_map_color_str(role, rgb_hex, alpha, specify_mini_map) end
 
 --获取队伍id
 ---@return integer # 队伍id
@@ -1743,7 +1749,7 @@ function GameAPI.steam_get_player_id() end
 --开始匹配
 ---@param score integer # 天梯分数
 ---@param level_id string # 等级id
----@param game_mode integer # 游戏模式
+---@param game_mode? integer # 游戏模式
 ---@return integer # 开始匹配结果
 function GameAPI.steam_start_match(score, level_id, game_mode) end
 
@@ -1915,7 +1921,8 @@ function GameAPI.set_ui_comp_adapt_option(role, comp_name, direction, offset) en
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件uid
 ---@param event_name string # 事件名
-function GameAPI.trigger_ui_event(role, comp_name, event_name) end
+---@param not_wait_network? boolean # 不等待网络返回
+function GameAPI.trigger_ui_event(role, comp_name, event_name, not_wait_network) end
 
 --控制控件跟随鼠标
 ---@param role py.Role # 玩家
@@ -2493,8 +2500,9 @@ function GameAPI.create_ui_comp_event_ex(role, comp_uid, event_type, name) end
 ---@param event_type integer # 控件事件类型
 ---@param name string # 自定义事件名
 ---@param user_data string # 自定义数据
+---@param not_wait_network? boolean # 不等待网络返回
 ---@return string # 事件名
-function GameAPI.create_ui_comp_event_ex_ex(comp_uid, event_type, name, user_data) end
+function GameAPI.create_ui_comp_event_ex_ex(comp_uid, event_type, name, user_data, not_wait_network) end
 
 --创建并绑定ui控件事件(指定事件名)
 ---@param role py.Role # 玩家
@@ -3267,7 +3275,8 @@ function GameAPI.set_ui_scrollview_scroll(role, comp_uid, enable) end
 ---@param ease_in_time? number # 淡入时长
 ---@param ease_out_time? number # 淡出时长
 ---@param ease_type? integer # 曲线类型
-function GameAPI.play_ui_video(role, url, ease_in_time, ease_out_time, ease_type) end
+---@param is_loop? boolean # 循环播放
+function GameAPI.play_ui_video(role, url, ease_in_time, ease_out_time, ease_type, is_loop) end
 
 --视频控件停止播放视频
 ---@param role py.Role # 玩家
@@ -3440,7 +3449,7 @@ function GameAPI.get_construction_progress(unit) end
 ---@param progress py.Fixed # 建造进度
 function GameAPI.set_construction_progress(unit, progress) end
 
---获取建造进度
+--获取建造速率
 ---@param unit py.Unit # 单位
 ---@return py.Fixed # 建造速率
 function GameAPI.get_construction_factor(unit) end
@@ -4789,8 +4798,9 @@ function GameAPI.create_projectile_in_scene(p_key, location, face, owner_unit_or
 ---@param visibility? integer # 粒子特效可见性规则
 ---@param immediately? boolean # 立即移除表现
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾中是否可见
 ---@return py.ProjectileEntity # 创建出的投掷物
-function GameAPI.create_projectile_in_scene_new(p_key, location, owner_unit_or_player, face, related_ability, duration, is_open_duration, height, visibility, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_projectile_in_scene_new(p_key, location, owner_unit_or_player, face, related_ability, duration, is_open_duration, height, visibility, immediately, use_sys_d_destroy_way, show_in_fog) end
 
 --新建空玩家组
 ---@return py.RoleGroup # 玩家组
@@ -5867,3 +5877,10 @@ function GameAPI.set_cur_damage(damage) end
 ---@param damage_result_state integer # damage_result_state
 ---@return boolean # 伤害绝对值
 function GameAPI.get_cur_damage_is_miss(damage_result_state) end
+
+--预设库 添加DAMAGE_ARMOR_TYPE键值对
+---@param prefab_conf_key integer # prefab库ID
+---@param item_key integer # 编号
+---@param key string # 键值名称
+---@param value integer # value
+function GameAPI.set_prefab_key_damage_armor_type_kv(prefab_conf_key, item_key, key, value) end

@@ -611,19 +611,6 @@ function Unit:set_move_channel_air(air_limitation) end
 ---@param point_end py.Point # 起始点
 function Unit:get_unit_path_length_between_points(point_start, point_end) end
 
---单位沿方向移动（摇杆等）
----@param x number # 方向x轴
----@param y number # 方向y轴
-function Unit:roaming_along(x, y) end
-
---停止沿方向移动
-function Unit:stop_roaming() end
-
---沿方向移动
----@param point py.Point # 目标点
----@param offset number # offset
-function Unit:roaming_to(point, offset) end
-
 --播放动画
 ---@param name string # 动画名称
 ---@param rate? number # 播放倍率
@@ -894,13 +881,15 @@ function Unit:api_get_height() end
 
 --设置单位缩放
 ---@param scale number # 缩放
-function Unit:api_set_scale(scale) end
+---@param duration? number # 过渡时间
+function Unit:api_set_scale(scale, duration) end
 
 --设置单位三轴缩放
 ---@param scale_x number # x缩放
 ---@param scale_y number # y缩放
 ---@param scale_z number # z缩放
-function Unit:api_set_unit_scale(scale_x, scale_y, scale_z) end
+---@param duration? number # 过渡时间
+function Unit:api_set_unit_scale(scale_x, scale_y, scale_z, duration) end
 
 --获取单位缩放
 ---@return py.Fixed? # 获取缩放
@@ -931,7 +920,8 @@ function Unit:api_set_blood_bar_show_type(blood_bar_show_type) end
 function Unit:api_start_ghost(r, g, b, a, interval, duration, start, end_, use_raw_texture) end
 
 --关闭残影
-function Unit:api_stop_ghost() end
+---@param destroy_immediately? boolean # 立即销毁
+function Unit:api_stop_ghost(destroy_immediately) end
 
 --开始溶解效果
 ---@param dissolve_time py.Fixed # 溶解时间
@@ -1436,7 +1426,8 @@ function Unit:api_set_is_shop(is_shop) end
 ---@param shop_unit py.Unit # 商店
 ---@param tab_idx py.TabIdx # 页签id
 ---@param item_no py.ItemKey # 物品编号
-function Unit:api_buy_item_with_tab_name(shop_unit, tab_idx, item_no) end
+---@param item_num? integer # 购买数量
+function Unit:api_buy_item_with_tab_name(shop_unit, tab_idx, item_no, item_num) end
 
 --单位购买单位
 ---@param shop_unit py.Unit # 商店
@@ -1595,3 +1586,65 @@ function Unit:api_set_lock_yaw(angle_or_target, turn_time_ms) end
 
 --结束锁定移动
 function Unit:api_set_unlock_yaw() end
+
+--获取单位是否处于缓存池中
+---@return boolean? # value
+function Unit:api_get_is_in_pool() end
+
+--设置摇杆基方向
+---@param facing number # 基方向
+function Unit:set_joystick_base_direction(facing) end
+
+--设置摇杆输入
+---@param input_x number # InputX
+---@param input_y number # InputY
+function Unit:set_joystick_input(input_x, input_y) end
+
+--径直移动
+---@param target_pos py.Point # 目标点
+function Unit:directional_move_to_pos(target_pos) end
+
+--单位禁止贴地
+---@param is_forbid_aligned_terrain boolean # 是否禁止贴地
+function Unit:api_set_forbid_aligned_terrain(is_forbid_aligned_terrain) end
+
+--播放上半身动画
+---@param anim_name string # 动画名
+---@param speed? number # 速率
+---@param repeat_? boolean # 是否循环
+---@param begin_t? number # 起始时间比例（0-1之间）
+---@param end_t? number # 结束时间比例（0-1之间）
+---@param ratio? number # 融合比例（0-1之间）
+function Unit:play_upper_body_anim(anim_name, speed, repeat_, begin_t, end_t, ratio) end
+
+--自定义骨骼分层
+---@param root_bone string # 根骨骼
+---@param upper_body_bone string # 上半身骨骼
+---@param head_bone string # 头部骨骼
+function Unit:set_bone_filter_config(root_bone, upper_body_bone, head_bone) end
+
+--设置单位外轮廓描边厚度
+---@param width number # width
+---@param role? py.Role # Role
+function Unit:set_unit_outside_outline_width(width, role) end
+
+--设置单位外轮廓描边颜色
+---@param color_r number # R
+---@param color_g number # G
+---@param color_b number # B
+---@param role? py.Role # Role
+function Unit:set_unit_outside_outline_color(color_r, color_g, color_b, role) end
+
+--设置单位外轮廓描边是否开启
+---@param enabled boolean # Enable
+---@param role? py.Role # Role
+function Unit:set_unit_outside_outlined_enable(enabled, role) end
+
+--暂停单位所有技能的CD
+function Unit:api_pause_all_ability_cd() end
+
+--恢复单位所有技能的CD
+function Unit:api_resume_all_ability_cd() end
+
+--移除单位所有技能
+function Unit:api_clear_all_abilities() end

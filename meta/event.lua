@@ -10292,19 +10292,9 @@ event.ET_MALL_NOTIFY_CANCEL_MATCH = {
     },
 }
 
----@class EventParam.ET_MALL_NOTIFY_LOGIN_SUCCESS
----@field error_code integer # ERROR_CODE
+---@class EventParam.ET_MALL_NOTIFY_RECONNECT_ARCHIVE
 
---steam大厅取消匹配
-event.ET_MALL_NOTIFY_LOGIN_SUCCESS = {
-    [1] = {
-        name = "__error_code",
-        type = "integer",
-        lua_name = "error_code",
-        lua_type = "integer",
-        desc = "ERROR_CODE",
-        lua_desc = "ERROR_CODE",
-    },
-}
+--steam重连更新存档完成
+event.ET_MALL_NOTIFY_RECONNECT_ARCHIVE = {}
 
 return event

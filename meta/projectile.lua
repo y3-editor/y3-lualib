@@ -44,7 +44,8 @@ function ProjectileEntity:api_set_rotation(x, z, y) end
 ---@param x number # x轴缩放
 ---@param z number # y轴缩放
 ---@param y number # z轴缩放
-function ProjectileEntity:api_set_scale(x, z, y) end
+---@param duration? number # 过渡时间
+function ProjectileEntity:api_set_scale(x, z, y, duration) end
 
 --设置投射物特效播放速度
 ---@param rate number # 播放速度
