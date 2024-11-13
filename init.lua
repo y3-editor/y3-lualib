@@ -88,6 +88,7 @@ y3.helper       = require 'y3.game.helper'
 y3.ground       = require 'y3.game.ground'
 y3.config       = require 'y3.game.config'
 y3.kv           = require 'y3.game.kv'
+y3.steam        = require 'y3.game.steam'
 y3.timer        = require 'y3.object.runtime_object.timer'
 y3.ltimer       = require 'y3.util.local_timer'
 
