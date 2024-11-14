@@ -40,6 +40,7 @@ local function is_valid_object(self_type, config)
     return false
 end
 
+local coroutines = {} --11/20后去掉
 ---@private
 function M:core_subscribe(event_name, ...)
     local config = event_configs.config[event_name]
@@ -94,6 +95,7 @@ function M:core_subscribe(event_name, ...)
     end
 
     local trigger = self.object_event_manager:event(event_name, extra_args, callback)
+    local co, is_main = coroutine.running()
     ---@diagnostic disable-next-line: undefined-field
     local seq = regist_object_event(self.handle, config.key, function (data)
         ---@diagnostic disable-next-line: invisible
@@ -101,8 +103,17 @@ function M:core_subscribe(event_name, ...)
         trigger:execute(lua_params)
     end, table.unpack(args))
 
+    if not is_main then
+        coroutines[co] = (coroutines[co] or 0) + 1
+    end
     local unsubscribe = function ()
         unregist_object_event(seq)
+        if not is_main then
+            coroutines[co] = coroutines[co] - 1
+            if coroutines[co] == 0 then
+                coroutines[co] = nil
+            end
+        end
     end
     ---@diagnostic disable-next-line: invisible
     trigger:on_remove(unsubscribe)
