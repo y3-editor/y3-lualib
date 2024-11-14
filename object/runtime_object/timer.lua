@@ -39,7 +39,7 @@ end
 
 function M:__del()
     if self.mode == 'second' then
-        GameAPI.cancel_timer(self.handle)
+        GameAPI.delete_timer(self.handle)
     else
         error('帧计时器不支持删除，若有此需求请改用 `y3.ltimer.xxx_frame`')
     end
