@@ -116,78 +116,92 @@ end
 
 ---【异步】请求添加好友
 ---@param aid integer # 对方的aid
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_add_friend(aid, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_mall_add_friend(aid, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】请求删除好友
 ---@param aid integer # 对方的aid
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_delete_friend(aid, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_delete_friend(aid, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】回复好友请求
 ---@param aid integer # 对方的aid
 ---@param accept boolean # 是否接受
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.reply_friend_add(aid, accept, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_reply_friend_add(aid, accept, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】请求开始游戏（不匹配），只有队长可以调用
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_start_game(callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_steam_start_game(function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】请求加入队伍
 ---@param team_id integer # 队伍id
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_join_team(team_id, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_join_team_by_team_id(team_id, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】请求加入队伍
 ---@param name string # 对方的玩家名字
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_join_team_by_name(name, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_join_team(name, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】邀请玩家加入队伍
 ---@param aid integer # 对方的aid
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_invite_join_team(aid, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_invite_join_team(aid, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
@@ -195,22 +209,26 @@ end
 ---@param aid integer # 对方的aid
 ---@param team_id integer # 队伍id
 ---@param accept boolean # 是否接受
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.reply_team_invite(aid, team_id, accept, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_team_invite(aid, team_id, accept, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】请求退出队伍
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_quit_team(callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_quit_team(function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
@@ -239,23 +257,27 @@ end
 
 ---【异步】转交队长，只有队长可以调用
 ---@param aid integer # 对方的aid
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_transfer_captain(aid, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_transform_team_leader(aid, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】请求从队伍中踢出玩家，只有队长可以调用
 ---@param aid integer # 对方的aid
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_kick_member(aid, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_kick_from_team(aid, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
@@ -271,12 +293,14 @@ function M.request_aid_by_nickname(nickname, callback)
 end
 
 ---【异步】请求创建队伍
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_create_team(callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_create_team(function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
@@ -284,22 +308,26 @@ end
 ---@param score integer # 匹配分数
 ---@param level_id string # 目标地图id
 ---@param game_mode? integer # 目标地图模式
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_start_match(score, level_id, game_mode, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_start_match(score, level_id, game_mode or 1002, function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
 ---【异步】请求取消匹配
----@param callback fun(success: boolean)
+---@param callback? fun(success: boolean)
 function M.request_cancel_match(callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_cancel_match(function ()
-        xpcall(callback, log.error, context['__int1'] == 0)
+        if callback then
+            xpcall(callback, log.error, context['__int1'] == 0)
+        end
     end, context)
 end
 
