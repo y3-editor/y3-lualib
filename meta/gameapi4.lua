@@ -42,8 +42,9 @@ function GameAPI.play_sfx_on_point(point, sfx, scale, duratime, offset, role, vi
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param follow_scale? boolean # 是否跟随单位缩放
+---@param show_in_fog? boolean # 迷雾中显示
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, source_socket, target_point, target_height, duration, immediately, use_sys_d_destroy_way, follow_scale) end
+function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, source_socket, target_point, target_height, duration, immediately, use_sys_d_destroy_way, follow_scale, show_in_fog) end
 
 --创建单位到单位闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -55,8 +56,9 @@ function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, sou
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param follow_scale? boolean # 是否跟随单位缩放
+---@param show_in_fog? boolean # 迷雾中显示
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, source_socket, target_unit, target_socket, duration, immediately, use_sys_d_destroy_way, follow_scale) end
+function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, source_socket, target_unit, target_socket, duration, immediately, use_sys_d_destroy_way, follow_scale, show_in_fog) end
 
 --创建点到单位闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -67,8 +69,9 @@ function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, sour
 ---@param duration? number # 持续时间
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾中显示
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, source_height, source_unit, source_socket, duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, source_height, source_unit, source_socket, duration, immediately, use_sys_d_destroy_way, show_in_fog) end
 
 --创建点到点闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -79,8 +82,9 @@ function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, so
 ---@param duration? number # 持续时间
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾中显示
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_point_to_point(sfx_res_id, source_point, source_height, target_point, target_height, duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_link_sfx_from_point_to_point(sfx_res_id, source_point, source_height, target_point, target_height, duration, immediately, use_sys_d_destroy_way, show_in_fog) end
 
 --设置闪电特效的位置点
 ---@param sfx_entity py.LinkSfx # 特效

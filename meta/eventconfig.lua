@@ -2805,6 +2805,78 @@ M.config["控制台-请求补全"] = {
     },
 }
 
+---@alias EventParam.steam-收到好友申请 EventParam.ET_MALL_NOTIFY_FRIEND_NEW
+M.config["steam-收到好友申请"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_FRIEND_NEW",
+    name = "steam-收到好友申请",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-收到被好友删除 EventParam.ET_MALL_NOTIFY_FRIEND_DELETE
+M.config["steam-收到被好友删除"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_FRIEND_DELETE",
+    name = "steam-收到被好友删除",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-好友在线状态变化 EventParam.ET_MALL_NOTIFY_FRIEND_UPDATE
+M.config["steam-好友在线状态变化"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_FRIEND_UPDATE",
+    name = "steam-好友在线状态变化",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-本地玩家队伍变化 EventParam.ET_MALL_NOTIFY_TEAM_UPDATE
+M.config["steam-本地玩家队伍变化"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_TEAM_UPDATE",
+    name = "steam-本地玩家队伍变化",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-收到队伍邀请 EventParam.ET_MALL_NOTIFY_TEAM_INVITE
+M.config["steam-收到队伍邀请"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_TEAM_INVITE",
+    name = "steam-收到队伍邀请",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-进入大厅 EventParam.ET_MALL_NOTIFY_ENTER_LOBBY
+M.config["steam-进入大厅"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_ENTER_LOBBY",
+    name = "steam-进入大厅",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-开始匹配 EventParam.ET_MALL_NOTIFY_START_MATCH
+M.config["steam-开始匹配"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_START_MATCH",
+    name = "steam-开始匹配",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-取消匹配 EventParam.ET_MALL_NOTIFY_CANCEL_MATCH
+M.config["steam-取消匹配"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_CANCEL_MATCH",
+    name = "steam-取消匹配",
+    params = {
+    },
+}
+
 ---@class Game
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
@@ -3008,6 +3080,14 @@ M.config["控制台-请求补全"] = {
 ---@field event fun(self: self, event: "玩家-平台商城窗口变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台商城窗口变化)): Trigger
 ---@field event fun(self: self, event: "控制台-输入", callback: fun(trg: Trigger, data: EventParam.控制台-输入)): Trigger
 ---@field event fun(self: self, event: "控制台-请求补全", callback: fun(trg: Trigger, data: EventParam.控制台-请求补全)): Trigger
+---@field event fun(self: self, event: "steam-收到好友申请", callback: fun(trg: Trigger, data: EventParam.steam-收到好友申请)): Trigger
+---@field event fun(self: self, event: "steam-收到被好友删除", callback: fun(trg: Trigger, data: EventParam.steam-收到被好友删除)): Trigger
+---@field event fun(self: self, event: "steam-好友在线状态变化", callback: fun(trg: Trigger, data: EventParam.steam-好友在线状态变化)): Trigger
+---@field event fun(self: self, event: "steam-本地玩家队伍变化", callback: fun(trg: Trigger, data: EventParam.steam-本地玩家队伍变化)): Trigger
+---@field event fun(self: self, event: "steam-收到队伍邀请", callback: fun(trg: Trigger, data: EventParam.steam-收到队伍邀请)): Trigger
+---@field event fun(self: self, event: "steam-进入大厅", callback: fun(trg: Trigger, data: EventParam.steam-进入大厅)): Trigger
+---@field event fun(self: self, event: "steam-开始匹配", callback: fun(trg: Trigger, data: EventParam.steam-开始匹配)): Trigger
+---@field event fun(self: self, event: "steam-取消匹配", callback: fun(trg: Trigger, data: EventParam.steam-取消匹配)): Trigger
 
 ---@class Ability
 ---@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger

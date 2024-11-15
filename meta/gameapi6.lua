@@ -5481,3 +5481,34 @@ function GameAPI.get_all_items_in_shapes_new(point, shape, sort_type, filter_abi
 ---@param name_or_desc string # 名称/描述
 ---@return string # 多语言key
 function GameAPI.get_object_multilingual_key(data_key, entity_id, name_or_desc) end
+
+--设置模型控件的模型为场景中设定了指定标签的模型
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+---@param unit py.Unit # 单位对象
+function GameAPI.set_ui_model_from_scene_unit_with_tag_model(role, comp_name, unit) end
+
+--在单位的小地图头像上创建序列帧动画
+---@param unit py.Unit # 单位
+---@param sequence_resource py.Sequence # 序列帧资源
+---@param is_loop boolean # 是否循环播放
+---@param duration py.Fixed # 持续时间
+function GameAPI.create_sequence_on_unit_mini_map_icon(unit, sequence_resource, is_loop, duration) end
+
+--设置单位的序列帧类型的小地图头像
+---@param unit py.Unit # 单位
+---@param sequence_resource py.Sequence # 序列帧资源
+---@param is_loop boolean # 是否循环播放
+function GameAPI.set_unit_mini_map_sequence_icon(unit, sequence_resource, is_loop) end
+
+--设置单位的序列帧类型的敌方小地图头像
+---@param unit py.Unit # 单位
+---@param sequence_resource py.Sequence # 序列帧资源
+---@param is_loop boolean # 是否循环播放
+function GameAPI.set_unit_enemy_mini_map_sequence_icon(unit, sequence_resource, is_loop) end
+
+--设置技能按钮鼠标操控快捷键
+---@param role py.Role # 玩家
+---@param comp_name string # 控件名
+---@param key integer # 快捷键
+function GameAPI.api_set_ability_mouse_control_key(role, comp_name, key) end
