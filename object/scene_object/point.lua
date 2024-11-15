@@ -3,6 +3,7 @@
 --点
 ---@class Point
 ---@field handle Point.HandleType
+---@field res_id? integer
 ---@overload fun(py_point: Point.HandleType): self
 ---@overload fun(x: number, y: number, z?: number): self
 local M = Class 'Point'
@@ -42,6 +43,7 @@ function M.get_point_by_res_id(res_id)
     if not M.map[res_id] then
         local py_point = GameAPI.get_point_by_res_id(res_id)
         local point = M.get_by_handle(py_point)
+        point.res_id = res_id
         M.map[res_id] = point
     end
     return M.map[res_id]
@@ -51,18 +53,18 @@ end
 ---@param py_point Point.HandleType
 ---@return Point
 function M.get_by_handle(py_point)
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return py_point
+    local point = New 'Point' (py_point)
+    return point
 end
 
 y3.py_converter.register_type_alias('py.Point', 'Point')
 y3.py_converter.register_py_to_lua('py.Point', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Point', function (lua_value)
-    return lua_value
+    return lua_value.handle
 end)
 y3.py_converter.register_py_to_lua('py.Vector3', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Vector3', function (lua_value)
-    return lua_value
+    return lua_value.handle
 end)
 
 ---点的x坐标
@@ -115,8 +117,15 @@ end
 ---@param z? number 点Z坐标
 ---@return Point
 function M.create(x, y, z)
-    ---@diagnostic disable-next-line: return-type-mismatch
-    return Fix32Vec3(x / 100, (z or 0) / 100, y / 100)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local py_point = Fix32Vec3(x / 100, (z or 0) / 100, y / 100)
+    -- TODO 见问题2
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local p = M.get_by_handle(py_point)
+    p.x = x
+    p.y = y
+    p.z = z or 0
+    return p
 end
 
 ---点向方向偏移
@@ -125,7 +134,8 @@ end
 ---@param offset number 偏移量
 ---@return Point
 function M.get_point_offset_vector(point, direction, offset)
-    local py_point = GlobalAPI.get_point_offset_vector(point.handle, Fix32(direction), Fix32(offset))
+    ---@diagnostic disable-next-line: undefined-field
+    local py_point = point.handle:get_point_offset_vector(direction, offset)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     return M.get_by_handle(py_point)
@@ -145,8 +155,8 @@ end
 ---@return number
 function M:get_angle_with(other)
     -- TODO 见问题2
-    ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.helper.tonumber(GameAPI.get_points_angle(self.handle, other.handle)) or 0.0
+    ---@diagnostic disable-next-line: param-type-mismatch, undefined-field
+    return y3.helper.tonumber(self.handle:get_angle_with(other.handle)) or 0.0
 end
 
 -- 获取与另一个点的距离
@@ -154,13 +164,14 @@ end
 ---@return number
 function M:get_distance_with(other)
     -- TODO 见问题2
-    ---@diagnostic disable-next-line: param-type-mismatch
-    return y3.helper.tonumber(GameAPI.get_points_dis(self.handle, other.handle)) or 0.0
+    ---@diagnostic disable-next-line: param-type-mismatch, undefined-field
+    return y3.helper.tonumber(self.handle:get_distance_with(other.handle)) or 0.0
 end
 
 --获取圆形范围内的随机点
 function M:get_random_point(radius)
-    local p = GameAPI.get_random_point_in_circular(self.handle, Fix32(radius))
+    ---@diagnostic disable-next-line: undefined-field
+    local p = self.handle:get_random_point(radius)
     ---@diagnostic disable-next-line: param-type-mismatch
     return M.get_by_handle(p)
 end
