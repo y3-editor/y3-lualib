@@ -71,7 +71,7 @@ M.comp_id = y3.proxy.new({}, {
 ---@return UI
 function M.get_by_handle(player, handle)
     if not player._ui_cache then
-        assert(Type(player) == 'Player', 'player 参数必须是 Player 类型')
+        assert(type(player.handle) == 'userdata', 'player.handle 不是userdata?')
         player._ui_cache = setmetatable({}, {
             __mode = 'v',
             __index = function (t, k)
