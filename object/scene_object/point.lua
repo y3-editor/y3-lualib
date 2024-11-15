@@ -71,7 +71,8 @@ end)
 ---@return number
 function M:get_x()
     if not self.x then
-        self.x = GlobalAPI.get_fixed_coord_index(self.handle, 0):float()
+        ---@diagnostic disable-next-line: undefined-field
+        self.x = self.handle:get_x()
     end
     return self.x
 end
@@ -80,7 +81,8 @@ end
 ---@return number
 function M:get_y()
     if not self.y then
-        self.y = GlobalAPI.get_fixed_coord_index(self.handle, 2):float()
+        ---@diagnostic disable-next-line: undefined-field
+        self.y = self.handle:get_y()
     end
     return self.y
 end
@@ -89,7 +91,8 @@ end
 ---@return number
 function M:get_z()
     if not self.z then
-        self.z = GlobalAPI.get_fixed_coord_index(self.handle, 1):float()
+        ---@diagnostic disable-next-line: undefined-field
+        self.z = self.handle:get_z()
     end
     return self.z
 end
