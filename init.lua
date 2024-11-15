@@ -90,6 +90,7 @@ y3.config       = require 'y3.game.config'
 y3.kv           = require 'y3.game.kv'
 y3.steam        = require 'y3.game.steam'
 y3.timer        = require 'y3.object.runtime_object.timer'
+y3.py_proxy     = require 'y3.util.py_proxy'
 y3.ltimer       = require 'y3.util.local_timer'
 
 y3.unit         = require 'y3.object.editable_object.unit'
