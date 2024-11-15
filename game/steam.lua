@@ -7,9 +7,9 @@ function M.get_team_id()
     return GameAPI.steam_get_team_id() or 0
 end
 
----【异步】获取本地玩家的玩家id。
+---【异步】获取本地玩家的玩家aid。
 ---@return integer
-function M.get_player_id()
+function M.get_player_aid()
     return GameAPI.steam_get_player_id() or 0
 end
 
@@ -246,7 +246,7 @@ end
 
 ---【异步】请求指定玩家的队伍信息
 ---@param aid integer # 对方的aid
----@param callback fun(info: Steam.MemberInfo[])
+---@param callback fun(team_info: Steam.MemberInfo[])
 function M.request_team_info(aid, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
