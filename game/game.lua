@@ -431,8 +431,9 @@ function M.resume_soft_pause()
 end
 
 ---切换至关卡
----@param level_id_str py.Map # 关卡ID
+---@param level_id_str py.Map | string # 关卡ID
 function M.switch_level(level_id_str)
+    ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.request_switch_level(level_id_str)
 end
 
