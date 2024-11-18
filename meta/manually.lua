@@ -119,6 +119,8 @@ function python.debug_ns_timestamp() end
 ---@field set_parabola_height         fun(parabola_height: py.Fixed)
 ---@field set_is_open_bind_point      fun(is_open_bind_point: boolean)
 ---@field set_target_unit_id          fun(target_unit_id: integer)
+---@field set_init_angle              fun(init_angle: py.Fixed)
+---@field set_rotate_time             fun(rotate_time: py.Fixed)
 
 ---@class py.MoverCurveBuilder: py.MoverBaseBuilder
 ---@field set_angle                fun(angle: py.Fixed)

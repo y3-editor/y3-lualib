@@ -69,6 +69,9 @@ end)
 ---@field height? number # 初始高度
 ---@field parabola_height? number # 抛物线顶点高度
 ---@field bind_point? string # 绑定点
+---@field init_angle? number # 初始角度
+---@field rotate_time? number # 过渡时间
+
 
 ---@class Mover.CreateData.Curve: Mover.CreateData.Base
 ---@field angle number # 运动方向
@@ -213,7 +216,8 @@ function M.wrap_target_args(args)
     builder.set_parabola_height        (Fix32(args.parabola_height or 0.0))
     builder.set_is_open_bind_point     (args.bind_point ~= nil)
     builder.set_target_unit_id         (args.target:get_id())
-
+    builder.dict['init_angle']         = Fix32(args.init_angle or 0.0)
+    builder.dict['rotate_time']        = Fix32(args.rotate_time or 0.0)
     return builder
 end
 
