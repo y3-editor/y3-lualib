@@ -155,13 +155,13 @@ function M.reply_friend_add(aid, accept, callback)
 end
 
 ---【异步】请求开始游戏（不匹配），只有队长可以调用
----@param callback? fun(success: boolean)
+---@param callback? fun(success?: boolean, error_code?: integer)
 function M.request_start_game(callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_steam_start_game(function ()
         if callback then
-            xpcall(callback, log.error, context['__int1'] == 0)
+            xpcall(callback, log.error, context['__int1'] == 0, context['__error_code'])
         end
     end, context)
 end
@@ -246,12 +246,12 @@ end
 
 ---【异步】请求指定玩家的队伍信息
 ---@param aid integer # 对方的aid
----@param callback fun(team_info: Steam.MemberInfo[])
+---@param callback fun(team_info?: Steam.MemberInfo[], error_code?: integer)
 function M.request_team_info(aid, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_mall_team_info_by_adi(aid, function ()
-        xpcall(callback, log.error, context['__lua_table'])
+        xpcall(callback, log.error, context['__lua_table'], context['__error_code'])
     end, context)
 end
 
@@ -283,12 +283,12 @@ end
 
 ---【异步】根据玩家昵称查询玩家的aid
 ---@param nickname string # 玩家昵称
----@param callback fun(aid: integer)
+---@param callback fun(aid?: integer, error_code?: integer)
 function M.request_aid_by_nickname(nickname, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_mall_player_adi_by_nickname(nickname, function ()
-        xpcall(callback, log.error, context['__int1'])
+        xpcall(callback, log.error, context['__int1'], context['__error_code'])
     end, context)
 end
 
@@ -308,13 +308,13 @@ end
 ---@param score integer # 匹配分数
 ---@param level_id string # 目标地图id
 ---@param game_mode? integer # 目标地图模式
----@param callback? fun(success: boolean)
+---@param callback? fun(success?: boolean, error_code?: integer)
 function M.request_start_match(score, level_id, game_mode, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_start_match(score, level_id, game_mode or 1002, function ()
         if callback then
-            xpcall(callback, log.error, context['__int1'] == 0)
+            xpcall(callback, log.error, context['__int1'] == 0, context['__error_code'])
         end
     end, context)
 end
