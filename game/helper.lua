@@ -59,13 +59,19 @@ end
 
 ---@param v any
 ---@param recursive? boolean
+---@param mark? table
 ---@return any
-function M.as_lua(v, recursive)
+local function as_lua(v, recursive, mark)
     local tp = type(v)
     if tp == 'table' then
         if recursive then
+            mark = mark or {}
+            if mark[v] then
+                return v
+            end
+            mark[v] = true
             for k, vv in pairs(v) do
-                v[k] = M.as_lua(vv, true)
+                v[k] = as_lua(vv, true, mark)
             end
         end
     elseif tp == 'userdata' then
@@ -78,6 +84,13 @@ function M.as_lua(v, recursive)
         end
     end
     return v
+end
+
+---@param v any
+---@param recursive? boolean
+---@return any
+function M.as_lua(v, recursive)
+    return as_lua(v, recursive)
 end
 
 ---@param t? table
