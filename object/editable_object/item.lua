@@ -38,6 +38,7 @@ end
 
 function M:__del()
     self.handle:api_remove()
+    y3.py_proxy.kill(self.phandle)
 end
 
 ---@package
