@@ -216,8 +216,9 @@ function M.wrap_target_args(args)
     builder.set_parabola_height        (Fix32(args.parabola_height or 0.0))
     builder.set_is_open_bind_point     (args.bind_point ~= nil)
     builder.set_target_unit_id         (args.target:get_id())
-    builder.dict['init_angle']         = Fix32(args.init_angle or 0.0)
-    builder.dict['rotate_time']        = Fix32(args.rotate_time or 0.0)
+    builder.dict['init_angle']         = (Fix32(args.init_angle or 0.0))
+    builder.dict['rotate_time']        = (Fix32(args.rotate_time or 0.0))
+    builder.dict['is_open_init_angle'] = (args.init_angle ~= nil)
     return builder
 end
 
