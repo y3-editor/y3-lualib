@@ -37,7 +37,7 @@ function M:__init(id, py_item)
 end
 
 function M:__del()
-    self.handle:api_remove()
+    self.phandle:api_remove()
     y3.py_proxy.kill(self.phandle)
 end
 
