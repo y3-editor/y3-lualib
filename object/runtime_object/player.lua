@@ -25,6 +25,7 @@ M.ref_manager = New 'Ref' ('Player', function (key)
     if not py_player then
         return nil
     end
+    assert(type(py_player) == 'userdata', '参数类型错误:' .. tostring(py_player))
     return New 'Player' (py_player)
 end)
 
@@ -32,7 +33,6 @@ end)
 ---@return self
 function M:__init(py_player)
     self.handle = py_player
-
     self.id     = py_player:get_role_id_num() or 0
     return self
 end
@@ -79,6 +79,10 @@ y3.py_converter.register_py_to_lua('py.RoleID', M.get_by_id)
 ---@param py_player py.Role
 ---@return Player
 function M.get_by_handle(py_player)
+    if type(py_player) ~= 'userdata' then
+        error('参数类型错误:' .. tostring(py_player))
+    end
+    ---@cast py_player py.Role
     local id = py_player:get_role_id_num() or 0
     return M.get_by_id(id)
 end

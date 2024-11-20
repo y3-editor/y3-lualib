@@ -60,6 +60,11 @@ local function get_py_value_and_type(value)
             return value, tp
         end
     end
+    if tp == 'userdata' then
+        if value['type'] == 'point' then
+            return value, 'point'
+        end
+    end
     return value, tp
 end
 

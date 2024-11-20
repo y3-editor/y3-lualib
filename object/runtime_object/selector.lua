@@ -189,7 +189,7 @@ local sort_type = {
 ---@return Selector
 function M:sort_type(st)
     ---@private
-    self._sort_type = sort_type[st]
+    self._sort_type = sort_type[st] or st
     return self
 end
 

@@ -39,7 +39,7 @@ local cur_frame = 0
 local cur_ms = 0
 local id = 0
 
----@type table<integer, LocalTimer[]>
+---@type table<integer, { [integer]: LocalTimer, need_sort?: true }>
 local timer_queues = {}
 
 ---@param time number
@@ -146,25 +146,34 @@ function M:push()
         queue = {}
         timer_queues[ms] = queue
     end
-    queue[#queue+1] = self
+    local last = queue[#queue]
+    if last and last.id > self.id then
+        queue.need_sort = true
+    end
+    self.queue_pos = #queue + 1
+    queue[self.queue_pos] = self
     self.queue_index = ms
 end
 
 ---@package
 function M:pop()
     local ms = self.queue_index
+    local pos = self.queue_pos
     self.queue_index = nil
+    self.queue_pos = nil
     local queue = timer_queues[ms]
     if not queue then
         return
     end
-    for i = 1, #queue do
-        if queue[i] == self then
-            queue[i] = queue[#queue]
-            queue[#queue] = nil
-            break
-        end
+    local last = queue[#queue]
+    if last == self then
+        queue[pos] = nil
+        return
     end
+    queue[pos] = last
+    queue[#queue] = nil
+    last.queue_pos = pos
+    queue.need_sort = true
 end
 
 ---暂停计时器
@@ -363,9 +372,11 @@ local function update_frame()
         local queue = timer_queues[ti]
         if queue then
             cur_ms = ti
-            table.sort(queue, function (a, b)
-                return a.id < b.id
-            end)
+            if queue.need_sort then
+                table.sort(queue, function (a, b)
+                    return a.id < b.id
+                end)
+            end
             for i = 1, #queue do
                 desk[i] = queue[i]
             end

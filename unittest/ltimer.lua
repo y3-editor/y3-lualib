@@ -104,4 +104,23 @@ do
     assert(t:get_remaining_time() == 3)
 end
 
+do
+    local res = {}
+    local t1 = y3.ltimer.loop(1, function (timer, count)
+        res[#res+1] = '1'
+    end)
+    local t2 = y3.ltimer.loop(1, function (timer, count)
+        res[#res+1] = '2'
+    end)
+    local t3 = y3.ltimer.loop(1, function (timer, count)
+        res[#res+1] = '3'
+    end)
+
+    y3.ltimer.debug_fastward(30)
+    t1:remove()
+    y3.ltimer.debug_fastward(60)
+
+    assert(table.concat(res, ',') == '1,2,3,2,3,2,3')
+end
+
 print('ltimer 测试通过')

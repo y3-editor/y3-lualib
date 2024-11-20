@@ -40,7 +40,7 @@ function M:__init(ip, port, options)
     y3.ctimer.wait(0, function ()
         self:update()
     end)
-    self.retry_timer = y3.ctimer.loop(self.options.retry_interval, function (t)
+    self.retry_timer = y3.ltimer.loop(self.options.retry_interval, function (t)
         self:update()
         if  self.state ~= 'started'
         and self.state ~= 'sleep' then
@@ -48,7 +48,7 @@ function M:__init(ip, port, options)
             return
         end
         log.debug('Network 重连：', self, self:is_connecting())
-        if self.handle.reset then
+        if self.handle.reset and false then
             self.handle:reset()
         else
             self.handle:destroy()

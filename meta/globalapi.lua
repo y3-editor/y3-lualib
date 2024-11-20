@@ -1086,3 +1086,21 @@ function GlobalAPI.str_to_timestamp(v) end
 --获取当前地图预约人数
 ---@return integer # 预约人数
 function GlobalAPI.api_get_booked_number() end
+
+--时间戳转星期
+---@param v integer # 时间戳
+---@return integer # 星期
+function GlobalAPI.api_timestamp_to_week(v) end
+
+--取整
+---@param v number # 实数
+---@param mode integer # 取整方式
+---@return integer # 取整之后的值
+function GlobalAPI.floor_or_ceil(v, mode) end
+
+--三目运算符
+---@param v boolean # 条件
+---@param true_value py.DynamicTypeMeta # True值
+---@param false_value py.DynamicTypeMeta # False值
+---@return py.DynamicTypeMeta # 返回值
+function GlobalAPI.ternary_operator(v, true_value, false_value) end

@@ -431,8 +431,9 @@ function M.resume_soft_pause()
 end
 
 ---切换至关卡
----@param level_id_str py.Map # 关卡ID
+---@param level_id_str py.Map | string # 关卡ID
 function M.switch_level(level_id_str)
+    ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.request_switch_level(level_id_str)
 end
 
@@ -968,6 +969,58 @@ function M.download_platform_icon(url, icon, callback)
         end
         download_one()
     end
+end
+
+---当前是否是大厅关卡
+---@return boolean
+function M.is_lobby()
+    return GameAPI.get_is_steam_lobby()
+end
+
+---请求购买商城物品
+---@param player Player
+---@param goods_id string
+function M.request_buy_mall_coin(player, goods_id)
+    GameAPI.request_buy_mall_coin(player.handle, goods_id)
+end
+
+---设置是否渲染场景
+---@param flag boolean
+function M.set_draw_scene(flag)
+    GameAPI.set_draw_ui(flag)
+end
+
+---【异步】获取本地的游戏客户端版本号
+---@return integer
+function M.get_local_game_version()
+    return GameAPI.get_local_game_version()
+end
+
+---@private
+---@type function[]
+M._fetching_game_version = nil
+
+---【异步】获取最新的游戏客户端版本号。获取成功后会通过回调函数返回版本号
+---@param callback fun(version: integer)
+function M.get_latest_game_version(callback)
+    if M._fetching_game_version then
+        table.insert(M._fetching_game_version, callback)
+        return
+    end
+    M._fetching_game_version = { callback }
+    GameAPI.update_latest_game_version()
+    y3.ctimer.loop(0.1, function (timer)
+        local version = GameAPI.get_latest_game_version()
+        if version == 0 then
+            return
+        end
+        timer:remove()
+        local funcs = M._fetching_game_version
+        M._fetching_game_version = nil
+        for _, func in ipairs(funcs) do
+            xpcall(func, log.error, version)
+        end
+    end)
 end
 
 _G['OnTick'] = function ()

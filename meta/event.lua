@@ -10166,14 +10166,14 @@ event.ET_LUA_CONSOLE_TIPS = {
 }
 
 ---@class EventParam.ET_MALL_NOTIFY_FRIEND_NEW
----@field NICK_NAME__ string # 申请者名称
+---@field nick_name string # 申请者名称
 
 --steam大厅收到好友申请事件
 event.ET_MALL_NOTIFY_FRIEND_NEW = {
     [1] = {
         name = "__NICK_NAME__",
         type = "string",
-        lua_name = "NICK_NAME__",
+        lua_name = "nick_name",
         lua_type = "string",
         desc = "申请者名称",
         lua_desc = "申请者名称",
@@ -10181,14 +10181,14 @@ event.ET_MALL_NOTIFY_FRIEND_NEW = {
 }
 
 ---@class EventParam.ET_MALL_NOTIFY_FRIEND_DELETE
----@field PLAYER_AID__ integer # 删除者ID
+---@field player_aid integer # 删除者ID
 
 --steam大厅收到被好友删除事件
 event.ET_MALL_NOTIFY_FRIEND_DELETE = {
     [1] = {
         name = "__PLAYER_AID__",
         type = "integer",
-        lua_name = "PLAYER_AID__",
+        lua_name = "player_aid",
         lua_type = "integer",
         desc = "删除者ID",
         lua_desc = "删除者ID",
@@ -10196,15 +10196,15 @@ event.ET_MALL_NOTIFY_FRIEND_DELETE = {
 }
 
 ---@class EventParam.ET_MALL_NOTIFY_FRIEND_UPDATE
----@field ONLINE_STATE__ integer # 好友在线状态
----@field PLAYER_AID__ integer # 好友ID
+---@field online_state integer # 好友在线状态
+---@field player_aid integer # 好友ID
 
 --steam大厅好友在线状态变化事件
 event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
     [1] = {
         name = "__ONLINE_STATE__",
         type = "integer",
-        lua_name = "ONLINE_STATE__",
+        lua_name = "online_state",
         lua_type = "integer",
         desc = "好友在线状态",
         lua_desc = "好友在线状态",
@@ -10212,7 +10212,7 @@ event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
     [2] = {
         name = "__PLAYER_AID__",
         type = "integer",
-        lua_name = "PLAYER_AID__",
+        lua_name = "player_aid",
         lua_type = "integer",
         desc = "好友ID",
         lua_desc = "好友ID",
@@ -10225,8 +10225,8 @@ event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
 event.ET_MALL_NOTIFY_TEAM_UPDATE = {}
 
 ---@class EventParam.ET_MALL_NOTIFY_TEAM_INVITE
----@field PLAYER_AID__ integer # 发送方ID
----@field NICK_NAME__ string # 发送方名称
+---@field player_aid integer # 发送方ID
+---@field nick_name string # 发送方名称
 ---@field team_id integer # 队伍ID
 
 --steam大厅收到队伍邀请
@@ -10234,7 +10234,7 @@ event.ET_MALL_NOTIFY_TEAM_INVITE = {
     [1] = {
         name = "__PLAYER_AID__",
         type = "integer",
-        lua_name = "PLAYER_AID__",
+        lua_name = "player_aid",
         lua_type = "integer",
         desc = "发送方ID",
         lua_desc = "发送方ID",
@@ -10242,7 +10242,7 @@ event.ET_MALL_NOTIFY_TEAM_INVITE = {
     [2] = {
         name = "__NICK_NAME__",
         type = "string",
-        lua_name = "NICK_NAME__",
+        lua_name = "nick_name",
         lua_type = "string",
         desc = "发送方名称",
         lua_desc = "发送方名称",
@@ -10292,19 +10292,9 @@ event.ET_MALL_NOTIFY_CANCEL_MATCH = {
     },
 }
 
----@class EventParam.ET_MALL_NOTIFY_LOGIN_SUCCESS
----@field error_code integer # ERROR_CODE
+---@class EventParam.ET_MALL_NOTIFY_RECONNECT_ARCHIVE
 
---steam大厅取消匹配
-event.ET_MALL_NOTIFY_LOGIN_SUCCESS = {
-    [1] = {
-        name = "__error_code",
-        type = "integer",
-        lua_name = "error_code",
-        lua_type = "integer",
-        desc = "ERROR_CODE",
-        lua_desc = "ERROR_CODE",
-    },
-}
+--steam重连更新存档完成
+event.ET_MALL_NOTIFY_RECONNECT_ARCHIVE = {}
 
 return event

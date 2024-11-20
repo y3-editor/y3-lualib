@@ -374,7 +374,10 @@ end
 
 ---删除单位
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_delete()
+    end
 end
 
 ---传送到点

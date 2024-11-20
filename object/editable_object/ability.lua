@@ -141,7 +141,21 @@ end
 
 ---移除技能
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_remove()
+        --TODO
+        --技能正在放的时候删不掉，需要不停尝试删除
+        if GameAPI.ability_is_exist(self.handle) then
+            y3.ltimer.loop_frame(1, function (timer, count)
+                if not GameAPI.ability_is_exist(self.handle) then
+                    timer:remove()
+                    return
+                end
+                self.handle:api_remove()
+            end)
+        end
+    end
 end
 
 ---设置技能等级

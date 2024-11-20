@@ -86,7 +86,10 @@ end
 
 ---移除
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.handle:api_remove()
+    end
 end
 
 ---是否存在

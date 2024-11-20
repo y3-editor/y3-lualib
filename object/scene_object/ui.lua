@@ -71,6 +71,7 @@ M.comp_id = y3.proxy.new({}, {
 ---@return UI
 function M.get_by_handle(player, handle)
     if not player._ui_cache then
+        assert(type(player.handle) == 'userdata', 'player.handle 不是userdata?')
         player._ui_cache = setmetatable({}, {
             __mode = 'v',
             __index = function (t, k)
@@ -780,6 +781,12 @@ end
 function M:bind_global_variable(uiAttr, globalVar, accuracy)
     GameAPI.set_ui_comp_bind_var(self.player.handle, self.handle, y3.const.UIAttr[uiAttr] or uiAttr, globalVar, accuracy or 0)
     return self
+end
+
+---设置文本格式，如 `%.2f` 表示保留两位小数
+---@param format_str string
+function M:set_text_format(format_str)
+    GameAPI.set_ui_comp_bind_format(self.player.handle, self.handle, format_str)
 end
 
 --解绑界面控件属性绑定

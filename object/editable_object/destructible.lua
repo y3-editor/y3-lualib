@@ -1,6 +1,7 @@
 --可破坏物
 ---@class Destructible
 ---@field handle py.Destructible
+---@field phandle py.Destructible
 ---@field id integer
 ---@overload fun(py_destructible: py.Destructible): self
 local M = Class 'Destructible'
@@ -22,6 +23,7 @@ end
 ---@return self
 function M:__init(py_destructible)
     self.handle = py_destructible
+    self.phandle = y3.py_proxy.wrap(py_destructible, GameAPI.destructible_is_exist)
     self.id     = py_destructible:api_get_id() or 0
     return self
 end
@@ -46,7 +48,7 @@ function M.get_by_handle(py_destructible)
     if not py_destructible then
         return nil
     end
-    local id = py_destructible:api_get_id()
+    local id = y3.py_proxy.wrap(py_destructible, GameAPI.destructible_is_exist):api_get_id()
     local dest = M.ref_manager:get(id)
     return dest
 end
@@ -81,53 +83,56 @@ end
 ---可破坏物能否被技能指示器选中
 ---@return boolean is_lockable 能否被选中
 function M:can_be_ability_target()
-    return self.handle:api_is_ability_target() or false
+    return self.phandle:api_is_ability_target() or false
 end
 
 ---可破坏物能否被攻击
 ---@return boolean is_attackable 能否被攻击
 function M:can_be_attacked()
-    return self.handle:api_is_attacked() or false
+    return self.phandle:api_is_attacked() or false
 end
 
 ---可破坏物能否被选中
 ---@return boolean is_selectable 能否被选中
 function M:can_be_selected()
-    return self.handle:api_is_selected() or false
+    return self.phandle:api_is_selected() or false
 end
 
 ---可破坏物能否被采集
 ---@return boolean is_collectable 能否被采集
 function M:can_be_collected()
-    return self.handle:api_is_collected() or false
+    return self.phandle:api_is_collected() or false
 end
 
 ---可破坏物是否可见
 ---@return boolean is_visible 是否可见
 function M:is_visible()
-    return self.handle:api_is_visible() or false
+    return self.phandle:api_is_visible() or false
 end
 
 ---可破坏物是否存活
 ---@return boolean is_alive 是否存活
 function M:is_alive()
-    return self.handle:api_is_alive() or false
+    return self.phandle:api_is_alive() or false
 end
 
 ---@param killer_unit Unit 凶手
 ---杀死可破坏物
 function M:kill(killer_unit)
-    self.handle:api_kill(killer_unit.handle)
+    self.phandle:api_kill(killer_unit.handle)
 end
 
 ---删除可破坏物
 function M:remove()
-    Delete(self)
+    if not self._removed then
+        self._removed = true
+        self.phandle:api_delete()
+    end
 end
 
 ---复活可破坏物
 function M:reborn()
-    self.handle:api_revivie_new()
+    self.phandle:api_revivie_new()
 end
 
 ---移动到点
@@ -135,67 +140,67 @@ end
 function M:set_point(point)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    self.handle:api_transmit(point.handle)
+    self.phandle:api_transmit(point.handle)
 end
 
 ---设置生命值
 ---@param value number 生命值
 function M:set_hp(value)
-    self.handle:api_set_hp(Fix32(value))
+    self.phandle:api_set_hp(Fix32(value))
 end
 
 ---@param value number 生命值
 ---增加当前生命值
 function M:add_hp(value)
-    self.handle:api_add_hp_cur_value(Fix32(value))
+    self.phandle:api_add_hp_cur_value(Fix32(value))
 end
 
 ---@param value number 生命值
 ---设置最大生命值
 function M:set_max_hp(value)
-    self.handle:api_set_max_hp(Fix32(value))
+    self.phandle:api_set_max_hp(Fix32(value))
 end
 
 ---@param value number 生命值
 ---增加最大生命值
 function M:add_max_hp(value)
-    self.handle:api_add_hp_max_value(Fix32(value))
+    self.phandle:api_add_hp_max_value(Fix32(value))
 end
 
 ---@param value number 资源数
 ---设置当前资源数
 function M:set_resource(value)
-    self.handle:api_set_cur_source_nums(Fix32(value))
+    self.phandle:api_set_cur_source_nums(Fix32(value))
 end
 
 ---@param value number 资源数
 ---增加当前资源数
 function M:add_resource(value)
-    self.handle:api_add_sp_cur_value(Fix32(value))
+    self.phandle:api_add_sp_cur_value(Fix32(value))
 end
 
 ---@param value number 资源数
 ---设置最大资源数
 function M:set_max_resource(value)
-    self.handle:api_set_max_source_nums(Fix32(value))
+    self.phandle:api_set_max_source_nums(Fix32(value))
 end
 
 ---@param value number 资源数
 ---增加最大资源数
 function M:add_max_resource(value)
-    self.handle:api_add_sp_max_value(Fix32(value))
+    self.phandle:api_add_sp_max_value(Fix32(value))
 end
 
 ---@param name string 名字
 ---设置名称
 function M:set_name(name)
-    self.handle:api_set_name(name)
+    self.phandle:api_set_name(name)
 end
 
 ---@param description string 描述
 ---设置描述
 function M:set_description(description)
-    self.handle:api_set_str_attr("description", description)
+    self.phandle:api_set_str_attr("description", description)
 end
 
 ---设置缩放
@@ -203,61 +208,61 @@ end
 ---@param y number y轴缩放
 ---@param z number z轴缩放
 function M:set_scale(x, y, z)
-    self.handle:api_set_scale(Fix32(x), Fix32(y), Fix32(z))
+    self.phandle:api_set_scale(Fix32(x), Fix32(y), Fix32(z))
 end
 
 ---设置朝向
 ---@param angle number 朝向角度
 function M:set_facing(angle)
-    self.handle:api_set_face_angle(Fix32(angle))
+    self.phandle:api_set_face_angle(Fix32(angle))
 end
 
 ---设置高度
 ---@param height number 高度
 function M:set_height(height)
-    self.handle:api_set_height_offset(Fix32(height))
+    self.phandle:api_set_height_offset(Fix32(height))
 end
 
 ---增加高度
 ---@param height number 高度
 function M:add_height(height)
-    self.handle:api_add_height_offset(Fix32(height))
+    self.phandle:api_add_height_offset(Fix32(height))
 end
 
 ---设置能否被技能指示器锁定
 ---@param can_be_ability_target boolean 能否被技能指示器锁定
 function M:set_can_be_ability_target(can_be_ability_target)
-    self.handle:api_set_dest_is_ability_target(can_be_ability_target)
+    self.phandle:api_set_dest_is_ability_target(can_be_ability_target)
 end
 
 ---设置能否被攻击
 ---@param is_attackable boolean 能否被攻击
 function M:set_can_be_attacked(is_attackable)
-    self.handle:api_set_dest_is_attacked(is_attackable)
+    self.phandle:api_set_dest_is_attacked(is_attackable)
 end
 
 ---设置能否被选中
 ---@param is_selectable boolean 能否被选中
 function M:set_can_be_selected(is_selectable)
-    self.handle:api_set_dest_is_selected(is_selectable)
+    self.phandle:api_set_dest_is_selected(is_selectable)
 end
 
 ---设置能否被采集
 ---@param is_collectable boolean 能否被采集
 function M:set_can_be_collected(is_collectable)
-    self.handle:api_set_dest_is_collected(is_collectable)
+    self.phandle:api_set_dest_is_collected(is_collectable)
 end
 
 ---增加标签
 ---@param tag string 标签
 function M:add_tag(tag)
-    self.handle:api_add_tag(tag)
+    self.phandle:api_add_tag(tag)
 end
 
 ---移除标签
 ---@param tag string 标签
 function M:remove_tag(tag)
-    self.handle:api_remove_tag(tag)
+    self.phandle:api_remove_tag(tag)
 end
 
 ---是否具有标签
@@ -274,7 +279,7 @@ end
 ---@param is_loop? boolean 是否循环
 ---@param speed? number 速度
 function M:play_animation(anim_name, start_time, end_time, is_loop, speed)
-    self.handle:api_play_animation(
+    self.phandle:api_play_animation(
         anim_name,
         start_time or 0,
         end_time or -1,
@@ -286,25 +291,25 @@ end
 ---停止动画
 ---@param anim_name string 动画名字
 function M:stop_animation(anim_name)
-    self.handle:api_stop_animation(anim_name)
+    self.phandle:api_stop_animation(anim_name)
 end
 
 ---替换模型
 ---@param model_id py.ModelKey 模型id
 function M:replace_model(model_id)
-    self.handle:api_replace_model(model_id)
+    self.phandle:api_replace_model(model_id)
 end
 
 ---取消替换模型
 ---@param model_id py.ModelKey 模型id
 function M:cancel_replace_model(model_id)
-    self.handle:api_cancel_replace_model(model_id)
+    self.phandle:api_cancel_replace_model(model_id)
 end
 
 ---显示/隐藏
 ---@param is_visible boolean 是否显示
 function M:set_visible(is_visible)
-    self.handle:api_show_hide(is_visible)
+    self.phandle:api_show_hide(is_visible)
 end
 
 ---获取可破坏物类型
@@ -316,79 +321,79 @@ end
 ---获取可破坏物的名称
 ---@return string name 可破坏物的名称
 function M:get_name()
-    return self.handle:api_get_str_attr("name") or ''
+    return self.phandle:api_get_str_attr("name") or ''
 end
 
 ---获取可破坏物描述
 ---@return string description 描述
 function M:get_description()
-    return self.handle:api_get_str_attr("description") or ''
+    return self.phandle:api_get_str_attr("description") or ''
 end
 
 ---获取可破坏物的生命值
 ---@return number cur_hp 生命值
 function M:get_hp()
-    return y3.helper.tonumber(self.handle:api_get_float_attr("hp_cur")) or 0.0
+    return y3.helper.tonumber(self.phandle:api_get_float_attr("hp_cur")) or 0.0
 end
 
 ---获取可破坏物的资源名称
 ---@return string source_name 资源名称
 function M:get_resource_name()
-    return self.handle:api_get_str_attr("source_desc") or ''
+    return self.phandle:api_get_str_attr("source_desc") or ''
 end
 
 ---获取可破坏物的生命值
 ---@return number hp 可破坏物的生命值
 function M:get_max_hp()
-    return y3.helper.tonumber(self.handle:api_get_float_attr("hp_max")) or 0.0
+    return y3.helper.tonumber(self.phandle:api_get_float_attr("hp_max")) or 0.0
 end
 
 ---获取可破坏物的当前资源数
 ---@return number source_number 当前资源数
 function M:get_resource()
-    return self.handle:api_get_dest_cur_source_nums() or 0.0
+    return self.phandle:api_get_dest_cur_source_nums() or 0.0
 end
 
 ---获取可破坏物的最大资源数
 ---@return number max_number 最大资源数
 function M:get_max_resource()
-    return self.handle:api_get_dest_max_source_nums() or 0.0
+    return self.phandle:api_get_dest_max_source_nums() or 0.0
 end
 
 ---获取可破坏物的玩家属性名
 ---@return py.RoleResKey player_res_key 玩家属性
 function M:get_resource_type()
-    return self.handle:api_get_role_res_of_dest() or ''
+    return self.phandle:api_get_role_res_of_dest() or ''
 end
 
 ---获取可破坏物的物品类型ID
 ---@return py.ItemKey item_key 物品类型ID
 function M:get_item_type()
-    return self.handle:api_get_item_type_of_dest() or 0
+    return self.phandle:api_get_item_type_of_dest() or 0
 end
 
 ---获取可破坏物的模型
 ---@return py.ModelKey model_key 模型id
 function M:get_model()
-    return self.handle:api_get_dest_model() or 0
+    return self.phandle:api_get_dest_model() or 0
 end
 
 ---获取可破坏物的高度
 ---@return number height 高度
 function M:get_height()
-    return y3.helper.tonumber(self.handle:api_get_dest_height_offset()) or 0.0
+    return y3.helper.tonumber(self.phandle:api_get_dest_height_offset()) or 0.0
 end
 
 ---获取可破坏物的面向角度
 ---@return number rotation 面向角度
 function M:get_facing()
-    return y3.helper.tonumber(self.handle:api_get_dest_face_angle()) or 0.0
+    return y3.helper.tonumber(self.phandle:api_get_dest_face_angle()) or 0.0
 end
 
 ---获取可破坏物对象的位置
 ---@return Point point 可破坏物的位置
 function M:get_position()
-    local py_point = self.handle:api_get_position()
+    local py_point = self.phandle:api_get_position()
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     return y3.point.get_by_handle(py_point)
@@ -468,7 +473,7 @@ end
 
 function M:is_destroyed()
     ---@diagnostic disable-next-line: undefined-field
-    local yes = self.handle:api_is_destroyed()
+    local yes = self.phandle:api_is_destroyed()
     if yes == nil then
         return true
     end
