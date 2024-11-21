@@ -10196,7 +10196,7 @@ event.ET_MALL_NOTIFY_FRIEND_DELETE = {
 }
 
 ---@class EventParam.ET_MALL_NOTIFY_FRIEND_UPDATE
----@field online_state integer # 好友在线状态
+---@field online_state y3.Const.SteamOnlineState # 好友在线状态
 ---@field player_aid integer # 好友ID
 
 --steam大厅好友在线状态变化事件
@@ -10205,7 +10205,7 @@ event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
         name = "__ONLINE_STATE__",
         type = "integer",
         lua_name = "online_state",
-        lua_type = "integer",
+        lua_type = "y3.Const.SteamOnlineState",
         desc = "好友在线状态",
         lua_desc = "好友在线状态",
     },
