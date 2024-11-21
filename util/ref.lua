@@ -65,6 +65,9 @@ function M:get(key, ...)
         return obj
     end
     obj = self.newMethod(key, ...)
+    if not obj then
+        return nil
+    end
     self.strongRefMap[key] = obj
     self.weakRefMap[key] = nil
     return obj
