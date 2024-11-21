@@ -97,7 +97,7 @@ end
 --- second_name: string,
 --- nickname: string,
 --- head_icon: string,
---- online: boolean,
+--- online: y3.Const.SteamOnlineState,
 --- level: integer,
 --- aid: integer,
 --- show_state: Steam.FriendState.ShowState,
@@ -239,7 +239,7 @@ end
 --- head_icon: string,
 --- state: integer,
 --- show_state: Steam.FriendState.ShowState,
---- online: boolean,
+--- online: y3.Const.SteamOnlineState,
 --- team_id: integer,
 --- is_captain: boolean,
 ---}

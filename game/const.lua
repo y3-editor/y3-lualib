@@ -1003,4 +1003,13 @@ M.PlatFormRoleCommunityType = {
     ['社区主题数量'] = 6,
 }
 
+---@enum(key) y3.Const.SteamOnlineState
+M.SteamOnlineState = {
+    [1] = '离线',
+    [2] = '空闲',
+    [3] = '房间中',
+    [4] = '匹配中',
+    [5] = '游戏中',
+}
+
 return M
