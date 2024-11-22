@@ -43,9 +43,11 @@ function M.get_team_state()
 end
 
 ---@alias Steam.PlayerState
----| 1 # 空闲
----| 2 # 匹配中
----| 3 # 游戏中
+---| 1 # 离线
+---| 2 # 在线
+---| 3 # 房间中
+---| 4 # 匹配中
+---| 5 # 游戏中
 
 ---【异步】获取本地玩家的状态
 ---@return Steam.PlayerState state
@@ -246,7 +248,7 @@ end
 --- level: integer,
 --- nickname: string,
 --- head_icon: string,
---- state: integer,
+--- state: Steam.PlayerState,
 --- show_state: Steam.FriendState.ShowState,
 --- online: y3.Const.SteamOnlineState,
 --- team_id: integer,
