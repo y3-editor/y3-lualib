@@ -42,17 +42,10 @@ function M.get_team_state()
     return GameAPI.steam_get_team_state()
 end
 
----@alias Steam.PlayerState
----| 1 # 离线
----| 2 # 空闲
----| 3 # 房间中
----| 4 # 匹配中
----| 5 # 游戏中
-
 ---【异步】获取本地玩家的状态
----@return Steam.PlayerState state
+---@return y3.Const.SteamOnlineState state
 function M.get_player_state()
-    return GameAPI.steam_get_player_state()
+    return GameAPI.steam_get_player_state() --[[@as y3.Const.SteamOnlineState]]
 end
 
 ---【异步】获取本地玩家的昵称
@@ -248,7 +241,7 @@ end
 --- level: integer,
 --- nickname: string,
 --- head_icon: string,
---- state: Steam.PlayerState,
+--- state: y3.Const.SteamOnlineState,
 --- show_state: Steam.FriendState.ShowState,
 --- online: y3.Const.SteamOnlineState,
 --- team_id: integer,
