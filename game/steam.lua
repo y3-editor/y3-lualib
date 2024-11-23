@@ -101,7 +101,7 @@ end
 
 ---【异步】请求自己的好友列表
 ---@param callback fun(friends: Steam.FriendState[])
-function M:request_friends(callback)
+function M.request_friends(callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_mall_friends(function ()
