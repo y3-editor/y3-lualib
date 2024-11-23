@@ -111,7 +111,8 @@ end
 
 local function callback_with_error_code(callback, context)
     local ret = context['__error_code'] or context['__int1']
-    if type(ret) == 'table' then
+    if type(ret) == 'userdata' then
+        ---@diagnostic disable-next-line: undefined-field
         ret = ret.errnu
     end
     xpcall(callback, log.error, ret == 0, ret)
