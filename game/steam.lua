@@ -110,12 +110,11 @@ function M.request_friends(callback)
 end
 
 local function callback_with_error_code(callback, context)
-    local ret = context['__int1']
-    local error_code = context['__error_code']
-    if not error_code and ret ~= 0 then
-        error_code = ret
+    local ret = context['__error_code'] or context['__int1']
+    if type(ret) == 'table' then
+        ret = ret.errnu
     end
-    xpcall(callback, log.error, ret == 0, error_code)
+    xpcall(callback, log.error, ret == 0, ret)
 end
 
 ---【异步】请求添加好友
