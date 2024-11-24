@@ -1248,6 +1248,12 @@ function M:set_cursor(player, state, key)
     return self
 end
 
+--设置序列帧图片
+---@param image_id integer # 序列帧图片ID
+function M:set_sequence_image(image_id)
+    GameAPI.set_ui_comp_sequence(self.player.handle, self.handle, image_id)
+end
+
 -- 播放序列帧
 ---@param loop? boolean # 是否循环
 ---@param space? number # 间隔帧数
@@ -1258,6 +1264,11 @@ function M:play_ui_sequence(loop, space, start_frame, end_frame)
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.play_ui_comp_sequence(self.player.handle, self.handle, loop or false, space or 0.1, start_frame or 0, end_frame or -1)
     return self
+end
+
+--停止播放序列帧
+function M:stop_ui_sequence()
+    GameAPI.stop_ui_comp_sequence(self.player.handle, self.handle)
 end
 
 ---@enum(key) Item.UseOperation
