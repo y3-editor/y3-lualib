@@ -1971,7 +1971,7 @@ end
 ---@field damage number
 ---@field ability? Ability # 关联技能
 ---@field text_type? y3.Const.DamageTextType # 跳字类型
----@field text_track? integer # 跳字轨迹类型
+---@field text_track? y3.Const.FloatTextJumpType | integer # 跳字轨迹类型
 ---@field common_attack? boolean # 视为普攻
 ---@field critical? boolean # 必定暴击
 ---@field no_miss? boolean # 必定命中
@@ -1999,7 +1999,7 @@ function M:damage(data)
         data.particle or nil,
         data.socket or '',
         data.text_type or 'physics',
-        data.text_track or 0,
+        y3.const.FloatTextJumpType[data.text_track] or data.text_track or 0,
         data.attack_type or 0,
         data.pos_socket or ''
     )

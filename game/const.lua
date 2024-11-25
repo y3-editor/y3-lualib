@@ -911,7 +911,6 @@ M.FloatTextType = {
     ['华康圆体W9'] = 'HKYuanW9',
 }
 
---TODO：应该解析文件
 ---@enum(key) y3.Const.FloatTextJumpType
 M.FloatTextJumpType = {
     ['伤害_左上'] = 934231441,
