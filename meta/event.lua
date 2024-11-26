@@ -3153,6 +3153,30 @@ event.ET_UNIT_TRY_PICK_ITEM = {
     },
 }
 
+---@class EventParam.ET_UNIT_TRY_PICK_ITEM_NEW
+---@field unit Unit # 单位
+---@field equip_slot_type py.SlotType # 背包类型
+
+--单位即将拾取物品
+event.ET_UNIT_TRY_PICK_ITEM_NEW = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位id",
+        lua_desc = "单位",
+    },
+    [2] = {
+        name = "__equip_slot_type",
+        type = "py.SlotType",
+        lua_name = "equip_slot_type",
+        lua_type = "py.SlotType",
+        desc = "背包类型",
+        lua_desc = "背包类型",
+    },
+}
+
 ---@class EventParam.ET_UNIT_LOAD_DEFAULT_AI
 
 --单位切换默认行为
@@ -10296,5 +10320,47 @@ event.ET_MALL_NOTIFY_CANCEL_MATCH = {
 
 --steam重连更新存档完成
 event.ET_MALL_NOTIFY_RECONNECT_ARCHIVE = {}
+
+---@class EventParam.ET_UNIT_PROJECTILE_HIT
+---@field source_unit Unit # 远程普攻投射物所属单位
+---@field target_unit Unit # 远程普攻目标单位
+---@field pos Point # 命中位置
+---@field damage number # 伤害
+
+--单位投射物命中
+event.ET_UNIT_PROJECTILE_HIT = {
+    [1] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "远程普攻投射物所属单位",
+        lua_desc = "远程普攻投射物所属单位",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "远程普攻目标单位",
+        lua_desc = "远程普攻目标单位",
+    },
+    [3] = {
+        name = "__pos",
+        type = "py.Point",
+        lua_name = "pos",
+        lua_type = "Point",
+        desc = "命中位置",
+        lua_desc = "命中位置",
+    },
+    [4] = {
+        name = "__damage",
+        type = "py.Fixed",
+        lua_name = "damage",
+        lua_type = "number",
+        desc = "伤害",
+        lua_desc = "伤害",
+    },
+}
 
 return event

@@ -605,6 +605,7 @@ function M:is_key_pressed(key)
     if not y3.config.sync.key then
         error('必须先设置 `y3.config.sync.key = true`')
     end
+    ---@diagnostic disable-next-line: param-type-mismatch
     return GameAPI.player_key_is_pressed(self.handle, key)
 end
 

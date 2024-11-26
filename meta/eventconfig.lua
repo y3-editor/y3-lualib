@@ -2007,9 +2007,13 @@ M.config["键盘-按下"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "按下的键",
             name = "key",
-            type = "y3.Const.KeyboardKey",
+            resolve = function (key)
+                return y3.const.KeyboardKey[key] or key
+            end,
+            type = "y3.Const.KeyboardKey|integer",
         },
     },
 }
@@ -2023,9 +2027,13 @@ M.config["键盘-抬起"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "抬起的键",
             name = "key",
-            type = "y3.Const.KeyboardKey",
+            resolve = function (key)
+                return y3.const.KeyboardKey[key] or key
+            end,
+            type = "y3.Const.KeyboardKey|integer",
         },
     },
 }
@@ -2039,9 +2047,13 @@ M.config["本地-键盘-按下"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "按下的键",
             name = "key",
-            type = "y3.Const.KeyboardKey",
+            resolve = function (key)
+                return y3.const.KeyboardKey[key] or key
+            end,
+            type = "y3.Const.KeyboardKey|integer",
         },
     },
 }
@@ -2055,9 +2067,13 @@ M.config["本地-键盘-抬起"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "抬起的键",
             name = "key",
-            type = "y3.Const.KeyboardKey",
+            resolve = function (key)
+                return y3.const.KeyboardKey[key] or key
+            end,
+            type = "y3.Const.KeyboardKey|integer",
         },
     },
 }
@@ -2071,9 +2087,13 @@ M.config["鼠标-按下"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "按下的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2087,9 +2107,13 @@ M.config["鼠标-抬起"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "抬起的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2103,9 +2127,13 @@ M.config["鼠标-双击"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "双击的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2119,9 +2147,13 @@ M.config["本地-鼠标-按下"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "按下的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2135,9 +2167,13 @@ M.config["本地-鼠标-抬起"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "抬起的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2151,9 +2187,13 @@ M.config["本地-鼠标-双击"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "双击的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2167,9 +2207,13 @@ M.config["鼠标-按下单位"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "按下的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2183,9 +2227,13 @@ M.config["鼠标-抬起单位"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "抬起的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2199,9 +2247,13 @@ M.config["鼠标-双击单位"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "双击的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2215,9 +2267,13 @@ M.config["本地-鼠标-按下单位"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "按下的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2231,9 +2287,13 @@ M.config["本地-鼠标-抬起单位"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "抬起的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2247,9 +2307,13 @@ M.config["本地-鼠标-双击单位"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "双击的键",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2285,9 +2349,13 @@ M.config["鼠标-滚轮"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "滚动方向",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -2301,9 +2369,13 @@ M.config["本地-鼠标-滚轮"] = {
     object = "Player",
     params = {
         [1] = {
+            call = false,
             desc = "滚动方向",
             name = "key",
-            type = "y3.Const.MouseKey",
+            resolve = function (key)
+                return y3.const.MouseKey[key] or key
+            end,
+            type = "y3.Const.MouseKey|integer",
         },
     },
 }
@@ -3014,26 +3086,26 @@ M.config["steam-取消匹配"] = {
 ---@field event fun(self: self, event: "本地-界面-输入框获取焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框获取焦点)): Trigger
 ---@field event fun(self: self, event: "本地-界面-输入框失去焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框失去焦点)): Trigger
 ---@field event fun(self: self, event: "本地-界面-输入框内容改变", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框内容改变)): Trigger
----@field event fun(self: self, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
----@field event fun(self: self, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
----@field event fun(self: self, event: "本地-键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
----@field event fun(self: self, event: "本地-键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-抬起)): Trigger
----@field event fun(self: self, event: "鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
----@field event fun(self: self, event: "鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
----@field event fun(self: self, event: "鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
----@field event fun(self: self, event: "本地-鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-按下)): Trigger
----@field event fun(self: self, event: "本地-鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-抬起)): Trigger
----@field event fun(self: self, event: "本地-鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-双击)): Trigger
----@field event fun(self: self, event: "鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
----@field event fun(self: self, event: "鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
----@field event fun(self: self, event: "鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
----@field event fun(self: self, event: "本地-鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-按下单位)): Trigger
----@field event fun(self: self, event: "本地-鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-抬起单位)): Trigger
----@field event fun(self: self, event: "本地-鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-双击单位)): Trigger
+---@field event fun(self: self, event: "键盘-按下", key: y3.Const.KeyboardKey|integer, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
+---@field event fun(self: self, event: "键盘-抬起", key: y3.Const.KeyboardKey|integer, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
+---@field event fun(self: self, event: "本地-键盘-按下", key: y3.Const.KeyboardKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
+---@field event fun(self: self, event: "本地-键盘-抬起", key: y3.Const.KeyboardKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-键盘-抬起)): Trigger
+---@field event fun(self: self, event: "鼠标-按下", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
+---@field event fun(self: self, event: "鼠标-抬起", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
+---@field event fun(self: self, event: "鼠标-双击", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
+---@field event fun(self: self, event: "本地-鼠标-按下", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-按下)): Trigger
+---@field event fun(self: self, event: "本地-鼠标-抬起", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-抬起)): Trigger
+---@field event fun(self: self, event: "本地-鼠标-双击", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-双击)): Trigger
+---@field event fun(self: self, event: "鼠标-按下单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
+---@field event fun(self: self, event: "鼠标-抬起单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
+---@field event fun(self: self, event: "鼠标-双击单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
+---@field event fun(self: self, event: "本地-鼠标-按下单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-按下单位)): Trigger
+---@field event fun(self: self, event: "本地-鼠标-抬起单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-抬起单位)): Trigger
+---@field event fun(self: self, event: "本地-鼠标-双击单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-双击单位)): Trigger
 ---@field event fun(self: self, event: "鼠标-移动", callback: fun(trg: Trigger, data: EventParam.鼠标-移动)): Trigger
 ---@field event fun(self: self, event: "本地-鼠标-移动", callback: fun(trg: Trigger, data: EventParam.本地-鼠标-移动)): Trigger
----@field event fun(self: self, event: "鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
----@field event fun(self: self, event: "本地-鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-滚轮)): Trigger
+---@field event fun(self: self, event: "鼠标-滚轮", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
+---@field event fun(self: self, event: "本地-鼠标-滚轮", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-滚轮)): Trigger
 ---@field event fun(self: self, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
 ---@field event fun(self: self, event: "本地-选中-单位", callback: fun(trg: Trigger, data: EventParam.本地-选中-单位)): Trigger
 ---@field event fun(self: self, event: "选中-取消", callback: fun(trg: Trigger, data: EventParam.选中-取消)): Trigger
@@ -3177,26 +3249,26 @@ M.config["steam-取消匹配"] = {
 ---@field event fun(self: Player, event: "本地-界面-输入框获取焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框获取焦点)): Trigger
 ---@field event fun(self: Player, event: "本地-界面-输入框失去焦点", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框失去焦点)): Trigger
 ---@field event fun(self: Player, event: "本地-界面-输入框内容改变", ui: UI, callback: fun(trg: Trigger, data: EventParam.本地-界面-输入框内容改变)): Trigger
----@field event fun(self: Player, event: "键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
----@field event fun(self: Player, event: "键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
----@field event fun(self: Player, event: "本地-键盘-按下", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
----@field event fun(self: Player, event: "本地-键盘-抬起", key: y3.Const.KeyboardKey, callback: fun(trg: Trigger, data: EventParam.本地-键盘-抬起)): Trigger
----@field event fun(self: Player, event: "鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
----@field event fun(self: Player, event: "鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
----@field event fun(self: Player, event: "鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
----@field event fun(self: Player, event: "本地-鼠标-按下", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-按下)): Trigger
----@field event fun(self: Player, event: "本地-鼠标-抬起", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-抬起)): Trigger
----@field event fun(self: Player, event: "本地-鼠标-双击", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-双击)): Trigger
----@field event fun(self: Player, event: "鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
----@field event fun(self: Player, event: "鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
----@field event fun(self: Player, event: "鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
----@field event fun(self: Player, event: "本地-鼠标-按下单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-按下单位)): Trigger
----@field event fun(self: Player, event: "本地-鼠标-抬起单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-抬起单位)): Trigger
----@field event fun(self: Player, event: "本地-鼠标-双击单位", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-双击单位)): Trigger
+---@field event fun(self: Player, event: "键盘-按下", key: y3.Const.KeyboardKey|integer, callback: fun(trg: Trigger, data: EventParam.键盘-按下)): Trigger
+---@field event fun(self: Player, event: "键盘-抬起", key: y3.Const.KeyboardKey|integer, callback: fun(trg: Trigger, data: EventParam.键盘-抬起)): Trigger
+---@field event fun(self: Player, event: "本地-键盘-按下", key: y3.Const.KeyboardKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-键盘-按下)): Trigger
+---@field event fun(self: Player, event: "本地-键盘-抬起", key: y3.Const.KeyboardKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-键盘-抬起)): Trigger
+---@field event fun(self: Player, event: "鼠标-按下", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-按下)): Trigger
+---@field event fun(self: Player, event: "鼠标-抬起", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起)): Trigger
+---@field event fun(self: Player, event: "鼠标-双击", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-双击)): Trigger
+---@field event fun(self: Player, event: "本地-鼠标-按下", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-按下)): Trigger
+---@field event fun(self: Player, event: "本地-鼠标-抬起", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-抬起)): Trigger
+---@field event fun(self: Player, event: "本地-鼠标-双击", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-双击)): Trigger
+---@field event fun(self: Player, event: "鼠标-按下单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-按下单位)): Trigger
+---@field event fun(self: Player, event: "鼠标-抬起单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-抬起单位)): Trigger
+---@field event fun(self: Player, event: "鼠标-双击单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-双击单位)): Trigger
+---@field event fun(self: Player, event: "本地-鼠标-按下单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-按下单位)): Trigger
+---@field event fun(self: Player, event: "本地-鼠标-抬起单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-抬起单位)): Trigger
+---@field event fun(self: Player, event: "本地-鼠标-双击单位", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-双击单位)): Trigger
 ---@field event fun(self: Player, event: "鼠标-移动", callback: fun(trg: Trigger, data: EventParam.鼠标-移动)): Trigger
 ---@field event fun(self: Player, event: "本地-鼠标-移动", callback: fun(trg: Trigger, data: EventParam.本地-鼠标-移动)): Trigger
----@field event fun(self: Player, event: "鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
----@field event fun(self: Player, event: "本地-鼠标-滚轮", key: y3.Const.MouseKey, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-滚轮)): Trigger
+---@field event fun(self: Player, event: "鼠标-滚轮", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.鼠标-滚轮)): Trigger
+---@field event fun(self: Player, event: "本地-鼠标-滚轮", key: y3.Const.MouseKey|integer, callback: fun(trg: Trigger, data: EventParam.本地-鼠标-滚轮)): Trigger
 ---@field event fun(self: Player, event: "选中-单位", callback: fun(trg: Trigger, data: EventParam.选中-单位)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-单位", callback: fun(trg: Trigger, data: EventParam.本地-选中-单位)): Trigger
 ---@field event fun(self: Player, event: "选中-取消", callback: fun(trg: Trigger, data: EventParam.选中-取消)): Trigger
