@@ -1,0 +1,8 @@
+y3.game:event('键盘-按下', 'R', function ()
+    print('你按下了R键！试试修改这句话，然后运行重载！')
+    print('你有多种方法进行重载')
+    print('1. 在游戏中输入 .rd')
+    print('2. 如果你用《Y3开发助手》启动游戏，可以点击VSCode中的“重载”按钮')
+    print('3. 执行代码 `y3.reload.reload()`')
+    -- y3.reload.reload()
+end)
