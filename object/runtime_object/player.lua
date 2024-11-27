@@ -763,4 +763,30 @@ function M:request_use_item(count, item_id, callback)
     end, {})
 end
 
+---请求购买商城物品
+---@param goods_id string
+function M:request_buy_mall_coin(goods_id)
+    GameAPI.request_buy_mall_coin(self.handle, goods_id)
+end
+
+---@class MallGoodsInfo
+---@field is_exist boolean # 是否存在
+---@field effective_time integer # 生效时间
+---@field expiration_time integer # 过期时间
+---@field left_token integer # 剩余货币数量
+
+---获取某个玩家的商城物品信息
+---@param goods_id integer
+---@param callback fun(info: MallGoodsInfo)
+function M:request_mall_goods_info(goods_id, callback)
+    GameAPI.lua_request_server_mall_goods_info(self.handle, goods_id, function (context)
+        xpcall(callback, log.error, {
+            is_exist = context['__bool1'],
+            effective_time = context['__mall_goods_effective_time'],
+            expiration_time = context['__mall_goods_expiration_time'],
+            left_token = context['__float1']
+        })
+    end, {})
+end
+
 return M
