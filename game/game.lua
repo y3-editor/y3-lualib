@@ -984,6 +984,27 @@ function M.request_buy_mall_coin(player, goods_id)
     GameAPI.request_buy_mall_coin(player.handle, goods_id)
 end
 
+---@class MallGoodsInfo
+---@field is_exist boolean # 是否存在
+---@field effective_time integer # 生效时间
+---@field expiration_time integer # 过期时间
+---@field left_token integer # 剩余货币数量
+
+---获取某个玩家的商城物品信息
+---@param player Player
+---@param goods_id integer
+---@param callback fun(info: MallGoodsInfo)
+function M.request_mall_goods_info(player, goods_id, callback)
+    GameAPI.lua_request_server_mall_goods_info(player.handle, goods_id, function (context)
+        xpcall(callback, log.error, {
+            is_exist = context['__bool1'],
+            effective_time = context['__mall_goods_effective_time'],
+            expiration_time = context['__mall_goods_expiration_time'],
+            left_token = context['__float1']
+        })
+    end, {})
+end
+
 ---设置是否渲染场景
 ---@param flag boolean
 function M.set_draw_scene(flag)
