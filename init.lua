@@ -58,7 +58,9 @@ require 'y3.util.log'
 y3.reload  = require 'y3.tools.reload'
 y3.sandbox = require 'y3.tools.sandbox'
 y3.hash    = require 'y3.tools.SDBMHash'
-y3.linkedTable = require 'y3.tools.linked-table'
+y3.linked_table = require 'y3.tools.linked-table'
+---@deprecated
+y3.linkedTable = y3.linked_table
 Alias('LinkedTable', y3.linkedTable.create)
 
 ---@diagnostic disable-next-line: lowercase-global
