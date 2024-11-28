@@ -1,3 +1,4 @@
+---所有的接口均为异步
 ---@class Steam
 local M = {}
 
@@ -109,13 +110,16 @@ function M.request_friends(callback)
     end, context)
 end
 
-local function callback_with_error_code(callback, context)
+local function callback_with_error_code(callback, context, result)
     local ret = context['__error_code'] or context['__int1']
     if type(ret) == 'userdata' then
         ---@diagnostic disable-next-line: undefined-field
         ret = ret.errnu
     end
-    xpcall(callback, log.error, ret == 0, ret)
+    if result == nil then
+        result = ret == 0
+    end
+    xpcall(callback, log.error, result, ret)
 end
 
 ---【异步】请求添加好友
@@ -333,6 +337,47 @@ function M.request_cancel_match(callback)
             callback_with_error_code(callback, context)
         end
     end, context)
+end
+
+---【异步】请求全局存档数据
+---@param callback fun(data: (string | integer)[], error_code?: integer)
+function M.request_global_archive_datas(callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_mall_global_archive(function (context)
+        local data = context['__lua_table']
+        callback_with_error_code(callback, context, data)
+    end, {})
+end
+
+---【异步】请求头像的文件路径
+---@param url string # 头像的网络地址
+---@param callback fun(path: string) # 图像下载完毕后回调，参数为下载后的文件路径
+function M.request_icon(url, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_icon(url, function (context)
+        xpcall(callback, log.error, context['__IMAGE_KEY__'])
+    end, {})
+end
+
+---【异步】请求结算天梯分
+---@param player Player
+---@param params table<string, any> # 结算参数
+---@param callback? fun(result: {
+--- id: integer,
+--- new_score: integer,
+--- delta_score: integer,
+---})
+function M.request_roll_settle_ladder_score(player, params, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_roll_settle_ladder_score(player.handle, params, function (context)
+        if callback then
+            xpcall(callback, log.error, {
+                id = context['__settle_role_id'],
+                new_score = context['__new_value'],
+                delta_score = context['__diff_value'],
+            })
+        end
+    end, {})
 end
 
 return M

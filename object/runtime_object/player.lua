@@ -803,4 +803,25 @@ function M:request_mall_purchase_goods(count, goods_id, callback)
     end, {})
 end
 
+---请求生成随机数
+---@param group_id integer # 随机只读存档组id
+---@param key string # 随机数的key
+---@param callback fun(value: integer) # 执行完毕后的回调函数
+function M:request_random_number(group_id, key, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_generate_random_number(self.handle, key, group_id, function (context)
+        local result = context['__random_number_err_code']
+        xpcall(callback, log.error, result)
+    end, {})
+end
+
+---请求玩家的开放存档数据
+---@param callback fun(archive: any) # 执行完毕后的回调函数
+function M:request_open_archive(callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_role_open_archive(self.handle, function (context)
+        xpcall(callback, log.error, context['__role_open_archive'])
+    end, {})
+end
+
 return M
