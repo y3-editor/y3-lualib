@@ -12,12 +12,12 @@ function M.encodeHook(value)
     if not luaType then
         return
     end
+    if luaType == 'Ability' then
+        error('暂不支持 Ability 类型的序列化')
+    end
     local class = y3.class.get(luaType)
     if not class.get_by_id then
         return
-    end
-    if class == 'Ability' then
-        error('暂不支持 Ability 类型的序列化')
     end
     local id = value.id
     if not id then
