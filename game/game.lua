@@ -1001,8 +1001,10 @@ function M.get_latest_game_version(callback)
         return
     end
     M._fetching_game_version = { callback }
+    ---@diagnostic disable-next-line: undefined-field
     GameAPI.update_latest_game_version()
     y3.ctimer.loop(0.1, function (timer)
+        ---@diagnostic disable-next-line: missing-parameter
         local version = GameAPI.get_latest_game_version()
         if version == 0 then
             return
