@@ -763,7 +763,7 @@ function M:request_use_item(count, item_id, callback)
     end, {})
 end
 
----请求购买商城物品
+---请求购买商城货币
 ---@param goods_id string
 function M:request_buy_mall_coin(goods_id)
     GameAPI.request_buy_mall_coin(self.handle, goods_id)
@@ -786,6 +786,20 @@ function M:request_mall_goods_info(goods_id, callback)
             expiration_time = context['__mall_goods_expiration_time'],
             left_token = context['__float1']
         })
+    end, {})
+end
+
+---请求购买商城道具
+---@param count integer # 数量
+---@param goods_id integer # 商城道具id
+---@param callback? fun(suc: boolean, error_code: integer) # 执行完毕后的回调函数
+function M:request_mall_purchase_goods(count, goods_id, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_mall_purchase_goods(self.handle, count, goods_id, function (context)
+        if callback then
+            local error_code = context['__error_code']
+            xpcall(callback, log.error, error_code == 0, error_code)
+        end
     end, {})
 end
 
