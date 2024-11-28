@@ -16,6 +16,9 @@ function M.encodeHook(value)
     if not class.get_by_id then
         return
     end
+    if class == 'Ability' then
+        error('暂不支持 Ability 类型的序列化')
+    end
     local id = value.id
     if not id then
         return
