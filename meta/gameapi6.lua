@@ -5271,11 +5271,9 @@ function GameAPI.set_draw_ui(is_open) end
 function GameAPI.get_local_game_version() end
 
 --获取最新游戏版本号
+---@param http_data string # http data
 ---@return integer # 最新游戏版本号
-function GameAPI.get_latest_game_version() end
-
---更新最新游戏版本号
-function GameAPI.update_latest_game_version() end
+function GameAPI.get_latest_game_version(http_data) end
 
 --获取进行结算的玩家
 ---@param v py.RoleID # 玩家
@@ -5356,13 +5354,15 @@ function GameAPI.get_mini_map_node_pos_point_from_world_pos(pos, comp_name) end
 function GameAPI.set_mini_map_move_enabled(comp_name, enabled) end
 
 --根据图片的透明区域设置小地图点击范围
+---@param role py.Role # 玩家
 ---@param comp_name string # 控件uid
 ---@param texture py.Texture # 图片
-function GameAPI.api_enable_mini_map_alpha_click_range(comp_name, texture) end
+function GameAPI.api_enable_mini_map_alpha_click_range(role, comp_name, texture) end
 
 --关闭根据图片的透明区域设置小地图点击范围
+---@param role py.Role # 玩家
 ---@param comp_name string # 控件uid
-function GameAPI.api_disable_mini_map_alpha_click_range(comp_name) end
+function GameAPI.api_disable_mini_map_alpha_click_range(role, comp_name) end
 
 --在小地图上播放序列帧
 ---@param world_pos py.Point # 世界坐标
@@ -5501,14 +5501,145 @@ function GameAPI.create_sequence_on_unit_mini_map_icon(unit, sequence_resource, 
 ---@param is_loop boolean # 是否循环播放
 function GameAPI.set_unit_mini_map_sequence_icon(unit, sequence_resource, is_loop) end
 
---设置单位的序列帧类型的敌方小地图头像
----@param unit py.Unit # 单位
----@param sequence_resource py.Sequence # 序列帧资源
----@param is_loop boolean # 是否循环播放
-function GameAPI.set_unit_enemy_mini_map_sequence_icon(unit, sequence_resource, is_loop) end
+--设置小地图头像的旋转
+---@param role py.Role # 玩家
+---@param comp_name py.Unit # 单位
+---@param rotation py.Fixed # Rotation
+function GameAPI.set_unit_enemy_mini_map_sequence_icon(role, comp_name, rotation) end
 
 --设置技能按钮鼠标操控快捷键
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
 ---@param key integer # 快捷键
 function GameAPI.api_set_ability_mouse_control_key(role, comp_name, key) end
+
+--物品组取差集
+---@param group1 py.ItemGroup # 物品组1
+---@param group2 py.ItemGroup # 物品组2
+---@return py.ItemGroup # 物品组
+function GameAPI.api_get_item_group_diff(group1, group2) end
+
+--创建特效到点
+---@param sfx_id py.SfxKey # 特效编号
+---@param point py.Point # 点
+---@param face_angle number # 面向角度
+---@param height number # 高度
+---@param duration number # 持续时间
+---@param immediately? boolean # 是否立即删除
+---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾里显示
+---@param play_speed? number # 播放速度
+---@param scale_x? number # x轴缩放
+---@param scale_y? number # y轴缩放
+---@param scale_z? number # z轴缩放
+---@return py.Sfx # 特效
+function GameAPI.create_sfx_on_point_new(sfx_id, point, face_angle, height, duration, immediately, use_sys_d_destroy_way, show_in_fog, play_speed, scale_x, scale_y, scale_z) end
+
+--获取本地引擎版本号
+---@return integer # 本地引擎版本号
+function GameAPI.get_local_engine_version() end
+
+--获取最新引擎版本号
+---@param http_data string # http data
+---@return integer # 最新引擎版本号
+function GameAPI.get_latest_engine_version(http_data) end
+
+--单位组取差集
+---@param unit_group1 py.UnitGroup # 单位组1
+---@param unit_group2 py.UnitGroup # 单位组2
+---@return py.UnitGroup # 单位组
+function GameAPI.get_unit_group_diff(unit_group1, unit_group2) end
+
+--投射物组取差集
+---@param group1 py.ProjectileGroup # 投射物组1
+---@param group2 py.ProjectileGroup # 投射物组2
+---@return py.ProjectileGroup # 投射物组
+function GameAPI.get_projectile_group_diff(group1, group2) end
+
+--玩家组取差集
+---@param group1 py.RoleGroup # 玩家组1
+---@param group2 py.RoleGroup # 玩家组2
+---@return py.RoleGroup # 玩家组
+function GameAPI.api_get_role_group_diff(group1, group2) end
+
+--开关profile功能
+---@param enable boolean # enable
+function GameAPI.api_enable_profile(enable) end
+
+--请求服务器时间
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_server_time(lua_func, context) end
+
+--设置快捷施法
+---@param role py.Role # 玩家
+---@param is_on boolean # 是否开启
+function GameAPI.set_common_atk_quick_cast(role, is_on) end
+
+--创建特效到单位附加点（跟随旋转使用枚举）
+---@param sfx_id py.SfxKey # 特效编号
+---@param unit py.Unit # 单位
+---@param socket string # 单位挂接点
+---@param rotate_type integer # 跟随旋转方式
+---@param b_follow_scale boolean # 是否跟随单位缩放
+---@param play_speed? number # 播放速度
+---@param duration? number # 持续时间
+---@param angle? number # 角度
+---@param immediately? boolean # 是否立即删除
+---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param detach? boolean # 是否脱离单位
+---@param show_in_fog? boolean # 迷雾里显示
+---@param scale_x? number # x轴缩放
+---@param scale_y? number # y轴缩放
+---@param scale_z? number # z轴缩放
+---@return py.Sfx # 特效
+function GameAPI.create_sfx_on_unit_new_new(sfx_id, unit, socket, rotate_type, b_follow_scale, play_speed, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog, scale_x, scale_y, scale_z) end
+
+--获取本地地图版本号
+---@return string # 本地地图版本号
+function GameAPI.get_local_map_id() end
+
+--获取最新地图版本号
+---@param http_data string # http data
+---@return string # 最新地图版本号
+function GameAPI.get_latest_map_id(http_data) end
+
+--调试-绘制区域-圆形
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 圆形
+---@param duration? py.Fixed # 持续时间
+---@param color? string # 绘制颜色
+---@param attach_unit? py.Unit # 挂接单位
+---@return integer # 绘制id
+function GameAPI.debug_draw_filter_area_circular(pos, shape, duration, color, attach_unit) end
+
+--调试-绘制区域-扇形
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 扇形
+---@param duration? py.Fixed # 持续时间
+---@param color? string # 绘制颜色
+---@param attach_unit? py.Unit # 挂接单位
+---@return integer # 绘制id
+function GameAPI.debug_draw_filter_area_sector(pos, shape, duration, color, attach_unit) end
+
+--调试-绘制区域-环形
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 环形
+---@param duration? py.Fixed # 持续时间
+---@param color? string # 绘制颜色
+---@param attach_unit? py.Unit # 挂接单位
+---@return integer # 绘制id
+function GameAPI.debug_draw_filter_area_annular(pos, shape, duration, color, attach_unit) end
+
+--调试-绘制区域-矩形
+---@param pos py.Vector3 # 坐标
+---@param shape py.Shape # 矩形
+---@param duration? py.Fixed # 持续时间
+---@param color? string # 绘制颜色
+---@param attach_unit? py.Unit # 挂接单位
+---@return integer # 绘制id
+function GameAPI.debug_draw_filter_area_rect(pos, shape, duration, color, attach_unit) end
+
+--设置下个场景的初始化镜头
+---@param camera py.Camera # 镜头配置
+function GameAPI.api_set_preload_cam(camera) end

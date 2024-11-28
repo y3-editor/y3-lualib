@@ -8596,6 +8596,30 @@ event.ET_UNIT_ADD_ITEM = {
     },
 }
 
+---@class EventParam.UNIT_SLOT_ITEM_CHANGED
+---@field equip_slot_type py.SlotType # 槽位类型
+---@field equip_slot_id integer # 槽位ID
+
+--单位身上物品格子中的物品发生了变化
+event.UNIT_SLOT_ITEM_CHANGED = {
+    [1] = {
+        name = "__equip_slot_type",
+        type = "py.SlotType",
+        lua_name = "equip_slot_type",
+        lua_type = "py.SlotType",
+        desc = "槽位类型",
+        lua_desc = "槽位类型",
+    },
+    [2] = {
+        name = "__equip_slot_id",
+        type = "integer",
+        lua_name = "equip_slot_id",
+        lua_type = "integer",
+        desc = "槽位ID",
+        lua_desc = "槽位ID",
+    },
+}
+
 ---@class EventParam.ET_UNIT_ADD_ITEM_FOR_COMPOSE
 ---@field unit Unit # 获得该物品的单位
 ---@field item Item # 物品
@@ -8702,39 +8726,6 @@ event.ET_UNIT_ADD_ITEM_TO_PKG = {
 
 --单位失去物品
 event.ET_UNIT_REMOVE_ITEM = {
-    [1] = {
-        name = "__unit_id",
-        type = "py.UnitID",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "失去该物品的单位id",
-        lua_desc = "失去该物品的单位",
-    },
-    [2] = {
-        name = "__item_id",
-        type = "py.ItemID",
-        lua_name = "item",
-        lua_type = "Item",
-        desc = "物品id",
-        lua_desc = "物品",
-    },
-    [3] = {
-        name = "__item_no",
-        type = "py.ItemKey",
-        lua_name = "item_no",
-        lua_type = "py.ItemKey",
-        desc = "物品编号",
-        lua_desc = "物品编号",
-    },
-}
-
----@class EventParam.ET_UNIT_REMOVE_ITEM_FOR_UI
----@field unit Unit # 失去该物品的单位
----@field item Item # 物品
----@field item_no py.ItemKey # 物品编号
-
---单位失去物品(用于UI)
-event.ET_UNIT_REMOVE_ITEM_FOR_UI = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",

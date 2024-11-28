@@ -1011,4 +1011,7 @@ M.SteamOnlineState = {
     ['游戏中'] = 5,
 }
 
+---@enum(key) y3.Const.CustomEventName
+M.CustomEventName = {}
+
 return M
