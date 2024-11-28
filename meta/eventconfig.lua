@@ -2816,7 +2816,7 @@ M.config["游戏-消息"] = {
             resolve = function (event_id)
                 return y3.const.CustomEventName[event_id] or event_id
             end,
-            type = "y3.Const.CustomEventName|integer",
+            type = "integer",
         },
     },
 }
@@ -3150,7 +3150,7 @@ M.config["steam-取消匹配"] = {
 ---@field event fun(self: self, event: "鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.鼠标-悬停)): Trigger
 ---@field event fun(self: self, event: "本地-鼠标-悬停", callback: fun(trg: Trigger, data: EventParam.本地-鼠标-悬停)): Trigger
 ---@field event fun(self: self, event: "玩家-发送消息", callback: fun(trg: Trigger, data: EventParam.玩家-发送消息)): Trigger
----@field event fun(self: self, event: "游戏-消息", event_id: y3.Const.CustomEventName|integer, callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
+---@field event fun(self: self, event: "游戏-消息", event_id: integer, callback: fun(trg: Trigger, data: EventParam.游戏-消息)): Trigger
 ---@field event fun(self: self, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
 ---@field event fun(self: self, event: "玩家-平台道具变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台道具变化)): Trigger
 ---@field event fun(self: self, event: "玩家-平台商城窗口变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台商城窗口变化)): Trigger

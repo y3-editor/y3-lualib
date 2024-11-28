@@ -14,8 +14,9 @@ M.trigger_id_counter = y3.util.counter()
 ---@private
 ---@param event_key y3.Const.EventType
 ---@param event_params py.Dict
+---@param extra_args? any[]
 ---@return table
-function M.convert_py_params(event_key, event_params)
+function M.convert_py_params(event_key, event_params, extra_args)
     local event_data = event_datas[event_key]
     if not event_data then
         return event_params
@@ -23,7 +24,7 @@ function M.convert_py_params(event_key, event_params)
     end
     -- TODO 见问题10，改为用户访问时才会实际访问py层的字段
     --local lua_params = M.convert_py_params_instant(event_name, event_config, event_params)
-    local lua_params = M.convert_py_params_lazy(event_key, event_data, event_params)
+    local lua_params = M.convert_py_params_lazy(event_key, event_data, event_params, extra_args)
     return lua_params
 end
 
@@ -95,10 +96,13 @@ end
 ---@param event_key y3.Const.EventType
 ---@param event_data table
 ---@param event_params py.Dict
+---@param extra_args? any[]
 ---@return table
-function M.convert_py_params_lazy(event_key, event_data, event_params)
+function M.convert_py_params_lazy(event_key, event_data, event_params, extra_args)
     if #event_data == 0 then
-        return {}
+        return {
+            _extra_args = extra_args,
+        }
     end
     local mt = M.params_metatable_cache[event_key]
     if not mt then
@@ -106,7 +110,8 @@ function M.convert_py_params_lazy(event_key, event_data, event_params)
         M.params_metatable_cache[event_key] = mt
     end
     local lua_params = setmetatable({
-        _py_params = event_params
+        _py_params = event_params,
+        _extra_args = extra_args,
     }, mt)
     return lua_params
 end
@@ -277,7 +282,7 @@ function M.event_register(event_name, extra_args)
     local py_trigger = new_global_trigger(trigger_id, event_name, py_event, true, py_addition)
 
     py_trigger.on_event = function (trigger, event, actor, data)
-        local lua_params = M.convert_py_params(py_event_name, data)
+        local lua_params = M.convert_py_params(py_event_name, data, extra_args)
         game_event.event_notify(event_name, extra_args, lua_params)
         -- object_event.event_notify(event_name, extra_args, lua_params)
     end

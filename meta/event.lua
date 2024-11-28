@@ -9610,6 +9610,8 @@ event.ET_CUSTOM_EVENT = {
 ---@class EventParam.ET_EVENT_CUSTOM
 ---@field c_param_1 integer # 事件参数
 ---@field c_param_dict py.Dict # 自定义参数列表
+---@field data table # 
+---@field event string # 
 
 --自定义事件
 event.ET_EVENT_CUSTOM = {
@@ -9628,6 +9630,28 @@ event.ET_EVENT_CUSTOM = {
         lua_type = "py.Dict",
         desc = "自定义参数列表",
         lua_desc = "自定义参数列表",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "data",
+        lua_type = "table",
+        lua_desc = "",
+        lua_code = function (data)
+            y3.eca.resolve(data)
+            return data.data
+        end,
+    },
+    [4] = {
+        name = nil,
+        type = nil,
+        lua_name = "event",
+        lua_type = "string",
+        lua_desc = "",
+        lua_code = function (data)
+            y3.eca.resolve(data)
+            return data.event
+        end,
     },
 }
 
