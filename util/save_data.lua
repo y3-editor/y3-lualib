@@ -96,7 +96,15 @@ function M.load_table(player, slot, disable_cover)
     return last_table[1]
 end
 
--- 保存玩家的存档数据（表），存档设置中必须使用允许覆盖模式
+---@private
+---@type table<Player, LocalTimer>
+M.save_timer_map = {}
+
+---@private
+---@type table
+M.want_to_save = nil
+
+-- 保存玩家的存档数据（表），存档设置中必须使用允许覆盖模式。
 ---@param player Player
 ---@param slot integer
 ---@param t table
@@ -106,24 +114,34 @@ function M.save_table(player, slot, t)
         return
     end
     assert(type(t) == 'table', '数据类型必须是表！')
-    t = y3.proxy.raw(t) or t
-    player.handle:set_save_data_table_value(slot, t)
-    M.upload_save_data(player)
+    M.want_to_save = t
+    local timer = M.save_timer_map[player]
+    if timer then
+        return
+    end
+    M.save_timer_map[player] = y3.ltimer.wait(0.1, function ()
+        M.save_timer_map[player] = nil
+        local t = M.want_to_save
+        M.want_to_save = nil
+        t = y3.proxy.raw(t) or t
+        player.handle:set_save_data_table_value(slot, t)
+        M.upload_save_data(player)
+    end)
 end
 
 ---@private
 ---@type table<Player, LocalTimer>
-M.timer_map = {}
+M.upload_timer_map = {}
 
 ---@private
 ---@param player Player
 function M.upload_save_data(player)
-    local timer = M.timer_map[player]
+    local timer = M.upload_timer_map[player]
     if timer then
         return
     end
-    M.timer_map[player] = y3.ltimer.wait(0.1, function ()
-        M.timer_map[player] = nil
+    M.upload_timer_map[player] = y3.ltimer.wait(0.1, function ()
+        M.upload_timer_map[player] = nil
         player.handle:upload_save_data()
         log.info('自动保存存档：', player)
     end)
