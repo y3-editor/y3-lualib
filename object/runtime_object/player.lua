@@ -765,8 +765,17 @@ end
 
 ---请求购买商城货币
 ---@param goods_id string
-function M:request_buy_mall_coin(goods_id)
-    GameAPI.request_buy_mall_coin(self.handle, goods_id)
+---@param callback? fun(suc: boolean, sn?: string, error_code?: integer)
+function M:request_buy_mall_coin(goods_id, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_buy_mall_coin(self.handle, goods_id, function (context)
+        if callback then
+            -- 订单号
+            local sn = context['__str1']
+            local status = context['__int1']
+            xpcall(callback, log.error, status == 0, sn, status)
+        end
+    end, {})
 end
 
 ---@class MallGoodsInfo
