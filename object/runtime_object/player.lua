@@ -790,10 +790,11 @@ end
 ---@field left_token integer # 剩余货币数量
 
 ---获取某个玩家的商城物品信息
----@param goods_id integer
+---@param goods_id string
 ---@param callback fun(info: MallGoodsInfo)
 function M:request_mall_goods_info(goods_id, callback)
-    GameAPI.lua_request_server_mall_goods_info(self.handle, goods_id, function (context)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    GameAPI.lua_request_server_mall_goods_info(self.handle, tostring(goods_id), function (context)
         xpcall(callback, log.error, {
             is_exist = context['__bool1'],
             effective_time = context['__mall_goods_effective_time'],
