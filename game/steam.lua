@@ -354,7 +354,7 @@ end
 ---@param callback fun(path: string) # 图像下载完毕后回调，参数为下载后的文件路径
 function M.request_icon(url, callback)
     ---@diagnostic disable-next-line: undefined-field
-    GameAPI.lua_request_icon(url, function (context)
+    GameAPI.lua_request_team_icon(url, function (context)
         xpcall(callback, log.error, context['__IMAGE_KEY__'])
     end, {})
 end
