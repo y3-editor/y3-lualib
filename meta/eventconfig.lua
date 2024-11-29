@@ -972,6 +972,16 @@ M.config["未知-ET_UNIT_CREATE_SLAVE"] = {
     },
 }
 
+---@alias EventParam.单位-即将拾取物品 EventParam.ET_UNIT_TRY_PICK_ITEM_NEW
+M.config["单位-即将拾取物品"] = {
+    desc = "",
+    key = "ET_UNIT_TRY_PICK_ITEM_NEW",
+    name = "单位-即将拾取物品",
+    object = "Unit",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-即将索敌 EventParam.ET_UNIT_TRY_ACQUIRE_TARGET
 M.config["单位-即将索敌"] = {
     desc = "",
@@ -3021,6 +3031,7 @@ M.config["steam-取消匹配"] = {
 ---@field event fun(self: self, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: self, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
 ---@field event fun(self: self, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: self, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: self, event: "本地-骨骼碰撞", callback: fun(trg: Trigger, data: EventParam.本地-骨骼碰撞)): Trigger
@@ -3339,6 +3350,7 @@ M.config["steam-取消匹配"] = {
 ---@field event fun(self: Unit, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: Unit, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
 ---@field event fun(self: Unit, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: Unit, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
@@ -3486,6 +3498,7 @@ M.config["steam-取消匹配"] = {
 ---@field event fun(self: EditorObject.Unit, event: "单位-创建", callback: fun(trg: Trigger, data: EventParam.单位-创建)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger

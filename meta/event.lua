@@ -6091,6 +6091,54 @@ event.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT = {
     },
 }
 
+---@class EventParam.ET_UI_JOYSTICK_START_MOVE
+---@field player Player # 玩家
+---@field comp_name string # 触发事件控件名称
+
+--
+event.ET_UI_JOYSTICK_START_MOVE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+}
+
+---@class EventParam.ET_UI_JOYSTICK_END_MOVE
+---@field player Player # 玩家
+---@field comp_name string # 触发事件控件名称
+
+--ui复选框事件
+event.ET_UI_JOYSTICK_END_MOVE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+}
+
 ---@class EventParam.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT
 ---@field player Player # 玩家
 ---@field ui_event_name string # ui事件变量名
