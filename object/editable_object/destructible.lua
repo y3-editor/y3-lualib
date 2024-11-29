@@ -30,6 +30,7 @@ function M:__init(py_destructible)
 end
 
 function M:__del()
+    self:remove()
     M.ref_manager:remove(self.id)
     y3.py_proxy.kill(self.phandle)
 end
