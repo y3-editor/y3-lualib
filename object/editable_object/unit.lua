@@ -36,6 +36,7 @@ function M:__init(py_unit_id, py_unit)
 end
 
 function M:__del()
+    self:remove()
     M.ref_manager:remove(self.id)
 end
 
