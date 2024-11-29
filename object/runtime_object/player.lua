@@ -770,6 +770,11 @@ function M:request_buy_mall_coin(goods_id, callback)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_buy_mall_coin(self.handle, goods_id, function (context)
         if callback then
+            local error_code = context['__error_code']
+            if error_code then
+                xpcall(callback, log.error, false, nil, error_code)
+                return
+            end
             -- 订单号
             local sn = context['__str1']
             local status = context['__int1']
