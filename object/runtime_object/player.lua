@@ -733,6 +733,12 @@ function M:get_community_value(community_type)
     return self.handle:api_get_community_value(y3.const.PlatFormRoleCommunityType[community_type] or community_type) or 0
 end
 
+---玩家是否收藏当前地图
+---@return boolean
+function M:is_bookmark_current_map()
+    return self.handle:api_is_bookmark_current_map() or false
+end
+
 ---请求执行随机池掉落
 ---执行完毕后调用回调函数，返回的参数如下：
 ---* `code`: 结果代码
