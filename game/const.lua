@@ -1011,6 +1011,13 @@ M.SteamOnlineState = {
     ['游戏中'] = 5,
 }
 
+---@enum(key) y3.Const.RoadPatrolType
+M.RoadPatrolType = {
+    ['单向'] = 0,
+    ['往返'] = 1,
+    ['循环'] = 2,
+}
+
 ---@enum(key) y3.Const.CustomEventName
 M.CustomEventName = {}
 
