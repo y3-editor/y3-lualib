@@ -540,13 +540,13 @@ end
 
 -- 命令沿路径移动
 ---@param road Road 路径
----@param patrol_mode integer 移动模式
+---@param patrol_mode y3.Const.RoadPatrolType 移动模式
 ---@param can_attack boolean 是否自动攻击
 ---@param start_from_nearest boolean 就近选择起始点
 ---@param back_to_nearest boolean 偏离后就近返回
 ---@return py.UnitCommand # 命令
 function M:move_along_road(road, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
-    local command = GameAPI.create_unit_command_move_along_road(road.handle, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
+    local command = GameAPI.create_unit_command_move_along_road(road.handle, y3.const.RoadPatrolType[patrol_mode] or patrol_mode, can_attack, start_from_nearest, back_to_nearest)
     self:command(command)
     return command
 end
