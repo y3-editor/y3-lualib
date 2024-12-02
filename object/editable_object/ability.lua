@@ -34,7 +34,7 @@ function M:__init(id, py_ability)
 end
 
 function M:__del()
-    --self:remove()
+    self:remove()
     M.ref_manager:remove(self.id)
 end
 
@@ -80,6 +80,7 @@ y3.py_event_sub.new_global_trigger('ET_ABILITY_LOSE', function (data)
     if not ability then
         return
     end
+    ability._removed_by_py = true
     Delete(ability)
 end)
 
@@ -154,7 +155,9 @@ function M:remove()
     if not self._removed then
         self._removed = true
         self:stop_cast()
-        self.handle:api_remove()
+        if not self._removed_by_py then
+            self.handle:api_remove()
+        end
     end
 end
 
