@@ -21,4 +21,16 @@ function M.evaluate(code, ...)
     return f(...)
 end
 
+local array_meta = { __index = function (t, k)
+    if k == nil then
+        return nil
+    end
+    local v = t._default
+    t[k] = v
+    return v
+end }
+function M.array(default)
+    return setmetatable({ _default = default }, array_meta)
+end
+
 return M
