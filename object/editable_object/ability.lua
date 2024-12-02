@@ -144,22 +144,17 @@ function M:complete_cd()
     self.handle:api_immediately_clear_cd()
 end
 
+---停止施放技能
+function M:stop_cast()
+    self.handle:api_ability_stop()
+end
+
 ---移除技能
 function M:remove()
     if not self._removed then
         self._removed = true
+        self:stop_cast()
         self.handle:api_remove()
-        --TODO
-        --技能正在放的时候删不掉，需要不停尝试删除
-        if GameAPI.ability_is_exist(self.handle) then
-            y3.ltimer.loop_frame(1, function (timer, count)
-                if not GameAPI.ability_is_exist(self.handle) then
-                    timer:remove()
-                    return
-                end
-                self.handle:api_remove()
-            end)
-        end
     end
 end
 
