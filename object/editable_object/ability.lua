@@ -34,7 +34,7 @@ function M:__init(id, py_ability)
 end
 
 function M:__del()
-    self:remove()
+    --self:remove()
     M.ref_manager:remove(self.id)
 end
 
