@@ -156,6 +156,7 @@ function M:remove()
         self._removed = true
         self:stop_cast()
         if not self._removed_by_py then
+            -- 在移除技能时再次调用移除接口会导致游戏崩溃
             self.handle:api_remove()
         end
     end
