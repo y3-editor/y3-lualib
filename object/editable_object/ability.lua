@@ -373,6 +373,12 @@ function M:get_slot()
     return self.handle:api_get_ability_index() or 0
 end
 
+---获取技能在单位身上的序号
+---@return py.AbilitySeq seq 技能序号
+function M:get_seq()
+    return self.handle:api_get_ability_seq() or 0
+end
+
 ---获取技能消耗的玩家属性值
 ---@param key y3.Const.PlayerAttr | string 属性key
 ---@return number cost 玩家属性值
