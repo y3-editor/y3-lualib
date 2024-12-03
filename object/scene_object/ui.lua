@@ -763,13 +763,13 @@ function M:bind_unit_attr(uiAttr, attr_name, accuracy)
 end
 
 --绑定玩家属性到玩家界面控件的属性
----@param uiAttr string 界面控件属性
+---@param uiAttr y3.Const.UIAttr 界面控件属性
 ---@param player Player # 玩家
----@param attr_or_var string # 玩家属性key
----@param accuracy integer 小数精度
+---@param attr_or_var y3.Const.PlayerAttr # 玩家属性key
+---@param accuracy? integer 小数精度，默认为0
 ---@return self
 function M:bind_player_prop(uiAttr, player, attr_or_var, accuracy)
-    GameAPI.set_ui_comp_bind_player_prop(self.player.handle, self.handle, uiAttr, player.handle, attr_or_var, accuracy)
+    GameAPI.set_ui_comp_bind_player_prop(self.player.handle, self.handle, y3.const.UIAttr[uiAttr] or uiAttr, player.handle, y3.const.PlayerAttr[attr_or_var] or attr_or_var, accuracy or 0)
     return self
 end
 
