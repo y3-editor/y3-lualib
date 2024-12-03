@@ -322,7 +322,7 @@ function M.new_global_trigger(event_id, callback)
     end
 end
 
-y3.ctimer.wait_frame(1, function ()
+y3.ltimer.wait_frame(1, function ()
     M.need_enable_trigger_manualy = true
 end)
 
