@@ -109,6 +109,7 @@ y3.py_event_sub.new_global_trigger('ET_UNIT_DELETE', function (data)
     if not unit then
         return
     end
+    unit._removed_by_py = true
     unit.handle:api_clear_all_abilities() --触发技能移除，这段放在lua不是很好，但放在引擎会导致老图报错
     Delete(unit)
 end)
@@ -388,7 +389,9 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.handle:api_delete()
+        if not self._removed_by_py then
+            self.handle:api_delete()
+        end
     end
 end
 

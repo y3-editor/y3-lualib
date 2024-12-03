@@ -77,6 +77,7 @@ y3.py_event_sub.new_global_trigger('ET_DEST_DELETE', function (data)
     if not destructible then
         return
     end
+    destructible._removed_by_py = true
     Delete(destructible)
 end)
 
@@ -138,7 +139,9 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.phandle:api_delete()
+        if self._removed_by_py then
+            self.phandle:api_delete()
+        end
     end
 end
 

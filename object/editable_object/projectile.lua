@@ -96,6 +96,7 @@ y3.py_event_sub.new_global_trigger('ET_DEATH_PROJECTILE', function (data)
     if not projectile then
         return
     end
+    projectile._removed_by_py = true
     Delete(projectile)
 end)
 
@@ -246,7 +247,9 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.phandle:api_delete()
+        if not self._removed_by_py then
+            self.phandle:api_delete()
+        end
     end
 end
 

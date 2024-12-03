@@ -87,6 +87,7 @@ y3.py_event_sub.new_global_trigger('ET_ITEM_ON_DESTROY', function (data)
     if not item then
         return
     end
+    item._removed_by_py = true
     Delete(item)
 end)
 
@@ -159,7 +160,9 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.phandle:api_remove()
+        if not self._removed_by_py then
+            self.phandle:api_remove()
+        end
     end
 end
 
