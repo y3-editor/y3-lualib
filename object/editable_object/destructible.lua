@@ -139,7 +139,7 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        if self._removed_by_py then
+        if not self._removed_by_py then
             self.phandle:api_delete()
         end
     end
