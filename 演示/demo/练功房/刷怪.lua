@@ -5,6 +5,15 @@ local monster_types = {
     134246749   -- 雪狐
 }
 
+for _, monster_type in ipairs(monster_types) do
+    if not y3.object.unit[monster_type].data then
+        error [[
+该演示图依赖特定的物编数据，请按照以下步骤安装：
+
+在编辑器中点击 `菜单栏` -> `插件` -> `插件商城`，搜索 `LuaLib`，安装 `LuaLib示例-练功房`（英雄、技能、怪物的物编数据）]]
+    end
+end
+
 -- 怪物出生坐标
 local spawn_point = y3.point.create(-1000, -1000, 0)
 -- 怪物进攻坐标

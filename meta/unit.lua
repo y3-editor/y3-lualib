@@ -618,7 +618,8 @@ function Unit:get_unit_path_length_between_points(point_start, point_end) end
 ---@param end_time? number # 结束时间(s)，正数 -1 表示不结束
 ---@param loop? boolean # 是否循环
 ---@param return_idle? boolean # 播放结束后是否恢复idle
-function Unit:api_play_animation(name, rate, init_time, end_time, loop, return_idle) end
+---@param transition_time? number # 过渡时间(s)，负数代表用全局默认值
+function Unit:api_play_animation(name, rate, init_time, end_time, loop, return_idle, transition_time) end
 
 --播放动画 内部
 ---@param name string # 动画名称
@@ -1495,7 +1496,8 @@ function Unit:api_remove_tech(tech_no) end
 --发布命令
 ---@param command py.UnitCommand # 命令
 ---@param enqueue? boolean # 是否进队列
-function Unit:api_release_command(command, enqueue) end
+---@param load_ai_directly? boolean # 是否直接加载ai
+function Unit:api_release_command(command, enqueue, load_ai_directly) end
 
 --单位 - 设置默认跳转命令
 ---@param command py.UnitCommand # 默认跳转命令
@@ -1615,7 +1617,8 @@ function Unit:api_set_forbid_aligned_terrain(is_forbid_aligned_terrain) end
 ---@param begin_t? number # 起始时间比例（0-1之间）
 ---@param end_t? number # 结束时间比例（0-1之间）
 ---@param ratio? number # 融合比例（0-1之间）
-function Unit:play_upper_body_anim(anim_name, speed, repeat_, begin_t, end_t, ratio) end
+---@param transition_time? number # 过渡时间(s)，负数代表用全局默认值
+function Unit:play_upper_body_anim(anim_name, speed, repeat_, begin_t, end_t, ratio, transition_time) end
 
 --自定义骨骼分层
 ---@param root_bone string # 根骨骼

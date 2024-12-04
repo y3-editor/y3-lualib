@@ -605,6 +605,7 @@ function M:is_key_pressed(key)
     if not y3.config.sync.key then
         error('必须先设置 `y3.config.sync.key = true`')
     end
+    ---@diagnostic disable-next-line: param-type-mismatch
     return GameAPI.player_key_is_pressed(self.handle, key)
 end
 
@@ -732,6 +733,12 @@ function M:get_community_value(community_type)
     return self.handle:api_get_community_value(y3.const.PlatFormRoleCommunityType[community_type] or community_type) or 0
 end
 
+---玩家是否收藏当前地图
+---@return boolean
+function M:is_bookmark_current_map()
+    return self.handle:api_is_bookmark_current_map() or false
+end
+
 ---请求执行随机池掉落
 ---执行完毕后调用回调函数，返回的参数如下：
 ---* `code`: 结果代码
@@ -759,6 +766,82 @@ end
 function M:request_use_item(count, item_id, callback)
     GameAPI.lua_request_server_role_use_item(self.handle, count, item_id, function (_, suc)
         callback(suc)
+    end, {})
+end
+
+---请求购买商城货币
+---@param goods_id string
+---@param callback? fun(suc: boolean, sn?: string, error_code?: integer)
+function M:request_buy_mall_coin(goods_id, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_buy_mall_coin(self.handle, goods_id, function (context)
+        if callback then
+            local error_code = context['__error_code']
+            if error_code then
+                xpcall(callback, log.error, false, nil, error_code)
+                return
+            end
+            -- 订单号
+            local sn = context['__str1']
+            local status = context['__int1']
+            xpcall(callback, log.error, status == 0, sn, status)
+        end
+    end, {})
+end
+
+---@class MallGoodsInfo
+---@field is_exist boolean # 是否存在
+---@field effective_time integer # 生效时间
+---@field expiration_time integer # 过期时间
+---@field left_token integer # 剩余货币数量
+
+---获取某个玩家的商城物品信息
+---@param goods_id string
+---@param callback fun(info: MallGoodsInfo)
+function M:request_mall_goods_info(goods_id, callback)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    GameAPI.lua_request_server_mall_goods_info(self.handle, tostring(goods_id), function (context)
+        xpcall(callback, log.error, {
+            is_exist = context['__bool1'],
+            effective_time = context['__mall_goods_effective_time'],
+            expiration_time = context['__mall_goods_expiration_time'],
+            left_token = context['__float1']
+        })
+    end, {})
+end
+
+---请求购买商城道具
+---@param count integer # 数量
+---@param goods_id integer # 商城道具id
+---@param callback? fun(suc: boolean, error_code: integer) # 执行完毕后的回调函数
+function M:request_mall_purchase_goods(count, goods_id, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_mall_purchase_goods(self.handle, count, goods_id, function (context)
+        if callback then
+            local error_code = context['__error_code']
+            xpcall(callback, log.error, error_code == 0, error_code)
+        end
+    end, {})
+end
+
+---请求生成随机数
+---@param group_id integer # 随机只读存档组id
+---@param key string # 随机数的key
+---@param callback fun(value: integer) # 执行完毕后的回调函数
+function M:request_random_number(group_id, key, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_generate_random_number(self.handle, key, group_id, function (context)
+        local result = context['__random_number_err_code']
+        xpcall(callback, log.error, result)
+    end, {})
+end
+
+---请求玩家的开放存档数据
+---@param callback fun(archive: any) # 执行完毕后的回调函数
+function M:request_open_archive(callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_role_open_archive(self.handle, function (context)
+        xpcall(callback, log.error, context['__role_open_archive'])
     end, {})
 end
 

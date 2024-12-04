@@ -167,6 +167,20 @@ local function createClient(port)
         end
     end)
 
+    client:on_error(function (self, error)
+        print('VSCode链接发生错误：', error)
+        y3.ctimer.wait(1, function ()
+            createClient(port)
+        end)
+    end)
+
+    client:on_disconnected(function (self)
+        print('VSCode链接断开!')
+        y3.ctimer.wait(1, function ()
+            createClient(port)
+        end)
+    end)
+
     ---@async
     client:data_reader(function (read)
         local head = read(4)

@@ -9,6 +9,17 @@ local generate_monsters_config = {
     { monster_type = 134251991, count = 15 }, --蝎子
     { monster_type = 134246732, count = 15 }, --树人
 }
+
+for _, config in ipairs(generate_monsters_config) do
+    local monster_type = config.monster_type
+    if not y3.object.unit[monster_type].data then
+        error [[
+该演示图依赖特定的物编数据，请按照以下步骤安装：
+
+在编辑器中点击 `菜单栏` -> `插件` -> `插件商城`，搜索 `LuaLib`，安装 `LuaLib示例-防守图`（英雄、技能、怪物的物编数据）]]
+    end
+end
+
 -- 怪物出生坐标
 local spawn_point = y3.point.create(0, -2000, 0)
 -- 怪物进攻目标

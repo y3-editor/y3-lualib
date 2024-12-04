@@ -71,6 +71,7 @@ function M:isValidName(name)
 end
 
 function M:fire()
+    ---@private
     M._reloading = true
     log.info('=========== reload start ===========')
 

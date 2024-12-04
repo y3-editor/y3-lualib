@@ -32,7 +32,7 @@ function M:__init(id, py_projectile)
 end
 
 function M:__del()
-    self.phandle:api_delete()
+    self:remove()
     y3.py_proxy.kill(self.phandle)
 end
 
@@ -216,7 +216,9 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.phandle:api_delete()
+        if not self._removed_by_py then
+            self.phandle:api_delete()
+        end
     end
 end
 

@@ -4772,8 +4772,9 @@ function GameAPI.get_illusion_caller_unit(illusion_unit) end
 ---@param is_open_duration? boolean # 是否启用持续时间
 ---@param immediately? boolean # 立即移除表现
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾中是否可见
 ---@return py.ProjectileEntity # 创建出的投掷物
-function GameAPI.create_projectile_on_socket(p_key, socket_unit, socket_name, face, owner_unit_or_player, related_ability, visibility, duration, is_open_duration, immediately, use_sys_d_destroy_way) end
+function GameAPI.create_projectile_on_socket(p_key, socket_unit, socket_name, face, owner_unit_or_player, related_ability, visibility, duration, is_open_duration, immediately, use_sys_d_destroy_way, show_in_fog) end
 
 --创建一个投掷物
 ---@param p_key py.ProjectileKey # 投掷物编号

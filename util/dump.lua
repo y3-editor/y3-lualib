@@ -12,6 +12,14 @@ function M.encodeHook(value)
     if not luaType then
         return
     end
+    if luaType == 'Ability' then
+        ---@cast value Ability
+        return {
+            class = 'Ability',
+            unit  = value:get_owner().id,
+            seq   = value:get_seq(),
+        }
+    end
     local class = y3.class.get(luaType)
     if not class.get_by_id then
         return
@@ -28,6 +36,14 @@ end
 
 ---@private
 function M.decodeHook(value)
+    if value.class == 'Ability' then
+        local unit = y3.unit.get_by_id(value.unit)
+        if not unit then
+            return nil
+        end
+        local obj = unit:get_ability_by_seq(value.seq)
+        return obj
+    end
     local class = y3.class.get(value.class)
     local obj = class.get_by_id(value.id)
     return obj

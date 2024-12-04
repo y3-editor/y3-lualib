@@ -14,7 +14,7 @@ log = {
 y3 = {}
 y3.util    = require 'y3.tools.utility'
 y3.reload  = require 'y3.tools.reload'
-y3.linkedTable = require 'y3.tools.linked-table'
+y3.linked_table = require 'y3.tools.linked-table'
 
 require 'y3.util.event'
 require 'y3.util.event_manager'

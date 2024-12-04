@@ -459,7 +459,9 @@ function M.get_polygon_areas_point_list(polygon)
     local handle = polygon.handle
     ---@cast handle py.PolyArea
     local py_list = GameAPI.get_poly_area_point_list(handle)
-    local points = y3.helper.unpack_list(py_list, y3.point.get_by_handle)
+    local points = y3.helper.unpack_list(py_list, function (py_object)
+        return y3.point.get_by_handle(GameAPI.get_point_by_road_point(py_object))
+    end)
     return points
 end
 

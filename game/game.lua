@@ -977,13 +977,6 @@ function M.is_lobby()
     return GameAPI.get_is_steam_lobby()
 end
 
----请求购买商城物品
----@param player Player
----@param goods_id string
-function M.request_buy_mall_coin(player, goods_id)
-    GameAPI.request_buy_mall_coin(player.handle, goods_id)
-end
-
 ---设置是否渲染场景
 ---@param flag boolean
 function M.set_draw_scene(flag)
@@ -1008,8 +1001,10 @@ function M.get_latest_game_version(callback)
         return
     end
     M._fetching_game_version = { callback }
+    ---@diagnostic disable-next-line: undefined-field
     GameAPI.update_latest_game_version()
     y3.ctimer.loop(0.1, function (timer)
+        ---@diagnostic disable-next-line: missing-parameter
         local version = GameAPI.get_latest_game_version()
         if version == 0 then
             return

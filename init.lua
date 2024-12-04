@@ -30,7 +30,7 @@ end)
 ---@class Y3
 y3 = {}
 
-y3.version = 241120
+y3.version = 241129
 
 y3.proxy   = require 'y3.tools.proxy'
 y3.class   = require 'y3.tools.class'
@@ -58,7 +58,9 @@ require 'y3.util.log'
 y3.reload  = require 'y3.tools.reload'
 y3.sandbox = require 'y3.tools.sandbox'
 y3.hash    = require 'y3.tools.SDBMHash'
-y3.linkedTable = require 'y3.tools.linked-table'
+y3.linked_table = require 'y3.tools.linked-table'
+---@deprecated
+y3.linkedTable = y3.linked_table
 Alias('LinkedTable', y3.linkedTable.create)
 
 ---@diagnostic disable-next-line: lowercase-global
@@ -83,7 +85,6 @@ y3.const        = require 'y3.game.const'
 y3.math         = require 'y3.game.math'
 y3.game         = require 'y3.game.game'
 y3.py_converter = require 'y3.game.py_converter'
-y3.py_event_sub = require 'y3.game.py_event_subscribe'
 y3.helper       = require 'y3.game.helper'
 y3.ground       = require 'y3.game.ground'
 y3.config       = require 'y3.game.config'
@@ -92,6 +93,7 @@ y3.steam        = require 'y3.game.steam'
 y3.timer        = require 'y3.object.runtime_object.timer'
 y3.py_proxy     = require 'y3.util.py_proxy'
 y3.ltimer       = require 'y3.util.local_timer'
+y3.py_event_sub = require 'y3.game.py_event_subscribe'
 
 y3.unit         = require 'y3.object.editable_object.unit'
 y3.ability      = require 'y3.object.editable_object.ability'
@@ -138,6 +140,7 @@ y3.base64       = require 'y3.util.base64'
 y3.aes          = require 'y3.util.aes'
 y3.local_ui     = require 'y3.util.local_ui'
 y3.fs           = require 'y3.util.fs'
+y3.eca_rt       = require 'y3.util.eca_runtime'
 
 pcall(function ()
     require 'y3-helper.meta'

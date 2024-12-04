@@ -264,7 +264,7 @@ M.MovementObstacleProcessType = {
     ['POINT_MIDDLE'] = 16,
 }
 
----@enum y3.Const.MouseKey
+---@enum(key) y3.Const.MouseKey
 M.MouseKey = {
     LEFT = 0xF0, -- 左键
     RIGHT = 0xF1, -- 右键
@@ -273,7 +273,7 @@ M.MouseKey = {
     WHEEL_DOWN = 0xF4, -- 下滚
 }
 
----@enum y3.Const.KeyboardKey
+---@enum(key) y3.Const.KeyboardKey
 M.KeyboardKey = {
     ['NONE'] = 0x00,
     ['ESCAPE'] = 0x01, -- ESC
@@ -911,7 +911,6 @@ M.FloatTextType = {
     ['华康圆体W9'] = 'HKYuanW9',
 }
 
---TODO：应该解析文件
 ---@enum(key) y3.Const.FloatTextJumpType
 M.FloatTextJumpType = {
     ['伤害_左上'] = 934231441,
@@ -1002,5 +1001,24 @@ M.PlatFormRoleCommunityType = {
     ['是否版主'] = 5,
     ['社区主题数量'] = 6,
 }
+
+---@enum y3.Const.SteamOnlineState
+M.SteamOnlineState = {
+    ['离线'] = 1,
+    ['空闲'] = 2,
+    ['房间中'] = 3,
+    ['匹配中'] = 4,
+    ['游戏中'] = 5,
+}
+
+---@enum(key) y3.Const.RoadPatrolType
+M.RoadPatrolType = {
+    ['单向'] = 0,
+    ['往返'] = 1,
+    ['循环'] = 2,
+}
+
+---@enum(key) y3.Const.CustomEventName
+M.CustomEventName = {}
 
 return M

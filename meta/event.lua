@@ -3153,6 +3153,30 @@ event.ET_UNIT_TRY_PICK_ITEM = {
     },
 }
 
+---@class EventParam.ET_UNIT_TRY_PICK_ITEM_NEW
+---@field unit Unit # 单位
+---@field equip_slot_type py.SlotType # 背包类型
+
+--单位即将拾取物品
+event.ET_UNIT_TRY_PICK_ITEM_NEW = {
+    [1] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "单位id",
+        lua_desc = "单位",
+    },
+    [2] = {
+        name = "__equip_slot_type",
+        type = "py.SlotType",
+        lua_name = "equip_slot_type",
+        lua_type = "py.SlotType",
+        desc = "背包类型",
+        lua_desc = "背包类型",
+    },
+}
+
 ---@class EventParam.ET_UNIT_LOAD_DEFAULT_AI
 
 --单位切换默认行为
@@ -6067,6 +6091,54 @@ event.ET_TRIGGER_UI_EQUIP_SLOT_DRAG_EVENT = {
     },
 }
 
+---@class EventParam.ET_UI_JOYSTICK_START_MOVE
+---@field player Player # 玩家
+---@field comp_name string # 触发事件控件名称
+
+--
+event.ET_UI_JOYSTICK_START_MOVE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+}
+
+---@class EventParam.ET_UI_JOYSTICK_END_MOVE
+---@field player Player # 玩家
+---@field comp_name string # 触发事件控件名称
+
+--ui复选框事件
+event.ET_UI_JOYSTICK_END_MOVE = {
+    [1] = {
+        name = "__role_id",
+        type = "py.RoleID",
+        lua_name = "player",
+        lua_type = "Player",
+        desc = "玩家ID",
+        lua_desc = "玩家",
+    },
+    [2] = {
+        name = "__comp_name",
+        type = "string",
+        lua_name = "comp_name",
+        lua_type = "string",
+        desc = "触发事件控件名称",
+        lua_desc = "触发事件控件名称",
+    },
+}
+
 ---@class EventParam.ET_TRIGGER_UI_CHECKBOX_CHANGE_EVENT
 ---@field player Player # 玩家
 ---@field ui_event_name string # ui事件变量名
@@ -8572,6 +8644,30 @@ event.ET_UNIT_ADD_ITEM = {
     },
 }
 
+---@class EventParam.UNIT_SLOT_ITEM_CHANGED
+---@field equip_slot_type py.SlotType # 槽位类型
+---@field equip_slot_id integer # 槽位ID
+
+--单位身上物品格子中的物品发生了变化
+event.UNIT_SLOT_ITEM_CHANGED = {
+    [1] = {
+        name = "__equip_slot_type",
+        type = "py.SlotType",
+        lua_name = "equip_slot_type",
+        lua_type = "py.SlotType",
+        desc = "槽位类型",
+        lua_desc = "槽位类型",
+    },
+    [2] = {
+        name = "__equip_slot_id",
+        type = "integer",
+        lua_name = "equip_slot_id",
+        lua_type = "integer",
+        desc = "槽位ID",
+        lua_desc = "槽位ID",
+    },
+}
+
 ---@class EventParam.ET_UNIT_ADD_ITEM_FOR_COMPOSE
 ---@field unit Unit # 获得该物品的单位
 ---@field item Item # 物品
@@ -8678,39 +8774,6 @@ event.ET_UNIT_ADD_ITEM_TO_PKG = {
 
 --单位失去物品
 event.ET_UNIT_REMOVE_ITEM = {
-    [1] = {
-        name = "__unit_id",
-        type = "py.UnitID",
-        lua_name = "unit",
-        lua_type = "Unit",
-        desc = "失去该物品的单位id",
-        lua_desc = "失去该物品的单位",
-    },
-    [2] = {
-        name = "__item_id",
-        type = "py.ItemID",
-        lua_name = "item",
-        lua_type = "Item",
-        desc = "物品id",
-        lua_desc = "物品",
-    },
-    [3] = {
-        name = "__item_no",
-        type = "py.ItemKey",
-        lua_name = "item_no",
-        lua_type = "py.ItemKey",
-        desc = "物品编号",
-        lua_desc = "物品编号",
-    },
-}
-
----@class EventParam.ET_UNIT_REMOVE_ITEM_FOR_UI
----@field unit Unit # 失去该物品的单位
----@field item Item # 物品
----@field item_no py.ItemKey # 物品编号
-
---单位失去物品(用于UI)
-event.ET_UNIT_REMOVE_ITEM_FOR_UI = {
     [1] = {
         name = "__unit_id",
         type = "py.UnitID",
@@ -9595,6 +9658,8 @@ event.ET_CUSTOM_EVENT = {
 ---@class EventParam.ET_EVENT_CUSTOM
 ---@field c_param_1 integer # 事件参数
 ---@field c_param_dict py.Dict # 自定义参数列表
+---@field data table # 
+---@field event string # 
 
 --自定义事件
 event.ET_EVENT_CUSTOM = {
@@ -9613,6 +9678,28 @@ event.ET_EVENT_CUSTOM = {
         lua_type = "py.Dict",
         desc = "自定义参数列表",
         lua_desc = "自定义参数列表",
+    },
+    [3] = {
+        name = nil,
+        type = nil,
+        lua_name = "data",
+        lua_type = "table",
+        lua_desc = "",
+        lua_code = function (data)
+            y3.eca.resolve(data)
+            return data.data
+        end,
+    },
+    [4] = {
+        name = nil,
+        type = nil,
+        lua_name = "event",
+        lua_type = "string",
+        lua_desc = "",
+        lua_code = function (data)
+            y3.eca.resolve(data)
+            return data.event
+        end,
     },
 }
 
@@ -10196,7 +10283,7 @@ event.ET_MALL_NOTIFY_FRIEND_DELETE = {
 }
 
 ---@class EventParam.ET_MALL_NOTIFY_FRIEND_UPDATE
----@field online_state integer # 好友在线状态
+---@field online_state y3.Const.SteamOnlineState # 好友在线状态
 ---@field player_aid integer # 好友ID
 
 --steam大厅好友在线状态变化事件
@@ -10205,7 +10292,7 @@ event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
         name = "__ONLINE_STATE__",
         type = "integer",
         lua_name = "online_state",
-        lua_type = "integer",
+        lua_type = "y3.Const.SteamOnlineState",
         desc = "好友在线状态",
         lua_desc = "好友在线状态",
     },
@@ -10296,5 +10383,47 @@ event.ET_MALL_NOTIFY_CANCEL_MATCH = {
 
 --steam重连更新存档完成
 event.ET_MALL_NOTIFY_RECONNECT_ARCHIVE = {}
+
+---@class EventParam.ET_UNIT_PROJECTILE_HIT
+---@field source_unit Unit # 远程普攻投射物所属单位
+---@field target_unit Unit # 远程普攻目标单位
+---@field pos Point # 命中位置
+---@field damage number # 伤害
+
+--单位投射物命中
+event.ET_UNIT_PROJECTILE_HIT = {
+    [1] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "远程普攻投射物所属单位",
+        lua_desc = "远程普攻投射物所属单位",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "远程普攻目标单位",
+        lua_desc = "远程普攻目标单位",
+    },
+    [3] = {
+        name = "__pos",
+        type = "py.Point",
+        lua_name = "pos",
+        lua_type = "Point",
+        desc = "命中位置",
+        lua_desc = "命中位置",
+    },
+    [4] = {
+        name = "__damage",
+        type = "py.Fixed",
+        lua_name = "damage",
+        lua_type = "number",
+        desc = "伤害",
+        lua_desc = "伤害",
+    },
+}
 
 return event

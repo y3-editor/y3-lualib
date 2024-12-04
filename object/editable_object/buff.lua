@@ -36,7 +36,7 @@ function M:__init(id, py_modifier)
 end
 
 function M:__del()
-    self.handle:api_remove()
+    self:remove()
 end
 
 ---所有魔法效果实例
@@ -88,7 +88,9 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.handle:api_remove()
+        if not self._removed_by_py then
+            self.handle:api_remove()
+        end
     end
 end
 

@@ -29,8 +29,8 @@ function M:__init(py_destructible)
 end
 
 function M:__del()
-    self.phandle:api_delete()
     y3.py_proxy.kill(self.phandle)
+    self:remove()
 end
 
 ---@package
@@ -127,7 +127,9 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.phandle:api_delete()
+        if not self._removed_by_py then
+            self.phandle:api_delete()
+        end
     end
 end
 

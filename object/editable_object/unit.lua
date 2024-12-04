@@ -35,7 +35,7 @@ function M:__init(py_unit_id, py_unit)
 end
 
 function M:__del()
-    self.handle:api_delete()
+    self:remove()
 end
 
 ---@package
@@ -376,7 +376,9 @@ end
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.handle:api_delete()
+        if not self._removed_by_py then
+            self.handle:api_delete()
+        end
     end
 end
 
@@ -528,13 +530,13 @@ end
 
 -- 命令沿路径移动
 ---@param road Road 路径
----@param patrol_mode integer 移动模式
+---@param patrol_mode y3.Const.RoadPatrolType 移动模式
 ---@param can_attack boolean 是否自动攻击
 ---@param start_from_nearest boolean 就近选择起始点
 ---@param back_to_nearest boolean 偏离后就近返回
 ---@return py.UnitCommand # 命令
 function M:move_along_road(road, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
-    local command = GameAPI.create_unit_command_move_along_road(road.handle, patrol_mode, can_attack, start_from_nearest, back_to_nearest)
+    local command = GameAPI.create_unit_command_move_along_road(road.handle, y3.const.RoadPatrolType[patrol_mode] or patrol_mode, can_attack, start_from_nearest, back_to_nearest)
     self:command(command)
     return command
 end
@@ -1960,7 +1962,7 @@ end
 ---@field damage number
 ---@field ability? Ability # 关联技能
 ---@field text_type? y3.Const.DamageTextType # 跳字类型
----@field text_track? integer # 跳字轨迹类型
+---@field text_track? y3.Const.FloatTextJumpType | integer # 跳字轨迹类型
 ---@field common_attack? boolean # 视为普攻
 ---@field critical? boolean # 必定暴击
 ---@field no_miss? boolean # 必定命中
@@ -1988,7 +1990,7 @@ function M:damage(data)
         data.particle or nil,
         data.socket or '',
         data.text_type or 'physics',
-        data.text_track or 0,
+        y3.const.FloatTextJumpType[data.text_track] or data.text_track or 0,
         data.attack_type or 0,
         data.pos_socket or ''
     )

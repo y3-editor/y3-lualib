@@ -33,18 +33,7 @@ function M:__init(id, py_ability)
 end
 
 function M:__del()
-    self.handle:api_remove()
-    --TODO
-    --技能正在放的时候删不掉，需要不停尝试删除
-    if GameAPI.ability_is_exist(self.handle) then
-        y3.ltimer.loop_frame(1, function (timer, count)
-            if not GameAPI.ability_is_exist(self.handle) then
-                timer:remove()
-                return
-            end
-            self.handle:api_remove()
-        end)
-    end
+    self:remove()
 end
 
 ---@private
@@ -139,21 +128,19 @@ function M:complete_cd()
     self.handle:api_immediately_clear_cd()
 end
 
+---停止施放技能
+function M:stop_cast()
+    self.handle:api_ability_stop()
+end
+
 ---移除技能
 function M:remove()
     if not self._removed then
         self._removed = true
-        self.handle:api_remove()
-        --TODO
-        --技能正在放的时候删不掉，需要不停尝试删除
-        if GameAPI.ability_is_exist(self.handle) then
-            y3.ltimer.loop_frame(1, function (timer, count)
-                if not GameAPI.ability_is_exist(self.handle) then
-                    timer:remove()
-                    return
-                end
-                self.handle:api_remove()
-            end)
+        self:stop_cast()
+        if not self._removed_by_py then
+            -- 在移除技能时再次调用移除接口会导致游戏崩溃
+            self.handle:api_remove()
         end
     end
 end
@@ -367,6 +354,12 @@ end
 ---@return y3.Const.AbilityIndex index 技能所在技能位
 function M:get_slot()
     return self.handle:api_get_ability_index() or 0
+end
+
+---获取技能在单位身上的序号
+---@return py.AbilitySeq seq 技能序号
+function M:get_seq()
+    return self.handle:api_get_ability_seq() or 0
 end
 
 ---获取技能消耗的玩家属性值
