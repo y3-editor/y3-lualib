@@ -1,6 +1,7 @@
 --技能
 ---@class Ability
 ---@field handle py.Ability
+---@field private _removed_by_py boolean
 ---@overload fun(id: integer, py_ability: py.Ability): self
 local M = Class 'Ability'
 

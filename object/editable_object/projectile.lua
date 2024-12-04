@@ -1,6 +1,7 @@
 --投射物
 ---@class Projectile
 ---@field handle py.ProjectileEntity
+---@field private _removed_by_py boolean
 ---@overload fun(id: integer, py_projectile: py.ProjectileEntity): self
 local M = Class 'Projectile'
 M.type = 'projectile'

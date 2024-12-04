@@ -3,6 +3,7 @@
 ---@field handle py.Destructible
 ---@field phandle py.Destructible
 ---@field id integer
+---@field private _removed_by_py boolean
 ---@overload fun(py_destructible: py.Destructible): self
 local M = Class 'Destructible'
 M.type = 'destructible'

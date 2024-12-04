@@ -2,6 +2,7 @@
 ---@class Unit
 ---@field handle py.Unit # py层的单位对象
 ---@field id integer
+---@field private _removed_by_py boolean
 ---@overload fun(py_unit_id: py.UnitID, py_unit: py.Unit): self
 local M = Class 'Unit'
 

@@ -2,6 +2,7 @@
 ---@class Buff
 ---@field handle py.ModifierEntity # py层的魔法效果对象
 ---@field id     integer
+---@field private _removed_by_py boolean
 ---@overload fun(id: integer, py_modifier: py.ModifierEntity): Buff
 local M = Class 'Buff'
 

@@ -73,6 +73,7 @@ function M:removeNow(key)
     if not obj then
         return
     end
+    obj._removed_by_py = true
     Delete(obj)
     self.strongRefMap[key] = nil
     self.weakRefMap[obj] = true

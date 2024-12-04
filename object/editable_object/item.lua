@@ -3,6 +3,7 @@
 ---@field handle py.Item
 ---@field phandle py.Item
 ---@field id py.ItemID
+---@field private _removed_by_py boolean
 ---@overload fun(id: py.ItemID, py_item: py.Item): self
 local M = Class 'Item'
 
