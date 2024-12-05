@@ -14,6 +14,20 @@ DataModule.__getter.data = function (self)
     return GameAPI.api_get_editor_type_data(self.data_key, self.key), true
 end
 
+---@private
+DataModule.last_key = 910000000
+
+---@package
+function DataModule:make_new_key()
+    for i = self.last_key + 1, self.last_key + 10000 do
+        if not GameAPI.api_get_editor_type_data(self.data_key, i) then
+            self.last_key = i
+            return i
+        end
+    end
+    error('无法找到可用的物编key：' .. tostring(self.last_key))
+end
+
 ---@class EditorObject.Event
 ---@field package type string
 ---@field get_key fun(self: any): integer
@@ -67,9 +81,8 @@ end
 ---@field on_create? fun(unit: Unit) # 单位创建后执行
 ---@field on_remove? fun(unit: Unit) # 单位移除后执行
 ---@field on_dead? fun(unit: Unit) # 单位死亡后执行
---单位的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
---> 警告：请确保数据类型正确，否则可能导致崩溃  
---> 警告：如果创建过此单位再修改数据，行为是未定义的
+---单位的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---如果想要修改数据，请使用 `new` 方法创建新的物编，并在创建时传入要修改的数据
 ---@field data Object.Unit
 local Unit = Class 'EditorObject.Unit'
 
@@ -91,13 +104,12 @@ end
 
 --以此单位为模板创建新的单位物编
 ---@param new_default_key? py.UnitKey
----@param data? table
+---@param data? Object.UnitOptions
 ---@return EditorObject.Unit
 function Unit:new(new_default_key, data)
     ---@diagnostic disable: undefined-field
-    local new_key = GameAPI.create_unit_editor_data_lua
-                and GameAPI.create_unit_editor_data_lua(self.key, new_default_key, data)
-                 or GameAPI.create_unit_editor_data(self.key)
+    local new_key = new_default_key or self:make_new_key()
+    GameAPI.create_unit_editor_data_lua(self.key, new_default_key, data)
     ---@diagnostic enable: undefined-field
     return M.unit[new_key]
 end
@@ -203,9 +215,8 @@ end)
 ---@field on_cast_shot? fun(ability: Ability, cast: Cast) # 技能出手施法时执行
 ---@field on_cast_finish? fun(ability: Ability, cast: Cast) # 技能完成施法时执行
 ---@field on_cast_stop? fun(ability: Ability, cast: Cast) # 技能停止施法时执行
---技能的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
---> 警告：请确保数据类型正确，否则可能导致崩溃  
---> 警告：如果创建过此技能再修改数据，行为是未定义的
+---技能的物编数据，你可以从里面读取任意物编  
+---如果想要修改数据，请使用 `new` 方法创建新的物编，并在创建时传入要修改的数据
 ---@field data Object.Ability
 local Ability = Class 'EditorObject.Ability'
 
@@ -226,14 +237,13 @@ function Ability:__init(key)
 end
 
 --以此技能为模板创建新的技能物编
----@param new_default_key? py.AbilityKey
----@param data? table
+---@param new_default_key? py.AbilityKey # 若不指定，则自动生成一个新的key
+---@param data? Object.AbilityOptions # 要修改的数据
 ---@return EditorObject.Ability
 function Ability:new(new_default_key, data)
     ---@diagnostic disable: undefined-field
-    local new_key = GameAPI.create_ability_editor_data_lua
-                and GameAPI.create_ability_editor_data_lua(self.key, new_default_key, data)
-                 or GameAPI.create_ability_editor_data(self.key)
+    local new_key = new_default_key or self:make_new_key()
+    GameAPI.create_ability_editor_data_lua(self.key, new_key, data)
     ---@diagnostic enable: undefined-field
     return M.ability[new_key]
 end
