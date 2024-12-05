@@ -257,3 +257,13 @@ function regist_object_event(handle, py_event_name, callback, ...) end
 function unregist_object_event(seq) end
 
 ---@alias y3.Number number | py.Fixed | XDouble
+
+---@class py.Tuple
+---@field [integer] any
+
+---@param list any[]
+---@return py.Tuple
+function pytuple(list) end
+
+---@return py.Dict
+function pydict() end
