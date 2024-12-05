@@ -301,15 +301,16 @@ function M.request_aid_by_nickname(nickname, callback)
 end
 
 ---【异步】请求创建队伍
+---@param team_num integer # 人数上限
 ---@param callback? fun(success: boolean, error_code?: integer)
-function M.request_create_team(callback)
+function M.request_create_team(team_num, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_create_team(function ()
         if callback then
             callback_with_error_code(callback, context)
         end
-    end, context)
+    end, context, team_num)
 end
 
 ---【异步】请求开始匹配
