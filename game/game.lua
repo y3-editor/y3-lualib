@@ -759,9 +759,11 @@ function M.set_object_fresnel(obj, r, g, b, alpha, exp, strength)
 end
 
 ---设置逻辑帧率
+---请勿在游戏中途修改帧率，推荐直接在地图设置中修改
 ---@param fps integer 帧率
 function M.set_logic_fps(fps)
     GameAPI.api_change_logic_fps(fps)
+    y3.config.logic_frame = fps
 end
 
 ---加密表
