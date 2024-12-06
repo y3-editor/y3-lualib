@@ -749,6 +749,7 @@ M.UIEventMap = {
 ---| '技能按钮'
 ---| '魔法效果'
 ---| '序列帧'
+---| '特效'
 
 M.UIComponentType = {
     Node = 0,
@@ -811,6 +812,7 @@ M.UIComponentType = {
     -- 新的序列帧动画组件
     NewSequenceAnimation = 38,
     ['序列帧'] = 38,
+    ['特效'] = 49,
 }
 
 ---@alias y3.Const.UIVAlignmentType
@@ -1031,6 +1033,12 @@ M.RoadPatrolType = {
     ['单向'] = 0,
     ['往返'] = 1,
     ['循环'] = 2,
+}
+
+---@enum(key) y3.Const.UIEffectCameraMode
+M.UIEffectCameraMode = {
+    ['自定义模式'] = 0,
+    ['智能模式'] = 1,
 }
 
 ---@enum(key) y3.Const.CustomEventName
