@@ -110,13 +110,14 @@ function M.request_friends(callback)
     end, context)
 end
 
-local function callback_with_error_code(callback, context, result)
+local function callback_with_error_code(callback, context, ...)
     local ret = context['__error_code'] or context['__int1']
     if type(ret) == 'userdata' then
         ---@diagnostic disable-next-line: undefined-field
         ret = ret.errnu
     end
-    if result == nil then
+    local result = ...
+    if select('#', ...) == 0 then
         result = ret == 0
     end
     xpcall(callback, log.error, result, ret)
@@ -378,6 +379,161 @@ function M.request_roll_settle_ladder_score(player, params, callback)
                 delta_score = context['__diff_value'],
             })
         end
+    end, {})
+end
+
+---【异步】请求创建房间
+---@param room_name string # 房间名称
+---@param callback fun(room_id?: integer, error_code?: integer) # 创建成功后回调，参数为房间id
+---@param mode_id? integer # 模式id，默认为 `1002`
+---@param password? string # 房间密码，`nil` 或空字符串等表示无需密码
+function M.request_create_room(room_name, callback, mode_id, password)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_create_room(room_name, function (context)
+        local room_id = context['__room_id']
+        callback_with_error_code(callback, context, room_id)
+    end, {}, mode_id, password)
+end
+
+---@class Steam.Room
+---@field room_id integer
+---@field room_name string
+---@field curr_player_number integer
+---@field max_player_number integer
+---@field is_public boolean # 非公开房加入需要密码
+---@field room_state y3.Const.SteamRoomState
+
+---【异步】请求房间列表
+---@param page integer # 第几页，每页会有最多100个结果
+---@param callback fun(rooms?: Steam.Room[], error_code?: integer)
+function M.request_room_list(page, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_room_list_info(function (context)
+        local rooms = context['__lua_table']
+        callback_with_error_code(callback, context, rooms)
+    end, {}, page)
+end
+
+---【异步】请求加入房间
+---@param room_id integer
+---@param callback fun(success: boolean, error_code?: integer)
+---@param password? string
+function M.request_join_room(room_id, callback, password)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_join_room(room_id, function (context)
+        callback_with_error_code(callback, context)
+    end, {}, password)
+end
+
+---@class RoomSlot
+---@field slot integer
+---@field nickname string
+---@field head_icon string
+---@field locked y3.Const.SteamRoomSlotState
+---@field ai_type any
+---@field is_ready any
+---@field is_owner boolean
+---@field aid integer
+
+---【异步】请求指定用户所在的房间信息
+---@param aid integer
+---@param callback fun(room?: RoomSlot[], error_code?: integer)
+function M.request_room_info(aid, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_room_info(aid, function (context)
+        local rooms = context['__lua_table']
+        callback_with_error_code(callback, context, rooms)
+    end, {})
+end
+
+---【异步】请求房间开始游戏
+---@param callback fun(success: boolean, error_code?: integer)
+function M.request_room_start_game(callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_room_strat_game(function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】邀请玩家加入房间
+---@param aid integer
+---@param callback fun(success: boolean, error_code?: integer)
+function M.request_invite_join_room(aid, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_invite_player_join_room(aid, function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】接受房间邀请
+---@param aid integer
+---@param room_id integer
+---@param callback fun(success: boolean, error_code?: integer)
+function M.reply_accpet_room_invite(aid, room_id, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_reply_room_invite(aid, room_id, function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】请求交换房间槽位
+---@param slot integer # 目标槽位
+---@param callback fun(success: boolean, error_code?: integer)
+function M.request_change_room_slot(slot, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_change_room_slot(slot, function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】请求将房主转交给其他用户
+---@param aid integer # 目标用户的aid
+---@param callback fun(success: boolean, error_code?: integer)
+function M.request_change_owner(aid, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_change_owner(aid, function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】请求退出自己所在的房间
+---@param callback fun(success: boolean, error_code?: integer)
+function M.request_exit_room(callback)
+    local aid = M.get_player_aid()
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_exit_room(aid, function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】请求从房间中踢出用户
+---@param aid integer # 目标用户的aid
+---@param callback fun(success: boolean, error_code?: integer)
+function M.request_kick_from_room(aid, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_kick_from_room(aid, function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】请求修改房间中某个槽位的状态
+---@param slot integer # 目标槽位
+---@param state y3.Const.SteamRoomSlotState # 目标状态
+---@param callback fun(success: boolean, error_code?: integer)
+function M.request_change_slot_state(slot, state, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_set_site_state(slot, state, function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】请求修改房间密码
+---@param password? string # 房间密码，`nil` 或空字符串等表示无需密码
+---@param callback fun(success: boolean, error_code?: integer)
+function M.request_change_room_password(password, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_server_change_room_password(password or '', function (context)
+        callback_with_error_code(callback, context)
     end, {})
 end
 

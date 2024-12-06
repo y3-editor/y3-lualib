@@ -1011,6 +1011,21 @@ M.SteamOnlineState = {
     ['游戏中'] = 5,
 }
 
+---@enum y3.Const.SteamRoomState
+M.SteamRoomState = {
+    ['大厅'] = 0,
+    ['倒计时'] = 1,
+    ['游戏中'] = 2,
+}
+
+---@enum y3.Const.SteamRoomSlotState
+M.SteamRoomSlotState = {
+    ['打开'] = 0,
+    ['锁定'] = 1,
+    ['简单电脑'] = 5,
+    ['困难电脑'] = 6,
+}
+
 ---@enum(key) y3.Const.RoadPatrolType
 M.RoadPatrolType = {
     ['单向'] = 0,
