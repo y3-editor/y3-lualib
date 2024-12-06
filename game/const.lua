@@ -1021,7 +1021,7 @@ M.SteamRoomState = {
 ---@enum y3.Const.SteamRoomSlotState
 M.SteamRoomSlotState = {
     ['打开'] = 0,
-    ['锁定'] = 1,
+    ['关闭'] = 1,
     ['简单电脑'] = 5,
     ['困难电脑'] = 6,
 }

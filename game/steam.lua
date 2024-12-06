@@ -429,8 +429,9 @@ end
 ---@field slot integer
 ---@field nickname string
 ---@field head_icon string
----@field locked y3.Const.SteamRoomSlotState
----@field ai_type any
+---@field locked boolean
+---@field ai_type 5 | 6
+---@field state y3.Const.SteamRoomSlotState
 ---@field is_ready any
 ---@field is_owner boolean
 ---@field aid integer
@@ -442,6 +443,21 @@ function M.request_room_info(aid, callback)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_server_room_info(aid, function (context)
         local rooms = context['__lua_table']
+        if rooms then
+            for _, room in ipairs(rooms) do
+                if room.locked then
+                    room.state = y3.const.SteamRoomSlotState['关闭']
+                else
+                    if room.ai_type == 5 then
+                        room.state = y3.const.SteamRoomSlotState['简单电脑']
+                    elseif room.ai_type == 6 then
+                        room.state = y3.const.SteamRoomSlotState['困难电脑']
+                    else
+                        room.state = y3.const.SteamRoomSlotState['打开']
+                    end
+                end
+            end
+        end
         callback_with_error_code(callback, context, rooms)
     end, {})
 end
