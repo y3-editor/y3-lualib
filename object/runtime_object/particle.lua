@@ -21,7 +21,7 @@ function M:__init(sfx)
 end
 
 function M:__del()
-    GameAPI.delete_sfx(self.handle)
+    GameAPI.delete_sfx(self.handle, nil, true)
 end
 
 ---@param py_sfx py.Sfx
