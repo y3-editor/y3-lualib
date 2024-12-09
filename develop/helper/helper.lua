@@ -221,9 +221,20 @@ end
 ---@field id? integer  多开模式下自己的id
 
 --准备重启游戏
----@param options? Develop.Helper.RestartOptions
-function M.prepareForRestart(options)
-    M.notify('prepareForRestart', options or {})
+function M.prepareForRestart()
+    local arg = GameAPI.lua_get_start_args()
+    y3.player.with_local(function (local_player)
+        M.notify('prepareForRestart', {
+            debugger = LDBG
+                and (arg['lua_wait_debugger'] == 'true'
+                  or arg['lua_multi_wait_debugger'] == 'true'),
+            id = LDBG
+                and arg['lua_multi_mode'] == 'true'
+                ---@diagnostic disable-next-line: deprecated
+                and local_player:get_id()
+                or nil,
+        })
+    end)
 end
 
 ---@param command string

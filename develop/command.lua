@@ -168,20 +168,7 @@ y3.sync.onSync('$restart', function ()
         return
     end
     hasRestartd = true
-    y3.player.with_local(function (local_player)
-        local arg = GameAPI.lua_get_start_args()
-        y3.develop.helper.prepareForRestart {
-            debugger = LDBG
-                and (arg['lua_wait_debugger'] == 'true'
-                  or arg['lua_multi_wait_debugger'] == 'true'),
-            id = LDBG
-                and arg['lua_multi_mode'] == 'true'
-                ---@diagnostic disable-next-line: deprecated
-                and local_player:get_id()
-                or nil,
-        }
-        y3.game.restart_game()
-    end)
+    y3.game.restart_game()
 end)
 
 y3.reload.onBeforeReload(function (reload, willReload)
