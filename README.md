@@ -22,6 +22,8 @@
 
 如果难以访问Github，可以使用镜像仓库：https://gitee.com/tsukiko/y3-lualib
 
+请注意：gitee仅仅提供代码镜像，不支持issue。如果想提交issue，请自行搜索其他github镜像网站。
+
 # 演示图
 
 从演示图开始学习Lua!
