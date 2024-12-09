@@ -2963,6 +2963,42 @@ M.config["steam-取消匹配"] = {
     },
 }
 
+---@alias EventParam.steam-本地房间信息变化 EventParam.ET_MALL_NOTIFY_ROOM_INFO_CHANGE
+M.config["steam-本地房间信息变化"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_ROOM_INFO_CHANGE",
+    name = "steam-本地房间信息变化",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-被邀请加入房间 EventParam.ET_MALL_NOTIFY_ROOM_INVITE
+M.config["steam-被邀请加入房间"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_ROOM_INVITE",
+    name = "steam-被邀请加入房间",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-被踢出房间 EventParam.ET_MALL_NOTIFY_ROOM_KICK_OFF
+M.config["steam-被踢出房间"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_ROOM_KICK_OFF",
+    name = "steam-被踢出房间",
+    params = {
+    },
+}
+
+---@alias EventParam.steam-创建房间成功 EventParam.ET_MALL_NOTIFY_ROOM_BUILD
+M.config["steam-创建房间成功"] = {
+    desc = "",
+    key = "ET_MALL_NOTIFY_ROOM_BUILD",
+    name = "steam-创建房间成功",
+    params = {
+    },
+}
+
 ---@class Game
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
@@ -3175,6 +3211,10 @@ M.config["steam-取消匹配"] = {
 ---@field event fun(self: self, event: "steam-进入大厅", callback: fun(trg: Trigger, data: EventParam.steam-进入大厅)): Trigger
 ---@field event fun(self: self, event: "steam-开始匹配", callback: fun(trg: Trigger, data: EventParam.steam-开始匹配)): Trigger
 ---@field event fun(self: self, event: "steam-取消匹配", callback: fun(trg: Trigger, data: EventParam.steam-取消匹配)): Trigger
+---@field event fun(self: self, event: "steam-本地房间信息变化", callback: fun(trg: Trigger, data: EventParam.steam-本地房间信息变化)): Trigger
+---@field event fun(self: self, event: "steam-被邀请加入房间", callback: fun(trg: Trigger, data: EventParam.steam-被邀请加入房间)): Trigger
+---@field event fun(self: self, event: "steam-被踢出房间", callback: fun(trg: Trigger, data: EventParam.steam-被踢出房间)): Trigger
+---@field event fun(self: self, event: "steam-创建房间成功", callback: fun(trg: Trigger, data: EventParam.steam-创建房间成功)): Trigger
 
 ---@class Ability
 ---@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger

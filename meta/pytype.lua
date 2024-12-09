@@ -119,8 +119,14 @@
 ---@class py.RoleResKey: string
 --平台道具编号
 ---@class py.StoreKey: integer
+--平台商品编号
+---@class py.GoodsKey: integer
 --平台道具类型
 ---@class py.StoreItemType: integer
+--steam位置状态
+---@class py.SITE_STATE: integer
+--steam币种
+---@class py.COIN_CURRENCY: string
 --
 ---@class py.TabName: string
 --商店页签ID

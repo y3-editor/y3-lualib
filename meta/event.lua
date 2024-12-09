@@ -9802,6 +9802,21 @@ event.ET_UI_PREFAB_DEL_EVENT = {
     },
 }
 
+---@class EventParam.ET_CHAT_BOX_RICH_TEXT_TOUCH_EVENT
+---@field str1 string # 字符串
+
+--聊天框富文本点击事件
+event.ET_CHAT_BOX_RICH_TEXT_TOUCH_EVENT = {
+    [1] = {
+        name = "__str1",
+        type = "string",
+        lua_name = "str1",
+        lua_type = "string",
+        desc = "字符串",
+        lua_desc = "字符串",
+    },
+}
+
 ---@class EventParam.ROLE_INPUT_FIELD_EDIT_MSG
 ---@field player Player # 玩家
 ---@field msg string # 字符串
@@ -10383,6 +10398,54 @@ event.ET_MALL_NOTIFY_CANCEL_MATCH = {
 
 --steam重连更新存档完成
 event.ET_MALL_NOTIFY_RECONNECT_ARCHIVE = {}
+
+---@class EventParam.ET_MALL_NOTIFY_ROOM_INFO_CHANGE
+
+--steam本地房间信息发生变化
+event.ET_MALL_NOTIFY_ROOM_INFO_CHANGE = {}
+
+---@class EventParam.ET_MALL_NOTIFY_ROOM_INVITE
+---@field room_id integer # 房间号
+---@field player_aid integer # 邀请人ID
+---@field nick_name string # 邀请人名称
+
+--steam被邀请加入房间
+event.ET_MALL_NOTIFY_ROOM_INVITE = {
+    [1] = {
+        name = "__room_id",
+        type = "integer",
+        lua_name = "room_id",
+        lua_type = "integer",
+        desc = "房间号",
+        lua_desc = "房间号",
+    },
+    [2] = {
+        name = "__PLAYER_AID__",
+        type = "integer",
+        lua_name = "player_aid",
+        lua_type = "integer",
+        desc = "邀请人ID",
+        lua_desc = "邀请人ID",
+    },
+    [3] = {
+        name = "__NICK_NAME__",
+        type = "string",
+        lua_name = "nick_name",
+        lua_type = "string",
+        desc = "邀请人名称",
+        lua_desc = "邀请人名称",
+    },
+}
+
+---@class EventParam.ET_MALL_NOTIFY_ROOM_KICK_OFF
+
+--steam被踢出房间
+event.ET_MALL_NOTIFY_ROOM_KICK_OFF = {}
+
+---@class EventParam.ET_MALL_NOTIFY_ROOM_BUILD
+
+--steam被踢出房间
+event.ET_MALL_NOTIFY_ROOM_BUILD = {}
 
 ---@class EventParam.ET_UNIT_PROJECTILE_HIT
 ---@field source_unit Unit # 远程普攻投射物所属单位
