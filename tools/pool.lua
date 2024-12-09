@@ -43,6 +43,13 @@ function M:has(obj)
     return self.pool[obj] ~= nil
 end
 
+---@param other Pool
+function M:merge(other)
+    for obj, w in other:pairs() do
+        self:add(obj, w)
+    end
+end
+
 -- 获取对象的权重
 ---@param obj any
 ---@return integer
@@ -149,3 +156,13 @@ function M:pairs()
         return obj, self.pool[obj]
     end
 end
+
+---@class Pool.API
+local API = {}
+
+---@return Pool
+function API.create()
+    return New 'Pool' ()
+end
+
+return API

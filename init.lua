@@ -66,7 +66,7 @@ Alias('LinkedTable', y3.linkedTable.create)
 ---@diagnostic disable-next-line: lowercase-global
 include  = y3.reload.include
 
-require 'y3.tools.pool'
+y3.pool = require 'y3.tools.pool'
 require 'y3.tools.gc'
 require 'y3.tools.synthesis'
 
