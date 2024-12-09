@@ -402,6 +402,7 @@ end
 ---@field max_player_number integer
 ---@field is_public boolean # 非公开房加入需要密码
 ---@field room_state y3.Const.SteamRoomState
+---@field rooms_total_num integer
 
 ---【异步】请求房间列表
 ---@param page integer # 第几页，每页会有最多100个结果
