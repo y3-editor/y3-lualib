@@ -15,17 +15,17 @@ DataModule.__getter.data = function (self)
 end
 
 ---@private
-DataModule.last_key = 910000000
+local last_key = 910000000
 
 ---@package
 function DataModule:make_new_key()
-    for i = self.last_key + 1, self.last_key + 10000 do
+    for i = last_key + 1, last_key + 10000 do
         if not GameAPI.api_get_editor_type_data(self.data_key, i) then
-            self.last_key = i
+            last_key = i
             return i
         end
     end
-    error('无法找到可用的物编key：' .. tostring(self.last_key))
+    error('无法找到可用的物编key：' .. tostring(last_key))
 end
 
 ---@class EditorObject.Event
@@ -109,7 +109,7 @@ end
 function Unit:new(new_default_key, data)
     ---@diagnostic disable: undefined-field
     local new_key = new_default_key or self:make_new_key()
-    GameAPI.create_unit_editor_data_lua(self.key, new_default_key, data)
+    GameAPI.create_unit_editor_data_lua(self.key, new_key, data)
     ---@diagnostic enable: undefined-field
     return M.unit[new_key]
 end

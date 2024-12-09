@@ -228,8 +228,8 @@ function math.random_banned(...) end
 ---@class py.Dict
 ---@field [any] any
 
----@class py.Table
----@field [any] any
+---@diagnostic disable-next-line: duplicate-doc-alias
+---@alias py.Table table
 
 ---@param message string
 function upload_traceback(message) end
