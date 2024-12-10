@@ -146,19 +146,23 @@ function M:update()
         if data and #data > 0 then
             self:callback('data', data)
         end
-        local send_buffer = self._send_buffer
-        if #send_buffer > 0 then
-            self._send_buffer = ''
-            local suc, err = self.handle:send(send_buffer, #send_buffer)
-            if not suc then
-                self:make_error(err)
-                return
-            end
-        end
+        self:send_buffer()
         return
     end
     if self.state == 'disconnected' then
         return
+    end
+end
+
+---@private
+function M:send_buffer()
+    local send_buffer = self._send_buffer
+    if #send_buffer > 0 then
+        self._send_buffer = ''
+        local suc, err = self.handle:send(send_buffer, #send_buffer)
+        if not suc then
+            self:make_error(err)
+        end
     end
 end
 
@@ -317,6 +321,9 @@ end
 ---@param data string
 function M:send(data)
     self._send_buffer = self._send_buffer .. data
+    if self:is_connecting() then
+        self:send_buffer()
+    end
 end
 
 ---@class Network.API
