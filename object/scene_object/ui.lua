@@ -1391,4 +1391,63 @@ function M:set_scrollview_scroll(enable)
     GameAPI.set_ui_scrollview_scroll(self.player.handle, self.handle, enable)
 end
 
+--特效控件播放特效
+---@param effect_id integer # 特效id
+---@param is_loop? boolean # 是否循环
+function M:play_ui_effect(effect_id, is_loop)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    GameAPI.set_ui_effect_id(self.player.handle, self.handle, effect_id, is_loop)
+end
+
+--设置特效控件的背景颜色
+---@param r number # R
+---@param g number # G
+---@param b number # B
+---@param a number # A
+function M:set_effect_background_color(r, g, b, a)
+    GameAPI.set_ui_effect_background_color(self.player.handle, self.handle, r, g, b, a)
+end
+
+--设置特效控件的镜头视口
+---@param fov number # fov
+function M:set_effect_camera_fov(fov)
+    GameAPI.set_ui_effect_camera_fov(self.player.handle, self.handle, fov)
+end
+
+--设置特效控件的镜头坐标
+---@param x number # x
+---@param y number # y
+---@param z number # z
+function M:set_effect_camera_pos(x, y, z)
+    GameAPI.set_ui_effect_camera_pos(self.player.handle, self.handle, x, y, z)
+end
+
+--设置特效控件的镜头旋转
+---@param pitch number # pitch
+---@param roll number # roll
+---@param yaw number # yaw
+function M:set_effect_camera_rotation(pitch, roll, yaw)
+    GameAPI.set_ui_effect_camera_rotation(self.player.handle, self.handle, pitch, roll, yaw)
+end
+
+--设置模型控件的镜头模式
+---@param camera_mod y3.Const.UIEffectCameraMode # 镜头模式
+function M:set_effect_camera_mode(camera_mod)
+    GameAPI.set_ui_effect_camera_mode(self.player.handle, self.handle, y3.const.UIEffectCameraMode[camera_mod])
+end
+
+--设置特效控件的镜头焦点
+---@param x number # x
+---@param y number # y
+---@param z number # z
+function M:set_effect_focus_pos(x, y, z)
+    GameAPI.set_ui_effect_focus_pos(self.player.handle, self.handle, x, y, z)
+end
+
+--设置特效控件的播放速度
+---@param play_speed number # 播放速度
+function M:set_effect_play_speed(play_speed)
+    GameAPI.set_ui_effect_play_speed(self.player.handle, self.handle, play_speed)
+end
+
 return M
