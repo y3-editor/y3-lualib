@@ -436,6 +436,7 @@ end
 ---@field is_ready any
 ---@field is_owner boolean
 ---@field aid integer
+---@field room_name string
 
 ---【异步】请求指定用户所在的房间信息
 ---@param aid integer
