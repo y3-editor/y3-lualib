@@ -949,6 +949,14 @@ function M:set_blood_bar_type(bar_type)
     self.handle:api_set_blood_bar_type(bar_type)
 end
 
+---设置血条文本
+---@param node_name string # 血条命名
+---@param text string # 文本
+---@param font? string # 字体
+function M:set_blood_bar_text(node_name, text, font)
+    GameAPI.set_billboard_text(self.handle, node_name, text, self:get_owner_player().handle, font)
+end
+
 ---设置血条显示方式
 ---@param bar_show_type integer 血条显示方式
 function M:set_health_bar_display(bar_show_type)
