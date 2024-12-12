@@ -599,13 +599,15 @@ function M:get_mouse_pos_y()
 end
 
 ---玩家的按键是否被按下
----@param key y3.Const.KeyboardKey | y3.Const.MouseKey 按键
+---@param key y3.Const.KeyboardKey | y3.Const.MouseKey | integer 按键
 ---@return boolean 是否被按下
 function M:is_key_pressed(key)
     if not y3.config.sync.key then
         error('必须先设置 `y3.config.sync.key = true`')
     end
-    ---@diagnostic disable-next-line: param-type-mismatch
+    key =  y3.const.KeyboardKey[key]
+        or y3.const.MouseKey[key]
+        or key
     return GameAPI.player_key_is_pressed(self.handle, key)
 end
 
