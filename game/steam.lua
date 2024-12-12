@@ -426,7 +426,15 @@ function M.request_join_room(room_id, callback, password)
     end, {}, password)
 end
 
----@class RoomSlot
+---@class steam.Room.BaseInfo
+---@field room_name string
+---@field passwd string
+---@field is_public boolean
+---@field lv_min integer
+---@field lv_max integer
+---@field room_client_id integer
+
+---@class steam.Room.SlotInfo
 ---@field slot integer
 ---@field nickname string
 ---@field head_icon string
@@ -436,31 +444,31 @@ end
 ---@field is_ready any
 ---@field is_owner boolean
 ---@field aid integer
----@field room_name string
+---@field in_game boolean
 
 ---【异步】请求指定用户所在的房间信息
 ---@param aid integer
----@param callback fun(room?: RoomSlot[], error_code?: integer)
+---@param callback fun(info?: { base_info: steam.Room.BaseInfo, slot_info: steam.Room.SlotInfo[] }, error_code?: integer)
 function M.request_room_info(aid, callback)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_server_room_info(aid, function (context)
-        local rooms = context['__lua_table']
-        if rooms then
-            for _, room in ipairs(rooms) do
-                if room.locked then
-                    room.state = y3.const.SteamRoomSlotState['关闭']
+        local info = context['__lua_table']
+        if info and info['slot_info'] then
+            for _, slot in ipairs(info['slot_info']) do
+                if slot.locked then
+                    slot.state = y3.const.SteamRoomSlotState['关闭']
                 else
-                    if room.ai_type == 5 then
-                        room.state = y3.const.SteamRoomSlotState['简单电脑']
-                    elseif room.ai_type == 6 then
-                        room.state = y3.const.SteamRoomSlotState['困难电脑']
+                    if slot.ai_type == 5 then
+                        slot.state = y3.const.SteamRoomSlotState['简单电脑']
+                    elseif slot.ai_type == 6 then
+                        slot.state = y3.const.SteamRoomSlotState['困难电脑']
                     else
-                        room.state = y3.const.SteamRoomSlotState['打开']
+                        slot.state = y3.const.SteamRoomSlotState['打开']
                     end
                 end
             end
         end
-        callback_with_error_code(callback, context, rooms)
+        callback_with_error_code(callback, context, info)
     end, {})
 end
 
