@@ -25,6 +25,44 @@ local error          = error
 local multiUserValue = _VERSION == 'Lua 5.4'
 local hasPoint       = pcall(sformat, '%p', _G)
 
+local _private = {}
+
+---@generic T
+---@param o T
+---@return T
+local function private(o)
+    if not o then
+        return nil
+    end
+    _private[o] = true
+    return o
+end
+
+---@class Doctor
+local m = private {}
+
+---@private
+m._ignoreMainThread = true
+
+---@alias Doctor.ToStringLevel 'all' | 'onlylua' | 'none'
+
+---@private
+---@type Doctor.ToStringLevel
+m._toStringTable = 'all'
+
+---@private
+---@type Doctor.ToStringLevel
+m._toStringUserdata = 'all'
+
+---@private
+m._cache = false
+
+---@private
+m._exclude = nil
+
+---@private
+m._lastCache = nil
+
 local function getPoint(obj)
     if hasPoint then
         return ('%p'):format(obj)
@@ -61,14 +99,29 @@ local function isInteger(obj)
     end
 end
 
-local function getTostring(obj)
+---@param obj table | userdata
+---@param level Doctor.ToStringLevel
+---@return string?
+local function getTostring(obj, level)
     local mt = getmetatable(obj)
     if not mt then
         return nil
     end
+    local name = rawget(mt, '__name')
+    if type(name) ~= 'string' then
+        name = nil
+    end
+    if level == 'none' then
+        return name
+    end
     local toString = rawget(mt, '__tostring')
     if not toString then
         return nil
+    end
+    if level == 'onlylua' then
+        if getinfo(toString, 'S').what == 'C' then
+            return name
+        end
     end
     local suc, str = pcall(toString, obj)
     if not suc then
@@ -124,7 +177,8 @@ local function formatName(obj)
             return formatObject(obj, 'function', ('%s:%d-%d'):format(info.source, info.linedefined, info.lastlinedefined))
         end
     elseif tp == 'table' then
-        local id = getTostring(obj)
+        local id = getTostring(obj, m._toStringTable)
+                or rawget(obj, '__class__')
         if not id then
             if obj == _G then
                 id = '_G'
@@ -138,7 +192,7 @@ local function formatName(obj)
             return formatObject(obj, 'table')
         end
     elseif tp == 'userdata' then
-        local id = getTostring(obj)
+        local id = getTostring(obj, m._toStringUserdata)
         if id then
             return formatObject(obj, 'userdata', id)
         else
@@ -148,34 +202,6 @@ local function formatName(obj)
         return formatObject(obj, tp)
     end
 end
-
-local _private = {}
-
----@generic T
----@param o T
----@return T
-local function private(o)
-    if not o then
-        return nil
-    end
-    _private[o] = true
-    return o
-end
-
----@class Doctor
-local m = private {}
-
----@private
-m._ignoreMainThread = true
-
----@private
-m._cache = false
-
----@private
-m._exclude = nil
-
----@private
-m._lastCache = nil
 
 --- 获取内存快照，生成一个内部数据结构。
 --- 一般不用这个API，改用 report 或 catch。
@@ -676,6 +702,14 @@ end)
 ---@param flag boolean
 m.ignoreMainThread = private(function (flag)
     m._ignoreMainThread = flag
+end)
+
+--- 是否对表或者userdata进行 tostring（调用它们的 __tostring 元方法）
+---@param toStringTable Doctor.ToStringLevel
+---@param toStringUserdata Doctor.ToStringLevel
+m.toString = private(function (toStringTable, toStringUserdata)
+    m._toStringTable = toStringTable
+    m._toStringUserdata = toStringUserdata
 end)
 
 --- 是否启用缓存，启用后会始终使用第一次查找的结果，

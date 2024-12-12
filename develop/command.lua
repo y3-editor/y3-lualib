@@ -110,6 +110,7 @@ M.register('SS', {
     onCommand = function (includeString)
         collectgarbage()
         collectgarbage()
+        y3.doctor.toString('onlylua', 'onlylua')
         local reports = y3.doctor.report()
         local lines = {}
         lines[#lines+1] = '===GCObject==='
@@ -142,6 +143,7 @@ M.register('CT', {
     onCommand = function (...)
         collectgarbage()
         collectgarbage()
+        y3.doctor.toString('onlylua', 'onlylua')
         local results = y3.doctor.catch(...)
         local lines = {}
         for _, result in ipairs(results) do
