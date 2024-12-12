@@ -25,8 +25,6 @@ local error          = error
 local multiUserValue = _VERSION == 'Lua 5.4'
 local hasPoint       = pcall(sformat, '%p', _G)
 
-_ENV = nil
-
 local function getPoint(obj)
     if hasPoint then
         return ('%p'):format(obj)
@@ -443,6 +441,9 @@ m.snapshot = private(function ()
     }
 
     function find(obj)
+        if obj == nil then
+            return nil
+        end
         if mark[obj] then
             return mark[obj]
         end
