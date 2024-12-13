@@ -563,4 +563,19 @@ function M.request_change_room_password(password, callback)
     end, {})
 end
 
+---【异步】获取本地玩家在steam上使用的币种
+---@return string | 'CNY'
+function M.get_steam_currency()
+    ---@diagnostic disable-next-line: undefined-field
+    return GameAPI.get_steam_player_currency()
+end
+
+---【异步】获取指定steam商品在本地玩家当前币种下的价格
+---@param goods_id integer
+---@return number?
+function M.get_steam_goods_price(goods_id)
+    ---@diagnostic disable-next-line: undefined-field
+    return y3.helper.tonumber(GameAPI.get_steam_goods_price(goods_id))
+end
+
 return M
