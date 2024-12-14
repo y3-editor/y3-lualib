@@ -952,9 +952,19 @@ end
 ---设置血条文本
 ---@param node_name string # 血条命名
 ---@param text string # 文本
+---@param role? Player 可见玩家
 ---@param font? string # 字体
-function M:set_blood_bar_text(node_name, text, font)
-    GameAPI.set_billboard_text(self.handle, node_name, text, self:get_owner_player().handle, font)
+function M:set_blood_bar_text(node_name, text, role, font)
+    GameAPI.set_billboard_text(self.handle, node_name, text, role and role.handle or nil, font)
+end
+
+---设置血条进度
+---@param node_name string # 血条命名
+---@param progress number # 进度
+---@param role? Player 可见玩家
+---@param transition_time? number # 过渡时间
+function M:set_billboard_progress(node_name, progress, role, transition_time)
+    GameAPI.set_billboard_progress(self.handle, node_name, progress, role and role.handle or nil, transition_time or 0)
 end
 
 ---设置血条显示方式
