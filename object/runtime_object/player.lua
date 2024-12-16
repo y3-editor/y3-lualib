@@ -817,7 +817,7 @@ end
 ---@param goods_id integer # 商城道具id
 ---@param callback? fun(suc: boolean, error_code: integer) # 执行完毕后的回调函数
 function M:request_mall_purchase_goods(count, goods_id, callback)
-    ---@diagnostic disable-next-line: undefined-field
+    ---@diagnostic disable-next-line: undefined-field, param-type-mismatch
     GameAPI.lua_request_server_mall_purchase_goods(self.handle, count, goods_id, function (context)
         if callback then
             local error_code = context['__error_code']

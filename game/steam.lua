@@ -25,12 +25,12 @@ end
 ---@param level_id string # 目标地图id
 ---@param game_mode? integer # 目标地图模式
 function M.start_match(score, level_id, game_mode)
-    GameAPI.steam_start_match(score, level_id, game_mode or 1002)
+    M.request_start_match(score, level_id, game_mode)
 end
 
 ---【异步】请求取消匹配
 function M.cancel_match()
-    GameAPI.steam_cancel_match()
+    M.request_cancel_match()
 end
 
 ---@alias Steam.TeamState
@@ -412,6 +412,7 @@ function M.request_room_list(page, callback)
     GameAPI.lua_request_server_room_list_info(function (context)
         local rooms = context['__lua_table']
         callback_with_error_code(callback, context, rooms)
+    ---@diagnostic disable-next-line: param-type-mismatch
     end, {}, page)
 end
 
@@ -423,6 +424,7 @@ function M.request_join_room(room_id, callback, password)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_server_join_room(room_id, function (context)
         callback_with_error_code(callback, context)
+    ---@diagnostic disable-next-line: param-type-mismatch
     end, {}, password)
 end
 
