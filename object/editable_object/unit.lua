@@ -1116,14 +1116,16 @@ end
 ---@param end_time? number 结束时间(默认-1表示播到最后)
 ---@param is_loop? boolean 是否循环
 ---@param is_back_normal? boolean 是否返回默认状态
-function M:play_animation(anim_name, speed, start_time, end_time, is_loop, is_back_normal)
+---@param transition_time? number 过度时间
+function M:play_animation(anim_name, speed, start_time, end_time, is_loop, is_back_normal, transition_time)
     self.handle:api_play_animation(
         anim_name,
         speed or 1,
         start_time or 0,
         end_time or -1,
         is_loop or false,
-        is_back_normal or false
+        is_back_normal or false,
+        transition_time or -1
     )
 end
 
