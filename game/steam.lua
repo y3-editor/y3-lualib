@@ -571,11 +571,11 @@ function M.get_steam_currency()
 end
 
 ---【异步】获取指定steam商品在本地玩家当前币种下的价格
----@param goods_id integer
+---@param goods_id integer | string
 ---@return number?
 function M.get_steam_goods_price(goods_id)
     ---@diagnostic disable-next-line: undefined-field
-    return y3.helper.tonumber(GameAPI.get_steam_goods_price(goods_id))
+    return y3.helper.tonumber(GameAPI.get_steam_goods_price(tostring(goods_id)))
 end
 
 return M
