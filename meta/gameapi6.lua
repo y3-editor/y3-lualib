@@ -5251,16 +5251,10 @@ function GameAPI.steam_get_player_head_icon_url() end
 ---@return boolean # bool
 function GameAPI.get_is_steam_lobby() end
 
---获取本地玩家的名称
+--获取本地玩家背包内的道具
 ---@param role py.Role # 玩家
 ---@return py.Table # 物品表
 function GameAPI.steam_get_player_storm_items(role) end
-
---steam设置头像(图片类型)
----@param role py.Role # 玩家
----@param comp_name string # 控件名
----@param image_id string # steam头像key
-function GameAPI.set_steam_player_icon(role, comp_name, image_id) end
 
 --设置是否渲染场景
 ---@param is_open boolean # bool
@@ -5486,7 +5480,10 @@ function GameAPI.get_object_multilingual_key(data_key, entity_id, name_or_desc) 
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
 ---@param unit py.Unit # 单位对象
-function GameAPI.set_ui_model_from_scene_unit_with_tag_model(role, comp_name, unit) end
+---@param clone_effect? boolean # 继承特效
+---@param clone_attach? boolean # 继承挂接模型
+---@param clone_material? boolean # 继承材质变化
+function GameAPI.set_ui_model_from_scene_unit_with_tag_model(role, comp_name, unit, clone_effect, clone_attach, clone_material) end
 
 --在单位的小地图头像上创建序列帧动画
 ---@param unit py.Unit # 单位
@@ -5501,11 +5498,11 @@ function GameAPI.create_sequence_on_unit_mini_map_icon(unit, sequence_resource, 
 ---@param is_loop boolean # 是否循环播放
 function GameAPI.set_unit_mini_map_sequence_icon(unit, sequence_resource, is_loop) end
 
---设置小地图头像的旋转
----@param role py.Role # 玩家
----@param comp_name py.Unit # 单位
----@param rotation py.Fixed # Rotation
-function GameAPI.set_unit_enemy_mini_map_sequence_icon(role, comp_name, rotation) end
+--设置单位的序列帧类型的敌方小地图头像
+---@param unit py.Unit # 单位
+---@param sequence_resource py.Sequence # 序列帧资源
+---@param is_loop boolean # 是否循环播放
+function GameAPI.set_unit_enemy_mini_map_sequence_icon(unit, sequence_resource, is_loop) end
 
 --设置技能按钮鼠标操控快捷键
 ---@param role py.Role # 玩家
@@ -5523,17 +5520,18 @@ function GameAPI.api_get_item_group_diff(group1, group2) end
 ---@param sfx_id py.SfxKey # 特效编号
 ---@param point py.Point # 点
 ---@param face_angle number # 面向角度
+---@param speed number # 播放速度
 ---@param height number # 高度
 ---@param duration number # 持续时间
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param show_in_fog? boolean # 迷雾里显示
----@param play_speed? number # 播放速度
+---@param blend_with_fog? boolean # 迷雾混合
 ---@param scale_x? number # x轴缩放
 ---@param scale_y? number # y轴缩放
 ---@param scale_z? number # z轴缩放
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_point_new(sfx_id, point, face_angle, height, duration, immediately, use_sys_d_destroy_way, show_in_fog, play_speed, scale_x, scale_y, scale_z) end
+function GameAPI.create_sfx_on_point_new(sfx_id, point, face_angle, speed, height, duration, immediately, use_sys_d_destroy_way, show_in_fog, blend_with_fog, scale_x, scale_y, scale_z) end
 
 --获取本地引擎版本号
 ---@return integer # 本地引擎版本号
@@ -5582,18 +5580,19 @@ function GameAPI.set_common_atk_quick_cast(role, is_on) end
 ---@param socket string # 单位挂接点
 ---@param rotate_type integer # 跟随旋转方式
 ---@param b_follow_scale boolean # 是否跟随单位缩放
----@param play_speed? number # 播放速度
+---@param speed? number # 播放速度
 ---@param duration? number # 持续时间
 ---@param angle? number # 角度
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param detach? boolean # 是否脱离单位
 ---@param show_in_fog? boolean # 迷雾里显示
+---@param blend_with_fog? boolean # 迷雾混合
 ---@param scale_x? number # x轴缩放
 ---@param scale_y? number # y轴缩放
 ---@param scale_z? number # z轴缩放
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_unit_new_new(sfx_id, unit, socket, rotate_type, b_follow_scale, play_speed, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog, scale_x, scale_y, scale_z) end
+function GameAPI.create_sfx_on_unit_new_new(sfx_id, unit, socket, rotate_type, b_follow_scale, speed, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog, blend_with_fog, scale_x, scale_y, scale_z) end
 
 --获取本地地图版本号
 ---@return string # 本地地图版本号
@@ -5643,3 +5642,396 @@ function GameAPI.debug_draw_filter_area_rect(pos, shape, duration, color, attach
 --设置下个场景的初始化镜头
 ---@param camera py.Camera # 镜头配置
 function GameAPI.api_set_preload_cam(camera) end
+
+--预设库 添加UI_CHAT_RECV_CHANNEL键值对
+---@param prefab_conf_key integer # prefab库ID
+---@param item_key integer # 编号
+---@param key string # 键值名称
+---@param value integer # value
+function GameAPI.set_prefab_key_ui_chat_recv_channel_kv(prefab_conf_key, item_key, key, value) end
+
+--预设库 添加GOODS_KEY键值对
+---@param prefab_conf_key integer # prefab库ID
+---@param item_key integer # 编号
+---@param key string # 键值名称
+---@param value py.GoodsKey # value
+function GameAPI.set_prefab_key_goods_key_kv(prefab_conf_key, item_key, key, value) end
+
+--预设库 添加SITE_STATE键值对
+---@param prefab_conf_key integer # prefab库ID
+---@param item_key integer # 编号
+---@param key string # 键值名称
+---@param value py.SITE_STATE # value
+function GameAPI.set_prefab_key_site_state_kv(prefab_conf_key, item_key, key, value) end
+
+--预设库 添加COIN_CURRENCY键值对
+---@param prefab_conf_key integer # prefab库ID
+---@param item_key integer # 编号
+---@param key string # 键值名称
+---@param value py.COIN_CURRENCY # value
+function GameAPI.set_prefab_key_coin_currency_kv(prefab_conf_key, item_key, key, value) end
+
+--添加UI_CHAT_SEND_CHANNEL键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_chat_send_channel_kv(kvbase, key, item) end
+
+--添加UI_CHAT_RECV_CHANNEL键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_chat_recv_channel_kv(kvbase, key, item) end
+
+--添加GOODS_KEY键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.GoodsKey # value
+function GameAPI.add_goods_key_kv(kvbase, key, item) end
+
+--添加SITE_STATE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.SITE_STATE # value
+function GameAPI.add_site_state_kv(kvbase, key, item) end
+
+--添加COIN_CURRENCY键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.COIN_CURRENCY # value
+function GameAPI.add_coin_currency_kv(kvbase, key, item) end
+
+--判断是否存在UI_CHAT_SEND_CHANNEL键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_chat_send_channel(kvbase, key) end
+
+--判断预设是否存在UI_CHAT_SEND_CHANNEL键值对
+---@param prefab_type string # 预设类型
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_prefab_ui_chat_send_channel_kv(prefab_type, prefab_key, key) end
+
+--判断单位编号是否存在UI_CHAT_SEND_CHANNEL键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_chat_send_channel_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_CHAT_SEND_CHANNEL键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_chat_send_channel_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_CHAT_SEND_CHANNEL键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_chat_send_channel_kv(prefab_key, key) end
+
+--判断是否存在UI_CHAT_RECV_CHANNEL键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_chat_recv_channel(kvbase, key) end
+
+--判断预设是否存在UI_CHAT_RECV_CHANNEL键值对
+---@param prefab_type string # 预设类型
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_prefab_ui_chat_recv_channel_kv(prefab_type, prefab_key, key) end
+
+--判断单位编号是否存在UI_CHAT_RECV_CHANNEL键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_chat_recv_channel_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_CHAT_RECV_CHANNEL键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_chat_recv_channel_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_CHAT_RECV_CHANNEL键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_chat_recv_channel_kv(prefab_key, key) end
+
+--判断是否存在GOODS_KEY键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_goods_key(kvbase, key) end
+
+--判断预设是否存在GOODS_KEY键值对
+---@param prefab_type string # 预设类型
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_prefab_goods_key_kv(prefab_type, prefab_key, key) end
+
+--判断单位编号是否存在GOODS_KEY键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_goods_key_kv(prefab_key, key) end
+
+--判断物品编号是否存在GOODS_KEY键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_goods_key_kv(prefab_key, key) end
+
+--判断技能编号是否存在GOODS_KEY键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_goods_key_kv(prefab_key, key) end
+
+--判断是否存在SITE_STATE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_site_state(kvbase, key) end
+
+--判断预设是否存在SITE_STATE键值对
+---@param prefab_type string # 预设类型
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_prefab_site_state_kv(prefab_type, prefab_key, key) end
+
+--判断单位编号是否存在SITE_STATE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_site_state_kv(prefab_key, key) end
+
+--判断物品编号是否存在SITE_STATE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_site_state_kv(prefab_key, key) end
+
+--判断技能编号是否存在SITE_STATE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_site_state_kv(prefab_key, key) end
+
+--判断是否存在COIN_CURRENCY键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_coin_currency(kvbase, key) end
+
+--判断预设是否存在COIN_CURRENCY键值对
+---@param prefab_type string # 预设类型
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_prefab_coin_currency_kv(prefab_type, prefab_key, key) end
+
+--判断单位编号是否存在COIN_CURRENCY键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_coin_currency_kv(prefab_key, key) end
+
+--判断物品编号是否存在COIN_CURRENCY键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_coin_currency_kv(prefab_key, key) end
+
+--判断技能编号是否存在COIN_CURRENCY键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_coin_currency_kv(prefab_key, key) end
+
+--获取单位编号UI_CHAT_SEND_CHANNEL键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_unit_key_ui_chat_send_channel_kv(unit_key, key) end
+
+--获取物品编号UI_CHAT_SEND_CHANNEL键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_item_key_ui_chat_send_channel_kv(item_key, key) end
+
+--获取技能编号UI_CHAT_SEND_CHANNEL键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_ability_key_ui_chat_send_channel_kv(ability_key, key) end
+
+--获取魔法效果特效编号UI_CHAT_SEND_CHANNEL键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_modifier_key_ui_chat_send_channel_kv(modifier_key, key) end
+
+--获取特效编号UI_CHAT_SEND_CHANNEL键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_projectile_key_ui_chat_send_channel_kv(projectile_key, key) end
+
+--获取可破坏物编号UI_CHAT_SEND_CHANNEL键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_destructible_key_ui_chat_send_channel_kv(destructible_key, key) end
+
+--获取科技编号UI_CHAT_SEND_CHANNEL键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_tech_key_ui_chat_send_channel_kv(tech_key, key) end
+
+--获取图片UI_CHAT_SEND_CHANNEL键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_icon_id_ui_chat_send_channel_kv(icon_id, key) end
+
+--获取逻辑物理组件类型UI_CHAT_SEND_CHANNEL键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_physics_entity_key_ui_chat_send_channel_kv(physics_entity_key, key) end
+
+--获取UI_CHAT_SEND_CHANNEL键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_chat_send_channel(kvbase, key) end
+
+--获取单位编号UI_CHAT_RECV_CHANNEL键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_unit_key_ui_chat_recv_channel_kv(unit_key, key) end
+
+--获取物品编号UI_CHAT_RECV_CHANNEL键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_item_key_ui_chat_recv_channel_kv(item_key, key) end
+
+--获取技能编号UI_CHAT_RECV_CHANNEL键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_ability_key_ui_chat_recv_channel_kv(ability_key, key) end
+
+--获取魔法效果特效编号UI_CHAT_RECV_CHANNEL键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_modifier_key_ui_chat_recv_channel_kv(modifier_key, key) end
+
+--获取特效编号UI_CHAT_RECV_CHANNEL键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_projectile_key_ui_chat_recv_channel_kv(projectile_key, key) end
+
+--获取可破坏物编号UI_CHAT_RECV_CHANNEL键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_destructible_key_ui_chat_recv_channel_kv(destructible_key, key) end
+
+--获取科技编号UI_CHAT_RECV_CHANNEL键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_tech_key_ui_chat_recv_channel_kv(tech_key, key) end
+
+--获取图片UI_CHAT_RECV_CHANNEL键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_icon_id_ui_chat_recv_channel_kv(icon_id, key) end
+
+--获取逻辑物理组件类型UI_CHAT_RECV_CHANNEL键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_physics_entity_key_ui_chat_recv_channel_kv(physics_entity_key, key) end
+
+--获取UI_CHAT_RECV_CHANNEL键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_chat_recv_channel(kvbase, key) end
+
+--获取单位编号GOODS_KEY键值对
+---@param unit_key py.UnitKey # 单位编号
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_unit_key_goods_key_kv(unit_key, key) end
+
+--获取物品编号GOODS_KEY键值对
+---@param item_key py.ItemKey # 物品编号
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_item_key_goods_key_kv(item_key, key) end
+
+--获取技能编号GOODS_KEY键值对
+---@param ability_key py.AbilityKey # 技能编号
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_ability_key_goods_key_kv(ability_key, key) end
+
+--获取魔法效果特效编号GOODS_KEY键值对
+---@param modifier_key py.ModifierKey # 魔法效果编号
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_modifier_key_goods_key_kv(modifier_key, key) end
+
+--获取特效编号GOODS_KEY键值对
+---@param projectile_key py.ProjectileKey # 特效编号
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_projectile_key_goods_key_kv(projectile_key, key) end
+
+--获取可破坏物编号GOODS_KEY键值对
+---@param destructible_key py.DestructibleKey # 可破坏物编号
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_destructible_key_goods_key_kv(destructible_key, key) end
+
+--获取科技编号GOODS_KEY键值对
+---@param tech_key py.TechKey # 科技编号
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_tech_key_goods_key_kv(tech_key, key) end
+
+--获取图片GOODS_KEY键值对
+---@param icon_id py.Texture # 图片
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_icon_id_goods_key_kv(icon_id, key) end
+
+--获取逻辑物理组件类型GOODS_KEY键值对
+---@param physics_entity_key py.PhysicsEntityKey # 逻辑物理组件类型
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_physics_entity_key_goods_key_kv(physics_entity_key, key) end
+
+--获取GOODS_KEY键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.GoodsKey # 键值
+function GameAPI.get_kv_pair_value_goods_key(kvbase, key) end

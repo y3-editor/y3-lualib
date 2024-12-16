@@ -1651,3 +1651,26 @@ function Unit:api_resume_all_ability_cd() end
 
 --移除单位所有技能
 function Unit:api_clear_all_abilities() end
+
+--单位加载自定义的graph
+---@param graphaName string # 动画graph文件名,不需要包含扩展名
+function Unit:unit_loadGraph(graphaName) end
+
+--自定义Graph设置变量
+---@param VariableName string # 变量名
+---@param VariableStr string # 变量值为字符串形式
+function Unit:unit_Graph_SetVariable(VariableName, VariableStr) end
+
+--自定义Graph发送事件
+---@param EventName string # 事件名
+function Unit:unit_Graph_FireEvent(EventName) end
+
+--自定义Graph设置速度
+---@param speedValue string # 相对速度值
+function Unit:unit_Graph_SetSpeed(speedValue) end
+
+--暂停Graph
+function Unit:unit_Graph_Pause() end
+
+--暂停中跑一帧Graph
+function Unit:unit_Graph_RunOneFrame() end

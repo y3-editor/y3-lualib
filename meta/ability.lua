@@ -124,23 +124,28 @@ function Ability:api_set_ability_build_area(area) end
 
 --设置扇形指示器半径
 ---@param value py.Fixed # 指示器半径
-function Ability:api_set_ability_sector_radius(value) end
+---@param is_target? boolean # 是否为目标大小
+function Ability:api_set_ability_sector_radius(value, is_target) end
 
 --设置扇形指示器角度
 ---@param value py.Fixed # 指示器角度
-function Ability:api_set_ability_sector_angle(value) end
+---@param is_target? boolean # 是否为目标大小
+function Ability:api_set_ability_sector_angle(value, is_target) end
 
 --设置箭头/多段指示器宽度
 ---@param value py.Fixed # 释放范围
-function Ability:api_set_ability_arrow_width(value) end
+---@param is_target? boolean # 是否为目标大小
+function Ability:api_set_ability_arrow_width(value, is_target) end
 
 --设置箭头/多段指示器长度
 ---@param value py.Fixed # 释放范围
-function Ability:api_set_ability_arrow_length(value) end
+---@param is_target? boolean # 是否为目标大小
+function Ability:api_set_ability_arrow_length(value, is_target) end
 
 --设置圆形指示器半径
 ---@param value py.Fixed # 释放范围
-function Ability:api_set_ability_circle_radius(value) end
+---@param is_target? boolean # 是否为目标大小
+function Ability:api_set_ability_circle_radius(value, is_target) end
 
 --设置技能指示器类型
 ---@param pointer_type integer # 指示器类型
@@ -392,3 +397,15 @@ function Ability:api_ability_fast_forward_ability_state(runtime_id) end
 --当前技能是否被禁用
 ---@return boolean? # 当前技能是否被禁用
 function Ability:api_get_is_ability_forbidden() end
+
+--设置技能指示器过渡起始时间
+---@param start_time py.Fixed # 过渡起始时间
+function Ability:api_set_ability_pointer_transition_start_time(start_time) end
+
+--设置技能指示器过渡时间
+---@param duration py.Fixed # 过渡时间
+function Ability:api_set_ability_pointer_transition_duration(duration) end
+
+--获取技能的蓄力时长
+---@return py.Fixed? # 技能的蓄力时长
+function Ability:api_get_charge_time() end

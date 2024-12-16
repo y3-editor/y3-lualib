@@ -4990,6 +4990,39 @@ event.ET_ABILITY_SEND_CUE_EVENT = {
     },
 }
 
+---@class EventParam.ET_ABILITY_CHARGE_END
+---@field ability Ability # 技能对象
+---@field unit Unit # 技能Owner
+---@field ability_target_unit Unit # 技能目标单位
+
+--技能蓄力结束
+event.ET_ABILITY_CHARGE_END = {
+    [1] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "技能对象",
+        lua_desc = "技能对象",
+    },
+    [2] = {
+        name = "__unit_id",
+        type = "py.UnitID",
+        lua_name = "unit",
+        lua_type = "Unit",
+        desc = "技能Owner",
+        lua_desc = "技能Owner",
+    },
+    [3] = {
+        name = "__ability_target_unit_id",
+        type = "py.UnitID",
+        lua_name = "ability_target_unit",
+        lua_type = "Unit",
+        desc = "技能目标单位ID",
+        lua_desc = "技能目标单位",
+    },
+}
+
 ---@class EventParam.ET_OBTAIN_MODIFIER
 ---@field buff Buff # 触发的魔法效果
 ---@field owner_unit Unit # 效果携带者

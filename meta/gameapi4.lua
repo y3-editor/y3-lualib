@@ -43,8 +43,9 @@ function GameAPI.play_sfx_on_point(point, sfx, scale, duratime, offset, role, vi
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param follow_scale? boolean # 是否跟随单位缩放
 ---@param show_in_fog? boolean # 迷雾中显示
+---@param blend_with_fog? boolean # 迷雾混合
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, source_socket, target_point, target_height, duration, immediately, use_sys_d_destroy_way, follow_scale, show_in_fog) end
+function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, source_socket, target_point, target_height, duration, immediately, use_sys_d_destroy_way, follow_scale, show_in_fog, blend_with_fog) end
 
 --创建单位到单位闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -57,8 +58,9 @@ function GameAPI.create_link_sfx_from_unit_to_point(sfx_res_id, source_unit, sou
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param follow_scale? boolean # 是否跟随单位缩放
 ---@param show_in_fog? boolean # 迷雾中显示
+---@param blend_with_fog? boolean # 迷雾混合
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, source_socket, target_unit, target_socket, duration, immediately, use_sys_d_destroy_way, follow_scale, show_in_fog) end
+function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, source_socket, target_unit, target_socket, duration, immediately, use_sys_d_destroy_way, follow_scale, show_in_fog, blend_with_fog) end
 
 --创建点到单位闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -70,8 +72,9 @@ function GameAPI.create_link_sfx_from_unit_to_unit(sfx_res_id, source_unit, sour
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param show_in_fog? boolean # 迷雾中显示
+---@param blend_with_fog? boolean # 迷雾混合
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, source_height, source_unit, source_socket, duration, immediately, use_sys_d_destroy_way, show_in_fog) end
+function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, source_height, source_unit, source_socket, duration, immediately, use_sys_d_destroy_way, show_in_fog, blend_with_fog) end
 
 --创建点到点闪电特效
 ---@param sfx_res_id py.SfxKey # 特效编号
@@ -83,8 +86,9 @@ function GameAPI.create_link_sfx_from_point_to_unit(sfx_res_id, source_point, so
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param show_in_fog? boolean # 迷雾中显示
+---@param blend_with_fog? boolean # 迷雾混合
 ---@return py.LinkSfx # 特效
-function GameAPI.create_link_sfx_from_point_to_point(sfx_res_id, source_point, source_height, target_point, target_height, duration, immediately, use_sys_d_destroy_way, show_in_fog) end
+function GameAPI.create_link_sfx_from_point_to_point(sfx_res_id, source_point, source_height, target_point, target_height, duration, immediately, use_sys_d_destroy_way, show_in_fog, blend_with_fog) end
 
 --设置闪电特效的位置点
 ---@param sfx_entity py.LinkSfx # 特效
@@ -133,8 +137,9 @@ function GameAPI.enable_sfx_visible(sfx_entity, role, b_visible) end
 ---@param immediately? boolean # 是否立即删除
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param show_in_fog? boolean # 迷雾里显示
+---@param blend_with_fog? boolean # 迷雾混合
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_point(sfx_id, point, face_angle, scale, height, duration, immediately, use_sys_d_destroy_way, show_in_fog) end
+function GameAPI.create_sfx_on_point(sfx_id, point, face_angle, scale, height, duration, immediately, use_sys_d_destroy_way, show_in_fog, blend_with_fog) end
 
 --创建特效到单位附加点
 ---@param sfx_id py.SfxKey # 特效编号
@@ -163,8 +168,9 @@ function GameAPI.create_sfx_on_unit(sfx_id, unit, socket, b_follow_rotate, b_fol
 ---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
 ---@param detach? boolean # 是否脱离单位
 ---@param show_in_fog? boolean # 迷雾里显示
+---@param blend_with_fog? boolean # 迷雾混合
 ---@return py.Sfx # 特效
-function GameAPI.create_sfx_on_unit_new(sfx_id, unit, socket, rotate_type, b_follow_scale, scale, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog) end
+function GameAPI.create_sfx_on_unit_new(sfx_id, unit, socket, rotate_type, b_follow_scale, scale, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog, blend_with_fog) end
 
 --创建特效到投射物
 ---@param sfx_id py.SfxKey # 特效编号
@@ -1304,8 +1310,9 @@ function GameAPI.api_set_time_scale(scale) end
 
 --绑定摇杆单位
 ---@param role py.Role # 玩家
+---@param comp_name string # 摇杆控件ID
 ---@param unit py.Unit # 绑定单位
-function GameAPI.set_joystick_target(role, unit) end
+function GameAPI.set_joystick_target(role, comp_name, unit) end
 
 --本地玩家编号
 ---@return py.RoleID # 玩家编号
@@ -1749,13 +1756,6 @@ function GameAPI.steam_get_team_id() end
 --获取玩家id
 ---@return integer # 玩家id
 function GameAPI.steam_get_player_id() end
-
---开始匹配
----@param score integer # 天梯分数
----@param level_id string # 等级id
----@param game_mode? integer # 游戏模式
----@return integer # 开始匹配结果
-function GameAPI.steam_start_match(score, level_id, game_mode) end
 
 --取消匹配
 ---@return integer # 取消匹配结果
@@ -2963,7 +2963,7 @@ function GameAPI.set_ui_comp_anim_scale(role, comp_name, start_x, start_y, end_x
 ---@param ease_type? integer # 曲线类型
 function GameAPI.set_ui_comp_anim_rotate(role, comp_name, start_rotation, end_rotation, duration, ease_type) end
 
---设置动画旋转
+--停止播放控件动画
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件uid
 ---@param anim_type integer # 动画类型
@@ -5807,7 +5807,7 @@ function GameAPI.lua_request_server_random_pool_result(role, pool_id, lua_func, 
 
 --请求服务器获取商品信息
 ---@param role py.Role # 玩家
----@param goods_id integer # 商品ID
+---@param goods_id string # 商品ID
 ---@param lua_func function # 回调函数
 ---@param context py.Dict # 回调传参
 function GameAPI.lua_request_server_mall_goods_info(role, goods_id, lua_func, context) end
@@ -5821,7 +5821,7 @@ function GameAPI.lua_request_server_consume_mall_coin(role, amount, lua_func, co
 
 --请求服务器获取商城dlc状态
 ---@param role py.Role # 玩家
----@param goods_id integer # 商品ID
+---@param goods_id string # 商品ID
 ---@param lua_func function # 回调函数
 ---@param context py.Dict # 回调传参
 function GameAPI.lua_request_server_mall_dlc_status(role, goods_id, lua_func, context) end
@@ -5889,3 +5889,10 @@ function GameAPI.get_cur_damage_is_miss(damage_result_state) end
 ---@param key string # 键值名称
 ---@param value integer # value
 function GameAPI.set_prefab_key_damage_armor_type_kv(prefab_conf_key, item_key, key, value) end
+
+--预设库 添加UI_CHAT_SEND_CHANNEL键值对
+---@param prefab_conf_key integer # prefab库ID
+---@param item_key integer # 编号
+---@param key string # 键值名称
+---@param value integer # value
+function GameAPI.set_prefab_key_ui_chat_send_channel_kv(prefab_conf_key, item_key, key, value) end

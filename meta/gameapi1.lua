@@ -42,13 +42,13 @@ function GameAPI.del_prefab_key_kv(item_key, key, prefab_conf_key) end
 ---@param prefab_conf_key string # prefab库ID
 ---@param item_key integer # 编号
 ---@param key string # 键值名称
----@param value string # value
+---@param value py.DynamicTypeMeta # value
 function GameAPI.set_prefab_key_xxx_kv(prefab_conf_key, item_key, key, value) end
 
 --unit添加kv键值对
 ---@param kvbase py.KVBase # 单位
 ---@param key string # 键值名称
----@param value string # value
+---@param value py.DynamicTypeMeta # value
 ---@param etype integer # kv_type
 ---@param prefab_conf_key string # 属性名称
 function GameAPI.add_unit_xxx_kv(kvbase, key, value, etype, prefab_conf_key) end
@@ -56,7 +56,7 @@ function GameAPI.add_unit_xxx_kv(kvbase, key, value, etype, prefab_conf_key) end
 --item添加kv键值对
 ---@param kvbase py.KVBase # 物品
 ---@param key string # 键值名称
----@param value string # value
+---@param value py.DynamicTypeMeta # value
 ---@param etype integer # kv_type
 ---@param prefab_conf_key string # 属性名称
 function GameAPI.add_item_xxx_kv(kvbase, key, value, etype, prefab_conf_key) end
@@ -64,7 +64,7 @@ function GameAPI.add_item_xxx_kv(kvbase, key, value, etype, prefab_conf_key) end
 --destructible添加kv键值对
 ---@param kvbase py.KVBase # 可破坏物
 ---@param key string # 键值名称
----@param value string # value
+---@param value py.DynamicTypeMeta # value
 ---@param etype integer # kv_type
 ---@param prefab_conf_key string # 属性名称
 function GameAPI.add_destructible_xxx_kv(kvbase, key, value, etype, prefab_conf_key) end
@@ -72,7 +72,7 @@ function GameAPI.add_destructible_xxx_kv(kvbase, key, value, etype, prefab_conf_
 --ability添加kv键值对
 ---@param kvbase py.KVBase # 技能
 ---@param key string # 键值名称
----@param value string # value
+---@param value py.DynamicTypeMeta # value
 ---@param etype integer # kv_type
 ---@param prefab_conf_key string # 属性名称
 function GameAPI.add_ability_xxx_kv(kvbase, key, value, etype, prefab_conf_key) end
@@ -80,7 +80,7 @@ function GameAPI.add_ability_xxx_kv(kvbase, key, value, etype, prefab_conf_key) 
 --modifier添加kv键值对
 ---@param kvbase py.KVBase # 魔法效果
 ---@param key string # 键值名称
----@param value string # value
+---@param value py.DynamicTypeMeta # value
 ---@param etype integer # kv_type
 ---@param prefab_conf_key string # 属性名称
 function GameAPI.add_modifier_xxx_kv(kvbase, key, value, etype, prefab_conf_key) end
@@ -891,10 +891,10 @@ function GameAPI.has_kv_pair(kvbase, key) end
 function GameAPI.has_prefab_kv_any(prefab_type, prefab_key, key) end
 
 --判断预设是否存在%s键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@param kv_type integer # kv_type
+---@param prefab_type string # 预设名称
+---@param prefab_key string # 预设类型
+---@param key py.UnitKey # 预设编号
+---@param kv_type string # 键名称
 ---@return boolean # 是否存在
 function GameAPI.has_prefab_xxx_kv(prefab_type, prefab_key, key, kv_type) end
 

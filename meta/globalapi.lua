@@ -1097,10 +1097,3 @@ function GlobalAPI.api_timestamp_to_week(v) end
 ---@param mode integer # 取整方式
 ---@return integer # 取整之后的值
 function GlobalAPI.floor_or_ceil(v, mode) end
-
---三目运算符
----@param v boolean # 条件
----@param true_value py.DynamicTypeMeta # True值
----@param false_value py.DynamicTypeMeta # False值
----@return py.DynamicTypeMeta # 返回值
-function GlobalAPI.ternary_operator(v, true_value, false_value) end
