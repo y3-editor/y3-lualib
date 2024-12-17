@@ -164,15 +164,17 @@ function M.reply_friend_add(aid, accept, callback)
 end
 
 ---【异步】请求开始游戏（不匹配），只有队长可以调用
+---@param level_id? string # 目标地图id
+---@param game_mode? integer # 目标地图模式
 ---@param callback? fun(success?: boolean, error_code?: integer)
-function M.request_start_game(callback)
+function M.request_start_game(level_id, game_mode, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_steam_start_game(function ()
         if callback then
             callback_with_error_code(callback, context)
         end
-    end, context)
+    end, context, level_id or y3.game:get_level(), game_mode or 1002)
 end
 
 ---【异步】请求加入队伍
@@ -316,13 +318,13 @@ end
 
 ---【异步】请求开始匹配
 ---@param score integer # 匹配分数
----@param level_id string # 目标地图id
+---@param level_id? string # 目标地图id
 ---@param game_mode? integer # 目标地图模式
 ---@param callback? fun(success?: boolean, error_code?: integer)
 function M.request_start_match(score, level_id, game_mode, callback)
     local context = {}
     ---@diagnostic disable-next-line: undefined-field
-    GameAPI.lua_request_start_match(score, level_id, game_mode or 1002, function ()
+    GameAPI.lua_request_start_match(score, level_id or y3.game:get_level(), game_mode or 1002, function ()
         if callback then
             callback_with_error_code(callback, context)
         end
