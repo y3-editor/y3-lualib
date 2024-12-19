@@ -473,6 +473,7 @@ function M.convert_room_info(info)
             end
         end
     end
+    return info
 end
 
 ---@class Steam.FullRoomInfo
