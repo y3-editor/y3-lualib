@@ -111,6 +111,9 @@ function M.request_friends(callback)
 end
 
 local function callback_with_error_code(callback, context, ...)
+    if not callback then
+        return
+    end
     local ret = context['__error_code'] or context['__int1']
     if type(ret) == 'userdata' then
         ---@diagnostic disable-next-line: undefined-field
@@ -386,18 +389,19 @@ end
 
 ---【异步】请求创建房间
 ---@param room_name string # 房间名称
----@param callback fun(room_id?: integer, error_code?: integer) # 创建成功后回调，参数为房间id
+---@param callback fun(room_info?: Steam.FullRoomInfo, error_code?: integer) # 创建成功后回调，参数为房间id
 ---@param mode_id? integer # 模式id，默认为 `1002`
 ---@param password? string # 房间密码，`nil` 或空字符串等表示无需密码
 function M.request_create_room(room_name, callback, mode_id, password)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_server_create_room(room_name, function (context)
-        local room_id = context['__room_id']
-        callback_with_error_code(callback, context, room_id)
+        local room_info = context['__lua_table']
+        room_info = M.convert_room_info(room_info)
+        callback_with_error_code(callback, context, room_info)
     end, {}, mode_id, password)
 end
 
----@class Steam.Room
+---@class Steam.SimpleRoomInfo
 ---@field room_id integer
 ---@field room_name string
 ---@field curr_player_number integer
@@ -408,7 +412,7 @@ end
 
 ---【异步】请求房间列表
 ---@param page integer # 第几页，每页会有最多100个结果
----@param callback fun(rooms?: Steam.Room[], error_code?: integer)
+---@param callback fun(rooms?: Steam.SimpleRoomInfo[], error_code?: integer)
 function M.request_room_list(page, callback)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_server_room_list_info(function (context)
@@ -420,12 +424,14 @@ end
 
 ---【异步】请求加入房间
 ---@param room_id integer
----@param callback fun(success: boolean, error_code?: integer)
+---@param callback fun(room_info?: Steam.FullRoomInfo, error_code?: integer)
 ---@param password? string
 function M.request_join_room(room_id, callback, password)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_server_join_room(room_id, function (context)
-        callback_with_error_code(callback, context)
+        local room_info = context['__lua_table']
+        room_info = M.convert_room_info(room_info)
+        callback_with_error_code(callback, context, room_info)
     ---@diagnostic disable-next-line: param-type-mismatch
     end, {}, password)
 end
@@ -450,28 +456,37 @@ end
 ---@field aid integer
 ---@field in_game boolean
 
+---@private
+function M.convert_room_info(info)
+    if info and info['slot_info'] then
+        for _, slot in ipairs(info['slot_info']) do
+            if slot.locked then
+                slot.state = y3.const.SteamRoomSlotState['关闭']
+            else
+                if slot.ai_type == 5 then
+                    slot.state = y3.const.SteamRoomSlotState['简单电脑']
+                elseif slot.ai_type == 6 then
+                    slot.state = y3.const.SteamRoomSlotState['困难电脑']
+                else
+                    slot.state = y3.const.SteamRoomSlotState['打开']
+                end
+            end
+        end
+    end
+end
+
+---@class Steam.FullRoomInfo
+---@field base_info steam.Room.BaseInfo
+---@field slot_info steam.Room.SlotInfo[]
+
 ---【异步】请求指定用户所在的房间信息
 ---@param aid integer
----@param callback fun(info?: { base_info: steam.Room.BaseInfo, slot_info: steam.Room.SlotInfo[] }, error_code?: integer)
+---@param callback fun(info?: Steam.FullRoomInfo, error_code?: integer)
 function M.request_room_info(aid, callback)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_server_room_info(aid, function (context)
         local info = context['__lua_table']
-        if info and info['slot_info'] then
-            for _, slot in ipairs(info['slot_info']) do
-                if slot.locked then
-                    slot.state = y3.const.SteamRoomSlotState['关闭']
-                else
-                    if slot.ai_type == 5 then
-                        slot.state = y3.const.SteamRoomSlotState['简单电脑']
-                    elseif slot.ai_type == 6 then
-                        slot.state = y3.const.SteamRoomSlotState['困难电脑']
-                    else
-                        slot.state = y3.const.SteamRoomSlotState['打开']
-                    end
-                end
-            end
-        end
+        M.convert_room_info(info)
         callback_with_error_code(callback, context, info)
     end, {})
 end
@@ -559,10 +574,20 @@ end
 
 ---【异步】请求修改房间密码
 ---@param password? string # 房间密码，`nil` 或空字符串等表示无需密码
----@param callback fun(success: boolean, error_code?: integer)
+---@param callback? fun(success: boolean, error_code?: integer)
 function M.request_change_room_password(password, callback)
     ---@diagnostic disable-next-line: undefined-field
     GameAPI.lua_request_server_change_room_password(password or '', function (context)
+        callback_with_error_code(callback, context)
+    end, {})
+end
+
+---【异步】请求修改房间名字
+---@param name string # 房间名字
+---@param callback? fun(success: boolean, error_code?: integer)
+function M.request_change_room_name(name, callback)
+    ---@diagnostic disable-next-line: undefined-field
+    GameAPI.lua_request_change_room_name(name, function (context)
         callback_with_error_code(callback, context)
     end, {})
 end
