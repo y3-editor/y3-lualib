@@ -21,16 +21,38 @@ function M.evaluate(code, ...)
     return f(...)
 end
 
-local array_meta = { __index = function (t, k)
-    if k == nil then
-        return nil
-    end
-    local v = t._default
-    t[k] = v
-    return v
-end }
+local array_meta_map1 = setmetatable({}, { __index = function (t, default)
+    local mt = { __index = function (array, k)
+        array[k] = default
+        return default
+    end }
+
+    t[default] = mt
+    return mt
+end })
+
+local array_meta_map2 = setmetatable({}, { __index = function (t, code)
+    local make_default = assert(load('return ' .. code))
+
+    local mt = { __index = function (array, k)
+        local v = make_default()
+        array[k] = v
+        return v
+    end }
+
+    t[code] = mt
+    return mt
+end })
+
 function M.array(default)
-    return setmetatable({ _default = default }, array_meta)
+    if default == nil then
+        return {}
+    end
+    return setmetatable({}, array_meta_map1[default])
+end
+
+function M.array_code(code)
+    return setmetatable({}, array_meta_map2[code])
 end
 
 return M
