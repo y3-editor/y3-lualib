@@ -626,4 +626,11 @@ function M:is_destroyed()
     return yes
 end
 
+---设置物品名称显示样式
+---@param name_bar_type integer 名字显示样式
+function M:set_name_bar_type(name_bar_type)
+    ---@diagnostic disable-next-line: undefined-field
+    self.handle:api_set_name_bar_type(name_bar_type)
+end
+
 return M
