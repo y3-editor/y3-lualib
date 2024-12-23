@@ -21,21 +21,34 @@ function M.encodeHook(value)
         }
     end
     local class = y3.class.get(luaType)
-    if not class.get_by_id then
-        return
+    if class.get_by_id then
+        local id = value.id
+        if not id then
+            return
+        end
+        return {
+            class = luaType,
+            id    = id,
+        }
     end
-    local id = value.id
-    if not id then
-        return
+    if value.__class__ then
+        local copy = {}
+        for k, v in pairs(value) do
+            if  type(v) ~= 'function'
+            and type(v) ~= 'userdata' then
+                copy[k] = v
+            end
+        end
+        return copy
     end
-    return {
-        class = luaType,
-        id    = id,
-    }
 end
 
 ---@private
 function M.decodeHook(value)
+    if value.__class__ then
+        local obj = New(value.__class__, value)
+        return obj
+    end
     if value.class == 'Ability' then
         local unit = y3.unit.get_by_id(value.unit)
         if not unit then
@@ -45,8 +58,10 @@ function M.decodeHook(value)
         return obj
     end
     local class = y3.class.get(value.class)
-    local obj = class.get_by_id(value.id)
-    return obj
+    if class.get_by_id then
+        local obj = class.get_by_id(value.id)
+        return obj
+    end
 end
 
 -- 序列化数据
