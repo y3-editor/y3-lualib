@@ -51,6 +51,14 @@ function M:__alloc(id)
     return M.get_by_id(id)
 end
 
+function M:__encode()
+    return self.id
+end
+
+function M:__decode(id)
+    return M.get_by_id(id)
+end
+
 ---转换玩家ID为玩家
 ---@param id integer 玩家ID
 ---@return Player player 玩家
