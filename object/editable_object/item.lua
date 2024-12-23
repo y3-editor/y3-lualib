@@ -42,6 +42,15 @@ function M:__del()
     y3.py_proxy.kill(self.phandle)
 end
 
+function M:__encode()
+    return self.id
+end
+
+function M:__decode(id)
+    local obj = M.get_by_id(id)
+    return obj
+end
+
 ---@package
 ---@param id py.ItemID
 ---@return Item?

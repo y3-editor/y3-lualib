@@ -130,6 +130,14 @@ function M.declare(name, super, superInit)
         end
     end
 
+    function class:__encode()
+        return self
+    end
+
+    function class:__decode(value)
+        return New(name, value)
+    end
+
     function class:__call(...)
         M.runInit(self, name, ...)
         return self

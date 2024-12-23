@@ -40,6 +40,15 @@ function M:__del()
     self:remove()
 end
 
+function M:__encode()
+    return self.id
+end
+
+function M:__decode(id)
+    local obj = M.get_by_id(id)
+    return obj
+end
+
 ---所有魔法效果实例
 ---@private
 ---@param id integer

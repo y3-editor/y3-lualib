@@ -40,9 +40,10 @@ local RefStrLen = 4 -- 字符串长度大于此值时保存引用
 
 -- 将一个Lua值序列化为二进制数据
 ---@param data Serialization.SupportTypes | nil
----@param hook? fun(value: table): Serialization.SupportTypes | nil
+---@param hook? fun(value: table): Serialization.SupportTypes | nil, string?
+---@param ignoreUnknownType? boolean
 ---@return string
-function M.encode(data, hook)
+function M.encode(data, hook, ignoreUnknownType)
     if data == nil then
         return ''
     end
@@ -103,10 +104,11 @@ function M.encode(data, hook)
             end
         elseif tp == 'table' then
             if hook and not disableHook then
-                local newValue = hook(value)
+                local newValue, tag = hook(value)
                 if newValue ~= nil then
                     buf[#buf+1] = Custom
                     encode(newValue, true)
+                    encode(tag or false, true)
                     return
                 end
             end
@@ -119,6 +121,9 @@ function M.encode(data, hook)
             end
             buf[#buf+1] = TableE
         else
+            if ignoreUnknownType then
+                return
+            end
             error('不支持的类型！' .. tostring(tp))
         end
     end
@@ -130,7 +135,7 @@ end
 
 -- 反序列化二进制数据为Lua值
 ---@param str string
----@param hook? fun(value: Serialization.SupportTypes): Serialization.SupportTypes | nil
+---@param hook? fun(value: Serialization.SupportTypes, tag?: string): Serialization.SupportTypes | nil
 ---@return Serialization.SupportTypes | nil
 function M.decode(str, hook)
     if str == '' then
@@ -226,7 +231,9 @@ function M.decode(str, hook)
             ---@cast hook -?
             value = decode()
             ---@cast value -?
-            value = hook(value)
+            local tag = decode()
+            ---@cast tag string | false
+            value = hook(value, tag or nil)
             return value
         else
             error('未知类型！' .. tostring(tp))

@@ -37,6 +37,18 @@ function M:__del()
     self:remove()
 end
 
+function M:__encode()
+    return {
+        unit = self:get_owner(),
+        seq  = self:get_seq(),
+    }
+end
+
+function M:__decode(value)
+    local skill = value.unit:get_ability_by_seq(value.seq)
+    return skill
+end
+
 ---@private
 ---@param id integer
 ---@param py_ability py.Ability
