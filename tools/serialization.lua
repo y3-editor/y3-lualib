@@ -1,12 +1,10 @@
 local type         = type
-local pairs        = pairs
 local error        = error
 local tostring     = tostring
 local mathType     = math.type
 local stringPack   = string.pack
 local stringUnpack = string.unpack
 local stringSub    = string.sub
-local tableSort    = table.sort
 local tableConcat  = table.concat
 
 ---@class Serialization
@@ -24,10 +22,13 @@ local Str16   = 'Y'
 local Str32   = 'Z'
 local True    = 'T'
 local False   = 'F'
-local TableB  = 'B' -- 开始一张表的定义
-local TableE  = 'E' -- 结束一张表的定义
-local Ref     = 'R' -- 复用之前定义的字符串或表
-local Custom  = 'C' -- 自定义数据
+local Nil     = '!'
+local ArrayB  = '[' -- 开始一张数组的定义
+local ArrayE  = ']' -- 结束一张数组的定义
+local TableB  = '{' -- 开始一张表的定义
+local TableE  = '}' -- 结束一张表的定义
+local Ref     = '@' -- 复用之前定义的字符串或表
+local Custom  = '#' -- 自定义数据
 
 local RefStrLen = 4 -- 字符串长度大于此值时保存引用
 
@@ -37,6 +38,17 @@ local RefStrLen = 4 -- 字符串长度大于此值时保存引用
 ---| boolean
 ---| table
 ---| nil
+
+local function isArray(v)
+    if v[1] == nil then
+        return false
+    end
+    local len = #v
+    if next(v, len) ~= nil then
+        return false
+    end
+    return true
+end
 
 -- 将一个Lua值序列化为二进制数据
 ---@param data Serialization.SupportTypes | nil
@@ -102,6 +114,8 @@ function M.encode(data, hook, ignoreUnknownType)
             else
                 buf[#buf+1] = False
             end
+        elseif tp == 'nil' then
+            buf[#buf+1] = Nil
         elseif tp == 'table' then
             if hook and not disableHook then
                 local newValue, tag = hook(value)
@@ -114,12 +128,22 @@ function M.encode(data, hook, ignoreUnknownType)
             end
             refid = refid + 1
             tableMap[value] = refid
-            buf[#buf+1] = TableB
-            for k, v in pairs(value) do
-                encode(k)
-                encode(v)
+            if isArray(value) then
+                -- 数组
+                buf[#buf+1] = ArrayB
+                for i = 1, #value do
+                    encode(value[i])
+                end
+                buf[#buf+1] = ArrayE
+            else
+                -- 哈希表
+                buf[#buf+1] = TableB
+                for k, v in next, value do
+                    encode(k)
+                    encode(v)
+                end
+                buf[#buf+1] = TableE
             end
-            buf[#buf+1] = TableE
         else
             if ignoreUnknownType then
                 return
@@ -222,6 +246,20 @@ function M.decode(str, hook)
             end
             return value
         elseif tp == TableE then
+            return nil
+        elseif tp == ArrayB then
+            value = {}
+            ref = ref + 1
+            refMap[ref] = value
+            while true do
+                local v = decode()
+                if v == nil then
+                    break
+                end
+                value[#value+1] = v
+            end
+            return value
+        elseif tp == ArrayE then
             return nil
         elseif tp == Ref then
             value = decode()
