@@ -32,6 +32,8 @@ local Custom  = 'C' -- 自定义数据
 
 local RefStrLen = 4 -- 字符串长度大于此值时保存引用
 
+local EndSymbol = { '<End>' }
+
 ---@alias Serialization.SupportTypes
 ---| number
 ---| string
@@ -230,13 +232,15 @@ function M.decode(str, hook)
             return true
         elseif tp == False then
             return false
+        elseif tp == Nil then
+            return nil
         elseif tp == TableB then
             value = {}
             ref = ref + 1
             refMap[ref] = value
             while true do
                 local k = decode()
-                if k == nil then
+                if k == EndSymbol then
                     break
                 end
                 local v = decode()
@@ -246,21 +250,23 @@ function M.decode(str, hook)
             end
             return value
         elseif tp == TableE then
-            return nil
+            return EndSymbol
         elseif tp == ArrayB then
             value = {}
             ref = ref + 1
             refMap[ref] = value
+            local i = 0
             while true do
                 local v = decode()
-                if v == nil then
+                if v == EndSymbol then
                     break
                 end
-                value[#value+1] = v
+                i = i + 1
+                value[i] = v
             end
             return value
         elseif tp == ArrayE then
-            return nil
+            return EndSymbol
         elseif tp == Ref then
             value = decode()
             value = refMap[value]
