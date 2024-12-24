@@ -25,10 +25,10 @@ local False   = 'F'
 local Nil     = '!'
 local ArrayB  = '[' -- 开始一张数组的定义
 local ArrayE  = ']' -- 结束一张数组的定义
-local TableB  = '{' -- 开始一张表的定义
-local TableE  = '}' -- 结束一张表的定义
-local Ref     = '@' -- 复用之前定义的字符串或表
-local Custom  = '#' -- 自定义数据
+local TableB  = 'B' -- 开始一张表的定义
+local TableE  = 'E' -- 结束一张表的定义
+local Ref     = 'R' -- 复用之前定义的字符串或表
+local Custom  = 'C' -- 自定义数据
 
 local RefStrLen = 4 -- 字符串长度大于此值时保存引用
 
@@ -50,7 +50,7 @@ local function isArray(v)
     return true
 end
 
--- 将一个Lua值序列化为二进制数据
+-- 将一个Lua值序列化为二进制数据。请勿做为长期存储方案，因为二进制数据可能会因为版本更新而不兼容。
 ---@param data Serialization.SupportTypes | nil
 ---@param hook? fun(value: table): Serialization.SupportTypes | nil, string?
 ---@param ignoreUnknownType? boolean
