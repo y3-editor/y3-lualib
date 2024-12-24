@@ -11,6 +11,23 @@ function M:__init()
     return self
 end
 
+function M:__encode()
+    local data = {}
+    for obj, w in self:pairs() do
+        data[#data+1] = obj
+        data[#data+1] = w
+    end
+    return data
+end
+
+function M:__decode(data)
+    local pool = New 'Pool' ()
+    for i = 1, #data, 2 do
+        pool:add(data[i], data[i+1])
+    end
+    return pool
+end
+
 -- 添加对象
 ---@param obj any
 ---@param w? integer
