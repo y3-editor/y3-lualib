@@ -218,7 +218,7 @@ function M:kv_remove(key)
 end
 
 ---@param key string
----@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum
+---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum # `integer` 也可以表示单位类型、技能类型等。
 ---@return any
 function M:kv_load(key, lua_type)
     if self.handle then
