@@ -172,6 +172,9 @@ function M.create(data)
     if not data.owner then
         data.owner = y3.player.get_by_id(31)
     end
+    if data.ability and not data.ability:is_exist() then
+        data.ability = nil
+    end
     local target = data.target
     if target.type == 'point' then
         ---@cast target Point
