@@ -512,23 +512,23 @@ function M:set_skill_btn_action_effect(isopen)
 end
 
 
---设置文本颜色
----@param r number 红色
----@param g number 绿色
----@param b number 蓝色
----@param a number 透明度
+---设置文本颜色
+---@param r number # 红色(0-255)
+---@param g number # 绿色(0-255)
+---@param b number # 蓝色(0-255)
+---@param a? number # 不透明度(0-255)
 ---@return self
-function M:set_text_color(r,g,b,a)
-    GameAPI.set_ui_comp_font_color(self.player.handle, self.handle, r, g, b, a)
+function M:set_text_color(r, g, b, a)
+    GameAPI.set_ui_comp_font_color(self.player.handle, self.handle, r, g, b, a or 255)
     return self
 end
 
---设置文本颜色(HEX)
----@param color string # hex
----@param a number 透明度
+---设置文本颜色(HEX)
+---@param color string # 如 `ffcc00`
+---@param a? number # 不透明度，0为完全透明，100为完全不透明
 ---@return self
 function M:set_text_color_hex(color, a)
-    GameAPI.set_ui_comp_font_color_hex(self.player.handle, self.handle, color, a)
+    GameAPI.set_ui_comp_font_color_hex(self.player.handle, self.handle, color, a or 100)
     return self
 end
 
