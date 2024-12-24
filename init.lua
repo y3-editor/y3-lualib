@@ -30,7 +30,7 @@ end)
 ---@class Y3
 y3 = {}
 
-y3.version = 241223
+y3.version = 241224
 
 y3.proxy   = require 'y3.tools.proxy'
 y3.class   = require 'y3.tools.class'
@@ -91,7 +91,6 @@ y3.config       = require 'y3.game.config'
 y3.kv           = require 'y3.game.kv'
 y3.steam        = require 'y3.game.steam'
 y3.timer        = require 'y3.object.runtime_object.timer'
-y3.py_proxy     = require 'y3.util.py_proxy'
 y3.ltimer       = require 'y3.util.local_timer'
 y3.py_event_sub = require 'y3.game.py_event_subscribe'
 
