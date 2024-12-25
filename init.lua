@@ -1,30 +1,7 @@
 ---@type table<string, string>
-local arg = GameAPI.lua_get_start_args()
+arg = GameAPI.lua_get_start_args()
 
-pcall(function ()
-    if arg['lua_multi_mode'] == 'true' then
-        local id = GameAPI.get_client_role():get_role_id_num()
-        local debug_me
-        for i in arg['lua_multi_debug_players']:gmatch('%d+') do
-            if tonumber(i) == id then
-                debug_me = true
-                break
-            end
-        end
-        if not debug_me then
-            return
-        end
-        local port = 12399 - id
-        LDBG = require "y3.debugger":start("127.0.0.1:" .. tostring(port))
-    else
-        LDBG = require "y3.debugger":start "127.0.0.1:12399"
-    end
-    if LDBG then LDBG:event('autoUpdate', false) end
-    if arg['lua_wait_debugger'] == 'true'
-    or arg['lua_multi_wait_debugger'] == 'true' then
-        if LDBG then LDBG:event 'wait' end
-    end
-end)
+require 'y3.debugger'
 
 -- 全局方法类，提供各种全局方法
 ---@class Y3
