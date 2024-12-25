@@ -433,7 +433,7 @@ end
 ---切换至关卡
 ---@param level_id_str py.Map | string # 关卡ID
 function M.switch_level(level_id_str)
-    y3.develop.helper.prepareForRestart()
+    M:event_notify('$Y3-即将切换关卡')
     ---@diagnostic disable-next-line: param-type-mismatch
     GameAPI.request_switch_level(level_id_str)
 end

@@ -149,6 +149,17 @@ function M.upload_save_data(player)
     end)
 end
 
+y3.game:event_on('$Y3-即将切换关卡', function ()
+    for _, timer in pairs(M.upload_timer_map) do
+        timer:execute()
+    end
+    for _, pools in pairs(M.save_table_pool) do
+        for _, pool in pairs(pools) do
+            pool.timer:execute()
+        end
+    end
+end)
+
 ---@private
 ---@param player Player
 ---@param slot integer

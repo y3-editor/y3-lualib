@@ -337,4 +337,8 @@ y3.game:event_on('$Y3-初始化', function ()
     M.init()
 end)
 
+y3.game:event_on('$Y3-即将切换关卡', function ()
+    M.prepareForRestart()
+end)
+
 return M
