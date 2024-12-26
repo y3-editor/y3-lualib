@@ -24,6 +24,10 @@ function M:__len()
     return self:count()
 end
 
+function M:__pairs()
+    return self:pairs()
+end
+
 ---@param py_role_group py.RoleGroup
 ---@return PlayerGroup
 function M.get_by_handle(py_role_group)
@@ -58,6 +62,33 @@ function M:pick()
         table.insert(lua_table, y3.player.get_by_id(iter_player))
     end
     return lua_table
+end
+
+---遍历玩家组，请勿在遍历过程中修改玩家组。
+---```lua
+---for player in PlayerGroup:pairs() do
+---    print(player)
+---end
+---```
+---也可以直接用 `pairs` 遍历：
+---```lua
+---for player in pairs(PlayerGroup) do
+---    print(player)
+---end
+---```
+---@return fun(): Player?
+function M:pairs()
+    local i = -1
+    local len = python_len(self.handle)
+    return function ()
+        i = i + 1
+        if i >= len then
+            return
+        end
+        local id = python_index(self.handle, i)
+        local p = y3.player.get_by_id(id)
+        return p
+    end
 end
 
 --添加玩家

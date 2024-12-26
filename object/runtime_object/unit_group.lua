@@ -15,6 +15,10 @@ function M:__len()
     return self:count()
 end
 
+function M:__pairs()
+    return self:pairs()
+end
+
 ---@param py_unit_group py.UnitGroup
 ---@return UnitGroup
 function M.get_by_handle(py_unit_group)
@@ -42,6 +46,33 @@ function M:pick()
         table.insert(lua_table,y3.unit.get_by_id(iter_unit))
     end
     return lua_table
+end
+
+---遍历单位组，请勿在遍历过程中修改单位组。
+---```lua
+---for unit in UnitGroup:pairs() do
+---    print(unit)
+---end
+---```
+---也可以直接用 `pairs` 遍历：
+---```lua
+---for unit in pairs(UnitGroup) do
+---    print(unit)
+---end
+---```
+---@return fun(): Unit?
+function M:pairs()
+    local i = -1
+    local len = python_len(self.handle)
+    return function ()
+        i = i + 1
+        if i >= len then
+            return
+        end
+        local id = python_index(self.handle, i)
+        local u = y3.unit.get_by_id(id)
+        return u
+    end
 end
 
 --根据单位组选中单位
