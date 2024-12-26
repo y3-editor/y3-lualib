@@ -159,6 +159,24 @@ function M:add(key, value)
     self.handle:change_role_res(key, Fix32(value))
 end
 
+---获取玩家属性
+---@param key y3.Const.PlayerAttr | string # 属性名
+---@return number role_res 玩家属性
+function M:get(key)
+    key = y3.const.PlayerAttr[key] or key
+    ---@cast key py.RoleResKey
+    return y3.helper.tonumber(self.handle:get_role_res(key)) or 0.0
+end
+
+---获取玩家属性
+---@param key y3.Const.PlayerAttr | string # 属性名
+---@return number role_res 玩家属性
+function M:get_attr(key)
+    key = y3.const.PlayerAttr[key] or key
+    ---@cast key py.RoleResKey
+    return y3.helper.tonumber(self.handle:get_role_res(key)) or 0.0
+end
+
 ---设置经验获得率
 ---@param rate number 经验获得率
 function M:set_exp_rate(rate)
@@ -325,16 +343,6 @@ end
 function M:is_in_shadow(point)
     ---@diagnostic disable-next-line: param-type-mismatch
     return self.handle:is_point_in_shadow(point.handle) or false
-end
-
-
----获取玩家属性
----@param key y3.Const.PlayerAttr | string # 属性名
----@return number role_res 玩家属性
-function M:get_attr(key)
-    key = y3.const.PlayerAttr[key] or key
-    ---@cast key py.RoleResKey
-    return y3.helper.tonumber(self.handle:get_role_res(key)) or 0.0
 end
 
 ---获取玩家ID
