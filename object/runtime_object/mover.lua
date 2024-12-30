@@ -47,6 +47,7 @@ end)
 ---@field face_angle? boolean # 是否始终面向运动方向
 ---@field ability? Ability # 关联技能
 ---@field unit? Unit # 关联单位
+---@field auto_pitch? boolean # 是否自动调整俯仰角
 
 ---@class Mover.CreateData.Line: Mover.CreateData.Base
 ---@field angle number # 运动方向
@@ -172,6 +173,7 @@ function M.wrap_base_args(builder, args)
     builder.set_terrain_collide_interval(Fix32(args.block_interval or 0.0))
     builder.set_priority                (args.priority or 1)
     builder.set_is_absolute_height      (args.absolute_height or false)
+    builder.dict['is_open_auto_pitch']  = (args.auto_pitch or false)
     --builder.set_related_unit            (args.unit and args.unit.handle or nil)
     --builder.set_related_ability         (args.ability and args.ability.handle or nil)
 end
