@@ -50,6 +50,9 @@ function M:__init(path_or_ui)
     ---@package
     ---@type LocalUILogic.PrefabInfo[]
     self._prefab_infos = {}
+    ---@package
+    ---@type table<string, true>
+    self._need_refresh = {}
 
     if type(path_or_ui) == 'string' then
         y3.ltimer.wait(0, function ()
@@ -344,6 +347,10 @@ function M:init()
     end
 end
 
+---@private
+---@type ClientTimer
+M._refresh_next_tick_timer = nil
+
 --刷新控件，指定的控件以及其子控件都会收到刷新消息。
 --参数为 `*` 时，刷新所有控件。
 ---@param name string
@@ -357,13 +364,33 @@ function M:refresh(name, player)
         return
     end
 
-    local infos = self._refresh_targets[name]
-    for _, info in ipairs(infos) do
-        local ui = self._childs[info.name]
-        if ui then
-            xpcall(info.on_refresh, log.error, ui, local_player, self)
-        else
-            log.error('控件不存在！', info.name)
+    self._need_refresh[name] = true
+
+    if not M._refresh_next_tick_timer then
+        M._refresh_next_tick_timer = y3.ctimer.wait(0, function ()
+            M._refresh_next_tick_timer = nil
+            self:refreshAll()
+        end)
+    end
+end
+
+---@private
+function M:refreshAll()
+    local need_refresh = self._need_refresh
+    self._need_refresh = {}
+    local mark = {}
+    for name in pairs(need_refresh) do
+        local infos = self._refresh_targets[name]
+        for _, info in ipairs(infos) do
+            local ui = self._childs[info.name]
+            if ui then
+                if not mark[ui] then
+                    mark[ui] = true
+                    xpcall(info.on_refresh, log.error, ui, local_player, self)
+                end
+            else
+                log.error('控件不存在！', info.name)
+            end
         end
     end
 end
