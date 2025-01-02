@@ -162,6 +162,7 @@ end
 ---@field ability? Ability 投射物关联技能
 ---@field visible_rule? integer | y3.Const.VisibleType 粒子特效可见性规则，默认为`1`
 ---@field remove_immediately? boolean 是否立即移除表现，如果不填会读表
+---@field show_in_fog? boolean 是否在迷雾中显示，默认为`false`
 
 -- 创建投射物
 ---@param data Projectile.CreateData 投射物创建数据
@@ -189,7 +190,8 @@ function M.create(data)
             Fix32(data.height or 0.0),
             y3.const.VisibleType[data.visible_rule] or data.visible_rule or 1,
             data.remove_immediately or false,
-            data.remove_immediately == nil and true or false
+            data.remove_immediately == nil and true or false,
+            data.show_in_fog or false
         )
         return M.get_by_handle(py_obj) --[[@as Projectile]]
     else
@@ -207,7 +209,8 @@ function M.create(data)
             Fix32(data.time or 60.0),
             data.time and true or false,
             data.remove_immediately or false,
-            data.remove_immediately == nil and true or false
+            data.remove_immediately == nil and true or false,
+            data.show_in_fog or false
         )
         return M.get_by_handle(py_obj) --[[@as Projectile]]
     end
