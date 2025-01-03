@@ -5,21 +5,25 @@ local M = Class 'Dump'
 
 ---@private
 function M.encodeHook(value)
-    if type(value) ~= 'table' then
-        return
-    end
     local luaType = y3.class.type(value)
     if not luaType then
         return
     end
-    return value:__encode(), luaType
+    if value.__encode then
+        return value:__encode(), luaType
+    else
+        return value, luaType
+    end
 end
 
 ---@private
 function M.decodeHook(value, tag)
-    local class = y3.class.get(tag)
-    local obj = class:__decode(value)
-    return obj
+    local obj = y3.class.new(tag, value)
+    if obj.__decode then
+        return obj:__decode(value) or obj
+    else
+        return obj
+    end
 end
 
 -- 序列化数据
