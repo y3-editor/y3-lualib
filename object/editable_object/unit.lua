@@ -1944,6 +1944,7 @@ end
 ---@param collision_layer integer | y3.Const.CollisionLayers # 碰撞mask
 ---@param enable boolean # 开启状态
 function M:set_move_collision(collision_layer, enable)
+    ---@diagnostic disable-next-line: undefined-field
     self.handle:api_set_move_collision(y3.const.CollisionLayers[collision_layer] or collision_layer, enable)
 end
 
