@@ -34,7 +34,7 @@ function Ability:api_get_type() end
 ---@return py.AbilityIndex? # 技能序号
 function Ability:api_get_ability_index() end
 
---获取技能拥有者
+--获取技能序列号
 ---@return py.AbilitySeq? # 技能Seq
 function Ability:api_get_ability_seq() end
 

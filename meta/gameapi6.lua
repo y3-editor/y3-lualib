@@ -5363,7 +5363,10 @@ function GameAPI.api_disable_mini_map_alpha_click_range(role, comp_name) end
 ---@param sequence_resource py.Sequence # 序列帧资源
 ---@param source_player py.Role # 发送信号的玩家
 ---@param visible_type py.SignalVisibleType # 可见类型
-function GameAPI.create_frame_sequence_on_mini_map(world_pos, sequence_resource, source_player, visible_type) end
+---@param scale? py.Fixed # 缩放
+---@param offset_percent_x? py.Fixed # X方向偏移百分比
+---@param offset_percent_y? py.Fixed # Y方向偏移百分比
+function GameAPI.create_frame_sequence_on_mini_map(world_pos, sequence_resource, source_player, visible_type, scale, offset_percent_x, offset_percent_y) end
 
 --设置图片保持原尺寸
 ---@param role py.Role # 玩家

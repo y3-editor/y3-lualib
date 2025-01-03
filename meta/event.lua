@@ -6466,6 +6466,11 @@ event.ET_TRIGGER_UI_INPUT_FIELD_TEXT_CHANGED_EVENT = {
     },
 }
 
+---@class EventParam.ET_UI_RESOLUTION_CHANGED_EVENT
+
+--UI分辨率改变事件
+event.ET_UI_RESOLUTION_CHANGED_EVENT = {}
+
 ---@class EventParam.ET_TRIGGER_LANGUAGE_CHANGED_EVENT
 
 --语言改变事件
@@ -10394,7 +10399,7 @@ event.ET_MALL_NOTIFY_TEAM_INVITE = {
 
 ---@class EventParam.ET_MALL_NOTIFY_ENTER_LOBBY
 
---steam大厅收到队伍邀请
+--steam回到大厅
 event.ET_MALL_NOTIFY_ENTER_LOBBY = {}
 
 ---@class EventParam.ET_MALL_NOTIFY_START_MATCH

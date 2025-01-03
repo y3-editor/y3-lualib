@@ -1757,10 +1757,6 @@ function GameAPI.steam_get_team_id() end
 ---@return integer # 玩家id
 function GameAPI.steam_get_player_id() end
 
---取消匹配
----@return integer # 取消匹配结果
-function GameAPI.steam_cancel_match() end
-
 --获取队伍状态
 ---@return integer # 队伍状态
 function GameAPI.steam_get_team_state() end
@@ -5896,3 +5892,11 @@ function GameAPI.set_prefab_key_damage_armor_type_kv(prefab_conf_key, item_key, 
 ---@param key string # 键值名称
 ---@param value integer # value
 function GameAPI.set_prefab_key_ui_chat_send_channel_kv(prefab_conf_key, item_key, key, value) end
+
+--遍历魔法效果的挂接模型
+---@param modifier_entity py.ModifierEntity # 魔法效果
+---@param model_key py.ModelKey # 模型类型
+---@param color string # 颜色
+---@param exp number # 指数
+---@param strength number # 强度
+function GameAPI.set_attach_model_fresnel(modifier_entity, model_key, color, exp, strength) end

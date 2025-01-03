@@ -551,3 +551,7 @@ function Role:request_join_public_dungeon(level_id, game_mode) end
 --获取玩家武将信息
 ---@return py.Table? # 玩家武将信息
 function Role:get_role_general_depot() end
+
+--更新玩家存档排行榜
+---@param save_index integer # 玩家存档栏位
+function Role:update_player_save_rank(save_index) end

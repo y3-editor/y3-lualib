@@ -577,11 +577,6 @@ function Unit:api_set_anim_walk_speed(speed) end
 ---@return boolean? # 是否在移动
 function Unit:api_is_moving() end
 
---设置单位是否计算某种碰撞类型
----@param collision_layer integer # 碰撞mask
----@param enable boolean # 开启状态
-function Unit:api_set_move_collision(collision_layer, enable) end
-
 --获取单位是否计算某种碰撞类型
 ---@param collision_layer integer # 碰撞mask
 ---@return boolean? # 是否开启
@@ -619,7 +614,8 @@ function Unit:get_unit_path_length_between_points(point_start, point_end) end
 ---@param loop? boolean # 是否循环
 ---@param return_idle? boolean # 播放结束后是否恢复idle
 ---@param transition_time? number # 过渡时间(s)，负数代表用全局默认值
-function Unit:api_play_animation(name, rate, init_time, end_time, loop, return_idle, transition_time) end
+---@param force_play? boolean # 即使死了也播播
+function Unit:api_play_animation(name, rate, init_time, end_time, loop, return_idle, transition_time, force_play) end
 
 --播放动画 内部
 ---@param name string # 动画名称
@@ -1674,3 +1670,10 @@ function Unit:unit_Graph_Pause() end
 
 --暂停中跑一帧Graph
 function Unit:unit_Graph_RunOneFrame() end
+
+--设置寻路消耗上限
+---@param step_bound integer # 步数上限
+function Unit:set_path_finding_step_bound(step_bound) end
+
+--开启风场
+function Unit:api_start_windforce() end

@@ -1315,7 +1315,7 @@
 ---@field box_length2 number
 --半径  
 ---@field box_r number
---盒子类型  
+--点击盒类型  
 ---@field box_type number
 ---@field build_precondition_list any[]
 --资源消耗  
@@ -1894,7 +1894,7 @@
 ---@field box_length2? number
 --半径  
 ---@field box_r? number
---盒子类型  
+--点击盒类型  
 ---@field box_type? number
 ---@field build_precondition_list? any[]
 --资源消耗  

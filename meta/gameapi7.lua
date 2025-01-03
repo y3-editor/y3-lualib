@@ -856,3 +856,178 @@ function GameAPI.get_role_map_archive_limit(role, archive_key) end
 ---@param need_shadow? boolean # 是否产生阴影
 ---@return py.SpotLight # 方向光源
 function GameAPI.create_character_top_light_to_unit_socket(unit, socket_name, pos_offset_y, target, target_offset_y, need_shadow) end
+
+--禁用所有的ECA全局触发器
+function GameAPI.disable_all_eca_triggers() end
+
+--创建特效到魔法效果挂接模型（跟随旋转使用枚举）
+---@param sfx_id py.SfxKey # 特效编号
+---@param unit py.ModifierEntity # 魔法效果
+---@param editor_model_id py.ModelKey # 挂接模型id
+---@param socket string # 单位挂接点
+---@param rotate_type integer # 跟随旋转方式
+---@param b_follow_scale boolean # 是否跟随单位缩放
+---@param speed? number # 播放速度
+---@param duration? number # 持续时间
+---@param angle? number # 角度
+---@param immediately? boolean # 是否立即删除
+---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param detach? boolean # 是否脱离单位
+---@param show_in_fog? boolean # 迷雾里显示
+---@param blend_with_fog? boolean # 迷雾混合
+---@param scale_x? number # x轴缩放
+---@param scale_y? number # y轴缩放
+---@param scale_z? number # z轴缩放
+---@return py.Sfx # 特效
+function GameAPI.create_sfx_on_modifier_attach_model(sfx_id, unit, editor_model_id, socket, rotate_type, b_follow_scale, speed, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog, blend_with_fog, scale_x, scale_y, scale_z) end
+
+--整数转单位类型
+---@param int_num integer # 整数
+---@return py.UnitType # 单位类型
+function GameAPI.int_transform_unit_type(int_num) end
+
+--整数转投射物类型
+---@param int_num integer # 整数
+---@return py.ProjectileKey # 投射物类型
+function GameAPI.int_transform_projectile_type(int_num) end
+
+--整数转物品类型
+---@param int_num integer # 整数
+---@return py.ItemKey # 物品类型
+function GameAPI.int_transform_item_type(int_num) end
+
+--整数转魔法效果类型
+---@param int_num integer # 整数
+---@return py.ModifierType # 魔法效果类型
+function GameAPI.int_transform_modifier_type(int_num) end
+
+--整数转技能类型
+---@param int_num integer # 整数
+---@return py.AbilityKey # 技能类型
+function GameAPI.int_transform_ability_type(int_num) end
+
+--整数转科技类型
+---@param int_num integer # 整数
+---@return py.TechKey # 科技类型
+function GameAPI.int_transform_tech_type(int_num) end
+
+--整数转可破坏物类型
+---@param int_num integer # 整数
+---@return py.DestructibleKey # 可破坏物类型
+function GameAPI.int_transform_destruct_type(int_num) end
+
+--整数转声音类型
+---@param int_num integer # 整数
+---@return py.AudioKey # 声音类型
+function GameAPI.int_transform_sound_type(int_num) end
+
+--请求更改房间名称
+---@param room_name string # 房间名称
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_change_room_name(room_name, lua_func, context) end
+
+--steam查询自己的队伍信息
+---@param lua_func function # 回调函数
+---@param context py.Dict # 回调传参
+function GameAPI.lua_request_my_team_info(lua_func, context) end
+
+--创建牵引力方向
+---@param target_unit py.Unit # 目标单位
+---@param force_angle py.Fixed # 方向角度
+---@param speed py.Fixed # 速度
+---@param max_speed py.Fixed # 最大速度
+---@param min_speed py.Fixed # 最小速度
+---@param acc py.Fixed # 加速度
+---@return integer # 牵引力对象
+function GameAPI.create_force_direction(target_unit, force_angle, speed, max_speed, min_speed, acc) end
+
+--创建牵引力点
+---@param target_unit py.Unit # 目标单位
+---@param force_point py.Point # 中心点
+---@param speed py.Fixed # 速度
+---@param max_speed py.Fixed # 最大速度
+---@param min_speed py.Fixed # 最小速度
+---@param acc py.Fixed # 加速度
+---@return integer # 牵引力对象
+function GameAPI.create_force_point(target_unit, force_point, speed, max_speed, min_speed, acc) end
+
+--创建牵引力目标
+---@param target_unit py.Unit # 目标单位
+---@param force_unit py.Unit # 牵引力单位
+---@param speed py.Fixed # 速度
+---@param max_speed py.Fixed # 最大速度
+---@param min_speed py.Fixed # 最小速度
+---@param acc py.Fixed # 加速度
+---@return integer # 牵引力对象
+function GameAPI.create_force_target(target_unit, force_unit, speed, max_speed, min_speed, acc) end
+
+--复制控件文本到剪贴板
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param index1? integer # 起始索引
+---@param index2? integer # 结束索引
+function GameAPI.copy_ui_text_to_clipboard(role, comp_uid, index1, index2) end
+
+--镜头控件-设置镜头控件绑定镜头
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param camera_id py.Camera # 镜头
+function GameAPI.set_ui_camera_binding(role, comp_uid, camera_id) end
+
+--镜头控件-设置遮罩贴图
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param mask_texture integer # 图片id
+function GameAPI.set_ui_camera_mask_texture(role, comp_uid, mask_texture) end
+
+--获取UI横向分辨率
+---@return integer # 分辨率
+function GameAPI.get_ui_resolution_x() end
+
+--获取UI纵向分辨率
+---@return integer # 分辨率
+function GameAPI.get_ui_resolution_y() end
+
+--裁切节点-设置裁切节点的图片蒙版
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param stencil_texture integer # 图片id
+function GameAPI.set_clipping_node_stencil_texture(role, comp_uid, stencil_texture) end
+
+--裁切节点-设置裁切节点开启反向裁切
+---@param role py.Role # 玩家
+---@param comp_uid string # 控件uid
+---@param is_inverted boolean # 是否反向裁切
+function GameAPI.set_clipping_node_inverted(role, comp_uid, is_inverted) end
+
+--根据技能唯一ID获取技能实例
+---@param ability_global_id integer # ID
+---@return py.Ability # 技能
+function GameAPI.get_ability_by_ability_global_id(ability_global_id) end
+
+--获取字符串的md5值
+---@param original_str string # 原始字符串
+---@return string # md5值
+function GameAPI.api_get_string_md5(original_str) end
+
+--生成RSA密钥对
+---@return py.List # 公钥和私钥
+function GameAPI.generate_rsa_keys() end
+
+--使用公钥加密消息
+---@param public_key string # 公钥
+---@param message string # 原始消息
+---@return string # 加密后的消息
+function GameAPI.rsa_encrypt_message(public_key, message) end
+
+--使用私钥解密消息
+---@param private_key string # 私钥
+---@param encrypted_message string # 加密后的消息
+---@return string # 解密后的消息
+function GameAPI.rsa_decrypt_message(private_key, encrypted_message) end
+
+--重置血条的整体可见性
+---@param unit py.Unit # 单位
+---@param role? py.Role # 玩家
+function GameAPI.reset_billboard_overall_visibility(unit, role) end

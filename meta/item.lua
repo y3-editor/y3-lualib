@@ -296,3 +296,7 @@ function Item:api_get_item_int_attr(att_key) end
 --物品是否自动使用
 ---@return boolean? # 是否自动使用
 function Item:api_is_item_auto_use() end
+
+--设置物品名称显示样式
+---@param name_bar_type integer # 姓名样式
+function Item:api_set_name_bar_type(name_bar_type) end
