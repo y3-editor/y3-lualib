@@ -183,7 +183,7 @@ local function kv_load_from_key(kv_key, object_key, key, lua_type)
     return py_value
 end
 
--- 保存自定义键值对。可以与ECA互通。
+---保存自定义键值对。可以与ECA互通。
 ---@param key string
 ---@param value KV.SupportType
 function M:kv_save(key, value)
@@ -195,7 +195,7 @@ function M:kv_save(key, value)
     end
 end
 
--- 是否拥有指定键值对。可以与ECA互通。
+---是否拥有指定键值对。可以与ECA互通。
 ---@param key string
 ---@return boolean
 function M:kv_has(key)
@@ -208,6 +208,7 @@ function M:kv_has(key)
     return false
 end
 
+---删除键值对。可以与ECA互通。
 function M:kv_remove(key)
     if self.handle then
         kv_remove_from_handle(self.handle, key)
@@ -217,6 +218,7 @@ function M:kv_remove(key)
     end
 end
 
+---读取键值对。可以与ECA互通。
 ---@param key string
 ---@param lua_type 'boolean' | 'number' | 'integer' | 'string' | 'table' | KV.SupportTypeEnum # `integer` 也可以表示单位类型、技能类型等。
 ---@return any
@@ -228,6 +230,27 @@ function M:kv_load(key, lua_type)
         return kv_load_from_key(self.kv_key, self.key, key, lua_type)
     end
     return nil
+end
+
+---将对象身上的所有键值对序列化为字符串。
+---@return string
+function M:kv_serialize()
+    if self.handle then
+        ---@diagnostic disable-next-line: undefined-field
+        return GameAPI.api_serialize_kv(self.handle)
+    end
+    error('暂不支持物编对象的KV序列化')
+end
+
+---将字符串反序列化为键值对应用到对象身上。
+---@param kv string
+function M:kv_deserialize(kv)
+    if self.handle then
+        ---@diagnostic disable-next-line: undefined-field
+        GameAPI.api_deserialize_kv(self.handle, kv)
+        return
+    end
+    error('暂不支持物编对象的KV反序列化')
 end
 
 return M
