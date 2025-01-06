@@ -18,11 +18,11 @@ end
 
 ---@private
 function M.decodeHook(value, tag)
-    local obj = y3.class.new(tag, value)
-    if obj.__decode then
-        return obj:__decode(value) or obj
+    local class = y3.class.get(tag)
+    if class.__decode then
+        return class:__decode(value) or y3.class.new(tag, value)
     else
-        return obj
+        return y3.class.new(tag, value)
     end
 end
 
