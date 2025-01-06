@@ -863,4 +863,10 @@ function M:request_open_archive(callback)
     end, {})
 end
 
+---更新存档排行榜
+---@param save_index integer # 存档栏位
+function M:update_save_rank(save_index)
+    self.handle:update_player_save_rank(save_index)
+end
+
 return M

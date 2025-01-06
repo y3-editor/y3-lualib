@@ -1021,6 +1021,18 @@ function M.get_latest_game_version(callback)
     end)
 end
 
+---【异步】请求最新的存档排行榜数据。
+---该接口有10分钟的频率限制\如果要配合上传排行榜数据使用，则两个逻辑最好间隔5分钟
+---@param save_index integer # 存档栏位
+---@param callback? fun() # 排行榜刷新完成后的回调函数
+function M.request_map_rank(save_index, callback)
+    GameAPI.lua_request_get_map_rank(save_index, function ()
+        if callback then
+            xpcall(callback, log.error)
+        end
+    end)
+end
+
 _G['OnTick'] = function ()
     if M._client_tick_callback then
         y3.player.with_local(M._client_tick_callback)
