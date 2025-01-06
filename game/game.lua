@@ -1033,6 +1033,12 @@ function M.request_map_rank(save_index, callback)
     end)
 end
 
+---@param str string
+---@return string
+function M.md5(str)
+    return GameAPI.api_get_string_md5(str)
+end
+
 _G['OnTick'] = function ()
     if M._client_tick_callback then
         y3.player.with_local(M._client_tick_callback)
