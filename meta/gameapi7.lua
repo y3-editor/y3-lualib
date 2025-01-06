@@ -1031,3 +1031,15 @@ function GameAPI.rsa_decrypt_message(private_key, encrypted_message) end
 ---@param unit py.Unit # 单位
 ---@param role? py.Role # 玩家
 function GameAPI.reset_billboard_overall_visibility(unit, role) end
+
+--请求获取最新排行榜的值
+---@param archive_key integer # 玩家存档栏位
+---@param lua_func function # 回调函数
+function GameAPI.lua_request_get_map_rank(archive_key, lua_func) end
+
+--绑定魔法效果剩余循环周期到玩家界面控件的属性
+---@param role py.Role # 玩家
+---@param ui_comp string # 控件uid
+---@param ui_comp_attr string # 控件属性字段
+---@param modifier py.ModifierEntity # 技能实体对象
+function GameAPI.set_ui_comp_bind_modifier_cycle(role, ui_comp, ui_comp_attr, modifier) end
