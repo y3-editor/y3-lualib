@@ -42,9 +42,9 @@ function M.create(unit, options)
         local handle = GameAPI.create_force_direction(unit.handle
             , Fix32(target)
             , Fix32(options.speed)
-            , options.max_speed and Fix32(options.max_speed) or nil
-            , options.min_speed and Fix32(options.min_speed) or nil
-            , options.accel and Fix32(options.accel) or nil
+            , Fix32(options.max_speed or 10000)
+            , Fix32(options.min_speed or 0)
+            , Fix32(options.accel or 0)
         )
         return New 'Force' (handle)
     elseif Type(target) == 'Point' then
@@ -52,9 +52,9 @@ function M.create(unit, options)
         local handle = GameAPI.create_force_point(unit.handle
             , target.handle
             , Fix32(options.speed)
-            , options.max_speed and Fix32(options.max_speed) or nil
-            , options.min_speed and Fix32(options.min_speed) or nil
-            , options.accel and Fix32(options.accel) or nil
+            , Fix32(options.max_speed or 10000)
+            , Fix32(options.min_speed or 0)
+            , Fix32(options.accel or 0)
         )
         return New 'Force' (handle)
     elseif Type(target) == 'Unit' then
@@ -62,9 +62,9 @@ function M.create(unit, options)
         local handle = GameAPI.create_force_target(unit.handle
             , target.handle
             , Fix32(options.speed)
-            , options.max_speed and Fix32(options.max_speed) or nil
-            , options.min_speed and Fix32(options.min_speed) or nil
-            , options.accel and Fix32(options.accel) or nil
+            , Fix32(options.max_speed or 10000)
+            , Fix32(options.min_speed or 0)
+            , Fix32(options.accel or 0)
         )
         return New 'Force' (handle)
     else
