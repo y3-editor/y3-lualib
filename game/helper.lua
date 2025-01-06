@@ -40,7 +40,7 @@ function M.tonumber(n)
     end
 end
 
----@param n? y3.Number
+---@param n? y3.Number | any
 ---@return 'number' | 'Fix32' | 'XDouble' | nil
 function M.number_type(n)
     local tp = type(n)

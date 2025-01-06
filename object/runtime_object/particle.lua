@@ -1,7 +1,6 @@
 --粒子特效
 ---@class Particle
 ---@field handle py.Sfx
----@field private _removed? boolean 
 ---@overload fun(sfx:py.Sfx): self
 local M = Class 'Particle'
 
