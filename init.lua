@@ -118,6 +118,7 @@ y3.aes          = require 'y3.util.aes'
 y3.local_ui     = require 'y3.util.local_ui'
 y3.fs           = require 'y3.util.fs'
 y3.eca_rt       = require 'y3.util.eca_runtime'
+y3.rsa          = require 'y3.util.rsa'
 
 pcall(function ()
     require 'y3-helper.meta'
