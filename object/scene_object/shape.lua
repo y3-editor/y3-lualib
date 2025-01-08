@@ -40,9 +40,12 @@ end
 ---@param width number 宽度
 ---@param length number 长度
 ---@param angle number 角度
+---@param offset_x_ratio? number # 偏移x
+---@param offset_y_ratio? number # 偏移y
 ---@return Shape
-function M.create_rectangle_shape(width, length, angle)
-    local py_shape = GlobalAPI.create_rectangle_shape(Fix32(width), Fix32(length), angle)
+function M.create_rectangle_shape(width, length, angle, offset_x_ratio, offset_y_ratio)
+    local py_shape = GlobalAPI.create_rectangle_shape(Fix32(width), Fix32(length), angle,
+    offset_x_ratio and Fix32(offset_x_ratio) or nil, offset_y_ratio and Fix32(offset_y_ratio) or nil)
     return M.get_by_handle(py_shape)
 end
 
