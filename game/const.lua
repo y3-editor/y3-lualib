@@ -1004,6 +1004,13 @@ M.PlatFormRoleCommunityType = {
     ['社区主题数量'] = 6,
 }
 
+---@enum(key) y3.Const.SignInDaysType
+M.SignInDaysType = {
+    ['累计签到'] = 0,
+    ['最多连续签到'] = 1,
+    ['当前连续签到'] = 2,
+}
+
 ---@enum y3.Const.SteamOnlineState
 M.SteamOnlineState = {
     ['离线'] = 1,

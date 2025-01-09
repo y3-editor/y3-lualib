@@ -751,6 +751,13 @@ function M:get_community_value(community_type)
     return self.handle:api_get_community_value(y3.const.PlatFormRoleCommunityType[community_type] or community_type) or 0
 end
 
+---获取玩家当前地图的签到天数
+---@param sign_type? y3.Const.SignInDaysType
+---@return integer
+function M:get_sign_in_days(sign_type)
+    return self.handle:api_get_sign_in_days_of_platform(y3.const.SignInDaysType[sign_type] or sign_type or 0) or 0
+end
+
 ---玩家是否收藏当前地图
 ---@return boolean
 function M:is_bookmark_current_map()
