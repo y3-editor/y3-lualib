@@ -65,4 +65,10 @@ function M.array(default)
     return setmetatable({}, array_meta_map[default])
 end
 
+---@param params { _master: Storage }
+---@return table
+function M.storage(params)
+    return params._master:storage_all()
+end
+
 return M

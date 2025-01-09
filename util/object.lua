@@ -57,6 +57,7 @@ local function initGameEventProxy(self, name)
         if not event_manager then
             return
         end
+        data['_master'] = master
         event_manager:notify(name, nil, data)
     end)
 end
