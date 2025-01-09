@@ -1336,10 +1336,10 @@ function M:set_ui_gridview_margin(top, bottom, left, right)
 end
 
 --设置网格列表单元格间距
----@param width number # 横向
----@param height number # 纵向
-function M:set_ui_gridview_space(width, height)
-    GameAPI.set_ui_gridview_space(self.player.handle, self.handle, width, height)
+---@param row number # 行间距（纵向）
+---@param col number # 列间距（横向）
+function M:set_ui_gridview_space(row, col)
+    GameAPI.set_ui_gridview_space(self.player.handle, self.handle, row, col)
 end
 
 --设置网格列表对齐方式
