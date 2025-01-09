@@ -124,6 +124,9 @@ function M:add_event(event, name, data)
     return GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, name, y3.dump.encode(data))
 end
 
+---@private
+M._added_fast_events = {}
+
 --创建快速界面事件
 ---@param event y3.Const.UIEvent 界面事件类型
 ---@param callback fun(trg: Trigger)
@@ -133,7 +136,10 @@ function M:add_fast_event(event, callback)
         , event
         , self.handle
     )
-    GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, id, '')
+    if not M._added_fast_events[id] then
+        GameAPI.create_ui_comp_event_ex_ex(self.handle, y3.const.UIEventMap[event] or event, id, '')
+        M._added_fast_events[id] = true
+    end
     return self.player:event("界面-消息", id, callback)
 end
 
