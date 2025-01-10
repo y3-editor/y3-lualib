@@ -1,5 +1,6 @@
 ---这个库仅用于ECA转Lua时用于支持ECA的写法，
 ---如果一开始就是用Lua开发的可以使用更好的写法。
+---@class ECARuntime
 local M = {}
 
 local evaluate_cache = {}
@@ -20,15 +21,6 @@ function M.evaluate(code, ...)
     end
     return f(...)
 end
-
-local array_meta = { __index = function (t, k)
-    if k == nil then
-        return nil
-    end
-    local v = t._default
-    t[k] = v
-    return v
-end }
 
 local array_meta_map = setmetatable({}, { __index = function (t, default)
     local mt
@@ -65,10 +57,48 @@ function M.array(default)
     return setmetatable({}, array_meta_map[default])
 end
 
+---@param variables table<string, any>
+---@return ECARuntime.VariableSpace
+function M.variable(variables)
+    return New 'ECARuntime.VariableSpace' (variables)
+end
+
+---@class ECARuntime.VariableSpace
+local V = Class 'ECARuntime.VariableSpace'
+
+---@param variables table<string, any>
+function V:__init(variables)
+    self.variables = variables
+end
+
+local VAR_SYMBOLE = { 'VAR' }
+
+local new_mt = { __index = function (t, k)
+    local v = t[VAR_SYMBOLE][k]
+    if type(v) == 'table' then
+        -- array
+        local mt = getmetatable(v)
+        if mt then
+            v = setmetatable({}, mt)
+        else
+            v = {}
+        end
+    end
+    t[k] = v
+    return v
+end }
+
+---@return table<string, any>
+function V:new()
+    return setmetatable({ [VAR_SYMBOLE] = self.variables }, new_mt)
+end
+
 ---@param params { _master: Storage }
----@return table
-function M.storage(params)
-    return params._master:storage_all()
+---@return table<string, any>
+function V:group(params)
+    local master = params._master
+    return master:storage_get('group_variables')
+        or master:storage_set('group_variables', self:new())
 end
 
 return M
