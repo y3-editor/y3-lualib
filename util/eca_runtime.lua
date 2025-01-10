@@ -88,9 +88,15 @@ local new_mt = { __index = function (t, k)
     return v
 end }
 
+---@param args? table<string, any>
 ---@return table<string, any>
-function V:new()
-    return setmetatable({ [VAR_SYMBOLE] = self.variables }, new_mt)
+function V:new(args)
+    local variables = self.variables
+    if not args then
+        args = {}
+    end
+    args[VAR_SYMBOLE] = variables
+    return setmetatable(args, new_mt)
 end
 
 ---@param params { _master: Storage }
