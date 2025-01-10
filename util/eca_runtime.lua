@@ -104,7 +104,7 @@ end
 
 ---@param params { _master: Storage }
 ---@return table<string, any>
-function V:group(params)
+function V:with(params)
     local master = params._master
     return master:storage_get('group_variables')
         or master:storage_set('group_variables', self:new())
