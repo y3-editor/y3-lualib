@@ -366,9 +366,9 @@ function M:refresh(name, player)
 
     self._need_refresh[name] = true
 
-    if not M._refresh_next_tick_timer then
-        M._refresh_next_tick_timer = y3.ctimer.wait(0, function ()
-            M._refresh_next_tick_timer = nil
+    if not self._refresh_next_tick_timer then
+        self._refresh_next_tick_timer = y3.ctimer.wait(0, function ()
+            self._refresh_next_tick_timer = nil
             self:refreshAll()
         end)
     end
