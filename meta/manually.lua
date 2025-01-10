@@ -68,7 +68,7 @@ function python_index(obj, index) end
 ---@param obj py.DynamicTypeMeta
 ---@param index integer
 ---@param value any
-function set_py_index(obj, index, value) end
+function set_python_index(obj, index, value) end
 
 python = {}
 
