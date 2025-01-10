@@ -75,6 +75,9 @@ local VAR_SYMBOLE = { 'VAR' }
 
 local new_mt = { __index = function (t, k)
     local v = t[VAR_SYMBOLE][k]
+    if v == nil then
+        return nil
+    end
     if type(v) == 'table' then
         -- array
         local mt = getmetatable(v)
