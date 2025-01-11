@@ -446,6 +446,12 @@ function M.change_mini_map_img(player,img)
     GameAPI.change_mini_map_img_with_icon(player.handle, img)
 end
 
+--设置小地图显示区域
+---@param player Player 玩家
+---@param rect_area Area 矩形区域
+function M.set_minimap_show_area(player, rect_area)
+    GameAPI.set_min_map_show_area(player.handle, rect_area.handle --[[@as py.RecArea]])
+end
 
 --设置物品组件绑定单位
 ---@param unit Unit
