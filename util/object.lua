@@ -14,6 +14,20 @@ DataModule.__getter.data = function (self)
     return GameAPI.api_get_editor_type_data(self.data_key, self.key), true
 end
 
+---@diagnostic disable-next-line: undefined-field
+DataModule.__getter.lua_data = function (self)
+    local data = GameAPI.api_get_editor_type_data(self.data_key, self.key)
+    return setmetatable({}, {
+        __index = function (_, k)
+            local v = data[k]
+            return y3.helper.as_lua(v, true)
+        end,
+        __newindex = function (_, k, v)
+            data[k] = y3.helper.as_py(v)
+        end
+    })
+end
+
 ---@private
 local last_key = 910000000
 
@@ -85,6 +99,10 @@ end
 ---单位的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 ---如果想要修改数据，请使用 `new` 方法创建新的物编，并在创建时传入要修改的数据
 ---@field data Object.Unit
+---单位的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---如果想要修改数据，请使用 `new` 方法创建新的物编，并在创建时传入要修改的数据  
+---使用该字段读取的数据会自动转成lua类型，写入时也会自动转成python类型。
+---@field lua_data Object.Unit
 local Unit = Class 'EditorObject.Unit'
 
 Extends('EditorObject.Unit', 'EditorObject.DataModule')
@@ -129,10 +147,13 @@ end)
 ---@field on_add_to_pkg? fun(item: Item) # 物品进入背包后执行
 ---@field on_add_to_bar? fun(item: Item) # 物品进入装备栏后执行
 ---@field on_use? fun(item: Item) # 物品使用时执行
---物品的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---物品的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此物品再修改数据，行为是未定义的
 ---@field data Object.Item
+---物品的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---使用该字段读取的数据会自动转成lua类型，写入时也会自动转成python类型。
+---@field lua_data Object.Item
 local Item = Class 'EditorObject.Item'
 
 Extends('EditorObject.Item', 'EditorObject.DataModule')
@@ -170,10 +191,13 @@ end)
 ---@field on_lose? fun(buff: Buff) # 效果失去后执行
 ---@field on_pulse? fun(buff: Buff) # 效果心跳后执行
 ---@field on_stack_change? fun(buff: Buff) # 效果层数变化后执行
---魔法效果的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---魔法效果的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此魔法效果再修改数据，行为是未定义的
 ---@field data Object.Buff
+---魔法效果的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---使用该字段读取的数据会自动转成lua类型，写入时也会自动转成python类型。
+---@field lua_data Object.Buff
 local Buff = Class 'EditorObject.Buff'
 
 Extends('EditorObject.Buff', 'EditorObject.DataModule')
@@ -219,6 +243,10 @@ end)
 ---技能的物编数据，你可以从里面读取任意物编  
 ---如果想要修改数据，请使用 `new` 方法创建新的物编，并在创建时传入要修改的数据
 ---@field data Object.Ability
+---技能的物编数据，你可以从里面读取任意物编  
+---如果想要修改数据，请使用 `new` 方法创建新的物编，并在创建时传入要修改的数据  
+---使用该字段读取的数据会自动转成lua类型，写入时也会自动转成python类型。
+---@field lua_data Object.Ability
 local Ability = Class 'EditorObject.Ability'
 
 Extends('EditorObject.Ability', 'EditorObject.DataModule')
@@ -258,10 +286,13 @@ end)
 ---@field key py.ProjectileKey
 ---@field on_create? fun(projectile: Projectile) # 投射物创建时执行
 ---@field on_remove? fun(projectile: Projectile) # 投射物销毁时执行
---投射物的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---投射物的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
 --> 警告：请确保数据类型正确，否则可能导致崩溃  
 --> 警告：如果创建过此投射物再修改数据，行为是未定义的
 ---@field data Object.Projectile
+---投射物的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---使用该字段读取的数据会自动转成lua类型，写入时也会自动转成python类型。
+---@field lua_data Object.Projectile
 local Projectile = Class 'EditorObject.Projectile'
 
 Extends('EditorObject.Projectile', 'EditorObject.DataModule')

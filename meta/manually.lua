@@ -54,12 +54,12 @@ function Fix32Vec3(x, y, z) end
 function new_global_trigger(id, name, event, init_enabled, addition) end
 
 -- 获取容器大小
----@param obj py.DynamicTypeMeta
+---@param obj py.DynamicTypeMeta | py.Tuple
 ---@return integer
 function python_len(obj) end
 
 -- 获取容器元素
----@param obj py.DynamicTypeMeta
+---@param obj py.DynamicTypeMeta | py.Tuple
 ---@param index integer
 ---@return any
 function python_index(obj, index) end
@@ -261,7 +261,7 @@ function unregist_object_event(seq) end
 ---@class py.Tuple
 ---@field [integer] any
 
----@param list any[]
+---@param list? table<integer, true>
 ---@return py.Tuple
 function pytuple(list) end
 

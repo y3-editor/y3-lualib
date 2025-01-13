@@ -66,7 +66,7 @@ local function as_lua(v, recursive, mark)
     if tp == 'table' then
         if recursive then
             mark = mark or {}
-            if mark[v] then
+            if mark[v] ~= nil then
                 return v
             end
             mark[v] = true
@@ -81,6 +81,11 @@ local function as_lua(v, recursive, mark)
             v = v:float()
         elseif name == 'xDouble' then
             v = v:float()
+        elseif name == 'POBJECT' then
+            local suc, res = pcall(M.py_to_table, v)
+            if suc then
+                v = as_lua(res, recursive, mark)
+            end
         end
     end
     return v
@@ -93,6 +98,38 @@ function M.as_lua(v, recursive)
     return as_lua(v, recursive)
 end
 
+local function as_py(v, mark)
+    local tp = type(v)
+    if tp == 'table' then
+        mark = mark or {}
+        if mark[v] ~= nil then
+            if mark[v] == false then
+                error('元组不支持循环引用！')
+            end
+            return mark[v]
+        end
+        mark[v] = false
+        if #v > 0 then
+            v = y3.util.map(v, function (nv)
+                return as_py(nv, mark)
+            end)
+            v = M.py_tuple(v)
+            mark[v] = v
+        else
+            mark[v] = M.py_dict()
+            for k, vv in pairs(v) do
+                mark[v][k] = as_py(vv, mark)
+            end
+            v = mark[v]
+        end
+    end
+    return v
+end
+
+function M.as_py(v)
+    return as_py(v)
+end
+
 ---@param t? table
 ---@return py.Dict
 function M.py_dict(t)
@@ -103,6 +140,22 @@ function M.py_dict(t)
         end
     end
     return dict
+end
+
+---@param t? any[]
+---@return py.Tuple
+function M.py_tuple(t)
+    if not pytuple then
+        error('需要编辑器2月版本更新后才可使用此功能！')
+    end
+    local set
+    if t then
+        set = {}
+        for _, v in ipairs(t) do
+            set[v] = true
+        end
+    end
+    return pytuple(set)
 end
 
 ---将py.Dict转换为table
@@ -119,6 +172,34 @@ function M.dict_to_table(dict)
         t[k] = dict[k]
     end
     return t
+end
+
+---@param tuple py.Tuple
+---@return table
+function M.tuple_to_table(tuple)
+    local t = {}
+    for i = 0, python_len(tuple) - 1 do
+        t[i+1] = python_index(tuple, i)
+    end
+    return t
+end
+
+---@param py_object any
+---@return table
+function M.py_to_table(py_object)
+    if python_len(py_object) > 0 then
+        return M.tuple_to_table(py_object)
+    else
+        return M.dict_to_table(py_object)
+    end
+end
+
+function M.table_to_py(t)
+    if #t > 0 then
+        return M.py_tuple(t)
+    else
+        return M.py_dict(t)
+    end
 end
 
 return M
