@@ -150,7 +150,7 @@ function M.py_tuple(t)
     end
     local set
     if t then
-        set = {}
+        set = pydict()
         for _, v in ipairs(t) do
             set[v] = true
         end
