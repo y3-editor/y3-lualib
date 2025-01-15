@@ -63,6 +63,28 @@ function M.variable(variables)
     return New 'ECARuntime.VariableSpace' (variables)
 end
 
+function M.tointeger(v)
+    return math.tointeger(v) or 0
+end
+
+function M.string(...)
+    local n = select('#', ...)
+    if n == 0 then
+        return ''
+    elseif n == 1 then
+        return ... or ''
+    elseif n == 2 then
+        local a, b = ...
+        return (a or '') .. (b or '')
+    else
+        local buf = {}
+        for i = 1, n do
+            buf[i] = select(i, ...) or ''
+        end
+        return table.concat(buf)
+    end
+end
+
 ---@class ECARuntime.VariableSpace
 local V = Class 'ECARuntime.VariableSpace'
 
