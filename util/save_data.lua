@@ -37,6 +37,14 @@ function M.save_integer(player, slot, value)
     player.handle:set_save_data_int_value(slot, value)
 end
 
+---增加玩家的存档数据（整数）
+---@param player Player
+---@param slot integer
+---@param value integer
+function M.add_integer(player, slot, value)
+    player.handle:add_save_data_int_value(slot, value)
+end
+
 -- 获取玩家的存档数据（实数）
 ---@param player Player
 ---@param slot integer
@@ -51,6 +59,14 @@ end
 ---@param value number
 function M.save_real(player, slot, value)
     player.handle:set_save_data_fixed_value(slot, Fix32(value))
+end
+
+---增加玩家的存档数据（实数）
+---@param player Player
+---@param slot integer
+---@param value number
+function M.add_real(player, slot, value)
+    player.handle:add_save_data_fixed_value(slot, Fix32(value))
 end
 
 -- 获取玩家的存档数据（字符串）
