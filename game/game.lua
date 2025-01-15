@@ -6,7 +6,7 @@ local M = Class 'Game'
 
 ---设置物体的材质
 ---@deprecated
----@param obj Unit
+---@param obj Unit|Item|Destructible
 ---@param mat integer 材质
 ---@param r number 红
 ---@param g number 绿
