@@ -17,7 +17,7 @@ local function change_to_generational()
     local mem = collectgarbage 'count'
     limit = mem * 2
     local c2 = python.debug_ns_timestamp()
-    M.print(('切换为增量回收，耗时：% 7.3fms'):format((c2 - c1) / 1000000))
+    M.print(('切换为分代回收，耗时：% 7.3fms'):format((c2 - c1) / 1000000))
     M.print(('当前内存限制：% 7.3fM'):format(limit / 1000))
 end
 
@@ -30,7 +30,7 @@ local function change_to_incremental()
     incre_count = 0
     incre_rate = 0.0005
     local c2 = python.debug_ns_timestamp()
-    M.print(('切换为分代回收，耗时：% 7.3fms'):format((c2 - c1) / 1000000))
+    M.print(('切换为增量回收，耗时：% 7.3fms'):format((c2 - c1) / 1000000))
 end
 
 local function do_collect()
