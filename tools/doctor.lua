@@ -624,14 +624,36 @@ end)
 
 ---@alias Doctor.Report { point: string, count: integer, name: string, childs: integer }
 ---@alias Doctor.StringInfo { count: integer, totalSize: integer, largeStrings: string[] }
+---@alias Doctor.WeakTableInfo { totalSize: integer, tables: { name: string, point: string, size: integer }[]}
+---@alias Doctor.GCTableInfo { tables: { name: string, point: string, gc: string }[] }
+
+local function countTable(t)
+    local n = 0
+    for _ in next, t do
+        n = n + 1
+    end
+    return n
+end
 
 --- 生成一个内存快照的报告。
 --- 你应当将其输出到一个文件里再查看。
----@return { report: Doctor.Report[], stringInfo: Doctor.StringInfo }
+---@return {
+--- report: Doctor.Report[],
+--- stringInfo: Doctor.StringInfo,
+--- weakTableInfo: Doctor.WeakTableInfo,
+--- gcTableInfo: Doctor.GCTableInfo,
+---}
 m.report = private(function ()
     local snapshot = m.snapshot()
     local cache = {}
     local mark = {}
+    local weakTableInfo = {
+        totalSize = 0,
+        tables = {},
+    }
+    local gcTableInfo = {
+        tables = {},
+    }
 
     local function scanRoot(t)
         local obj = t.info.object
@@ -652,6 +674,33 @@ m.report = private(function ()
             end
             cache[point].count = cache[point].count + 1
         end
+        if tp == 'table' then
+            local mt = getmetatable(obj)
+            if mt then
+                if rawget(mt, '__mode') then
+                    local n = countTable(obj)
+                    weakTableInfo.totalSize = weakTableInfo.totalSize + n
+                    weakTableInfo.tables[#weakTableInfo.tables+1] = {
+                        name  = formatName(obj),
+                        point = getPoint(obj),
+                        size  = n,
+                    }
+                end
+            end
+        end
+        if tp == 'table' or tp == 'userdata' then
+            local mt = getmetatable(obj)
+            if mt then
+                local gc = rawget(mt, '__gc')
+                if gc then
+                    gcTableInfo.tables[#gcTableInfo.tables+1] = {
+                        name  = formatName(obj),
+                        point = getPoint(obj),
+                        gc    = formatName(gc),
+                    }
+                end
+            end
+        end
         if not mark[t.info] then
             mark[t.info] = true
             for _, child in ipairs(t.info) do
@@ -668,6 +717,8 @@ m.report = private(function ()
     return {
         report = list,
         stringInfo = snapshot.stringInfo,
+        weakTableInfo = weakTableInfo,
+        gcTableInfo = gcTableInfo,
     }
 end)
 

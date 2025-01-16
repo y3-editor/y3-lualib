@@ -107,9 +107,7 @@ M.register('RD', {
 
 M.register('SS', {
     desc = '生成内存快照',
-    onCommand = function (includeString)
-        collectgarbage()
-        collectgarbage()
+    onCommand = function (extraInfo)
         y3.doctor.toString('onlylua', 'onlylua')
         local reports = y3.doctor.report()
         local lines = {}
@@ -121,7 +119,27 @@ M.register('SS', {
                 , report.name
             )
         end
-        if includeString then
+        if extraInfo then
+            lines[#lines+1] = '===WeakTable==='
+            lines[#lines+1] = string.format('TotalSize: %d', reports.weakTableInfo.totalSize)
+            for _, info in ipairs(reports.weakTableInfo.tables) do
+                lines[#lines+1] = string.format('%16s(%d): %s'
+                    , info.point
+                    , info.size
+                    , info.name
+                )
+            end
+
+            lines[#lines+1] = '===GCTable==='
+            lines[#lines+1] = string.format('TotalCount: %d', #reports.gcTableInfo.tables)
+            for _, info in ipairs(reports.gcTableInfo.tables) do
+                lines[#lines+1] = string.format('%16s: %s => %s'
+                    , info.point
+                    , info.name
+                    , info.gc
+                )
+            end
+
             lines[#lines+1] = '===String==='
             lines[#lines+1]  = string.format('TotalNum:  %d', reports.stringInfo.count)
             lines[#lines+1]  = string.format('TotalSize: %.3fKB', reports.stringInfo.totalSize / 1024)
