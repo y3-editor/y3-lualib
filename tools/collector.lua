@@ -4,9 +4,8 @@ local M = {}
 M.print = log.debug
 
 local state = ''
-local incre_rate = 0.0005
-local incre_count = 0
 local limit = 500 * 1000
+local incre_count = 0
 local last_mem = collectgarbage 'count'
 
 local function change_to_generational()
@@ -25,10 +24,10 @@ local function change_to_incremental()
     -- collectgarbage()
     local c1 = python.debug_ns_timestamp()
     state = '增量'
-    collectgarbage('incremental', 0, 100, 13)
-    collectgarbage('stop')
     incre_count = 0
-    incre_rate = 0.0005
+    collectgarbage('incremental', 100, 100, 13)
+    collectgarbage('stop')
+    last_mem = collectgarbage 'count'
     local c2 = python.debug_ns_timestamp()
     M.print(('切换为增量回收，耗时：% 7.3fms'):format((c2 - c1) / 1000000))
 end
@@ -45,19 +44,17 @@ local function do_collect()
         mem = collectgarbage 'count'
         last_mem = mem
     elseif state == '增量' then
-        local delta = limit * incre_rate
-        local full = collectgarbage('step', math.floor(delta))
-        M.print(('增量步进率：%.f，步进值：% 7.3fM'):format(incre_rate * 10000, delta / 1000))
+        local full = collectgarbage('step')
         mem = collectgarbage 'count'
-        if mem > last_mem then
-            incre_rate = incre_rate * (mem / last_mem) + 0.0001
-        end
         last_mem = mem
 
         if full then
             M.print('完成了一次增量周期')
+            state = '切换为分代'
+        else
             incre_count = incre_count + 1
-            if mem * 5 < limit or incre_count > 5 then
+            if incre_count > 300 then
+                M.print('增量周期超时，强制切换回分代')
                 state = '切换为分代'
             end
         end
@@ -127,7 +124,7 @@ end
 function M.start()
     M.init()
     ---@private
-    M.timer = M.timer or y3.ltimer.loop_frame(7, function (timer, count)
+    M.timer = M.timer or y3.ctimer.loop_frame(13, function (timer, count)
         step_collector()
     end)
 end

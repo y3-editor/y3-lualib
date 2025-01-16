@@ -7,7 +7,7 @@ require 'y3.debugger'
 ---@class Y3
 y3 = {}
 
-y3.version = 250109
+y3.version = 250116
 
 y3.proxy   = require 'y3.tools.proxy'
 y3.class   = require 'y3.tools.class'
