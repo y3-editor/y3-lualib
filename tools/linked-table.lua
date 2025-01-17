@@ -1,3 +1,4 @@
+local setmetatable = setmetatable
 ---@class LinkedTable
 ---@field package _left  table
 ---@field package _right table

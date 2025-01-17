@@ -1,3 +1,9 @@
+local type = type
+local New = New
+local Delete = Delete
+local IsValid = IsValid
+local mathMax = math.max
+
 ---@class GCHost
 ---@field private _gccontainer GC
 local GCHost = Class 'GCHost'
@@ -94,7 +100,7 @@ function GC:zip()
             index = index + 1
         end
     end
-    self.max = math.max(#objects * 1.5, 10)
+    self.max = mathMax(#objects * 1.5, 10)
 end
 
 ---@class GCNode

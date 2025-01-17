@@ -1,3 +1,10 @@
+local pairs = pairs
+local ipairs = ipairs
+local type = type
+local table_sort = table.sort
+local pcall = pcall
+local map = y3.util.map
+
 ---@class Helper
 local M = Class 'Helper'
 
@@ -110,7 +117,7 @@ local function as_py(v, mark)
         end
         mark[v] = false
         if #v > 0 then
-            v = y3.util.map(v, function (nv)
+            v = map(v, function (nv)
                 return as_py(nv, mark)
             end)
             v = M.py_tuple(v)
@@ -166,7 +173,7 @@ function M.dict_to_table(dict)
     for k in python.iter(dict) do
         keys[#keys+1] = k
     end
-    table.sort(keys)
+    table_sort(keys)
     local t = {}
     for _, k in ipairs(keys) do
         t[k] = dict[k]

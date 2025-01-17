@@ -1,10 +1,11 @@
 local OFix32 = Fix32
+local math_type = math.type
 
 local cache = setmetatable({}, {
     __mode = 'v',
     __index = function (self, n)
         local v
-        if math.type(n) == 'integer' then
+        if math_type(n) == 'integer' then
             v = OFix32(0.0 + n)
         else
             v = OFix32(n)

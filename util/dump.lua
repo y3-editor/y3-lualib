@@ -1,11 +1,17 @@
-local seri = require 'y3.tools.serialization'
+local class_type = y3.class.type
+local class_get = y3.class.get
+local New = New
+
+local encode = require 'y3.tools.serialization'.encode
+local decode = require 'y3.tools.serialization'.decode
+
 
 ---@class Dump
 local M = Class 'Dump'
 
 ---@private
 function M.encodeHook(value)
-    local luaType = y3.class.type(value)
+    local luaType = class_type(value)
     if not luaType then
         return
     end
@@ -18,11 +24,11 @@ end
 
 ---@private
 function M.decodeHook(value, tag)
-    local class = y3.class.get(tag)
+    local class = class_get(tag)
     if class.__decode then
-        return class:__decode(value) or y3.class.new(tag, value)
+        return class:__decode(value) or New(tag, value)
     else
-        return y3.class.new(tag, value)
+        return New(tag, value)
     end
 end
 
@@ -30,7 +36,7 @@ end
 ---@param data Serialization.SupportTypes
 ---@return string
 function M.encode(data)
-    local bin = seri.encode(data, M.encodeHook, true)
+    local bin = encode(data, M.encodeHook, true)
     return bin
 end
 
@@ -38,7 +44,7 @@ end
 ---@param bin string
 ---@return any
 function M.decode(bin)
-    local value = seri.decode(bin, M.decodeHook)
+    local value = decode(bin, M.decodeHook)
     return value
 end
 

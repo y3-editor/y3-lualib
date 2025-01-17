@@ -1,3 +1,12 @@
+local select = select
+local ipairs = ipairs
+local rawget = rawget
+local New = New
+local Type = Type
+local table_insert = table.insert
+local table_remove = table.remove
+local table_unpack = table.unpack
+
 local event_configs = require 'y3.meta.eventconfig'
 local get_master    = require 'y3.util.get_master'
 
@@ -43,7 +52,7 @@ end
 ---@private
 function M:core_subscribe(event_name, ...)
     local config = event_configs.config[event_name]
-    local self_type = y3.class.type(self)
+    local self_type = Type(self)
     ---@diagnostic disable-next-line: undefined-field
     if not self.handle then
         error("注册对象事件缺少handle: " .. tostring(event_name))
@@ -76,7 +85,7 @@ function M:core_subscribe(event_name, ...)
                 if not extra_args then
                     extra_args = {}
                 end
-                table.insert(extra_args, i, self)
+                table_insert(extra_args, i, self)
                 break
             end
         end
@@ -89,7 +98,7 @@ function M:core_subscribe(event_name, ...)
             if param.resolve then
                 val = param.resolve(extra_args[i])
             end
-            table.insert(args, val)
+            table_insert(args, val)
         end
     end
 
@@ -99,7 +108,7 @@ function M:core_subscribe(event_name, ...)
         ---@diagnostic disable-next-line: invisible
         local lua_params = y3.py_event_sub.convert_py_params(config.key, data, extra_args)
         trigger:execute(lua_params)
-    end, table.unpack(args))
+    end, table_unpack(args))
 
     local unsubscribe = function ()
         unregist_object_event(seq)
@@ -117,12 +126,12 @@ end
 ---@private
 function M:core_subscribe_from_global(event_name, ...)
     local params = { ... }
-    local callback = table.remove(params)
+    local callback = table_remove(params)
     params[#params+1] = function (trigger, lua_params)
         local master = get_master(event_name, lua_params)
         if master == self then
             callback(trigger, lua_params)
         end
     end
-    return y3.game:event(event_name, table.unpack(params))
+    return y3.game:event(event_name, table_unpack(params))
 end

@@ -1,3 +1,10 @@
+local setmetatable = setmetatable
+local xpcall = xpcall
+local Delete = Delete
+local New = New
+local sort_pairs = y3.util.sortPairs
+local table_sort = table.sort
+
 --本地计时器
 --
 --支持异步创建或回调（只要你自己保证不会引发其他不同步的问题）
@@ -346,7 +353,7 @@ end
 ---@return fun():LocalTimer?
 function M.pairs()
     local timers = {}
-    for _, timer in y3.util.sortPairs(M.all_timers) do
+    for _, timer in sort_pairs(M.all_timers) do
         timers[#timers+1] = timer
     end
     local i = 0
@@ -373,7 +380,7 @@ local function update_frame()
         if queue then
             cur_ms = ti
             if queue.need_sort then
-                table.sort(queue, function (a, b)
+                table_sort(queue, function (a, b)
                     return a.id < b.id
                 end)
             end

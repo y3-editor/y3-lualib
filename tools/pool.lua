@@ -1,3 +1,7 @@
+local New = New
+local ipairs = ipairs
+local assert = assert
+
 ---@class Pool
 ---@field private pool table<any, integer>
 ---@overload fun(): self

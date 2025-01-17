@@ -1,3 +1,13 @@
+local math_floor = math.floor
+local setmetatable = setmetatable
+local xpcall = xpcall
+local Delete = Delete
+local New = New
+local os_clock_banned = os.clock_banned
+local sort_pairs = y3.util.sortPairs
+local table_sort = table.sort
+
+
 --客户端计时器
 --
 --由你自己电脑的CPU驱动的计时器，完全是异步的（即使是同步执行）
@@ -44,7 +54,7 @@ M.paused_ms = 0
 M.paused_frame = 0
 
 local cur_frame = 0
-local cur_ms = math.floor(os.clock_banned() * 1000)
+local cur_ms = math_floor(os.clock_banned() * 1000)
 local id = 0
 
 ---@type table<integer, ClientTimer[]>
@@ -90,7 +100,7 @@ function M:set_time_out()
                        + self.total_paused_ms
     else
         self.target_frame = self.init_frame
-                          + math.floor(self.time) * (self.runned_count + 1)
+                          + math_floor(self.time) * (self.runned_count + 1)
                           + self.total_paused_frame
     end
 
@@ -124,7 +134,7 @@ function M:execute(...)
         , self
         , self.runned_count
         ---@diagnostic disable-next-line: deprecated
-        , y3.player.get_local()
+        ,  y3.player.get_local()
         , ...
     )
 end
@@ -139,7 +149,7 @@ function M:push()
     self:pop()
     local queue
     if self.mode == 'second' then
-        local ms = math.floor(self.target_ms)
+        local ms = math_floor(self.target_ms)
         if ms <= cur_ms then
             ms = cur_ms + 1
         end
@@ -374,7 +384,7 @@ end
 ---@return fun():ClientTimer?
 function M.pairs()
     local timers = {}
-    for _, timer in y3.util.sortPairs(M.all_timers) do
+    for _, timer in sort_pairs(M.all_timers) do
         timers[#timers+1] = timer
     end
     local i = 0
@@ -388,7 +398,7 @@ end
 local desk = {}
 
 local function update_queue(queue)
-    table.sort(queue, function (a, b)
+    table_sort(queue, function (a, b)
         return a.id < b.id
     end)
     for i = 1, #queue do
@@ -413,7 +423,7 @@ function M.update_frame()
         end
     end
 
-    local target_ms = math.floor(os.clock_banned() * 1000)
+    local target_ms = math_floor(os_clock_banned() * 1000)
     for ti = cur_ms, target_ms do
         local queue = ms_queues[ti]
         if queue then

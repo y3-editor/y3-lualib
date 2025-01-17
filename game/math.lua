@@ -1,3 +1,11 @@
+local Fix32 = Fix32
+local sin = math.sin
+local cos = math.cos
+local tan = math.tan
+local asin = math.asin
+local acos = math.acos
+local atan = math.atan
+
 -- 使用角度制的三角函数
 local deg = math.deg(1)
 local rad = math.rad(1)
@@ -26,35 +34,35 @@ end
 ---@param value number 实数
 ---@return number float 实数
 function M.sin(value)
-    return math.sin(value * rad)
+    return sin(value * rad)
 end
 
 ---余弦（角度制）
 ---@param value number 实数
 ---@return number float 实数
 function M.cos(value)
-    return math.cos(value * rad)
+    return cos(value * rad)
 end
 
 ---正切（角度制）
 ---@param value number 实数
 ---@return number float 实数
 function M.tan(value)
-    return math.tan(value * rad)
+    return tan(value * rad)
 end
 
 ---反正弦（角度制）
 ---@param value number 实数
 ---@return number float 实数
 function M.asin(value)
-    return math.asin(value) * deg
+    return asin(value) * deg
 end
 
 ---反余弦（角度制）
 ---@param value number 实数
 ---@return number float 实数
 function M.acos(value)
-    return math.acos(value) * deg
+    return acos(value) * deg
 end
 
 ---反正切（角度制）
@@ -62,7 +70,7 @@ end
 ---@param x number
 ---@return number float 实数
 function M.atan(y, x)
-    return math.atan(y, x) * deg
+    return atan(y, x) * deg
 end
 
 --计算2个角度之间的夹角（角度制）

@@ -1,3 +1,9 @@
+local ipairs = ipairs
+local rawget = rawget
+local setmetatable = setmetatable
+local table_remove = table.remove
+local table_insert = table.insert
+
 local event_datas   = require 'y3.meta.event'
 local event_configs = require 'y3.meta.eventconfig'
 local game_event    = require 'y3.game.game_event'
@@ -159,7 +165,7 @@ local function extract_addition(event_name, extra_args)
             local py_addition = function ()
                 return py_value
             end
-            table.remove(py_args, i)
+            table_remove(py_args, i)
             return py_addition, py_args
         end
         if param.resolve then
@@ -229,7 +235,7 @@ function M.unref_args(name, args)
         if args_eq(ref.args, args) then
             ref.count = ref.count - 1
             if ref.count == 0 then
-                table.remove(refs, i)
+                table_remove(refs, i)
             end
             return ref
         end
@@ -250,7 +256,7 @@ function M.next_id()
     if #M.removed_ids == 0 then
         return M.trigger_id_counter()
     else
-        return table.remove(M.removed_ids)
+        return table_remove(M.removed_ids)
     end
 end
 
@@ -273,7 +279,7 @@ function M.event_register(event_name, extra_args)
     local py_event = py_event_name
     local py_addition, py_args = extract_addition(event_name, extra_args)
     if py_args and #py_args > 0 then
-        table.insert(py_args, 1, py_event_name)
+        table_insert(py_args, 1, py_event_name)
         py_event = py_args
     end
 
@@ -302,7 +308,7 @@ function M.event_unregister(event_name, extra_args)
     end
 
     local trigger_id = ref.trg_id
-    table.insert(M.removed_ids, trigger_id)
+    table_insert(M.removed_ids, trigger_id)
 
     -- 建一个占位的触发器，以尽快释放引用
     local dummy_trigger = new_global_trigger(trigger_id, 'GAME_INIT', 'ET_GAME_INIT', false)

@@ -1,3 +1,8 @@
+local assert = assert
+local type = type
+local proxy_new = y3.proxy.new
+local Fix32 = Fix32
+
 ---@class PYConverter
 local M = Class 'PYConverter'
 
@@ -134,7 +139,7 @@ M.register_lua_to_py('py.Fixed', function (number)
 end)
 
 M.register_py_to_lua('table', function (py_table)
-    return y3.proxy.new(py_table, {
+    return proxy_new(py_table, {
         recursive = true,
         cache = true,
         updateRaw = true,
@@ -146,7 +151,7 @@ M.register_py_to_lua('table', function (py_table)
                 return M.py_to_lua(v.__name, v)
             end
             if tp == 'table' then
-                return y3.proxy.new(v, config)
+                return proxy_new(v, config)
             end
             return v
         end

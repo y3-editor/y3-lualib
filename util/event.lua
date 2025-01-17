@@ -1,3 +1,6 @@
+local ipairs = ipairs
+local pairs = pairs
+local table_sort = table.sort
 ---@class Event
 ---@field private event_name Event.Name
 ---@field private triggers_common LinkedTable
@@ -221,7 +224,7 @@ function M:pairs()
         end
     end
 
-    table.sort(triggers, function(a, b)
+    table_sort(triggers, function(a, b)
         return a:get_id() < b:get_id()
     end)
 

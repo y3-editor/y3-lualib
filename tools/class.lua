@@ -1,3 +1,10 @@
+local rawset = rawset
+local setmetatable = setmetatable
+local ipairs = ipairs
+local type = type
+local pairs = pairs
+local tableInsert = table.insert
+
 ---@class Class
 local M = {}
 
@@ -15,6 +22,8 @@ M._classConfig = {}
 
 ---@private
 M._errorHandler = error
+
+local NOOP = function () end
 
 ---@class Class.Base
 ---@field public  __init?  fun(self: any, ...)
@@ -159,7 +168,7 @@ function M.declare(name, super, superInit)
         if superInit then
             config:extends(super, superInit)
         else
-            config:extends(super, function () end)
+            config:extends(super, NOOP)
         end
     end
 
@@ -422,7 +431,7 @@ function Config:extends(extendsName, init)
             end
         end
         if not rewrite then
-            table.insert(self.extendsCalls, {
+            tableInsert(self.extendsCalls, {
                 init = init,
                 name = extendsName,
             })

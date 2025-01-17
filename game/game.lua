@@ -1,3 +1,7 @@
+local xpcall = xpcall
+local ipairs = ipairs
+local type = type
+
 require 'y3.game.game_event'
 
 --游戏接口

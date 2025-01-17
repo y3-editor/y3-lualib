@@ -1,3 +1,7 @@
+local xpcall = xpcall
+local table_unpack = table.unpack
+local table_insert = table.insert
+
 ---@class ECABind
 Bind = {}
 
@@ -37,7 +41,7 @@ function M:_unpack_params(error_handler, ...)
         end
         param_list[i] = lua_value
     end
-    return table.unpack(param_list, 1, #self.params)
+    return table_unpack(param_list, 1, #self.params)
 end
 
 ---@private
@@ -78,7 +82,7 @@ function M:with_param(key, type_name)
         optional = true
         type_name = type_name:sub(1, -2)
     end
-    table.insert(self.params, {
+    table_insert(self.params, {
         key  = key,
         type = y3.py_converter.get_py_type(type_name),
         optional = optional,
@@ -91,7 +95,7 @@ end
 ---@param type_name string
 ---@return self
 function M:with_return(key, type_name)
-    table.insert(self.returns, {
+    table_insert(self.returns, {
         key  = key,
         type = y3.py_converter.get_py_type(type_name),
     })

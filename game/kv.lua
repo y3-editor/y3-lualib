@@ -1,3 +1,6 @@
+local math_type = math.type
+local type = type
+
 local class = require 'y3.tools.class'
 
 ---@alias KV.SupportType
@@ -47,7 +50,7 @@ local M = Class 'KV'
 local function get_py_value_and_type(value)
     local tp = type(value)
     if tp == 'number' then
-        return value, math.type(value)
+        return value, math_type(value)
     end
     if tp == 'table' then
         local cls = class.type(value)

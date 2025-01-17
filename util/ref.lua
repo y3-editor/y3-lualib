@@ -1,3 +1,5 @@
+local Delete = Delete
+
 --[[
 维护引擎对象的生命状态
 目前策略如下：

@@ -1,3 +1,6 @@
+local ipairs = ipairs
+local pairs = pairs
+
 ---@overload fun(atLeast: number, gcObject: Class.Base):GCBuffer
 ---@class GCBuffer
 local M = Class 'GCBuffer'

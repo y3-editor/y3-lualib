@@ -1,4 +1,8 @@
 local counter = y3.util.counter()
+local Type = Type
+local Delete = Delete
+local type = type
+local xpcall = xpcall
 
 --触发器
 ---@class Trigger

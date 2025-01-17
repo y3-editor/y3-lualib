@@ -1,3 +1,10 @@
+local rawset = rawset
+local rawget = rawget
+local pairs = pairs
+local setmetatable = setmetatable
+local next = next
+local type = type
+
 ---@class Proxy
 local M = {}
 

@@ -1,3 +1,9 @@
+local xpcall = xpcall
+local pcall = pcall
+local dump_encode = y3.dump.encode
+local dump_decode = y3.dump.decode
+local broadcast_lua_msg = broadcast_lua_msg
+
 -- 将本地数据同步给所有玩家
 ---@class Sync
 local M = Class 'Sync'
@@ -10,7 +16,7 @@ M.syncMap = {}
 ---@param id string # 以 `$` 开头的 id 保留为内部使用
 ---@param data Serialization.SupportTypes
 function M.send(id, data)
-    local bin = y3.dump.encode(data)
+    local bin = dump_encode(data)
     broadcast_lua_msg(id, bin)
 end
 
@@ -28,7 +34,7 @@ y3.game:event('游戏-接收广播信息', function (trg, data)
     if not callback then
         return
     end
-    local suc, value = pcall(y3.dump.decode, data.broadcast_lua_msg_content)
+    local suc, value = pcall(dump_decode, data.broadcast_lua_msg_content)
     if not suc then
         return
     end

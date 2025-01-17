@@ -1,3 +1,7 @@
+local ipairs = ipairs
+local pairs = pairs
+local New = New
+
 ---@class EventManager
 ---@field private object table
 ---@field private event_map table<string, Event>

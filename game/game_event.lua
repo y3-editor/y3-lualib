@@ -1,3 +1,5 @@
+local select = select
+
 ---@class Game
 local M = Class 'Game'
 
