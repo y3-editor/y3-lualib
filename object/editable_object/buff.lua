@@ -228,6 +228,13 @@ function M:get_buff_aura_range()
     return self.handle:api_get_halo_inf_rng() or 0.0
 end
 
+---获取魔法效果类型的名称
+---@param buff_key py.ModifierKey 类型
+---@return string name 名字
+function M.get_name_by_key(buff_key)
+    return GameAPI.get_modifier_name_by_type(buff_key)
+end
+
 ---获取魔法效果的施加者
 ---@return Unit? provider 施加者
 function M:get_source()
