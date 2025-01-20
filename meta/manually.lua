@@ -267,3 +267,14 @@ function pytuple(list) end
 
 ---@return py.Dict
 function pydict() end
+
+-- TODO 先申明一下，后面再补充
+
+---@type any
+CreateMoverComponent = nil
+
+---@type any
+MoverSystem = nil
+
+---@type any
+Blackbox = nil
