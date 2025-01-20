@@ -21,6 +21,9 @@ end
 ---@param py_point Point.HandleType
 ---@return self
 function M:__init(py_point)
+    if not py_point then
+        error('传进来的 py_point 为空！')
+    end
     self.handle = py_point
     return self
 end
