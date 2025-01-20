@@ -161,6 +161,67 @@ function M.wrap_callbacks(mover_data)
 end
 
 ---@private
+---@param mover_data Mover.CreateData.Base
+---@return fun(mover: Mover) # update mover
+function M.wrap_internal_callbacks(mover_data)
+    ---@type Mover
+    local mover
+
+    ---@param m Mover
+    local function update_mover(m)
+        mover = m
+    end
+
+    ---@type fun(mover: py.Mover, unit: py.Unit?)?
+    if mover_data.on_hit then
+        ---@type fun(mover: py.Mover, unit: py.Unit?)
+        local hit_func = mover_data.on_hit
+        ---@param unit_id integer
+        mover_data.on_hit = function (unit_id)
+            -- local py_unit = GameAPI.get_mover_collide_unit()
+            local unit = y3.unit.get_by_id(unit_id)
+            xpcall(hit_func, log.error, mover, unit)
+        end
+    end
+
+    if mover_data.on_block then
+        ---@type fun(mover: py.Mover)
+        local block_func = mover_data.on_block
+        mover_data.on_block = function ()
+            xpcall(block_func, log.error, mover)
+        end
+    end
+
+    if mover_data.on_finish then
+        ---@type fun(mover: py.Mover)
+        local finish_func = mover_data.on_finish
+        mover_data.on_finish = function ()
+            xpcall(finish_func, log.error, mover)
+        end
+    end
+
+    if mover_data.on_break then
+        ---@type fun(mover: py.Mover)
+        local break_func = mover_data.on_break
+        mover_data.on_break = function ()
+            xpcall(break_func, log.error, mover)
+        end
+    end
+
+    -- TODO 目前没有运动移除的全局事件，因此在每个运动的移除回调中析构自己
+    
+    ---@type fun(mover: py.Mover)
+    local remove_func = mover_data.on_remove
+    mover_data.on_remove = function ()
+        Delete(mover)
+        if remove_func then
+            xpcall(remove_func, log.error, mover)
+        end
+    end
+    return update_mover
+end
+
+---@private
 ---@param builder py.MoverBaseBuilder
 ---@param args Mover.CreateData.Base
 function M.wrap_base_args(builder, args)
@@ -320,21 +381,31 @@ function M.mover_line(mover_unit, mover_data)
     assert(mover_data.speed,    '缺少字段：speed')
     assert(mover_data.angle,    '缺少字段：angle')
     assert(mover_data.distance, '缺少字段：distance')
-    local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
-    local wrapped_args = M.wrap_line_args(mover_data)
-    local py_mover = mover_unit.handle:create_mover_trigger(
-        wrapped_args,
-        'StraightMover',
-        on_hit    or DUMMY_FUNCTION,
-        on_finish or DUMMY_FUNCTION,
-        on_block  or DUMMY_FUNCTION,
-        on_break  or DUMMY_FUNCTION,
-        on_remove or DUMMY_FUNCTION
-    )
-    local mover = M.get_by_handle(py_mover)
-    update_mover(mover)
-    mover:init(mover_data)
-    return mover
+    if y3.config.mover.enable_internal_regist then
+        --todo 补全一下CreateMoverComponent和MoverSystem的meta
+        local update_mover = M.wrap_internal_callbacks(mover_data)
+        local comp = CreateMoverComponent.create_line_mover(mover_data)
+        local py_mover = MoverSystem():create_mover(mover_unit.handle, comp)
+        local mover = M.get_by_handle(py_mover)
+        update_mover(mover)
+        return mover
+    else
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
+        local wrapped_args = M.wrap_line_args(mover_data)
+        local py_mover = mover_unit.handle:create_mover_trigger(
+            wrapped_args,
+            'StraightMover',
+            on_hit    or DUMMY_FUNCTION,
+            on_finish or DUMMY_FUNCTION,
+            on_block  or DUMMY_FUNCTION,
+            on_break  or DUMMY_FUNCTION,
+            on_remove or DUMMY_FUNCTION
+        )
+        local mover = M.get_by_handle(py_mover)
+        update_mover(mover)
+        mover:init(mover_data)
+        return mover
+    end
 end
 
 ---@param mover_unit Unit|Projectile
@@ -344,21 +415,31 @@ function M.mover_target(mover_unit, mover_data)
     assert(mover_data.speed,        '缺少字段：speed')
     assert(mover_data.target_distance, '缺少字段：target_distance')
     assert(mover_data.target,       '缺少字段：target')
-    local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
-    local wrapped_args = M.wrap_target_args(mover_data)
-    local py_mover = mover_unit.handle:create_mover_trigger(
-        wrapped_args,
-        'ChasingMover',
-        on_hit    or DUMMY_FUNCTION,
-        on_finish or DUMMY_FUNCTION,
-        on_block  or DUMMY_FUNCTION,
-        on_break  or DUMMY_FUNCTION,
-        on_remove or DUMMY_FUNCTION
-    )
-    local mover = M.get_by_handle(py_mover)
-    update_mover(mover)
-    mover:init(mover_data)
-    return mover
+    if y3.config.mover.enable_internal_regist then
+        --todo 补全一下CreateMoverComponent和MoverSystem的meta
+        local update_mover = M.wrap_internal_callbacks(mover_data)
+        local comp = CreateMoverComponent.create_chasing_mover(mover_data)
+        local py_mover = MoverSystem():create_mover(mover_unit.handle, comp)
+        local mover = M.get_by_handle(py_mover)
+        update_mover(mover)
+        return mover
+    else
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
+        local wrapped_args = M.wrap_target_args(mover_data)
+        local py_mover = mover_unit.handle:create_mover_trigger(
+            wrapped_args,
+            'ChasingMover',
+            on_hit    or DUMMY_FUNCTION,
+            on_finish or DUMMY_FUNCTION,
+            on_block  or DUMMY_FUNCTION,
+            on_break  or DUMMY_FUNCTION,
+            on_remove or DUMMY_FUNCTION
+        )
+        local mover = M.get_by_handle(py_mover)
+        update_mover(mover)
+        mover:init(mover_data)
+        return mover
+    end
 end
 
 ---@param mover_unit Unit|Projectile
@@ -368,21 +449,31 @@ function M.mover_curve(mover_unit, mover_data)
     assert(mover_data.speed,    '缺少字段：speed')
     assert(mover_data.angle,    '缺少字段：angle')
     assert(mover_data.distance, '缺少字段：distance')
-    local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
-    local wrapped_args = M.wrap_curve_args(mover_data)
-    local py_mover = mover_unit.handle:create_mover_trigger(
-        wrapped_args,
-        'CurvedMover',
-        on_hit    or DUMMY_FUNCTION,
-        on_finish or DUMMY_FUNCTION,
-        on_block  or DUMMY_FUNCTION,
-        on_break  or DUMMY_FUNCTION,
-        on_remove or DUMMY_FUNCTION
-    )
-    local mover = M.get_by_handle(py_mover)
-    update_mover(mover)
-    mover:init(mover_data)
-    return mover
+    if y3.config.mover.enable_internal_regist then
+        --todo 补全一下CreateMoverComponent和MoverSystem的meta
+        local update_mover = M.wrap_internal_callbacks(mover_data)
+        local comp = CreateMoverComponent.create_curved_mover(mover_data)
+        local py_mover = MoverSystem():create_mover(mover_unit.handle, comp)
+        local mover = M.get_by_handle(py_mover)
+        update_mover(mover)
+        return mover
+    else
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
+        local wrapped_args = M.wrap_curve_args(mover_data)
+        local py_mover = mover_unit.handle:create_mover_trigger(
+            wrapped_args,
+            'CurvedMover',
+            on_hit    or DUMMY_FUNCTION,
+            on_finish or DUMMY_FUNCTION,
+            on_block  or DUMMY_FUNCTION,
+            on_break  or DUMMY_FUNCTION,
+            on_remove or DUMMY_FUNCTION
+        )
+        local mover = M.get_by_handle(py_mover)
+        update_mover(mover)
+        mover:init(mover_data)
+        return mover
+    end
 end
 
 ---@param mover_unit Unit|Projectile
@@ -390,21 +481,31 @@ end
 ---@return Mover
 function M.mover_round(mover_unit, mover_data)
     assert(mover_data.target, '缺少字段：target')
-    local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
-    local wrapped_args = M.wrap_round_args(mover_data)
-    local py_mover = mover_unit.handle:create_mover_trigger(
-        wrapped_args,
-        'RoundMover',
-        on_hit    or DUMMY_FUNCTION,
-        on_finish or DUMMY_FUNCTION,
-        on_block  or DUMMY_FUNCTION,
-        on_break  or DUMMY_FUNCTION,
-        on_remove or DUMMY_FUNCTION
-    )
-    local mover = M.get_by_handle(py_mover)
-    update_mover(mover)
-    mover:init(mover_data)
-    return mover
+    if y3.config.mover.enable_internal_regist then
+        --todo 补全一下CreateMoverComponent和MoverSystem的meta
+        local update_mover = M.wrap_internal_callbacks(mover_data)
+        local comp = CreateMoverComponent.create_round_mover(mover_data)
+        local py_mover = MoverSystem():create_mover(mover_unit.handle, comp)
+        local mover = M.get_by_handle(py_mover)
+        update_mover(mover)
+        return mover
+    else
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
+        local wrapped_args = M.wrap_round_args(mover_data)
+        local py_mover = mover_unit.handle:create_mover_trigger(
+            wrapped_args,
+            'RoundMover',
+            on_hit    or DUMMY_FUNCTION,
+            on_finish or DUMMY_FUNCTION,
+            on_block  or DUMMY_FUNCTION,
+            on_break  or DUMMY_FUNCTION,
+            on_remove or DUMMY_FUNCTION
+        )
+        local mover = M.get_by_handle(py_mover)
+        update_mover(mover)
+        mover:init(mover_data)
+        return mover
+    end
 end
 
 ---@class Unit

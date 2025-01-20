@@ -1,7 +1,9 @@
 {
     "diagnostics.globals": [
         "gameapi",
-        "globalapi"
+        "globalapi",
+        "CreateMoverComponent",
+        "MoverSystem"
     ],
     "workspace.preloadFileSize": 5000,
     "runtime.pathStrict": true,

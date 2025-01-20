@@ -94,4 +94,9 @@ M.code = {
 M.ui = {
 }
 
+---运动器直接使用引擎接口注册
+M.mover = {
+    enable_internal_regist = true
+}
+
 return M
