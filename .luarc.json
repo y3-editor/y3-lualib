@@ -3,7 +3,8 @@
         "gameapi",
         "globalapi",
         "CreateMoverComponent",
-        "MoverSystem"
+        "MoverSystem",
+        "Blackbox"
     ],
     "workspace.preloadFileSize": 5000,
     "runtime.pathStrict": true,
