@@ -38,7 +38,11 @@ function M:__init(py_timer, on_timer, mode, desc)
 end
 
 function M:__del()
-    Blackbox.delete_timer(self.handle)
+    if self.mode == 'second' then
+        GameAPI.delete_timer(self.handle)
+    else
+        error('帧计时器不支持删除，若有此需求请改用 `y3.ltimer.xxx_frame`')
+    end
 end
 
 ---@param py_timer py.Timer
@@ -54,6 +58,23 @@ y3.py_converter.register_py_to_lua('py.Timer', M.get_by_handle)
 y3.py_converter.register_lua_to_py('py.Timer', function (lua_value)
     return lua_value.handle
 end)
+
+---@param frame integer
+---@param count integer
+---@param callback fun()
+---@return py.Timer
+local function run_timer_by_frame(frame, count, callback)
+    local timer_node = {
+        on_timer_callback = callback,
+        _rt = {
+            call_with_frame = function (f)
+                f()
+            end
+        }
+    }
+    ---@diagnostic disable-next-line: undefined-field
+    return GameAPI.run_timer_by_frame(frame, count, false, timer_node, {})
+end
 
 ---@param func function
 ---@return string
@@ -77,19 +98,20 @@ function M.wait(timeout, on_timer, desc)
     desc = desc or make_timer_reason(on_timer)
     ---@type Timer
     local timer
-    local py_timer = Blackbox.add_timer_by_time(timeout, 0, false, function(current_timer)
+    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), 0, false, function(data)
         if not timer then
-            timer = New 'Timer' (current_timer, on_timer, 'second', desc)
+            timer = New 'Timer' (data.current_timer, on_timer, 'second', desc)
         end
         timer:execute()
         timer:remove()
-    end, desc)
+    end, {}, desc)
     timer = timer or New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
 -- 等待一定帧数后执行
 --> 请改用 `y3.ltimer.wait_frame`
+---@deprecated
 ---@param frame integer
 ---@param on_timer fun(timer: Timer)
 ---@param desc? string # 描述
@@ -98,10 +120,9 @@ function M.wait_frame(frame, on_timer, desc)
     desc = desc or make_timer_reason(on_timer)
     ---@type Timer
     local timer
-    local py_timer = Blackbox.add_timer_by_frame(frame, 0, function (current_id)
+    local py_timer = run_timer_by_frame(frame, 0, function()
         timer:execute()
-        timer:remove()
-    end, desc)
+    end)
     timer = New 'Timer' (py_timer, on_timer, 'frame', desc)
     return timer
 end
@@ -117,19 +138,20 @@ function M.loop(timeout, on_timer, desc, immediate)
     immediate = immediate or false
     local timer
     local count = 0
-    local py_timer = Blackbox.add_timer_by_time(timeout, -1, immediate, function(current_id)
+    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), -1, immediate, function(data)
         if not timer then
-            timer = New 'Timer' (current_id, on_timer, 'second', desc)
+            timer = New 'Timer' (data.current_timer, on_timer, 'second', desc)
         end
         count = count + 1
         timer:execute(count)
-    end, desc)
+    end, {}, desc)
     timer = timer or New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
 -- 每经过一定帧数后执行
 --> 请改用 `y3.ltimer.loop_frame`
+---@deprecated
 ---@param frame integer
 ---@param on_timer fun(timer: Timer, count: integer)
 ---@param desc? string # 描述
@@ -139,10 +161,10 @@ function M.loop_frame(frame, on_timer, desc)
     ---@type Timer
     local timer
     local count = 0
-    local py_timer = Blackbox.add_timer_by_frame(frame, -1,  function (timer_id)
+    local py_timer = run_timer_by_frame(frame, -1, function()
         count = count + 1
         timer:execute(count)
-    end, desc)
+    end)
     timer = New 'Timer' (py_timer, on_timer, 'frame', desc)
     return timer
 end
@@ -159,9 +181,9 @@ function M.count_loop(timeout, times, on_timer, desc, immediate)
     immediate = immediate or false
     local timer
     local count = 0
-    local py_timer = Blackbox.add_timer_by_time(timeout, times, immediate, function(current_id)
+    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), times, immediate, function(data)
         if not timer then
-            timer = New 'Timer' (current_id, on_timer, 'second', desc)
+            timer = New 'Timer' (data.current_timer, on_timer, 'second', desc)
         end
         count = count + 1
         timer:execute(count)
@@ -169,29 +191,28 @@ function M.count_loop(timeout, times, on_timer, desc, immediate)
         if count >= times then
             timer:remove()
         end
-    end, desc)
+    end, {}, desc)
     timer = timer or New 'Timer' (py_timer, on_timer, 'second', desc)
     return timer
 end
 
 -- 每经过一定帧数后执行，可以指定最大次数
 --> 请改用 `y3.ltimer.count_loop_frame`
+---@deprecated
 ---@param frame integer
 ---@param times integer
 ---@param on_timer fun(timer: Timer, count: integer)
 ---@param desc? string # 描述
 ---@return Timer
 function M.count_loop_frame(frame, times, on_timer, desc)
+    error('帧计时器不支持有次数的循环，若有此需求请改用 `y3.ltimer.count_loop_frame`')
     desc = desc or make_timer_reason(on_timer)
     local timer
     local count = 0
-    local py_timer = Blackbox.add_timer_by_frame(frame, times, function()
+    local py_timer = run_timer_by_frame(frame, times, function()
         count = count + 1
         timer:execute(count)
-        if count >= times then
-            timer:remove()
-        end
-    end, desc)
+    end)
     timer = New 'Timer' (py_timer, on_timer, 'frame', desc)
     return timer
 end
