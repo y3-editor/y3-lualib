@@ -109,6 +109,28 @@ function M:has_tag(tag)
     return GlobalAPI.has_tag(self.handle,tag)
 end
 
+---获取技能类型的所有标签
+---@param item_key py.ItemKey
+---@return string[]
+function M.get_tags_by_key(item_key)
+    local utags = y3.object.ability[item_key].data.tags
+    return y3.helper.unpack_list(utags)
+end
+
+---技能类型是否具有标签
+---@param item_key py.ItemKey
+---@param tag string 标签
+---@return boolean
+function M.has_tag_by_key(item_key, tag)
+    local tags = M.get_tags_by_key(item_key)
+    for _, v in ipairs(tags) do
+        if v == tag then
+            return true
+        end
+    end
+    return false
+end
+
 --添加标签
 ---@param tag string 标签
 function M:add_tag(tag)
