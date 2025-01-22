@@ -35,9 +35,10 @@ local function getDebuggerPort()
     end
 end
 
-local function waitDebugger()
+local function waitDebugger(forceWait)
     if arg['lua_wait_debugger'] == 'true'
-    or arg['lua_multi_wait_debugger'] == 'true' then
+    or arg['lua_multi_wait_debugger'] == 'true'
+    or forceWait then
         do
             local _ <close> = io.open(script_path:match('^(.-)%?') .. '/.log/wait_debugger', 'w')
         end
@@ -63,5 +64,5 @@ pcall(function ()
     LDBG:event('autoUpdate', false)
 
     -- 等待调试器连接
-    waitDebugger()
+    waitDebugger(false)
 end)
