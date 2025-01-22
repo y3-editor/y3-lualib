@@ -1677,3 +1677,11 @@ function Unit:set_path_finding_step_bound(step_bound) end
 
 --开启风场
 function Unit:api_start_windforce() end
+
+--设置单位是否飞行视野
+---@param is_flying_vision boolean # 布尔值
+function Unit:api_set_unit_flying_vision(is_flying_vision) end
+
+--小地图 - 设置单位小地图头像可见性
+---@param value boolean # 是否可见
+function Unit:api_set_unit_is_mini_map_show(value) end

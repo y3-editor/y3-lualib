@@ -1594,6 +1594,27 @@ M.config["技能-冷却结束"] = {
     },
 }
 
+---@alias EventParam.技能-自定义动画轴 EventParam.ET_ABILITY_SEND_CUE_EVENT
+M.config["技能-自定义动画轴"] = {
+    desc = "",
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
+    key = "ET_ABILITY_SEND_CUE_EVENT",
+    name = "技能-自定义动画轴",
+    object = "Ability",
+    params = {
+        [1] = {
+            desc = "CUE事件名",
+            name = "string",
+            type = "string",
+        },
+    },
+}
+
 ---@alias EventParam.效果-获得 EventParam.ET_OBTAIN_MODIFIER
 M.config["效果-获得"] = {
     desc = "获得魔法效果后触发",
@@ -3086,6 +3107,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: self, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: self, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: self, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: self, event: "技能-自定义动画轴", string: string, callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: self, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
 ---@field event fun(self: self, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
 ---@field event fun(self: self, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
@@ -3214,6 +3236,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: Ability, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: Ability, event: "技能-自定义动画轴", string: string, callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: Ability, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
@@ -3398,6 +3421,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: Unit, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: Unit, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: Unit, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: Unit, event: "技能-自定义动画轴", string: string, callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: Unit, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
 ---@field event fun(self: Unit, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
 ---@field event fun(self: Unit, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger

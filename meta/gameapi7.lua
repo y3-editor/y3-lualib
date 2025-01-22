@@ -1043,3 +1043,58 @@ function GameAPI.lua_request_get_map_rank(archive_key, lua_func) end
 ---@param ui_comp_attr string # 控件属性字段
 ---@param modifier py.ModifierEntity # 技能实体对象
 function GameAPI.set_ui_comp_bind_modifier_cycle(role, ui_comp, ui_comp_attr, modifier) end
+
+--序列化KV
+---@param kvbase py.Actor # Actor
+---@return string # 序列化结果
+function GameAPI.api_serialize_kv(kvbase) end
+
+--反序列化KV
+---@param kvbase py.Actor # Actor
+---@param json_str string # kv
+function GameAPI.api_deserialize_kv(kvbase, json_str) end
+
+--设置玩家点选单位优先级
+---@param role py.Role # 玩家
+---@param unit_type integer # 单位类型
+---@param priority integer # 优先级
+function GameAPI.api_set_player_select_unit_priority(role, unit_type, priority) end
+
+--修改对象材质
+---@param obj py.Actor # 对象
+---@param material_id integer # 材质id
+function GameAPI.set_obj_material_param(obj, material_id) end
+
+--小地图 - 设置英雄小地图头像底框
+---@param role py.Role # 玩家
+---@param unit py.Unit # 单位
+---@param image_id py.Texture # 图片id
+function GameAPI.api_set_hero_mini_map_frame(role, unit, image_id) end
+
+--【异步】获取本地玩家网格列表当前百分比位置
+---@param comp_name string # 控件uid
+---@param direction integer # 横向/纵向
+---@return number # 百分比
+function GameAPI.get_grid_view_percent(comp_name, direction) end
+
+--设置文本删除线
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@param enable boolean # 开关
+---@param width? integer # 粗细
+---@param color? string # hex
+---@param alpha? number # A
+function GameAPI.set_ui_text_strike_through(role, comp_name, enable, width, color, alpha) end
+
+--设置文本下划线
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@param enable boolean # 开关
+function GameAPI.set_ui_text_under_line(role, comp_name, enable) end
+
+--设置文本斜体
+---@param role py.Role # 玩家
+---@param comp_name string # 控件uid
+---@param enable boolean # 开关
+---@param radius? number # 倾斜程度
+function GameAPI.set_ui_text_italics(role, comp_name, enable, radius) end

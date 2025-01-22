@@ -1637,6 +1637,11 @@ event.ET_UNIT_NAME_CHANGE = {}
 --单位的小地图图标发生变化
 event.ET_UNIT_CHANGE_MINI_MAP_ICON = {}
 
+---@class EventParam.ET_UNIT_IS_MINI_MAP_SHOW_CHANGED
+
+--单位的小地图显示状态发生变化
+event.ET_UNIT_IS_MINI_MAP_SHOW_CHANGED = {}
+
 ---@class EventParam.ET_UNIT_ICON_CHANGE
 ---@field unit Unit # 无描述
 
@@ -3156,6 +3161,7 @@ event.ET_UNIT_TRY_PICK_ITEM = {
 ---@class EventParam.ET_UNIT_TRY_PICK_ITEM_NEW
 ---@field unit Unit # 单位
 ---@field equip_slot_type py.SlotType # 背包类型
+---@field item Item # 目标物品
 
 --单位即将拾取物品
 event.ET_UNIT_TRY_PICK_ITEM_NEW = {
@@ -3174,6 +3180,14 @@ event.ET_UNIT_TRY_PICK_ITEM_NEW = {
         lua_type = "py.SlotType",
         desc = "背包类型",
         lua_desc = "背包类型",
+    },
+    [3] = {
+        name = "__item_id",
+        type = "py.ItemID",
+        lua_name = "item",
+        lua_type = "Item",
+        desc = "目标物品ID",
+        lua_desc = "目标物品",
     },
 }
 

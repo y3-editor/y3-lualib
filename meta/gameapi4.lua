@@ -2755,7 +2755,9 @@ function GameAPI.set_ui_comp_text_adaptive(role, comp_name, is_open) end
 ---@param ui_comp string # 控件uid
 ---@param ui_comp_attr string # 控件属性字段
 ---@param ability py.Ability # 技能实体对象
-function GameAPI.set_ui_comp_bind_ability_cd(role, ui_comp, ui_comp_attr, ability) end
+---@param is_smooth? boolean # 是否平滑
+---@param decimal_digits? integer # 小数位数
+function GameAPI.set_ui_comp_bind_ability_cd(role, ui_comp, ui_comp_attr, ability, is_smooth, decimal_digits) end
 
 --绑定魔法效果cd到玩家界面控件的属性
 ---@param role py.Role # 玩家
