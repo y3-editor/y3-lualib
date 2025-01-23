@@ -449,6 +449,7 @@ function M.mover_curve(mover_unit, mover_data)
     assert(mover_data.speed,    '缺少字段：speed')
     assert(mover_data.angle,    '缺少字段：angle')
     assert(mover_data.distance, '缺少字段：distance')
+    mover_data.angle = mover_data.angle - 90
     if y3.config.mover.enable_internal_regist then
         --todo 补全一下CreateMoverComponent和MoverSystem的meta
         local update_mover = M.wrap_internal_callbacks(mover_data)
