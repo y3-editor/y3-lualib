@@ -278,3 +278,14 @@ MoverSystem = nil
 
 ---@type any
 Blackbox = nil
+
+---开始读取弹幕
+---@param port integer
+function start_danmaku(port) end
+
+---停止读取弹幕
+function stop_danmaku() end
+
+---获取新增弹幕的列表
+---@return any[]
+function get_danmaku_comments() end
