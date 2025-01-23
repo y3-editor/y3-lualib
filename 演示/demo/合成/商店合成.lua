@@ -56,15 +56,13 @@ y3.sync.onSync('demo-购买商店物品', function (data, source)
     if not data then
         return
     end
+    ---@type string
     local item_name = data.item_name
-    local player = y3.player(data.player_id)
-    local u = player:get_selecting_unit()
-    if not u then
-        return
-    end
+    ---@type Unit
+    local u = data.unit
 
     -- 判断是否有足够gold来购买
-    local gold = player:get_attr('gold')
+    local gold = source:get_attr('gold')
 
     -- 获取当前玩家物品栏中所有物品名
     local player_item_names = {}
@@ -96,7 +94,7 @@ y3.sync.onSync('demo-购买商店物品', function (data, source)
             end
         end
         -- 扣除玩家gold并给玩家添加该物品
-        player:set('gold', gold - item_cost)
+        source:set('gold', gold - item_cost)
         local item_key = M.get_item_key_by_name(item_name)
         if item_key then
             u:add_item(item_key)

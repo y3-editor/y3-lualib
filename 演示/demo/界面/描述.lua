@@ -16,7 +16,7 @@ for i = 1, 4 do
     local child_name = string.format('英雄技能.%d', i)
 
     MAIN:on_event(child_name, '鼠标-移入', function (ui, local_player)
-        local selecting_unit = local_player:get_selecting_unit()
+        local selecting_unit = local_player:get_local_selecting_unit()
         if selecting_unit then
             current_ability = selecting_unit:get_ability_by_slot(y3.const.AbilityType.HERO, i)
         else
@@ -37,7 +37,7 @@ for i = 1, 6 do
     local child_name = string.format('道具.bg%d.%d', i, i)
 
     MAIN:on_event(child_name, '鼠标-移入', function (ui, local_player)
-        local selecting_unit = local_player:get_selecting_unit()
+        local selecting_unit = local_player:get_local_selecting_unit()
         if selecting_unit then
             current_item = selecting_unit:get_item_by_slot(y3.const.SlotType.BAR, i)
         else

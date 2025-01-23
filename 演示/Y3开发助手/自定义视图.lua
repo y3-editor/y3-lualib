@@ -14,7 +14,7 @@ y3.develop.helper.createTreeView('作弊功能', Node('作弊功能', {
                 --点击事件是本地的，如果你需要联机测试，
                 --请使用 `y3.sync` 库进行同步
                 y3.player.with_local(function (local_player)
-                    local unit = local_player:get_selecting_unit()
+                    local unit = local_player:get_local_selecting_unit()
                     if unit then
                         unit:set_attr('生命', unit:get_attr("最大生命"))
                         unit:set_attr('魔法', unit:get_attr("最大魔法"))
@@ -25,7 +25,7 @@ y3.develop.helper.createTreeView('作弊功能', Node('作弊功能', {
         Node('杀死单位', {
             onClick = function (node)
                 y3.player.with_local(function (local_player)
-                    local unit = local_player:get_selecting_unit()
+                    local unit = local_player:get_local_selecting_unit()
                     if unit then
                         unit:kill_by(unit)
                     end
@@ -41,7 +41,7 @@ y3.develop.helper.createTreeView('作弊功能', Node('作弊功能', {
 
             node:bindGC(y3.ltimer.loop(0.2, function ()
                 y3.player.with_local(function (local_player)
-                    local unit = local_player:get_selecting_unit()
+                    local unit = local_player:get_local_selecting_unit()
                     if unit then
                         node.description = tostring(unit)
                     else

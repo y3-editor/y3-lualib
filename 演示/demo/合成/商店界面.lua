@@ -38,8 +38,8 @@ local ui_bound_item = {
 }
 
 -- 按Z键打开装备购买界面
-y3.game:event('键盘-按下', y3.const.KeyboardKey['Z'], function (trg, data)
-    local u = data.player:get_selecting_unit()
+y3.game:event('本地-键盘-按下', y3.const.KeyboardKey['Z'], function (trg, data)
+    local u = data.player:get_local_selecting_unit()
     if not u then
         return
     end
@@ -63,7 +63,7 @@ end)
 
 -- 点击装备界面按钮打开装备购买界面
 MAIN:on_event('装备界面按钮.btn', '左键-按下', function (ui, local_player)
-    local u = local_player:get_selecting_unit()
+    local u = local_player:get_local_selecting_unit()
     if not u then
         return
     end
@@ -86,7 +86,7 @@ MAIN:on_event('装备界面按钮.btn', '左键-按下', function (ui, local_pla
 end)
 
 MAIN:on_refresh('装备合成', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
     ui:set_visible(is_equipment_ui_open)
@@ -136,7 +136,7 @@ for i = 1, shop_item_num do
 end
 
 MAIN:on_refresh('装备合成.合成分支', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
     ui:set_visible(is_synthesis_ui_visible)
@@ -157,7 +157,7 @@ MAIN:on_refresh('装备合成.合成分支', function (ui, local_player)
         local result = maker:get_recipes_by_item(cur_click_list_item)
         -- 计算当前玩家物品栏中所有的物品名
         local cur_player_item_names = {}
-        for i, v in ipairs(local_player:get_selecting_unit():get_all_items():pick()) do
+        for i, v in ipairs(local_player:get_local_selecting_unit():get_all_items():pick()) do
             table.insert(cur_player_item_names, v:get_name())
         end
 
@@ -269,7 +269,7 @@ for i = 1, 2 do
 end
 
 MAIN:on_refresh('装备合成.描述', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
     ui:set_visible(is_description_ui_visible)
@@ -288,7 +288,7 @@ MAIN:on_refresh('装备合成.描述', function (ui, local_player)
 end)
 
 MAIN:on_event('装备合成.购买按钮', '左键-按下', function (ui, local_player)
-    local u = local_player:get_selecting_unit()
+    local u = local_player:get_local_selecting_unit()
     if not u then
         return
     end
@@ -297,7 +297,7 @@ MAIN:on_event('装备合成.购买按钮', '左键-按下', function (ui, local_
         -- 发送购买请求
         y3.sync.send('demo-购买商店物品', {
             item_name = cur_click_synthesis_item,
-            player_id = local_player:get_id(),
+            unit = u,
         })
         MAIN:refresh('装备合成.合成分支')
         MAIN:refresh('装备合成.玩家金币')
@@ -305,7 +305,7 @@ MAIN:on_event('装备合成.购买按钮', '左键-按下', function (ui, local_
 end)
 
 MAIN:on_refresh('装备合成.购买按钮', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
     ui:set_visible(is_buy_btn_visible)

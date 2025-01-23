@@ -19,26 +19,26 @@ MAIN:bind_unit_attr('属性栏.敏捷.文本', '文本', '敏捷')
 MAIN:bind_unit_attr('属性栏.智力.文本', '文本', '智力')
 
 MAIN:on_refresh('头像.图片', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
-    ui:set_image(local_player:get_selecting_unit():get_icon())
+    ui:set_image(local_player:get_local_selecting_unit():get_icon())
 end)
 
 MAIN:on_refresh('头像.名字.文本', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
-    ui:set_text(local_player:get_selecting_unit():get_name())
+    ui:set_text(local_player:get_local_selecting_unit():get_name())
 end)
 
 MAIN:on_refresh('英雄技能', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
 
     for i, slot in ipairs(ui:get_childs()) do
-        local ability = local_player:get_selecting_unit():get_ability_by_slot(y3.const.AbilityType.HERO, i)
+        local ability = local_player:get_local_selecting_unit():get_ability_by_slot(y3.const.AbilityType.HERO, i)
         if ability then
             slot:set_visible(true)
             --必须要主动绑定，否则会闪烁一下
@@ -50,21 +50,21 @@ MAIN:on_refresh('英雄技能', function (ui, local_player)
 end)
 
 MAIN:on_refresh('经验条.进度条', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
 
-    ui:set_max_progress_bar_value(local_player:get_selecting_unit():get_upgrade_exp())
-    ui:set_current_progress_bar_value(local_player:get_selecting_unit():get_exp())
+    ui:set_max_progress_bar_value(local_player:get_local_selecting_unit():get_upgrade_exp())
+    ui:set_current_progress_bar_value(local_player:get_local_selecting_unit():get_exp())
 end)
 
 MAIN:on_refresh('经验条.经验文本', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
 
-    local exp = local_player:get_selecting_unit():get_exp()
-    local max_exp = local_player:get_selecting_unit():get_upgrade_exp()
+    local exp = local_player:get_local_selecting_unit():get_exp()
+    local max_exp = local_player:get_local_selecting_unit():get_upgrade_exp()
 
     if max_exp > 0 then
         ui:set_text(string.format('%d/%d', exp, max_exp))
@@ -74,15 +74,15 @@ MAIN:on_refresh('经验条.经验文本', function (ui, local_player)
 end)
 
 MAIN:on_refresh('经验条.等级文本', function (ui, local_player)
-    if not local_player:get_selecting_unit() then
+    if not local_player:get_local_selecting_unit() then
         return
     end
 
-    ui:set_text(string.format('等级%d', local_player:get_selecting_unit():get_level()))
+    ui:set_text(string.format('等级%d', local_player:get_local_selecting_unit():get_level()))
 end)
 
 MAIN:on_refresh('', function (ui, local_player)
-    if local_player:get_selecting_unit() then
+    if local_player:get_local_selecting_unit() then
         ui:set_visible(true)
     else
         ui:set_visible(false)
@@ -90,7 +90,7 @@ MAIN:on_refresh('', function (ui, local_player)
 end)
 
 MAIN:on_event('头像', '左键-按下', function (ui, local_player)
-    local u = local_player:get_selecting_unit()
+    local u = local_player:get_local_selecting_unit()
     if not u then
         return
     end
@@ -112,7 +112,7 @@ end)
 
 y3.game:event('单位-获得经验后', function (trg, data)
     y3.player.with_local(function (local_player)
-        if local_player:get_selecting_unit() == data.unit then
+        if local_player:get_local_selecting_unit() == data.unit then
             MAIN:refresh('经验条')
         end
     end)
@@ -120,14 +120,14 @@ end)
 
 y3.game:event('单位-升级', function (trg, data)
     y3.player.with_local(function (local_player)
-        if local_player:get_selecting_unit() == data.unit then
+        if local_player:get_local_selecting_unit() == data.unit then
             MAIN:refresh('经验条')
         end
     end)
 end)
 
-y3.game:event('键盘-按下', y3.const.KeyboardKey['SPACE'], function (trg, data)
-    local u = data.player:get_selecting_unit()
+y3.game:event('本地-键盘-按下', y3.const.KeyboardKey['SPACE'], function (trg, data)
+    local u = data.player:get_local_selecting_unit()
     if not u then
         return
     end
@@ -135,12 +135,12 @@ y3.game:event('键盘-按下', y3.const.KeyboardKey['SPACE'], function (trg, dat
     y3.camera.set_camera_follow_unit(data.player, u, 0, 0, 0)
 end)
 
-y3.game:event('键盘-抬起', y3.const.KeyboardKey['SPACE'], function (trg, data)
+y3.game:event('本地-键盘-抬起', y3.const.KeyboardKey['SPACE'], function (trg, data)
     y3.camera.cancel_camera_follow_unit(data.player)
 end)
 
 MAIN:on_refresh('道具', function (ui, local_player)
-    local u = local_player:get_selecting_unit()
+    local u = local_player:get_local_selecting_unit()
     if not u then
         return
     end

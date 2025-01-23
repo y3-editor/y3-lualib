@@ -509,13 +509,13 @@ function M.createSelectingButton()
             end
 
             y3.player.with_local(function (local_player)
-                local ug = local_player:get_selecting_unit_group()
+                local ug = local_player:get_local_selecting_unit_group()
                 if ug then
                     for _, unit in ipairs(ug:pick()) do
                         list:pushTail(unit)
                     end
                 else
-                    list:pushTail(local_player:get_selecting_unit())
+                    list:pushTail(local_player:get_local_selecting_unit())
                 end
 
                 updateSelecting()
