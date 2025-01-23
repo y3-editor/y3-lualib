@@ -88,10 +88,11 @@ end
 ---@type table<Player, table<integer, [table, boolean]>>
 M.player_tables = y3.util.multiTable(2)
 
--- 获取玩家的存档数据（表）
+---获取玩家的存档数据（表）。修改这个表中的字段会自动更新到存档中。
+---> 编辑器已经不再支持允许覆盖模式。
 ---@param player Player
 ---@param slot integer
----@param disable_cover boolean # 是否禁用覆盖，必须和存档设置中的一致
+---@param disable_cover? boolean # 是否禁用覆盖，必须和存档设置中的一致（默认为 `true`)
 ---@return table
 function M.load_table(player, slot, disable_cover)
     local last_table = M.player_tables[player][slot]
@@ -103,7 +104,7 @@ function M.load_table(player, slot, disable_cover)
     end
     last_table = {}
     M.player_tables[player][slot] = last_table
-    if disable_cover then
+    if disable_cover == true or disable_cover == nil then
         last_table[1] = M.load_table_with_cover_disable(player, slot)
     else
         last_table[1] = M.load_table_with_cover_enable(player, slot)
@@ -116,7 +117,9 @@ end
 ---@type table<Player, table<integer, { timer: LocalTimer, table: table }>>
 M.save_table_pool = {}
 
--- 保存玩家的存档数据（表），存档设置中必须使用允许覆盖模式。
+---保存玩家的存档数据（表），存档设置中必须使用允许覆盖模式。  
+---> 编辑器已经不再支持允许覆盖模式，因此这个函数已经没有用了。
+---@deprecated
 ---@param player Player
 ---@param slot integer
 ---@param t table
@@ -208,6 +211,7 @@ function M.load_table_with_cover_enable(player, slot)
             end
             raw[key] = value
 
+            ---@diagnostic disable-next-line: deprecated
             M.save_table(player, slot, save_data)
         end,
         anyGetter = function (self, raw, key, config, custom)
