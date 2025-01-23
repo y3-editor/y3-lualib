@@ -47,7 +47,7 @@ end)
 ---@field face_angle? boolean # 是否始终面向运动方向
 ---@field ability? Ability # 关联技能
 ---@field unit? Unit # 关联单位
----@field auto_pitch? boolean # 是否自动调整俯仰角
+---@field auto_pitch? boolean # 是否自动调整俯仰角，默认为 `true`
 
 ---@class Mover.CreateData.Line: Mover.CreateData.Base
 ---@field angle number # 运动方向
@@ -209,7 +209,7 @@ function M.wrap_internal_callbacks(mover_data)
     end
 
     -- TODO 目前没有运动移除的全局事件，因此在每个运动的移除回调中析构自己
-    
+
     ---@type fun(mover: py.Mover)
     local remove_func = mover_data.on_remove
     mover_data.on_remove = function ()
@@ -234,7 +234,7 @@ function M.wrap_base_args(builder, args)
     builder.set_terrain_collide_interval(Fix32(args.block_interval or 0.0))
     builder.set_priority                (args.priority or 1)
     builder.set_is_absolute_height      (args.absolute_height or false)
-    builder.dict['is_open_auto_pitch']  = (args.auto_pitch or false)
+    builder.dict['is_open_auto_pitch']  = y3.util.default(args.auto_pitch, true)
     --builder.set_related_unit            (args.unit and args.unit.handle or nil)
     --builder.set_related_ability         (args.ability and args.ability.handle or nil)
 end

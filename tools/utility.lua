@@ -1033,4 +1033,14 @@ function m.map(t, callback)
     return nt
 end
 
+---@param v any
+---@param d any
+---@return any
+function m.default(v, d)
+    if v == nil then
+        return d
+    end
+    return v
+end
+
 return m
