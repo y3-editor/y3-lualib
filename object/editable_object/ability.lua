@@ -35,6 +35,7 @@ end
 
 function M:__del()
     self:remove()
+    Delete(self)
 end
 
 function M:__encode()
