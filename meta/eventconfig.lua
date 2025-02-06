@@ -3462,6 +3462,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: EditorObject.Ability, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: EditorObject.Ability, event: "技能-自定义动画轴", callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
@@ -3515,6 +3516,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: EditorObject.Unit, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "单位-属性变化", callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
@@ -3568,6 +3570,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: EditorObject.Unit, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "技能-自定义动画轴", callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
