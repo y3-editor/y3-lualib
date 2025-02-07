@@ -1,8 +1,5 @@
 name: Mirror
 
-permissions:
-  contents: write
-
 on:
   push:
     branches:
@@ -16,6 +13,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # 获取所有历史记录
+
+      - name: Test
+        run: |
+          git version
 
       - name: Configure Git credentials
         run: |
