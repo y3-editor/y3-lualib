@@ -7,10 +7,10 @@ on:
 
 jobs:
   mirror:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # 获取所有历史记录
 
