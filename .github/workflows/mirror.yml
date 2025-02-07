@@ -24,4 +24,4 @@ jobs:
 
       - name: Mirror
         run: |
-          git push --mirror https://x-access-token:${{secrets.MIRROR_TOKEN}}@github.com/sumneko/MirrorTest
+          git push --mirror https://${{secrets.MIRROR_TOKEN}}@github.com/CliCli-Editor/y3-lualib
