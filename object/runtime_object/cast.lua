@@ -94,16 +94,19 @@ end
 function M.get(ability, cast_id)
     if not ability._castMap then
         ability._castMap = {}
+        ability:event('施法-结束', function (trg, data)
+            local id = data.cast.cast_id
+            local cast = ability._castMap[id]
+            if cast then
+                y3.ltimer.wait(5, function ()
+                    ability._castMap[id] = nil
+                end)
+            end
+        end)
     end
     if not ability._castMap[cast_id] then
         local cast = New 'Cast' (ability, cast_id)
         ability._castMap[cast_id] = cast
-        ability:event('施法-结束', function (trg, data)
-            local id = data.cast.cast_id
-            if id == cast_id then
-                Delete(cast)
-            end
-        end)
     end
     return ability._castMap[cast_id]
 end
