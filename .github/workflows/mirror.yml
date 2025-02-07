@@ -14,15 +14,11 @@ jobs:
           git config --global user.email "sumneko@hotmail.com"
           git config --global user.name "最萌小汐（宇宙创生）"
 
-      - name: Checkout Mirror
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: 'CliCli-Editor/y3-lualib'
-          token: ${{ secrets.MIRROR_TOKEN }}
-          ref: main
+          fetch-depth: 0
 
       - name: Mirror
         run: |
-          git remote add --mirror=fetch source https://github.com/y3-editor/y3-lualib.git
-          git checkout source
-          git push --mirror main
+          git remote add --mirror=push mirror https://github.com/CliCli-Editor/y3-lualib
