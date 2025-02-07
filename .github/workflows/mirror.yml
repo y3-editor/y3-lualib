@@ -25,5 +25,5 @@ jobs:
         run: |
           git config --global user.email "sumneko@hotmail.com"
           git config --global user.name "最萌小汐（宇宙创生）"
-          git remote add mirror "https://${MIRROR_TOKEN}@github.com/CliCli-Editor/y3-lualib.git"
+          git remote add mirror "https://x-access-token:${MIRROR_TOKEN}@github.com/CliCli-Editor/y3-lualib.git"
           git push --mirror mirror
