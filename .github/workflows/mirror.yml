@@ -14,12 +14,10 @@ jobs:
         with:
           fetch-depth: 0  # 获取所有历史记录
 
-      - name: Configure Git credentials
-        run: |
-          echo "machine github.com login ${{ secrets.MIRROR_TOKEN }} password x-oauth-basic" > ~/.netrc
-          git config --global credential.helper store
-
       - name: Mirror
+        env:
+          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
         run: |
+          git config --global http.https://github.com/.extraheader "Authorization: 最萌小汐 ${MIRROR_TOKEN}"
           git remote add mirror https://github.com/CliCli-Editor/y3-lualib.git
           git push --mirror mirror
