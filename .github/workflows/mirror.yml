@@ -18,6 +18,7 @@ jobs:
         env:
           MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
         run: |
-          git config --global http.https://github.com/.extraheader "Authorization: 最萌小汐 ${MIRROR_TOKEN}"
-          git remote add mirror https://github.com/CliCli-Editor/y3-lualib.git
+          git config --global user.email "sumneko@hotmail.com"
+          git config --global user.name "最萌小汐（宇宙创生）"
+          git remote add mirror "https://x-access-token:${MIRROR_TOKEN}@github.com/CliCli-Editor/y3-lualib.git"
           git push --mirror mirror
