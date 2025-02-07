@@ -12,6 +12,11 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
+      - name: Config Git
+        run: |
+          git config --global user.email "sumneko@hotmail.com"
+          git config --global user.name "最萌小汐（宇宙创生）"
+
       - name: Checkout Mirror
         uses: actions/checkout@v4
         with:
@@ -21,8 +26,6 @@ jobs:
 
       - name: Mirror
         run: |
-          git config --global user.email "sumneko@hotmail.com"
-          git config --global user.name "最萌小汐（宇宙创生）"
           git remote add source "https://github.com/y3-editor/y3-lualib.git"
           git checkout source
           git push --mirror main
