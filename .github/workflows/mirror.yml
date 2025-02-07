@@ -1,5 +1,8 @@
 name: Mirror
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -16,5 +19,5 @@ jobs:
 
       - name: Mirror
         run: |
-          git remote add mirror https://${{ secrets.MIRROR_TARGET_TOKEN }}@github.com/CliCli-Editor/y3-lualib.git
+          git remote add mirror https://${{ secrets.MIRROR_TOKEN }}@github.com/CliCli-Editor/y3-lualib.git
           git push --mirror mirror
