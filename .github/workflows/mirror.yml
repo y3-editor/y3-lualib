@@ -22,4 +22,4 @@ jobs:
       - name: Mirror
         run: |
           git remote add --mirror=push mirror https://github.com/CliCli-Editor/y3-lualib
-          git push --mirror https://x-access-token:${{secrets.MIRROR_TOKEN}}@github.com/CliCli-Editor/y3-lualib
+          git push --mirror https://x-access-token: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@github.com/CliCli-Editor/y3-lualib
