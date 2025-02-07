@@ -10,14 +10,18 @@ on:
 
 jobs:
   mirror:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # 获取所有历史记录
 
-      - name: Mirror
+      - name: Clone
         run: |
-          git remote add mirror https://${{ secrets.MIRROR_TOKEN }}@github.com/CliCli-Editor/y3-lualib.git
-          git push --mirror mirror
+          git clone https://${{ secrets.MIRROR_TOKEN }}@github.com/CliCli-Editor/y3-lualib.git
+
+      # - name: Mirror
+      #   run: |
+      #     git remote add mirror https://${{ secrets.MIRROR_TOKEN }}@github.com/CliCli-Editor/y3-lualib.git
+      #     git push --mirror mirror
