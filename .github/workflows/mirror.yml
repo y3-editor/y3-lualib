@@ -16,8 +16,7 @@ jobs:
 
       - name: Mirror
         env:
-          TARGET_REPO: ${{ secrets.MIRROR_TARGET_REPO }}  # 目标仓库的 URL
           TARGET_TOKEN: ${{ secrets.MIRROR_TARGET_TOKEN }}  # 目标仓库的访问权限 token
         run: |
-          git remote add mirror https://${{ secrets.MIRROR_TARGET_TOKEN }}@${{ secrets.MIRROR_TARGET_REPO }}
+          git remote add mirror https://github.com/CliCli-Editor/y3-lualib.git
           git push --mirror mirror
