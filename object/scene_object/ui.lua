@@ -1178,6 +1178,17 @@ function M:is_visible()
     return GameAPI.get_ui_comp_visible(self.player.handle, self.handle)
 end
 
+--获得控件真实可见性
+---@return boolean
+function M:is_real_visible()
+    ---@type UI?
+    local tmp = self
+    while tmp and tmp:is_visible() do
+        tmp = tmp:get_parent()
+    end
+    return tmp == nil
+end
+
 ---设置控件相对坐标
 ---@param x number x轴
 ---@param y number y轴
