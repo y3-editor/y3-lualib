@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
+
 jobs:
   mirror:
     runs-on: ubuntu-latest
@@ -19,8 +22,6 @@ jobs:
           curl -H "Authorization: token $MIRROR_TOKEN" https://api.github.com/repos/CliCli-Editor/y3-lualib
 
       - name: Mirror
-        env:
-          MIRROR_TOKEN: ${{ secrets.MIRROR_TOKEN }}
         run: |
           git config --global user.email "sumneko@hotmail.com"
           git config --global user.name "最萌小汐（宇宙创生）"
