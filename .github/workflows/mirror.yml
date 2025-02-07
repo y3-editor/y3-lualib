@@ -23,6 +23,6 @@ jobs:
 
       - name: Mirror
         run: |
-          git remote add source "https://github.com/y3-editor/y3-lualib.git"
+          git remote add --mirror=fetch source https://github.com/y3-editor/y3-lualib.git
           git checkout source
           git push --mirror main
