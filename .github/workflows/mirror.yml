@@ -15,8 +15,6 @@ jobs:
           fetch-depth: 0  # 获取所有历史记录
 
       - name: Mirror
-        env:
-          TARGET_TOKEN: ${{ secrets.MIRROR_TARGET_TOKEN }}  # 目标仓库的访问权限 token
         run: |
-          git remote add mirror https://github.com/CliCli-Editor/y3-lualib.git
+          git remote add mirror https://${{ secrets.MIRROR_TARGET_TOKEN }}@github.com/CliCli-Editor/y3-lualib.git
           git push --mirror mirror
