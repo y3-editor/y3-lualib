@@ -13,6 +13,10 @@ function M:__init(py_projectile_group)
     return self
 end
 
+function M:__pairs()
+    return self:pairs()
+end
+
 ---@param py_projectile_group py.ProjectileGroup
 ---@return ProjectileGroup
 function M.create_lua_projectile_group_from_py(py_projectile_group)
@@ -55,6 +59,33 @@ function M:pick()
         table.insert(lua_table,y3.projectile.get_by_id(id))
     end
     return lua_table
+end
+
+---遍历投射物组，请勿在遍历过程中修改投射物组。
+---```lua
+---for projectile in ProjectileGroup:pairs() do
+---    print(projectile)
+---end
+---```
+---也可以直接用 `pairs` 遍历：
+---```lua
+---for projectile in pairs(ProjectileGroup) do
+---    print(projectile)
+---end
+---```
+---@return fun(): Projectile?
+function M:pairs()
+    local i = -1
+    local len = python_len(self.handle)
+    return function ()
+        i = i + 1
+        if i >= len then
+            return
+        end
+        local id = python_index(self.handle, i)
+        local pr = y3.projectile.get_by_id(id)
+        return pr
+    end
 end
 
 return M

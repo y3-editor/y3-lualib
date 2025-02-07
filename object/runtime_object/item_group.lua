@@ -12,6 +12,10 @@ function M:__init(py_item_group)
     return self
 end
 
+function M:__pairs()
+    return self:pairs()
+end
+
 ---@param py_item_group py.ItemGroup
 ---@return ItemGroup
 function M.create_lua_item_group_from_py(py_item_group)
@@ -39,6 +43,33 @@ function M:pick()
         table.insert(lua_table,y3.item.get_by_id(iter_item))
     end
     return lua_table
+end
+
+---遍历物品组，请勿在遍历过程中修改物品组。
+---```lua
+---for item in ItemGroup:pairs() do
+---    print(item)
+---end
+---```
+---也可以直接用 `pairs` 遍历：
+---```lua
+---for item in pairs(ItemGroup) do
+---    print(item)
+---end
+---```
+---@return fun(): Item?
+function M:pairs()
+    local i = -1
+    local len = python_len(self.handle)
+    return function ()
+        i = i + 1
+        if i >= len then
+            return
+        end
+        local id = python_index(self.handle, i)
+        local it = y3.item.get_by_id(id)
+        return it
+    end
 end
 
 ---筛选范围内的所有物品
