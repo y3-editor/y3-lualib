@@ -76,6 +76,110 @@ local function run_timer_by_frame(frame, count, callback)
     return GameAPI.run_timer_by_frame(frame, count, false, timer_node, {})
 end
 
+---遍历表，使用 ipairs 的方式
+---@generic K, V
+---@param table table<K, V>
+---@param on_iter fun(index: K, value: V, timer: Timer) # 每次遍历时的回调函数，value 的类型为 T
+---@param interval number # 每次间隔时间（秒）
+---@param desc? string # 描述
+---@param immediate? boolean # 是否立即执行一次
+---@return Timer
+function M.for_ipairs(table, interval, on_iter, desc, immediate)
+    desc = desc or make_timer_reason(on_iter)
+    immediate = immediate or false
+    local timer
+    local current_index = 0
+    local table_length = #table
+    local function on_timer(data, index, current_time, delta_time)
+        current_index = current_index + 1
+        if current_index > table_length then
+            timer:remove()
+            return
+        end
+        local value = table[current_index]
+        on_iter(current_index, value, timer)
+    end
+    local py_timer = GameAPI.run_lua_timer(
+        Fix32(interval),
+        table_length,
+        immediate,
+        function(data)
+            on_timer(data, current_index)
+        end,
+        {},
+        desc
+    )
+    timer = New 'Timer' (py_timer, on_iter, 'second', desc)
+    return timer
+end
+
+---遍历表，使用 pairs 的方式
+---@generic K, V
+---@param table table<K, V>
+---@param interval number # 每次间隔时间（秒）
+---@param on_iter fun(key: K, value: V, timer: Timer) # 每次遍历时的回调函数
+---@param desc? string # 描述
+---@param immediate? boolean # 是否立即执行一次
+---@return Timer
+function M.for_pairs(table, interval, on_iter, desc, immediate)
+    desc = desc or make_timer_reason(on_iter)
+    immediate = immediate or false
+    local timer
+    local current_key
+    local function on_timer(data, key)
+        current_key = next(table, current_key)
+        if not current_key then
+            timer:remove()
+            return
+        end
+        local value = table[current_key]
+        on_iter(current_key, value, timer)
+    end
+    local py_timer = GameAPI.run_lua_timer(
+        Fix32(interval),
+        -1,
+        immediate,
+        function(data)
+            on_timer(data, current_key)
+        end,
+        {},
+        desc
+    )
+    timer = New 'Timer' (py_timer, on_iter, 'second', desc)
+    return timer
+end
+
+---@param timeout number 每次循环的时间间隔（秒）
+---@param on_loop fun(timer: Timer): boolean 每次循环的回调函数（返回 true 表示继续循环，false 表示停止）
+---@param desc? string # 描述
+---@param immediate? boolean # 是否立即执行一次
+---@return Timer
+function M.while_loop(timeout, on_loop, desc, immediate)
+    desc = desc or make_timer_reason(on_loop)
+    immediate = immediate or false
+    local timer
+    local count = 0
+    -- 定义计时器回调函数
+    local function timer_callback(data)
+        if not timer then
+            timer = New 'Timer' (data.current_timer, on_loop, 'second', desc)
+        end
+        -- 检查回调函数是否返回 true
+        local should_continue = on_loop(timer)
+        if should_continue then
+            count = count + 1
+            timer:execute(count)
+        else
+            -- 如果返回 false，停止计时器
+            timer:remove()
+        end
+    end
+    -- 创建计时器
+    local py_timer = GameAPI.run_lua_timer(Fix32(timeout), -1, immediate, timer_callback, {}, desc)
+    timer = timer or New 'Timer' (py_timer, on_loop, 'second', desc)
+    return timer
+end
+
 ---@param func function
 ---@return string
 local function make_timer_reason(func)
