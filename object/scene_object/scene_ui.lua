@@ -1,15 +1,17 @@
 ---@class SceneUI
 ---@field handle py.SceneNode
 ---@field res_id? integer
----@overload fun(py_scene_node: py.SceneNode): self
+---@overload fun(py_scene_node: py.SceneNode,sort:"点"|"单位"): self
 local M = Class 'SceneUI'
 
 M.type = 'scene_ui'
 
 ---@param py_scene_node py.SceneNode
+---@param sort "点"|"单位"
 ---@return self
-function M:__init(py_scene_node)
+function M:__init(py_scene_node, sort)
     self.handle = py_scene_node
+    self.sort = sort
     return self
 end
 
@@ -26,15 +28,16 @@ M.map = {}
 
 ---通过py层的界面实例获取lua层的界面实例
 ---@param py_scene_node py.SceneNode
+---@param sort "点"|"单位"
 ---@return SceneUI
-function M.get_by_handle(py_scene_node)
-    local scene_ui = New 'SceneUI' (py_scene_node)
+function M.get_by_handle(py_scene_node, sort)
+    local scene_ui = New 'SceneUI' (py_scene_node, sort)
     return scene_ui
 end
 
 y3.py_converter.register_type_alias('py.SceneNode', 'SceneUI')
 y3.py_converter.register_py_to_lua('py.SceneNode', M.get_by_handle)
-y3.py_converter.register_lua_to_py('py.SceneNode', function (lua_value)
+y3.py_converter.register_lua_to_py('py.SceneNode', function(lua_value)
     return lua_value.handle
 end)
 
@@ -47,18 +50,34 @@ end)
 function M.create_scene_ui_at_point(sceneui, point, range, height)
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
-    local py_scene_node = GameAPI.create_scene_node_on_point(y3.const.SceneUI[sceneui] or sceneui, point.handle, range or 10000, height or 0)
-    local scene_ui = M.get_by_handle(py_scene_node)
+    local py_scene_node = GameAPI.create_scene_node_on_point(y3.const.SceneUI[sceneui] or sceneui, point.handle,
+        range or 10000, height or 0)
+    local scene_ui = M.get_by_handle(py_scene_node, "点")
     return scene_ui
 end
 
 --获取指定玩家场景ui中的控件
 ---@param comp_path string # 控件路径
 ---@param player Player 玩家
----@return UI # UI控件
+---@return UI? # UI控件
+---@deprecated 使用get_ui替代
 function M:get_ui_comp_in_scene_ui(player, comp_path)
     local temp_ui = GameAPI.get_ui_comp_in_scene_ui(self.handle, comp_path)
     return y3.ui.get_by_handle(player, temp_ui)
+end
+
+--获取场景ui中的控件 异步
+---@param comp_path string # 控件路径
+---@param player? Player 玩家
+---@return UI? # UI控件
+function M:get_ui(comp_path, player)
+    local temp_ui = GameAPI.get_ui_comp_in_scene_ui(self.handle, comp_path)
+    if self.sort == "单位" then
+        ---@diagnostic disable-next-line: invisible
+        return y3.ui.get_by_handle(y3.player.LOCAL_PLAYER, temp_ui)
+    end
+    ---@diagnostic disable-next-line: invisible
+    return y3.ui.get_by_handle(player or y3.player.LOCAL_PLAYER, temp_ui)
 end
 
 --创建场景界面到玩家单位挂点
@@ -73,8 +92,9 @@ function M.create_scene_ui_at_player_unit_socket(scene_ui_type, player, unit, so
     if follow_scale == nil then
         follow_scale = true
     end
-    local py_scene_node = GameAPI.create_scene_node_on_unit_ex(y3.const.SceneUI[scene_ui_type] or scene_ui_type, player.handle, unit.handle, socket_name, follow_scale, distance or 100000)
-    return M.get_by_handle(py_scene_node)
+    local py_scene_node = GameAPI.create_scene_node_on_unit_ex(y3.const.SceneUI[scene_ui_type] or scene_ui_type,
+        player.handle, unit.handle, socket_name, follow_scale, distance or 100000)
+    return M.get_by_handle(py_scene_node, "单位")
 end
 
 --删除场景界面
@@ -85,8 +105,8 @@ end
 --设置场景界面对玩家的可见距离
 ---@param player Player 玩家
 ---@param dis number 可见距离
-function M:set_scene_ui_visible_distance(player,dis)
-    GameAPI.set_scene_node_visible_distance(self.handle,player.handle,dis)
+function M:set_scene_ui_visible_distance(player, dis)
+    GameAPI.set_scene_node_visible_distance(self.handle, player.handle, dis)
 end
 
 return M
