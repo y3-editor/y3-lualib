@@ -342,6 +342,134 @@ function M.loop_count_frame(frame, count, on_timer)
     return timer
 end
 
+---遍历表，使用 ipairs 的方式
+---@generic K, V
+---@param tbl table<K, V>
+---@param interval number # 每次间隔时间（秒）
+---@param on_iter fun(key: K, value: V, timer: LocalTimer.OnTimer) # 每次遍历时的回调函数
+---@return LocalTimer
+function M.for_ipairs(tbl, interval, on_iter)
+    local keys = {}
+    for k in ipairs(tbl) do
+        table.insert(keys, k)
+    end
+    local index = 1
+    local function on_timer(timer)
+        if index > #keys then
+            timer:remove()
+            return
+        end
+        local key = keys[index]
+        local value = tbl[key]
+        on_iter(key, value, timer)
+        index = index + 1
+    end
+
+    return M.loop(interval, on_timer)
+end
+
+---遍历表，使用 ipairs 的方式 帧计时器
+---@generic K, V
+---@param tbl table<K, V>
+---@param interval integer # 每次间隔时间（帧）
+---@param on_iter fun(key: K, value: V, timer: LocalTimer.OnTimer) # 每次遍历时的回调函数
+---@return LocalTimer
+function M.for_ipairs_frame(tbl, interval, on_iter)
+    local keys = {}
+    for k in ipairs(tbl) do
+        table.insert(keys, k)
+    end
+    local index = 1
+    local function on_timer(timer)
+        if index > #keys then
+            timer:remove()
+            return
+        end
+        local key = keys[index]
+        local value = tbl[key]
+        on_iter(key, value, timer)
+        index = index + 1
+    end
+
+    return M.loop_frame(interval, on_timer)
+end
+
+---循环执行，直到回调函数返回 false
+---@param timeout number 每次循环的时间间隔（秒）
+---@param on_loop fun(timer: LocalTimer): boolean 每次循环的回调函数（返回 true 表示继续循环，false 表示停止）
+---@return LocalTimer
+function M.while_loop(timeout, on_loop)
+    local function on_timer(timer)
+        if not on_loop(timer) then
+            timer:remove()
+        end
+    end
+    return M.loop(timeout, on_timer)
+end
+
+---循环执行，直到回调函数返回 false 帧计时器
+---@param timeout integer 每次循环的时间间隔（帧）
+---@param on_loop fun(timer: LocalTimer): boolean 每次循环的回调函数（返回 true 表示继续循环，false 表示停止）
+---@return LocalTimer
+function M.while_loop_frame(timeout, on_loop)
+    local function on_timer(timer)
+        if not on_loop(timer) then
+            timer:remove()
+        end
+    end
+    return M.loop_frame(timeout, on_timer)
+end
+
+---遍历表，使用 pairs 的方式
+---@generic K, V
+---@param tbl table<K, V>
+---@param interval number # 每次间隔时间（秒）
+---@param on_iter fun(key: K, value: V, timer: LocalTimer.OnTimer) # 每次遍历时的回调函数
+---@return LocalTimer
+function M.for_pairs(tbl, interval, on_iter)
+    local keys = {}
+    for k in pairs(tbl) do
+        table.insert(keys, k)
+    end
+    local index = 1
+    local function on_timer(timer)
+        if index > #keys then
+            timer:remove()
+            return
+        end
+        local key = keys[index]
+        local value = tbl[key]
+        on_iter(key, value, timer)
+        index = index + 1
+    end
+    return M.loop(interval, on_timer)
+end
+
+---遍历表，使用 pairs 的方式 帧计时器
+---@generic K, V
+---@param tbl table<K, V>
+---@param interval integer # 每次间隔时间（帧）
+---@param on_iter fun(key: K, value: V, timer: LocalTimer.OnTimer) # 每次遍历时的回调函数
+---@return LocalTimer
+function M.for_pairs_frame(tbl, interval, on_iter)
+    local keys = {}
+    for k in pairs(tbl) do
+        table.insert(keys, k)
+    end
+    local index = 1
+    local function on_timer(timer)
+        if index > #keys then
+            timer:remove()
+            return
+        end
+        local key = keys[index]
+        local value = tbl[key]
+        on_iter(key, value, timer)
+        index = index + 1
+    end
+    return M.loop_frame(interval, on_timer)
+end
+
 ---遍历所有的计时器，仅用于调试（可能会遍历到已经失效的）
 ---@return fun():LocalTimer?
 function M.pairs()
