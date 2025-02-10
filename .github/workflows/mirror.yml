@@ -1,0 +1,15 @@
+name: Trigger Mirror
+
+on: push
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger remote workflow
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.MIRROR_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/CliCli-Editor/workflows/dispatches" \
+            -d '{"event_type":"trigger_mirror"}'
