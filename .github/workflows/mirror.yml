@@ -8,8 +8,9 @@ jobs:
     steps:
       - name: Trigger remote workflow
         run: |
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.MIRROR_TOKEN }}" \
+          curl -L \
+            -X POST \
             -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/CliCli-Editor/workflows/dispatches" \
-            -d '{"event_type":"trigger_mirror"}'
+            -H "Authorization: Bearer ${{ secrets.MIRROR_TOKEN }}" \
+            "https://api.github.com/repos/CliCli-Editor/workflow/dispatches" \
+            -d '{"event_type": "trigger_mirror"}'
