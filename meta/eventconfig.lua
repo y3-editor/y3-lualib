@@ -960,6 +960,16 @@ M.config["单位-即将拾取物品"] = {
     },
 }
 
+---@alias EventParam.单位-切换默认行为 EventParam.ET_UNIT_LOAD_DEFAULT_AI
+M.config["单位-切换默认行为"] = {
+    desc = "",
+    key = "ET_UNIT_LOAD_DEFAULT_AI",
+    name = "单位-切换默认行为",
+    object = "Unit",
+    params = {
+    },
+}
+
 ---@alias EventParam.单位-即将索敌 EventParam.ET_UNIT_TRY_ACQUIRE_TARGET
 M.config["单位-即将索敌"] = {
     desc = "",
@@ -3065,6 +3075,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
 ---@field event fun(self: self, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
+---@field event fun(self: self, event: "单位-切换默认行为", callback: fun(trg: Trigger, data: EventParam.单位-切换默认行为)): Trigger
 ---@field event fun(self: self, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: self, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: self, event: "本地-骨骼碰撞", callback: fun(trg: Trigger, data: EventParam.本地-骨骼碰撞)): Trigger
@@ -3388,6 +3399,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
 ---@field event fun(self: Unit, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
+---@field event fun(self: Unit, event: "单位-切换默认行为", callback: fun(trg: Trigger, data: EventParam.单位-切换默认行为)): Trigger
 ---@field event fun(self: Unit, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: Unit, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
@@ -3537,6 +3549,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: EditorObject.Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "单位-切换默认行为", callback: fun(trg: Trigger, data: EventParam.单位-切换默认行为)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
