@@ -34,11 +34,6 @@ event.ET_REPEAT_TIMEOUT_BY_FRAME = {}
 --游戏初始化
 event.ET_GAME_INIT = {}
 
----@class EventParam.ET_ECA_INIT
-
---ECA初始化
-event.ET_ECA_INIT = {}
-
 ---@class EventParam.ET_LOADING_END
 
 --Loading结束
@@ -320,7 +315,7 @@ event.ET_HTTP_RESPONSE = {
 ---@class EventParam.ET_BROADCAST_LUA_MSG
 ---@field broadcast_lua_msg_id string # 消息id
 ---@field broadcast_lua_msg_content string # 消息内容
----@field player Player # 角色
+---@field player Player # 玩家
 
 --广播自定义Lua消息
 event.ET_BROADCAST_LUA_MSG = {
@@ -345,8 +340,8 @@ event.ET_BROADCAST_LUA_MSG = {
         type = "py.RoleID",
         lua_name = "player",
         lua_type = "Player",
-        desc = "角色ID",
-        lua_desc = "角色",
+        desc = "玩家ID",
+        lua_desc = "玩家",
     },
 }
 
@@ -2317,7 +2312,7 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_HURT_OTHER_FINISH
----@field is_critical_hit boolean # 是否是暴击
+---@field is_critical_hit number # 是否是暴击
 ---@field is_normal_hit boolean # 是否是普通攻击
 ---@field damage number # 受到的伤害值
 ---@field source_unit Unit # 施加伤害的单位
@@ -2331,9 +2326,9 @@ event.ET_UNIT_HURT_OTHER_BEFORE_APPLY = {
 event.ET_UNIT_HURT_OTHER_FINISH = {
     [1] = {
         name = "__is_critical_hit",
-        type = "boolean",
+        type = "py.Fixed",
         lua_name = "is_critical_hit",
-        lua_type = "boolean",
+        lua_type = "number",
         desc = "是否是暴击",
         lua_desc = "是否是暴击",
     },
@@ -2419,7 +2414,7 @@ event.ET_UNIT_HURT_OTHER_FINISH = {
 event.ET_UNIT_BE_HURT_COMPLETE = {
     [1] = {
         name = "__is_critical_hit",
-        type = "boolean",
+        type = "py.Fixed",
         lua_name = "is_critical_hit",
         lua_type = "boolean",
         desc = "是否是暴击",
@@ -2495,8 +2490,6 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
 ---@class EventParam.ET_UNIT_GET_CURE_BEFORE_APPLY
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
----@field target_unit Unit # 受到治疗的单位
----@field source_unit Unit # 施加治疗的单位
 ---@field heal_instance HealInstance # 治疗实例
 
 --单位即将受到治疗
@@ -2518,22 +2511,6 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
         lua_desc = "当前治疗所属技能",
     },
     [3] = {
-        name = "__target_unit",
-        type = "py.Unit",
-        lua_name = "target_unit",
-        lua_type = "Unit",
-        desc = "受到治疗的单位",
-        lua_desc = "受到治疗的单位",
-    },
-    [4] = {
-        name = "__source_unit",
-        type = "py.Unit",
-        lua_name = "source_unit",
-        lua_type = "Unit",
-        desc = "施加治疗的单位",
-        lua_desc = "施加治疗的单位",
-    },
-    [5] = {
         name = nil,
         type = nil,
         lua_name = "heal_instance",
@@ -2549,8 +2526,6 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
 ---@class EventParam.ET_UNIT_GET_CURE_FINISH
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
----@field target_unit Unit # 受到治疗的单位
----@field source_unit Unit # 施加治疗的单位
 
 --单位受到治疗结束
 event.ET_UNIT_GET_CURE_FINISH = {
@@ -2570,29 +2545,11 @@ event.ET_UNIT_GET_CURE_FINISH = {
         desc = "当前治疗所属技能",
         lua_desc = "当前治疗所属技能",
     },
-    [3] = {
-        name = "__target_unit",
-        type = "py.Unit",
-        lua_name = "target_unit",
-        lua_type = "Unit",
-        desc = "受到治疗的单位",
-        lua_desc = "受到治疗的单位",
-    },
-    [4] = {
-        name = "__source_unit",
-        type = "py.Unit",
-        lua_name = "source_unit",
-        lua_type = "Unit",
-        desc = "施加治疗的单位",
-        lua_desc = "施加治疗的单位",
-    },
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
----@field target_unit Unit # 受到治疗的单位
----@field source_unit Unit # 施加治疗的单位
 ---@field heal_instance HealInstance # 治疗实例
 
 --单位受到治疗
@@ -2614,22 +2571,6 @@ event.ET_UNIT_GET_CURE = {
         lua_desc = "当前治疗所属技能",
     },
     [3] = {
-        name = "__target_unit",
-        type = "py.Unit",
-        lua_name = "target_unit",
-        lua_type = "Unit",
-        desc = "受到治疗的单位",
-        lua_desc = "受到治疗的单位",
-    },
-    [4] = {
-        name = "__source_unit",
-        type = "py.Unit",
-        lua_name = "source_unit",
-        lua_type = "Unit",
-        desc = "施加治疗的单位",
-        lua_desc = "施加治疗的单位",
-    },
-    [5] = {
         name = nil,
         type = nil,
         lua_name = "heal_instance",
@@ -3235,6 +3176,21 @@ event.ET_UNIT_ACQUIRED_TARGET = {
     },
 }
 
+---@class EventParam.ET_ABILITY_CAST_PARALLEL
+---@field ability Ability # 技能对象
+
+--技能并发
+event.ET_ABILITY_CAST_PARALLEL = {
+    [1] = {
+        name = "__ability",
+        type = "py.Ability",
+        lua_name = "ability",
+        lua_type = "Ability",
+        desc = "技能对象",
+        lua_desc = "技能对象",
+    },
+}
+
 ---@class EventParam.ET_HITBOX_CONTACT
 ---@field source_unit Unit # 攻击单位
 ---@field target_unit Unit # 目标单位
@@ -3361,21 +3317,6 @@ event.ET_RECEIVE_HITBOX_CONTACT = {
         lua_type = "py.FPoint",
         desc = "碰撞法向量",
         lua_desc = "碰撞法向量",
-    },
-}
-
----@class EventParam.ET_ABILITY_CAST_PARALLEL
----@field ability Ability # 技能对象
-
---技能并发
-event.ET_ABILITY_CAST_PARALLEL = {
-    [1] = {
-        name = "__ability",
-        type = "py.Ability",
-        lua_name = "ability",
-        lua_type = "Ability",
-        desc = "技能对象",
-        lua_desc = "技能对象",
     },
 }
 
@@ -7245,261 +7186,6 @@ event.MOUSE_UP_RAW_INPUT_EVENT = {
     },
 }
 
----@class EventParam.MOUSE_MOVE_RAW_INPUT_EVENT
----@field player Player # 触发按键的玩家
----@field pointing_world_pos Point # 鼠标所在位置
----@field unit_group_id_list UnitGroup # 事件发生时鼠标点中单位
-
---鼠标移动原始输入事件
-event.MOUSE_MOVE_RAW_INPUT_EVENT = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "触发按键的玩家ID",
-        lua_desc = "触发按键的玩家",
-    },
-    [2] = {
-        name = "__pointing_world_pos",
-        type = "py.Point",
-        lua_name = "pointing_world_pos",
-        lua_type = "Point",
-        desc = "鼠标所在位置",
-        lua_desc = "鼠标所在位置",
-    },
-    [3] = {
-        name = "__unit_group_id_list",
-        type = "py.UnitGroup",
-        lua_name = "unit_group_id_list",
-        lua_type = "UnitGroup",
-        desc = "事件发生时鼠标点中单位",
-        lua_desc = "事件发生时鼠标点中单位",
-    },
-}
-
----@class EventParam.ET_TOUCH_KEY_DOWN_EVENT
----@field player Player # 触发按键的玩家
----@field pointing_world_pos Point # 触点指向的世界坐标
----@field touch_index integer # 当前触点索引
----@field touch_total integer # 总触点数量
----@field touch_force number # 触点力度
----@field is_click_swallowed_by_ui boolean # 点击事件是否被UI吞噬
-
---移动端触摸按下
-event.ET_TOUCH_KEY_DOWN_EVENT = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "触发按键的玩家ID",
-        lua_desc = "触发按键的玩家",
-    },
-    [2] = {
-        name = "__pointing_world_pos",
-        type = "py.Point",
-        lua_name = "pointing_world_pos",
-        lua_type = "Point",
-        desc = "触点指向的世界坐标",
-        lua_desc = "触点指向的世界坐标",
-    },
-    [3] = {
-        name = "__touch_index",
-        type = "integer",
-        lua_name = "touch_index",
-        lua_type = "integer",
-        desc = "当前触点索引",
-        lua_desc = "当前触点索引",
-    },
-    [4] = {
-        name = "__touch_total",
-        type = "integer",
-        lua_name = "touch_total",
-        lua_type = "integer",
-        desc = "总触点数量",
-        lua_desc = "总触点数量",
-    },
-    [5] = {
-        name = "__touch_force",
-        type = "py.Fixed",
-        lua_name = "touch_force",
-        lua_type = "number",
-        desc = "触点力度",
-        lua_desc = "触点力度",
-    },
-    [6] = {
-        name = "__is_click_swallowed_by_ui",
-        type = "boolean",
-        lua_name = "is_click_swallowed_by_ui",
-        lua_type = "boolean",
-        desc = "点击事件是否被UI吞噬",
-        lua_desc = "点击事件是否被UI吞噬",
-    },
-}
-
----@class EventParam.ET_TOUCH_KEY_UP_EVENT
----@field player Player # 触发按键的玩家
----@field pointing_world_pos Point # 触点指向的世界坐标
----@field touch_index integer # 当前触点索引
----@field touch_total integer # 总触点数量
----@field touch_force number # 触点力度
----@field is_click_swallowed_by_ui boolean # 点击事件是否被UI吞噬
-
---移动端触摸抬起
-event.ET_TOUCH_KEY_UP_EVENT = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "触发按键的玩家ID",
-        lua_desc = "触发按键的玩家",
-    },
-    [2] = {
-        name = "__pointing_world_pos",
-        type = "py.Point",
-        lua_name = "pointing_world_pos",
-        lua_type = "Point",
-        desc = "触点指向的世界坐标",
-        lua_desc = "触点指向的世界坐标",
-    },
-    [3] = {
-        name = "__touch_index",
-        type = "integer",
-        lua_name = "touch_index",
-        lua_type = "integer",
-        desc = "当前触点索引",
-        lua_desc = "当前触点索引",
-    },
-    [4] = {
-        name = "__touch_total",
-        type = "integer",
-        lua_name = "touch_total",
-        lua_type = "integer",
-        desc = "总触点数量",
-        lua_desc = "总触点数量",
-    },
-    [5] = {
-        name = "__touch_force",
-        type = "py.Fixed",
-        lua_name = "touch_force",
-        lua_type = "number",
-        desc = "触点力度",
-        lua_desc = "触点力度",
-    },
-    [6] = {
-        name = "__is_click_swallowed_by_ui",
-        type = "boolean",
-        lua_name = "is_click_swallowed_by_ui",
-        lua_type = "boolean",
-        desc = "点击事件是否被UI吞噬",
-        lua_desc = "点击事件是否被UI吞噬",
-    },
-}
-
----@class EventParam.ET_TOUCH_KEY_MOVE_EVENT
----@field player Player # 触发按键的玩家
----@field pointing_world_pos Point # 触点指向的世界坐标
----@field touch_index integer # 当前触点索引
----@field touch_total integer # 总触点数量
----@field touch_force number # 触点力度
-
---移动端触摸移动
-event.ET_TOUCH_KEY_MOVE_EVENT = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "触发按键的玩家ID",
-        lua_desc = "触发按键的玩家",
-    },
-    [2] = {
-        name = "__pointing_world_pos",
-        type = "py.Point",
-        lua_name = "pointing_world_pos",
-        lua_type = "Point",
-        desc = "触点指向的世界坐标",
-        lua_desc = "触点指向的世界坐标",
-    },
-    [3] = {
-        name = "__touch_index",
-        type = "integer",
-        lua_name = "touch_index",
-        lua_type = "integer",
-        desc = "当前触点索引",
-        lua_desc = "当前触点索引",
-    },
-    [4] = {
-        name = "__touch_total",
-        type = "integer",
-        lua_name = "touch_total",
-        lua_type = "integer",
-        desc = "总触点数量",
-        lua_desc = "总触点数量",
-    },
-    [5] = {
-        name = "__touch_force",
-        type = "py.Fixed",
-        lua_name = "touch_force",
-        lua_type = "number",
-        desc = "触点力度",
-        lua_desc = "触点力度",
-    },
-}
-
----@class EventParam.ET_TOUCH_KEY_PRESS_EVENT
----@field player Player # 触发按键的玩家
----@field pointing_world_pos Point # 触点指向的世界坐标
----@field touch_index integer # 当前触点索引
----@field touch_total integer # 总触点数量
----@field touch_force number # 触点力度
-
---移动端触摸长按
-event.ET_TOUCH_KEY_PRESS_EVENT = {
-    [1] = {
-        name = "__role_id",
-        type = "py.RoleID",
-        lua_name = "player",
-        lua_type = "Player",
-        desc = "触发按键的玩家ID",
-        lua_desc = "触发按键的玩家",
-    },
-    [2] = {
-        name = "__pointing_world_pos",
-        type = "py.Point",
-        lua_name = "pointing_world_pos",
-        lua_type = "Point",
-        desc = "触点指向的世界坐标",
-        lua_desc = "触点指向的世界坐标",
-    },
-    [3] = {
-        name = "__touch_index",
-        type = "integer",
-        lua_name = "touch_index",
-        lua_type = "integer",
-        desc = "当前触点索引",
-        lua_desc = "当前触点索引",
-    },
-    [4] = {
-        name = "__touch_total",
-        type = "integer",
-        lua_name = "touch_total",
-        lua_type = "integer",
-        desc = "总触点数量",
-        lua_desc = "总触点数量",
-    },
-    [5] = {
-        name = "__touch_force",
-        type = "py.Fixed",
-        lua_name = "touch_force",
-        lua_type = "number",
-        desc = "触点力度",
-        lua_desc = "触点力度",
-    },
-}
-
 ---@class EventParam.ET_UNIT_EVENT_TO_GLOBAL
 ---@field event_name string # 事件名
 ---@field point Point # 点
@@ -10378,6 +10064,11 @@ event.ET_MALL_NOTIFY_FRIEND_UPDATE = {
 --steam大厅本地玩家队伍发生变化
 event.ET_MALL_NOTIFY_TEAM_UPDATE = {}
 
+---@class EventParam.ET_MALL_NOTIFY_TEAM_KICK_OFF
+
+--steam大厅本地玩家被提出队伍
+event.ET_MALL_NOTIFY_TEAM_KICK_OFF = {}
+
 ---@class EventParam.ET_MALL_NOTIFY_TEAM_INVITE
 ---@field player_aid integer # 发送方ID
 ---@field nick_name string # 发送方名称
@@ -10413,38 +10104,18 @@ event.ET_MALL_NOTIFY_TEAM_INVITE = {
 
 ---@class EventParam.ET_MALL_NOTIFY_ENTER_LOBBY
 
---steam回到大厅
+--steam大厅收到队伍邀请
 event.ET_MALL_NOTIFY_ENTER_LOBBY = {}
 
 ---@class EventParam.ET_MALL_NOTIFY_START_MATCH
----@field error_code integer # ERROR_CODE
 
 --steam大厅开始匹配
-event.ET_MALL_NOTIFY_START_MATCH = {
-    [1] = {
-        name = "__error_code",
-        type = "integer",
-        lua_name = "error_code",
-        lua_type = "integer",
-        desc = "ERROR_CODE",
-        lua_desc = "ERROR_CODE",
-    },
-}
+event.ET_MALL_NOTIFY_START_MATCH = {}
 
 ---@class EventParam.ET_MALL_NOTIFY_CANCEL_MATCH
----@field error_code integer # ERROR_CODE
 
 --steam大厅取消匹配
-event.ET_MALL_NOTIFY_CANCEL_MATCH = {
-    [1] = {
-        name = "__error_code",
-        type = "integer",
-        lua_name = "error_code",
-        lua_type = "integer",
-        desc = "ERROR_CODE",
-        lua_desc = "ERROR_CODE",
-    },
-}
+event.ET_MALL_NOTIFY_CANCEL_MATCH = {}
 
 ---@class EventParam.ET_MALL_NOTIFY_RECONNECT_ARCHIVE
 
@@ -10498,47 +10169,5 @@ event.ET_MALL_NOTIFY_ROOM_KICK_OFF = {}
 
 --steam被踢出房间
 event.ET_MALL_NOTIFY_ROOM_BUILD = {}
-
----@class EventParam.ET_UNIT_PROJECTILE_HIT
----@field source_unit Unit # 远程普攻投射物所属单位
----@field target_unit Unit # 远程普攻目标单位
----@field pos Point # 命中位置
----@field damage number # 伤害
-
---单位投射物命中
-event.ET_UNIT_PROJECTILE_HIT = {
-    [1] = {
-        name = "__source_unit",
-        type = "py.Unit",
-        lua_name = "source_unit",
-        lua_type = "Unit",
-        desc = "远程普攻投射物所属单位",
-        lua_desc = "远程普攻投射物所属单位",
-    },
-    [2] = {
-        name = "__target_unit",
-        type = "py.Unit",
-        lua_name = "target_unit",
-        lua_type = "Unit",
-        desc = "远程普攻目标单位",
-        lua_desc = "远程普攻目标单位",
-    },
-    [3] = {
-        name = "__pos",
-        type = "py.Point",
-        lua_name = "pos",
-        lua_type = "Point",
-        desc = "命中位置",
-        lua_desc = "命中位置",
-    },
-    [4] = {
-        name = "__damage",
-        type = "py.Fixed",
-        lua_name = "damage",
-        lua_type = "number",
-        desc = "伤害",
-        lua_desc = "伤害",
-    },
-}
 
 return event

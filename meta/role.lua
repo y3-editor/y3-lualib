@@ -136,11 +136,6 @@ function Role:set_save_data_str_value(index, value) end
 ---@param value py.Table # 表型参数
 function Role:set_save_data_table_value(index, value) end
 
---复制表型存档到玩家存档栏位
----@param src_index integer # 源玩家存档栏位
----@param dst_index integer # 目标玩家存档栏位
-function Role:copy_save_data_table_value(src_index, dst_index) end
-
 --set_save_table_key_value
 ---@param save_slot integer # 玩家存档栏位
 ---@param key1 string # key1
@@ -185,10 +180,6 @@ function Role:get_save_table_key_value(save_slot, key1, key2, key3, default_valu
 --上传玩家存档数据
 ---@param use_proxy? boolean # 进行代理上传
 function Role:upload_save_data(use_proxy) end
-
---强制上传玩家非实时存档
----@param use_proxy? boolean # 进行代理上传
-function Role:force_upload_save_data(use_proxy) end
 
 --增加当前地图的指定key的存档值
 ---@param key string # 全局存档key值
@@ -248,11 +239,6 @@ function Role:api_use_store_item(cnt, no) end
 ---@param no py.StoreKey # 收费道具key
 ---@return integer? # 收费道具数量
 function Role:get_store_item_cnt(no) end
-
---获取平台道具到期时间戳
----@param no py.StoreKey # 收费道具key
----@return integer? # 收费道具数量
-function Role:get_store_item_expired_time(no) end
 
 --玩家是否拥有单位的可见性
 ---@param unit py.Unit # 单位
@@ -367,11 +353,6 @@ function Role:set_role_vignetting_change_range(value) end
 ---@param interval? number # Interval
 function Role:set_role_vignetting_color(r, g, b, interval) end
 
---设置玩家暗角颜色(HEX)
----@param color string # hex
----@param interval? number # Interval
-function Role:set_role_vignetting_color_hex(color, interval) end
-
 --设置玩家的基础操作快捷键（过滤掉禁止修改的）
 ---@param game_func_id py.EditableGameFunc # 可编辑操作
 ---@param normal_key py.NormalKey # 功能键
@@ -423,14 +404,6 @@ function Role:api_set_role_skill_indicator(skill_indicator_key, effect_key) end
 ---@return string? # 颜色
 function Role:api_get_role_color() end
 
---上报玩家排名
----@param rank integer # 本局游戏排名
-function Role:upload_player_game_rank(rank) end
-
---获取玩家当前选中单位组
----@return py.UnitGroup? # 单位组
-function Role:api_get_role_select_units() end
-
 --玩家是否为平台荣耀会员
 ---@return boolean? # 是否是会员
 function Role:api_is_honor_vip() end
@@ -479,6 +452,45 @@ function Role:api_is_bookmark_current_map() end
 ---@return integer? # 积分
 function Role:api_get_ladder_rank_points(ladder_key) end
 
+--获取玩家该地图累计充值
+---@return py.Fixed? # 累计充值
+function Role:api_get_role_total_consume() end
+
+--获取玩家是否打赏该地图
+---@return boolean? # 是否打赏该地图
+function Role:api_get_role_is_donated() end
+
+--复制表型存档到玩家存档栏位
+---@param src_index integer # 源玩家存档栏位
+---@param dst_index integer # 目标玩家存档栏位
+function Role:copy_save_data_table_value(src_index, dst_index) end
+
+--强制上传玩家非实时存档
+---@param use_proxy? boolean # 进行代理上传
+function Role:force_upload_save_data(use_proxy) end
+
+--获取平台道具到期时间戳
+---@param no py.StoreKey # 收费道具key
+---@return integer? # 收费道具数量
+function Role:get_store_item_expired_time(no) end
+
+--设置玩家暗角颜色(HEX)
+---@param color string # hex
+---@param interval? number # Interval
+function Role:set_role_vignetting_color_hex(color, interval) end
+
+--上报玩家排名
+---@param rank integer # 本局游戏排名
+function Role:upload_player_game_rank(rank) end
+
+--获取玩家当前选中单位组
+---@return py.UnitGroup? # 单位组
+function Role:api_get_role_select_units() end
+
+--更新玩家存档排行榜
+---@param save_index integer # 玩家存档栏位
+function Role:update_player_save_rank(save_index) end
+
 --获取玩家当前赛季天梯编号
 ---@param ladder_key string # 天梯key
 ---@return integer? # 赛季编号
@@ -494,14 +506,6 @@ function Role:api_get_current_season_standing(ladder_key) end
 ---@param rank_number integer # 第几名
 ---@return integer? # 排名次数
 function Role:api_get_current_season_standing_number(ladder_key, rank_number) end
-
---获取玩家该地图累计充值
----@return py.Fixed? # 累计充值
-function Role:api_get_role_total_consume() end
-
---获取玩家是否打赏该地图
----@return boolean? # 是否打赏该地图
-function Role:api_get_role_is_donated() end
 
 --获取玩家当前地图探险次数
 ---@return integer? # 探险次数
@@ -551,7 +555,3 @@ function Role:request_join_public_dungeon(level_id, game_mode) end
 --获取玩家武将信息
 ---@return py.Table? # 玩家武将信息
 function Role:get_role_general_depot() end
-
---更新玩家存档排行榜
----@param save_index integer # 玩家存档栏位
-function Role:update_player_save_rank(save_index) end

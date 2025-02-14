@@ -268,12 +268,6 @@ function Item:api_is_item_visible() end
 ---@param source_model py.ModelKey # 原模型编号
 function Item:api_change_model(source_model) end
 
---物品替换贴图
----@param material_id integer # 材质 id
----@param layer_id integer # layer id
----@param texture py.Texture # 贴图
-function Item:api_change_texture(material_id, layer_id, texture) end
-
 --取消物品替换模型
 ---@param target_model py.ModelKey # 目标模型名字
 function Item:api_cancel_replace_model(target_model) end
@@ -296,6 +290,16 @@ function Item:api_get_item_int_attr(att_key) end
 --物品是否自动使用
 ---@return boolean? # 是否自动使用
 function Item:api_is_item_auto_use() end
+
+--物品实例删除被动技能
+---@param ability_id py.AbilityKey # 技能id
+function Item:api_item_delete_passive_ability(ability_id) end
+
+--物品替换贴图
+---@param material_id integer # 材质 id
+---@param layer_id integer # layer id
+---@param texture py.Texture # 贴图
+function Item:api_change_texture(material_id, layer_id, texture) end
 
 --设置物品名称显示样式
 ---@param name_bar_type integer # 姓名样式

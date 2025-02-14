@@ -8,9 +8,6 @@ GlobalAPI = {}
 ---@param actor py.Actor # Actor
 function GlobalAPI.api_clear_tag(actor) end
 
---空api
-function GlobalAPI.api_do_nothing() end
-
 --清空自定义键值
 ---@param actor py.Actor # Actor
 function GlobalAPI.api_clear_kv(actor) end
@@ -146,13 +143,6 @@ function GlobalAPI.int_iterator(num) end
 ---@return py.Int32Iterator # Python迭代器
 function GlobalAPI.int_iterator2(start, stop, step) end
 
---整数迭代器
----@param start integer # 计数从start开始
----@param stop integer # 计数到stop结束
----@param step? integer # 步长
----@return py.Int32Iterator # Python迭代器
-function GlobalAPI.int_iterator3(start, stop, step) end
-
 --列表索引迭代器
 ---@param l py.List # 列表
 ---@return py.Iterator # Python迭代器
@@ -272,23 +262,6 @@ function GlobalAPI.fvector2_to_str(f) end
 ---@param num? integer # 保留位数
 ---@return string # 字符串
 function GlobalAPI.float_to_str(f, num) end
-
---整数转换为字符串
----@param i integer # 整数
----@param num? integer # 保留位数
----@return string # 字符串
-function GlobalAPI.int_to_string(i, num) end
-
---整数转换为模型类型
----@param key integer # 整数
----@return py.ModelKey # 字符串
-function GlobalAPI.int_to_model_key(key) end
-
---定点数转字符串
----@param f number # 浮点数
----@param num integer # 保留位数
----@param rule? integer # 保留规则
-function GlobalAPI.float_to_str_new(f, num, rule) end
 
 --浮点Vector3转字符串
 ---@param f py.Vector3 # Vector3
@@ -622,31 +595,6 @@ function GlobalAPI.clear_group(list1) end
 ---@param index_forward? boolean # 索引前移
 function GlobalAPI.remove_list_var_item(dict_var, index, index_forward) end
 
---数组 - 删除数组条目
----@param dict_var py.List # list var
----@param index integer # index
----@param index_forward? boolean # 索引前移
-function GlobalAPI.remove_list_var_item_2(dict_var, index, index_forward) end
-
---数组 - 是否具有索引
----@param dict_var py.List # list var
----@param key integer # key
----@return boolean # 结果
-function GlobalAPI.dict_has_key(dict_var, key) end
-
---数组 - 是否存在元素
----@param dict_var py.List # list var
----@param key py.DynamicTypeMeta # value
----@return boolean # 结果
-function GlobalAPI.dict_has_value(dict_var, key) end
-
---数组 - 是否存在元素
----@param dict_var py.List # list var
----@param key py.DynamicTypeMeta # value
----@param name string # name
----@return boolean # 结果
-function GlobalAPI.dict_has_value_special(dict_var, key, name) end
-
 --将第二个列表的值赋值给第一个列表 不改变第一个列表的长度
 ---@param list1 py.List # 列表
 ---@param list2 py.List # 列表
@@ -729,9 +677,6 @@ function GlobalAPI.pos_in_str(str1, sub_str) end
 ---@param integer integer # 整数
 ---@return py.ProjectileKey # 投射物类型
 function GlobalAPI.api_int_to_key(integer) end
-
---停止对lua gc的控制
-function GlobalAPI.api_stop_luagc_control() end
 
 --将投射物类型转化为整数
 ---@param key py.ProjectileKey # 投射物类型
@@ -822,11 +767,6 @@ function GlobalAPI.item_group_to_str(obj) end
 ---@param obj_id py.Mover # 运动器
 ---@return string # 字符串
 function GlobalAPI.mover_entity_to_str(obj_id) end
-
---关卡转字符串
----@param obj py.Map # 关卡
----@return string # 字符串
-function GlobalAPI.map_to_str(obj) end
 
 --玩家转字符串
 ---@param obj py.Role # 玩家
@@ -1044,11 +984,6 @@ function GlobalAPI.get_hour_of_server_timestamp(v) end
 ---@return py.Iterator # Python迭代器
 function GlobalAPI.iter_random_pool_result(v) end
 
---获取玩家离线存档
----@param v string # str
----@return string # str
-function GlobalAPI.get_role_open_archive(v) end
-
 --获取服务器随机池执行结果
 ---@param v integer # int
 ---@return integer # int
@@ -1063,6 +998,71 @@ function GlobalAPI.get_iter_random_pool_archive_key(v) end
 ---@param v integer # int
 ---@return integer # int
 function GlobalAPI.get_iter_random_pool_archive_increment(v) end
+
+--空api
+function GlobalAPI.api_do_nothing() end
+
+--整数迭代器
+---@param start integer # 计数从start开始
+---@param stop integer # 计数到stop结束
+---@param step? integer # 步长
+---@return py.Int32Iterator # Python迭代器
+function GlobalAPI.int_iterator3(start, stop, step) end
+
+--整数转换为字符串
+---@param i integer # 整数
+---@param num? integer # 保留位数
+---@return string # 字符串
+function GlobalAPI.int_to_string(i, num) end
+
+--整数转换为模型类型
+---@param key integer # 整数
+---@return py.ModelKey # 字符串
+function GlobalAPI.int_to_model_key(key) end
+
+--定点数转字符串
+---@param f number # 浮点数
+---@param num integer # 保留位数
+---@param rule? integer # 保留规则
+function GlobalAPI.float_to_str_new(f, num, rule) end
+
+--数组 - 删除数组条目
+---@param dict_var py.List # list var
+---@param index integer # index
+---@param index_forward? boolean # 索引前移
+function GlobalAPI.remove_list_var_item_2(dict_var, index, index_forward) end
+
+--数组 - 是否具有索引
+---@param dict_var py.List # list var
+---@param key integer # key
+---@return boolean # 结果
+function GlobalAPI.dict_has_key(dict_var, key) end
+
+--数组 - 是否存在元素
+---@param dict_var py.List # list var
+---@param key py.DynamicTypeMeta # value
+---@return boolean # 结果
+function GlobalAPI.dict_has_value(dict_var, key) end
+
+--数组 - 是否存在元素
+---@param dict_var py.List # list var
+---@param key py.DynamicTypeMeta # value
+---@param name string # name
+---@return boolean # 结果
+function GlobalAPI.dict_has_value_special(dict_var, key, name) end
+
+--停止对lua gc的控制
+function GlobalAPI.api_stop_luagc_control() end
+
+--关卡转字符串
+---@param obj py.Map # 关卡
+---@return string # 字符串
+function GlobalAPI.map_to_str(obj) end
+
+--获取玩家离线存档
+---@param v string # str
+---@return string # str
+function GlobalAPI.get_role_open_archive(v) end
 
 --获取生成随机数错误码
 ---@param v integer # int
