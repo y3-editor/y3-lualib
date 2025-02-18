@@ -679,6 +679,12 @@ function M:set_name(name)
     self.handle:api_set_name(name)
 end
 
+---设置名称显示方式
+---@param show_type y3.Const.BarNameShowType 名称显示方式
+function M:set_name_show_type(show_type)
+    self.handle:api_set_bar_name_show_type(y3.const.BarNameShowType[show_type] or show_type)
+end
+
 ---设置描述
 ---@param description string 描述
 function M:set_description(description)

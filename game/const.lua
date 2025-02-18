@@ -1071,4 +1071,11 @@ M.WeatherType = {
     ['白雾'] = 15,
 }
 
+---@enum(key) y3.Const.BarNameShowType
+M.BarNameShowType = {
+    ['无'] = 0,
+    ['玩家名'] = 1,
+    ['单位名'] = 2,
+}
+
 return M
