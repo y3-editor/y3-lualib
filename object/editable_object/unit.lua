@@ -2068,6 +2068,28 @@ function M:change_model_texture(model, material, layer, texture)
     self.handle:change_model_texture(model, material, layer, texture)
 end
 
+---@class Unit.TransformationOptions
+---@field inherit_composite_attr? boolean # 是否继承复合属性
+---@field inherit_unit_attr? boolean # 是否继承单位属性
+---@field inherit_kv? boolean # 是否继承kv
+---@field inherit_hero_ability? boolean # 是否继承英雄技能
+---@field inherit_common_ability? boolean # 是否继承通用技能
+---@field inherit_passive_ability? boolean # 是否继承隐藏技能
+
+---变身
+---@param unit_key py.UnitKey # 单位类型key
+---@param options? Unit.TransformationOptions
+function M:transformation(unit_key, options)
+    self.handle:api_unit_transformation(unit_key
+        , options and options.inherit_composite_attr or false
+        , options and options.inherit_unit_attr or false
+        , options and options.inherit_kv or false
+        , options and options.inherit_hero_ability or false
+        , options and options.inherit_common_ability or false
+        , options and options.inherit_passive_ability or false
+    )
+end
+
 function M:is_destroyed()
     local yes = self.handle:api_is_destroyed()
     if yes == nil then
