@@ -1051,4 +1051,24 @@ M.UIEffectCameraMode = {
 ---@enum(key) y3.Const.CustomEventName
 M.CustomEventName = {}
 
+---@enum(key) y3.Const.WeatherType
+M.WeatherType = {
+    ['无'] = 0,
+    ['小雨'] = 1,
+    ['大雨'] = 2,
+    ['小雪'] = 3,
+    ['大雪'] = 4,
+    ['暴风雪'] = 5,
+    ['魔力升腾'] = 6,
+    ['月光'] = 7,
+    ['日光'] = 8,
+    ['小风'] = 9,
+    ['大风'] = 10,
+    ['沙尘'] = 11,
+    ['蓝雾'] = 12,
+    ['绿雾'] = 13,
+    ['红雾'] = 14,
+    ['白雾'] = 15,
+}
+
 return M

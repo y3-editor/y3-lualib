@@ -310,15 +310,15 @@ end
 
 ---设置区域天气
 ---@param area Area 区域
----@param weather integer 天气
+---@param weather integer | y3.Const.WeatherType 天气
 function M.set_area_weather(area, weather)
-    GameAPI.update_area_weather(area.handle, weather)
+    GameAPI.update_area_weather(area.handle, y3.const.WeatherType[weather] or weather)
 end
 
 ---设置全局天气
----@param weather integer 天气
+---@param weather integer | y3.Const.WeatherType 天气
 function M.set_global_weather(weather)
-    GameAPI.update_global_weather(weather)
+    GameAPI.update_global_weather(y3.const.WeatherType[weather] or weather)
 end
 
 ---设置雾效属性
