@@ -345,7 +345,7 @@ function M.create_unit(owner, unit_id, point, direction)
 end
 
 ---杀死单位
----@param killer Unit 凶手单位
+---@param killer? Unit 凶手单位
 function M:kill_by(killer)
     self.handle:api_kill(killer and killer.handle or nil)
 end
