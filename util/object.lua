@@ -323,6 +323,46 @@ M.projectile = y3.util.defaultTable(function (key)
     return New 'EditorObject.Projectile' (key)
 end)
 
+
+---@class EditorObject.Destructible: EditorObject.DataModule
+---@field key py.DestructibleKey
+---可破坏物的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+--> 警告：请确保数据类型正确，否则可能导致崩溃  
+--> 警告：如果创建过此可破坏物再修改数据，行为是未定义的
+---@field data Object.Destructible
+---可破坏物的物编数据，你可以从里面读取或修改任意物编（部分字段无法修改）  
+---使用该字段读取的数据会自动转成lua类型，写入时也会自动转成python类型。
+---@field lua_data Object.Destructible
+local Destructible = Class 'EditorObject.Destructible'
+
+Extends('EditorObject.Destructible', 'EditorObject.DataModule')
+---@class EditorObject.Projectile: EditorObject.Event
+Extends('EditorObject.Destructible', 'EditorObject.Event')
+---@class EditorObject.Projectile: KV
+Extends('EditorObject.Destructible', 'KV')
+Destructible.kv_key = 'destructible_key'
+
+---@private
+Destructible.data_key = 'editor_destructible'
+
+Destructible.type = 'destructible'
+
+function Destructible:__init(key)
+    self.key = key
+end
+
+--以此投射物为模板创建新的可破坏物
+---@return EditorObject.Destructible
+function Destructible:new()
+    local new_key = GameAPI.create_destructible_editor_data(self.key)
+    return M.destructible[new_key]
+end
+
+---@type table<integer, EditorObject.Destructible>
+M.destructible = y3.util.defaultTable(function (key)
+    return New 'EditorObject.Destructible' (key)
+end)
+
 --废弃了
 do
     ---@package

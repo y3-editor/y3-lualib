@@ -1040,6 +1040,368 @@
 ---魔法效果的UID
 ---@field uid? string
 
+---@class Object.Decoration
+---挂接物列表
+---@field attach_models any
+---材质颜色叠加类型
+---@field base_color_mod any
+---基础材质变色
+---@field base_tint_color any
+---是否产生阴影
+---
+---勾选后该装饰物将会计算光照效果形成阴影
+---@field cast_shadow boolean
+---碰撞盒
+---@field collision_box any
+---高度图
+---@field collision_height any
+---碰撞格点
+---@field collision_points any
+---描述
+---@field description string
+---效果编辑按钮
+---@field effect_button any
+---获得特效列表
+---@field effect_list any
+---@field enable_camera_collision boolean
+---遮挡透视
+---@field enable_occlusion_perspective boolean
+---菲涅尔颜色
+---@field fresnel_color any
+---菲涅尔强度
+---@field fresnel_emissive_color_strength number
+---菲涅尔指数
+---@field fresnel_exp number
+---暂未配置55
+---@field icon any
+---ID
+---
+---装饰物的ID
+---@field key number
+---玩家自定义
+---@field kv any
+---不透明度
+---@field material_alpha number
+---材质变化
+---@field material_change any
+---基础材质变色
+---@field material_color any
+---材质变色强度
+---@field material_color_intensity number
+---模型
+---@field model any
+---模型不透明度
+---@field model_opacity number
+---名称
+---@field name string
+---接收贴花
+---
+---是否允许贴花特效显示在该装饰物上方
+---@field receive_decal boolean
+---缩放
+---@field scale number
+---编辑器后缀
+---@field suffix string
+---UID
+---
+---装饰物的UID
+---@field uid string
+---是否启用基础材质变色
+---@field use_base_tint_color boolean
+---启用菲涅尔效果
+---@field use_fresnel boolean
+---可通行
+---
+---勾选后该装饰物如果可通行，将允许单位踩在装饰物上。
+---@field use_physics boolean
+---启用补光效果
+---@field use_virtual_light boolean
+
+---@class Object.DecorationOptions
+---挂接物列表
+---@field attach_models? any
+---材质颜色叠加类型
+---@field base_color_mod? any
+---基础材质变色
+---@field base_tint_color? any
+---是否产生阴影
+---
+---勾选后该装饰物将会计算光照效果形成阴影
+---@field cast_shadow? boolean
+---碰撞盒
+---@field collision_box? any
+---高度图
+---@field collision_height? any
+---碰撞格点
+---@field collision_points? any
+---描述
+---@field description? string
+---效果编辑按钮
+---@field effect_button? any
+---获得特效列表
+---@field effect_list? any
+---@field enable_camera_collision? boolean
+---遮挡透视
+---@field enable_occlusion_perspective? boolean
+---菲涅尔颜色
+---@field fresnel_color? any
+---菲涅尔强度
+---@field fresnel_emissive_color_strength? number
+---菲涅尔指数
+---@field fresnel_exp? number
+---暂未配置55
+---@field icon? any
+---ID
+---
+---装饰物的ID
+---@field key? number
+---玩家自定义
+---@field kv? any
+---不透明度
+---@field material_alpha? number
+---材质变化
+---@field material_change? any
+---基础材质变色
+---@field material_color? any
+---材质变色强度
+---@field material_color_intensity? number
+---模型
+---@field model? any
+---模型不透明度
+---@field model_opacity? number
+---名称
+---@field name? string
+---接收贴花
+---
+---是否允许贴花特效显示在该装饰物上方
+---@field receive_decal? boolean
+---缩放
+---@field scale? number
+---编辑器后缀
+---@field suffix? string
+---UID
+---
+---装饰物的UID
+---@field uid? string
+---是否启用基础材质变色
+---@field use_base_tint_color? boolean
+---启用菲涅尔效果
+---@field use_fresnel? boolean
+---可通行
+---
+---勾选后该装饰物如果可通行，将允许单位踩在装饰物上。
+---@field use_physics? boolean
+---启用补光效果
+---@field use_virtual_light? boolean
+
+---@class Object.Destructible
+---@field alive_height_box_data string
+---材质颜色叠加类型
+---@field base_color_mod any
+---基础材质变色
+---@field base_tint_color any
+---模型缩放
+---@field body_size number
+---默认角度
+---@field collision_box any
+---默认角度
+---@field collision_points_alive any
+---默认角度
+---@field collision_points_dead any
+---@field dead_height_box_data string
+---描述
+---@field description string
+---死亡销毁延迟
+---@field destroy_delay number
+---死亡时销毁
+---@field destroy_on_die boolean
+---死亡特效列表
+---@field die_effect_list any
+---资源耗尽时死亡
+---@field die_on_source_run_out boolean
+---持续特效列表
+---@field effect_list any
+---遮挡透视
+---@field enable_occlusion_perspective boolean
+---菲涅尔颜色
+---@field fresnel_color any
+---菲涅尔强度
+---@field fresnel_emissive_color_strength number
+---菲涅尔指数
+---@field fresnel_exp number
+---生命值
+---@field hp_max number
+---图标
+---@field icon any
+---可被作为技能目标
+---@field is_ability_target boolean
+---可被攻击
+---@field is_attacked boolean
+---可被采集
+---@field is_collected boolean
+---可被选中
+---@field is_selected boolean
+---ID
+---@field key number
+---玩家自定义
+---@field kv any
+---不透明度
+---@field material_alpha number
+---材质变化
+---@field material_change any
+---基础材质变色
+---@field material_color any
+---材质变色强度
+---@field material_color_intensity number
+---小地图 - 颜色
+---@field mini_map_color any
+---模型
+---@field model any
+---模型不透明度
+---@field model_opacity number
+---名称
+---@field name string
+---是否可通行
+---@field passable boolean
+---接收贴花
+---@field receive_decal boolean
+---小地图 - 显示
+---@field show_on_mini_map boolean
+---声音事件列表
+---@field sound_event_list any[]
+---资源名称
+---@field source_desc string
+---物品类型
+---@field source_item any
+---资源初始数量
+---@field source_nums_init number
+---资源最大数量
+---@field source_nums_max number
+---玩家属性资源
+---@field source_player_prop any
+---资源回复数量
+---@field source_refresh_count number
+---资源回复间隔
+---@field source_refresh_interval number
+---资源类型
+---@field source_type any
+---编辑器后缀
+---@field suffix string
+---物品标签
+---@field tags any[]
+---UID
+---@field uid string
+---是否启用基础材质变色
+---@field use_base_tint_color boolean
+---启用菲涅尔效果
+---@field use_fresnel boolean
+---启用补光效果
+---@field use_virtual_light boolean
+
+---@class Object.DestructibleOptions
+---@field alive_height_box_data? string
+---材质颜色叠加类型
+---@field base_color_mod? any
+---基础材质变色
+---@field base_tint_color? any
+---模型缩放
+---@field body_size? number
+---默认角度
+---@field collision_box? any
+---默认角度
+---@field collision_points_alive? any
+---默认角度
+---@field collision_points_dead? any
+---@field dead_height_box_data? string
+---描述
+---@field description? string
+---死亡销毁延迟
+---@field destroy_delay? number
+---死亡时销毁
+---@field destroy_on_die? boolean
+---死亡特效列表
+---@field die_effect_list? any
+---资源耗尽时死亡
+---@field die_on_source_run_out? boolean
+---持续特效列表
+---@field effect_list? any
+---遮挡透视
+---@field enable_occlusion_perspective? boolean
+---菲涅尔颜色
+---@field fresnel_color? any
+---菲涅尔强度
+---@field fresnel_emissive_color_strength? number
+---菲涅尔指数
+---@field fresnel_exp? number
+---生命值
+---@field hp_max? number
+---图标
+---@field icon? any
+---可被作为技能目标
+---@field is_ability_target? boolean
+---可被攻击
+---@field is_attacked? boolean
+---可被采集
+---@field is_collected? boolean
+---可被选中
+---@field is_selected? boolean
+---ID
+---@field key? number
+---玩家自定义
+---@field kv? any
+---不透明度
+---@field material_alpha? number
+---材质变化
+---@field material_change? any
+---基础材质变色
+---@field material_color? any
+---材质变色强度
+---@field material_color_intensity? number
+---小地图 - 颜色
+---@field mini_map_color? any
+---模型
+---@field model? any
+---模型不透明度
+---@field model_opacity? number
+---名称
+---@field name? string
+---是否可通行
+---@field passable? boolean
+---接收贴花
+---@field receive_decal? boolean
+---小地图 - 显示
+---@field show_on_mini_map? boolean
+---声音事件列表
+---@field sound_event_list? any[]
+---资源名称
+---@field source_desc? string
+---物品类型
+---@field source_item? any
+---资源初始数量
+---@field source_nums_init? number
+---资源最大数量
+---@field source_nums_max? number
+---玩家属性资源
+---@field source_player_prop? any
+---资源回复数量
+---@field source_refresh_count? number
+---资源回复间隔
+---@field source_refresh_interval? number
+---资源类型
+---@field source_type? any
+---编辑器后缀
+---@field suffix? string
+---物品标签
+---@field tags? any[]
+---UID
+---@field uid? string
+---是否启用基础材质变色
+---@field use_base_tint_color? boolean
+---启用菲涅尔效果
+---@field use_fresnel? boolean
+---启用补光效果
+---@field use_virtual_light? boolean
+
 ---@class Object.Item
 ---主动技能
 ---
