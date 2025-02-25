@@ -151,17 +151,17 @@ function M:set_shadow_casting_status(value)
 end
 
 --设置点光源属性
----@param light_attr_type string 属性名
+---@param light_attr_type string | y3.Const.PointLightAttribute # 属性名
 ---@param value number 属性值
-function M:set_point_light_attribute(light_attr_type,value)
-    GameAPI.set_light_float_attr_value(self.handle, light_attr_type, Fix32(value))
+function M:set_point_light_attribute(light_attr_type, value)
+    GameAPI.set_light_float_attr_value(self.handle, y3.const.PointLightAttribute[light_attr_type] or light_attr_type, Fix32(value))
 end
 
 --设置方向光源属性
----@param light_attr_type string 属性名
+---@param light_attr_type string | y3.Const.DirectionalLightAttribute # 属性名
 ---@param value number 属性值
-function M:set_directional_light_attribute(light_attr_type,value)
-    GameAPI.set_light_float_attr_value(self.handle, light_attr_type, Fix32(value))
+function M:set_directional_light_attribute(light_attr_type, value)
+    GameAPI.set_light_float_attr_value(self.handle, y3.const.DirectionalLightAttribute[light_attr_type] or light_attr_type, Fix32(value))
 end
 
 return M

@@ -1078,4 +1078,33 @@ M.BarNameShowType = {
     ['单位名'] = 2,
 }
 
+---@enum(key) y3.Const.PointLightAttribute
+M.PointLightAttribute = {
+    ['X坐标'] = 'position_x',
+    ['Y坐标'] = 'position_y',
+    ['Z坐标'] = 'position_z',
+    ['颜色的R值'] = 'light_color_r',
+    ['颜色的G值'] = 'light_color_g',
+    ['颜色的B值'] = 'light_color_b',
+    ['光源范围'] = 'light_range',
+    ['光源强度'] = 'light_intensity',
+}
+
+---@enum(key) y3.Const.DirectionalLightAttribute
+M.DirectionalLightAttribute = {
+    ['X坐标'] = 'position_x',
+    ['Y坐标'] = 'position_y',
+    ['Z坐标'] = 'position_z',
+    ['颜色的R值'] = 'light_color_r',
+    ['颜色的G值'] = 'light_color_g',
+    ['颜色的B值'] = 'light_color_b',
+    ['光源范围'] = 'light_range',
+    ['光源强度'] = 'light_intensity',
+    ['光源X轴旋转'] = 'light_direction_x',
+    ['光源Y轴旋转'] = 'light_direction_y',
+    ['光源Z轴旋转'] = 'light_direction_z',
+    ['散射角度下限'] = 'light_inner_angle',
+    ['散射角度上限'] = 'light_out_angle',
+}
+
 return M
