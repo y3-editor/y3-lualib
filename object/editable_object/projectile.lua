@@ -123,7 +123,7 @@ end
 function M:get_point()
     local py_point = self.handle:api_get_position()
     if not py_point then
-        return y3.point.create(0, 0)
+        return y3.point(6553600, 6553600)
     end
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch

@@ -404,6 +404,9 @@ end
 ---@return Point point 可破坏物的位置
 function M:get_position()
     local py_point = self.handle:api_get_position()
+    if not py_point then
+        return y3.point(6553600, 6553600)
+    end
     -- TODO 见问题2
     ---@diagnostic disable-next-line: param-type-mismatch
     return y3.point.get_by_handle(py_point)
