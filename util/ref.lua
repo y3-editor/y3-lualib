@@ -67,6 +67,16 @@ function M:fetch(key)
     return nil
 end
 
+local doNothing = function () end
+local dummyHandle = setmetatable({}, {
+    __index = function (t, k)
+        return doNothing
+    end,
+    __tostring = function (t)
+        return '<DUMMY_HANDLE>'
+    end
+})
+
 ---立即移除指定的key
 function M:removeNow(key)
     local obj = self.strongRefMap[key]
@@ -74,6 +84,7 @@ function M:removeNow(key)
         return
     end
     obj._removed_by_py = true
+    obj.handle = dummyHandle
     Delete(obj)
     self.strongRefMap[key] = nil
     self.weakRefMap[obj] = true
