@@ -17,6 +17,7 @@ local class = require 'y3.tools.class'
 ---| Mover
 ---| UnitGroup
 ---| UIPrefab
+---| SceneUI
 
 ---@enum(key) KV.SupportTypeEnum
 local apiAlias = {
@@ -33,6 +34,7 @@ local apiAlias = {
     Mover        = 'mover_entity',
     UnitGroup    = 'unit_group',
     UIPrefab     = 'ui_prefab',
+    SceneUI      = 'scene_ui',
 }
 
 ---@class KV
