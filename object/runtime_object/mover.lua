@@ -72,7 +72,9 @@ end)
 ---@field bind_point? string # 绑定点
 ---@field init_angle? number # 初始角度
 ---@field rotate_time? number # 过渡时间
-
+---@field missing_distance? number #目标丢失距离
+---@field miss_when_target_destroy? boolean #目标销毁时丢失目标
+---@field on_miss? fun(self: Mover) #目标丢失时回调
 
 ---@class Mover.CreateData.Curve: Mover.CreateData.Base
 ---@field angle number # 运动方向
@@ -105,6 +107,7 @@ end)
 ---@return fun()? # on_finish
 ---@return fun()? # on_break
 ---@return fun()  # on_remove
+---@return fun()? # on_miss
 function M.wrap_callbacks(mover_data)
     ---@type Mover
     local mover
@@ -157,7 +160,17 @@ function M.wrap_callbacks(mover_data)
         end
     end
 
-    return update_mover, on_hit, on_block, on_finish, on_break, on_remove
+    ---@cast mover_data Mover.CreateData.Target 
+    local on_miss
+    if mover_data.on_miss then
+        ---@type fun(mover: py.Mover)
+        local miss_func = mover_data.on_miss
+        on_miss = function (_)
+            xpcall(miss_func, log.error, mover)
+        end
+    end
+
+    return update_mover, on_hit, on_block, on_finish, on_break, on_remove, on_miss
 end
 
 ---@private
@@ -218,6 +231,17 @@ function M.wrap_internal_callbacks(mover_data)
             xpcall(remove_func, log.error, mover)
         end
     end
+
+    ---@cast mover_data Mover.CreateData.Target 
+    if mover_data.on_miss then
+        ---@type fun(mover: py.Mover)
+        local miss_func = mover_data.on_miss
+        mover_data.on_miss = function ()
+            -- local py_unit = GameAPI.get_mover_collide_unit()
+            xpcall(miss_func, log.error, mover)
+        end
+    end
+
     return update_mover
 end
 
@@ -282,6 +306,9 @@ function M.wrap_target_args(args)
     builder.dict['init_angle']         = (Fix32(args.init_angle or 0.0))
     builder.dict['rotate_time']        = (Fix32(args.rotate_time or 0.0))
     builder.dict['is_open_init_angle'] = (args.init_angle ~= nil)
+    builder.dict["target_miss_distance"] = (Fix32(args.missing_distance or 99999999))
+    builder.dict["target_miss_when_target_destroy"] =  y3.util.default(args.miss_when_target_destroy, false)
+    builder.dict["target_miss_event"] = args.on_miss
     return builder
 end
 
@@ -424,7 +451,10 @@ function M.mover_target(mover_unit, mover_data)
         update_mover(mover)
         return mover
     else
-        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove, on_miss = M.wrap_callbacks(mover_data)
+        if on_miss then
+            mover_data.on_miss = on_miss
+        end
         local wrapped_args = M.wrap_target_args(mover_data)
         local py_mover = mover_unit.handle:create_mover_trigger(
             wrapped_args,
