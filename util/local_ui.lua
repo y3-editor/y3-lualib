@@ -54,15 +54,15 @@ function M:__init(path_or_ui)
     ---@type table<string, true>
     self._need_refresh = {}
 
-    if type(path_or_ui) == 'string' then
-        y3.ltimer.wait(0, function ()
+    y3.ltimer.wait(0, function ()
+        if type(path_or_ui) == 'string' then
             local main = y3.ui.get_ui(local_player, path_or_ui)
             self:attach(main)
-        end)
-    end
-    if type(path_or_ui) == 'table' then
-        self:attach(path_or_ui)
-    end
+        end
+        if type(path_or_ui) == 'table' then
+            self:attach(path_or_ui)
+        end
+    end)
 end
 
 ---删除本地UI逻辑
