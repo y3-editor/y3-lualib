@@ -129,7 +129,7 @@ end
 ---@return self
 function M:in_state(state)
     ---@private
-    self._in_state = state | (y3.const.UnitEnumState[state] or state)
+    self._in_state = (self._in_state or 0) | (y3.const.UnitEnumState[state] or state)
     return self
 end
 
@@ -138,7 +138,7 @@ end
 ---@return self
 function M:not_in_state(state)
     ---@private
-    self._not_in_state = state | (y3.const.UnitEnumState[state] or state)
+    self._not_in_state = (self._not_in_state or 0) | (y3.const.UnitEnumState[state] or state)
     return self
 end
 
