@@ -460,6 +460,61 @@ function Role:api_get_role_total_consume() end
 ---@return boolean? # 是否打赏该地图
 function Role:api_get_role_is_donated() end
 
+--复制表型存档到玩家存档栏位
+---@param src_index integer # 源玩家存档栏位
+---@param dst_index integer # 目标玩家存档栏位
+function Role:copy_save_data_table_value(src_index, dst_index) end
+
+--强制上传玩家非实时存档
+---@param use_proxy? boolean # 进行代理上传
+function Role:force_upload_save_data(use_proxy) end
+
+--获取平台道具到期时间戳
+---@param no py.StoreKey # 收费道具key
+---@return integer? # 收费道具数量
+function Role:get_store_item_expired_time(no) end
+
+--设置玩家暗角颜色(HEX)
+---@param color string # hex
+---@param interval? number # Interval
+function Role:set_role_vignetting_color_hex(color, interval) end
+
+--上报玩家排名
+---@param rank integer # 本局游戏排名
+function Role:upload_player_game_rank(rank) end
+
+--获取玩家当前选中单位组
+---@return py.UnitGroup? # 单位组
+function Role:api_get_role_select_units() end
+
+--更新玩家存档排行榜
+---@param save_index integer # 玩家存档栏位
+function Role:update_player_save_rank(save_index) end
+
+--获取玩家当前赛季天梯编号
+---@param ladder_key string # 天梯key
+---@return integer? # 赛季编号
+function Role:api_get_current_season_id(ladder_key) end
+
+--获取玩家当前赛季天梯排名
+---@param ladder_key string # 天梯key
+---@return integer? # 当前赛季排名
+function Role:api_get_current_season_standing(ladder_key) end
+
+--获取玩家当前赛天梯排名次数
+---@param ladder_key string # 天梯key
+---@param rank_number integer # 第几名
+---@return integer? # 排名次数
+function Role:api_get_current_season_standing_number(ladder_key, rank_number) end
+
+--获取玩家当前地图探险次数
+---@return integer? # 探险次数
+function Role:api_get_number_of_expeditions() end
+
+--获取玩家当前地图探险时长
+---@return integer? # 探险时长
+function Role:api_get_time_of_expeditions() end
+
 --获取玩家商城登录用token
 ---@return string? # 商城token
 function Role:api_get_role_store_params() end
@@ -491,61 +546,6 @@ function Role:request_create_private_dungeon(level_id, game_mode, max_player, cu
 --请求加入私有副本
 ---@param token string # 房间口令
 function Role:request_join_private_dungeon(token) end
-
---强制上传玩家非实时存档
----@param use_proxy? boolean # 进行代理上传
-function Role:force_upload_save_data(use_proxy) end
-
---获取平台道具到期时间戳
----@param no py.StoreKey # 收费道具key
----@return integer? # 收费道具数量
-function Role:get_store_item_expired_time(no) end
-
---设置玩家暗角颜色(HEX)
----@param color string # hex
----@param interval? number # Interval
-function Role:set_role_vignetting_color_hex(color, interval) end
-
---上报玩家排名
----@param rank integer # 本局游戏排名
-function Role:upload_player_game_rank(rank) end
-
---获取玩家当前选中单位组
----@return py.UnitGroup? # 单位组
-function Role:api_get_role_select_units() end
-
---获取玩家当前赛季天梯编号
----@param ladder_key string # 天梯key
----@return integer? # 赛季编号
-function Role:api_get_current_season_id(ladder_key) end
-
---获取玩家当前赛季天梯排名
----@param ladder_key string # 天梯key
----@return integer? # 当前赛季排名
-function Role:api_get_current_season_standing(ladder_key) end
-
---获取玩家当前赛天梯排名次数
----@param ladder_key string # 天梯key
----@param rank_number integer # 第几名
----@return integer? # 排名次数
-function Role:api_get_current_season_standing_number(ladder_key, rank_number) end
-
---复制表型存档到玩家存档栏位
----@param src_index integer # 源玩家存档栏位
----@param dst_index integer # 目标玩家存档栏位
-function Role:copy_save_data_table_value(src_index, dst_index) end
-
---更新玩家存档排行榜
----@param save_index integer # 玩家存档栏位
-function Role:update_player_save_rank(save_index) end
-
---获取玩家当前地图探险次数
----@return integer? # 探险次数
-function Role:api_get_number_of_expeditions() end
-
---获取玩家当前地图探险时长
----@return integer? # 探险时长
-function Role:api_get_time_of_expeditions() end
 
 --请求加入公有副本
 ---@param level_id py.Map # 关卡id
