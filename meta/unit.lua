@@ -80,6 +80,16 @@ function Unit:api_delete() end
 ---@param source_unit? py.Unit # 杀手单位
 function Unit:api_kill(source_unit) end
 
+--设置单位建造进度
+---@param progress py.Fixed # 建造进度
+---@param is_percent? boolean # 是否百分比
+function Unit:api_set_construction_progress(progress, is_percent) end
+
+--设置单位升级进度
+---@param progress py.Fixed # 升级进度
+---@param is_percent? boolean # 是否百分比
+function Unit:api_set_upgrade_progress(progress, is_percent) end
+
 --获取单位图标路径
 ---@return string? # 单位图标路径
 function Unit:api_get_icon() end
@@ -175,6 +185,24 @@ function Unit:api_get_ai_battle_target_unit() end
 ---@return py.Unit? # 跟随的单位
 function Unit:api_get_ai_follow_target_unit() end
 
+--设置单位是否休眠
+---@param is_sleeping boolean # 是否休眠
+function Unit:api_set_is_sleeping(is_sleeping) end
+
+--获取单位是否休眠
+---@return boolean? # 是否休眠
+function Unit:api_get_is_sleeping() end
+
+--单位变身
+---@param entity_no py.UnitKey # 新的物编ID
+---@param inherit_composite_attr? boolean # 是否继承复合属性
+---@param inherit_unit_attr? boolean # 是否继承单位属性
+---@param inherit_kv? boolean # 是否继承kv
+---@param inherit_hero_ability? boolean # 是否继承英雄技能
+---@param inherit_common_ability? boolean # 是否继承通用技能
+---@param inherit_passive_ability? boolean # 是否继承隐藏技能
+function Unit:api_unit_transformation(entity_no, inherit_composite_attr, inherit_unit_attr, inherit_kv, inherit_hero_ability, inherit_common_ability, inherit_passive_ability) end
+
 --获取 attr_other
 ---@param key string # 属性名
 ---@return py.Fixed? # 属性值
@@ -208,6 +236,10 @@ function Unit:api_get_attr_all_ratio(key) end
 --获取单位主属性
 ---@return string? # 主属性
 function Unit:api_get_main_attr() end
+
+--切换主属性
+---@param main_attr string # 属性名
+function Unit:api_switch_main_attr(main_attr) end
 
 --设置纯值类型的值
 ---@param key string # 属性名
@@ -270,6 +302,9 @@ function Unit:api_add_attr_all_ratio(key, delta) end
 ---@param key string # 属性名
 ---@param val py.Fixed # 设置值
 function Unit:api_set_attr_base_ratio(key, val) end
+
+--开启单位属性作弊检查
+function Unit:api_open_attr_cheating_detected() end
 
 --增加单位属性基础值百分比加成
 ---@param key string # 属性名
@@ -445,6 +480,21 @@ function Unit:api_set_unit_icon(icon) end
 ---@return string? # 属性
 function Unit:api_get_unit_main_attr() end
 
+--获取单位属性本地化名
+---@param attr_key string # 属性索引
+---@return string? # 属性本地化名
+function Unit:api_get_attr_name(attr_key) end
+
+--设置事件中的经验值
+---@param val py.Fixed # 经验值
+function Unit:api_set_changed_exp_in_event(val) end
+
+--获取单位类型某个技能位的技能类型
+---@param abilityType py.AbilityType # 技能类型
+---@param abilityIndex py.AbilityIndex # 技能槽位
+---@return py.AbilityKey? # 技能类型
+function Unit:api_get_abilityKey_by_type_and_index(abilityType, abilityIndex) end
+
 --单位停止移动
 function Unit:api_stop_move() end
 
@@ -505,6 +555,14 @@ function Unit:api_set_turn_speed(turn_speed) end
 ---@return py.Fixed? # 转身速度
 function Unit:api_get_turn_speed() end
 
+--设置动画移动基准速度。会同时修改跑和走的基准速度，如果要区分跑和走，还需额外单独设置走的基准速度(api_set_anim_walk_speed)
+---@param base_speed py.Fixed # 动画移动速度
+function Unit:api_set_base_speed(base_speed) end
+
+--设置动画移动基准速度(仅走)
+---@param speed py.Fixed # 动画移动速度
+function Unit:api_set_anim_walk_speed(speed) end
+
 --单位是否在移动
 ---@return boolean? # 是否在移动
 function Unit:api_is_moving() end
@@ -513,6 +571,15 @@ function Unit:api_is_moving() end
 ---@param collision_layer integer # 碰撞mask
 ---@return boolean? # 是否开启
 function Unit:api_get_move_collision(collision_layer) end
+
+--判断单位的移动类型
+---@param move_type integer # 移动类型
+---@return boolean? # 是否为该移动类型
+function Unit:api_is_move_type(move_type) end
+
+--设置是否阻挡其他单位
+---@param is_on boolean # 是否阻挡
+function Unit:api_set_block_others(is_on) end
 
 --设置单位的移动类型为地面
 ---@param land_limitation? boolean # 陆地限制
@@ -633,6 +700,15 @@ function Unit:api_replace_model(target_model) end
 --取消单位替换模型
 ---@param target_model py.ModelKey # 目标模型名字
 function Unit:api_cancel_replace_model(target_model) end
+
+--单位设置指定标签模型
+---@param tag string # 标签
+---@param model_id py.ModelKey # 目标模型编号
+function Unit:set_model_by_tag(tag, model_id) end
+
+--单位删除设置指定标签模型
+---@param tag string # 标签
+function Unit:remove_model_by_tag(tag) end
 
 --显示血条倒计时
 ---@param left_time py.Fixed # 倒计时时长, 单位秒
@@ -842,6 +918,11 @@ function Unit:api_stop_dissolve() end
 ---@param a py.Fixed # a
 function Unit:api_set_ghost_color(r, g, b, a) end
 
+--设置残影颜色(HEX)
+---@param color string # hex
+---@param a py.Fixed # a
+function Unit:api_set_ghost_color_hex(color, a) end
+
 --设置残影时间
 ---@param interval py.Fixed # interval
 ---@param duration py.Fixed # duration
@@ -887,6 +968,20 @@ function Unit:api_set_disk_shadow_open(is_open) end
 --设置单位圆盘阴影大小
 ---@param shadow_size number # 大小
 function Unit:api_set_unit_disk_shadow_size(shadow_size) end
+
+--设置单位的描边颜色
+---@param color_r number # R
+---@param color_g number # G
+---@param color_b number # B
+function Unit:set_unit_outlined_color(color_r, color_g, color_b) end
+
+--设置单位的描边颜色(HEX)
+---@param color string # R
+function Unit:set_unit_outlined_color_hex(color) end
+
+--开关单位描边效果
+---@param flag boolean # 开关
+function Unit:set_unit_outlined_enable(flag) end
 
 --单位添加指定编号的效果
 ---@param modifier_key py.ModifierKey # 效果编号
@@ -1061,6 +1156,14 @@ function Unit:api_add_state(state_id) end
 ---@param state_id integer # 状态ID
 function Unit:api_remove_state(state_id) end
 
+--给单位施加状态
+---@param state_id integer # 状态ID
+function Unit:api_add_multi_state(state_id) end
+
+--给单位去除状态
+---@param state_id integer # 状态ID
+function Unit:api_remove_multi_state(state_id) end
+
 --是否在战斗状态
 ---@return boolean? # 是否在战斗状态
 function Unit:api_is_in_battle_state() end
@@ -1091,6 +1194,18 @@ function Unit:api_create_building_on_point(build_key, point) end
 ---@param pos_x py.Fixed # 坐标X
 ---@param pos_z py.Fixed # 坐标Z
 function Unit:api_create_building_on_position(build_key, pos_x, pos_z) end
+
+--获取单位攻击间隔
+---@return py.Fixed? # 攻击间隔
+function Unit:api_get_unit_attack_interval() end
+
+--获取单位每秒攻击次数
+---@return py.Fixed? # 攻击次数
+function Unit:api_get_unit_attack_count_per_second() end
+
+--获取普攻技能
+---@return py.Ability? # 普攻
+function Unit:api_get_common_atk_ability() end
 
 --单位是否拥有物品
 ---@param item py.Item # 物品
@@ -1129,6 +1244,11 @@ function Unit:api_remove_item(stack_cnt, item) end
 ---@param slot_idx integer # 格子下标
 ---@return py.Item? # 物品对象
 function Unit:api_get_item_by_slot(slot_type, slot_idx) end
+
+--获取单位栏位剩余空间
+---@param slot_type py.SlotType # 背包槽位
+---@return integer? # 整型
+function Unit:api_get_slot_capacity(slot_type) end
 
 --移动物品
 ---@param item py.Item # 物品
@@ -1327,267 +1447,6 @@ function Unit:api_release_command(command, enqueue, load_ai_directly) end
 ---@param behavior py.UnitBehavior # 默认跳转状态
 function Unit:api_set_default_switch_behavior(behavior) end
 
---设置单位建造进度
----@param progress py.Fixed # 建造进度
----@param is_percent? boolean # 是否百分比
-function Unit:api_set_construction_progress(progress, is_percent) end
-
---设置单位升级进度
----@param progress py.Fixed # 升级进度
----@param is_percent? boolean # 是否百分比
-function Unit:api_set_upgrade_progress(progress, is_percent) end
-
---设置跟随单位成功后是否退出跟随
----@param exit_follow_on_succ boolean # 是否退出
-function Unit:api_set_ai_exit_follow_on_succ_once(exit_follow_on_succ) end
-
---设置单位是否休眠
----@param is_sleeping boolean # 是否休眠
-function Unit:api_set_is_sleeping(is_sleeping) end
-
---获取单位是否休眠
----@return boolean? # 是否休眠
-function Unit:api_get_is_sleeping() end
-
---获取单位是否处于缓存池中
----@return boolean? # value
-function Unit:api_get_is_in_pool() end
-
---单位变身
----@param entity_no py.UnitKey # 新的物编ID
----@param inherit_composite_attr? boolean # 是否继承复合属性
----@param inherit_unit_attr? boolean # 是否继承单位属性
----@param inherit_kv? boolean # 是否继承kv
----@param inherit_hero_ability? boolean # 是否继承英雄技能
----@param inherit_common_ability? boolean # 是否继承通用技能
----@param inherit_passive_ability? boolean # 是否继承隐藏技能
-function Unit:api_unit_transformation(entity_no, inherit_composite_attr, inherit_unit_attr, inherit_kv, inherit_hero_ability, inherit_common_ability, inherit_passive_ability) end
-
---单位-队列重置
-function Unit:api_queue_reset() end
-
---切换主属性
----@param main_attr string # 属性名
-function Unit:api_switch_main_attr(main_attr) end
-
---开启单位属性作弊检查
-function Unit:api_open_attr_cheating_detected() end
-
---获取单位属性本地化名
----@param attr_key string # 属性索引
----@return string? # 属性本地化名
-function Unit:api_get_attr_name(attr_key) end
-
---设置事件中的经验值
----@param val py.Fixed # 经验值
-function Unit:api_set_changed_exp_in_event(val) end
-
---获取单位类型某个技能位的技能类型
----@param abilityType py.AbilityType # 技能类型
----@param abilityIndex py.AbilityIndex # 技能槽位
----@return py.AbilityKey? # 技能类型
-function Unit:api_get_abilityKey_by_type_and_index(abilityType, abilityIndex) end
-
---获取每tick的单位生命恢复
-function Unit:api_get_hprec_pertick() end
-
---设置单位是否飞行视野
----@param is_flying_vision boolean # 布尔值
-function Unit:api_set_unit_flying_vision(is_flying_vision) end
-
---设置动画移动基准速度。会同时修改跑和走的基准速度，如果要区分跑和走，还需额外单独设置走的基准速度(api_set_anim_walk_speed)
----@param base_speed py.Fixed # 动画移动速度
-function Unit:api_set_base_speed(base_speed) end
-
---设置动画移动基准速度(仅走)
----@param speed py.Fixed # 动画移动速度
-function Unit:api_set_anim_walk_speed(speed) end
-
---判断单位的移动类型
----@param move_type integer # 移动类型
----@return boolean? # 是否为该移动类型
-function Unit:api_is_move_type(move_type) end
-
---设置是否阻挡其他单位
----@param is_on boolean # 是否阻挡
-function Unit:api_set_block_others(is_on) end
-
---开启锁定移动
----@param angle_or_target number # 角度
----@param turn_time_ms? number # 转身时间
-function Unit:api_set_lock_yaw(angle_or_target, turn_time_ms) end
-
---结束锁定移动
-function Unit:api_set_unlock_yaw() end
-
---设置摇杆基方向
----@param facing number # 基方向
-function Unit:set_joystick_base_direction(facing) end
-
---设置摇杆输入
----@param input_x number # InputX
----@param input_y number # InputY
-function Unit:set_joystick_input(input_x, input_y) end
-
---径直移动
----@param target_pos py.Point # 目标点
-function Unit:directional_move_to_pos(target_pos) end
-
---设置寻路消耗上限
----@param step_bound integer # 步数上限
-function Unit:set_path_finding_step_bound(step_bound) end
-
---单位设置指定标签模型
----@param tag string # 标签
----@param model_id py.ModelKey # 目标模型编号
-function Unit:set_model_by_tag(tag, model_id) end
-
---单位删除设置指定标签模型
----@param tag string # 标签
-function Unit:remove_model_by_tag(tag) end
-
---替换模型贴图
----@param model py.ModelKey # 目标模型编号
----@param material integer # 材质 id
----@param layer integer # layer id
----@param texture py.Texture # 贴图
-function Unit:change_model_texture(model, material, layer, texture) end
-
---单位禁止贴地
----@param is_forbid_aligned_terrain boolean # 是否禁止贴地
-function Unit:api_set_forbid_aligned_terrain(is_forbid_aligned_terrain) end
-
---开启风场
-function Unit:api_start_windforce() end
-
---设置残影颜色
----@param r py.Fixed # r
----@param g py.Fixed # g
----@param b py.Fixed # b
----@param a py.Fixed # a
-function Unit:api_set_ghost_color_norm(r, g, b, a) end
-
---设置残影颜色(HEX)
----@param color string # hex
----@param a py.Fixed # a
-function Unit:api_set_ghost_color_hex(color, a) end
-
---小地图 - 设置单位小地图头像可见性
----@param value boolean # 是否可见
-function Unit:api_set_unit_is_mini_map_show(value) end
-
---设置单位动画状态名
----@param anim_state_name string # 状态名
-function Unit:api_set_unit_anim_state_name(anim_state_name) end
-
---设置单位的描边颜色
----@param color_r number # R
----@param color_g number # G
----@param color_b number # B
-function Unit:set_unit_outlined_color(color_r, color_g, color_b) end
-
---设置单位的描边颜色(HEX)
----@param color string # R
-function Unit:set_unit_outlined_color_hex(color) end
-
---开关单位描边效果
----@param flag boolean # 开关
-function Unit:set_unit_outlined_enable(flag) end
-
---播放上半身动画
----@param anim_name string # 动画名
----@param speed? number # 速率
----@param repeat_? boolean # 是否循环
----@param begin_t? number # 起始时间比例（0-1之间）
----@param end_t? number # 结束时间比例（0-1之间）
----@param ratio? number # 融合比例（0-1之间）
----@param transition_time? number # 过渡时间(s)，负数代表用全局默认值
-function Unit:play_upper_body_anim(anim_name, speed, repeat_, begin_t, end_t, ratio, transition_time) end
-
---自定义骨骼分层
----@param root_bone string # 根骨骼
----@param upper_body_bone string # 上半身骨骼
----@param head_bone string # 头部骨骼
-function Unit:set_bone_filter_config(root_bone, upper_body_bone, head_bone) end
-
---设置单位外轮廓描边厚度
----@param width number # width
----@param role? py.Role # Role
-function Unit:set_unit_outside_outline_width(width, role) end
-
---设置单位外轮廓描边颜色
----@param color_r number # R
----@param color_g number # G
----@param color_b number # B
----@param role? py.Role # Role
-function Unit:set_unit_outside_outline_color(color_r, color_g, color_b, role) end
-
---设置单位外轮廓描边是否开启
----@param enabled boolean # Enable
----@param role? py.Role # Role
-function Unit:set_unit_outside_outlined_enable(enabled, role) end
-
---给单位施加状态
----@param state_id integer # 状态ID
-function Unit:api_add_multi_state(state_id) end
-
---给单位去除状态
----@param state_id integer # 状态ID
-function Unit:api_remove_multi_state(state_id) end
-
---获取单位攻击间隔
----@return py.Fixed? # 攻击间隔
-function Unit:api_get_unit_attack_interval() end
-
---获取单位每秒攻击次数
----@return py.Fixed? # 攻击次数
-function Unit:api_get_unit_attack_count_per_second() end
-
---获取普攻技能
----@return py.Ability? # 普攻
-function Unit:api_get_common_atk_ability() end
-
---设置单位简易普攻骰子最大值
----@param dice_max_value integer # 最大值
-function Unit:api_set_simple_atk_dice_max_value(dice_max_value) end
-
---获取单位简易普攻骰子最大值
----@return integer? # 骰子最大值
-function Unit:api_get_simple_atk_dice_max_value() end
-
---设置单位简易普攻骰子最大值
----@param dice_count integer # 最大值
-function Unit:api_set_simple_atk_dice_count(dice_count) end
-
---获取单位简易普攻骰子个数
----@return integer? # 骰子最大值
-function Unit:api_get_simple_atk_dice_count() end
-
---获取单位正在释放的技能
----@return py.Ability? # 技能
-function Unit:api_get_cur_record_ability() end
-
---暂停单位所有技能的CD
-function Unit:api_pause_all_ability_cd() end
-
---恢复单位所有技能的CD
-function Unit:api_resume_all_ability_cd() end
-
---移除单位所有技能
-function Unit:api_clear_all_abilities() end
-
---获取单位栏位剩余空间
----@param slot_type py.SlotType # 背包槽位
----@return integer? # 整型
-function Unit:api_get_slot_capacity(slot_type) end
-
---单位 - 设置默认跳转命令
----@param command py.UnitCommand # 默认跳转命令
-function Unit:api_set_default_switch_command(command) end
-
---单位 - 跳转到默认命令或状态
-function Unit:api_load_default_ai() end
-
 --单位 - 单位发起求救
 ---@param source_unit py.Unit # 攻击目标
 ---@param seek_range number # 搜寻范围
@@ -1641,6 +1500,143 @@ function Unit:api_get_is_rescuing() end
 ---@return boolean? # 值
 function Unit:api_get_is_rescue_returning() end
 
+--设置跟随单位成功后是否退出跟随
+---@param exit_follow_on_succ boolean # 是否退出
+function Unit:api_set_ai_exit_follow_on_succ_once(exit_follow_on_succ) end
+
+--获取单位是否处于缓存池中
+---@return boolean? # value
+function Unit:api_get_is_in_pool() end
+
+--单位-队列重置
+function Unit:api_queue_reset() end
+
+--获取每tick的单位生命恢复
+function Unit:api_get_hprec_pertick() end
+
+--设置单位是否飞行视野
+---@param is_flying_vision boolean # 布尔值
+function Unit:api_set_unit_flying_vision(is_flying_vision) end
+
+--开启锁定移动
+---@param angle_or_target number # 角度
+---@param turn_time_ms? number # 转身时间
+function Unit:api_set_lock_yaw(angle_or_target, turn_time_ms) end
+
+--结束锁定移动
+function Unit:api_set_unlock_yaw() end
+
+--设置摇杆基方向
+---@param facing number # 基方向
+function Unit:set_joystick_base_direction(facing) end
+
+--设置摇杆输入
+---@param input_x number # InputX
+---@param input_y number # InputY
+function Unit:set_joystick_input(input_x, input_y) end
+
+--径直移动
+---@param target_pos py.Point # 目标点
+function Unit:directional_move_to_pos(target_pos) end
+
+--设置寻路消耗上限
+---@param step_bound integer # 步数上限
+function Unit:set_path_finding_step_bound(step_bound) end
+
+--替换模型贴图
+---@param model py.ModelKey # 目标模型编号
+---@param material integer # 材质 id
+---@param layer integer # layer id
+---@param texture py.Texture # 贴图
+function Unit:change_model_texture(model, material, layer, texture) end
+
+--单位禁止贴地
+---@param is_forbid_aligned_terrain boolean # 是否禁止贴地
+function Unit:api_set_forbid_aligned_terrain(is_forbid_aligned_terrain) end
+
+--开启风场
+function Unit:api_start_windforce() end
+
+--设置残影颜色
+---@param r py.Fixed # r
+---@param g py.Fixed # g
+---@param b py.Fixed # b
+---@param a py.Fixed # a
+function Unit:api_set_ghost_color_norm(r, g, b, a) end
+
+--设置单位动画状态名
+---@param anim_state_name string # 状态名
+function Unit:api_set_unit_anim_state_name(anim_state_name) end
+
+--播放上半身动画
+---@param anim_name string # 动画名
+---@param speed? number # 速率
+---@param repeat_? boolean # 是否循环
+---@param begin_t? number # 起始时间比例（0-1之间）
+---@param end_t? number # 结束时间比例（0-1之间）
+---@param ratio? number # 融合比例（0-1之间）
+---@param transition_time? number # 过渡时间(s)，负数代表用全局默认值
+function Unit:play_upper_body_anim(anim_name, speed, repeat_, begin_t, end_t, ratio, transition_time) end
+
+--自定义骨骼分层
+---@param root_bone string # 根骨骼
+---@param upper_body_bone string # 上半身骨骼
+---@param head_bone string # 头部骨骼
+function Unit:set_bone_filter_config(root_bone, upper_body_bone, head_bone) end
+
+--设置单位外轮廓描边厚度
+---@param width number # width
+---@param role? py.Role # Role
+function Unit:set_unit_outside_outline_width(width, role) end
+
+--设置单位外轮廓描边颜色
+---@param color_r number # R
+---@param color_g number # G
+---@param color_b number # B
+---@param role? py.Role # Role
+function Unit:set_unit_outside_outline_color(color_r, color_g, color_b, role) end
+
+--设置单位外轮廓描边是否开启
+---@param enabled boolean # Enable
+---@param role? py.Role # Role
+function Unit:set_unit_outside_outlined_enable(enabled, role) end
+
+--设置单位简易普攻骰子最大值
+---@param dice_max_value integer # 最大值
+function Unit:api_set_simple_atk_dice_max_value(dice_max_value) end
+
+--获取单位简易普攻骰子最大值
+---@return integer? # 骰子最大值
+function Unit:api_get_simple_atk_dice_max_value() end
+
+--设置单位简易普攻骰子最大值
+---@param dice_count integer # 最大值
+function Unit:api_set_simple_atk_dice_count(dice_count) end
+
+--获取单位简易普攻骰子个数
+---@return integer? # 骰子最大值
+function Unit:api_get_simple_atk_dice_count() end
+
+--获取单位正在释放的技能
+---@return py.Ability? # 技能
+function Unit:api_get_cur_record_ability() end
+
+--暂停单位所有技能的CD
+function Unit:api_pause_all_ability_cd() end
+
+--恢复单位所有技能的CD
+function Unit:api_resume_all_ability_cd() end
+
+--移除单位所有技能
+function Unit:api_clear_all_abilities() end
+
+--单位 - 设置默认跳转命令
+---@param command py.UnitCommand # 默认跳转命令
+function Unit:api_set_default_switch_command(command) end
+
+--单位 - 跳转到默认命令或状态
+function Unit:api_load_default_ai() end
+
 --单位 - 尝试触发AI更新
 function Unit:api_try_update_ai() end
 
@@ -1658,3 +1654,34 @@ function Unit:api_set_repair_target_unit(repair_target) end
 --单位 - 设置维修技能
 ---@param ability py.Ability # 维修技能
 function Unit:api_set_repair_ability(ability) end
+
+--设置单位缩放
+---@param scale number # 缩放
+function Unit:api_set_scale_2(scale) end
+
+--小地图 - 设置单位小地图头像可见性
+---@param value boolean # 是否可见
+function Unit:api_set_unit_is_mini_map_show(value) end
+
+--单位加载自定义的graph
+---@param graphaName string # 动画graph文件名,不需要包含扩展名
+function Unit:unit_loadGraph(graphaName) end
+
+--自定义Graph设置变量
+---@param VariableName string # 变量名
+---@param VariableStr string # 变量值为字符串形式
+function Unit:unit_Graph_SetVariable(VariableName, VariableStr) end
+
+--自定义Graph发送事件
+---@param EventName string # 事件名
+function Unit:unit_Graph_FireEvent(EventName) end
+
+--自定义Graph设置速度
+---@param speedValue string # 相对速度值
+function Unit:unit_Graph_SetSpeed(speedValue) end
+
+--暂停Graph
+function Unit:unit_Graph_Pause() end
+
+--暂停中跑一帧Graph
+function Unit:unit_Graph_RunOneFrame() end

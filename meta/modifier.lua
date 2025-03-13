@@ -181,3 +181,24 @@ function ModifierEntity:api_add_modifier_tag(tag) end
 --魔法效果去除标签
 ---@param tag string # 标签
 function ModifierEntity:api_remove_modifier_tag(tag) end
+
+--增加魔法效果所属单位属性
+---@param key string # 属性名
+---@param attr_element string # 属性分类
+---@param value py.Fixed # 值
+function ModifierEntity:api_add_modifier_owner_attr_by_attr_element(key, attr_element, value) end
+
+--获取魔法效果所属单位属性
+---@param key string # 属性名
+---@param attr_element string # 属性分类
+---@return py.Fixed? # 属性值
+function ModifierEntity:api_get_modifier_owner_attr_by_attr_element(key, attr_element) end
+
+--设置魔法效果所属单位属性
+---@param key string # 属性名
+---@param attr_element string # 属性分类
+---@param value py.Fixed # 值
+function ModifierEntity:api_set_modifier_owner_attr_by_attr_element(key, attr_element, value) end
+
+--清空魔法效果所属单位属性
+function ModifierEntity:api_clear_modifier_owner_attr() end

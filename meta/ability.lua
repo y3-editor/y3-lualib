@@ -114,6 +114,14 @@ function Ability:api_set_ability_cast_range(value) end
 ---@param value py.Fixed # 建造朝向
 function Ability:api_set_ability_build_rotate(value) end
 
+--设置技能的建造目标类型(build_id)
+---@param new_build_id py.UnitKey # 单位物编ID
+function Ability:api_set_ability_build_id(new_build_id) end
+
+--设置技能的限制建造区域
+---@param area py.Area # 区域对象
+function Ability:api_set_ability_build_area(area) end
+
 --设置扇形指示器半径
 ---@param value py.Fixed # 指示器半径
 ---@param is_target? boolean # 是否为目标大小
@@ -315,23 +323,6 @@ function Ability:api_set_autocast_enabled(b) end
 ---@return boolean? # 是否开启
 function Ability:api_is_autocast_enabled() end
 
---设置技能的建造目标类型(build_id)
----@param new_build_id py.UnitKey # 单位物编ID
-function Ability:api_set_ability_build_id(new_build_id) end
-
---获取技能的建造目标类型
-function Ability:api_get_ability_build_id() end
-
---设置技能的限制建造区域
----@param area py.Area # 区域对象
-function Ability:api_set_ability_build_area(area) end
-
---暂停技能冷却
-function Ability:api_pause_cd() end
-
---恢复技能冷却
-function Ability:api_resume_cd() end
-
 --获取技能绑定的物品
 ---@return py.Item? # 物品实体
 function Ability:api_get_item() end
@@ -350,6 +341,15 @@ function Ability:api_clear_tag() end
 --设置是否为永久性技能
 ---@param is_permanent_ability boolean # 是否为永久性技能
 function Ability:api_set_ability_is_permanent(is_permanent_ability) end
+
+--获取技能的建造目标类型
+function Ability:api_get_ability_build_id() end
+
+--暂停技能冷却
+function Ability:api_pause_cd() end
+
+--恢复技能冷却
+function Ability:api_resume_cd() end
 
 --增加技能的筛选单位的tag
 ---@param tag string # 标签

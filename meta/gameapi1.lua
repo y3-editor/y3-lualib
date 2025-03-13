@@ -121,6 +121,42 @@ function GameAPI.add_ui_btn_status_kv(kvbase, key, item) end
 ---@param item? integer # value
 function GameAPI.add_ui_scrollview_type_kv(kvbase, key, item) end
 
+--添加UI_GRIDVIEW_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_gridview_type_kv(kvbase, key, item) end
+
+--添加UI_GRIDVIEW_BAR_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_gridview_bar_type_kv(kvbase, key, item) end
+
+--添加UI_EQUIP_SLOT_USE_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_equip_slot_use_type_kv(kvbase, key, item) end
+
+--添加UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_equip_slot_drag_type_kv(kvbase, key, item) end
+
+--添加UI_LAYOUT_CLIPPING_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_layout_clipping_type_kv(kvbase, key, item) end
+
+--添加UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_text_over_length_handling_type_kv(kvbase, key, item) end
+
 --添加UI_ANIM键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
@@ -132,6 +168,12 @@ function GameAPI.add_ui_anim_kv(kvbase, key, item) end
 ---@param key string # 键值名称
 ---@param item? integer # value
 function GameAPI.add_ui_anim_curve_kv(kvbase, key, item) end
+
+--添加UI_ANIM_PLAY_MODE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_ui_anim_play_mode_kv(kvbase, key, item) end
 
 --添加AUDIO_CHANNEL键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -199,6 +241,12 @@ function GameAPI.add_image_quality_kv(kvbase, key, item) end
 ---@param item? string # value
 function GameAPI.add_window_type_setting_kv(kvbase, key, item) end
 
+--添加DAMAGE_ATTACK_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? integer # value
+function GameAPI.add_damage_attack_type_kv(kvbase, key, item) end
+
 --添加ITEM_ENTITY键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
@@ -216,6 +264,12 @@ function GameAPI.add_item_group_kv(kvbase, key, item) end
 ---@param key string # 键值名称
 ---@param item? py.ItemKey # value
 function GameAPI.add_item_name_kv(kvbase, key, item) end
+
+--添加ITEM_STACK_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.ItemStackType # value
+function GameAPI.add_item_stack_type_kv(kvbase, key, item) end
 
 --添加ABILITY键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -445,6 +499,12 @@ function GameAPI.add_scene_sound_kv(kvbase, key, item) end
 ---@param item? py.ModelKey # value
 function GameAPI.add_model_kv(kvbase, key, item) end
 
+--添加LIVE2D键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.Live2dKey # value
+function GameAPI.add_live2d_kv(kvbase, key, item) end
+
 --添加SFX_ENTITY键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
@@ -492,6 +552,12 @@ function GameAPI.add_texture_kv(kvbase, key, item) end
 ---@param key string # 键值名称
 ---@param item? py.Sequence # value
 function GameAPI.add_sequence_kv(kvbase, key, item) end
+
+--添加SPINE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.Spine # value
+function GameAPI.add_spine_kv(kvbase, key, item) end
 
 --添加PHYSICS_OBJECT键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -643,6 +709,12 @@ function GameAPI.add_mouse_key_kv(kvbase, key, item) end
 ---@param item? py.MouseWheel # value
 function GameAPI.add_mouse_wheel_kv(kvbase, key, item) end
 
+--添加MAP键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.Map # value
+function GameAPI.add_map_kv(kvbase, key, item) end
+
 --添加POST_EFFECT键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
@@ -660,6 +732,12 @@ function GameAPI.add_unit_type_kv(kvbase, key, item) end
 ---@param key string # 键值名称
 ---@param item? py.UnitCommandType # value
 function GameAPI.add_unit_command_type_kv(kvbase, key, item) end
+
+--添加UNIT_GROUP_COMMAND_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.UnitGroupCommandType # value
+function GameAPI.add_unit_group_command_type_kv(kvbase, key, item) end
 
 --添加MINI_MAP_COLOR_TYPE键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -684,6 +762,24 @@ function GameAPI.add_curved_path_kv(kvbase, key, item) end
 ---@param key string # 键值名称
 ---@param item? py.CurvedPath3D # value
 function GameAPI.add_curved_path_3d_kv(kvbase, key, item) end
+
+--添加RESCUE_SEEKER_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.ERescueSeekerType # value
+function GameAPI.add_rescue_seeker_type_kv(kvbase, key, item) end
+
+--添加RESCUER_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.ERescuerType # value
+function GameAPI.add_rescuer_type_kv(kvbase, key, item) end
+
+--添加STORE_ITEM_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键值名称
+---@param item? py.StoreItemType # value
+function GameAPI.add_store_item_type_kv(kvbase, key, item) end
 
 --判断是否存在键值对(忽略类型)
 ---@param kvbase py.KVBase # 键值对容器
@@ -1082,6 +1178,150 @@ function GameAPI.has_item_key_ui_scrollview_type_kv(prefab_key, key) end
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_ui_scrollview_type_kv(prefab_key, key) end
 
+--判断是否存在UI_GRIDVIEW_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_gridview_type(kvbase, key) end
+
+--判断单位编号是否存在UI_GRIDVIEW_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_gridview_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_GRIDVIEW_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_gridview_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_GRIDVIEW_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_gridview_type_kv(prefab_key, key) end
+
+--判断是否存在UI_GRIDVIEW_BAR_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_gridview_bar_type(kvbase, key) end
+
+--判断单位编号是否存在UI_GRIDVIEW_BAR_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_gridview_bar_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_GRIDVIEW_BAR_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_gridview_bar_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_GRIDVIEW_BAR_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_gridview_bar_type_kv(prefab_key, key) end
+
+--判断是否存在UI_EQUIP_SLOT_USE_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_equip_slot_use_type(kvbase, key) end
+
+--判断单位编号是否存在UI_EQUIP_SLOT_USE_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_equip_slot_use_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_EQUIP_SLOT_USE_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_equip_slot_use_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_EQUIP_SLOT_USE_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_equip_slot_use_type_kv(prefab_key, key) end
+
+--判断是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_equip_slot_drag_type(kvbase, key) end
+
+--判断单位编号是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_equip_slot_drag_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_equip_slot_drag_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_equip_slot_drag_type_kv(prefab_key, key) end
+
+--判断是否存在UI_LAYOUT_CLIPPING_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_layout_clipping_type(kvbase, key) end
+
+--判断单位编号是否存在UI_LAYOUT_CLIPPING_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_layout_clipping_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_LAYOUT_CLIPPING_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_layout_clipping_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_LAYOUT_CLIPPING_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_layout_clipping_type_kv(prefab_key, key) end
+
+--判断是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_text_over_length_handling_type(kvbase, key) end
+
+--判断单位编号是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_text_over_length_handling_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_text_over_length_handling_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_text_over_length_handling_type_kv(prefab_key, key) end
+
 --判断是否存在UI_ANIM键值对
 ---@param kvbase py.KVBase # 键值对容器
 ---@param key string # 键名称
@@ -1129,6 +1369,30 @@ function GameAPI.has_item_key_ui_anim_curve_kv(prefab_key, key) end
 ---@param key string # 键名称
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_ui_anim_curve_kv(prefab_key, key) end
+
+--判断是否存在UI_ANIM_PLAY_MODE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_ui_anim_play_mode(kvbase, key) end
+
+--判断单位编号是否存在UI_ANIM_PLAY_MODE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_ui_anim_play_mode_kv(prefab_key, key) end
+
+--判断物品编号是否存在UI_ANIM_PLAY_MODE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_ui_anim_play_mode_kv(prefab_key, key) end
+
+--判断技能编号是否存在UI_ANIM_PLAY_MODE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_ui_anim_play_mode_kv(prefab_key, key) end
 
 --判断是否存在AUDIO_CHANNEL键值对
 ---@param kvbase py.KVBase # 键值对容器
@@ -1394,6 +1658,30 @@ function GameAPI.has_item_key_window_type_setting_kv(prefab_key, key) end
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_window_type_setting_kv(prefab_key, key) end
 
+--判断是否存在DAMAGE_ATTACK_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_damage_attack_type(kvbase, key) end
+
+--判断单位编号是否存在DAMAGE_ATTACK_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_damage_attack_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在DAMAGE_ATTACK_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_damage_attack_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在DAMAGE_ATTACK_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_damage_attack_type_kv(prefab_key, key) end
+
 --判断是否存在ITEM_ENTITY键值对
 ---@param kvbase py.KVBase # 键值对容器
 ---@param key string # 键名称
@@ -1465,6 +1753,30 @@ function GameAPI.has_item_key_item_name_kv(prefab_key, key) end
 ---@param key string # 键名称
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_item_name_kv(prefab_key, key) end
+
+--判断是否存在ITEM_STACK_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_item_stack_type(kvbase, key) end
+
+--判断单位编号是否存在ITEM_STACK_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_item_stack_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在ITEM_STACK_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_item_stack_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在ITEM_STACK_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_item_stack_type_kv(prefab_key, key) end
 
 --判断是否存在ABILITY键值对
 ---@param kvbase py.KVBase # 键值对容器
@@ -2378,6 +2690,30 @@ function GameAPI.has_item_key_model_kv(prefab_key, key) end
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_model_kv(prefab_key, key) end
 
+--判断是否存在LIVE2D键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_live2d(kvbase, key) end
+
+--判断单位编号是否存在LIVE2D键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_live2d_kv(prefab_key, key) end
+
+--判断物品编号是否存在LIVE2D键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_live2d_kv(prefab_key, key) end
+
+--判断技能编号是否存在LIVE2D键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_live2d_kv(prefab_key, key) end
+
 --判断是否存在SFX_ENTITY键值对
 ---@param kvbase py.KVBase # 键值对容器
 ---@param key string # 键名称
@@ -2569,6 +2905,30 @@ function GameAPI.has_item_key_sequence_kv(prefab_key, key) end
 ---@param key string # 键名称
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_sequence_kv(prefab_key, key) end
+
+--判断是否存在SPINE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_spine(kvbase, key) end
+
+--判断单位编号是否存在SPINE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_spine_kv(prefab_key, key) end
+
+--判断物品编号是否存在SPINE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_spine_kv(prefab_key, key) end
+
+--判断技能编号是否存在SPINE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_spine_kv(prefab_key, key) end
 
 --判断是否存在PHYSICS_OBJECT键值对
 ---@param kvbase py.KVBase # 键值对容器
@@ -3170,6 +3530,30 @@ function GameAPI.has_item_key_mouse_wheel_kv(prefab_key, key) end
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_mouse_wheel_kv(prefab_key, key) end
 
+--判断是否存在MAP键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_map(kvbase, key) end
+
+--判断单位编号是否存在MAP键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_map_kv(prefab_key, key) end
+
+--判断物品编号是否存在MAP键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_map_kv(prefab_key, key) end
+
+--判断技能编号是否存在MAP键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_map_kv(prefab_key, key) end
+
 --判断是否存在POST_EFFECT键值对
 ---@param kvbase py.KVBase # 键值对容器
 ---@param key string # 键名称
@@ -3241,6 +3625,30 @@ function GameAPI.has_item_key_unit_command_type_kv(prefab_key, key) end
 ---@param key string # 键名称
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_unit_command_type_kv(prefab_key, key) end
+
+--判断是否存在UNIT_GROUP_COMMAND_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_unit_group_command_type(kvbase, key) end
+
+--判断单位编号是否存在UNIT_GROUP_COMMAND_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_unit_group_command_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在UNIT_GROUP_COMMAND_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_unit_group_command_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在UNIT_GROUP_COMMAND_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_unit_group_command_type_kv(prefab_key, key) end
 
 --判断是否存在MINI_MAP_COLOR_TYPE键值对
 ---@param kvbase py.KVBase # 键值对容器
@@ -3338,6 +3746,78 @@ function GameAPI.has_item_key_curved_path_3d_kv(prefab_key, key) end
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_curved_path_3d_kv(prefab_key, key) end
 
+--判断是否存在RESCUE_SEEKER_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_rescue_seeker_type(kvbase, key) end
+
+--判断单位编号是否存在RESCUE_SEEKER_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_rescue_seeker_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在RESCUE_SEEKER_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_rescue_seeker_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在RESCUE_SEEKER_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_rescue_seeker_type_kv(prefab_key, key) end
+
+--判断是否存在RESCUER_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_rescuer_type(kvbase, key) end
+
+--判断单位编号是否存在RESCUER_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_rescuer_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在RESCUER_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_rescuer_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在RESCUER_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_rescuer_type_kv(prefab_key, key) end
+
+--判断是否存在STORE_ITEM_TYPE键值对
+---@param kvbase py.KVBase # 键值对容器
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_kv_pair_store_item_type(kvbase, key) end
+
+--判断单位编号是否存在STORE_ITEM_TYPE键值对
+---@param prefab_key py.UnitKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_unit_key_store_item_type_kv(prefab_key, key) end
+
+--判断物品编号是否存在STORE_ITEM_TYPE键值对
+---@param prefab_key py.ItemKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_item_key_store_item_type_kv(prefab_key, key) end
+
+--判断技能编号是否存在STORE_ITEM_TYPE键值对
+---@param prefab_key py.AbilityKey # 预设编号
+---@param key string # 键名称
+---@return boolean # 是否存在
+function GameAPI.has_ability_key_store_item_type_kv(prefab_key, key) end
+
 --获取BOOLEAN键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键名称
@@ -3434,6 +3914,42 @@ function GameAPI.get_kv_pair_value_ui_btn_status(kvbase, key) end
 ---@return integer # 键值
 function GameAPI.get_kv_pair_value_ui_scrollview_type(kvbase, key) end
 
+--获取UI_GRIDVIEW_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_gridview_type(kvbase, key) end
+
+--获取UI_GRIDVIEW_BAR_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_gridview_bar_type(kvbase, key) end
+
+--获取UI_EQUIP_SLOT_USE_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_equip_slot_use_type(kvbase, key) end
+
+--获取UI_EQUIP_SLOT_DRAG_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_equip_slot_drag_type(kvbase, key) end
+
+--获取UI_LAYOUT_CLIPPING_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_layout_clipping_type(kvbase, key) end
+
+--获取UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_text_over_length_handling_type(kvbase, key) end
+
 --获取UI_ANIM键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键名称
@@ -3445,6 +3961,12 @@ function GameAPI.get_kv_pair_value_ui_anim(kvbase, key) end
 ---@param key string # 键名称
 ---@return integer # 键值
 function GameAPI.get_kv_pair_value_ui_anim_curve(kvbase, key) end
+
+--获取UI_ANIM_PLAY_MODE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_ui_anim_play_mode(kvbase, key) end
 
 --获取AUDIO_CHANNEL键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -3512,6 +4034,12 @@ function GameAPI.get_kv_pair_value_image_quality(kvbase, key) end
 ---@return string # 键值
 function GameAPI.get_kv_pair_value_window_type_setting(kvbase, key) end
 
+--获取DAMAGE_ATTACK_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return integer # 键值
+function GameAPI.get_kv_pair_value_damage_attack_type(kvbase, key) end
+
 --获取ITEM_ENTITY键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键名称
@@ -3529,6 +4057,12 @@ function GameAPI.get_kv_pair_value_item_group(kvbase, key) end
 ---@param key string # 键名称
 ---@return py.ItemKey # 键值
 function GameAPI.get_kv_pair_value_item_name(kvbase, key) end
+
+--获取ITEM_STACK_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.ItemStackType # 键值
+function GameAPI.get_kv_pair_value_item_stack_type(kvbase, key) end
 
 --获取ABILITY键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -3758,6 +4292,12 @@ function GameAPI.get_kv_pair_value_scene_sound(kvbase, key) end
 ---@return py.ModelKey # 键值
 function GameAPI.get_kv_pair_value_model(kvbase, key) end
 
+--获取LIVE2D键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.Live2dKey # 键值
+function GameAPI.get_kv_pair_value_live2d(kvbase, key) end
+
 --获取SFX_ENTITY键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键名称
@@ -3805,6 +4345,12 @@ function GameAPI.get_kv_pair_value_texture(kvbase, key) end
 ---@param key string # 键名称
 ---@return py.Sequence # 键值
 function GameAPI.get_kv_pair_value_sequence(kvbase, key) end
+
+--获取SPINE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.Spine # 键值
+function GameAPI.get_kv_pair_value_spine(kvbase, key) end
 
 --获取PHYSICS_OBJECT键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -3956,6 +4502,12 @@ function GameAPI.get_kv_pair_value_mouse_key(kvbase, key) end
 ---@return py.MouseWheel # 键值
 function GameAPI.get_kv_pair_value_mouse_wheel(kvbase, key) end
 
+--获取MAP键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.Map # 键值
+function GameAPI.get_kv_pair_value_map(kvbase, key) end
+
 --获取POST_EFFECT键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键名称
@@ -3973,6 +4525,12 @@ function GameAPI.get_kv_pair_value_unit_type(kvbase, key) end
 ---@param key string # 键名称
 ---@return py.UnitCommandType # 键值
 function GameAPI.get_kv_pair_value_unit_command_type(kvbase, key) end
+
+--获取UNIT_GROUP_COMMAND_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.UnitGroupCommandType # 键值
+function GameAPI.get_kv_pair_value_unit_group_command_type(kvbase, key) end
 
 --获取MINI_MAP_COLOR_TYPE键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -3997,6 +4555,24 @@ function GameAPI.get_kv_pair_value_curved_path(kvbase, key) end
 ---@param key string # 键名称
 ---@return py.CurvedPath3D # 键值
 function GameAPI.get_kv_pair_value_curved_path_3d(kvbase, key) end
+
+--获取RESCUE_SEEKER_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.ERescueSeekerType # 键值
+function GameAPI.get_kv_pair_value_rescue_seeker_type(kvbase, key) end
+
+--获取RESCUER_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.ERescuerType # 键值
+function GameAPI.get_kv_pair_value_rescuer_type(kvbase, key) end
+
+--获取STORE_ITEM_TYPE键值对
+---@param kvbase py.KVBase # 自定义键值载体
+---@param key string # 键名称
+---@return py.StoreItemType # 键值
+function GameAPI.get_kv_pair_value_store_item_type(kvbase, key) end
 
 --获取全局触发器非数组变量（指定类型）
 ---@param var_type string # 变量类型
@@ -4536,6 +5112,216 @@ function GameAPI.get_trigger_list_variable_all_ui_scrollview_type(key) end
 ---@return py.List # 数组型变量值
 function GameAPI.get_trigger_list_actor_variable_all_ui_scrollview_type(actor, key) end
 
+--获取全局触发器UI_GRIDVIEW_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_gridview_type(key) end
+
+--获取触发器UI_GRIDVIEW_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_gridview_type(actor, key) end
+
+--获取全局触发器UI_GRIDVIEW_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_gridview_type(key, index) end
+
+--获取触发器UI_GRIDVIEW_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_gridview_type(actor, key, index) end
+
+--获取全局触发器UI_GRIDVIEW_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_gridview_type(key) end
+
+--获取触发器UI_GRIDVIEW_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_gridview_type(actor, key) end
+
+--获取全局触发器UI_GRIDVIEW_BAR_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_gridview_bar_type(key) end
+
+--获取触发器UI_GRIDVIEW_BAR_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_gridview_bar_type(actor, key) end
+
+--获取全局触发器UI_GRIDVIEW_BAR_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_gridview_bar_type(key, index) end
+
+--获取触发器UI_GRIDVIEW_BAR_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_gridview_bar_type(actor, key, index) end
+
+--获取全局触发器UI_GRIDVIEW_BAR_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_gridview_bar_type(key) end
+
+--获取触发器UI_GRIDVIEW_BAR_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_gridview_bar_type(actor, key) end
+
+--获取全局触发器UI_EQUIP_SLOT_USE_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_equip_slot_use_type(key) end
+
+--获取触发器UI_EQUIP_SLOT_USE_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_equip_slot_use_type(actor, key) end
+
+--获取全局触发器UI_EQUIP_SLOT_USE_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_equip_slot_use_type(key, index) end
+
+--获取触发器UI_EQUIP_SLOT_USE_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_equip_slot_use_type(actor, key, index) end
+
+--获取全局触发器UI_EQUIP_SLOT_USE_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_equip_slot_use_type(key) end
+
+--获取触发器UI_EQUIP_SLOT_USE_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_equip_slot_use_type(actor, key) end
+
+--获取全局触发器UI_EQUIP_SLOT_DRAG_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_equip_slot_drag_type(key) end
+
+--获取触发器UI_EQUIP_SLOT_DRAG_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_equip_slot_drag_type(actor, key) end
+
+--获取全局触发器UI_EQUIP_SLOT_DRAG_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_equip_slot_drag_type(key, index) end
+
+--获取触发器UI_EQUIP_SLOT_DRAG_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_equip_slot_drag_type(actor, key, index) end
+
+--获取全局触发器UI_EQUIP_SLOT_DRAG_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_equip_slot_drag_type(key) end
+
+--获取触发器UI_EQUIP_SLOT_DRAG_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_equip_slot_drag_type(actor, key) end
+
+--获取全局触发器UI_LAYOUT_CLIPPING_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_layout_clipping_type(key) end
+
+--获取触发器UI_LAYOUT_CLIPPING_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_layout_clipping_type(actor, key) end
+
+--获取全局触发器UI_LAYOUT_CLIPPING_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_layout_clipping_type(key, index) end
+
+--获取触发器UI_LAYOUT_CLIPPING_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_layout_clipping_type(actor, key, index) end
+
+--获取全局触发器UI_LAYOUT_CLIPPING_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_layout_clipping_type(key) end
+
+--获取触发器UI_LAYOUT_CLIPPING_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_layout_clipping_type(actor, key) end
+
+--获取全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_text_over_length_handling_type(key) end
+
+--获取触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_text_over_length_handling_type(actor, key) end
+
+--获取全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_text_over_length_handling_type(key, index) end
+
+--获取触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_text_over_length_handling_type(actor, key, index) end
+
+--获取全局触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_text_over_length_handling_type(key) end
+
+--获取触发器UI_TEXT_OVER_LENGTH_HANDLING_TYPE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_text_over_length_handling_type(actor, key) end
+
 --获取全局触发器UI_ANIM非数组变量
 ---@param key string # 变量名称
 ---@return py.UIAnimKey # 值
@@ -4605,6 +5391,41 @@ function GameAPI.get_trigger_list_variable_all_ui_anim_curve(key) end
 ---@param key string # 变量名称
 ---@return py.List # 数组型变量值
 function GameAPI.get_trigger_list_actor_variable_all_ui_anim_curve(actor, key) end
+
+--获取全局触发器UI_ANIM_PLAY_MODE非数组变量
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_variable_ui_anim_play_mode(key) end
+
+--获取触发器UI_ANIM_PLAY_MODE非数组 组变量
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return integer # 值
+function GameAPI.get_trigger_actor_variable_ui_anim_play_mode(actor, key) end
+
+--获取全局触发器UI_ANIM_PLAY_MODE数组变量子项
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_variable_ui_anim_play_mode(key, index) end
+
+--获取触发器UI_ANIM_PLAY_MODE数组 组变量子项
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@param index integer # 下标
+---@return integer # 值
+function GameAPI.get_trigger_list_actor_variable_ui_anim_play_mode(actor, key, index) end
+
+--获取全局触发器UI_ANIM_PLAY_MODE数组变量
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_variable_all_ui_anim_play_mode(key) end
+
+--获取触发器UI_ANIM_PLAY_MODE 组变量数组
+---@param actor py.Actor # 单位实体
+---@param key string # 变量名称
+---@return py.List # 数组型变量值
+function GameAPI.get_trigger_list_actor_variable_all_ui_anim_play_mode(actor, key) end
 
 --获取全局触发器AUDIO_CHANNEL非数组变量
 ---@param key string # 变量名称
@@ -4706,54 +5527,12 @@ function GameAPI.add_ability_xxx_kv(kvbase, key, value, etype, prefab_conf_key) 
 ---@param prefab_conf_key string # 属性名称
 function GameAPI.add_modifier_xxx_kv(kvbase, key, value, etype, prefab_conf_key) end
 
---预设库 添加UI_GRIDVIEW_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value integer # value
-function GameAPI.set_prefab_key_ui_gridview_type_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加UI_GRIDVIEW_BAR_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value integer # value
-function GameAPI.set_prefab_key_ui_gridview_bar_type_kv(prefab_conf_key, item_key, key, value) end
-
 --预设库 添加UI_EFFECT_CAMERA_MODE键值对
 ---@param prefab_conf_key integer # prefab库ID
 ---@param item_key integer # 编号
 ---@param key string # 键值名称
 ---@param value integer # value
 function GameAPI.set_prefab_key_ui_effect_camera_mode_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加UI_EQUIP_SLOT_USE_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value integer # value
-function GameAPI.set_prefab_key_ui_equip_slot_use_type_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加UI_EQUIP_SLOT_DRAG_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value integer # value
-function GameAPI.set_prefab_key_ui_equip_slot_drag_type_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加UI_LAYOUT_CLIPPING_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value integer # value
-function GameAPI.set_prefab_key_ui_layout_clipping_type_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value integer # value
-function GameAPI.set_prefab_key_ui_text_over_length_handling_type_kv(prefab_conf_key, item_key, key, value) end
 
 --预设库 添加UI_POS_ADAPT_MODE键值对
 ---@param prefab_conf_key integer # prefab库ID
@@ -4776,13 +5555,6 @@ function GameAPI.set_prefab_key_ui_chat_send_channel_kv(prefab_conf_key, item_ke
 ---@param value integer # value
 function GameAPI.set_prefab_key_ui_chat_recv_channel_kv(prefab_conf_key, item_key, key, value) end
 
---预设库 添加UI_ANIM_PLAY_MODE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value integer # value
-function GameAPI.set_prefab_key_ui_anim_play_mode_kv(prefab_conf_key, item_key, key, value) end
-
 --预设库 添加UI_TEXT_FONT_NAME键值对
 ---@param prefab_conf_key integer # prefab库ID
 ---@param item_key integer # 编号
@@ -4804,26 +5576,12 @@ function GameAPI.set_prefab_key_ui_eca_anim_type_kv(prefab_conf_key, item_key, k
 ---@param value py.LocalUnitGroup # value
 function GameAPI.set_prefab_key_local_unit_group_kv(prefab_conf_key, item_key, key, value) end
 
---预设库 添加DAMAGE_ATTACK_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value integer # value
-function GameAPI.set_prefab_key_damage_attack_type_kv(prefab_conf_key, item_key, key, value) end
-
 --预设库 添加DAMAGE_ARMOR_TYPE键值对
 ---@param prefab_conf_key integer # prefab库ID
 ---@param item_key integer # 编号
 ---@param key string # 键值名称
 ---@param value integer # value
 function GameAPI.set_prefab_key_damage_armor_type_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加ITEM_STACK_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value py.ItemStackType # value
-function GameAPI.set_prefab_key_item_stack_type_kv(prefab_conf_key, item_key, key, value) end
 
 --预设库 添加ABILITY_RELEASE_ID键值对
 ---@param prefab_conf_key integer # prefab库ID
@@ -4853,20 +5611,6 @@ function GameAPI.set_prefab_key_ui_point_kv(prefab_conf_key, item_key, key, valu
 ---@param value py.AttachModelEntity # value
 function GameAPI.set_prefab_key_attach_model_entity_kv(prefab_conf_key, item_key, key, value) end
 
---预设库 添加LIVE2D键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value py.Live2dKey # value
-function GameAPI.set_prefab_key_live2d_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加SPINE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value py.Spine # value
-function GameAPI.set_prefab_key_spine_kv(prefab_conf_key, item_key, key, value) end
-
 --预设库 添加FORCE_ENTITY键值对
 ---@param prefab_conf_key integer # prefab库ID
 ---@param item_key integer # 编号
@@ -4888,41 +5632,6 @@ function GameAPI.set_prefab_key_goods_key_kv(prefab_conf_key, item_key, key, val
 ---@param value py.MouseKeyWithoutMiddle # value
 function GameAPI.set_prefab_key_mouse_key_without_middle_kv(prefab_conf_key, item_key, key, value) end
 
---预设库 添加MAP键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value py.Map # value
-function GameAPI.set_prefab_key_map_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加UNIT_GROUP_COMMAND_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value py.UnitGroupCommandType # value
-function GameAPI.set_prefab_key_unit_group_command_type_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加RESCUE_SEEKER_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value py.ERescueSeekerType # value
-function GameAPI.set_prefab_key_rescue_seeker_type_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加RESCUER_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value py.ERescuerType # value
-function GameAPI.set_prefab_key_rescuer_type_kv(prefab_conf_key, item_key, key, value) end
-
---预设库 添加STORE_ITEM_TYPE键值对
----@param prefab_conf_key integer # prefab库ID
----@param item_key integer # 编号
----@param key string # 键值名称
----@param value py.StoreItemType # value
-function GameAPI.set_prefab_key_store_item_type_kv(prefab_conf_key, item_key, key, value) end
-
 --预设库 添加SITE_STATE键值对
 ---@param prefab_conf_key integer # prefab库ID
 ---@param item_key integer # 编号
@@ -4937,47 +5646,11 @@ function GameAPI.set_prefab_key_site_state_kv(prefab_conf_key, item_key, key, va
 ---@param value py.COIN_CURRENCY # value
 function GameAPI.set_prefab_key_coin_currency_kv(prefab_conf_key, item_key, key, value) end
 
---添加UI_GRIDVIEW_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? integer # value
-function GameAPI.add_ui_gridview_type_kv(kvbase, key, item) end
-
---添加UI_GRIDVIEW_BAR_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? integer # value
-function GameAPI.add_ui_gridview_bar_type_kv(kvbase, key, item) end
-
 --添加UI_EFFECT_CAMERA_MODE键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
 ---@param item? integer # value
 function GameAPI.add_ui_effect_camera_mode_kv(kvbase, key, item) end
-
---添加UI_EQUIP_SLOT_USE_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? integer # value
-function GameAPI.add_ui_equip_slot_use_type_kv(kvbase, key, item) end
-
---添加UI_EQUIP_SLOT_DRAG_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? integer # value
-function GameAPI.add_ui_equip_slot_drag_type_kv(kvbase, key, item) end
-
---添加UI_LAYOUT_CLIPPING_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? integer # value
-function GameAPI.add_ui_layout_clipping_type_kv(kvbase, key, item) end
-
---添加UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? integer # value
-function GameAPI.add_ui_text_over_length_handling_type_kv(kvbase, key, item) end
 
 --添加UI_POS_ADAPT_MODE键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -4997,12 +5670,6 @@ function GameAPI.add_ui_chat_send_channel_kv(kvbase, key, item) end
 ---@param item? integer # value
 function GameAPI.add_ui_chat_recv_channel_kv(kvbase, key, item) end
 
---添加UI_ANIM_PLAY_MODE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? integer # value
-function GameAPI.add_ui_anim_play_mode_kv(kvbase, key, item) end
-
 --添加UI_TEXT_FONT_NAME键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
@@ -5021,23 +5688,11 @@ function GameAPI.add_ui_eca_anim_type_kv(kvbase, key, item) end
 ---@param item? py.LocalUnitGroup # value
 function GameAPI.add_local_unit_group_kv(kvbase, key, item) end
 
---添加DAMAGE_ATTACK_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? integer # value
-function GameAPI.add_damage_attack_type_kv(kvbase, key, item) end
-
 --添加DAMAGE_ARMOR_TYPE键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
 ---@param item? integer # value
 function GameAPI.add_damage_armor_type_kv(kvbase, key, item) end
-
---添加ITEM_STACK_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? py.ItemStackType # value
-function GameAPI.add_item_stack_type_kv(kvbase, key, item) end
 
 --添加ABILITY_RELEASE_ID键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -5063,18 +5718,6 @@ function GameAPI.add_ui_point_kv(kvbase, key, item) end
 ---@param item? py.AttachModelEntity # value
 function GameAPI.add_attach_model_entity_kv(kvbase, key, item) end
 
---添加LIVE2D键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? py.Live2dKey # value
-function GameAPI.add_live2d_kv(kvbase, key, item) end
-
---添加SPINE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? py.Spine # value
-function GameAPI.add_spine_kv(kvbase, key, item) end
-
 --添加FORCE_ENTITY键值对
 ---@param kvbase py.KVBase # 自定义键值载体
 ---@param key string # 键值名称
@@ -5092,36 +5735,6 @@ function GameAPI.add_goods_key_kv(kvbase, key, item) end
 ---@param key string # 键值名称
 ---@param item? py.MouseKeyWithoutMiddle # value
 function GameAPI.add_mouse_key_without_middle_kv(kvbase, key, item) end
-
---添加MAP键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? py.Map # value
-function GameAPI.add_map_kv(kvbase, key, item) end
-
---添加UNIT_GROUP_COMMAND_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? py.UnitGroupCommandType # value
-function GameAPI.add_unit_group_command_type_kv(kvbase, key, item) end
-
---添加RESCUE_SEEKER_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? py.ERescueSeekerType # value
-function GameAPI.add_rescue_seeker_type_kv(kvbase, key, item) end
-
---添加RESCUER_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? py.ERescuerType # value
-function GameAPI.add_rescuer_type_kv(kvbase, key, item) end
-
---添加STORE_ITEM_TYPE键值对
----@param kvbase py.KVBase # 自定义键值载体
----@param key string # 键值名称
----@param item? py.StoreItemType # value
-function GameAPI.add_store_item_type_kv(kvbase, key, item) end
 
 --添加SITE_STATE键值对
 ---@param kvbase py.KVBase # 自定义键值载体
@@ -5161,68 +5774,6 @@ function GameAPI.has_ability_ckv_pair_value_xxx(kvbase, key) end
 ---@return boolean # 是否存在
 function GameAPI.has_modifier_ckv_pair_value_xxx(kvbase, key) end
 
---判断是否存在UI_GRIDVIEW_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ui_gridview_type(kvbase, key) end
-
---判断预设是否存在UI_GRIDVIEW_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ui_gridview_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UI_GRIDVIEW_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ui_gridview_type_kv(prefab_key, key) end
-
---判断物品编号是否存在UI_GRIDVIEW_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ui_gridview_type_kv(prefab_key, key) end
-
---判断技能编号是否存在UI_GRIDVIEW_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ui_gridview_type_kv(prefab_key, key) end
-
---判断是否存在UI_GRIDVIEW_BAR_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ui_gridview_bar_type(kvbase, key) end
-
---判断预设是否存在UI_GRIDVIEW_BAR_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ui_gridview_bar_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UI_GRIDVIEW_BAR_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ui_gridview_bar_type_kv(prefab_key, key) end
-
---判断物品编号是否存在UI_GRIDVIEW_BAR_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ui_gridview_bar_type_kv(prefab_key, key) end
-
---判断技能编号是否存在UI_GRIDVIEW_BAR_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ui_gridview_bar_type_kv(prefab_key, key) end
-
 --判断是否存在UI_EFFECT_CAMERA_MODE键值对
 ---@param kvbase py.KVBase # 键值对容器
 ---@param key string # 键名称
@@ -5253,130 +5804,6 @@ function GameAPI.has_item_key_ui_effect_camera_mode_kv(prefab_key, key) end
 ---@param key string # 键名称
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_ui_effect_camera_mode_kv(prefab_key, key) end
-
---判断是否存在UI_EQUIP_SLOT_USE_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ui_equip_slot_use_type(kvbase, key) end
-
---判断预设是否存在UI_EQUIP_SLOT_USE_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ui_equip_slot_use_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UI_EQUIP_SLOT_USE_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ui_equip_slot_use_type_kv(prefab_key, key) end
-
---判断物品编号是否存在UI_EQUIP_SLOT_USE_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ui_equip_slot_use_type_kv(prefab_key, key) end
-
---判断技能编号是否存在UI_EQUIP_SLOT_USE_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ui_equip_slot_use_type_kv(prefab_key, key) end
-
---判断是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ui_equip_slot_drag_type(kvbase, key) end
-
---判断预设是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ui_equip_slot_drag_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ui_equip_slot_drag_type_kv(prefab_key, key) end
-
---判断物品编号是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ui_equip_slot_drag_type_kv(prefab_key, key) end
-
---判断技能编号是否存在UI_EQUIP_SLOT_DRAG_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ui_equip_slot_drag_type_kv(prefab_key, key) end
-
---判断是否存在UI_LAYOUT_CLIPPING_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ui_layout_clipping_type(kvbase, key) end
-
---判断预设是否存在UI_LAYOUT_CLIPPING_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ui_layout_clipping_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UI_LAYOUT_CLIPPING_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ui_layout_clipping_type_kv(prefab_key, key) end
-
---判断物品编号是否存在UI_LAYOUT_CLIPPING_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ui_layout_clipping_type_kv(prefab_key, key) end
-
---判断技能编号是否存在UI_LAYOUT_CLIPPING_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ui_layout_clipping_type_kv(prefab_key, key) end
-
---判断是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ui_text_over_length_handling_type(kvbase, key) end
-
---判断预设是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ui_text_over_length_handling_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ui_text_over_length_handling_type_kv(prefab_key, key) end
-
---判断物品编号是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ui_text_over_length_handling_type_kv(prefab_key, key) end
-
---判断技能编号是否存在UI_TEXT_OVER_LENGTH_HANDLING_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ui_text_over_length_handling_type_kv(prefab_key, key) end
 
 --判断是否存在UI_POS_ADAPT_MODE键值对
 ---@param kvbase py.KVBase # 键值对容器
@@ -5471,37 +5898,6 @@ function GameAPI.has_item_key_ui_chat_recv_channel_kv(prefab_key, key) end
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_ui_chat_recv_channel_kv(prefab_key, key) end
 
---判断是否存在UI_ANIM_PLAY_MODE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ui_anim_play_mode(kvbase, key) end
-
---判断预设是否存在UI_ANIM_PLAY_MODE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ui_anim_play_mode_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UI_ANIM_PLAY_MODE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ui_anim_play_mode_kv(prefab_key, key) end
-
---判断物品编号是否存在UI_ANIM_PLAY_MODE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ui_anim_play_mode_kv(prefab_key, key) end
-
---判断技能编号是否存在UI_ANIM_PLAY_MODE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ui_anim_play_mode_kv(prefab_key, key) end
-
 --判断是否存在UI_TEXT_FONT_NAME键值对
 ---@param kvbase py.KVBase # 键值对容器
 ---@param key string # 键名称
@@ -5595,37 +5991,6 @@ function GameAPI.has_item_key_local_unit_group_kv(prefab_key, key) end
 ---@return boolean # 是否存在
 function GameAPI.has_ability_key_local_unit_group_kv(prefab_key, key) end
 
---判断是否存在DAMAGE_ATTACK_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_damage_attack_type(kvbase, key) end
-
---判断预设是否存在DAMAGE_ATTACK_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_damage_attack_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在DAMAGE_ATTACK_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_damage_attack_type_kv(prefab_key, key) end
-
---判断物品编号是否存在DAMAGE_ATTACK_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_damage_attack_type_kv(prefab_key, key) end
-
---判断技能编号是否存在DAMAGE_ATTACK_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_damage_attack_type_kv(prefab_key, key) end
-
 --判断是否存在DAMAGE_ARMOR_TYPE键值对
 ---@param kvbase py.KVBase # 键值对容器
 ---@param key string # 键名称
@@ -5644,412 +6009,3 @@ function GameAPI.has_prefab_damage_armor_type_kv(prefab_type, prefab_key, key) e
 ---@param key string # 键名称
 ---@return boolean # 是否存在
 function GameAPI.has_unit_key_damage_armor_type_kv(prefab_key, key) end
-
---判断物品编号是否存在DAMAGE_ARMOR_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_damage_armor_type_kv(prefab_key, key) end
-
---判断技能编号是否存在DAMAGE_ARMOR_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_damage_armor_type_kv(prefab_key, key) end
-
---判断是否存在ITEM_STACK_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_item_stack_type(kvbase, key) end
-
---判断预设是否存在ITEM_STACK_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_item_stack_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在ITEM_STACK_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_item_stack_type_kv(prefab_key, key) end
-
---判断物品编号是否存在ITEM_STACK_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_item_stack_type_kv(prefab_key, key) end
-
---判断技能编号是否存在ITEM_STACK_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_item_stack_type_kv(prefab_key, key) end
-
---判断是否存在ABILITY_RELEASE_ID键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ability_release_id(kvbase, key) end
-
---判断预设是否存在ABILITY_RELEASE_ID键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ability_release_id_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在ABILITY_RELEASE_ID键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ability_release_id_kv(prefab_key, key) end
-
---判断物品编号是否存在ABILITY_RELEASE_ID键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ability_release_id_kv(prefab_key, key) end
-
---判断技能编号是否存在ABILITY_RELEASE_ID键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ability_release_id_kv(prefab_key, key) end
-
---判断是否存在SLOT_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_slot_type(kvbase, key) end
-
---判断预设是否存在SLOT_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_slot_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在SLOT_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_slot_type_kv(prefab_key, key) end
-
---判断物品编号是否存在SLOT_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_slot_type_kv(prefab_key, key) end
-
---判断技能编号是否存在SLOT_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_slot_type_kv(prefab_key, key) end
-
---判断是否存在UI_POINT键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_ui_point(kvbase, key) end
-
---判断预设是否存在UI_POINT键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_ui_point_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UI_POINT键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_ui_point_kv(prefab_key, key) end
-
---判断物品编号是否存在UI_POINT键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_ui_point_kv(prefab_key, key) end
-
---判断技能编号是否存在UI_POINT键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_ui_point_kv(prefab_key, key) end
-
---判断是否存在ATTACH_MODEL_ENTITY键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_attach_model_entity(kvbase, key) end
-
---判断预设是否存在ATTACH_MODEL_ENTITY键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_attach_model_entity_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在ATTACH_MODEL_ENTITY键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_attach_model_entity_kv(prefab_key, key) end
-
---判断物品编号是否存在ATTACH_MODEL_ENTITY键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_attach_model_entity_kv(prefab_key, key) end
-
---判断技能编号是否存在ATTACH_MODEL_ENTITY键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_attach_model_entity_kv(prefab_key, key) end
-
---判断是否存在LIVE2D键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_live2d(kvbase, key) end
-
---判断预设是否存在LIVE2D键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_live2d_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在LIVE2D键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_live2d_kv(prefab_key, key) end
-
---判断物品编号是否存在LIVE2D键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_live2d_kv(prefab_key, key) end
-
---判断技能编号是否存在LIVE2D键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_live2d_kv(prefab_key, key) end
-
---判断是否存在SPINE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_spine(kvbase, key) end
-
---判断预设是否存在SPINE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_spine_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在SPINE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_spine_kv(prefab_key, key) end
-
---判断物品编号是否存在SPINE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_spine_kv(prefab_key, key) end
-
---判断技能编号是否存在SPINE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_spine_kv(prefab_key, key) end
-
---判断是否存在FORCE_ENTITY键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_force_entity(kvbase, key) end
-
---判断预设是否存在FORCE_ENTITY键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_force_entity_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在FORCE_ENTITY键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_force_entity_kv(prefab_key, key) end
-
---判断物品编号是否存在FORCE_ENTITY键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_force_entity_kv(prefab_key, key) end
-
---判断技能编号是否存在FORCE_ENTITY键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_force_entity_kv(prefab_key, key) end
-
---判断是否存在GOODS_KEY键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_goods_key(kvbase, key) end
-
---判断预设是否存在GOODS_KEY键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_goods_key_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在GOODS_KEY键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_goods_key_kv(prefab_key, key) end
-
---判断物品编号是否存在GOODS_KEY键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_goods_key_kv(prefab_key, key) end
-
---判断技能编号是否存在GOODS_KEY键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_goods_key_kv(prefab_key, key) end
-
---判断是否存在MOUSE_KEY_WITHOUT_MIDDLE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_mouse_key_without_middle(kvbase, key) end
-
---判断预设是否存在MOUSE_KEY_WITHOUT_MIDDLE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_mouse_key_without_middle_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在MOUSE_KEY_WITHOUT_MIDDLE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_mouse_key_without_middle_kv(prefab_key, key) end
-
---判断物品编号是否存在MOUSE_KEY_WITHOUT_MIDDLE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_mouse_key_without_middle_kv(prefab_key, key) end
-
---判断技能编号是否存在MOUSE_KEY_WITHOUT_MIDDLE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_mouse_key_without_middle_kv(prefab_key, key) end
-
---判断是否存在MAP键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_map(kvbase, key) end
-
---判断预设是否存在MAP键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_map_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在MAP键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_map_kv(prefab_key, key) end
-
---判断物品编号是否存在MAP键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_map_kv(prefab_key, key) end
-
---判断技能编号是否存在MAP键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_map_kv(prefab_key, key) end
-
---判断是否存在UNIT_GROUP_COMMAND_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_unit_group_command_type(kvbase, key) end
-
---判断预设是否存在UNIT_GROUP_COMMAND_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_unit_group_command_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在UNIT_GROUP_COMMAND_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_unit_group_command_type_kv(prefab_key, key) end
-
---判断物品编号是否存在UNIT_GROUP_COMMAND_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_unit_group_command_type_kv(prefab_key, key) end
-
---判断技能编号是否存在UNIT_GROUP_COMMAND_TYPE键值对
----@param prefab_key py.AbilityKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_ability_key_unit_group_command_type_kv(prefab_key, key) end
-
---判断是否存在RESCUE_SEEKER_TYPE键值对
----@param kvbase py.KVBase # 键值对容器
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_kv_pair_rescue_seeker_type(kvbase, key) end
-
---判断预设是否存在RESCUE_SEEKER_TYPE键值对
----@param prefab_type string # 预设类型
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_prefab_rescue_seeker_type_kv(prefab_type, prefab_key, key) end
-
---判断单位编号是否存在RESCUE_SEEKER_TYPE键值对
----@param prefab_key py.UnitKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_unit_key_rescue_seeker_type_kv(prefab_key, key) end
-
---判断物品编号是否存在RESCUE_SEEKER_TYPE键值对
----@param prefab_key py.ItemKey # 预设编号
----@param key string # 键名称
----@return boolean # 是否存在
-function GameAPI.has_item_key_rescue_seeker_type_kv(prefab_key, key) end
