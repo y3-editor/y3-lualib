@@ -336,9 +336,9 @@ end)
 local Destructible = Class 'EditorObject.Destructible'
 
 Extends('EditorObject.Destructible', 'EditorObject.DataModule')
----@class EditorObject.Projectile: EditorObject.Event
+---@class EditorObject.Destructible: EditorObject.Event
 Extends('EditorObject.Destructible', 'EditorObject.Event')
----@class EditorObject.Projectile: KV
+---@class EditorObject.Destructible: KV
 Extends('EditorObject.Destructible', 'KV')
 Destructible.kv_key = 'destructible_key'
 
