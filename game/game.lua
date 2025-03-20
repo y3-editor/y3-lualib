@@ -898,7 +898,7 @@ end
 ---@param has_collision? boolean # 是否携带碰撞
 function M.load_sub_scene(point, level_id, rotate, has_light, has_decoration, has_fog, has_collision)
     ---@diagnostic disable-next-line: param-type-mismatch
-    GameAPI.load_sub_scene(point.handle, level_id, rotate or 0, has_light or false, has_decoration or false, has_fog or false, has_collision or false)
+    GameAPI.load_sub_scene(point.handle, level_id, has_light or false, has_decoration or false, has_fog or false, has_collision or false, rotate or 0)
 end
 
 --本地客户端每帧回调此函数  
