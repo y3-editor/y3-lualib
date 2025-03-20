@@ -896,9 +896,21 @@ end
 ---@param has_decoration? boolean # 是否携带装饰物
 ---@param has_fog? boolean # 是否携带雾效
 ---@param has_collision? boolean # 是否携带碰撞
-function M.load_sub_scene(point, level_id, rotate, has_light, has_decoration, has_fog, has_collision)
+---@param has_projectile? boolean # 是否携带投射物
+---@param has_item? boolean # 是否携带物品
+---@param has_destructible? boolean # 是否携带可破坏物
+function M.load_sub_scene(point, level_id, rotate, has_light, has_decoration, has_fog, has_collision, has_projectile, has_item, has_destructible)
     ---@diagnostic disable-next-line: param-type-mismatch
-    GameAPI.load_sub_scene(point.handle, level_id, has_light or false, has_decoration or false, has_fog or false, has_collision or false, rotate or 0)
+    GameAPI.load_sub_scene(point.handle, level_id
+        , has_light or false
+        , has_decoration or false
+        , has_fog or false
+        , has_projectile or false
+        , has_item or false
+        , has_destructible or false
+        , has_collision or false
+        , rotate or 0
+    )
 end
 
 --本地客户端每帧回调此函数  
