@@ -959,9 +959,9 @@ function M:set_icon(img_id)
 end
 
 ---设置血条样式
----@param bar_type integer 血条样式
+---@param bar_type integer | y3.Const.BloodBarType 血条样式
 function M:set_blood_bar_type(bar_type)
-    self.handle:api_set_blood_bar_type(bar_type)
+    self.handle:api_set_blood_bar_type(y3.const.BloodBarType[bar_type] or bar_type)
 end
 
 ---设置血条文本
