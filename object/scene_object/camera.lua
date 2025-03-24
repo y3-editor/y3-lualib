@@ -284,4 +284,25 @@ function M.get_camera_center_raycast(player)
     return y3.point.get_by_handle(py_point)
 end
 
+--- 获取（本地玩家）的镜头属性（实数）
+---@param attr 'pitch' | 'yaw' | 'roll' | 'fov'
+---@return number
+function M.get_attr_real(attr)
+    return y3.helper.tonumber(GameAPI.get_camera_attr_real_num(attr)) or 0.0
+end
+
+--- 获取（本地玩家）的镜头属性（整数）
+---@param attr
+---| 'focus_x'
+---| 'focus_y'
+---| 'focus_z'
+---| 'focus_distance'
+---| 'far'
+---| 'min_focus_dist'
+---| 'max_focus_dist'
+---@return integer
+function M.get_attr_integer(attr)
+    return GameAPI.get_camera_attr_integer(attr) or 0
+end
+
 return M
