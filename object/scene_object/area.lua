@@ -43,10 +43,13 @@ M.ref_manager = New 'Ref' ('Area', function (id, shape)
             shape = M.SHAPE.POLYGON
             goto FOUND
         end
-        error('未找到区域')
+        error('未找到区域：' .. tostring(id))
         ::FOUND::
     else
         error('不支持的区域类型')
+    end
+    if not py_area then
+        error(string.format('未找到区域: %s，shape: %s', id, shape))
     end
     local area = New 'Area' (py_area, shape)
     return area
