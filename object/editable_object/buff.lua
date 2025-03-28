@@ -113,7 +113,7 @@ end
 ---设置魔法效果的名称
 ---@param name string 名字
 function M:set_name(name)
-    self.handle:api_set_buff_str_attr("name_str", name)
+    self.handle:api_set_buff_str_attr("name", name)
 end
 
 ---设置魔法效果对象的描述
@@ -258,7 +258,7 @@ end
 ---获取魔法效果对象的名称
 ---@return string name 名字
 function M:get_name()
-    return self.handle:api_get_str_attr("name_str") or ''
+    return self.handle:api_get_str_attr("name") or ''
 end
 
 ---获取魔法效果对象的描述
