@@ -461,8 +461,7 @@ function M.pick(area)
     ---@type Destructible[]
     local destructibles = {}
     local py_list = GameAPI.get_all_dest_in_area(area.handle)
-    for i = 0, python_len(py_list) - 1 do
-        local iter_destructible = python_index(py_list, i)
+    for _, iter_destructible in pairs(py_list) do
         table.insert(destructibles,y3.destructible.get_by_handle(iter_destructible))
     end
     return destructibles
@@ -477,8 +476,7 @@ function M.pick_in_shape(point, shape)
     ---@diagnostic disable-next-line: param-type-mismatch
     local py_list = GameAPI.get_all_dest_in_shapes(point.handle, shape.handle)
     local lua_table = {}
-    for i = 0, python_len(py_list)-1 do
-        local iter_destructible = python_index(py_list, i)
+    for _, iter_destructible in pairs(py_list) do
         table.insert(lua_table,y3.destructible.get_by_handle(iter_destructible))
     end
     return lua_table

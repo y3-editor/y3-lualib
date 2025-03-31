@@ -186,8 +186,8 @@ function M:get_abilities_by_type(type)
     if not py_list then
         return abilities
     end
-    for i = 0, python_len(py_list) - 1 do
-        local lua_ability = y3.ability.get_by_handle(python_index(py_list, i))
+    for _, py_obj in pairs(py_list) do
+        local lua_ability = y3.ability.get_by_handle(py_obj)
         abilities[#abilities+1] = lua_ability
     end
     return abilities
@@ -202,8 +202,8 @@ function M:get_buffs()
     if not py_list then
         return buffs
     end
-    for i = 0, python_len(py_list) - 1 do
-        local lua_buff = y3.buff.get_by_handle(python_index(py_list, i))
+    for _, py_obj in pairs(py_list) do
+        local lua_buff = y3.buff.get_by_handle(py_obj)
         buffs[#buffs+1] = lua_buff
     end
     return buffs
@@ -1098,8 +1098,7 @@ function M:get_tech_list()
     if not py_list then
         return lua_table
     end
-    for i = 0, python_len(py_list) - 1 do
-        local tech = python_index(py_list, i)
+    for _, tech in pairs(py_list) do
         table.insert(lua_table, tech)
     end
     return lua_table
@@ -1113,8 +1112,7 @@ function M:get_affect_techs()
     if not py_list then
         return lua_table
     end
-    for i = 0, python_len(py_list) - 1 do
-        local tech = python_index(py_list, i)
+    for _, tech in pairs(py_list) do
         table.insert(lua_table, tech)
     end
     return lua_table
@@ -1313,8 +1311,7 @@ function M:get_shop_item_list(page)
     if not py_list then
         return lua_table
     end
-    for i = 0, python_len(py_list) - 1 do
-        local item_key = python_index(py_list, i)
+    for _, item_key in pairs(py_list) do
         lua_table[#lua_table+1] = item_key
     end
     return lua_table

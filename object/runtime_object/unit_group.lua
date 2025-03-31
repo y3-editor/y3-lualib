@@ -41,8 +41,7 @@ end
 ---@return Unit[]
 function M:pick()
     local lua_table ={}
-    for i = 1, python_len(self.handle) do
-        local iter_unit = python_index(self.handle,i-1)
+    for _, iter_unit in pairs(self.handle) do
         table.insert(lua_table,y3.unit.get_by_id(iter_unit))
     end
     return lua_table
@@ -63,13 +62,13 @@ end
 ---@return fun(): Unit?
 function M:pairs()
     local i = -1
-    local len = python_len(self.handle)
+    local len = #self.handle
     return function ()
         i = i + 1
         if i >= len then
             return
         end
-        local id = python_index(self.handle, i)
+        local id = self.handle[i]
         local u = y3.unit.get_by_id(id)
         return u
     end

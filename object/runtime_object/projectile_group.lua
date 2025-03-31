@@ -54,8 +54,7 @@ end
 ---@return Projectile[]
 function M:pick()
     local lua_table ={}
-    for i = 0, python_len(self.handle)-1 do
-        local id = python_index(self.handle,i)
+    for _, id in pairs(self.handle) do
         table.insert(lua_table,y3.projectile.get_by_id(id))
     end
     return lua_table
@@ -76,13 +75,13 @@ end
 ---@return fun(): Projectile?
 function M:pairs()
     local i = -1
-    local len = python_len(self.handle)
+    local len = #self.handle
     return function ()
         i = i + 1
         if i >= len then
             return
         end
-        local id = python_index(self.handle, i)
+        local id = self.handle[i]
         local pr = y3.projectile.get_by_id(id)
         return pr
     end

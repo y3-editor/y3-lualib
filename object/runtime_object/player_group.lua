@@ -50,15 +50,14 @@ end
 --获取玩家组中玩家数量
 ---@return integer
 function M:count()
-    return python_len(self.handle)
+    return #self.handle
 end
 
 --将玩家组转换为Lua的玩家数组
 ---@return Player[]
 function M:pick()
     local lua_table = {}
-    for i = 1, python_len(self.handle) do
-        local iter_player = python_index(self.handle,i-1)
+    for _, iter_player in pairs(self.handle) do
         table.insert(lua_table, y3.player.get_by_id(iter_player))
     end
     return lua_table
@@ -79,13 +78,13 @@ end
 ---@return fun(): Player?
 function M:pairs()
     local i = -1
-    local len = python_len(self.handle)
+    local len = #self.handle
     return function ()
         i = i + 1
         if i >= len then
             return
         end
-        local id = python_index(self.handle, i)
+        local id = self.handle[i]
         local p = y3.player.get_by_id(id)
         return p
     end
