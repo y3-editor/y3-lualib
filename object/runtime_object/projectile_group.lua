@@ -50,6 +50,22 @@ function M.get_all_projectiles_with_tag(tag)
     return M.create_lua_projectile_group_from_py(py_projectile_group)
 end
 
+---取两个投射物组的交集
+---@param projectile_group ProjectileGroup 另一个投射物组
+---@return ProjectileGroup 交集投射物组
+function M:intersection(projectile_group)
+    local py_projectile_group = GameAPI.get_projectile_group_intersection(self.handle, projectile_group.handle)
+    return M.create_lua_projectile_group_from_py(py_projectile_group)
+end
+
+---取两个投射物组的差集（属于本组但不属于另一组的投射物）
+---@param projectile_group ProjectileGroup 另一个投射物组
+---@return ProjectileGroup 差集投射物组
+function M:difference(projectile_group)
+    local py_projectile_group = GameAPI.get_projectile_group_diff(self.handle, projectile_group.handle)
+    return M.create_lua_projectile_group_from_py(py_projectile_group)
+end
+
 ---遍历投射物组中投射物做动作
 ---@return Projectile[]
 function M:pick()
