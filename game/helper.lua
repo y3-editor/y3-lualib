@@ -6,8 +6,7 @@ local M = Class 'Helper'
 ---@return any[]
 function M.unpack_list(py_list, wrapper)
     local t = {}
-    for i = 0, python_len(py_list) - 1 do
-        local py_obj = python_index(py_list, i)
+    for _, py_obj in pairs(py_list) do
         local lua_obj = wrapper and wrapper(py_obj) or py_obj
         t[#t+1] = lua_obj
     end
