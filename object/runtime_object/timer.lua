@@ -39,6 +39,7 @@ end
 
 function M:__del()
     Blackbox.delete_timer(self.handle)
+    M.all_timers[self.id] = nil
 end
 
 ---@param py_timer py.Timer
