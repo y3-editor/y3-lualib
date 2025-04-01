@@ -61,13 +61,16 @@ end)
 function M:__init(py_area, shape)
     self.handle = py_area
     self.shape  = shape
+    self._removed_by_py = false
     return self
 end
 
 function M:__del()
-    GameAPI.remove_area(self.handle)
-    if self.res_id then
-        M.map[self.res_id] = nil
+    if not self._removed_by_py then
+        GameAPI.remove_area(self.handle)
+        if self.res_id then
+            M.map[self.res_id] = nil
+        end
     end
 end
 
