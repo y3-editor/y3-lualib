@@ -5,10 +5,20 @@ local M = Class 'Helper'
 ---@param wrapper? fun(py_object: any): any
 ---@return any[]
 function M.unpack_list(py_list, wrapper)
+    --打个tuple的补丁 todo: 去掉
+    local name = getmetatable(py_list).__name
     local t = {}
-    for _, py_obj in pairs(py_list) do
-        local lua_obj = wrapper and wrapper(py_obj) or py_obj
-        t[#t+1] = lua_obj
+    if name == "LuaList" then
+        for _, py_obj in pairs(py_list) do
+            local lua_obj = wrapper and wrapper(py_obj) or py_obj
+            t[#t+1] = lua_obj
+        end
+    else
+        for i = 0, python_len(py_list) - 1 do
+            local py_obj = python_index(py_list, i)
+            local lua_obj = wrapper and wrapper(py_obj) or py_obj
+            t[#t+1] = lua_obj
+        end
     end
     return t
 end
