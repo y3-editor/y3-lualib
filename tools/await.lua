@@ -78,6 +78,46 @@ function API.call(callback)
     return co
 end
 
+---当前协程等待多个异步函数执行完毕
+---@async
+---@param callbacks async fun()[]
+---@return [boolean, ...][]
+function API.waitAll(callbacks)
+    if not waker then
+        error('需要先试用 setSleepWaker 设置唤醒器')
+    end
+    local cos = {}
+    local results = {}
+    ---@type LocalTimer?
+    local awakeTimer = nil
+    local hasFastward = false
+    for i = 1, #callbacks do
+        local callback = callbacks[i]
+        local co = coroutine.create(function ()
+            results[i] = xpcall(callback, log.error)
+            cos[i] = nil
+            if awakeTimer and not hasFastward then
+                hasFastward = true
+                awakeTimer:set_remaining_time(0)
+            end
+        end)
+        cos[i] = co
+        coroutine.resume(co)
+    end
+    local co = coroutine.running()
+    while next(cos) do
+        if awakeTimer then
+            awakeTimer:remove()
+        end
+        awakeTimer = waker(1, function ()
+            coroutine.resume(co)
+        end)
+        hasFastward = false
+        coroutine.yield()
+    end
+    return results
+end
+
 --设置错误处理器
 ---@param handler fun(traceback: string) # 当有错误发生时，会以错误堆栈为参数调用该函数
 function API.setErrorHandler(handler)

@@ -374,6 +374,13 @@ function M:get_controller()
     return self._cotroller
 end
 
+---是否是存活的玩家（正在游戏中的真实玩家）
+---@return boolean
+function M:is_alive()
+    return  self:get_state() == y3.const.RoleStatus['PLAYING']
+        and self:get_controller() == y3.const.RoleType.USER
+end
+
 ---获取玩家名字
 ---@return string role_name 玩家名字
 function M:get_name()
