@@ -601,7 +601,7 @@ end
 
 ---@class ServerTime: osdate
 ---@field timestamp integer # 时间戳
----@field time_zone_stamp integer # 计算过时区后的时间戳
+---@field time_zone_stamp integer # 计算过时区后的时间戳。你在任何情况下都不应该使用这个字段，仅仅是为了兼容而保留。
 ---@field msec integer # 毫秒
 ---@field time_zone integer # 时区
 
