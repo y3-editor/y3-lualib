@@ -81,9 +81,6 @@ end
 ---@param callbacks async fun()[]
 ---@return [boolean, ...][]
 function API.waitAll(callbacks)
-    if not waker then
-        error('需要先试用 setSleepWaker 设置唤醒器')
-    end
     local cur = coroutine.running()
     local cos = {}
     local results = {}
@@ -97,6 +94,9 @@ function API.waitAll(callbacks)
             end
         end)
         cos[i] = co
+    end
+    for i = 1, #cos do
+        local co = cos[i]
         coroutine.resume(co)
     end
     if next(cos) then
