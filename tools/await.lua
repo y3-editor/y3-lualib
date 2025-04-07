@@ -1,15 +1,15 @@
 ---@class Await
 local M = {}
 
----@type fun(traceback: string)?
-local errorHandler
+---@type fun(traceback: string)
+local errorHandler = function () end
 
 ---@type fun(time: number, callback: fun())?
 local waker
 
 local function presume(co, ...)
     local suc, err = coroutine.resume(co, ...)
-    if not suc and errorHandler then
+    if not suc then
         errorHandler(debug.traceback(co, err))
     end
 end
@@ -25,9 +25,7 @@ function API.sleep(time)
         error('需要先试用 setSleepWaker 设置唤醒器')
     end
     if not coroutine.isyieldable() then
-        if errorHandler then
-            errorHandler(debug.traceback('当前协程无法让出！'))
-        end
+        errorHandler(debug.traceback('当前协程无法让出！'))
         return
     end
     local co = coroutine.running()
@@ -86,33 +84,22 @@ function API.waitAll(callbacks)
     if not waker then
         error('需要先试用 setSleepWaker 设置唤醒器')
     end
+    local cur = coroutine.running()
     local cos = {}
     local results = {}
-    ---@type LocalTimer?
-    local awakeTimer = nil
-    local hasFastward = false
     for i = 1, #callbacks do
         local callback = callbacks[i]
         local co = coroutine.create(function ()
-            results[i] = xpcall(callback, log.error)
+            results[i] = xpcall(callback, errorHandler)
             cos[i] = nil
-            if awakeTimer and not hasFastward then
-                hasFastward = true
-                awakeTimer:set_remaining_time(0)
+            if not next(cos) and coroutine.status(cur) == 'suspended' then
+                presume(cur)
             end
         end)
         cos[i] = co
         coroutine.resume(co)
     end
-    local co = coroutine.running()
-    while next(cos) do
-        if awakeTimer then
-            awakeTimer:remove()
-        end
-        awakeTimer = waker(1, function ()
-            coroutine.resume(co)
-        end)
-        hasFastward = false
+    if next(cos) then
         coroutine.yield()
     end
     return results
