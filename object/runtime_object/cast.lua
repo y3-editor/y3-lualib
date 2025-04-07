@@ -92,9 +92,11 @@ end
 ---@param cast_id integer
 ---@return Cast
 function M.get(ability, cast_id)
+    ---@diagnostic disable-next-line: undefined-global
     local cast = Ability.get_cast_info(ability.handle, cast_id)
     if not cast then
         cast = New 'Cast' (ability, cast_id)
+        ---@diagnostic disable-next-line: undefined-global
         Ability.save_cast_info(ability.handle, cast_id, cast)
     end
     return cast
