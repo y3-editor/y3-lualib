@@ -10,7 +10,7 @@ function TMR.count()
         local alive = 0
         for _, timer in pairs(y3[mod].all_timers) do
             all = all + 1
-            if not timer.removed then
+            if IsValid(timer) then
                 alive = alive + 1
             end
         end
@@ -32,7 +32,7 @@ function TRG.count()
 
     for _, trigger in pairs(triggerModule.all_triggers) do
         all = all + 1
-        if not trigger.removed then
+        if IsValid(trigger) then
             alive = alive + 1
         end
     end
