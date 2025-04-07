@@ -84,22 +84,23 @@ function API.waitAll(callbacks)
     local cur = coroutine.running()
     local cos = {}
     local results = {}
-    for i = 1, #callbacks do
+    local count = #callbacks
+    for i = 1, count do
         local callback = callbacks[i]
         local co = coroutine.create(function ()
             results[i] = xpcall(callback, errorHandler)
-            cos[i] = nil
-            if not next(cos) and coroutine.status(cur) == 'suspended' then
+            count = count - 1
+            if count == 0 and coroutine.status(cur) == 'suspended' then
                 presume(cur)
             end
         end)
         cos[i] = co
     end
-    for i = 1, #cos do
+    for i = 1, count do
         local co = cos[i]
         coroutine.resume(co)
     end
-    if next(cos) then
+    if count > 0 then
         coroutine.yield()
     end
     return results
