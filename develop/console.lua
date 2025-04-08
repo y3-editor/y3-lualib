@@ -54,7 +54,7 @@ end
 ---@param input string
 function M.input(input)
     if input == '?' then
-        consoleprint(M.getHelpInfo())
+        print_to_console(M.getHelpInfo())
         return
     end
 
