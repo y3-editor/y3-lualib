@@ -103,10 +103,29 @@ local logicEntityModuleMap = {
 ---黑盒销毁逻辑实体时，使用该方法同步通知Lua层
 ---@param entity_module integer
 ---@param entity_uid integer
-_G['notify_entity_destroyed'] = function (entity_module, entity_uid)
+---@param is_return_to_pool boolean
+_G['notify_entity_destroyed'] = function (entity_module, entity_uid, is_return_to_pool)
     local manager = M.all_managers[logicEntityModuleMap[entity_module]]
     if not manager then
         return
+    end
+    if entity_module == 2 and y3.config.ref.clear_ref_when_unit_return_to_pool and is_return_to_pool then
+        local unit = manager:fetch(entity_uid)
+        if unit then
+            local modifier_manager = M.all_managers["Buff"]
+            if modifier_manager then
+                for _, uid in pairs(unit.handle:api_get_all_modifier_ids()) do
+                    modifier_manager:removeNow(uid);
+                end
+            end
+            
+            local ability_manager = M.all_managers["Ability"]
+            if ability_manager then
+                for _, uid in pairs(unit.handle:api_get_all_ability_id()) do
+                    ability_manager:removeNow(uid);
+                end
+            end
+        end
     end
     manager:removeNow(entity_uid)
 end

@@ -99,4 +99,11 @@ M.mover = {
     enable_internal_regist = false
 }
 
+M.ref = {
+    -- 控制当单位回归对象池时是否清除lua中技能和魔法效果的引用
+    -- 默认行为不清除，从对象池复用的单位在事件单位创建中获取技能和魔法效果的对象会有包含事件触发器、storage等数据
+    -- 注意: 从对象池复用的单位不会再触发技能-获得以及效果-获得事件
+    clear_ref_when_unit_return_to_pool = false
+}
+
 return M
