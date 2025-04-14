@@ -6,8 +6,11 @@ local M = Class 'Helper'
 ---@return any[]
 function M.unpack_list(py_list, wrapper)
     --打个tuple的补丁 todo: 去掉
-    local name = getmetatable(py_list).__name
     local t = {}
+    if not py_list then
+        return t
+    end
+    local name = getmetatable(py_list).__name
     if name == "LuaList" then
         for _, py_obj in pairs(py_list) do
             local lua_obj = wrapper and wrapper(py_obj) or py_obj
