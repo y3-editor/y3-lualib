@@ -127,6 +127,11 @@ function M:remove()
     Delete(self)
 end
 
+---设置播放速度
+---@param speed number 播放速度
+function M:set_speed(speed)
+    GameAPI.set_link_sfx_animation_speed(self.handle, speed)
+end
 
 ---@param is_show boolean 是否显示
 ---链接特效 - 显示/隐藏
