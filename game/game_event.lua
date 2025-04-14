@@ -1,4 +1,5 @@
 ---@class Game
+---@field event_on fun(self: any, event: string, callback: fun(trg: Trigger, ...: any))
 local M = Class 'Game'
 
 ---@class Game: CustomEvent
