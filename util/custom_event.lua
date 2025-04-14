@@ -1,6 +1,7 @@
 ---@class CustomEvent
 ---@field private custom_event_manager? EventManager
----@field event_on fun(self: any, event: string, callback: fun(trg: Trigger, ...: any))
+---@field event_on fun(self: self, event_name:string, callback:Trigger.CallBack):Trigger
+---@field event_on fun(self: self, event_name:string, args:any[] | any, callback:Trigger.CallBack):Trigger
 ---@overload fun(): self
 local M = Class 'CustomEvent'
 
@@ -36,8 +37,6 @@ Obj:event_notify_with_args('输入', {'456'}, 3) -- 不能触发事件
 Obj:event_notify_with_args('输入', {'123', '666'}, 4) -- 可以触发事件
 ```
 ]]
----@overload fun(self: self, event_name:string, callback:Trigger.CallBack):Trigger
----@overload fun(self: self, event_name:string, args:any[] | any, callback:Trigger.CallBack):Trigger
 function M:event_on(...)
     if not rawget(self, 'custom_event_manager') then
         self.custom_event_manager = New 'EventManager' (self)
