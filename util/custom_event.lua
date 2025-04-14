@@ -1,5 +1,6 @@
 ---@class CustomEvent
 ---@field private custom_event_manager? EventManager
+---@field event_on fun(self: self, event: string, callback: fun(trg: Trigger, ...: any))
 ---@overload fun(): self
 local M = Class 'CustomEvent'
 
