@@ -8,8 +8,8 @@ local PATH      = {'<PARENT>'}
 
 local rawMap = setmetatable({}, { __mode = 'k' })
 
----@alias Proxy.Setter fun(self: table, raw: any, key: any, value: any, config: Proxy.Config, custom: any): any
----@alias Proxy.Getter fun(self: table, raw: any, key: any, config: Proxy.Config, custom: any): any
+---@alias Proxy.Setter fun(parent: table, raw: any, key: any, value: any, config: Proxy.Config, custom: any): any
+---@alias Proxy.Getter fun(parent: table, raw: any, key: any, config: Proxy.Config, custom: any): any
 
 ---@class Proxy.Config
 ---@field cache? boolean # 将读写的结果缓存起来，下次读写时不会再触发`setter`,`getter`（除非上次的结果是`nil`
