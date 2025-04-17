@@ -4,7 +4,7 @@ local M = {}
 local CONFIG    = {'<CONFIG>'}
 local CUSTOM    = {'<CUSTOM>'}
 local RECUSIVE  = {'<RECUSIVE>'}
-local PATH      = {'<PARENT>'}
+local PATH      = {'<PATH>'}
 
 local rawMap = setmetatable({}, { __mode = 'k' })
 
@@ -100,7 +100,7 @@ metatable = {
             t[k] = self[k]
         end
         for k in next, self do
-            if k ~= CONFIG and k ~= CUSTOM and k ~= RECUSIVE then
+            if k ~= CONFIG and k ~= CUSTOM and k ~= RECUSIVE and k ~= PATH then
                 t[k] = self[k]
             end
         end
