@@ -398,6 +398,12 @@ function M.debug_fastward(frame_count)
     end
 end
 
+--- 获取当前逻辑帧号
+---@return integer
+function M.current_frame()
+    return cur_frame
+end
+
 ---@diagnostic disable-next-line: deprecated
 y3.timer.loop_frame(1, update_frame)
 
