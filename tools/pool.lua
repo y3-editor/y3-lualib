@@ -132,23 +132,34 @@ end
 ---@param filter? fun(obj: any): boolean
 ---@return any[]
 function M:random_n(num, filter)
-    local results = {}
-    local mark = {}
-    for i = 1, num do
-        local obj = self:random(function (obj)
-            if mark[obj] then
-                return false
-            end
-            if filter and not filter(obj) then
-                return false
-            end
-            return true
-        end)
-        if not obj then
-            break
+    local total = {}
+    for _, obj in ipairs(self.order) do
+        if not filter or filter(obj) == true then
+            total[#total+1] = obj
         end
-        results[i] = obj
-        mark[obj] = true
+    end
+
+    local len = #total
+    if len <= num then
+        return total
+    end
+
+    local key_map = {}
+    for i = 1, len do
+        local o = total[i]
+        local w = self.pool[o]
+        local u = math.random()
+        local key = u ^ (1.0 / w) -- 我不道啊，DeepSeek教我的
+        key_map[o] = key
+    end
+
+    table.sort(total, function (a, b)
+        return key_map[a] > key_map[b]
+    end)
+
+    local results = {}
+    for i = 1, num do
+        results[i] = total[i]
     end
     return results
 end
