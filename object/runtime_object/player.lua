@@ -484,7 +484,7 @@ end
 --获取玩家的此地图平台等级
 ---@return integer
 function M:get_map_level()
-    return self.handle:get_role_plat_map_level() or 0
+    return self.handle:api_get_map_level() or 0
 end
 
 --获取玩家在本地图的平台等级排名
