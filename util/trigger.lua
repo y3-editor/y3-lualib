@@ -16,6 +16,7 @@ local M = Class 'Trigger'
 
 
 M.all_triggers = setmetatable({}, y3.util.MODE_V)
+M.uniques = setmetatable({}, y3.util.MODE_V)
 
 ---@param event Event
 ---@param event_args? any[]
@@ -215,6 +216,16 @@ function M:remove_tag(tag)
         return
     end
     self._tags[tag] = nil
+end
+
+---@param name string
+---@return Trigger
+function M:unique(name)
+    if M.uniques[name] then
+        M.uniques[name]:remove()
+    end
+    M.uniques[name] = self
+    return self
 end
 
 return M
