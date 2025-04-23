@@ -850,31 +850,38 @@ function m.defaultTable(default)
     end })
 end
 
-function m.multiTable(max, default)
-    local mts = {}
-    for i = 1, max do
-        if i < max then
-            mts[i] = { __index = function (t, k)
-                local v = setmetatable({}, mts[i + 1])
-                t[k] = v
-                return v
-            end }
-        elseif default then
-            mts[i] = { __index = function (t, k)
-                local v = default(k)
-                t[k] = v
-                return v
-            end }
-        else
-            mts[i] = { __index = function (t, k)
-                local v = {}
-                t[k] = v
-                return v
-            end }
-        end
+function m.multiTable(count, default)
+    local current
+    if default then
+        current = setmetatable({}, { __index = function (t, k)
+            if k == nil then
+                return nil
+            end
+            local v = default(k)
+            t[k] = v
+            return v
+        end })
+    else
+        current = setmetatable({}, { __index = function (t, k)
+            if k == nil then
+                return nil
+            end
+            local v = {}
+            t[k] = v
+            return v
+        end })
     end
-
-    return setmetatable({}, mts[1])
+    for _ = 3, count do
+        local tt = current
+        current = setmetatable({}, { __index = function (t, k)
+            if k == nil then
+                return nil
+            end
+            t[k] = tt
+            return tt
+        end })
+    end
+    return current
 end
 
 ---@param t table
@@ -924,21 +931,6 @@ function m.arrayRemove(array, value)
             return
         end
     end
-end
-
----@param a1 any[]
----@param a2 any[]
----@return any[]
-function m.arrayOverlap(a1, a2)
-    local result = {}
-    local set = m.arrayToHash(a2)
-    for i = 1, #a1 do
-        local v = a1[i]
-        if set[v] then
-            result[#result+1] = v
-        end
-    end
-    return result
 end
 
 m.MODE_K  = { __mode = 'k' }
@@ -1039,6 +1031,16 @@ function m.map(t, callback)
         nt[k] = callback(v, k)
     end
     return nt
+end
+
+---@param v any
+---@param d any
+---@return any
+function m.default(v, d)
+    if v == nil then
+        return d
+    end
+    return v
 end
 
 return m
