@@ -3,6 +3,7 @@
 ---@field private option Log.Option
 ---@field private logLevel table<Log.Level, integer>
 ---@field private needTraceBack table<Log.Level, boolean>
+---@field verb  fun(...): string, string
 ---@field trace fun(...): string, string
 ---@field debug fun(...): string, string
 ---@field info  fun(...): string, string
@@ -29,6 +30,7 @@ M.messageFormat = '[%s][%5s][%s]: %s\n'
 
 ---@enum (key) Log.Level
 M.logLevel = {
+    verb  = 0,
     trace = 1,
     debug = 2,
     info  = 3,
