@@ -2000,7 +2000,8 @@ function GameAPI.set_skill_btn_func_smart_cast_key(role, comp_name, btn) end
 ---@param role py.Role # 玩家
 ---@param comp_name string # 控件名
 ---@param model_id py.Model # 模型id
-function GameAPI.set_ui_model_id(role, comp_name, model_id) end
+---@param idle_anim string # 常态动画
+function GameAPI.set_ui_model_id(role, comp_name, model_id, idle_anim) end
 
 --设置玩家的商店控件的目标商店单位
 ---@param role py.Role # 玩家

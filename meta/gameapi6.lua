@@ -4826,6 +4826,15 @@ function GameAPI.api_switch_item_slot(item1, item2) end
 ---@param permanent_show boolean # 是否常驻显示
 function GameAPI.set_item_name_permanent_show_config(permanent_show) end
 
+--设置物品姓名版点击拾取的操作方式
+---@param pickup_touch_type integer # 操作type
+function GameAPI.set_touch_type_of_picking_up_item_by_item_name(pickup_touch_type) end
+
+--获取平台道具类别
+---@param store_key py.StoreKey # 平台道具编号
+---@return py.StoreItemType # 平台道具类型
+function GameAPI.api_get_store_item_type(store_key) end
+
 --在Lua中调用截图功能
 ---@param path string # LocalData下的相对路径
 ---@param file_name string # 文件名
@@ -4963,6 +4972,82 @@ function GameAPI.create_unit_group_command_patrol(point) end
 ---@param switch boolean # 开关
 function GameAPI.set_player_sfx_switch_by_tag(role, tag, switch) end
 
+--创建单位到点闪电特效
+---@param sfx_res_id py.SfxKey # 特效编号
+---@param source_unit py.Unit # 起点单位
+---@param source_socket string # 起点单位挂接点名称
+---@param target_point py.FVector3 # 终点
+---@param target_height py.Fixed # 终点高度
+---@param duration? number # 持续时间
+---@param immediately? boolean # 是否立即删除
+---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾中显示
+---@param blend_with_fog? boolean # 迷雾混合
+---@param follow_change_position? boolean # 跟随模型缩放改变位置
+---@param follow_change_size? boolean # 跟随模型缩放改变尺寸
+---@param speed? number # 播放速度
+---@param x_scale? number # x轴缩放
+---@param y_scale? number # y轴缩放
+---@param z_scale? number # z轴缩放
+---@return py.LinkSfx # 特效
+function GameAPI.create_link_sfx_from_unit_to_point1(sfx_res_id, source_unit, source_socket, target_point, target_height, duration, immediately, use_sys_d_destroy_way, show_in_fog, blend_with_fog, follow_change_position, follow_change_size, speed, x_scale, y_scale, z_scale) end
+
+--创建单位到单位闪电特效
+---@param sfx_res_id py.SfxKey # 特效编号
+---@param source_unit py.Unit # 起点单位
+---@param source_socket string # 起点单位挂接点名称
+---@param target_unit py.Unit # 终点单位
+---@param target_socket string # 起点单位挂接点名称
+---@param duration? number # 持续时间
+---@param immediately? boolean # 是否立即删除
+---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾中显示
+---@param blend_with_fog? boolean # 迷雾混合
+---@param follow_change_position? boolean # 跟随模型缩放改变位置
+---@param follow_change_size? boolean # 跟随模型缩放改变尺寸
+---@param speed? number # 播放速度
+---@param x_scale? number # x轴缩放
+---@param y_scale? number # y轴缩放
+---@param z_scale? number # z轴缩放
+---@return py.LinkSfx # 特效
+function GameAPI.create_link_sfx_from_unit_to_unit1(sfx_res_id, source_unit, source_socket, target_unit, target_socket, duration, immediately, use_sys_d_destroy_way, show_in_fog, blend_with_fog, follow_change_position, follow_change_size, speed, x_scale, y_scale, z_scale) end
+
+--创建点到单位闪电特效
+---@param sfx_res_id py.SfxKey # 特效编号
+---@param source_point py.FVector3 # 起点
+---@param source_height py.Fixed # 起点高度
+---@param source_unit py.Unit # 终点单位
+---@param source_socket string # 起点单位挂接点名称
+---@param duration? number # 持续时间
+---@param immediately? boolean # 是否立即删除
+---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾中显示
+---@param blend_with_fog? boolean # 迷雾混合
+---@param speed? number # 播放速度
+---@param x_scale? number # x轴缩放
+---@param y_scale? number # y轴缩放
+---@param z_scale? number # z轴缩放
+---@return py.LinkSfx # 特效
+function GameAPI.create_link_sfx_from_point_to_unit1(sfx_res_id, source_point, source_height, source_unit, source_socket, duration, immediately, use_sys_d_destroy_way, show_in_fog, blend_with_fog, speed, x_scale, y_scale, z_scale) end
+
+--创建点到点闪电特效
+---@param sfx_res_id py.SfxKey # 特效编号
+---@param source_point py.FVector3 # 起点
+---@param source_height py.Fixed # 起点高度
+---@param target_point py.FVector3 # 终点
+---@param target_height py.Fixed # 终点高度
+---@param duration? number # 持续时间
+---@param immediately? boolean # 是否立即删除
+---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param show_in_fog? boolean # 迷雾中显示
+---@param blend_with_fog? boolean # 迷雾混合
+---@param speed? number # 播放速度
+---@param x_scale? number # x轴缩放
+---@param y_scale? number # y轴缩放
+---@param z_scale? number # z轴缩放
+---@return py.LinkSfx # 特效
+function GameAPI.create_link_sfx_from_point_to_point1(sfx_res_id, source_point, source_height, target_point, target_height, duration, immediately, use_sys_d_destroy_way, show_in_fog, blend_with_fog, speed, x_scale, y_scale, z_scale) end
+
 --创建特效到点
 ---@param sfx_id py.SfxKey # 特效编号
 ---@param point py.Point # 点
@@ -5000,6 +5085,27 @@ function GameAPI.create_sfx_on_point_new(sfx_id, point, face_angle, speed, heigh
 ---@return py.Sfx # 特效
 function GameAPI.create_sfx_on_unit_new_new(sfx_id, unit, socket, rotate_type, b_follow_scale, speed, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog, blend_with_fog, scale_x, scale_y, scale_z) end
 
+--创建特效到单位附加点（跟随旋转使用枚举）
+---@param sfx_id py.SfxKey # 特效编号
+---@param unit py.Unit # 单位
+---@param socket string # 单位挂接点
+---@param rotate_type integer # 跟随旋转方式
+---@param speed? number # 播放速度
+---@param duration? number # 持续时间
+---@param angle? number # 角度
+---@param immediately? boolean # 是否立即删除
+---@param use_sys_d_destroy_way? boolean # 特效删除的方式是否读表
+---@param detach? boolean # 是否脱离单位
+---@param show_in_fog? boolean # 迷雾里显示
+---@param blend_with_fog? boolean # 迷雾混合
+---@param scale_x? number # x轴缩放
+---@param scale_y? number # y轴缩放
+---@param scale_z? number # z轴缩放
+---@param follow_change_position? boolean # 跟随模型缩放改变位置
+---@param follow_change_scale? boolean # 跟随模型缩放改变尺寸
+---@return py.Sfx # 特效
+function GameAPI.create_sfx_on_unit_3(sfx_id, unit, socket, rotate_type, speed, duration, angle, immediately, use_sys_d_destroy_way, detach, show_in_fog, blend_with_fog, scale_x, scale_y, scale_z, follow_change_position, follow_change_scale) end
+
 --创建特效到魔法效果挂接模型（跟随旋转使用枚举）
 ---@param sfx_id py.SfxKey # 特效编号
 ---@param unit py.ModifierEntity # 魔法效果
@@ -5026,6 +5132,19 @@ function GameAPI.create_sfx_on_modifier_attach_model(sfx_id, unit, editor_model_
 ---@param color string # hex
 ---@param w number # w
 function GameAPI.set_sfx_color_hex(sfx_entity, color, w) end
+
+--设置闪电特效缩放
+---@param sfx_entity py.LinkSfx # 特效
+---@param scale_x number # x轴缩放
+---@param scale_y number # y轴缩放
+---@param scale_z number # z轴缩放
+---@param duration? number # 过渡时间
+function GameAPI.set_link_sfx_scale(sfx_entity, scale_x, scale_y, scale_z, duration) end
+
+--设置闪电特效动画速度
+---@param sfx_entity py.LinkSfx # 特效
+---@param speed number # 动画速度
+function GameAPI.set_link_sfx_animation_speed(sfx_entity, speed) end
 
 --给点添加tag
 ---@param fixvec3 py.Point # 点
@@ -5074,6 +5193,10 @@ function GameAPI.api_collect_garbage() end
 --获取当前关卡
 ---@return py.Map # 当前关卡
 function GameAPI.get_current_level() end
+
+--获取当前运行环境
+---@return string # 当前运行环境
+function GameAPI.get_client_mode() end
 
 --创建地形预设
 ---@param point py.Point # 点
@@ -5184,6 +5307,16 @@ function GameAPI.api_set_player_select_unit_priority(role, unit_type, priority) 
 --设置本地相机聚焦位置
 ---@param position py.Vector3 # 位置
 function GameAPI.set_local_camera_focus_position(position) end
+
+--局内修改游戏规则开关（布尔值）
+---@param key integer # 规则枚举值
+---@param value boolean # 是否开启
+function GameAPI.api_set_rule_mgr_value(key, value) end
+
+--局内修改游戏按键功能开关（布尔值）
+---@param key integer # 按键规则枚举值
+---@param value boolean # 是否开启
+function GameAPI.api_set_shortcut_enable(key, value) end
 
 --设置对象的闪烁效果
 ---@param log_obj py.Actor # 对象
@@ -5963,94 +6096,3 @@ function GameAPI.set_ui_gridview_scroll(role, comp_uid, enable) end
 ---@param comp_uid string # 控件uid
 ---@param enable boolean # 是否启用
 function GameAPI.set_ui_gridview_size_adaptive(role, comp_uid, enable) end
-
---清空UI控件图片
----@param role py.Role # 玩家
----@param comp_name string # 控件名
-function GameAPI.clear_ui_comp_image(role, comp_name) end
-
---设置网格列表启用/禁止滚动条
----@param role py.Role # 玩家
----@param comp_uid string # 控件uid
----@param enable boolean # 是否启用
-function GameAPI.set_ui_gridview_bar_enable(role, comp_uid, enable) end
-
---设置网格列表横向/纵向跳转百分比
----@param role py.Role # 玩家
----@param comp_uid string # 控件uid
----@param direction integer # 横向/纵向
----@param ratio number # 百分比
-function GameAPI.set_ui_gridview_bar_percent(role, comp_uid, direction, ratio) end
-
---设置网格列表横向/纵向滚动条粗细
----@param role py.Role # 玩家
----@param comp_uid string # 控件uid
----@param direction integer # 横向/纵向
----@param thick number # 粗细
-function GameAPI.set_ui_gridview_bar_thick(role, comp_uid, direction, thick) end
-
---设置网格列表横向/纵向滚动条边距
----@param role py.Role # 玩家
----@param comp_uid string # 控件名
----@param direction integer # 横向/纵向
----@param top number # 上
----@param bottom number # 下
----@param left number # 左
----@param right number # 右
-function GameAPI.set_ui_gridview_bar_margin(role, comp_uid, direction, top, bottom, left, right) end
-
---设置网格列表横向/纵向滚动条图片
----@param role py.Role # 玩家
----@param comp_uid string # 控件名
----@param direction integer # 横向/纵向
----@param image integer # 图片
-function GameAPI.set_ui_gridview_bar_image(role, comp_uid, direction, image) end
-
---设置网格列表横向/纵向滚动条图片颜色
----@param role py.Role # 玩家
----@param comp_uid string # 控件名
----@param direction integer # 横向/纵向
----@param r number # R
----@param g number # G
----@param b number # B
----@param a number # A
-function GameAPI.set_ui_gridview_bar_color(role, comp_uid, direction, r, g, b, a) end
-
---设置网格列表横向/纵向滚动条图片颜色
----@param role py.Role # 玩家
----@param comp_uid string # 控件名
----@param direction integer # 横向/纵向
----@param r number # R
----@param g number # G
----@param b number # B
----@param a number # A
-function GameAPI.set_ui_gridview_bar_color_norm(role, comp_uid, direction, r, g, b, a) end
-
---设置网格列表横向/纵向滚动条九宫开关
----@param role py.Role # 玩家
----@param comp_uid string # 控件名
----@param direction integer # 横向/纵向
----@param enable boolean # 是否启用
-function GameAPI.set_ui_gridview_bar_scale_9_enable(role, comp_uid, direction, enable) end
-
---设置网格列表横向/纵向滚动条九宫值
----@param role py.Role # 玩家
----@param comp_name string # 控件uid
----@param direction integer # 横向/纵向
----@param x_left integer # x
----@param x_right integer # y
----@param y_top integer # width
----@param y_bottom integer # height
-function GameAPI.set_ui_gridview_bar_cap_insets(role, comp_name, direction, x_left, x_right, y_top, y_bottom) end
-
---设置网格列表启用/禁止左右反向排布
----@param role py.Role # 玩家
----@param comp_uid string # 控件名
----@param enable boolean # 是否启用
-function GameAPI.set_ui_gridview_horizontal_reverse_enable(role, comp_uid, enable) end
-
---设置网格列表启用/禁止上下反向排布
----@param role py.Role # 玩家
----@param comp_uid string # 控件名
----@param enable boolean # 是否启用
-function GameAPI.set_ui_gridview_vertical_reverse_enable(role, comp_uid, enable) end

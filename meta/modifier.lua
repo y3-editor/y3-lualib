@@ -174,14 +174,6 @@ function ModifierEntity:api_set_modifier_halo_influence_rng(value) end
 ---@param icon integer # 图标
 function ModifierEntity:api_set_modifier_icon(icon) end
 
---魔法效果添加标签
----@param tag string # 标签
-function ModifierEntity:api_add_modifier_tag(tag) end
-
---魔法效果去除标签
----@param tag string # 标签
-function ModifierEntity:api_remove_modifier_tag(tag) end
-
 --增加魔法效果所属单位属性
 ---@param key string # 属性名
 ---@param attr_element string # 属性分类
@@ -193,6 +185,14 @@ function ModifierEntity:api_add_modifier_owner_attr_by_attr_element(key, attr_el
 ---@param attr_element string # 属性分类
 ---@return py.Fixed? # 属性值
 function ModifierEntity:api_get_modifier_owner_attr_by_attr_element(key, attr_element) end
+
+--魔法效果添加标签
+---@param tag string # 标签
+function ModifierEntity:api_add_modifier_tag(tag) end
+
+--魔法效果去除标签
+---@param tag string # 标签
+function ModifierEntity:api_remove_modifier_tag(tag) end
 
 --设置魔法效果所属单位属性
 ---@param key string # 属性名

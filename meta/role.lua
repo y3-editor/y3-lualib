@@ -460,6 +460,16 @@ function Role:api_get_role_total_consume() end
 ---@return boolean? # 是否打赏该地图
 function Role:api_get_role_is_donated() end
 
+--设置存档组数据
+---@param key string # 玩家存档组key
+---@param value string # 字符串值
+function Role:set_archive_group_value(key, value) end
+
+--读取字符串型玩家存档组数据
+---@param key string # 玩家存档组key
+---@return string? # 字符串
+function Role:get_archive_group_value(key) end
+
 --复制表型存档到玩家存档栏位
 ---@param src_index integer # 源玩家存档栏位
 ---@param dst_index integer # 目标玩家存档栏位
@@ -527,6 +537,31 @@ function Role:api_get_role_achieve_point() end
 ---@param achieve_id string # 成就ID
 ---@return boolean? # 是否解锁
 function Role:api_get_role_achieve_unlock(achieve_id) end
+
+--获取玩家当前地图指定宝箱的抽取次数
+---@param lottery_number integer # 地图宝箱编号
+---@return integer? # 宝箱抽取次数
+function Role:api_get_number_of_lottery(lottery_number) end
+
+--获取玩家当前地图抽取宝箱的总次数
+---@return integer? # 宝箱总次数
+function Role:api_get_number_of_all_lottery() end
+
+--获取玩家所在公会名
+---@return string? # 公会名
+function Role:api_get_guild_name() end
+
+--获取玩家所在公会公告
+---@return string? # 公会公告
+function Role:api_get_guild_announcement() end
+
+--获取玩家所在公会人数
+---@return integer? # 公会人数
+function Role:api_get_guild_member_count() end
+
+--获取玩家所在公会等级
+---@return integer? # 公会等级
+function Role:api_get_guild_level() end
 
 --宠物http请求调用
 ---@param api string # 请求的api方法名

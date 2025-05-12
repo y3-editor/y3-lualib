@@ -1403,6 +1403,10 @@ function Unit:api_set_base_speed(base_speed) end
 ---@param speed py.Fixed # 动画移动速度
 function Unit:api_set_anim_walk_speed(speed) end
 
+--单位是否在执行拾取物品命令
+---@return boolean? # 是否在执行命令
+function Unit:api_is_picking_item() end
+
 --判断单位的移动类型
 ---@param move_type integer # 移动类型
 ---@return boolean? # 是否为该移动类型
@@ -1457,6 +1461,10 @@ function Unit:change_model_texture(model, material, layer, texture) end
 ---@param is_forbid_aligned_terrain boolean # 是否禁止贴地
 function Unit:api_set_forbid_aligned_terrain(is_forbid_aligned_terrain) end
 
+--设置单位缩放
+---@param scale number # 缩放
+function Unit:api_set_scale_2(scale) end
+
 --开启风场
 function Unit:api_start_windforce() end
 
@@ -1510,6 +1518,15 @@ function Unit:play_upper_body_anim(anim_name, speed, repeat_, begin_t, end_t, ra
 ---@param head_bone string # 头部骨骼
 function Unit:set_bone_filter_config(root_bone, upper_body_bone, head_bone) end
 
+--播放叠加动画
+---@param anim string # 动画名
+---@param speed number # 速率
+---@param loop boolean # 是否循环
+---@param begin number # 起始时间比例（0-1之间）
+---@param end_ number # 结束时间比例（0-1之间）
+---@param weight number # 叠加权重（大于0）
+function Unit:play_additive_anim(anim, speed, loop, begin, end_, weight) end
+
 --设置单位外轮廓描边厚度
 ---@param width number # width
 ---@param role? py.Role # Role
@@ -1526,6 +1543,29 @@ function Unit:set_unit_outside_outline_color(color_r, color_g, color_b, role) en
 ---@param enabled boolean # Enable
 ---@param role? py.Role # Role
 function Unit:set_unit_outside_outlined_enable(enabled, role) end
+
+--单位加载自定义的graph
+---@param graphaName string # 动画graph文件名,不需要包含扩展名
+function Unit:unit_loadGraph(graphaName) end
+
+--自定义Graph设置变量
+---@param VariableName string # 变量名
+---@param VariableStr string # 变量值为字符串形式
+function Unit:unit_Graph_SetVariable(VariableName, VariableStr) end
+
+--自定义Graph发送事件
+---@param EventName string # 事件名
+function Unit:unit_Graph_FireEvent(EventName) end
+
+--自定义Graph设置速度
+---@param speedValue string # 相对速度值
+function Unit:unit_Graph_SetSpeed(speedValue) end
+
+--暂停Graph
+function Unit:unit_Graph_Pause() end
+
+--暂停中跑一帧Graph
+function Unit:unit_Graph_RunOneFrame() end
 
 --给单位施加状态
 ---@param state_id integer # 状态ID
@@ -1658,7 +1698,3 @@ function Unit:api_set_repair_target_unit(repair_target) end
 --单位 - 设置维修技能
 ---@param ability py.Ability # 维修技能
 function Unit:api_set_repair_ability(ability) end
-
---设置单位缩放
----@param scale number # 缩放
-function Unit:api_set_scale_2(scale) end
