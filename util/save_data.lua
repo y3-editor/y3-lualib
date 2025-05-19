@@ -34,7 +34,11 @@ end
 ---@param slot integer
 ---@param value integer
 function M.save_integer(player, slot, value)
-    player.handle:set_save_data_int_value(slot, value)
+    local int = math.tointeger(value)
+    if not int then
+        error('存档数据必须是整数')
+    end
+    player.handle:set_save_data_int_value(slot, int)
 end
 
 ---增加玩家的存档数据（整数）
@@ -42,7 +46,11 @@ end
 ---@param slot integer
 ---@param value integer
 function M.add_integer(player, slot, value)
-    player.handle:add_save_data_int_value(slot, value)
+    local int = math.tointeger(value)
+    if not int then
+        error('存档数据必须是整数')
+    end
+    player.handle:add_save_data_int_value(slot, int)
 end
 
 -- 获取玩家的存档数据（实数）
