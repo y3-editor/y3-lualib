@@ -425,7 +425,7 @@ end
 ---@param modelid py.ModelKey 模型id
 ---@return self
 function M:set_ui_model_id(modelid)
-    ---@diagnostic disable-next-line: param-type-mismatch
+    ---@diagnostic disable-next-line: missing-parameter
     GameAPI.set_ui_model_id(self.player.handle, self.handle, modelid)
     return self
 end
