@@ -196,23 +196,27 @@ function M.create(data)
         return M.get_by_handle(py_obj) --[[@as Projectile]]
     else
         ---@cast target Unit
-        local py_obj = GameAPI.create_projectile_on_socket(
-            data.key,
-            target.handle,
-            data.socket or 'origin',
-            Fix32(data.angle or 0.0),
-            -- TODO 见问题3
-            ---@diagnostic disable-next-line: param-type-mismatch
-            data.owner.handle,
-            data.ability and data.ability.handle or nil,
-            y3.const.VisibleType[data.visible_rule] or data.visible_rule or 1,
-            Fix32(data.time or 60.0),
-            data.time and true or false,
-            data.remove_immediately or false,
-            data.remove_immediately == nil and true or false,
-            data.show_in_fog or false
-        )
-        return M.get_by_handle(py_obj) --[[@as Projectile]]
+        if not target:is_destroyed() then
+            ---@cast target Unit
+            local py_obj = GameAPI.create_projectile_on_socket(
+                data.key,
+                target.handle,
+                data.socket or 'origin',
+                Fix32(data.angle or 0.0),
+                -- TODO 见问题3
+                ---@diagnostic disable-next-line: param-type-mismatch
+                data.owner.handle,
+                data.ability and data.ability.handle or nil,
+                y3.const.VisibleType[data.visible_rule] or data.visible_rule or 1,
+                Fix32(data.time or 60.0),
+                data.time and true or false,
+                data.remove_immediately or false,
+                data.remove_immediately == nil and true or false,
+                data.show_in_fog or false
+            )
+            return M.get_by_handle(py_obj) --[[@as Projectile]]
+        end
+        error("bind projectile on destroyed unit")
     end
 end
 
