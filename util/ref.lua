@@ -93,11 +93,12 @@ end
 local logicEntityModuleMap = {
     [2] = 'Unit',
     [3] = 'Projectile',
-    [4] = 'Item',
+    [4] = 'LogicItem',
     [5] = 'Destructible',
     [7] = 'Ability',
     [8] = 'Buff',
     [9] = 'Area',
+    [10] = 'Item'
 }
 
 ---黑盒销毁逻辑实体时，使用该方法同步通知Lua层
