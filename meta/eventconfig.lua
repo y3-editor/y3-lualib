@@ -1865,6 +1865,26 @@ M.config["界面-消息"] = {
     },
 }
 
+---@alias EventParam.玩家-点击小地图 EventParam.ET_ON_CLICK_MINI_MAP_PANEL
+M.config["玩家-点击小地图"] = {
+    desc = "点击小地图时触发",
+    from_global = true,
+    key = "ET_ON_CLICK_MINI_MAP_PANEL",
+    name = "玩家-点击小地图",
+    object = "Player",
+    params = {
+        [1] = {
+            call = false,
+            desc = "按下的键",
+            name = "key",
+            resolve = function (key)
+                return y3.const.ClickMiniMapKey[key] or key
+            end,
+            type = "y3.Const.ClickMiniMapKey|integer",
+        },
+    },
+}
+
 ---@alias EventParam.界面-滑动条变化 EventParam.ET_TRIGGER_UI_SLIDER_CHANGE_EVENT
 M.config["界面-滑动条变化"] = {
     desc = "滑动条变化时触发",
@@ -3138,6 +3158,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: self, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
 ---@field event fun(self: self, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
 ---@field event fun(self: self, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: self, event: "玩家-点击小地图", key: y3.Const.ClickMiniMapKey|integer, callback: fun(trg: Trigger, data: EventParam.玩家-点击小地图)): Trigger
 ---@field event fun(self: self, event: "界面-滑动条变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
 ---@field event fun(self: self, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
 ---@field event fun(self: self, event: "界面-装备拖拽", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-装备拖拽)): Trigger
@@ -3306,6 +3327,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.本地-选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: Player, event: "玩家-点击小地图", key: y3.Const.ClickMiniMapKey|integer, callback: fun(trg: Trigger, data: EventParam.玩家-点击小地图)): Trigger
 ---@field event fun(self: Player, event: "界面-滑动条变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
 ---@field event fun(self: Player, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
 ---@field event fun(self: Player, event: "界面-装备拖拽", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-装备拖拽)): Trigger

@@ -1130,4 +1130,10 @@ M.BloodBarType = {
     ['银色'] = 0x0060008,
 }
 
+---@enum(key) y3.Const.ClickMiniMapKey
+M.ClickMiniMapKey = {
+    ['鼠标左键'] = 0,
+    ['鼠标右键'] = 1,
+}
+
 return M
