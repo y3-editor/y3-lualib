@@ -950,10 +950,10 @@ M.config["未知-ET_UNIT_CREATE_SLAVE"] = {
     },
 }
 
----@alias EventParam.单位-即将拾取物品 EventParam.ET_UNIT_TRY_PICK_ITEM
+---@alias EventParam.单位-即将拾取物品 EventParam.ET_UNIT_TRY_PICK_ITEM_NEW
 M.config["单位-即将拾取物品"] = {
     desc = "",
-    key = "ET_UNIT_TRY_PICK_ITEM",
+    key = "ET_UNIT_TRY_PICK_ITEM_NEW",
     name = "单位-即将拾取物品",
     object = "Unit",
     params = {
