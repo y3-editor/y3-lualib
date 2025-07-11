@@ -324,4 +324,8 @@ function M:is_destroyed()
     return yes
 end
 
+function M:get_type()
+    return 64
+end
+
 return M

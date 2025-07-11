@@ -188,4 +188,8 @@ function M:set_visible(visible)
     GameAPI.enable_sfx_visible(self.handle, role, visible)
 end
 
+function M:get_type()
+    return 16
+end
+
 return M

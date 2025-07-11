@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 ---@class Mover
 ---@field handle py.Mover
 ---@overload fun(handle: py.Mover): self
@@ -31,8 +32,8 @@ y3.py_converter.register_lua_to_py('py.Mover', function (lua_value)
 end)
 
 ---@class Mover.CreateData.Base
----@field on_hit? fun(self: Mover, unit: Unit) # 碰撞单位回调
----@field on_block? fun(self: Mover) # 碰撞地形回调
+---@field on_hit? fun(self: Mover, unit: Unit) # 碰撞单位回调 (特效不支持碰撞单位)
+---@field on_block? fun(self: Mover) # 碰撞地形回调 (特效不支持碰撞地形)
 ---@field on_finish? fun(self: Mover) # 运动结束回调
 ---@field on_break? fun(self: Mover) # 运动打断回调
 ---@field on_remove? fun(self: Mover) # 运动移除回调
@@ -101,6 +102,7 @@ end)
 ---@field target_point? Point # 目标点
 
 ---@private
+---@param mover_unit Unit | Projectile | Particle
 ---@param mover_data Mover.CreateData.Base
 ---@return fun(mover: Mover) # update mover
 ---@return fun()? # on_hit
@@ -109,7 +111,7 @@ end)
 ---@return fun()? # on_break
 ---@return fun()  # on_remove
 ---@return fun()? # on_miss
-function M.wrap_callbacks(mover_data)
+function M.wrap_callbacks(mover_unit, mover_data)
     ---@type Mover
     local mover
 
@@ -120,7 +122,7 @@ function M.wrap_callbacks(mover_data)
 
     ---@type fun(mover: py.Mover, unit: py.Unit)?
     local on_hit
-    if mover_data.on_hit then
+    if mover_data.on_hit and mover_unit.type ~= 'particle' then
         on_hit = function ()
             local py_unit = GameAPI.get_mover_collide_unit()
             local unit = y3.unit.get_by_handle(py_unit)
@@ -130,7 +132,7 @@ function M.wrap_callbacks(mover_data)
 
     ---@type fun(mover: py.Mover)?
     local on_block
-    if mover_data.on_block then
+    if mover_data.on_block and mover_unit.type ~= 'particle' then
         on_block = function ()
             xpcall(mover_data.on_block, log.error, mover)
         end
@@ -403,14 +405,16 @@ end
 
 local DUMMY_FUNCTION = function() end
 
----@param mover_unit Unit|Projectile
+--todo 引擎的cpp接口很久没更新了，是该更一波了...
+
+---@param mover_unit Unit|Projectile|Particle
 ---@param mover_data Mover.CreateData.Line
 ---@return Mover
 function M.mover_line(mover_unit, mover_data)
     assert(mover_data.speed,    '缺少字段：speed')
     assert(mover_data.angle,    '缺少字段：angle')
     assert(mover_data.distance, '缺少字段：distance')
-    if y3.config.mover.enable_internal_regist then
+    if y3.config.mover.enable_internal_regist and mover_unit.type ~= 'particle' then
         --todo 补全一下CreateMoverComponent和MoverSystem的meta
         local update_mover = M.wrap_internal_callbacks(mover_data)
         local comp = CreateMoverComponent.create_line_mover(mover_data)
@@ -419,10 +423,12 @@ function M.mover_line(mover_unit, mover_data)
         update_mover(mover)
         return mover
     else
-        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_unit, mover_data)
         local wrapped_args = M.wrap_line_args(mover_data)
-        local py_mover = mover_unit.handle:create_mover_trigger(
-            wrapped_args,
+        wrapped_args.dict["owner_entity"] = mover_unit.handle
+        wrapped_args.dict["owner_type"] = mover_unit:get_type()
+        local py_mover = GameAPI.create_mover(
+            wrapped_args.dict,
             'StraightMover',
             on_hit    or DUMMY_FUNCTION,
             on_finish or DUMMY_FUNCTION,
@@ -437,14 +443,14 @@ function M.mover_line(mover_unit, mover_data)
     end
 end
 
----@param mover_unit Unit|Projectile
+---@param mover_unit Unit|Projectile|Particle
 ---@param mover_data Mover.CreateData.Target
 ---@return Mover
 function M.mover_target(mover_unit, mover_data)
     assert(mover_data.speed,        '缺少字段：speed')
     assert(mover_data.target_distance, '缺少字段：target_distance')
     assert(mover_data.target,       '缺少字段：target')
-    if y3.config.mover.enable_internal_regist then
+    if y3.config.mover.enable_internal_regist and mover_unit.type ~= 'particle' then
         --todo 补全一下CreateMoverComponent和MoverSystem的meta
         local update_mover = M.wrap_internal_callbacks(mover_data)
         local comp = CreateMoverComponent.create_chasing_mover(mover_data)
@@ -453,13 +459,15 @@ function M.mover_target(mover_unit, mover_data)
         update_mover(mover)
         return mover
     else
-        local update_mover, on_hit, on_block, on_finish, on_break, on_remove, on_miss = M.wrap_callbacks(mover_data)
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove, on_miss = M.wrap_callbacks(mover_unit, mover_data)
         if on_miss then
             mover_data.on_miss = on_miss
         end
         local wrapped_args = M.wrap_target_args(mover_data)
-        local py_mover = mover_unit.handle:create_mover_trigger(
-            wrapped_args,
+        wrapped_args.dict["owner_entity"] = mover_unit.handle
+        wrapped_args.dict["owner_type"] = mover_unit:get_type()
+        local py_mover = GameAPI.create_mover(
+            wrapped_args.dict,
             'ChasingMover',
             on_hit    or DUMMY_FUNCTION,
             on_finish or DUMMY_FUNCTION,
@@ -474,14 +482,14 @@ function M.mover_target(mover_unit, mover_data)
     end
 end
 
----@param mover_unit Unit|Projectile
+---@param mover_unit Unit|Projectile|Particle
 ---@param mover_data Mover.CreateData.Curve
 ---@return Mover
 function M.mover_curve(mover_unit, mover_data)
     assert(mover_data.speed,    '缺少字段：speed')
     assert(mover_data.angle,    '缺少字段：angle')
     assert(mover_data.distance, '缺少字段：distance')
-    if y3.config.mover.enable_internal_regist then
+    if y3.config.mover.enable_internal_regist and mover_unit.type ~= 'particle' then
         --todo 补全一下CreateMoverComponent和MoverSystem的meta
         local update_mover = M.wrap_internal_callbacks(mover_data)
         local comp = CreateMoverComponent.create_curved_mover(mover_data)
@@ -490,10 +498,12 @@ function M.mover_curve(mover_unit, mover_data)
         update_mover(mover)
         return mover
     else
-        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_unit, mover_data)
         local wrapped_args = M.wrap_curve_args(mover_data)
-        local py_mover = mover_unit.handle:create_mover_trigger(
-            wrapped_args,
+        wrapped_args.dict["owner_entity"] = mover_unit.handle
+        wrapped_args.dict["owner_type"] = mover_unit:get_type()
+        local py_mover = GameAPI.create_mover(
+            wrapped_args.dict,
             'CurvedMover',
             on_hit    or DUMMY_FUNCTION,
             on_finish or DUMMY_FUNCTION,
@@ -508,12 +518,12 @@ function M.mover_curve(mover_unit, mover_data)
     end
 end
 
----@param mover_unit Unit|Projectile
+---@param mover_unit Unit|Projectile|Particle
 ---@param mover_data Mover.CreateData.Round
 ---@return Mover
 function M.mover_round(mover_unit, mover_data)
     assert(mover_data.target, '缺少字段：target')
-    if y3.config.mover.enable_internal_regist then
+    if y3.config.mover.enable_internal_regist and mover_unit.type ~= 'particle' then
         --todo 补全一下CreateMoverComponent和MoverSystem的meta
         local update_mover = M.wrap_internal_callbacks(mover_data)
         local comp = CreateMoverComponent.create_round_mover(mover_data)
@@ -522,10 +532,12 @@ function M.mover_round(mover_unit, mover_data)
         update_mover(mover)
         return mover
     else
-        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_data)
+        local update_mover, on_hit, on_block, on_finish, on_break, on_remove = M.wrap_callbacks(mover_unit, mover_data)
         local wrapped_args = M.wrap_round_args(mover_data)
-        local py_mover = mover_unit.handle:create_mover_trigger(
-            wrapped_args,
+        wrapped_args.dict["owner_entity"] = mover_unit.handle
+        wrapped_args.dict["owner_type"] = mover_unit:get_type()
+        local py_mover = GameAPI.create_mover(
+            wrapped_args.dict,
             'RoundMover',
             on_hit    or DUMMY_FUNCTION,
             on_finish or DUMMY_FUNCTION,
@@ -546,6 +558,9 @@ local Unit = Class 'Unit'
 ---@class Projectile
 local Projectile = Class 'Projectile'
 
+---@class Particle
+local Particle = Class 'Particle'
+
 ---创建直线运动器
 ---@param mover_data Mover.CreateData.Line
 ---@return Mover
@@ -558,6 +573,14 @@ end
 ---@param mover_data Mover.CreateData.Line
 ---@return Mover
 function Projectile:mover_line(mover_data)
+    local mover = M.mover_line(self, mover_data)
+    return mover
+end
+
+---创建直线运动器
+---@param mover_data Mover.CreateData.Line
+---@return Mover
+function Particle:mover_line(mover_data)
     local mover = M.mover_line(self, mover_data)
     return mover
 end
@@ -578,6 +601,14 @@ function Projectile:mover_target(mover_data)
     return mover
 end
 
+---创建追踪运动器
+---@param mover_data Mover.CreateData.Target
+---@return Mover
+function Particle:mover_target(mover_data)
+    local mover = M.mover_target(self, mover_data)
+    return mover
+end
+
 ---创建曲线运动器
 ---@param mover_data Mover.CreateData.Curve
 ---@return Mover
@@ -594,6 +625,14 @@ function Projectile:mover_curve(mover_data)
     return mover
 end
 
+---创建曲线运动器
+---@param mover_data Mover.CreateData.Curve
+---@return Mover
+function Particle:mover_curve(mover_data)
+    local mover = M.mover_curve(self, mover_data)
+    return mover
+end
+
 ---创建环绕运动器
 ---@param mover_data Mover.CreateData.Round
 ---@return Mover
@@ -606,6 +645,14 @@ end
 ---@param mover_data Mover.CreateData.Round
 ---@return Mover
 function Projectile:mover_round(mover_data)
+    local mover = M.mover_round(self, mover_data)
+    return mover
+end
+
+---创建环绕运动器
+---@param mover_data Mover.CreateData.Round
+---@return Mover
+function Particle:mover_round(mover_data)
     local mover = M.mover_round(self, mover_data)
     return mover
 end
