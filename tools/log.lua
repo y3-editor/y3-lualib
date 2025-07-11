@@ -203,7 +203,7 @@ function M:build(level, exStack, ...)
         return message, timeStamp
     end
 
-    local info = debug.getinfo(2, 'Sl')
+    local info = debug.getinfo(2 + exStack, 'Sl')
     local sourceStr
     if info.currentline == -1 then
         sourceStr = '?'
