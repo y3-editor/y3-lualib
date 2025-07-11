@@ -10,6 +10,7 @@
 ---@field warn  fun(...): string, string
 ---@field error fun(...): string, string
 ---@field fatal fun(...): string, string
+---@field print fun(...): string, string
 ---@overload fun(option: Log.Option): Log
 local M = Class 'Log'
 
@@ -124,8 +125,11 @@ function M:__init(option)
 
     for level in pairs(self.logLevel) do
         self[level] = function (...)
-            return self:build(level, ...)
+            return self:build(level, 0, ...)
         end
+    end
+    self.print = function (...)
+        return self:build('debug', 1, ...)
     end
     ---@private
     self.startClock = self.clock()
@@ -164,10 +168,11 @@ end
 
 ---@private
 ---@param level string
+---@param exStack integer
 ---@param ... any
 ---@return string message
 ---@return string timestamp
-function M:build(level, ...)
+function M:build(level, exStack, ...)
     local t = table.pack(...)
     for i = 1, t.n do
         t[i] = tostring(t[i])
@@ -176,9 +181,9 @@ function M:build(level, ...)
 
     if self.needTraceBack[level] then
         if debug.getinfo(1, "t").istailcall then
-            message = (self.option.traceback or debug.traceback)(message, 2)
+            message = (self.option.traceback or debug.traceback)(message, 2 + exStack)
         else
-            message = (self.option.traceback or debug.traceback)(message, 3)
+            message = (self.option.traceback or debug.traceback)(message, 3 + exStack)
         end
     end
 

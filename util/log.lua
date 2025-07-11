@@ -133,6 +133,6 @@ function print(...)
     consoleprint(message)
     y3.develop.helper.print(message)
     enable_print = false
-    log.debug(...)
+    log.print(...)
     enable_print = true
 end
