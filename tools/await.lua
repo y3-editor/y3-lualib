@@ -88,7 +88,7 @@ function API.waitAll(callbacks)
     for i = 1, count do
         local callback = callbacks[i]
         local co = coroutine.create(function ()
-            results[i] = xpcall(callback, errorHandler)
+            results[i] = { xpcall(callback, errorHandler) }
             count = count - 1
             if count == 0 and coroutine.status(cur) == 'suspended' then
                 presume(cur)
