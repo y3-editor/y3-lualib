@@ -1459,14 +1459,6 @@ function M:get_collision_radius()
     return y3.helper.tonumber(self.handle:api_get_unit_collision_radius()) or 0.0
 end
 
----设置单位碰撞半径
----@deprecated
----@param radius number
-function M:set_collision_radius(radius)
-    ---@diagnostic disable-next-line: undefined-field
-    self.handle:api_set_unit_collision_radius(radius)
-end
-
 ---获取单位所属玩家
 ---@return Player player 单位所属玩家
 function M:get_owner()
@@ -2093,6 +2085,18 @@ function M:transformation(unit_key, options)
         , options and options.inherit_common_ability or false
         , options and options.inherit_passive_ability or false
     )
+end
+
+---设置单位内切圆半径(索敌、范围查找等使用)
+---@param radius number 半径
+function M:set_shadow_radius(radius)
+    self.handle:api_set_shadow_radius(radius)
+end
+
+---设置单位占用格边长(影响寻路)
+---@param radius number 半径
+function M:set_collision_radius(radius)
+    self.handle:api_set_collision_radius(radius)
 end
 
 function M:is_destroyed()
