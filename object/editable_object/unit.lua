@@ -2090,12 +2090,14 @@ end
 ---设置单位内切圆半径(索敌、范围查找等使用)
 ---@param radius number 半径
 function M:set_shadow_radius(radius)
+    ---@diagnostic disable-next-line: undefined-field
     self.handle:api_set_shadow_radius(radius)
 end
 
 ---设置单位占用格边长(影响寻路)
 ---@param radius number 半径
 function M:set_collision_radius(radius)
+    ---@diagnostic disable-next-line: undefined-field
     self.handle:api_set_collision_radius(radius)
 end
 
