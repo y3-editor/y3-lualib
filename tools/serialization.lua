@@ -106,7 +106,7 @@ local encodeMethods;encodeMethods = {
             if newValue ~= nil then
                 buf[#buf+1] = Custom
                 encode(newValue, buf, ex, true)
-                encode(tag or false, buf)
+                encode(tag or false, buf, ex, true)
                 return
             end
         end
@@ -121,11 +121,11 @@ local encodeMethods;encodeMethods = {
                 -- 数组部分
                 i = i + 1
                 buf[#buf+1] = Array
-                encode(v, buf, ex, disableHook)
+                encode(v, buf, ex)
             else
                 -- 混合表部分
-                encode(k, buf, ex, disableHook)
-                encode(v, buf, ex, disableHook)
+                encode(k, buf, ex)
+                encode(v, buf, ex)
             end
         end
 
