@@ -23,16 +23,20 @@ local Str32   = 'Z'
 local True    = 'T'
 local False   = 'F'
 local Nil     = '!'
-local ArrayB  = '[' -- 开始一张数组的定义
-local ArrayE  = ']' -- 结束一张数组的定义
-local TableB  = 'B' -- 开始一张表的定义
-local TableE  = 'E' -- 结束一张表的定义
+local ArrayB  = '[' -- 开始一张数组的定义（废弃，仅用于兼容）
+local ArrayE  = ']' -- 结束一张数组的定义（废弃，仅用于兼容）
+local TableB  = 'B' -- 开始一张表的定义（废弃，仅用于兼容）
+local TableE  = 'E' -- 结束一张表的定义（废弃，仅用于兼容）
+local MixB    = '{' -- 开始一张混合表的定义
+local MixE    = '}' -- 结束一张混合表的定义
+local Array   = '.' -- 此字段为整数部分
 local Ref     = 'R' -- 复用之前定义的字符串或表
 local Custom  = 'C' -- 自定义数据
 
 local RefStrLen = 4 -- 字符串长度大于此值时保存引用
 
-local EndSymbol = { '<End>' }
+local EndSymbol   = { '<End>' }
+local ArraySymbol = { '<Array>' }
 
 ---@alias Serialization.SupportTypes
 ---| number
@@ -41,15 +45,97 @@ local EndSymbol = { '<End>' }
 ---| table
 ---| nil
 
-local function isArray(v)
-    if v[1] == nil then
-        return false
-    end
-    local len = #v
-    if next(v, len) ~= nil then
-        return false
-    end
-    return true
+local encode
+
+local encodeMethods;encodeMethods = {
+    ['number'] = function (value, buf)
+        if mathType(value) == 'integer' then
+            if value >= 0 then
+                if value < (1 << 8) then
+                    buf[#buf+1] = UInt8 .. stringPack('I1', value)
+                    return
+                elseif value < (1 << 16) then
+                    buf[#buf+1] = UInt16 .. stringPack('I2', value)
+                    return
+                elseif value < (1 << 32) then
+                    buf[#buf+1] = UInt32 .. stringPack('I4', value)
+                    return
+                end
+            end
+            buf[#buf+1] = Int64 .. stringPack('j', value)
+        else
+            buf[#buf+1] = Number .. stringPack('n', value)
+        end
+    end,
+    ['string'] = function (value, buf)
+        local len = #value
+        if len == 1 then
+            buf[#buf+1] = Char1 .. value
+        elseif len == 2 then
+            buf[#buf+1] = Char2 .. value
+        elseif len < (1 << 8) then
+            buf[#buf+1] = Str8 .. stringPack('s1', value)
+        elseif len < (1 << 16) then
+            buf[#buf+1] = Str16 .. stringPack('s2', value)
+        elseif len < (1 << 32) then
+            buf[#buf+1] = Str32 .. stringPack('s4', value)
+        else
+            error('不支持这么长的字符串！')
+        end
+    end,
+    ['boolean'] = function (value, buf)
+        if value then
+            buf[#buf+1] = True
+        else
+            buf[#buf+1] = False
+        end
+    end,
+    ['nil'] = function (value, buf)
+        buf[#buf+1] = Nil
+    end,
+    ['table'] = function (value, buf, ex, disableHook)
+        local ref = ex.tableMap[value]
+        if ref then
+            buf[#buf+1] = Ref
+            encodeMethods['number'](ref, buf)
+            return
+        end
+
+        if ex.hook and not disableHook then
+            local newValue, tag = ex.hook(value)
+            if newValue ~= nil then
+                buf[#buf+1] = Custom
+                encode(newValue, buf, ex, true)
+                encode(tag or false, buf)
+                return
+            end
+        end
+
+        ex.refid = ex.refid + 1
+        ex.tableMap[value] = ex.refid
+        buf[#buf+1] = MixB
+
+        local i = 1
+        for k, v in next, value do
+            if k == i then
+                -- 数组部分
+                i = i + 1
+                buf[#buf+1] = Array
+                encode(v, buf, ex, disableHook)
+            else
+                -- 混合表部分
+                encode(k, buf, ex, disableHook)
+                encode(v, buf, ex, disableHook)
+            end
+        end
+
+        buf[#buf+1] = MixE
+    end,
+}
+
+function encode(value, buf, ex, disableHook)
+    local tp = type(value)
+    encodeMethods[tp](value, buf, ex, disableHook)
 end
 
 -- 将一个Lua值序列化为二进制数据。请勿做为长期存储方案，因为二进制数据可能会因为版本更新而不兼容。
@@ -65,98 +151,183 @@ function M.encode(data, hook, ignoreUnknownType)
     local refid = 0
     local tableMap = {}
 
-    local function encode(value, disableHook)
-        local ref = tableMap[value]
-        if ref then
-            buf[#buf+1] = Ref
-            encode(ref)
-            return
-        end
-        local tp = type(value)
-        if tp == 'number' then
-            if mathType(value) == 'integer' then
-                if value >= 0 then
-                    if value < (1 << 8) then
-                        buf[#buf+1] = UInt8 .. stringPack('I1', value)
-                        return
-                    elseif value < (1 << 16) then
-                        buf[#buf+1] = UInt16 .. stringPack('I2', value)
-                        return
-                    elseif value < (1 << 32) then
-                        buf[#buf+1] = UInt32 .. stringPack('I4', value)
-                        return
-                    end
-                end
-                buf[#buf+1] = Int64 .. stringPack('j', value)
-            else
-                buf[#buf+1] = Number .. stringPack('n', value)
-            end
-        elseif tp == 'string' then
-            local len = #value
-            if len > RefStrLen then
-                refid = refid + 1
-                tableMap[value] = refid
-            end
-            if len == 1 then
-                buf[#buf+1] = Char1 .. value
-            elseif len == 2 then
-                buf[#buf+1] = Char2 .. value
-            elseif len < (1 << 8) then
-                buf[#buf+1] = Str8 .. stringPack('s1', value)
-            elseif len < (1 << 16) then
-                buf[#buf+1] = Str16 .. stringPack('s2', value)
-            elseif len < (1 << 32) then
-                buf[#buf+1] = Str32 .. stringPack('s4', value)
-            else
-                error('不支持这么长的字符串！')
-            end
-        elseif tp == 'boolean' then
-            if value then
-                buf[#buf+1] = True
-            else
-                buf[#buf+1] = False
-            end
-        elseif tp == 'nil' then
-            buf[#buf+1] = Nil
-        elseif tp == 'table' then
-            if hook and not disableHook then
-                local newValue, tag = hook(value)
-                if newValue ~= nil then
-                    buf[#buf+1] = Custom
-                    encode(newValue, true)
-                    encode(tag or false, true)
-                    return
-                end
-            end
-            refid = refid + 1
-            tableMap[value] = refid
-            if isArray(value) then
-                -- 数组
-                buf[#buf+1] = ArrayB
-                for i = 1, #value do
-                    encode(value[i])
-                end
-                buf[#buf+1] = ArrayE
-            else
-                -- 哈希表
-                buf[#buf+1] = TableB
-                for k, v in next, value do
-                    encode(k)
-                    encode(v)
-                end
-                buf[#buf+1] = TableE
-            end
-        else
-            if ignoreUnknownType then
-                return
-            end
-            error('不支持的类型！' .. tostring(tp))
-        end
-    end
-
-    encode(data)
+    encode(data, buf, {
+        refid = refid,
+        tableMap = tableMap,
+        hook = hook,
+        ignoreUnknownType = ignoreUnknownType,
+    })
 
     return tableConcat(buf)
+end
+
+local decode
+
+local decodeMethods;decodeMethods = {
+    [Number] = function (ex)
+        local value, newIndex = stringUnpack('n', ex.str, ex.index)
+        ex.index = newIndex
+        return value
+    end,
+    [UInt8] = function (ex)
+        local value, newIndex = stringUnpack('I1', ex.str, ex.index)
+        ex.index = newIndex
+        return value
+    end,
+    [UInt16] = function (ex)
+        local value, newIndex = stringUnpack('I2', ex.str, ex.index)
+        ex.index = newIndex
+        return value
+    end,
+    [UInt32] = function (ex)
+        local value, newIndex = stringUnpack('I4', ex.str, ex.index)
+        ex.index = newIndex
+        return value
+    end,
+    [Int64] = function (ex)
+        local value, newIndex = stringUnpack('j', ex.str, ex.index)
+        ex.index = newIndex
+        return value
+    end,
+    [Char1] = function (ex)
+        local value = stringSub(ex.str, ex.index, ex.index)
+        ex.index = ex.index + 1
+        if #value > RefStrLen then
+            ex.ref = ex.ref + 1
+            ex.refMap[ex.ref] = value
+        end
+        return value
+    end,
+    [Char2] = function (ex)
+        local value = stringSub(ex.str, ex.index, ex.index + 1)
+        ex.index = ex.index + 2
+        if #value > RefStrLen then
+            ex.ref = ex.ref + 1
+            ex.refMap[ex.ref] = value
+        end
+        return value
+    end,
+    [Str8] = function (ex)
+        local value, newIndex = stringUnpack('s1', ex.str, ex.index)
+        ex.index = newIndex
+        if #value > RefStrLen then
+            ex.ref = ex.ref + 1
+            ex.refMap[ex.ref] = value
+        end
+        return value
+    end,
+    [Str16] = function (ex)
+        local value, newIndex = stringUnpack('s2', ex.str, ex.index)
+        ex.index = newIndex
+        if #value > RefStrLen then
+            ex.ref = ex.ref + 1
+            ex.refMap[ex.ref] = value
+        end
+        return value
+    end,
+    [Str32] = function (ex)
+        local value, newIndex = stringUnpack('s4', ex.str, ex.index)
+        ex.index = newIndex
+        if #value > RefStrLen then
+            ex.ref = ex.ref + 1
+            ex.refMap[ex.ref] = value
+        end
+        return value
+    end,
+    [True] = function ()
+        return true
+    end,
+    [False] = function ()
+        return false
+    end,
+    [Nil] = function ()
+        return nil
+    end,
+    [TableB] = function (ex)
+        local value = {}
+        ex.ref = ex.ref + 1
+        ex.refMap[ex.ref] = value
+        while true do
+            local k = decode()
+            if k == EndSymbol then
+                break
+            end
+            local v = decode()
+            ---@diagnostic disable-next-line: need-check-nil
+            value[k] = v
+        end
+        return value
+    end,
+    [TableE] = function ()
+        return EndSymbol
+    end,
+    [ArrayB] = function (ex)
+        local value = {}
+        ex.ref = ex.ref + 1
+        ex.refMap[ex.ref] = value
+        local i = 0
+        while true do
+            local v = decode()
+            if v == EndSymbol then
+                break
+            end
+            i = i + 1
+            value[i] = v
+        end
+        return value
+    end,
+    [ArrayE] = function ()
+        return EndSymbol
+    end,
+    [Array] = function ()
+        return ArraySymbol
+    end,
+    [MixE] = function ()
+        return EndSymbol
+    end,
+    [MixB] = function (ex)
+        local value = {}
+        ex.ref = ex.ref + 1
+        ex.refMap[ex.ref] = value
+        local i = 1
+        while true do
+            local k = decode(ex)
+            if k == EndSymbol then
+                break
+            end
+            if k == ArraySymbol then
+                -- 数组部分
+                local v = decode(ex)
+                value[i] = v
+                i = i + 1
+            else
+                -- 哈希部分
+                local v = decode(ex)
+                ---@diagnostic disable-next-line: need-check-nil
+                value[k] = v
+            end
+        end
+        return value
+    end,
+    [Ref] = function (ex)
+        local value = decode(ex)
+        value = ex.refMap[value]
+        return value
+    end,
+    [Custom] = function (ex)
+        local value = decode(ex)
+        ---@cast value -?
+        local tag = decode(ex)
+        ---@cast tag string | false
+        value = ex.hook(value, tag or nil)
+        return value
+    end,
+}
+
+function decode(ex)
+    local tp = stringSub(ex.str, ex.index, ex.index)
+    ex.index = ex.index + 1
+    return decodeMethods[tp](ex)
 end
 
 -- 反序列化二进制数据为Lua值
@@ -167,125 +338,17 @@ function M.decode(str, hook)
     if str == '' then
         return nil
     end
-    local index = 1
-    local ref = 0
-    local refMap = {}
 
-    local function decode()
-        local tp = stringSub(str, index, index)
-        index = index + 1
+    local ex = {
+        str = str,
+        index = 1,
+        ref = 0,
+        refMap = {},
+        hook = hook,
+    }
 
-        local value
-        if tp == Number then
-            value, index = stringUnpack('n', str, index)
-            return value
-        elseif tp == UInt8 then
-            value, index = stringUnpack('I1', str, index)
-            return value
-        elseif tp == UInt16 then
-            value, index = stringUnpack('I2', str, index)
-            return value
-        elseif tp == UInt32 then
-            value, index = stringUnpack('I4', str, index)
-            return value
-        elseif tp == Int64 then
-            value, index = stringUnpack('j', str, index)
-            return value
-        elseif tp == Char1 then
-            value = stringSub(str, index, index)
-            index = index + 1
-            if #value > RefStrLen then
-                ref = ref + 1
-                refMap[ref] = value
-            end
-            return value
-        elseif tp == Char2 then
-            value = stringSub(str, index, index + 1)
-            index = index + 2
-            if #value > RefStrLen then
-                ref = ref + 1
-                refMap[ref] = value
-            end
-            return value
-        elseif tp == Str8 then
-            value, index = stringUnpack('s1', str, index)
-            if #value > RefStrLen then
-                ref = ref + 1
-                refMap[ref] = value
-            end
-            return value
-        elseif tp == Str16 then
-            value, index = stringUnpack('s2', str, index)
-            if #value > RefStrLen then
-                ref = ref + 1
-                refMap[ref] = value
-            end
-            return value
-        elseif tp == Str32 then
-            value, index = stringUnpack('s4', str, index)
-            if #value > RefStrLen then
-                ref = ref + 1
-                refMap[ref] = value
-            end
-            return value
-        elseif tp == True then
-            return true
-        elseif tp == False then
-            return false
-        elseif tp == Nil then
-            return nil
-        elseif tp == TableB then
-            value = {}
-            ref = ref + 1
-            refMap[ref] = value
-            while true do
-                local k = decode()
-                if k == EndSymbol then
-                    break
-                end
-                local v = decode()
-                assert(v ~= nil)
-                ---@diagnostic disable-next-line: need-check-nil
-                value[k] = v
-            end
-            return value
-        elseif tp == TableE then
-            return EndSymbol
-        elseif tp == ArrayB then
-            value = {}
-            ref = ref + 1
-            refMap[ref] = value
-            local i = 0
-            while true do
-                local v = decode()
-                if v == EndSymbol then
-                    break
-                end
-                i = i + 1
-                value[i] = v
-            end
-            return value
-        elseif tp == ArrayE then
-            return EndSymbol
-        elseif tp == Ref then
-            value = decode()
-            value = refMap[value]
-            return value
-        elseif tp == Custom then
-            ---@cast hook -?
-            value = decode()
-            ---@cast value -?
-            local tag = decode()
-            ---@cast tag string | false
-            value = hook(value, tag or nil)
-            return value
-        else
-            error('未知类型！' .. tostring(tp))
-        end
-    end
-
-    local value = decode()
-    assert(index == #str + 1)
+    local value = decode(ex)
+    assert(ex.index == #str + 1)
     return value
 end
 
