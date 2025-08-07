@@ -334,6 +334,12 @@ function M:set_cycle_time(time)
     self.handle:api_set_cycle_time(Fix32(time))
 end
 
+---设置魔法效果的图标
+---@param icon integer 图标
+function M:set_icon(icon)
+    self.handle:api_set_modifier_icon(icon)
+end
+
 function M:is_destroyed()
     ---@diagnostic disable-next-line: undefined-field
     local yes = self.handle:api_is_destroyed()
