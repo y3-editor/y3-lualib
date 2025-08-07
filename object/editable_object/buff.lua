@@ -2,6 +2,7 @@
 ---@class Buff
 ---@field handle py.ModifierEntity # py层的魔法效果对象
 ---@field id     integer
+---@field data   any # 添加魔法效果时传入的 `data` 字段
 ---@field private _removed_by_py boolean
 ---@overload fun(id: integer, py_modifier: py.ModifierEntity): Buff
 local M = Class 'Buff'
@@ -338,6 +339,12 @@ end
 ---@param icon integer 图标
 function M:set_icon(icon)
     self.handle:api_set_modifier_icon(icon)
+end
+
+---设置自定义数据，可使用 `Buff.data` 访问
+---@param data any
+function M:set_data(data)
+    self.data = data
 end
 
 function M:is_destroyed()

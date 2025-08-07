@@ -1259,7 +1259,14 @@ function M:add_buff(data)
     if not py_buff then
         return nil
     end
-    return y3.buff.get_by_handle(py_buff)
+    local buff = y3.buff.get_by_handle(py_buff)
+    if not buff then
+        return nil
+    end
+    if data.data then
+        buff:set_data(data.data)
+    end
+    return buff
 end
 
 ---单位移除所有指定id的魔法效果
