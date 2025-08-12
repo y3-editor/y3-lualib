@@ -113,6 +113,7 @@ function GCNode:__close()
     Delete(self)
 end
 
+---@class GC.API
 local API = {}
 
 ---@return GCHost

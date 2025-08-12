@@ -44,7 +44,7 @@ Alias('LinkedTable', y3.linkedTable.create)
 include  = y3.reload.include
 
 y3.pool = require 'y3.tools.pool'
-require 'y3.tools.gc'
+y3.gc   = require 'y3.tools.gc'
 require 'y3.tools.synthesis'
 
 require 'y3.util.patch'
