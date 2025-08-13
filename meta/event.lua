@@ -2488,6 +2488,8 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE_BEFORE_APPLY
+---@field source_unit Unit # 治疗来源单位
+---@field target_unit Unit # 被治疗的单位
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 ---@field heal_instance HealInstance # 治疗实例
@@ -2495,6 +2497,22 @@ event.ET_UNIT_BE_HURT_COMPLETE = {
 --单位即将受到治疗
 event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
     [1] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "治疗来源单位",
+        lua_desc = "治疗来源单位",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "被治疗的单位",
+        lua_desc = "被治疗的单位",
+    },
+    [3] = {
         name = "__cured_value",
         type = "py.Fixed",
         lua_name = "cured_value",
@@ -2502,7 +2520,7 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
         desc = "受到的治疗值",
         lua_desc = "受到的治疗值",
     },
-    [2] = {
+    [4] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -2510,7 +2528,7 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
         desc = "当前治疗所属技能",
         lua_desc = "当前治疗所属技能",
     },
-    [3] = {
+    [5] = {
         name = nil,
         type = nil,
         lua_name = "heal_instance",
@@ -2524,12 +2542,30 @@ event.ET_UNIT_GET_CURE_BEFORE_APPLY = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE_FINISH
+---@field source_unit Unit # 治疗来源单位
+---@field target_unit Unit # 被治疗的单位
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 
 --单位受到治疗结束
 event.ET_UNIT_GET_CURE_FINISH = {
     [1] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "治疗来源单位",
+        lua_desc = "治疗来源单位",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "被治疗的单位",
+        lua_desc = "被治疗的单位",
+    },
+    [3] = {
         name = "__cured_value",
         type = "py.Fixed",
         lua_name = "cured_value",
@@ -2537,7 +2573,7 @@ event.ET_UNIT_GET_CURE_FINISH = {
         desc = "受到的治疗值",
         lua_desc = "受到的治疗值",
     },
-    [2] = {
+    [4] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -2548,6 +2584,8 @@ event.ET_UNIT_GET_CURE_FINISH = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE
+---@field source_unit Unit # 治疗来源单位
+---@field target_unit Unit # 被治疗的单位
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 ---@field heal_instance HealInstance # 治疗实例
@@ -2555,6 +2593,22 @@ event.ET_UNIT_GET_CURE_FINISH = {
 --单位受到治疗
 event.ET_UNIT_GET_CURE = {
     [1] = {
+        name = "__source_unit",
+        type = "py.Unit",
+        lua_name = "source_unit",
+        lua_type = "Unit",
+        desc = "治疗来源单位",
+        lua_desc = "治疗来源单位",
+    },
+    [2] = {
+        name = "__target_unit",
+        type = "py.Unit",
+        lua_name = "target_unit",
+        lua_type = "Unit",
+        desc = "被治疗的单位",
+        lua_desc = "被治疗的单位",
+    },
+    [3] = {
         name = "__cured_value",
         type = "py.Fixed",
         lua_name = "cured_value",
@@ -2562,7 +2616,7 @@ event.ET_UNIT_GET_CURE = {
         desc = "受到的治疗值",
         lua_desc = "受到的治疗值",
     },
-    [2] = {
+    [4] = {
         name = "__ability",
         type = "py.Ability",
         lua_name = "ability",
@@ -2570,7 +2624,7 @@ event.ET_UNIT_GET_CURE = {
         desc = "当前治疗所属技能",
         lua_desc = "当前治疗所属技能",
     },
-    [3] = {
+    [5] = {
         name = nil,
         type = nil,
         lua_name = "heal_instance",
