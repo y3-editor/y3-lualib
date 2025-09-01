@@ -381,6 +381,24 @@ function M:is_alive()
         and self:get_controller() == y3.const.RoleType.USER
 end
 
+---是否是需要同步数据的玩家（在线、掉线（可以重连）、观看中的玩家与观看者）
+---@return boolean
+function M:need_sync()
+    local state = self:get_state()
+    if state == y3.const.RoleStatus['LEFT']
+    or state == y3.const.RoleStatus['NONE'] then
+        return false
+    end
+
+    local controller = self:get_controller()
+    if controller == y3.const.RoleType.OBSERVER
+    or controller == y3.const.RoleType.USER then
+        return true
+    end
+
+    return false
+end
+
 ---获取玩家名字
 ---@return string role_name 玩家名字
 function M:get_name()
