@@ -1482,12 +1482,19 @@ M.config["施法-打断出手"] = {
     },
 }
 
----@alias EventParam.未知-ET_ABILITY_BS_INTERRUPT EventParam.ET_ABILITY_BS_INTERRUPT
-M.config["未知-ET_ABILITY_BS_INTERRUPT"] = {
+---@alias EventParam.施法-打断完成 EventParam.ET_ABILITY_BS_INTERRUPT
+M.config["施法-打断完成"] = {
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     _deprecated = true,
     desc = "ET_ABILITY_BS_INTERRUPT",
     key = "ET_ABILITY_BS_INTERRUPT",
-    name = "未知-ET_ABILITY_BS_INTERRUPT",
+    object = "Ability",
+    name = "施法-打断完成",
     params = {
     },
 }
@@ -3131,6 +3138,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: self, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: self, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: self, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: self, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: self, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: self, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: self, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -3261,6 +3269,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: Ability, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: Ability, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: Ability, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: Ability, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: Ability, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: Ability, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: Ability, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -3448,6 +3457,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: Unit, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: Unit, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: Unit, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: Unit, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: Unit, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: Unit, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: Unit, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -3489,6 +3499,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: EditorObject.Ability, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: EditorObject.Ability, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -3598,6 +3609,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: EditorObject.Unit, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
