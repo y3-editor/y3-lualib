@@ -1,3 +1,25 @@
+---@diagnostic disable: deprecated
+
+local rawset = rawset
+local rawget = rawget
+
+local tablecreatef = setmetatable({}, { __index = function (t, k)
+    local buf = {}
+    buf[#buf+1] = 'return function () return {'
+    for i = 1, k do
+        buf[#buf+1] = 'x' .. i .. ' = nil,'
+    end
+    buf[#buf+1] = '} end'
+    local content = table.concat(buf, '')
+    local f = assert(load(content, content))()
+    t[k] = f
+    return f
+end })
+
+local tablecreate = table.create or function (_, nrec)
+    return tablecreatef[nrec]()
+end
+
 ---@class Class
 local M = {}
 
@@ -25,6 +47,7 @@ M._errorHandler = error
 ---@field public  __getter table
 ---@field public  __setter table
 ---@field public  __super  Class.Base
+---@field package __config Class.Config
 
 ---@class Class.Config
 ---@field private name         string
@@ -35,11 +58,16 @@ M._errorHandler = error
 ---@field package superClass?  Class.Base
 ---@field public  getter       table<any, fun(obj: any)>
 ---@field package initCalls?   false|fun(...)[]
+---@field package compress     string[]
+---@field package presize?     integer
 local Config = {}
 
----@param name string
+---@param name string | table
 ---@return Class.Config
 function M.getConfig(name)
+    if type(name) == 'table' then
+        name = name.__name
+    end
     if not M._classConfig[name] then
         M._classConfig[name] = setmetatable({
             name         = name,
@@ -47,6 +75,7 @@ function M.getConfig(name)
             superCache   = {},
             extendsCalls = {},
             extendsKeys  = {},
+            compress     = {},
         }, { __index = Config })
     end
     return M._classConfig[name]
@@ -68,9 +97,59 @@ function M.declare(name, super, superInit)
     local class  = {}
     local getter = {}
     local setter = {}
+    local keyMap
     class.__name   = name
     class.__getter = getter
     class.__setter = setter
+    class.__config = config
+
+    local function buildKeyMap()
+        if keyMap then
+            return
+        end
+        local used = {}
+        for _, k in ipairs(config.compress) do
+            used[k] = true
+        end
+        local i = 1
+        keyMap = setmetatable({}, { __index = function (t, k)
+            if not used[k] then
+                t[k] = false
+                return false
+            end
+            t[k] = i
+            i = i + 1
+            return t[k]
+        end })
+    end
+
+    ---@param self any
+    ---@param k any
+    ---@return any
+    local function getterFuncWithCompress(self, k)
+        local ik = keyMap[k]
+        if ik then
+            local v = rawget(self, ik)
+            if v ~= nil then
+                return v
+            end
+        end
+        local r = class[k]
+        if r == nil then
+            local f = getter[k]
+            if f then
+                local res, needCache = f(self)
+                if needCache then
+                    rawset(self, ik or k, res)
+                end
+                return res
+            else
+                return nil
+            end
+        else
+            return r
+        end
+    end
 
     ---@param self any
     ---@param k any
@@ -89,8 +168,30 @@ function M.declare(name, super, superInit)
                 return nil
             end
         else
-            rawset(self, k, r)
             return r
+        end
+    end
+
+    ---@param self any
+    ---@param k any
+    ---@param v any
+    ---@return any
+    local function setterFuncWithCompress(self, k, v)
+        local ik = keyMap[k]
+        if ik then
+            if rawget(self, ik) ~= nil then
+                rawset(self, ik, v)
+                return
+            end
+        end
+        local f = setter[k]
+        if f then
+            local res = f(self, v)
+            if res ~= nil then
+                rawset(self, ik or k, res)
+            end
+        else
+            rawset(self, ik or k, v)
         end
     end
 
@@ -111,9 +212,15 @@ function M.declare(name, super, superInit)
     end
 
     function class:__index(k)
-        if next(class.__getter) then
-            class.__index = getterFunc
-            return getterFunc(self, k)
+        if next(class.__getter) or #config.compress > 0 then
+            if #config.compress > 0 then
+                buildKeyMap()
+                class.__index = getterFuncWithCompress
+                return getterFuncWithCompress(self, k)
+            else
+                class.__index = getterFunc
+                return getterFunc(self, k)
+            end
         else
             class.__index = class
             return class[k]
@@ -121,13 +228,50 @@ function M.declare(name, super, superInit)
     end
 
     function class:__newindex(k, v)
-        if next(class.__setter) then
-            class.__newindex = setterFunc
-            setterFunc(self, k, v)
+        if next(class.__setter) or #config.compress > 0 then
+            if #config.compress > 0 then
+                buildKeyMap()
+                class.__newindex = setterFuncWithCompress
+                return setterFuncWithCompress(self, k, v)
+            else
+                class.__newindex = setterFunc
+                setterFunc(self, k, v)
+            end
         else
             class.__newindex = nil
             rawset(self, k, v)
         end
+    end
+
+    function class:__pairs()
+        if #config.compress == 0 then
+            class.__pairs = nil
+            return next, self, nil
+        end
+        buildKeyMap()
+        return function (_, k)
+            local ik
+            local tp = type(k)
+            if tp == 'number' then
+                ik = k
+                k = rawget(keyMap, k)
+            elseif tp == 'string' then
+                ik = rawget(keyMap, k)
+                if not ik then
+                    return nil, nil
+                end
+            end
+            local nk, nv = next(self, ik)
+            return rawget(keyMap, nk) or nk, nv
+        end, self, nil
+    end
+
+    function class:__encode()
+        return self
+    end
+
+    function class:__decode(value)
+        return M.new(name, value)
     end
 
     function class:__call(...)
@@ -185,7 +329,7 @@ end
 ---@generic T: string
 ---@param name `T`
 ---@param tbl? table
----@return T
+---@return T | fun(...):T
 function M.new(name, tbl)
     local class = M._classes[name]
     if not class then
@@ -201,7 +345,12 @@ function M.new(name, tbl)
     end
 
     if not tbl then
-        tbl = {}
+        local presize = class.__config.presize
+        if presize then
+            tbl = tablecreate(0, presize + 2)
+        else
+            tbl = tablecreate(0, 2)
+        end
     end
     tbl.__class__ = name
 
@@ -257,7 +406,7 @@ end
 
 ---@generic Class: string
 ---@generic Extends: string
----@param name `Class`
+---@param name `Class` | table
 ---@param extendsName `Extends`
 ---@param init? fun(self: Class, super: Extends, ...)
 function M.extends(name, extendsName, init)
@@ -409,6 +558,10 @@ function Config:extends(extendsName, init)
                 class.__setter[k] = v
             end
         end
+        local config = M.getConfig(extendsName)
+        for _, k in ipairs(config.compress) do
+            self.compress[#self.compress+1] = k
+        end
     end
 
     do --记录父类的init方法
@@ -480,6 +633,27 @@ function M.isInstanceOf(obj, targetName)
     end
 
     return isInstanceMap[myName][targetName]
+end
+
+--- 清理一个对象的缓存数据（对应 `__getter` 的字段）
+---@param obj Class.Base
+function M.flush(obj)
+    local getter = obj.__getter
+    for k in pairs(getter) do
+        obj[k] = nil
+    end
+end
+
+---@param name string | table
+---@param keys string[]
+function M.compressKeys(name, keys)
+    local config = M.getConfig(name)
+    config.compress = keys
+end
+
+function M.presize(name, nreq)
+    local config = M.getConfig(name)
+    config.presize = nreq
 end
 
 return M

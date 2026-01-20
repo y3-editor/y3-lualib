@@ -20,6 +20,8 @@
 ---@overload fun(time: number, mode: LocalTimer.Mode, count: integer, on_timer: LocalTimer.OnTimer): self
 local M = Class 'LocalTimer'
 
+y3.class.presize(M, 10)
+
 ---@alias LocalTimer.Mode 'second' | 'frame'
 ---@alias LocalTimer.OnTimer fun(timer: LocalTimer, count: integer)
 

@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch, redundant-parameter
 y3.game:event_on('#417修改', 1, function(trg, ...)
     print('只有这里收到了, 整数参数')
 end)

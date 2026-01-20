@@ -980,6 +980,7 @@ M.AbilityFloatAttr = {
     ['施法引导'] = 'ability_prepare_time',
     ['技能影响范围'] = 'ability_damage_range',
     ['充能时间'] = 'ability_stack_cd',
+    ['打断范围'] = 'ability_break_cast_range',
 }
 
 ---@enum(key) y3.Const.CollisionLayers

@@ -1,5 +1,7 @@
 local tableSort    = table.sort
 local stringRep    = string.rep
+local stringByte   = string.byte
+local stringFormat = string.format
 local tableConcat  = table.concat
 local tostring     = tostring
 local type         = type
@@ -24,8 +26,7 @@ local inf          = 1 / 0
 local nan          = 0 / 0
 local error        = error
 local assert       = assert
-
-_ENV = nil
+local clock        = os.clock
 
 local function isInteger(n)
     if mathType then
@@ -652,7 +653,7 @@ function m.eachLine(text, keepNL)
     end
 end
 
----@alias SortByScoreCallback fun(o: any): integer
+---@alias SortByScoreCallback fun(o: any): number
 
 -- 按照分数排序，分数越高越靠前
 ---@param tbl any[]
@@ -694,6 +695,26 @@ function m.sortCallbackOfIndex(arr)
     end
 end
 
+---使用多个排序器排序，如果前一个排序器返回相等，则使用后一个排序器。
+---排序器返回 `true` 表示 `a` 在 `b` 前面，返回 `false` 表示 `a` 在 `b` 后面。
+---返回 `nil` 表示排序器无法比较 `a` 和 `b`或者 `a` 和 `b` 相等。
+---@generic T
+---@param tbl T[]
+---@param sorter fun(a: T, b: T): boolean?
+---@param ... fun(a: T, b: T): boolean?
+function m.sort(tbl, sorter, ...)
+    local sorters = { sorter, ... }
+    tableSort(tbl, function (a, b)
+        for _, f in ipairs(sorters) do
+            local res = f(a, b)
+            if res ~= nil then
+                return res
+            end
+        end
+        return false
+    end)
+end
+
 ---@param datas any[]
 ---@param scores integer[]
 ---@return SortByScoreCallback
@@ -723,6 +744,12 @@ function m.trim(str, mode)
     return (str:match '^%s*(.-)%s*$')
 end
 
+---@param str string
+---@return string
+function m.firstLine(str)
+    return str:match('([^\r\n]*)')
+end
+
 ---@param path string
 ---@param env? { [string]: string }
 ---@return string
@@ -742,6 +769,9 @@ function m.expandPath(path, env)
     return path
 end
 
+---@generic T
+---@param l T[]
+---@return { [T]: true }
 function m.arrayToHash(l)
     local t = {}
     for i = 1, #l do
@@ -831,12 +861,40 @@ function m.getUpvalue(f, name)
     return nil, false
 end
 
-function m.stringStartWith(str, head)
-    return str:sub(1, #head) == head
+---@param str string
+---@param head string
+---@param ignoreCase? boolean
+---@return boolean
+function m.stringStartWith(str, head, ignoreCase)
+    if ignoreCase then
+        return str:sub(1, #head):lower() == head:lower()
+    else
+        return str:sub(1, #head) == head
+    end
 end
 
-function m.stringEndWith(str, tail)
-    return str:sub(-#tail) == tail
+---@param str string
+---@param tail string
+---@param ignoreCase? boolean
+---@return boolean
+function m.stringEndWith(str, tail, ignoreCase)
+    if ignoreCase then
+        return str:sub(-#tail):lower() == tail:lower()
+    else
+        return str:sub(-#tail) == tail
+    end
+end
+
+---@param str1 string
+---@param str2 string
+---@param ignoreCase? boolean
+---@return boolean
+function m.stringEqual(str1, str2, ignoreCase)
+    if ignoreCase then
+        return str1:lower() == str2:lower()
+    else
+        return str1 == str2
+    end
 end
 
 function m.defaultTable(default)
@@ -917,10 +975,19 @@ function m.arrayInsert(array, value)
     end
 end
 
-function m.arrayRemove(array, value)
+---@generic T
+---@param array T[]
+---@param value T
+---@param noOrder? boolean
+function m.arrayRemove(array, value, noOrder)
     for i = 1, #array do
         if array[i] == value then
-            tableRemove(array, i)
+            if noOrder then
+                array[i] = array[#array]
+                array[#array] = nil
+            else
+                tableRemove(array, i)
+            end
             return
         end
     end
@@ -941,9 +1008,39 @@ function m.arrayOverlap(a1, a2)
     return result
 end
 
+---@generic T
+---@param total T[]
+---@param part T[]
+---@return T[]
+function m.arrayDiff(total, part)
+    local diff = {}
+
+    local partSet = m.arrayToHash(part)
+    for i = 1, #total do
+        local v = total[i]
+        if not partSet[v] then
+            diff[#diff+1] = v
+        end
+    end
+
+    return diff
+end
+
 m.MODE_K  = { __mode = 'k' }
 m.MODE_V  = { __mode = 'v' }
 m.MODE_KV = { __mode = 'kv' }
+
+function m.weakTable(t)
+    return setmetatable(t or {}, m.MODE_KV)
+end
+
+function m.weakKTable(t)
+    return setmetatable(t or {}, m.MODE_K)
+end
+
+function m.weakVTable(t)
+    return setmetatable(t or {}, m.MODE_V)
+end
 
 ---@generic T: fun(param: any):any
 ---@param func T
@@ -966,6 +1063,31 @@ function m.tableMerge(a, b)
         a[k] = v
     end
     return a
+end
+
+function m.tableDefault(a, b)
+    for k, v in pairs(b) do
+        if a[k] == nil then
+            a[k] = v
+        end
+    end
+    return a
+end
+
+---@param a table
+---@param b table
+---@param recursive boolean
+function m.tableExtends(a, b, recursive)
+    for k, v in pairs(b) do
+        if recursive and type(v) == 'table' then
+            if type(a[k]) ~= 'table' then
+                a[k] = {}
+            end
+            m.tableExtends(a[k], v, true)
+        else
+            a[k] = v
+        end
+    end
 end
 
 ---@param a any[]
@@ -1041,6 +1163,29 @@ function m.map(t, callback)
     return nt
 end
 
+local sbyteMap = {
+    [stringByte '_'] = 200,
+}
+
+---@param a string
+---@param b string
+---@return boolean
+function m.stringLess(a, b)
+    for i = 1, #a do
+        if i > #b then
+            return false
+        end
+        local c1 = stringByte(a, i, i)
+        local c2 = stringByte(b, i, i)
+        c1 = sbyteMap[c1] or c1
+        c2 = sbyteMap[c2] or c2
+        if c1 ~= c2 then
+            return c1 < c2
+        end
+    end
+    return true
+end
+
 ---@param v any
 ---@param d any
 ---@return any
@@ -1049,6 +1194,282 @@ function m.default(v, d)
         return d
     end
     return v
+end
+
+---@generic T
+---@param arr T[]
+---@param k integer
+---@param sorter? fun(a: T, b: T): boolean
+---@return T[]
+function m.sortK(arr, k, sorter)
+    if not sorter then
+        sorter = function (a, b)
+            return a < b
+        end
+    end
+    if k <= 0 then
+        return arr
+    end
+    if k >= (#arr // 2) then
+        tableSort(arr, sorter)
+        return arr
+    end
+
+    local offset = 1
+
+    local function sort(left, right)
+        if left >= right then
+            return
+        end
+        if left > k then
+            return
+        end
+        -- 对这部分进行快排
+        local index = left + offset % (right - left)
+        local pivot = arr[index]
+        offset = offset << 1
+        if offset == 0 then
+            offset = 1
+        end
+        arr[index], arr[right] = arr[right], arr[index]
+        local i = left
+        for j = left, right - 1 do
+            if sorter(arr[j], pivot) then
+                arr[i], arr[j] = arr[j], arr[i]
+                i = i + 1
+            end
+        end
+        arr[i], arr[right] = arr[right], arr[i]
+        sort(i + 1, right)
+        sort(left, i - 1)
+    end
+
+    sort(1, #arr)
+    return arr
+end
+
+---@class string
+---@operator mod(table): string
+---@operator div(string): string
+
+function m.enableFormatString()
+    local mt = getmetatable('')
+    mt.__mod = function (str, args)
+        local count = 0
+        return str:gsub('%b{}', function (key)
+            local k, fmt = key:match('^{(.-)(%%.+)}$')
+            if not k then
+                k = key:sub(2, -2)
+            end
+            local value
+            if k == '' then
+                count = count + 1
+                value = args[count]
+            else
+                value = args[k]
+            end
+            if value == nil then
+                local inside = key:sub(2, -2)
+                if inside:find('{', 1, true) then
+                    return '{' .. inside % args .. '}'
+                end
+            end
+            if fmt then
+                value = stringFormat(fmt, value)
+            else
+                value = tostring(value)
+            end
+            return value
+        end)
+    end
+end
+
+function m.enableDividStringAsPath()
+    local mt = getmetatable('')
+    mt.__div = function (str, path)
+        assert(type(path) == 'string', 'Path must be a string')
+        if str == '' then
+            return path
+        end
+        if path == '' then
+            return str
+        end
+        if path:sub(1, 1) == '/' then
+            path = path:sub(2)
+        end
+        if str:sub(-1) == '/' then
+            str = str:sub(1, -2)
+        end
+        return str .. '/' .. path
+    end
+end
+
+function m.enableFalswallow()
+    setmetatable(false, {
+        __index = function ()
+            return false
+        end
+    })
+end
+
+---@param str string
+---@param sep string
+---@return string[]
+function m.split(str, sep)
+    local result = {}
+    local offset = 1
+    while offset <= #str do
+        local s, e = str:find(sep, offset, true)
+        if not s then
+            result[#result+1] = str:sub(offset)
+            break
+        end
+        result[#result+1] = str:sub(offset, s - 1)
+        offset = e + 1
+    end
+    return result
+end
+
+---@generic T
+---@param str string
+---@param left string
+---@param right string
+---@param callback fun(content: string, inside: boolean): T
+---@return T[]
+function m.replaceInside(str, left, right, callback)
+    local result = {}
+    local offset = 1
+    while offset <= #str do
+        local ls, le = str:find(left, offset, true)
+        if not ls then
+            if offset <= #str then
+                result[#result+1] = callback(str:sub(offset), false)
+            end
+            break
+        end
+        if ls > offset then
+            result[#result+1] = callback(str:sub(offset, ls - 1), false)
+        end
+
+        local rs, re = str:find(right, le + 1, true)
+        if not rs then
+            if ls < #str then
+                result[#result+1] = callback(str:sub(ls), true)
+            end
+            break
+        end
+        if rs > le + 1 then
+            result[#result+1] = callback(str:sub(le + 1, rs - 1), true)
+        end
+        offset = re + 1
+    end
+    return result
+end
+
+---@param str string
+---@return string
+function m.asKey(str)
+    if str:match('^[%a_][%w_]*$') and not RESERVED[str] then
+        return str
+    end
+    return ('[%q]'):format(str)
+end
+
+---@param job function
+---@param finish fun(duration: number)
+---@return any
+function m.withDuration(job, finish)
+    local startTime = clock()
+    local result = job()
+    local endTime = clock()
+    finish(endTime - startTime)
+    return result
+end
+
+---@generic T
+---@param obj T
+---@param visited? table<T, boolean>
+---@return table<T, boolean>?
+function m.visited(obj, visited)
+    if visited then
+        if visited[obj] then
+            return nil
+        end
+        visited[obj] = true
+        return visited
+    else
+        return { [obj] = true }
+    end
+end
+
+--- `[start: integer, finish: integer, id?: any, ]`
+--- 必须保证 layers 已经按 start 升序排列，为光标位置
+---@param layers [integer, integer, any][]
+---@return [integer, integer, any][]
+function m.mergeLayers(layers)
+    local desk = {}
+    local result = {}
+
+    local function checkDesk(start, finish)
+        local top = desk[#desk]
+        if not top then
+            return
+        end
+
+        local _, e, id = top[1], top[2], top[3]
+        if e <= start then
+            desk[#desk] = nil
+            return checkDesk(start, finish)
+        elseif e > finish then
+            result[#result+1] = { start, finish, id }
+            return
+        else
+            result[#result+1] = { start, e, id }
+            desk[#desk] = nil
+            return checkDesk(e, finish)
+        end
+    end
+
+    for i, layer in ipairs(layers) do
+        local s, e, id = layer[1], layer[2], layer[3]
+        local nextLayer = layers[i + 1]
+        local nextStart = nextLayer and nextLayer[1] or mathHuge
+        if e > nextStart then
+            result[#result+1] = { s, nextStart, id }
+            desk[#desk+1] = layer
+            goto continue
+        end
+        result[#result+1] = layer
+        if e < nextStart then
+            checkDesk(e, nextStart)
+        end
+        ::continue::
+    end
+
+    return result
+end
+Total = 0
+Miss = 0
+---@generic T: function
+---@param f T
+---@param aliveTime number
+---@param getClock? fun(): number
+---@return T
+function m.methodCacher(f, aliveTime, getClock)
+    getClock = getClock or clock
+    local cache = m.weakKTable()
+    return function (self, ...)
+        Total = Total + 1
+        if not cache[self] then
+            cache[self] = { time = 0, result = nil }
+        end
+        if getClock() > cache[self].time then
+            Miss = Miss + 1
+            cache[self].result = f(self, ...)
+            cache[self].time = getClock() + aliveTime
+        end
+        return cache[self].result
+    end
 end
 
 return m

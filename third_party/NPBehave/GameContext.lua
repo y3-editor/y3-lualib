@@ -1,4 +1,4 @@
----@class NPBehave.GamePlatform
+---@class NPBehave.GamePlatform: NPBehave.Platform
 local GamePlatform = Class("NPBehave.GamePlatform")
 
 ---@class NPBehave.GamePlatform: NPBehave.Platform

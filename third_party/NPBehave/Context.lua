@@ -17,7 +17,7 @@ function Context.GetInstance()
     return Context.Instance;
 end
 
----@type NPBehave.Platform
+---@type NPBehave.GamePlatform
 Context.Platform = nil;
 ---@type NPBehave.Clock
 Context.Clock = New("NPBehave.Clock")();
@@ -38,4 +38,3 @@ function Context.GetSharedBlackboard(key)
     end
     return context.Blackboards[key];
 end
-

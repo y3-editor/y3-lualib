@@ -89,6 +89,12 @@ function M:is_exist()
     return  GameAPI.projectile_is_exist(self.handle)
 end
 
+-- 获取唯一ID
+---@return integer
+function M:get_id()
+    return self.id
+end
+
 ---获取投射物高度
 ---@return number height 高度
 function M:get_height()

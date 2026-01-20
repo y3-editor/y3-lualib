@@ -882,9 +882,11 @@ end
 --绑定技能冷却时间到玩家界面控件的属性
 ---@param uiAttr string 界面控件属性
 ---@param skill Ability 技能
+---@param isSmooth? boolean 是否平滑
+---@param digits? integer 小数位数
 ---@return self
-function M:bind_ability_cd(uiAttr, skill)
-    GameAPI.set_ui_comp_bind_ability_cd(self.player.handle, self.handle, uiAttr, skill.handle)
+function M:bind_ability_cd(uiAttr, skill, isSmooth, digits)
+    GameAPI.set_ui_comp_bind_ability_cd(self.player.handle, self.handle, uiAttr, skill.handle, isSmooth, digits)
     return self
 end
 
@@ -1081,7 +1083,7 @@ end
 
 --获取指定命名的子控件
 ---@param name string
----@return UI? ui_comp ui控件
+---@return UI ui_comp ui控件
 function M:get_child(name)
     local py_ui
     if not y3.config.cache.ui then
@@ -1100,6 +1102,7 @@ function M:get_child(name)
         py_ui = self._get_child_py_ui_cache[name]
     end
     if not py_ui or py_ui == '' then
+        ---@diagnostic disable-next-line: return-type-mismatch
         return nil
     end
     return y3.ui.get_by_handle(self.player, py_ui)
