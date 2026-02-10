@@ -12,10 +12,12 @@ local M = Class 'Config'
 ---@field mouse boolean # 同步玩家的鼠标位置
 ---@field key boolean # 同步玩家的键盘与鼠标按键
 ---@field camera boolean # 同步玩家的镜头
+---@field send_in_single_mode boolean # 在单人模式下使用 `y3.sync.send` 发送消息时是否仍然广播给所有玩家，默认为 `true`。如果设置为 `false`，可以在单人模式中节省性能，但也会导致录像（断线重连）不正确。
 M.sync = y3.proxy.new({
     mouse  = false,
     key    = false,
     camera = false,
+    send_in_single_mode = true,
 }, {
     updateRaw = true,
     setter = {

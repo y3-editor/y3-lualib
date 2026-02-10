@@ -8,13 +8,57 @@ M.syncMap = {}
 M.syncLocalCount = 0
 M.syncLocalCallbackMap = {}
 
+---@package
+---@type boolean?
+M.singleMode = nil
+
+---@package
+---@return boolean
+function M.isSingleMode()
+    if M.singleMode ~= nil then
+        return M.singleMode
+    end
+    local count = 0
+    for player in y3.player_group.get_all_players():pairs() do
+        if player:need_sync() then
+            count = count + 1
+            if count > 1 then
+                y3.ltimer.wait(60, function ()
+                    M.singleMode = nil
+                end)
+                M.singleMode = false
+                return false
+            end
+        end
+    end
+    M.singleMode = true
+    return true
+end
+
 -- 发送本地的信息，使用 `onSync` 来同步接受数据  
 -- 请在本地环境中使用此函数
 ---@generic T: Serialization.SupportTypes
 ---@param id string # 以 `$` 开头的 id 保留为内部使用
----@param data T # 如果包含对象，需要在类上实现 `__encode` 和 `__decode` 方法
+---@param data? T # 如果包含对象，需要在类上实现 `__encode` 和 `__decode` 方法
 ---@param done? async fun(data: T)
 function M.send(id, data, done)
+    if not y3.config.sync.send_in_single_mode and M.isSingleMode() then
+        ---@async
+        y3.await.call(function ()
+            y3.await.sleep(0.01)
+            ---@async
+            y3.player.with_local(function (local_player)
+                local callback = M.syncMap[id]
+                if callback then
+                    xpcall(callback, log.error, data, local_player)
+                end
+                if done then
+                    done(data)
+                end
+            end)
+        end)
+        return
+    end
     if done then
         M.syncLocalCount = M.syncLocalCount + 1
         M.syncLocalCallbackMap[M.syncLocalCount] = done
