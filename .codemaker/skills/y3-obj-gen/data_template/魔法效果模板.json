@@ -1,0 +1,64 @@
+{
+    "_custom_": true, 
+    "_ref_": 134233079, 
+    "attach_model_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "cycle_time": 0, 
+    "description": 0, 
+    "disappear_when_dead": true, 
+    "get_effect_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "halo_effect": 0, 
+    "ign_inf_unit_tag": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "ign_inf_unit_type": 2, 
+    "inf_unit_tag": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "influence_rng": 0, 
+    "is_influence_self": true, 
+    "key": 0, 
+    "kv": {}, 
+    "layer_change_of_cover": 1, 
+    "layer_max": 1, 
+    "lose_effect_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "material_alpha": 0.5, 
+    "material_change": 0, 
+    "material_color": {
+        "__tuple__": true, 
+        "items": [255, 255, 255]
+    }, 
+    "material_color_intensity": 0, 
+    "modifier_cover_type": 1, 
+    "modifier_effect": 2, 
+    "modifier_icon": 100008, 
+    "modifier_type": 1, 
+    "name": 0, 
+    "same_origin_cover": true, 
+    "shield_change_of_cover": 2, 
+    "shield_type": 1, 
+    "shield_value": 0.0, 
+    "show_on_ui": true, 
+    "sound_event_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "suffix": "", 
+    "tags": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "target_allow": 1, 
+    "time_change_of_cover": 1, 
+    "uid": "0"
+}

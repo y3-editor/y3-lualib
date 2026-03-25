@@ -1,0 +1,108 @@
+# Y3 项目规则
+
+Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
+
+## 🎯 技能系统
+
+处理请求前先查阅 `.codemaker/skills/README.md` 匹配技能，加载对应 `SKILL.md` 执行。
+
+## ⚠️ 核心禁令
+
+| 禁止 | 正确做法 |
+|------|----------|
+| 臆造 API/JSON 字段 | 查阅 `y3/` 源码验证 |
+| 手写大型 JSON（300+行） | 使用脚本生成 |
+| Lua 重新实现引擎功能 | 使用物编配置 |
+| 手写技能栏/Buff/物品栏 | 使用官方组件 `type:17(SkillBtn)/18(BuffList)/19(BuffItem)/20(EquipSlot)` |
+| **UI 坐标用左上角思维** | **Y3 原点在左下角！Y↑ X→** |
+| **手写技能释放/冷却逻辑** | **使用官方技能按钮组件 type:17** |
+| **生成物编/UI后直接保存** | **必须先热更再保存！否则内容丢失** |
+| **手写完整 UI JSON** | **使用 `tree_to_ui_json.py` 脚本生成** |
+| **凭空编造图片 ID** | **查阅 `y3-ui-beautify` 的 `IMAGE_ID_REGISTRY.md`** |
+| **🔴 有现成脚本还手写新脚本** | **先查 pipeline/ 目录，使用已有工具** |
+
+## 🚫 禁止手写脚本原则
+
+**执行任何操作前，必须先检查是否有现成工具！**
+
+### 检查流程
+
+```
+需要执行某项操作
+    │
+    ├─ 1. 先查看已加载的技能说明中是否提供了工具
+    ├─ 2. 检查 .codemaker/skills/*/pipeline/ 目录
+    ├─ 3. 有现成工具 → ✅ 使用，禁止手写
+    └─ 4. 确认没有 → ⚠️ 才可考虑编写
+```
+
+### 已有工具速查
+
+| 任务 | 现有工具 | 位置 |
+|------|---------|------|
+| 生成 UI JSON | `tree_to_ui_json.py` | `y3-ui-json-generator/pipeline/` |
+| **批量修改/美化 JSON** | `patch_ui_json.py` | `y3-ui-beautify/pipeline/` |
+| 静态检查 | `static_check.py` | `y3-ui-json-generator/pipeline/` |
+| 生成 UI 树 | `gen_ui_tree.py` | `y3-ui-json-generator/pipeline/` |
+
+### 🔴 触发检查点
+
+**在以下时机必须检查是否有现成工具：**
+1. 生成 UI JSON 后，准备修改时
+2. 需要批量修改字段时
+3. 说出"我来写个脚本"之前
+4. 调用 `edit_file` 创建 `.py` 文件之前
+
+## 🖼️ UI 生成流程（强制）
+
+**禁止 AI 直接手写 UI JSON！必须使用脚本：**
+
+```
+1. AI 输出树状结构 JSON（< 50 行）
+2. 运行脚本生成完整 JSON
+3. AI 按需修改具体字段
+```
+
+**脚本命令：**
+```bash
+cd .codemaker/skills/y3-ui-json-generator/pipeline
+py -3 tree_to_ui_json.py input_tree.json output.json
+```
+
+**官方组件自动生成：** 脚本检测到 `skill_btn`/`item_slot`/`buff_slot` 类型时，自动从模板生成完整结构。
+
+## 🔄 引擎功能复用
+
+**优先使用引擎系统，不要用 Lua 重新实现：**
+
+| 功能 | 正确做法 |
+|------|----------|
+| 技能冷却/耗蓝 | 物编字段配置 |
+| Buff 持续/叠层 | 物编字段配置 |
+| 击杀奖励 | `reward_exp` / `reward_official_res_1` |
+| **物品属性加成** | **物编 `attached_*` 字段，引擎自动管理（仅英雄）** |
+| 技能栏 UI | 官方 `type:17` SkillBtn 技能按钮 |
+| Buff 显示 | 官方 `type:18` BuffList 列表容器 + `type:19` BuffItem 单项 |
+| 物品栏 UI | 官方 `type:20` EquipSlot 物品槽 |
+
+## � Lua 代码检查
+
+**生成或修改 Lua 文件后，必须调用 MCP 工具检查语法错误：**
+
+```
+工具: y3-helper.read_problems_lua
+参数: { "pathGlob": "<lua文件路径>" }
+```
+
+示例：
+- 单文件: `{ "pathGlob": "maps/EntryMap/script/main.lua" }`
+- 多文件: `{ "pathGlob": ["maps/EntryMap/script/main.lua", "maps/EntryMap/script/game/xxx.lua"] }`
+- 目录: `{ "pathGlob": "maps/EntryMap/script/game" }`
+
+## �📚 知识库
+
+| 文档 | 说明 |
+|------|------|
+| `.codemaker/knowledge/` | Y3 引擎知识库 |
+| `.codemaker/knowledge/08-官方UI组件.md` | 官方 UI 组件指南 |
+| `.codemaker/rules/common_errors.md` | 常见错误速查 |
