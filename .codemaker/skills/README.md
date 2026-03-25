@@ -1,0 +1,153 @@
+# Y3 Skills 索引
+
+> AI 技能路由入口。按需加载 `SKILL.md`，避免 token 浪费。
+
+**最后更新**: 2026-03-23
+
+## 🎯 技能路由（增强版）
+
+| 用户表述 | 技能 | 输出格式 | 依赖/子技能 | 关键命令/目录 |
+|----------|------|----------|-------------|---------------|
+| "做一个XX游戏" / "开发流程" | **y3-game-spec** | 规划文档 | → y3-obj-gen, y3-ui-pipeline, y3-lua-pipeline | - |
+| "生成单位/物品/技能/Buff/投射物" | **y3-obj-gen** (v5.2) | JSON | - | `editor_table/` |
+| "修改物编属性/技能属性/Buff属性" | **y3-obj-edit** | JSON | - | `editor_table/` |
+| "做个UI/面板/界面/HUD/血条/技能栏" | **y3-ui-pipeline** ⭐ | JSON + Lua | → y3-ui-json-generator, y3-ui-official | `tree_to_ui_json.py` |
+| "写Lua逻辑代码" | **y3-lua-pipeline** | Lua | - | `script/` |
+| "生成地形" | **y3-gen-terrain** | JSON | - | `terrain/` |
+| "调整布局/修改位置/美化UI/批量修改/换图片" | **y3-ui-beautify** | JSON | - | `UI_BEAUTIFY_GUIDE.md`, `IMAGE_ID_REGISTRY.md`, `patch_ui_json.py` |
+
+> ⭐ **UI 统一入口**：所有 UI 相关需求都走 `y3-ui-pipeline`，内部自动路由。
+
+## ⚡ 常用命令速查
+
+```bash
+# UI 树状结构 → 完整 JSON
+cd .codemaker/skills/y3-ui-json-generator/pipeline
+py -3 tree_to_ui_json.py <input_tree.json> <output.json>
+
+# 提取 UI 树（减少 token）
+py -3 gen_ui_tree.py <workspace_path>
+
+# UI JSON 静态检查
+py -3 -c "from static_check import static_check; import json; data=json.load(open('<json>','r',encoding='utf-8')); r=static_check(data); print('✅' if r['passed'] else '❌')"
+
+# MCP 热更保存（必须按顺序）
+# 1. hotfix_ui_editor → 2. 等待3秒 → 3. save_editor
+```
+
+## 🔀 决策树
+
+```
+用户需求
+  ├─ "做一个XX游戏" → y3-game-spec（规划后分发）
+  ├─ 需要物编数据 → y3-obj-gen
+  ├─ UI/界面/面板 → y3-ui-pipeline（内部再路由）
+  ├─ 调整布局/美化/批量修改/换图片 → y3-ui-beautify
+  └─ Lua逻辑代码 → y3-lua-pipeline
+```
+
+## 📂 目录结构
+
+```
+.codemaker/skills/          ← 用户功能技能
+├── y3-game-spec/           ← 游戏开发指南
+├── y3-obj-gen/             ← 物编生成 v5.2
+├── y3-obj-edit/            ← 物编修改
+├── y3-ui-pipeline/         ← UI 开发入口
+├── y3-ui-json-generator/   ← UI JSON 生成
+├── y3-ui-beautify/         ← UI 布局/美化/批量修改
+├── y3-ui-official/         ← UI Lua API
+├── y3-lua-pipeline/        ← 非 UI Lua 代码
+└── y3-gen-terrain/         ← 地形生成
+
+.codemaker/devtools/        ← 开发者工具（已分离）
+├── y3-ui-testcase/         ← UI 自动化测试
+└── y3-skill-feedback/      ← Skill 反馈收集
+```
+
+## ⚡ 核心规则速查
+
+> 详细规则见 `.codemaker/rules/rules.mdc`
+
+| 禁止 | 正确做法 |
+|------|----------|
+| 臆造 API/JSON 字段 | 查阅 `y3/` 源码验证 |
+| 手写大型 JSON（300+行） | 使用脚本生成 |
+| 手写技能栏/Buff/物品栏 UI | 使用官方组件 `type:17/18/20` |
+| UI 坐标用左上角思维 | Y3 原点在**左下角** |
+
+## 🎮 Y3 引擎速查
+
+### UI 组件类型（常用）
+
+| type | 名称 | 用途 |
+|------|------|------|
+| 1 | Button | 按钮 |
+| 2 | Layer | 根面板（仅顶层） |
+| 3 | TextLabel | 文本 |
+| 4 | Image | 图片 |
+| 5 | Progress | 进度条 |
+| 6 | Model | 3D模型 |
+| 7 | Layout | 布局容器 |
+| 15 | InputField | 输入框 |
+| **17** | **SkillBtn** | **技能按钮（官方）** |
+| **18** | **BuffList** | **Buff列表（官方）** |
+| **20** | **EquipSlot** | **物品槽（官方）** |
+
+> 完整类型列表见 `knowledge/05-UI字段规范.md`
+
+### 玩家编号
+
+| 编号 | 用途 |
+|------|------|
+| 1-12 | 普通玩家 |
+| 31 | 中立敌对（怪物） |
+| 32 | 中立友好（NPC） |
+
+### 键盘常量
+
+```lua
+-- ✅ 正确
+y3.const.KeyboardKey['KEY_1']
+y3.const.KeyboardKey['KEY_F1']
+
+-- ❌ 错误
+y3.const.KeyboardKey['1']
+```
+
+## 📚 文档层级
+
+### 权威参考（Knowledge）
+
+| 文档 | 说明 |
+|------|------|
+| `knowledge/05-UI字段规范.md` | **完整** UI 字段定义（type 0-74、pos_data、致命规则） |
+| `knowledge/08-官方UI组件.md` | **完整** 官方组件用法（SkillBtn/BuffList/EquipSlot） |
+| `knowledge/05a-UI属性绑定.md` | UI 数据绑定 |
+
+### 技能速查（Skills）
+
+| 文档 | 说明 |
+|------|------|
+| `skills/y3-ui-json-generator/references/UI_REFERENCE.md` | UI JSON **速查手册**（简化版，引用 knowledge） |
+| `skills/y3-ui-beautify/references/UI_BEAUTIFY_GUIDE.md` | UI 美化方案（视觉层 + 交互层） |
+| `skills/y3-lua-pipeline/references/*.md` | Lua API 参考（player/unit/ability 等） |
+
+### 其他
+
+| 文档 | 路径 |
+|------|------|
+| 全局规则 | `.codemaker/rules/rules.mdc` |
+| 常见错误 | `.codemaker/rules/common_errors.md` |
+
+---
+
+## 📊 反馈收集
+
+每次 Skill 任务完成后询问用户：
+- 📊 评分 (1-5)：1=不可用 | 3=基本可用 | 5=完美
+- 🔧 是否需要人工修正？
+
+---
+
+*最后更新: 2026-03-23*
