@@ -13,7 +13,6 @@
 | "修改物编属性/技能属性/Buff属性" | **y3-obj-edit** | JSON | - | `editor_table/` |
 | "做个UI/面板/界面/HUD/血条/技能栏" | **y3-ui-pipeline** ⭐ | JSON + Lua | → y3-ui-json-generator, y3-ui-official | `tree_to_ui_json.py` |
 | "写Lua逻辑代码" | **y3-lua-pipeline** | Lua | - | `script/` |
-| "生成地形" | **y3-gen-terrain** | JSON | - | `terrain/` |
 | "调整布局/修改位置/美化UI/批量修改/换图片" | **y3-ui-beautify** | JSON | - | `UI_BEAUTIFY_GUIDE.md`, `IMAGE_ID_REGISTRY.md`, `patch_ui_json.py` |
 
 > ⭐ **UI 统一入口**：所有 UI 相关需求都走 `y3-ui-pipeline`，内部自动路由。
@@ -57,8 +56,7 @@ py -3 -c "from static_check import static_check; import json; data=json.load(ope
 ├── y3-ui-json-generator/   ← UI JSON 生成
 ├── y3-ui-beautify/         ← UI 布局/美化/批量修改
 ├── y3-ui-official/         ← UI Lua API
-├── y3-lua-pipeline/        ← 非 UI Lua 代码
-└── y3-gen-terrain/         ← 地形生成
+└── y3-lua-pipeline/        ← 非 UI Lua 代码
 
 .codemaker/devtools/        ← 开发者工具（已分离）
 ├── y3-ui-testcase/         ← UI 自动化测试
