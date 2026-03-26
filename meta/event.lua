@@ -10287,4 +10287,37 @@ event.ET_MALL_NOTIFY_ROOM_KICK_OFF = {}
 --steam被踢出房间
 event.ET_MALL_NOTIFY_ROOM_BUILD = {}
 
+---@class EventParam.ET_ON_MLS_SCRIPT_EVENT
+---@field role_id integer # 目标玩家
+---@field ename string # 事件名
+---@field edata table # 事件携带的参数表
+
+--接收云脚本自定义消息
+event.ET_ON_MLS_SCRIPT_EVENT = {
+    [1] = {
+        name = "__role_id",
+        type = "integer",
+        lua_name = "role_id",
+        lua_type = "integer",
+        desc = "目标玩家",
+        lua_desc = "目标玩家",
+    },
+    [2] = {
+        name = "__mlscript_event_name",
+        type = "string",
+        lua_name = "ename",
+        lua_type = "string",
+        desc = "事件名",
+        lua_desc = "事件名",
+    },
+    [3] = {
+        name = "__mlscript_event_data",
+        type = "table",
+        lua_name = "edata",
+        lua_type = "table",
+        desc = "事件携带的参数表",
+        lua_desc = "事件携带的参数表",
+    },
+}
+
 return event
