@@ -3035,6 +3035,15 @@ M.config["steam-创建房间成功"] = {
     },
 }
 
+---@alias EventParam.云脚本-接收自定义消息 EventParam.ET_ON_MLS_SCRIPT_EVENT
+M.config["云脚本-接收自定义消息"] = {
+    desc = "云脚本接收自定义消息时触发",
+    key = "ET_ON_MLS_SCRIPT_EVENT",
+    name = "云脚本-接收自定义消息",
+    params = {
+    },
+}
+
 ---@class Game
 ---@field event fun(self: self, event: "游戏-初始化", callback: fun(trg: Trigger, data: EventParam.游戏-初始化)): Trigger
 ---@field event fun(self: self, event: "游戏-追帧完成", callback: fun(trg: Trigger, data: EventParam.游戏-追帧完成)): Trigger
@@ -3253,6 +3262,7 @@ M.config["steam-创建房间成功"] = {
 ---@field event fun(self: self, event: "steam-被邀请加入房间", callback: fun(trg: Trigger, data: EventParam.steam-被邀请加入房间)): Trigger
 ---@field event fun(self: self, event: "steam-被踢出房间", callback: fun(trg: Trigger, data: EventParam.steam-被踢出房间)): Trigger
 ---@field event fun(self: self, event: "steam-创建房间成功", callback: fun(trg: Trigger, data: EventParam.steam-创建房间成功)): Trigger
+---@field event fun(self: self, event: "云脚本-接收自定义消息", callback: fun(trg: Trigger, data: EventParam.云脚本-接收自定义消息)): Trigger
 
 ---@class Ability
 ---@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
