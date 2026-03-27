@@ -1,5 +1,4 @@
-local event_datas   = require 'y3.meta.event'
-local event_configs = require 'y3.meta.eventconfig'
+local event_module   = require 'y3.meta.event'
 local game_event    = require 'y3.game.game_event'
 -- local object_event  = require 'y3.game.object_event'
 require 'y3.game.core_object_event'
@@ -17,7 +16,8 @@ M.trigger_id_counter = y3.util.counter()
 ---@param extra_args? any[]
 ---@return table
 function M.convert_py_params(event_key, event_params, extra_args)
-    local event_data = event_datas[event_key]
+    -- 通过引擎事件 key 查找对应的事件配置
+    local event_data = event_module.get_event_params_by_key(event_key)
     if not event_data then
         return event_params
         --error(string.format('event %s not found', event_key))
@@ -119,7 +119,7 @@ end
 ---@param event_name string
 ---@return string
 local function get_py_event_name(event_name)
-    local config = event_configs.config[event_name]
+    local config = event_module.config[event_name]
     if not config then
         return event_name
     end
@@ -133,7 +133,7 @@ end
 ---@return function?
 ---@return any[]?
 local function extract_addition(event_name, extra_args)
-    local config = event_configs.config[event_name]
+    local config = event_module.config[event_name]
     if not config then
         return nil, nil
     end
