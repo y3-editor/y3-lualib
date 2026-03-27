@@ -9432,40 +9432,42 @@ M.config["steam-创建房间成功"] = {
 }
 
 ---@class EventParam.ET_ON_MLS_SCRIPT_EVENT
----@field role_id integer # 目标玩家
----@field ename string # 事件名
----@field edata table # 事件携带的参数表
----@alias EventParam.云脚本-接收自定义消息 EventParam.ET_ON_MLS_SCRIPT_EVENT
-M.config["云脚本-接收自定义消息"] = {
-    desc = "云脚本接收自定义消息时触发",
+---@field player Player # 玩家
+---@field mlscript_event_name string # 事件名
+---@field mlscript_event_data py.Table # 事件数据一维表
+---@alias EventParam.玩家-收到云脚本消息 EventParam.ET_ON_MLS_SCRIPT_EVENT
+M.config["玩家-收到云脚本消息"] = {
+    desc = "收到云脚本消息时触发",
+    from_global = true,
     key = "ET_ON_MLS_SCRIPT_EVENT",
-    name = "云脚本-接收自定义消息",
+    name = "玩家-收到云脚本消息",
+    object = "Player",
     params = {
     },
     event_params = {
         [1] = {
             name = "__role_id",
-            type = "integer",
-            lua_name = "role_id",
-            lua_type = "integer",
-            desc = "目标玩家",
-            lua_desc = "目标玩家",
+            type = "py.RoleID",
+            lua_name = "player",
+            lua_type = "Player",
+            desc = "玩家id",
+            lua_desc = "玩家",
         },
         [2] = {
             name = "__mlscript_event_name",
             type = "string",
-            lua_name = "ename",
+            lua_name = "mlscript_event_name",
             lua_type = "string",
             desc = "事件名",
             lua_desc = "事件名",
         },
         [3] = {
             name = "__mlscript_event_data",
-            type = "table",
-            lua_name = "edata",
-            lua_type = "table",
-            desc = "事件携带的参数表",
-            lua_desc = "事件携带的参数表",
+            type = "py.Table",
+            lua_name = "mlscript_event_data",
+            lua_type = "py.Table",
+            desc = "事件数据一维表",
+            lua_desc = "事件数据一维表",
         },
     },
 }
@@ -9689,6 +9691,7 @@ M.config["云脚本-接收自定义消息"] = {
 ---@field event fun(self: self, event: "steam-被踢出房间", callback: fun(trg: Trigger, data: EventParam.steam-被踢出房间)): Trigger
 ---@field event fun(self: self, event: "steam-创建房间成功", callback: fun(trg: Trigger, data: EventParam.steam-创建房间成功)): Trigger
 ---@field event fun(self: self, event: "云脚本-接收自定义消息", callback: fun(trg: Trigger, data: EventParam.云脚本-接收自定义消息)): Trigger
+---@field event fun(self: self, event: "玩家-收到云脚本消息", callback: fun(trg: Trigger, data: EventParam.玩家-收到云脚本消息)): Trigger
 
 ---@class Ability
 ---@field event fun(self: Ability, event: "技能-建造完成", callback: fun(trg: Trigger, data: EventParam.技能-建造完成)): Trigger
@@ -9820,6 +9823,7 @@ M.config["云脚本-接收自定义消息"] = {
 ---@field event fun(self: Player, event: "玩家-语音发言", callback: fun(trg: Trigger, data: EventParam.玩家-语音发言)): Trigger
 ---@field event fun(self: Player, event: "玩家-平台道具变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台道具变化)): Trigger
 ---@field event fun(self: Player, event: "玩家-平台商城窗口变化", callback: fun(trg: Trigger, data: EventParam.玩家-平台商城窗口变化)): Trigger
+---@field event fun(self: Player, event: "玩家-收到云脚本消息", callback: fun(trg: Trigger, data: EventParam.玩家-收到云脚本消息)): Trigger
 
 ---@class Projectile
 ---@field event fun(self: Projectile, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
