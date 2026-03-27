@@ -28,7 +28,7 @@ function Fix32Vec2(x, y) end
 ---@param x number
 ---@param y number
 ---@param z number
----@returns py.Point Fix32Vec3
+---@return py.Point Fix32Vec3
 function Fix32Vec3(x, y, z) end
 
 ---@class py.Fixed
