@@ -28,7 +28,7 @@ function Fix32Vec2(x, y) end
 ---@param x number
 ---@param y number
 ---@param z number
----@return py.Point Fix32Vec3
+---@returns py.Point Fix32Vec3
 function Fix32Vec3(x, y, z) end
 
 ---@class py.Fixed
@@ -289,8 +289,3 @@ function stop_danmaku() end
 ---获取新增弹幕的列表
 ---@return any[]
 function get_danmaku_comments() end
-
----发送云脚本自定义事件
----@param event_name string
----@param msg_tab table
-function GameAPI.send_mlscript_msg(event_name, msg_tab) end

@@ -1057,13 +1057,6 @@ function M.get_booked_number()
     return math.tointeger(GlobalAPI.api_get_booked_number()) or 0
 end
 
---向云脚本发送一条自定义消息
----@param ename string # 事件名
----@param data table # 消息内容
-function M.send_mlscript_msg(ename, data)
-    GameAPI.send_mlscript_msg(ename, data)
-end
-
 _G['OnTick'] = function ()
     if M._client_tick_callback then
         y3.player.with_local(M._client_tick_callback)

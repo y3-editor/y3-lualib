@@ -1,4 +1,4 @@
-local event_configs = require 'y3.meta.event'
+local event_configs = require 'y3.meta.eventconfig'
 local get_master    = require 'y3.util.get_master'
 
 -- 物体编辑器

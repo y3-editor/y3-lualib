@@ -1500,8 +1500,3 @@ function GameAPI.get_object_multilingual_key(data_key, entity_id, name_or_desc) 
 ---@param role py.Role # 玩家
 ---@param is_on boolean # 是否开启
 function GameAPI.set_common_atk_quick_cast(role, is_on) end
-
---向云脚本发送一条自定义消息
----@param ename string # 事件名
----@param data table # 消息内容
-function GameAPI.send_mlscript_msg(ename, data) end
