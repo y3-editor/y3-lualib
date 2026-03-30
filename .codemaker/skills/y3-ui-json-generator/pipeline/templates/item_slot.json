@@ -1,0 +1,213 @@
+{
+    "children": [
+        {
+            "cap_insets": {
+                "__tuple__": true,
+                "items": [21, 21, 21, 21]
+            },
+            "children": [],
+            "event_list": [],
+            "image": 134258703,
+            "layer_name": "{{LAYER_NAME}}",
+            "name": "bg",
+            "pos_data": {
+                "__tuple__": true,
+                "items": [32.0, 32.0, 50.0, 50.0, 1, 1]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [64.0, 64.0]
+            },
+            "type": 4,
+            "uid": "{{UID_ITEM_BG}}"
+        },
+        {
+            "children": [],
+            "event_list": [],
+            "image": 999,
+            "layer_name": "{{LAYER_NAME}}",
+            "name": "grade",
+            "pos_data": {
+                "__tuple__": true,
+                "items": [27.0, 27.0, 50.0, 50.0, 1, 1]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [54.0, 54.0]
+            },
+            "type": 4,
+            "uid": "{{UID_ITEM_GRADE}}"
+        },
+        {
+            "cap_insets": {
+                "__tuple__": true,
+                "items": [28, 28, 28, 28]
+            },
+            "children": [],
+            "event_list": [],
+            "image": 999,
+            "layer_name": "{{LAYER_NAME}}",
+            "name": "icon",
+            "pos_data": {
+                "__tuple__": true,
+                "items": [27.0, 27.0, 50.0, 50.0, 1, 1]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [54.0, 54.0]
+            },
+            "type": 4,
+            "uid": "{{UID_ITEM_ICON}}"
+        },
+        {
+            "bg_color": {
+                "__tuple__": true,
+                "items": [255, 255, 255, 0]
+            },
+            "bg_image": 999,
+            "children": [],
+            "current_value": 66.0,
+            "event_list": [],
+            "image": 134275447,
+            "layer_name": "{{LAYER_NAME}}",
+            "name": "cd",
+            "opacity": 0.8,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [27.0, 27.0, 50.0, 50.0, 1, 1]
+            },
+            "prefab_sub_key": null,
+            "progress_type": 0,
+            "reverse": true,
+            "scale": {
+                "__tuple__": true,
+                "items": [1.6, 1.6]
+            },
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [33.75, 33.75]
+            },
+            "type": 5,
+            "uid": "{{UID_ITEM_CD}}"
+        },
+        {
+            "alignment": {
+                "__tuple__": true,
+                "items": [4, 0]
+            },
+            "children": [],
+            "event_list": [],
+            "font": {
+                "__tuple__": true,
+                "items": ["", 16]
+            },
+            "font_min_size": 12,
+            "label_effect": {
+                "__tuple__": true,
+                "items": [false, false, false, true, false, false]
+            },
+            "layer_name": "{{LAYER_NAME}}",
+            "name": "stack",
+            "over_pattern": 2,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [27.0, 30.0, 50.0, 55.5556, 1, 1]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "shadow": true,
+            "size": {
+                "__tuple__": true,
+                "items": [54.0, 60.0]
+            },
+            "text": {
+                "__tuple__": true,
+                "items": ["1", false]
+            },
+            "text_shadow_color": [0, 0, 0, 255],
+            "text_shadow_offset": {
+                "__tuple__": true,
+                "items": [2.0, -2.0]
+            },
+            "type": 3,
+            "uid": "{{UID_ITEM_STACK}}"
+        },
+        {
+            "children": [],
+            "event_list": [],
+            "image": 134275447,
+            "layer_name": "{{LAYER_NAME}}",
+            "name": "disabled_mask",
+            "opacity": 0.9,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [27.0, 27.0, 50.0, 50.0, 1, 1]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [54.0, 54.0]
+            },
+            "type": 4,
+            "uid": "{{UID_ITEM_DISABLED}}",
+            "visible": false
+        },
+        {
+            "cap_insets": {
+                "__tuple__": true,
+                "items": [30, 30, 70, 70]
+            },
+            "children": [],
+            "event_list": [],
+            "image": 134274626,
+            "is_scale9_enable": true,
+            "layer_name": "{{LAYER_NAME}}",
+            "name": "hover_resp",
+            "pos_data": {
+                "__tuple__": true,
+                "items": [32.0, 33.0, 50.0, 51.5625, 1, 1]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [60.0, 60.0]
+            },
+            "type": 4,
+            "uid": "{{UID_ITEM_HOVER}}",
+            "visible": false
+        }
+    ],
+    "equip_bg_img": "{{UID_ITEM_BG}}",
+    "equip_cd_progress": "{{UID_ITEM_CD}}",
+    "equip_charge_label": "{{UID_ITEM_STACK}}",
+    "equip_disabled_img": "{{UID_ITEM_DISABLED}}",
+    "equip_icon_img": "{{UID_ITEM_ICON}}",
+    "equip_stack_label": "{{UID_ITEM_STACK}}",
+    "event_list": [],
+    "hover_child": "{{UID_ITEM_HOVER}}",
+    "layer_name": "{{LAYER_NAME}}",
+    "mask_image": 999,
+    "name": "item_slot_{{INDEX}}",
+    "pos_data": {
+        "__tuple__": true,
+        "items": [32.0, 32.0, 50.0, 50.0, 1, 1]
+    },
+    "prefab_sub_key": null,
+    "scene_ui_name": null,
+    "short_cut": 0,
+    "size": {
+        "__tuple__": true,
+        "items": [64.0, 64.0]
+    },
+    "type": 20,
+    "uid": "{{UID_ITEM_SLOT}}"
+}

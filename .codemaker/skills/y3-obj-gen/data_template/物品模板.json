@@ -1,0 +1,119 @@
+{
+    "_custom_": true, 
+    "_ref_": 134263230, 
+    "attached_ability": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "attached_agility": 0.0, 
+    "attached_critical_chance": 0.0, 
+    "attached_dodge_rate": 0.0, 
+    "attached_hit_rate": 0.0, 
+    "attached_hp_max": 0.0, 
+    "attached_hp_rec": 0.0, 
+    "attached_intelligence": 0.0, 
+    "attached_passive_abilities": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "attached_pene_mag": 0.0, 
+    "attached_pene_phy": 0.0, 
+    "attached_strength": 0.0, 
+    "auto_use": false, 
+    "base_color_mod": 1, 
+    "base_tint_color": {
+        "__tuple__": true, 
+        "items": [255, 255, 255, 0.5]
+    }, 
+    "body_size": 1.0, 
+    "buy_res_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "cd_type": "", 
+    "click_name_pick_up": 0, 
+    "compose_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "cur_charge": 0, 
+    "cur_stack": 1, 
+    "delete_on_discard": false, 
+    "description": 0, 
+    "disable_overlapping": false, 
+    "discard_enable": true, 
+    "discard_when_dead": true, 
+    "drop_stay_time": 9999, 
+    "effect_list": {}, 
+    "fresnel_color": {
+        "__tuple__": true, 
+        "items": [255, 255, 255, 0.5]
+    }, 
+    "fresnel_emissive_color_strength": 1, 
+    "fresnel_exp": 10, 
+    "hp_max": 100, 
+    "icon": 100000, 
+    "init_stock": 5, 
+    "item_billboard_type": 0, 
+    "key": 0, 
+    "kv": {}, 
+    "level": 1, 
+    "material_alpha": 0.5, 
+    "material_change": 0, 
+    "material_color": {
+        "__tuple__": true, 
+        "items": [255, 255, 255]
+    }, 
+    "material_color_intensity": 0, 
+    "max_stock": 5, 
+    "maximum_charging": 5, 
+    "maximum_stacking": 5, 
+    "model": 10022, 
+    "model_opacity": 1, 
+    "name": 0, 
+    "name_margin": {
+        "__tuple__": true, 
+        "items": [0, 0, 0, 0]
+    }, 
+    "name_not_occlusion": 0, 
+    "name_offset_based_on_root": {
+        "__tuple__": true, 
+        "items": [0, 0, 0]
+    }, 
+    "offset": {
+        "__tuple__": true, 
+        "items": [0, 0, 0]
+    }, 
+    "precondition_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "preview_name_click_range": 0, 
+    "preview_name_stack": 0, 
+    "refresh_interval": 1, 
+    "rotation": {
+        "__tuple__": true, 
+        "items": [0, 0, 0]
+    }, 
+    "sale_enable": true, 
+    "sell_res_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "sound_event_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "stack_type": 2, 
+    "start_rft": 1, 
+    "suffix": "", 
+    "tags": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "uid": "0", 
+    "use_base_tint_color": false, 
+    "use_consume": 1, 
+    "use_fresnel": 0, 
+    "use_virtual_light": 0
+}

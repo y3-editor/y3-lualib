@@ -1,13 +1,12 @@
-local event_configs = require 'y3.meta.eventconfig'
-local event_datas   = require 'y3.meta.event'
+local event_configs = require 'y3.meta.event'
 
 local function get_master(event_name, lua_params)
     local config = event_configs.config[event_name]
     if not config then
         return nil
     end
-    local datas  = event_datas[config.key]
-    if not datas then
+    local datas = config.event_params
+    if not datas or #datas == 0 then
         return nil
     end
     local master = config.master_data
@@ -28,6 +27,9 @@ local function get_master(event_name, lua_params)
             end
         end
         config.master_data = master
+    end
+    if not master then
+        return nil
     end
     return lua_params[master.lua_name]
 end
