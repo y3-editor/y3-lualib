@@ -12,6 +12,7 @@ local M = Class 'BaseView'
 Extends("BaseView", "GCHost")
 
 local class = require "y3.tools.class"
+local share = require "y3.ui_framework.share"
 
 ---初始化视图（由外部调用一次）
 ---对应 LocalUILogic:attach 的逻辑
@@ -38,8 +39,8 @@ function M:attach(uiNode)
 
     -- 自动注册到 UIManager，方便通过 getUIViewCtrl 获取
     local className = class.type(self)
-    if className and GamePlay and GamePlay.uiMgr then
-        GamePlay.uiMgr:setUIViewCtrl(className, self)
+    if className and share.uiMgr then
+        share.uiMgr:setUIViewCtrl(className, self)
     end
 
     self._isAttached = true

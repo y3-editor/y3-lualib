@@ -8,6 +8,7 @@
 local M = Class "UIManager"
 
 local UIConst = require "y3.ui_framework.UIConst"
+local share = require "y3.ui_framework.share"
 
 ----------------------------
 -- 界面枚举（从 UIConst 同步）
@@ -148,9 +149,9 @@ function M:openUI(viewName, ...)
         end
 
         -- 通过事件总线广播界面打开事件
-        if GamePlay.event then
-            GamePlay.event:emit("ui:open", viewName)
-            GamePlay.event:emit("ui:open:" .. viewName)
+        if share.event then
+            share.event:emit("ui:open", viewName)
+            share.event:emit("ui:open:" .. viewName)
         end
     else
         log.warn("[UIManager] 界面未找到: " .. viewName)
@@ -173,9 +174,9 @@ function M:closeUI(viewName)
         end
 
         -- 通过事件总线广播界面关闭事件
-        if GamePlay.event then
-            GamePlay.event:emit("ui:close", viewName)
-            GamePlay.event:emit("ui:close:" .. viewName)
+        if share.event then
+            share.event:emit("ui:close", viewName)
+            share.event:emit("ui:close:" .. viewName)
         end
     else
         log.info("UIManager: UI " .. viewName .. " not found")
