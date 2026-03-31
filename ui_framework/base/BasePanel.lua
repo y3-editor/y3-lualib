@@ -7,6 +7,7 @@
 ---@field _isAttached boolean 是否已完成 attach
 ---@field _eventHandlers table<string, function[]> 面板内部事件监听器
 ---@field _eventBusUnsubscribes function[] 全局事件总线的取消订阅函数列表
+---@field __class_events? table[] 类级别事件注册（由 on_event 写入）
 ---@field _gcHost GCHost 生命周期垃圾回收宿主
 local M = Class "BasePanel"
 
