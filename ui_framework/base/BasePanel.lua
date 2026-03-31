@@ -5,9 +5,12 @@
 ---@field _localPlayerId integer 本地玩家ID
 ---@field _name string 界面名称
 ---@field _isAttached boolean 是否已完成 attach
----@field _eventHandlers table<string, function[]> 事件监听器
+---@field _eventHandlers table<string, function[]> 面板内部事件监听器
+---@field _eventBusUnsubscribes function[] 全局事件总线的取消订阅函数列表
 ---@field _gcHost GCHost 生命周期垃圾回收宿主
 local M = Class "BasePanel"
+
+local share = require 'y3.ui_framework.share'
 
 ---@return self
 function M:__init()
@@ -15,6 +18,7 @@ function M:__init()
     self._controls = {}
     self._isAttached = false
     self._eventHandlers = {}
+    self._eventBusUnsubscribes = {}
     self._localPlayerId = nil
     self._localPlayer = nil
     self._gcHost = New "GCHost" ()
@@ -104,6 +108,29 @@ function M:on_hide(...) end
 ---子类重写：销毁时调用
 function M:on_destroy() end
 
+---注册全局事件总线监听（类级别，与 on_init 平行定义）
+---在 attach 时自动绑定到事件总线，destroy 时自动清理
+---callback 的第一个参数是面板实例 self
+---
+---用法：
+---```lua
+---Panel2:on_event("gold_change", function(self, data)
+---    log.info("金币变化: " .. data.gold)
+---end)
+---```
+---@param eventName string 事件名
+---@param callback fun(self: BasePanel, ...) 回调函数，第一个参数为面板实例
+function M:on_event(eventName, callback)
+    -- 类级别调用：存储到类表上，attach 时自动注册
+    if not rawget(self, '__class_events') then
+        rawset(self, '__class_events', {})
+    end
+    table.insert(rawget(self, '__class_events'), {
+        event = eventName,
+        callback = callback,
+    })
+end
+
 ----------------------------
 -- 内部生命周期方法（由 UIManager 调用）
 ----------------------------
@@ -119,6 +146,7 @@ function M:attach(ui)
     -- 防御性初始化：确保关键字段存在
     self._controls = self._controls or {}
     self._eventHandlers = self._eventHandlers or {}
+    self._eventBusUnsubscribes = self._eventBusUnsubscribes or {}
     self._gcHost = self._gcHost or New "GCHost" ()
 
     -- 支持传入 UUID 字符串
@@ -142,6 +170,18 @@ function M:attach(ui)
     end
 
     local localPlayer = self:getLocalPlayer()
+
+    -- 注册类级别的事件监听（通过 on_event 定义的）
+    local classEvents = self.__class_events
+    if classEvents then
+        for _, handler in ipairs(classEvents) do
+            local cb = handler.callback
+            local unsubscribe = share.event:on(handler.event, function(...)
+                cb(self, ...)  -- 传入实例作为第一个参数
+            end)
+            table.insert(self._eventBusUnsubscribes, unsubscribe)
+        end
+    end
 
     -- 调用子类 on_init
     self:on_init(ui, localPlayer)
@@ -180,8 +220,16 @@ function M:destroy()
     -- 调用子类 on_destroy
     self:on_destroy()
 
-    -- 清理事件
+    -- 清理面板内部事件
     self._eventHandlers = {}
+
+    -- 清理全局事件总线的订阅
+    if self._eventBusUnsubscribes then
+        for _, unsubscribe in ipairs(self._eventBusUnsubscribes) do
+            unsubscribe()
+        end
+        self._eventBusUnsubscribes = {}
+    end
 
     -- 销毁 GCHost（自动清理绑定的所有资源）
     if self._gcHost then

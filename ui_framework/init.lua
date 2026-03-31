@@ -54,4 +54,7 @@ y3.game:event('游戏-初始化', function(trg, data)
     log.info("[UI Framework] UIManager 启动完成")
 end)
 
+-- 导出公开 API 到 y3.ui_manager
+y3.ui_manager = require 'y3.ui_framework.api'
+
 log.info("[UI Framework] UI 框架加载完成")
