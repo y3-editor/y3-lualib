@@ -130,6 +130,9 @@ y3.develop.code    = require 'y3.develop.code'
 y3.develop.console = include 'y3.develop.console'
 y3.develop.helper  = require 'y3.develop.helper'
 
+-- UI 框架
+include 'y3.ui_framework.init'
+
 --对await进行一些配置
 y3.await.setErrorHandler(log.error)
 y3.await.setSleepWaker(y3.ltimer.wait)
