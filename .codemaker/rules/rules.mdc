@@ -17,7 +17,7 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 | **UI 坐标用左上角思维** | **Y3 原点在左下角！Y↑ X→** |
 | **手写技能释放/冷却逻辑** | **使用官方技能按钮组件 type:17** |
 | **生成物编/UI后直接保存** | **必须先热更再保存！否则内容丢失** |
-| **手写完整 UI JSON** | **使用 `tree_to_ui_json.py` 脚本生成** |
+| **手写完整 UI JSON** | **使用 `y3-ui-generator` skill 生成** |
 | **凭空编造图片 ID** | **查阅 `y3-ui-beautify` 的 `IMAGE_ID_REGISTRY.md`** |
 | **🔴 有现成脚本还手写新脚本** | **先查 pipeline/ 目录，使用已有工具** |
 
@@ -36,15 +36,6 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
     └─ 4. 确认没有 → ⚠️ 才可考虑编写
 ```
 
-### 已有工具速查
-
-| 任务 | 现有工具 | 位置 |
-|------|---------|------|
-| 生成 UI JSON | `tree_to_ui_json.py` | `y3-ui-json-generator/pipeline/` |
-| **批量修改/美化 JSON** | `patch_ui_json.py` | `y3-ui-beautify/pipeline/` |
-| 静态检查 | `static_check.py` | `y3-ui-json-generator/pipeline/` |
-| 生成 UI 树 | `gen_ui_tree.py` | `y3-ui-json-generator/pipeline/` |
-
 ### 🔴 触发检查点
 
 **在以下时机必须检查是否有现成工具：**
@@ -55,21 +46,25 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 
 ## 🖼️ UI 生成流程（强制）
 
-**禁止 AI 直接手写 UI JSON！必须使用脚本：**
+**所有 UI 面板必须通过 `y3-ui-generator` skill 生成，禁止手写 UI JSON！**
 
+### 触发条件
+用户提到以下关键词时，必须激活 `y3-ui-generator` skill：
+- 生成UI、创建界面、做个面板、做个弹窗、做个HUD、做个背包、做个商店...
+
+### 工作流（skill 内置，自动执行）
 ```
-1. AI 输出树状结构 JSON（< 50 行）
-2. 运行脚本生成完整 JSON
-3. AI 按需修改具体字段
+1. 生成结构草图（UI 树文本）
+2. 生成 HTML 预览文件
+3. 调用 scripts/html_to_y3_ui.py 转换为 Y3 JSON
+4. 在浏览器打开预览，清理临时 HTML
 ```
 
-**脚本命令：**
-```bash
-cd .codemaker/skills/y3-ui-json-generator/pipeline
-py -3 tree_to_ui_json.py input_tree.json output.json
-```
-
-**官方组件自动生成：** 脚本检测到 `skill_btn`/`item_slot`/`buff_slot` 类型时，自动从模板生成完整结构。
+### 关键规则
+- 输出到 `maps/EntryMap/ui/<PanelName>.json`
+- 坐标系：HTML 使用左上角原点，转换器自动转为 Y3 左下角原点
+- 复合控件（血条/技能框/Buff列表等）使用 `data-template` 引用预制模板
+- 禁止调用旧工具 `tree_to_ui_json.py` 或手写 JSON
 
 ## 🔄 引擎功能复用
 
