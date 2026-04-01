@@ -594,10 +594,15 @@ local btn = panel:get_child("card_1.btn_select_1")
 | `panel:get_child("container.btn")` | 查找**嵌套子控件** |
 | `panel:get_child("a.b.c")` | 支持**任意深度** |
 
-**如何确定正确的路径？**
-1. 查看 UI JSON 文件中的 `children` 嵌套结构
-2. 使用 `y3-ui-pipeline` 生成的 `ui-tree.md` 查看层级关系
-3. 路径中的每一段对应 JSON 中的 `name` 字段
+**如何确定正确的路径？**（按优先级排列）
+
+1. **🔴 优先读取 `ui_tree/*_Tree.json`** — 简化树文件包含完整的 name/uid/type 层级，token 消耗极低
+   - 主面板：读取 `ui_tree/<panel_name>_Tree.json`
+   - Prefab 组件：如果树中某节点包含 `"prefab": "<name>"` 字段，则读取 `ui_tree/<name>_Tree.json` 获取 prefab 内部结构
+2. 路径中的每一段对应 JSON 中的 `name` 字段
+3. **仅当 `_Tree.json` 不存在时**，才回退到读取完整 `ui/*.json` 文件查看 `children` 嵌套结构
+
+> ⚠️ 直接读取完整 UI JSON 通常有数千行，会消耗大量 token，应作为最后手段。
 
 ## 🚨 常见问题与解决方案
 

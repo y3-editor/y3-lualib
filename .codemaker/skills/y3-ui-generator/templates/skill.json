@@ -1,0 +1,791 @@
+{
+    "children": [
+        {
+            "cap_insets": {
+                "__tuple__": true,
+                "items": [
+                    70,
+                    89,
+                    70,
+                    89
+                ]
+            },
+            "children": [],
+            "event_list": [],
+            "image": 906366,
+            "is_scale9_enable": true,
+            "name": "skill_bg",
+            "open_adapter": true,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [
+                    75.0,
+                    115.0,
+                    50.0,
+                    50.0,
+                    0,
+                    0
+                ]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [
+                    150.0,
+                    230.0
+                ]
+            },
+            "type": 4,
+            "uid": "c238a41d-84ee-4b75-ae80-9f2a8400d0d0"
+        },
+        {
+            "cap_insets": {
+                "__tuple__": true,
+                "items": [
+                    32,
+                    32,
+                    32,
+                    32
+                ]
+            },
+            "children": [],
+            "event_list": [],
+            "image": 904120,
+            "is_scale9_enable": true,
+            "name": "skill_frame",
+            "open_adapter": true,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [
+                    75.0,
+                    115.0,
+                    50.0,
+                    50.0,
+                    0,
+                    0
+                ]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [
+                    150.0,
+                    230.0
+                ]
+            },
+            "type": 4,
+            "uid": "58888709-3832-4a7c-ba8d-0dd5db308a81"
+        },
+        {
+            "adapter_option": [
+                false,
+                false,
+                false,
+                false,
+                65.0,
+                65.0,
+                25.0,
+                25.0
+            ],
+            "children": [
+                {
+                    "children": [],
+                    "event_list": [],
+                    "image": 100070,
+                    "name": "skill_icon_img",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            50.0,
+                            50.0,
+                            50.0,
+                            50.0,
+                            0,
+                            0
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            100.0,
+                            100.0
+                        ]
+                    },
+                    "type": 4,
+                    "uid": "7791e965-c848-4158-a179-32db5b767170"
+                },
+                {
+                    "children": [],
+                    "event_list": [],
+                    "image": 903689,
+                    "name": "skill_frame_img",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            50.0,
+                            50.0,
+                            50.0,
+                            50.0,
+                            0,
+                            0
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            100.0,
+                            100.0
+                        ]
+                    },
+                    "type": 4,
+                    "uid": "b9451e05-9af7-419c-bc0c-9f012eb9245e"
+                },
+                {
+                    "adapter_option": [
+                        true,
+                        true,
+                        true,
+                        true,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "background_cap_insets": {
+                        "__tuple__": true,
+                        "items": [
+                            80.0,
+                            80.0,
+                            80.0,
+                            80.0
+                        ]
+                    },
+                    "bg_color": {
+                        "__tuple__": true,
+                        "items": [
+                            255,
+                            255,
+                            255,
+                            0
+                        ]
+                    },
+                    "bg_image": 120402,
+                    "children": [],
+                    "current_value": 0.0,
+                    "event_list": [],
+                    "image": 903688,
+                    "name": "skill_cd_progress",
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            50.0,
+                            50.0,
+                            50.0,
+                            50.0,
+                            0,
+                            0
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "progress_type": 0,
+                    "reverse": true,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            100.0,
+                            100.0
+                        ]
+                    },
+                    "type": 5,
+                    "uid": "bd87b349-24e1-4577-9b83-189b69d5c679"
+                },
+                {
+                    "alignment": {
+                        "__tuple__": true,
+                        "items": [
+                            2,
+                            8
+                        ]
+                    },
+                    "bold": true,
+                    "children": [],
+                    "event_list": [],
+                    "label_effect": {
+                        "__tuple__": true,
+                        "items": [
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false
+                        ]
+                    },
+                    "name": "skill_cd_label",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            50.0,
+                            50.0,
+                            50.0,
+                            50.0,
+                            0,
+                            0
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "text": {
+                        "__tuple__": true,
+                        "items": [
+                            "10",
+                            false
+                        ]
+                    },
+                    "type": 3,
+                    "uid": "a6a1d53c-a56a-4d3a-ac81-1ef21079d66a"
+                },
+                {
+                    "children": [],
+                    "event_list": [],
+                    "font": {
+                        "__tuple__": true,
+                        "items": [
+                            "",
+                            24
+                        ]
+                    },
+                    "name": "skill_stack_label",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            95.0,
+                            17.0,
+                            95.0,
+                            17.0,
+                            1,
+                            1
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            24.0,
+                            24.0
+                        ]
+                    },
+                    "text": {
+                        "__tuple__": true,
+                        "items": [
+                            "5",
+                            false
+                        ]
+                    },
+                    "type": 3,
+                    "uid": "5a1e9c03-2c12-4005-979f-996b9c9aa90c"
+                },
+                {
+                    "children": [],
+                    "disabled_picture": null,
+                    "event_list": [],
+                    "name": "skill_upgrade_btn",
+                    "open_adapter": true,
+                    "normal_picture": 903685,
+                    "normal_text": {
+                        "__tuple__": true,
+                        "items": [
+                            " ",
+                            false
+                        ]
+                    },
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            50.0,
+                            135.0,
+                            50.0,
+                            135.0,
+                            1,
+                            1
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "press_picture": 100351,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            100.0,
+                            41.94
+                        ]
+                    },
+                    "suspend_picture": 100350,
+                    "type": 1,
+                    "uid": "fcdc1602-f765-44ba-8be7-c97de1bed9c8"
+                },
+                {
+                    "adapter_option": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        71.0,
+                        5.0,
+                        4.0,
+                        72.0
+                    ],
+                    "children": [],
+                    "event_list": [],
+                    "font": {
+                        "__tuple__": true,
+                        "items": [
+                            "",
+                            24
+                        ]
+                    },
+                    "name": "skill_shortcut_label",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            16.0,
+                            17.0,
+                            16.0,
+                            17.0,
+                            1,
+                            1
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            24.0,
+                            24.0
+                        ]
+                    },
+                    "text": {
+                        "__tuple__": true,
+                        "items": [
+                            "Q",
+                            false
+                        ]
+                    },
+                    "type": 3,
+                    "uid": "30216bf5-774a-4d29-808d-98a9e256f237"
+                },
+                {
+                    "adapter_option": [
+                        false,
+                        true,
+                        true,
+                        true,
+                        100.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "children": [],
+                    "event_list": [],
+                    "font": {
+                        "__tuple__": true,
+                        "items": [
+                            "",
+                            24
+                        ]
+                    },
+                    "name": "skill_level_label",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            50.0,
+                            88.0,
+                            50.0,
+                            88.0,
+                            1,
+                            1
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            100.0,
+                            24.0
+                        ]
+                    },
+                    "text": {
+                        "__tuple__": true,
+                        "items": [
+                            "lv.1",
+                            false
+                        ]
+                    },
+                    "type": 3,
+                    "uid": "43bf5b7c-a4b1-47df-b125-71ace3f8099e"
+                },
+                {
+                    "adapter_option": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -1.0
+                    ],
+                    "children": [],
+                    "event_list": [],
+                    "image": 903686,
+                    "name": "skill_consume_mask_img",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            51.0,
+                            50.0,
+                            51.0,
+                            50.0,
+                            0,
+                            0
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            100.0,
+                            100.0
+                        ]
+                    },
+                    "type": 4,
+                    "uid": "349b99ee-9ae6-4ecf-a51b-e74cd3310da9"
+                },
+                {
+                    "adapter_option": [
+                        false,
+                        false,
+                        false,
+                        false,
+                        0.0,
+                        0.0,
+                        1.0,
+                        -1.0
+                    ],
+                    "children": [
+                        {
+                            "children": [],
+                            "event_list": [],
+                            "image": 903690,
+                            "name": "skill_frame_img",
+                            "open_adapter": true,
+                            "pos_data": {
+                                "__tuple__": true,
+                                "items": [
+                                    50.0,
+                                    50.0,
+                                    50.0,
+                                    50.0,
+                                    0,
+                                    0
+                                ]
+                            },
+                            "prefab_sub_key": null,
+                            "scene_ui_name": null,
+                            "size": {
+                                "__tuple__": true,
+                                "items": [
+                                    100.0,
+                                    100.0
+                                ]
+                            },
+                            "type": 4,
+                            "uid": "b7338df2-1844-49e1-adf3-80e3bcbe52d7"
+                        }
+                    ],
+                    "event_list": [],
+                    "image": 903687,
+                    "name": "skill_disable_img",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            51.0,
+                            50.0,
+                            51.0,
+                            50.0,
+                            0,
+                            0
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            100.0,
+                            100.0
+                        ]
+                    },
+                    "type": 4,
+                    "uid": "acaabec9-4f53-484b-94f1-c0a22505b8fe"
+                },
+                {
+                    "bg_image": "c05e87af-a637-49ac-8bee-17f7c2704379",
+                    "children": [
+                        {
+                            "adapter_option": [
+                                true,
+                                true,
+                                true,
+                                true,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0
+                            ],
+                            "cap_insets": {
+                                "__tuple__": true,
+                                "items": [
+                                    42.0,
+                                    42.0,
+                                    42.0,
+                                    42.0
+                                ]
+                            },
+                            "children": [],
+                            "event_list": [],
+                            "image": 999,
+                            "name": "progress_bg_img",
+                            "open_adapter": true,
+                            "pos_data": {
+                                "__tuple__": true,
+                                "items": [
+                                    52.5,
+                                    52.5,
+                                    50.0,
+                                    50.0,
+                                    0,
+                                    0
+                                ]
+                            },
+                            "prefab_sub_key": null,
+                            "scene_ui_name": null,
+                            "size": {
+                                "__tuple__": true,
+                                "items": [
+                                    105.0,
+                                    105.0
+                                ]
+                            },
+                            "type": 4,
+                            "uid": "02b68499-e768-45d1-a45d-b8c9cffe2bf9",
+                            "visible": false
+                        },
+                        {
+                            "adapter_option": [
+                                true,
+                                true,
+                                true,
+                                true,
+                                -2.5,
+                                -2.5,
+                                -2.5,
+                                -2.5
+                            ],
+                            "children": [],
+                            "event_list": [],
+                            "image": 133155,
+                            "name": "progress_bar_img",
+                            "open_adapter": true,
+                            "pos_data": {
+                                "__tuple__": true,
+                                "items": [
+                                    52.5,
+                                    52.5,
+                                    50.0,
+                                    50.0,
+                                    0,
+                                    0
+                                ]
+                            },
+                            "prefab_sub_key": null,
+                            "scene_ui_name": null,
+                            "size": {
+                                "__tuple__": true,
+                                "items": [
+                                    110.0,
+                                    110.0
+                                ]
+                            },
+                            "type": 40,
+                            "uid": "5ed7663e-e2e0-40be-ba4e-e28083897863"
+                        },
+                        {
+                            "adapter_option": [
+                                false,
+                                true,
+                                false,
+                                true,
+                                75.0,
+                                10.0,
+                                60.0,
+                                5.0
+                            ],
+                            "alignment": {
+                                "__tuple__": true,
+                                "items": [
+                                    2,
+                                    8
+                                ]
+                            },
+                            "children": [],
+                            "event_list": [],
+                            "font": {
+                                "__tuple__": true,
+                                "items": [
+                                    "MSYH",
+                                    18
+                                ]
+                            },
+                            "name": "progress_percent_label",
+                            "open_adapter": true,
+                            "pos_data": {
+                                "__tuple__": true,
+                                "items": [
+                                    80.0,
+                                    20.0,
+                                    76.1905,
+                                    19.0476,
+                                    1,
+                                    1
+                                ]
+                            },
+                            "prefab_sub_key": null,
+                            "scene_ui_name": null,
+                            "size": {
+                                "__tuple__": true,
+                                "items": [
+                                    40,
+                                    20
+                                ]
+                            },
+                            "text": {
+                                "__tuple__": true,
+                                "items": [
+                                    "",
+                                    false
+                                ]
+                            },
+                            "type": 3,
+                            "uid": "b43f64ac-d7bb-4dd0-8d40-041049ac1c2b",
+                            "visible": false
+                        }
+                    ],
+                    "current_value": 100.0,
+                    "event_list": [],
+                    "image": "ce50da0b-c215-4811-ad6d-43a7ca809df2",
+                    "name": "skill_charge_progress",
+                    "open_adapter": true,
+                    "pos_data": {
+                        "__tuple__": true,
+                        "items": [
+                            52.5,
+                            50.0,
+                            52.5,
+                            50.0,
+                            0,
+                            1
+                        ]
+                    },
+                    "prefab_sub_key": null,
+                    "scene_ui_name": null,
+                    "size": {
+                        "__tuple__": true,
+                        "items": [
+                            105.0,
+                            105.0
+                        ]
+                    },
+                    "title_label": "1d4b7fe6-2130-4e2e-a000-1f44a19b17f0",
+                    "type": 42,
+                    "uid": "5635ed23-0e6b-491f-a899-36b44d85d93b"
+                }
+            ],
+            "event_list": [],
+            "name": "skill_btn",
+            "open_adapter": true,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [
+                    75.0,
+                    115.0,
+                    50.0,
+                    50.0,
+                    0,
+                    0
+                ]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "skill_cd_label": "a6a1d53c-a56a-4d3a-ac81-1ef21079d66a",
+            "skill_cd_progress": "bd87b349-24e1-4577-9b83-189b69d5c679",
+            "skill_charge_progress": "5635ed23-0e6b-491f-a899-36b44d85d93b",
+            "skill_consume_mask_img": "349b99ee-9ae6-4ecf-a51b-e74cd3310da9",
+            "skill_disable_img": "acaabec9-4f53-484b-94f1-c0a22505b8fe",
+            "skill_frame_img": "b9451e05-9af7-419c-bc0c-9f012eb9245e",
+            "skill_icon_img": "7791e965-c848-4158-a179-32db5b767170",
+            "skill_level_label": "43bf5b7c-a4b1-47df-b125-71ace3f8099e",
+            "skill_shortcut_label": "30216bf5-774a-4d29-808d-98a9e256f237",
+            "skill_stack_label": "5a1e9c03-2c12-4005-979f-996b9c9aa90c",
+            "skill_type": 3,
+            "skill_upgrade_btn": "fcdc1602-f765-44ba-8be7-c97de1bed9c8",
+            "slot_id": 1,
+            "swallow_touches": true,
+            "type": 17,
+            "uid": "2d84b3a6-5865-40be-8479-275d478c8225"
+        }
+    ],
+    "event_list": [],
+    "name": "skill",
+    "pos_data": {
+        "__tuple__": true,
+        "items": [
+            219.9994,
+            796.0,
+            11.4583,
+            73.7037,
+            0,
+            0
+        ]
+    },
+    "prefab_sub_key": null,
+    "scene_ui_name": null,
+    "size": {
+        "__tuple__": true,
+        "items": [
+            150.0,
+            230.0
+        ]
+    },
+    "type": 7,
+    "uid": "ed43dc96-c3c6-4f93-b2c6-92a0afd427f7"
+}

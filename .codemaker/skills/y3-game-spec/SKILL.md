@@ -67,9 +67,8 @@ description: >
 | 写游戏逻辑 | `y3-lua-pipeline` |
 
 > ⭐ `y3-ui-pipeline` 是 UI 开发统一入口，内部自动路由到：
-> - `y3-ui-json-generator`（生成 JSON + 提取 UI 树）
+> - `y3-ui-generator`（生成 JSON + 提取 UI 树）
 > - `y3-ui-official`（生成 Lua 代码）
-> - `y3-ui-beautify`（布局调整 + 美化）
 
 ## ⚠️ 关键规则
 
