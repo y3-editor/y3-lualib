@@ -1,3 +1,6 @@
+---
+alwaysApply: true
+---
 # Y3 项目规则
 
 Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
@@ -5,6 +8,30 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 ## 🎯 技能系统
 
 处理请求前先查阅 `.codemaker/skills/README.md` 匹配技能，加载对应 `SKILL.md` 执行。
+
+## 🔍 开发前置检查（强制）
+
+**在开始编写代码或生成物编/UI之前，必须先检查以下内容：**
+
+### 1. 错题集检查
+根据当前任务类型，阅读 `.codemaker/memory/lua-issues/` 中的相关记录：
+- Lua 代码开发 → 查阅 `trace_issues.md`（报错/堆栈问题）
+- API 使用相关 → 查阅 `api_issues.md`（API 参数/类型问题）
+
+### 2. 知识库检查
+根据任务涉及的功能，阅读对应知识库文档：
+- UI 开发 → `.codemaker/knowledge/08-官方UI组件.md`
+- 物编相关 → `.codemaker/knowledge/` 下对应文档
+- 常见错误 → `.codemaker/skills/y3-lua-pipeline/references/` 下对应文档
+
+### 3. 检查时机
+| 任务类型 | 必须先阅读 |
+|---------|-----------|
+| 编写 Lua 代码 | `lua-issues/` + `references/api_errors.md` |
+| 生成/修改 UI | `08-官方UI组件.md` + `references/ui_errors.md` |
+| 生成/修改物编 | 物编知识 + `references/obj_errors.md` |
+| 技能/Buff 开发 | 错题集 + 物编知识 |
+| MCP 操作 | `references/mcp_safety.md` |
 
 ## ⚠️ 核心禁令
 
@@ -80,7 +107,7 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 | Buff 显示 | 官方 `type:18` BuffList 列表容器 + `type:19` BuffItem 单项 |
 | 物品栏 UI | 官方 `type:20` EquipSlot 物品槽 |
 
-## � Lua 代码检查
+## 🔧 Lua 代码检查
 
 **生成或修改 Lua 文件后，必须调用 MCP 工具检查语法错误：**
 
@@ -94,10 +121,35 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 - 多文件: `{ "pathGlob": ["maps/EntryMap/script/main.lua", "maps/EntryMap/script/game/xxx.lua"] }`
 - 目录: `{ "pathGlob": "maps/EntryMap/script/game" }`
 
-## �📚 知识库
+## 📚 知识库
 
 | 文档 | 说明 |
 |------|------|
 | `.codemaker/knowledge/` | Y3 引擎知识库 |
 | `.codemaker/knowledge/08-官方UI组件.md` | 官方 UI 组件指南 |
-| `.codemaker/rules/common_errors.md` | 常见错误速查 |
+| `.codemaker/skills/y3-lua-pipeline/references/` | 常见错误速查（按类别） |
+
+## 🔴 常见错误速查
+
+> 详细文档见 `.codemaker/skills/y3-lua-pipeline/references/`
+
+### 致命错误
+| 错误 | 正确做法 |
+|------|----------|
+| 物编生成到 `.codemaker/` | 必须生成到 `maps/EntryMap/editor_table/` |
+| 物编 `uid` 是整数 | 必须是字符串 `"400001"` |
+| UI 按钮文本用 `text` | 按钮用 `normal_text` |
+| 物品槽 `equip_bg_img` 为 `none_ref` | **必须指向 bg 子节点的 UID** |
+
+### API 错误
+| 错误 | 正确做法 |
+|------|----------|
+| `y3.player.with_all_players` | `y3.player_group.get_all_players():pick()` |
+| `player:camera_follow_unit` | `y3.camera.set_camera_follow_unit(...)` |
+| `unit:attack(target)` | `unit:attack_target(target, 0)` |
+
+### MCP 安全
+| 错误 | 正确做法 |
+|------|----------|
+| MCP 超时后重试 | **绝不重试！立即熔断** |
+| **热更后立即保存** | **热更后等待 3 秒再保存** |
