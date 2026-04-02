@@ -172,7 +172,7 @@ def _load_icon_config():
     button_presets = {}
     bg_rules       = []   # list of (condition_str, image_id)
     default_btn    = {}
-    default_img    = 999
+    default_img    = 100061  # 默认占位图，与 icon_config.md 第 5 节保持一致
 
     if not os.path.exists(config_path):
         return image_presets, button_presets, bg_rules, default_btn, default_img
