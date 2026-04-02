@@ -18,6 +18,15 @@ description: >
 
 三步完成从需求到 UI 代码的完整开发流程。
 
+## ⚠️ 重要约束
+
+| 禁止 | 正确做法 |
+|------|----------|
+| 使用旧版全局事件 API `y3.game:event('UI-按钮-左键-点击', ...)` | **必须使用 `add_fast_event`** |
+| 事件类型名称拼写错误（如 `'点击'`、`'click'`） | **使用标准常量 `'左键-按下'`** |
+| 手动编造控件路径 | **从 `ui_tree/*.json` 读取** |
+| 事件绑定散落在代码各处 | **统一在初始化函数中绑定** |
+
 ---
 
 ## 执行流程
@@ -176,6 +185,87 @@ end)
 ```
 
 > 完整 API 参考和高级用法见 `y3-ui-official` SKILL.md 及其 `references/` 目录下的文档。
+
+---
+
+## 步骤 2.5: 事件绑定规范（🔴 必读）
+
+事件绑定是 Lua 代码编写中**最易出错的环节**，必须严格遵守以下规范。
+
+### 🔴 必须使用 add_fast_event
+
+所有 UI 事件绑定**必须**使用 `ui:add_fast_event(event_type, callback)` 方法。
+
+```lua
+-- ✅ 正确：使用 add_fast_event
+local btn = y3.ui.get_ui(player, "PanelName.button_name")
+btn:add_fast_event('左键-按下', function(trg)
+    print("按钮被点击")
+end)
+
+-- ❌ 禁止：旧版全局事件 API
+-- y3.game:event('UI-按钮-左键-点击', function(trigger, data)
+--     if data.ui_comp == my_button then ... end
+-- end)
+```
+
+### 事件类型常量表
+
+事件类型字符串**必须**与下表完全一致（含中文标点）：
+
+| 类别 | 事件名 | 说明 |
+|------|--------|------|
+| 左键 | `'左键-按下'` | **🔴 推荐用于按钮点击** |
+| 左键 | `'左键-抬起'` | 鼠标抬起 |
+| 左键 | `'左键-点击'` | 完整点击动作（按下+抬起） |
+| 左键 | `'左键-双击'` | 双击 |
+| 右键 | `'右键-按下'` | 右键按下 |
+| 右键 | `'右键-抬起'` | 右键抬起 |
+| 右键 | `'右键-点击'` | 右键完整点击 |
+| 右键 | `'右键-双击'` | 右键双击 |
+| 悬停 | `'鼠标-移入'` | 鼠标进入控件 |
+| 悬停 | `'鼠标-移出'` | 鼠标离开控件 |
+| 悬停 | `'鼠标-悬停'` | 鼠标停留 |
+
+### 标准代码模板
+
+#### 按钮点击模板
+
+```lua
+-- 获取按钮控件（路径来自 ui_tree）
+local btn = y3.ui.get_ui(player, "PanelName.button_name")
+
+-- 绑定点击事件（必须使用 add_fast_event）
+btn:add_fast_event('左键-按下', function(trg)
+    -- 事件处理逻辑
+    print("按钮被点击")
+end)
+```
+
+#### 悬停提示模板
+
+```lua
+local icon = y3.ui.get_ui(player, "PanelName.icon_name")
+local tooltip = y3.ui.get_ui(player, "PanelName.tooltip")
+
+icon:add_fast_event('鼠标-移入', function(trg)
+    tooltip:set_visible(true)
+end)
+
+icon:add_fast_event('鼠标-移出', function(trg)
+    tooltip:set_visible(false)
+end)
+```
+
+### 🔴 事件绑定检查清单
+
+生成事件绑定代码后，**必须逐项确认**：
+
+1. ✅ 所有按钮都使用了 `add_fast_event` 绑定事件
+2. ✅ 事件类型名称与常量表完全一致（无拼写错误）
+3. ✅ 控件路径来自 `ui_tree/*.json`（非手写）
+4. ✅ 事件绑定代码在面板初始化函数中执行
+5. ✅ 回调函数内有实际逻辑（非空函数）
 
 ---
 

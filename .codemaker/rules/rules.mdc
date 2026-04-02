@@ -5,7 +5,26 @@ alwaysApply: true
 
 Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 
-## � 整体开发流程
+## 🚀 首次会话环境检查（智能判断）
+
+**每次新会话开始时，按以下优先级检查环境配置：**
+
+```
+1. 检查 .codemaker/env_setup_done 文件是否存在
+   ├─ 存在 → ✅ 跳过，继续处理用户请求
+   └─ 不存在 → 继续检查步骤 2
+
+2. 检查 y3-lualib 是否已存在（任一路径存在即可）
+   - maps/EntryMap/script/y3/init.lua
+   - global_script/y3/init.lua
+   ├─ 存在 → ✅ 老项目已配置，跳过（可选：自动创建标记文件）
+   └─ 不存在 → ⚠️ 激活 y3-env-setup Skill，完成环境配置
+```
+
+> 📋 此检查确保 Python、Git、y3-lualib 环境正确配置。
+> 💡 老项目即使没有标记文件，只要 y3-lualib 存在就不会重复配置。
+
+## 📋 整体开发流程
 
 **整体开发、测试流程参考 `y3-game-spec` 技能。**
 
