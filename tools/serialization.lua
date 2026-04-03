@@ -534,6 +534,7 @@ local decodeMethods;decodeMethods = {
 }
 
 ---@param ex table
+---@return any
 function decode(ex)
     local tp = stringSub(ex.str, ex.index, ex.index)
     ex.index = ex.index + 1
