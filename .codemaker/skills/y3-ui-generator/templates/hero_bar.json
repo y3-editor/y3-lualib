@@ -1,0 +1,153 @@
+{
+    "children": [
+        {
+            "adapter_option": [
+                false,
+                false,
+                false,
+                false,
+                35.0,
+                35.0,
+                35.0,
+                35.0
+            ],
+            "angle": [
+                7.0,
+                0.0,
+                0.0
+            ],
+            "background_color": {
+                "__tuple__": true,
+                "items": [
+                    255,
+                    255,
+                    255,
+                    0
+                ]
+            },
+            "camera_pos": {
+                "__tuple__": true,
+                "items": [
+                    0.0,
+                    1.3,
+                    2.0
+                ]
+            },
+            "camera_viewport": 18.0,
+            "children": [],
+            "event_list": [],
+            "focus_pos": {
+                "__tuple__": true,
+                "items": [
+                    0.0,
+                    2.2,
+                    0.0
+                ]
+            },
+            "model": {
+                "__tuple__": true,
+                "items": [
+                    "editor_model",
+                    203000
+                ]
+            },
+            "model_scale": 1.2,
+            "name": "model",
+            "open_adapter": true,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [
+                    75.0,
+                    75.0,
+                    50.0,
+                    50.0,
+                    1,
+                    1
+                ]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [
+                    80.0,
+                    80.0
+                ]
+            },
+            "type": 6,
+            "uid": "ac42af27-328c-4e94-8c1d-069a54da7ef0"
+        },
+        {
+            "adapter_option": [
+                false,
+                false,
+                false,
+                false,
+                -25.0,
+                -25.0,
+                -25.0,
+                -25.0
+            ],
+            "cap_insets": {
+                "__tuple__": true,
+                "items": [
+                    85,
+                    85,
+                    85,
+                    85
+                ]
+            },
+            "children": [],
+            "event_list": [],
+            "image": 132013,
+            "name": "bg",
+            "open_adapter": true,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [
+                    75.0,
+                    75.0,
+                    50.0,
+                    50.0,
+                    1,
+                    1
+                ]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [
+                    200.0,
+                    200.0
+                ]
+            },
+            "type": 4,
+            "uid": "ffad97e5-632f-4749-be88-431409f35d5b"
+        }
+    ],
+    "event_list": [],
+    "name": "hero_bar",
+    "pos_data": {
+        "__tuple__": true,
+        "items": [
+            75.0,
+            75.0,
+            50.0,
+            50.0,
+            1,
+            1
+        ]
+    },
+    "prefab_sub_key": null,
+    "scene_ui_name": null,
+    "size": {
+        "__tuple__": true,
+        "items": [
+            150.0,
+            150.0
+        ]
+    },
+    "type": 7,
+    "uid": "82639078-fc17-49bf-b5dc-5cf88d22baa0"
+}

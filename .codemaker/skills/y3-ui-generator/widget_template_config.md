@@ -12,7 +12,7 @@
 |--------|----------|----------|---------|------|
 | `hp_bar` | `templates/hp_bar.json` | 256×38 | 41 (进度条) | 进度条式血量显示，含背景图+填充条+数值文字 |
 | `mp_bar` | `templates/mp_bar.json` | 256×38 | 41 (进度条) | 进度条式魔力显示，结构同血条 |
-| `skill` | `templates/skill.json` | 150×230 | 7 (容器) | 含背景、边框、图标、CD遮罩、等级文字、快捷键标签、升级按钮 |
+| `skill` | `templates/skill.json` | 100×100 | 17 (技能按钮) | Y3原生技能按钮，含图标、边框、CD进度、等级、快捷键、升级按钮、充能进度 |
 | `buff_list` | `templates/buff_list.json` | 400×50 | 18 (横向列表) | 横向排列的魔法效果图标列表（8个槽位），每个含图标+时间进度+层数 |
 | `chat_box` | `templates/chat_box.json` | 332×268 | 32 (聊天控件) | 含聊天消息滚动列表、输入框、发送按钮、频道切换 |
 | `card` | `templates/card.json` | 354×500 | 7 (容器) | 羁绊卡牌，含卡面背景、边框、头像、羁绊/技能名称、获得/吞噬奖励描述、标签列表、故事文字、悬浮效果、点击区域 |
@@ -20,6 +20,11 @@
 | `exp_bar` | `templates/exp_bar.json` | 100×18 | 41 (进度条) | 经验条，含背景图+填充条+数值文字（hover时显示），来自 widget_bank |
 | `audio_bar` | `templates/audio_bar.json` | 200×50 | 52 (语音聊天) | 语音聊天控件，含频道切换按钮、麦克风按钮（开/关图标）、玩家列表，来自 widget_bank |
 | `exit_btn` | `templates/exit_btn.json` | 100×59 | 7 (容器) | 退出游戏按钮，含按钮（文字"退出游戏"，点击返回大厅），来自 widget_bank |
+| `bag` | `templates/bag.json` | 560×644 | 7 (容器) | 背包面板，含背景、物品格子网格、分解/合成/丢弃按钮，来自 widget_bank |
+| `minimap` | `templates/minimap.json` | 211×211 | 7 (容器) | 小地图控件，含地图图像、边框、缩放按钮，来自 widget_bank |
+| `btn` | `templates/btn.json` | 166×45 | 1 (按钮) | 通用按钮，含正常/悬浮/按下/禁用四态图片，来自 widget_bank |
+| `hero_bar` | `templates/hero_bar.json` | 150×150 | 7 (容器) | 英雄头像框，含3D模型显示+边框背景，来自 widget_bank |
+| `check_box` | `templates/check_box.json` | 44×46 | 46 (复选框) | 复选框控件，Y3原生勾选框，来自 widget_bank |
 
 ---
 
@@ -89,6 +94,36 @@ voice chat, voice bar, voice channel, voice panel
 quit game, quit button, 退出键, 离开按钮, back to hall, 回到大厅, 结束游戏
 ```
 
+### bag — 背包
+```
+背包, 物品栏, 道具栏, 装备栏, 物品面板, bag, inventory, backpack, item panel,
+物品格子, 背包界面, 背包面板, 物品袋, 储物, 仓库
+```
+
+### minimap — 小地图
+```
+小地图, 迷你地图, 地图, 雷达, minimap, mini map, radar, 战场地图,
+地图显示, 位置地图, 导航地图
+```
+
+### btn — 通用按钮
+```
+按钮, 普通按钮, 通用按钮, btn, button, 确认按钮, 操作按钮,
+standard button, normal button, 默认按钮
+```
+
+### hero_bar — 英雄头像框
+```
+头像框, 英雄头像, 头像, 英雄框, 角色头像, 人物头像, hero bar, hero portrait,
+avatar frame, portrait, 3D头像, 模型头像, 英雄模型框, 角色框
+```
+
+### check_box — 复选框
+```
+check_box, 复选框, 勾选框, 勾选, 选择框, 多选框, checkbox, check box,
+选项勾选, 开关选项, toggle, 打勾, 勾选项, 单选框, 选择开关
+```
+
 ---
 
 ## 模板内部结构
@@ -111,23 +146,29 @@ mp_bar (type=41, 256×38)
 
 ### skill
 ```
-skill (type=7, 150×230)
-├── skill_bg (type=4, 背景 img=906366, 九宫格)
-├── skill_frame (type=4, 边框 img=904120, 九宫格)
-└── skill_btn (type=17, 按钮容器)
-    ├── skill_icon_img (type=4, 技能图标 img=100070)
-    ├── skill_frame_img (type=4, 图标边框 img=903689)
-    ├── skill_cd_progress (type=5, CD进度 圆形遮罩)
-    ├── skill_cd_label (type=3, CD倒计时文字)
-    ├── skill_stack_label (type=3, 层数)
-    ├── skill_upgrade_btn (type=1, 升级按钮)
-    ├── skill_shortcut_label (type=3, 快捷键 "Q")
-    ├── skill_level_label (type=3, 等级 "lv.1")
-    ├── skill_consume_mask_img (type=4, 消耗不足遮罩)
-    ├── skill_disable_img (type=4, 禁用遮罩)
-    │   └── skill_frame_img (type=4)
-    └── skill_charge_progress (type=42, 充能进度)
+skill (type=17, 100×100)
+├── skill_icon_img (type=4, 技能图标 img=100070, 100×100)
+├── skill_frame_img (type=4, 图标边框 img=903689, 100×100)
+├── skill_cd_progress (type=5, CD进度 圆形遮罩 img=903688, 100×100)
+├── skill_cd_label (type=3, CD倒计时文字 "10", 粗体)
+├── skill_stack_label (type=3, 技能层数 "5", 右上角 24×24)
+├── skill_upgrade_btn (type=1, 升级按钮 img=903685, 100×42)
+├── skill_shortcut_label (type=3, 快捷键 "Q", 左上角 24×24)
+├── skill_level_label (type=3, 等级 "lv.1", 底部居中 100×24)
+├── skill_consume_mask_img (type=4, 消耗不足遮罩 img=903686, 100×100)
+├── skill_disable_img (type=4, 禁用遮罩 img=903687, 100×100)
+│   └── skill_frame_img (type=4, 禁用边框 img=903690)
+└── skill_charge_progress (type=42, 充能进度条 105×105)
+    ├── progress_bg_img (type=4, 背景图 img=999, visible=false)
+    ├── progress_bar_img (type=40, 充能填充 img=133155)
+    └── progress_percent_label (type=3, 充能百分比, visible=false)
 ```
+> 注意：`skill` 是 Y3 原生的技能按钮控件 (type=17)，引擎会自动管理：
+> - CD 显示（skill_cd_progress + skill_cd_label）
+> - 技能图标绑定（skill_icon_img）
+> - 等级/层数显示（skill_level_label / skill_stack_label）
+> - 消耗不足/禁用状态（skill_consume_mask_img / skill_disable_img）
+> - 充能进度（skill_charge_progress）
 
 ### buff_list
 ```
@@ -241,6 +282,67 @@ exit (type=7, 100×59)
 ```
 > 注意：`exit_btn` 内置了 `BackToHall` 事件动作（type=28 点击事件 → type=5 返回大厅），  
 > 无需额外 Lua 代码，引擎会自动处理返回大厅逻辑。
+
+### bag
+```
+bag (type=7, 560×644)
+├── image_bg (type=4, 背景图 560×644)
+├── widget_grid (type=7, 网格容器 437×447)
+│   ├── image_grid_bg (type=4, 网格背景 439×452)
+│   └── grid_view (type=25, 物品网格列表 442×446)
+├── widget_bottom_bar (type=7, 底部按钮栏 680×70)
+│   ├── button_decompose (type=1, 分解按钮 120×40)
+│   ├── button_craft (type=1, 合成按钮 120×40)
+│   └── button_drop (type=1, 丢弃按钮 120×40)
+└── label_title (type=3, 标题文字 300×40)
+```
+> 注意：`bag` 使用 GridView (type=25) 来自动排列物品格子。
+> Lua 中可通过以下 API 操作：
+> - 添加物品到格子：通过物品系统绑定，引擎自动管理
+> - 获取格子列表：`grid_view:get_children()`
+> - 分解/合成/丢弃按钮需要在 Lua 中绑定事件
+
+### minimap
+```
+Minimap (type=7, 211×211)
+├── bg (type=4, 背景图)
+├── mini_map (type=16, 小地图控件)
+├── frame (type=4, 边框)
+└── token (type=7, 功能按钮组)
+    ├── repick (type=7, 重选按钮)
+    │   ├── icon (type=4, 图标)
+    │   └── text (type=3, 文字)
+    └── revive (type=7, 复活按钮)
+        ├── icon (type=4, 图标)
+        └── text (type=3, 文字)
+```
+
+### btn
+```
+btn (type=1, 166×45)
+```
+> 注意：`btn` 是一个纯按钮控件，不含子节点，使用 Y3 标准四态图片（正常/悬浮/按下/禁用）。
+
+### hero_bar
+```
+hero_bar (type=7, 150×150)
+├── model (type=6, 3D模型显示 80×80)
+│   └── 内置模型 editor_model:203000, scale=1.2
+└── bg (type=4, 边框背景 img=132013, 200×200, 九宫格)
+```
+> 注意：`hero_bar` 使用 Y3 引擎的 type=6 (3D模型) 控件来显示英雄模型。  
+> 可通过 Lua 代码动态设置模型 ID：`ui:set_model(model_id)`
+
+### check_box
+```
+check_box (type=46, 44×46)
+```
+> 注意：`check_box` 是 Y3 原生的复选框控件 (type=46)，无子节点。  
+> 引擎会自动管理选中/未选中状态的显示切换。  
+> Lua 中可通过以下 API 操作：
+> - 获取选中状态：`ui:is_checked()` 
+> - 设置选中状态：`ui:set_checked(true/false)`
+> - 监听状态变化：`ui:add_event('选中状态改变', callback)`
 
 ---
 

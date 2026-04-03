@@ -1470,8 +1470,9 @@ def convert(html_path, output_path, panel_name="NewPanel", zorder=300):
     # Post-process: recalculate margins with correct parent dimensions
     post_process_tree(children, DESIGN_WIDTH, DESIGN_HEIGHT)
 
-    # Detect and resolve sibling overlaps at every layout level
-    auto_resolve_overlaps(children, DESIGN_WIDTH, DESIGN_HEIGHT)
+    # NOTE: Overlap auto-resolve disabled by user request (2026-04-02)
+    # The Step 2.5 layout check in SKILL.md now handles overlap detection manually.
+    # auto_resolve_overlaps(children, DESIGN_WIDTH, DESIGN_HEIGHT)
 
     # Auto-inject background images for layouts that don't have one
     # NOTE: must run BEFORE stripping _is_template markers, so template nodes are skipped correctly
