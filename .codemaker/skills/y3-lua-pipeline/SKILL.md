@@ -12,6 +12,17 @@ description: >
 
 # Y3 Lua Pipeline
 
+## 🔴 技能激活时自动读取（首要步骤）
+
+**本技能激活后，编写任何代码之前，必须先读取以下文件：**
+
+```
+1. .codemaker/rules/api-safety.mdc     ← API 安全规则 + 常见错误表
+2. .codemaker/memory/lua-issues/       ← Lua 错题本（如存在）
+```
+
+> 这些文件包含 API 臆造预防规则和历史错误记录，可有效避免重复犯错。
+
 用于编写 Y3 游戏非 UI 相关的 Lua 代码，包括游戏逻辑、系统开发、事件处理。
 
 ## 🔧 Lua 运行时环境

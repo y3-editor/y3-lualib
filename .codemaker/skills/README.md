@@ -2,7 +2,7 @@
 
 > AI 技能路由入口。按需加载 `SKILL.md`，避免 token 浪费。
 
-**最后更新**: 2026-04-02
+**最后更新**: 2026-04-03
 
 ## 🚀 一次性技能（自动触发）
 
@@ -19,27 +19,27 @@
 | "做一个XX游戏" / "开发流程" | **y3-game-spec** | 规划文档 | → y3-obj-gen, y3-ui-pipeline, y3-lua-pipeline | - |
 | "生成单位/物品/技能/Buff/投射物" | **y3-obj-gen** (v5.2) | JSON | - | `editor_table/` |
 | "修改物编属性/技能属性/Buff属性" | **y3-obj-edit** | JSON | - | `editor_table/` |
-| "做个UI/面板/界面/HUD/血条/技能栏" | **y3-ui-pipeline** ⭐ | JSON + Lua | → y3-ui-json-generator, y3-ui-official | `tree_to_ui_json.py` |
+| "做个UI/面板/界面/HUD/血条/技能栏" | **y3-ui-pipeline** ⭐ | JSON + Lua | → y3-ui-generator, y3-ui-official | - |
 | "写Lua逻辑代码" | **y3-lua-pipeline** | Lua | - | `script/` |
-| "调整布局/修改位置/美化UI/批量修改/换图片" | **y3-ui-beautify** | JSON | - | `UI_BEAUTIFY_GUIDE.md`, `IMAGE_ID_REGISTRY.md`, `patch_ui_json.py` |
+| "自动化测试/自动点击/UI自动化" | **desktop-automation** 🖱️ | 坐标+操作 | MCP y3editor + desktop-automation | Editor MCP 获取控件坐标 |
 
 > ⭐ **UI 统一入口**：所有 UI 相关需求都走 `y3-ui-pipeline`，内部自动路由。
 
 ## ⚡ 常用命令速查
 
 ```bash
-# UI 树状结构 → 完整 JSON
-cd .codemaker/skills/y3-ui-json-generator/pipeline
-py -3 tree_to_ui_json.py <input_tree.json> <output.json>
+# UI HTML → Y3 JSON
+cd .codemaker/skills/y3-ui-generator/pipeline
+py -3 html_to_y3_ui.py <input.html> <output.json>
 
 # 提取 UI 树（减少 token）
 py -3 gen_ui_tree.py <workspace_path>
 
-# UI JSON 静态检查
-py -3 -c "from static_check import static_check; import json; data=json.load(open('<json>','r',encoding='utf-8')); r=static_check(data); print('✅' if r['passed'] else '❌')"
-
 # MCP 热更保存（必须按顺序）
 # 1. hotfix_ui_editor → 2. 等待3秒 → 3. save_editor
+
+# 桌面自动化点击（管理员权限）
+# 1. bot_move_mouse 移动鼠标 → 2. mouse_clicker.ps1 点击
 ```
 
 ## 🔀 决策树
@@ -48,12 +48,45 @@ py -3 -c "from static_check import static_check; import json; data=json.load(ope
 用户需求
   ├─ "做一个XX游戏" → y3-game-spec（规划后分发）
   ├─ 需要物编数据 → y3-obj-gen
+  ├─ 修改物编属性 → y3-obj-edit
   ├─ UI/界面/面板 → y3-ui-pipeline（内部再路由）
-  ├─ 调整布局/美化/批量修改/换图片 → y3-ui-beautify
-  └─ Lua逻辑代码 → y3-lua-pipeline
+  ├─ Lua逻辑代码 → y3-lua-pipeline
+  └─ 自动化测试/点击 → desktop-automation
 ```
 
-## 📂 目录结构
+## �️ 技能依赖关系图
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        y3-game-spec                              │
+│                      (游戏开发入口)                               │
+└───────────────┬───────────────┬───────────────┬─────────────────┘
+                │               │               │
+                ▼               ▼               ▼
+         ┌──────────┐    ┌──────────────┐    ┌──────────────┐
+         │y3-obj-gen│    │y3-ui-pipeline│    │y3-lua-pipeline│
+         │ (物编生成) │    │  (UI 入口)   │    │ (游戏逻辑)   │
+         └──────────┘    └───────┬──────┘    └──────────────┘
+                                 │
+                    ┌────────────┼────────────┐
+                    ▼            ▼            │
+            ┌──────────────┐ ┌──────────────┐ │
+            │y3-ui-generator│ │y3-ui-official│ │
+            │ (生成 JSON)   │ │ (Lua API)    │ │
+            └──────────────┘ └──────────────┘ │
+                                              │
+         ┌──────────┐                         │
+         │y3-obj-edit│    独立技能            │
+         │(物编修改) │◄────────────────────────┘
+         └──────────┘
+
+         ┌──────────────────┐    ┌────────────┐
+         │desktop-automation│    │y3-env-setup│
+         │ (桌面自动化)      │    │ (环境配置) │ ← 一次性
+         └──────────────────┘    └────────────┘
+```
+
+## �📂 目录结构
 
 ```
 .codemaker/skills/          ← 用户功能技能
@@ -61,14 +94,15 @@ py -3 -c "from static_check import static_check; import json; data=json.load(ope
 ├── y3-obj-gen/             ← 物编生成 v5.2
 ├── y3-obj-edit/            ← 物编修改
 ├── y3-ui-pipeline/         ← UI 开发入口
-├── y3-ui-json-generator/   ← UI JSON 生成
-├── y3-ui-beautify/         ← UI 布局/美化/批量修改
+├── y3-ui-generator/        ← UI JSON 生成（HTML → Y3 JSON）
 ├── y3-ui-official/         ← UI Lua API
-└── y3-lua-pipeline/        ← 非 UI Lua 代码
+├── y3-lua-pipeline/        ← 非 UI Lua 代码
+├── y3-env-setup/           ← 环境配置（一次性）
+└── desktop-automation/     ← 桌面自动化测试
 
-.codemaker/devtools/        ← 开发者工具（已分离）
-├── y3-ui-testcase/         ← UI 自动化测试
-└── y3-skill-feedback/      ← Skill 反馈收集
+.codemaker/tools/           ← 辅助工具
+├── screenshot_with_cursor.py  ← 截图并标记鼠标位置
+└── draw_grid.py               ← 在截图上绘制坐标网格
 ```
 
 ## ⚡ 核心规则速查
@@ -135,16 +169,16 @@ y3.const.KeyboardKey['1']
 
 | 文档 | 说明 |
 |------|------|
-| `skills/y3-ui-json-generator/references/UI_REFERENCE.md` | UI JSON **速查手册**（简化版，引用 knowledge） |
-| `skills/y3-ui-beautify/references/UI_BEAUTIFY_GUIDE.md` | UI 美化方案（视觉层 + 交互层） |
+| `skills/y3-ui-generator/references/` | UI JSON 生成参考 |
 | `skills/y3-lua-pipeline/references/*.md` | Lua API 参考（player/unit/ability 等） |
+| `skills/desktop-automation/SKILL.md` | 桌面自动化流程（Editor MCP + 点击脚本） |
 
 ### 其他
 
 | 文档 | 路径 |
 |------|------|
 | 全局规则 | `.codemaker/rules/rules.mdc` |
-| 常见错误 | `.codemaker/rules/common_errors.md` |
+| 项目记忆 | `.codemaker/memory/Memory.md` |
 
 ---
 
@@ -156,4 +190,4 @@ y3.const.KeyboardKey['1']
 
 ---
 
-*最后更新: 2026-03-23*
+*最后更新: 2026-04-03*

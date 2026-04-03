@@ -124,6 +124,66 @@ local ui = y3.ui.create_ui(player, parent_ui, '图片'|'文本'|'按钮'|'进度
 local child = ui:create_child('图片')
 ```
 
+### 🔍 UI 节点路径查询
+
+**编写 UI 代码前，必须先确定正确的节点路径。** 按以下优先级查询：
+
+| 优先级 | 方法 | 说明 |
+|--------|------|------|
+| **1️⃣** | 读取 `ui_tree/*_Tree.json` | 简化树文件（~150行），token消耗极低 |
+| **2️⃣** | 读取原始 `maps/EntryMap/ui/*.json` | 完整UI文件（3000+行），作为备选 |
+
+**节点树文件位置：**
+```
+ui_tree/
+├── HeroSelectPanel_Tree.json   # 主面板简化树
+├── GameHUD_Tree.json
+└── ...
+```
+
+**节点树结构示例：**
+```json
+{
+  "name": "HeroSelectPanel",
+  "type": 2,
+  "children": [
+    {
+      "name": "block",
+      "type": 7,
+      "children": [
+        {
+          "name": "main_frame",
+          "type": 7,
+          "children": [
+            { "name": "hero_1", "type": 7 },
+            { "name": "button_select", "type": 1 }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+**从节点树推导 Lua 路径：**
+```lua
+-- 树结构: HeroSelectPanel → block → main_frame → button_select
+-- Lua路径: "HeroSelectPanel.block.main_frame.button_select"
+
+local btn = y3.ui.get_ui(player, "HeroSelectPanel.block.main_frame.button_select")
+```
+
+**⚠️ 常见错误：路径缺少中间层级**
+```lua
+-- ❌ 错误：跳过了 block 层
+local btn = y3.ui.get_ui(player, "HeroSelectPanel.main_frame.button_select")
+
+-- ✅ 正确：包含完整路径
+local btn = y3.ui.get_ui(player, "HeroSelectPanel.block.main_frame.button_select")
+```
+
+> 💡 **提示**：如果 `ui_tree/` 目录下没有对应的 `_Tree.json` 文件，请先执行 `y3-ui-pipeline` 的环节2生成节点树。
+
 ### 常用控件类型
 
 - **图片** (`'图片'`) - 显示静态图片、精灵
@@ -255,7 +315,7 @@ ui:set_cursor(player, state, key)    -- 鼠标样式
 
 ## 事件绑定
 
-### ⚠️ 推荐使用 add_fast_event（快速事件）
+### ⚠️ 强制使用 add_fast_event（快速事件）
 
 使用 `ui:add_fast_event(event, callback)` 直接为控件绑定事件，**无需手动判断触发来源**：
 

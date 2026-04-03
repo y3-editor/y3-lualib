@@ -1,0 +1,63 @@
+# MCP 调用规则
+
+> Y3 Editor MCP 和 Desktop Automation MCP 的安全调用规范
+
+## 🔴 熔断规则（最高优先级）
+
+| 规则 | 说明 |
+|------|------|
+| **超时不重试** | MCP 调用超时后**绝不重试**，立即熔断 |
+| **失败不循环** | 连续失败 2 次后停止，向用户报告 |
+
+## 📋 热更+保存流程（必须遵守）
+
+```
+1. 热更（让编辑器读取新的 JSON）
+   └─ y3editor.hotfix_ui_editor 或 hotfix_object_editor
+
+2. 等待 3 秒（让编辑器完成内存同步）
+
+3. 保存（让编辑器将内存数据写入 GMP）
+   └─ y3editor.save_editor
+```
+
+### ❌ 错误做法（会导致内容丢失！）
+
+```
+# 错误：只保存不热更
+y3editor.save_editor  ← 直接保存，物编/UI 内容会丢失！
+
+# 错误：热更后立即保存
+y3editor.hotfix_ui_editor
+y3editor.save_editor  ← 没有等待，可能数据不完整！
+```
+
+## 🛠️ Y3 Editor MCP 工具
+
+| 工具 | 功能 | 注意事项 |
+|------|------|----------|
+| `hotfix_ui_editor` | 热更 UI | 修改 UI JSON 后调用 |
+| `hotfix_object_editor` | 热更物编 | 修改物编 JSON 后调用 |
+| `save_editor` | 保存 | 热更后等待 3 秒再调用 |
+| `get_editor_log` | 获取编辑器日志 | 调试用 |
+| `download_editor_*_resource` | 下载资源 | 模型/特效/图标/声音 |
+
+## 🖱️ Desktop Automation MCP 工具
+
+| 工具 | 功能 | 注意事项 |
+|------|------|----------|
+| `bot_move_mouse` | 移动鼠标 | 支持负坐标（多显示器） |
+| `bot_click` | 点击 | 可能被保护程序拦截 |
+| `bot_screenshot` | 截图 | 返回 JPEG + windowBounds |
+| `bot_activate_window` | 激活窗口 | 需要进程名 |
+
+### 点击 Y3 窗口的特殊处理
+
+MCP `bot_click` 可能被 Y3 拦截，需使用两步分离法：
+1. `bot_move_mouse` 移动到目标位置
+2. PowerShell 管理员权限脚本执行点击
+
+## 📁 参考
+
+- Desktop Automation 技能：`.codemaker/skills/desktop-automation/SKILL.md`
+- 点击脚本：`.codemaker/skills/desktop-automation/mouse_clicker.ps1`

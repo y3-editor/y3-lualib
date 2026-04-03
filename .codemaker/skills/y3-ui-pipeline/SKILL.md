@@ -1,311 +1,174 @@
 ---
 name: y3-ui-pipeline
-description: >
-  Y3编辑器UI开发统一入口。所有UI相关需求的路由中心，分发到子技能。
-  
-  ALWAYS use this skill when user mentions: 生成UI、创建界面、制作面板、做个UI、做界面、
-  肉鸽界面、三选一、抽卡界面、选择界面、弹窗、HUD、菜单、对话框、卡牌选择、技能选择、
-  装备选择、道具选择、角色选择、商店界面、背包界面、设置界面、登录界面、排行榜、
-  血条、蓝条、技能栏、状态栏、任务面板、成就界面、loading界面、UI交互、按钮点击、
-  优化界面、调整布局、美化UI、修改UI代码、UI事件绑定。
-  
-  This is the SINGLE entry point for ALL UI development. It routes to:
-  - y3-ui-generator (UI JSON generation)
-  - y3-ui-official (Lua code reference)
+description: |
+  Y3 UI 完整工作流管理技能。当用户需要创建 UI 时自动触发此流程。
+  触发词：生成UI、创建界面、做个UI、UI面板、HUD、英雄选择界面、商店界面、技能栏、背包界面等。
+  工作流程：1. 调用 y3-ui-generator 生成 UI JSON → 2. 调用 gen_ui_tree.py 生成节点树（供 Lua 查询）
 ---
 
-# Y3 UI 开发管线
+# Y3 UI Pipeline（UI 完整工作流）
 
-三步完成从需求到 UI 代码的完整开发流程。
+当用户需求涉及 UI 生成时，**必须使用此工作流**，而非直接调用子技能。
 
-## ⚠️ 重要约束
-
-| 禁止 | 正确做法 |
-|------|----------|
-| 使用旧版全局事件 API `y3.game:event('UI-按钮-左键-点击', ...)` | **必须使用 `add_fast_event`** |
-| 事件类型名称拼写错误（如 `'点击'`、`'click'`） | **使用标准常量 `'左键-按下'`** |
-| 手动编造控件路径 | **从 `ui_tree/*.json` 读取** |
-| 事件绑定散落在代码各处 | **统一在初始化函数中绑定** |
-
----
-
-## 执行流程
+## 🔄 工作流程
 
 ```
-用户需求描述
+用户 UI 需求
     │
     ▼
-┌───────────────────────────────────────────────────┐
-│ 步骤 1: 生成 UI JSON                              │
-│ - 调用 y3-ui-generator 技能                       │
-│ - 从用户需求生成 HTML 预览 → 转换为 Y3 JSON       │
-│ - 热更到编辑器 → 清理临时文件                     │
-│ - 输出: maps/EntryMap/ui/{panel_name}.json        │
-└───────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ 环节 1: 生成 UI JSON                                        │
+│                                                             │
+│ 激活 skill: y3-ui-generator                                 │
+│ 输入: 用户的 UI 描述                                         │
+│ 输出: maps/EntryMap/ui/{PanelName}.json                     │
+│ （内部自动执行热更 + 保存）                                  │
+└─────────────────────────────────────────────────────────────┘
     │
     ▼
-┌───────────────────────────────────────────────────┐
-│ 步骤 1.5: 生成 UI 树（自动执行）                   │
-│ - 运行 gen_ui_tree.py 提取简化树结构               │
-│ - 输出: ui_tree/{panel_name}_Tree.json            │
-│ - 目的: 为步骤 2 提供控件路径参考（压缩比~97%）   │
-└───────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ 环节 2: 生成 UI 节点树                                       │
+│                                                             │
+│ 执行: python gen_ui_tree.py "<map_root_path>"               │
+│ 输入: 地图根目录                                             │
+│ 输出: ui_tree/{PanelName}_Tree.json                         │
+│ 用途: 供 Lua 代码查询 UI 结构（节点名、uid、type）           │
+└─────────────────────────────────────────────────────────────┘
     │
     ▼
-┌───────────────────────────────────────────────────┐
-│ 步骤 2: 编写 Lua 代码                             │
-│ - 参考 y3-ui-official 技能中的 API 和示例          │
-│ - 读取 ui_tree/*_Tree.json 获取控件路径            │
-│ - 使用 Y3 官方 API（y3.ui、GameAPI）              │
-│ - 输出: maps/EntryMap/script/{script_name}.lua    │
-└───────────────────────────────────────────────────┘
-    │
-    ▼
-完成
+完成（可继续编写 Lua 代码操作 UI）
 ```
 
----
+## 📋 环节 1: 生成 UI JSON
 
-## 步骤 1: 生成 UI JSON
+**使用 `y3-ui-generator` skill**
 
-**调用技能**: `y3-ui-generator`
+此环节负责：
+- 理解用户的 UI 需求描述
+- 生成 HTML 布局预览（可选）
+- 转换为 Y3 UI JSON 文件
 
-该技能会自动完成以下工作：
-1. 根据用户描述设计 UI 结构草图
-2. 生成 HTML 预览文件
-3. 调用 `html_to_y3_ui.py` 转换为 Y3 JSON
-4. 在浏览器中打开 HTML 预览
-5. 热更 UI 编辑器（`y3editor.hotfix_ui_editor`）
-6. 删除 HTML 临时文件
+详细指南见 `y3-ui-generator/SKILL.md`
 
-**输出**: `maps/EntryMap/ui/{panel_name}.json`
+## 📋 环节 2: 生成 UI 节点树
 
-> 详细流程和规范见 `y3-ui-generator` SKILL.md。
+**执行脚本生成简化树结构**
 
----
+### 为什么需要节点树？
 
-## 步骤 1.5: 生成 UI 树
-
-**工具**: `gen_ui_tree.py`（位于本技能目录 `.codemaker/skills/y3-ui-pipeline/`）
-
-UI JSON 生成后，**自动执行**此步骤，将完整 JSON 压缩为简化树结构，供步骤 2 编写 Lua 代码时查阅控件路径。
+| 原始 UI JSON | 节点树 JSON |
+|-------------|------------|
+| 3000+ 行 | ~150 行 |
+| 包含所有视觉属性 | 仅 name/uid/type |
+| 难以快速查询结构 | 一目了然的层级 |
 
 ### 执行命令
 
 ```bash
-py -3 "{{workspace}}/.codemaker/skills/y3-ui-pipeline/gen_ui_tree.py" "{{workspace}}"
+python ".codemaker/skills/y3-ui-pipeline/gen_ui_tree.py" "e:\ai_dev\y3_ai\agentmap"
 ```
 
-### 脚本行为
+### 输出位置
 
-1. 扫描 `maps/EntryMap/ui/` 下所有 `.json` 文件（含 `ui/prefab/` 子目录）
-2. 自动检测文件类型（Canvas / Prefab）
-3. 提取每个节点的 `name`、`uid`、`type` 和 `children` 层级关系
-4. 输出到 `{{workspace}}/ui_tree/{文件名}_Tree.json`
+- 输入：`maps/EntryMap/ui/*.json`
+- 输出：`ui_tree/*_Tree.json`
 
-### 输入 / 输出
-
-| 项目 | 路径 |
-|------|------|
-| 输入 | `maps/EntryMap/ui/*.json`、`maps/EntryMap/ui/prefab/*.json` |
-| 输出 | `ui_tree/{panel_name}_Tree.json`、`ui_tree/{prefab_name}_Tree.json` |
-
-### 输出示例
+### 节点树示例
 
 ```json
 {
-  "name": "orpghud",
-  "uid": "abc123...",
+  "name": "HeroSelectPanel",
+  "uid": "abc123",
   "type": 2,
   "children": [
     {
-      "name": "widget_skill_bar",
-      "uid": "def456...",
+      "name": "block",
+      "uid": "def456",
       "type": 7,
       "children": [
-        { "name": "skill_q", "uid": "...", "type": 17 }
+        {
+          "name": "main_frame",
+          "uid": "ghi789",
+          "type": 7,
+          "children": [
+            { "name": "hero_1", "uid": "jkl012", "type": 7 },
+            { "name": "hero_2", "uid": "mno345", "type": 7 }
+          ]
+        }
       ]
     }
   ]
 }
 ```
 
-### 为什么需要这一步？
+### 用途：Lua 路径查询
 
-- 完整 UI JSON 通常有数千行，直接读取会消耗大量 token
-- Tree JSON 仅保留层级关系，压缩比约 **97%**
-- 步骤 2 编写 Lua 代码时，读取 Tree JSON 即可获取所有控件的点号路径（如 `widget_skill_bar.skill_q`）
-
----
-
-## 步骤 2: 编写 Lua 代码
-
-**参考技能**: `y3-ui-official`
-
-编写 UI 相关的 Lua 代码时，参考 `y3-ui-official` 技能中提供的 API 文档和示例。
-
-### 🔴 控件路径查找优先级（必须遵守）
-
-1. **优先读取** `ui_tree/{panel_name}_Tree.json` 获取控件层级和路径
-2. **仅当 Tree JSON 不存在时**，才回退到读取完整 `ui/*.json` 文件
-
-### 核心 API
-
-| 功能 | API |
-|------|-----|
-| 获取控件 | `y3.ui.get_ui(player, "panel.child")` |
-| 获取子控件 | `ui:get_child("path.to.child")` |
-| 创建控件 | `ui:create_child('图片'\|'文本'\|'按钮'\|'进度条')` |
-| 显示/隐藏 | `ui:set_visible(bool)` |
-| 设置文本 | `ui:set_text(str)` |
-| 设置图片 | `ui:set_image(id)` |
-| 设置位置 | `ui:set_pos(x, y)` |
-| 百分比定位 | `GameAPI.set_ui_comp_pos_percent(player.handle, ui.handle, x%, y%)` |
-| 事件绑定 | `ui:add_fast_event('左键-按下', callback)` |
-
-### 事件绑定示例
+有了节点树，编写 Lua 代码时可以快速确定正确的 UI 路径：
 
 ```lua
-local btn = panel:get_child("button_confirm")
-btn:add_fast_event('左键-按下', function(trg)
-    panel:set_visible(false)
-end)
+-- 查看节点树后确定路径：HeroSelectPanel.block.main_frame.hero_1
+local hero1 = y3.ui.get_ui(player, "HeroSelectPanel.block.main_frame.hero_1")
 ```
 
-### 计时器
+**⚠️ 常见错误：路径缺少中间层级（如忘记 `block`）**
 
-```lua
-y3.ltimer.loop(interval, function(timer, count)
-    -- 每隔 interval 秒执行
-end)
+## 🎯 触发关键词
 
-y3.ltimer.wait(delay, function(timer, count)
-    -- delay 秒后执行一次
-end)
+当用户请求包含以下关键词时使用本技能：
+
+- 生成UI、创建界面、做个UI、UI面板
+- HUD、血条、技能栏、背包、商店
+- 英雄选择界面、设置界面、主菜单
+- 弹窗、对话框、提示框
+- 任何与 UI/界面相关的需求
+
+## 📁 目录结构
+
+```
+.codemaker/skills/y3-ui-pipeline/
+├── SKILL.md              # 本文件（工作流说明）
+└── gen_ui_tree.py        # 节点树生成脚本
+
+maps/EntryMap/ui/         # UI JSON 文件
+├── HeroSelectPanel.json
+├── GameHUD.json
+└── ...
+
+ui_tree/                  # 生成的节点树
+├── HeroSelectPanel_Tree.json
+├── GameHUD_Tree.json
+└── ...
 ```
 
-> 完整 API 参考和高级用法见 `y3-ui-official` SKILL.md 及其 `references/` 目录下的文档。
+## 🔗 UI 组件类型速查
 
----
+| type | 名称 | type | 名称 | type | 名称 |
+|------|------|------|------|------|------|
+| 0 | Node | 1 | Button | 2 | Layer |
+| 3 | TextLabel | 4 | Image | 5 | Progress |
+| 6 | Model | 7 | Layout | 8 | TabWidget |
+| 10 | ScrollView | 11 | Slider | 14 | Background |
+| 15 | InputField | 16 | MiniMap | 17 | SkillBtn |
+| 25 | GridView | 26 | RichText | 29 | ComboBox |
+| 33 | PageView | 35 | Spine | 46 | CheckBox |
+| 50 | Joystick | 51 | Video | 52 | Audio |
+| 65 | UICanvas（根节点） | 67 | CycleList | 74 | SplendorNode |
 
-## 步骤 2.5: 事件绑定规范（🔴 必读）
+## ⚠️ 注意事项
 
-事件绑定是 Lua 代码编写中**最易出错的环节**，必须严格遵守以下规范。
+1. **必须按顺序执行**：先生成 UI JSON，再生成节点树
+2. **节点树仅供参考**：不要手动修改节点树文件
+3. **UI JSON 变更后**：需要重新运行 gen_ui_tree.py 更新节点树
+4. **Lua 路径规则**：使用点号分隔，如 `Panel.block.child.grandchild`
 
-### 🔴 必须使用 add_fast_event
+## 🔗 关联技能
 
-所有 UI 事件绑定**必须**使用 `ui:add_fast_event(event_type, callback)` 方法。
-
-```lua
--- ✅ 正确：使用 add_fast_event
-local btn = y3.ui.get_ui(player, "PanelName.button_name")
-btn:add_fast_event('左键-按下', function(trg)
-    print("按钮被点击")
-end)
-
--- ❌ 禁止：旧版全局事件 API
--- y3.game:event('UI-按钮-左键-点击', function(trigger, data)
---     if data.ui_comp == my_button then ... end
--- end)
-```
-
-### 事件类型常量表
-
-事件类型字符串**必须**与下表完全一致（含中文标点）：
-
-| 类别 | 事件名 | 说明 |
-|------|--------|------|
-| 左键 | `'左键-按下'` | **🔴 推荐用于按钮点击** |
-| 左键 | `'左键-抬起'` | 鼠标抬起 |
-| 左键 | `'左键-点击'` | 完整点击动作（按下+抬起） |
-| 左键 | `'左键-双击'` | 双击 |
-| 右键 | `'右键-按下'` | 右键按下 |
-| 右键 | `'右键-抬起'` | 右键抬起 |
-| 右键 | `'右键-点击'` | 右键完整点击 |
-| 右键 | `'右键-双击'` | 右键双击 |
-| 悬停 | `'鼠标-移入'` | 鼠标进入控件 |
-| 悬停 | `'鼠标-移出'` | 鼠标离开控件 |
-| 悬停 | `'鼠标-悬停'` | 鼠标停留 |
-
-### 标准代码模板
-
-#### 按钮点击模板
-
-```lua
--- 获取按钮控件（路径来自 ui_tree）
-local btn = y3.ui.get_ui(player, "PanelName.button_name")
-
--- 绑定点击事件（必须使用 add_fast_event）
-btn:add_fast_event('左键-按下', function(trg)
-    -- 事件处理逻辑
-    print("按钮被点击")
-end)
-```
-
-#### 悬停提示模板
-
-```lua
-local icon = y3.ui.get_ui(player, "PanelName.icon_name")
-local tooltip = y3.ui.get_ui(player, "PanelName.tooltip")
-
-icon:add_fast_event('鼠标-移入', function(trg)
-    tooltip:set_visible(true)
-end)
-
-icon:add_fast_event('鼠标-移出', function(trg)
-    tooltip:set_visible(false)
-end)
-```
-
-### 🔴 事件绑定检查清单
-
-生成事件绑定代码后，**必须逐项确认**：
-
-1. ✅ 所有按钮都使用了 `add_fast_event` 绑定事件
-2. ✅ 事件类型名称与常量表完全一致（无拼写错误）
-3. ✅ 控件路径来自 `ui_tree/*.json`（非手写）
-4. ✅ 事件绑定代码在面板初始化函数中执行
-5. ✅ 回调函数内有实际逻辑（非空函数）
-
----
-
-## 需求路由
-
-| 用户需求 | 执行路径 |
-|----------|----------|
-| 新建界面 / 做一个XX面板 | 步骤 1 → 1.5 → 2（全流程） |
-| 仅修改 Lua 代码 / 修复 BUG | 仅步骤 2（参考 y3-ui-official） |
-| 仅生成 UI JSON / 不需要代码 | 仅步骤 1 → 1.5 |
-
----
-
-## 路径约定
-
-| 用途 | 路径 |
+| 技能 | 用途 |
 |------|------|
-| UI JSON 输出 | `maps/EntryMap/ui/` |
-| UI 树输出 | `ui_tree/` |
-| Lua 脚本输出 | `maps/EntryMap/script/` |
-| gen_ui_tree.py | `.codemaker/skills/y3-ui-pipeline/gen_ui_tree.py` |
+| `y3-ui-generator` | 生成 UI JSON（本流程环节 1） |
+| `y3-ui-official` | 编写 UI Lua 代码（事件绑定、显示隐藏等） |
+| `y3-lua-pipeline` | 编写非 UI 游戏逻辑代码 |
 
 ---
 
-## 热更 + 保存（MCP 调用顺序）
-
-UI JSON 生成后必须热更，否则编辑器内容会丢失：
-
-```
-1. y3editor.hotfix_ui_editor   ← 热更 UI
-2. 等待 3 秒                   ← 必须等待
-3. y3editor.save_editor         ← 保存
-```
-
----
-
-## 🚨 自动化执行要点
-
-整个管线流程中，AI **不需要询问用户任何问题**：
-- **不询问目录**：使用检测到的路径变量
-- **不询问实现方式**：直接按流程执行
-- **不询问文件名**：由各子技能自动命名
-- **步骤 1.5 自动执行**：UI JSON 生成后立即运行 gen_ui_tree.py，无需询问
+*最后更新: 2026-04-03*
