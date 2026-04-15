@@ -129,7 +129,7 @@ M._added_fast_events = {}
 
 --创建快速界面事件
 ---@param event y3.Const.UIEvent 界面事件类型
----@param callback fun(trg: Trigger)
+---@param callback fun(trg: Trigger, data: EventParam.界面-消息)
 ---@return Trigger
 function M:add_fast_event(event, callback)
     local id = string.format('$fast_event:%s@%s'
