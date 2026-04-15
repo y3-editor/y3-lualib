@@ -176,7 +176,7 @@ end
 
 ---@private
 ---@type table<string, PYEventRef[]>
-M.ref_map = y3.util.multiTable(2)
+M.ref_map = y3.util.multiTable(3)
 
 local function args_eq(a, b)
     if a == b then
@@ -193,13 +193,17 @@ local function args_eq(a, b)
     return true
 end
 
+local NO_ARG = { '<NO_ARG>' }
+
 -- 为参数增加引用计数，返回引用
 ---@private
 ---@param name  string
 ---@param args? any[]
 ---@return PYEventRef
 function M.ref_args(name, args)
-    local refs = M.ref_map[name]
+    local refs = M.ref_map[name][args and args[1] or NO_ARG]
+
+    -- 按照第一个参数进行分组
 
     for _, ref in ipairs(refs) do
         if args_eq(ref.args, args) then
@@ -223,7 +227,7 @@ end
 ---@param args? any[]
 ---@return PYEventRef
 function M.unref_args(name, args)
-    local refs = M.ref_map[name]
+    local refs = M.ref_map[name][args and args[1] or NO_ARG]
 
     for i, ref in ipairs(refs) do
         if args_eq(ref.args, args) then
