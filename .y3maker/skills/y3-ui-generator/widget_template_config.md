@@ -25,6 +25,7 @@
 | `btn` | `templates/btn.json` | 166×45 | 1 (按钮) | 通用按钮，含正常/悬浮/按下/禁用四态图片，来自 widget_bank |
 | `hero_bar` | `templates/hero_bar.json` | 150×150 | 7 (容器) | 英雄头像框，含3D模型显示+边框背景，来自 widget_bank |
 | `check_box` | `templates/check_box.json` | 44×46 | 46 (复选框) | 复选框控件，Y3原生勾选框，来自 widget_bank |
+| `item_slot` | `templates/item_slot.json` | 100×100 | **20 (物品槽)** | Y3原生物品槽组件，含背景、图标、堆叠数、充能数、CD进度、禁用遮罩。**引擎自动绑定物品显示**，来自 widget_bank |
 
 ---
 
@@ -122,6 +123,13 @@ avatar frame, portrait, 3D头像, 模型头像, 英雄模型框, 角色框
 ```
 check_box, 复选框, 勾选框, 勾选, 选择框, 多选框, checkbox, check box,
 选项勾选, 开关选项, toggle, 打勾, 勾选项, 单选框, 选择开关
+```
+
+### item_slot — 物品槽
+```
+物品槽, 物品格, 装备槽, 装备格, 道具格, 道具槽, 单个物品格, 物品栏格子,
+item slot, equip slot, equipment slot, 装备位, 物品位, 背包格, 背包槽,
+inventory slot, 物品框, 装备框, 单格物品, 物品图标槽
 ```
 
 ---
@@ -343,6 +351,107 @@ check_box (type=46, 44×46)
 > - 获取选中状态：`ui:is_checked()` 
 > - 设置选中状态：`ui:set_checked(true/false)`
 > - 监听状态变化：`ui:add_event('选中状态改变', callback)`
+
+### item_slot
+```
+item_slot (type=20, 100×100)
+├── equip_bg_img (type=4, 背景图 img=120833, 100×100)
+├── equip_icon_img (type=4, 物品图标 img=101902, 100×100)
+├── equip_stack_label (type=3, 堆叠数量 "1", 右上角 55×24)
+├── equip_charge_label (type=3, 充能数量 "1", 右上角 55×24)
+├── equip_cd_progress (type=5, CD进度条 圆形遮罩 img=903687, 62.5×62.5, scale=1.6)
+└── equip_disabled_img (type=4, 禁用遮罩 img=100427, 100×100)
+```
+> **`item_slot` 是 Y3 原生物品槽控件 (type=20)，所有属性由引擎底层全托管，无需额外 Lua 逻辑代码：**
+> - 物品图标（equip_icon_img）— 自动显示/隐藏，无物品时自动置空
+> - 堆叠数量（equip_stack_label）— 可堆叠物品自动显示
+> - 充能数量（equip_charge_label）— 物品可绑定技能，技能有充能时自动显示（非必有）
+> - CD 冷却遮罩（equip_cd_progress）— 物品绑定技能有 CD 时自动显示（非必有）
+> - 禁用遮罩（equip_disabled_img）— CD 期间自动显示
+> - **拖拽交换** — 内置拖拽逻辑，玩家可直接拖拽物品交换位置，无需额外实现
+>
+> **绑定规则**：
+> - `set_ui_unit_slot` 必须调用在 **type=20 根节点** 上（不是子节点）
+> - 物品栏/背包栏的 **槽位数量** 在物编单位属性中配置
+> - `BAR`（物品栏）= 属性生效；`PKG`（背包栏）= 属性不生效
+> - index 从 **0** 开始
+>
+> **引用字段（关键！）**：根节点的 `equip_bg_img`、`equip_icon_img` 等字段必须指向子节点的正确 UID，否则物品槽显示异常。模板中使用 `TEMPLATE_*` 占位符，`_regenerate_uids` 会自动替换。
+>
+> **Lua 绑定 API**：
+> ```lua
+> -- 绑定到英雄的物品栏（属性生效），index 从 0 开始
+> slot:set_ui_unit_slot(hero, y3.const.SlotType.BAR, 0)  -- 第1格
+>
+> -- 绑定到英雄的背包栏（属性不生效）
+> slot:set_ui_unit_slot(hero, y3.const.SlotType.PKG, 0)  -- 第1格
+> ```
+>
+> **HTML 使用示例**：
+> ```html
+> <div data-template="item_slot" data-name="equip_slot_1" data-x="10" data-y="10" data-w="64" data-h="64"></div>
+> ```
+
+---
+
+## 网格/列表控件（Grid / List）
+
+以下控件**不使用** `data-template`，而是通过 `data-type="grid"` / `data-type="list"` 直接声明，并关联 prefab 子项。
+
+### grid — 网格 (GridView, type:25)
+
+**识别关键字**：
+```
+格子, 网格, 宫格, Grid, GridView, 物品格, 装备格, 技能格, 背包格子,
+N×M 排列, 九宫格, 多行多列, grid view, item grid, equipment grid
+```
+
+**必填属性**：
+
+| 属性 | 说明 |
+|------|------|
+| `data-item-w` | 子项宽度 |
+| `data-item-h` | 子项高度 |
+| `data-prefab` | 关联 prefab 文件名 |
+
+**可选属性**：
+
+| 属性 | 说明 | 默认值 |
+|------|------|--------|
+| `data-cols` | 列数 | 4 |
+| `data-gap-x` | 水平间距 | 0 |
+| `data-gap-y` | 垂直间距 | 0 |
+
+**Prefab 输出路径**：`maps/EntryMap/ui/prefab/<PrefabName>.json`
+
+### list — 列表 (ScrollView, type:10)
+
+**识别关键字**：
+```
+列表, 滚动列表, 排行榜, ScrollView, 滚动视图, 可滚动, 上下滑动, 左右滑动,
+翻页列表, 聊天记录, 日志列表, scroll view, scroll list, ranking list
+```
+
+**必填属性**：
+
+| 属性 | 说明 |
+|------|------|
+| `data-item-w` | 子项宽度 |
+| `data-item-h` | 子项高度 |
+| `data-prefab` | 关联 prefab 文件名 |
+
+**可选属性**：
+
+| 属性 | 说明 | 默认值 |
+|------|------|--------|
+| `data-gap-y` | 间距 | 0 |
+| `data-direction` | 排列方向 (`vertical` / `horizontal`) | `vertical` |
+
+**Prefab 输出路径**：`maps/EntryMap/ui/prefab/<PrefabName>.json`
+
+### ⚠️ 官方组件排除
+
+**BuffList (type:18)** 是官方组件，自动管理其子节点 BuffItem (type:19)。当用户描述涉及"Buff列表"时，使用 `data-template="buff_list"` 模板引用，**不要**使用 grid/list 控件。
 
 ---
 

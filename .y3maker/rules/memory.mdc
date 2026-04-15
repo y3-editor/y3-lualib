@@ -5,7 +5,7 @@ alwaysApply: true
 <rule>
 1.每一次对话结束，总结对话内容到记忆系统中，<worktree>/.codemaker/memory/sessions/session-Ssessionid-SYYYY.MM.DD-SHH.MM-[Sbrief]/report.md. 必须！
 2.每次重要的 变更都需要记录session的核心内容到记忆系统，openspec流程中，调用了/archive归档后，也同理 <worktree>/.codemaker/memory/Memory.md
-3.lua错题本机制：在步骤1和步骤2的总结过程中，如果识别到关于lua相关的问题，请额外把lua的相关问题帮我单独归纳总结到lua-issues文件夹中,具体规则见步骤4，步骤5
+3.lua错题本机制：在步骤1和步骤2的总结过程中，如果识别到关于lua相关的问题，请额外把lua的相关问题帮我单独归纳总结到 `lua-issues` 文件夹中，具体规则见步骤4，步骤5
 4.lua报错以及trace类归纳到trace_issues.md；api生成错误，错误的使用了y3库中不存在api，api参数类型，个数问题等归纳到api_issues.md
 5.lua问题的归纳要尽量精简，尽可能的包括产生原因和解决方案
 6.在每一次对话中，如果再次发生了lua的相关问题，请根据问题类别去lua-issues中寻找之前的记录，看能否帮助解决

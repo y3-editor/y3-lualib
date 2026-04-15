@@ -191,53 +191,7 @@ AI 应该考虑：
 
 > 💡 如果存在重复风险，在表格中标注 `⚠️ 重复` 提醒用户
 
-### 步骤 5：编辑器下载资源
-
-**物编生成完成后，统计新增物编中使用的资源 ID，通过 MCP 工具下载到编辑器。**
-
-#### 资源类型与提取规则
-
-| 资源类型 | 物编类型 | 字段路径 | MCP 工具 |
-|----------|----------|----------|----------|
-| **模型** | 单位 | `model` | `download_editor_model_resource` |
-| **模型** | 物品 | `model` | `download_editor_model_resource` |
-| **模型** | 魔法效果 | `model` | `download_editor_model_resource` |
-| **模型** | 魔法效果 | `attach_model_list[*].model` | `download_editor_model_resource` |
-| **模型** | 投射物 | `effect_foes[5]['model']` | `download_editor_model_resource` |
-| **特效** | 投射物 | `effect_foes[0]` | `download_editor_effect_resource` |
-| **特效** | 魔法效果 | `get_effect_list[*][0]` | `download_editor_effect_resource` |
-| **特效** | 魔法效果 | `lose_effect_list[*][0]` | `download_editor_effect_resource` |
-| **图标** | 单位 | `icon` | `download_editor_icon_resource` |
-| **图标** | 技能 | `ability_icon` | `download_editor_icon_resource` |
-| **图标** | 物品 | `icon` | `download_editor_icon_resource` |
-| **图标** | 魔法效果 | `modifier_icon` | `download_editor_icon_resource` |
-| **图标** | 投射物 | `icon` | `download_editor_icon_resource` |
-
-#### 下载流程
-
-1. **统计资源**：遍历新增物编，按上表提取资源 ID
-2. **去重合并**：相同类型的资源 ID 合并到一个列表
-3. **批量下载**：调用对应 MCP 工具下载
-
-#### 示例
-
-假设新增了 1 个单位、1 个技能、1 个魔法效果：
-
-```
-新增资源统计:
-- 模型: [211128, 211131]
-- 特效: [106009]
-- 图标: [132974, 100508]
-
-MCP 调用:
-1. download_editor_model_resource(editor_model_id_list=[211128, 211131])
-2. download_editor_effect_resource(editor_effect_id_list=[106009])
-3. download_editor_icon_resource(editor_icon_id_list=[132974, 100508])
-```
-
-> ⚠️ **注意**：资源 ID 为 `0` 或不存在的字段无需下载
-
-### 步骤 6：热更并保存 🔴🔴🔴
+### 步骤 5：热更并保存 🔴🔴🔴
 
 **⚠️ 必须先热更再保存，否则生成的内容会丢失！**
 

@@ -16,6 +16,11 @@ Supported node types:
     - div[data-type="label"]   -> type 3 (文本)
     - div[data-type="image"]   -> type 4 (图片)
     - div[data-type="button"]  -> type 1 (按钮)
+    - div[data-type="grid"]    -> type 25 (GridView 网格)
+    - div[data-type="list"]    -> type 10 (ScrollView 滚动列表)
+
+Prefab mode:
+    python html_to_y3_ui.py <input.html> <output.json> --prefab --prefab-name ItemCmp
 """
 
 import json
@@ -39,7 +44,14 @@ TYPE_MAP = {
     "label": 3,
     "image": 4,
     "layout": 7,
+    "grid": 25,    # GridView
+    "list": 10,    # ScrollView
 }
+
+# Grid required attributes (grid_size is mandatory in engine)
+_GRID_REQUIRED = ['data-item-w', 'data-item-h']
+# List has no mandatory HTML attrs beyond the standard data-w/h
+_LIST_REQUIRED = []
 
 # Default font colors
 DEFAULT_FONT_COLOR = [255, 255, 255, 255]
@@ -403,6 +415,16 @@ class Y3UIHTMLParser(HTMLParser):
                 self.stack[-1] = (node, children, depth + 1)
             return
 
+        # If current parent is a grid/list node, skip child parsing
+        # (grid/list children are managed by engine via prefab, not static HTML)
+        if self.stack:
+            parent_node, _, _ = self.stack[-1]
+            if parent_node is not None and parent_node.get('_skip_children'):
+                # Absorb this div as a depth increment so </div> stays balanced
+                node_frame, children_frame, depth_frame = self.stack[-1]
+                self.stack[-1] = (node_frame, children_frame, depth_frame + 1)
+                return
+
         node = self._build_node(attr_dict, data_type)
         node_name = node['name']
         parent_name = self._name_stack[-1] if self._name_stack else None
@@ -530,6 +552,10 @@ class Y3UIHTMLParser(HTMLParser):
             self._add_button_fields(node, attrs)
         elif data_type == "layout":
             self._add_layout_fields(node, attrs)
+        elif data_type == "grid":
+            self._add_grid_fields(node, attrs)
+        elif data_type == "list":
+            self._add_list_fields(node, attrs)
 
         return node
 
@@ -673,6 +699,154 @@ class Y3UIHTMLParser(HTMLParser):
         # Swallow touches (block input)
         if attrs.get('data-block', '').lower() == 'true':
             node["swallow_touches"] = True
+
+    def _validate_required_attrs(self, attrs, data_type, required_list):
+        """Validate required attributes for a node. Exits on error."""
+        missing = [a for a in required_list if not attrs.get(a)]
+        if missing:
+            name = attrs.get('data-name', '?')
+            print(f"[ERROR] {data_type} node '{name}' missing required attributes: {', '.join(missing)}")
+            sys.exit(1)
+
+    def _resolve_prefab_key(self, prefab_name, output_path=None):
+        """
+        Look up a prefab file by name and return its 'key' field.
+        Search order:
+          1. <output_dir>/prefab/<name>.json
+          2. maps/EntryMap/ui/prefab/<name>.json  (relative to cwd)
+        Returns the key string, or a placeholder UUID if not found.
+        """
+        search_paths = []
+        if output_path:
+            out_dir = os.path.dirname(os.path.abspath(output_path))
+            search_paths.append(os.path.join(out_dir, 'prefab', f'{prefab_name}.json'))
+        search_paths.append(os.path.join('maps', 'EntryMap', 'ui', 'prefab', f'{prefab_name}.json'))
+
+        for path in search_paths:
+            if os.path.exists(path):
+                try:
+                    with open(path, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                    key = data.get('key', '')
+                    if key:
+                        print(f"[INFO] Prefab '{prefab_name}' found at {path}, key={key}")
+                        return key
+                except Exception as e:
+                    print(f"[WARN] Failed to read prefab '{prefab_name}' at {path}: {e}")
+
+        placeholder = str(uuid.uuid4())
+        print(f"[WARN] Prefab '{prefab_name}' not found, using placeholder key: {placeholder}")
+        return placeholder
+
+    def _add_grid_fields(self, node, attrs):
+        """Add GridView-specific fields (type=25).
+
+        Real field names from EditorUICompMeta.py (UIComponentType.GridView = 25):
+          - layout_type: Horizontal=1 (default), Vertical=0
+          - grid_count: (rows, cols), default (0, 2)
+          - grid_size: (w, h), default (100, 100)
+          - grid_space: (vertical_gap, horizontal_gap), default (0, 0)
+          - grid_margin: (top, bottom, left, right), default (0, 0, 0, 0)
+          - grid_align: (h_align, v_align), default (2, 8)
+          - block_scrolling: bool, default False
+          - skip_invisible: bool, default False
+          - bg_image: int, default 106397
+          - bg_color: (r, g, b, a), default (255,255,255,255)
+          - comp_type: 'GridView'
+        """
+        self._validate_required_attrs(attrs, 'grid', _GRID_REQUIRED)
+
+        # Grid-specific properties (real field names from engine source)
+        cols = int(attrs.get('data-cols', '4'))
+        item_w = int(attrs.get('data-item-w', '100'))
+        item_h = int(attrs.get('data-item-h', '100'))
+        gap_x = int(attrs.get('data-gap-x', '0'))
+        gap_y = int(attrs.get('data-gap-y', '0'))
+
+        # layout_type: 1=Horizontal (default in engine)
+        layout_type = 1 if attrs.get('data-direction', 'horizontal') == 'horizontal' else 0
+        node["layout_type"] = layout_type
+        # grid_count: (rows, cols) — both must be >= 1 to avoid ZeroDivisionError in engine
+        # For Horizontal layout: rows auto-grows, but must start at >= 1
+        # For Vertical layout: cols auto-grows, but must start at >= 1
+        rows = int(attrs.get('data-rows', '1'))
+        rows = max(rows, 1)
+        cols = max(cols, 1)
+        node["grid_count"] = {"__tuple__": True, "items": [rows, cols]}
+        # grid_size: (w, h) per cell
+        node["grid_size"] = {"__tuple__": True, "items": [item_w, item_h]}
+        # grid_space: (vertical_gap, horizontal_gap)
+        node["grid_space"] = {"__tuple__": True, "items": [gap_y, gap_x]}
+        # grid_margin: (top, bottom, left, right)
+        margin_t = int(attrs.get('data-margin-top', '0'))
+        margin_b = int(attrs.get('data-margin-bottom', '0'))
+        margin_l = int(attrs.get('data-margin-left', '0'))
+        margin_r = int(attrs.get('data-margin-right', '0'))
+        node["grid_margin"] = {"__tuple__": True, "items": [margin_t, margin_b, margin_l, margin_r]}
+        # grid_align: (h_align=2 center, v_align=8 center)
+        node["grid_align"] = {"__tuple__": True, "items": [2, 8]}
+        node["block_scrolling"] = False
+        node["skip_invisible"] = attrs.get('data-skip-invisible', 'false').lower() == 'true'
+        node["comp_type"] = "GridView"
+
+        # Background
+        bg_image = attrs.get('data-bg-image', '')
+        if bg_image:
+            node["bg_image"] = int(bg_image)
+        node["bg_color"] = {"__tuple__": True, "items": [255, 255, 255, 255]}
+
+        # GridView children are managed dynamically, but not via prefab_key.
+        # Children are added via Lua at runtime. HTML children are parsed normally
+        # as static placeholder items (or ignored if data-prefab is set).
+        prefab_name = attrs.get('data-prefab', '')
+        if prefab_name:
+            node["_prefab_name"] = prefab_name  # temp, used by skill workflow
+            node["children"] = []
+            node["_skip_children"] = True
+
+    def _add_list_fields(self, node, attrs):
+        """Add ScrollView-specific fields (type=10).
+
+        Real field names from EditorUICompMeta.py (UIComponentType.ScrollView = 10):
+          - layout_type: HORIZONTAL=1 (default), VERTICAL=0
+          - layout_reverse: bool, default False
+          - skip_invisible: bool, default True
+          - bg_image: int, default 106397
+          - bg_color: (r, g, b, a)
+          - block_scrolling: bool, default False
+          - margin: int (child spacing), default 0
+          - bounce_enabled: bool, default False
+          - size_change_according_children: bool, default False
+          - comp_type: 'ScrollView'
+        """
+        # No strictly required attrs for ScrollView beyond standard size
+
+        # ScrollView-specific properties (real field names from engine source)
+        direction = attrs.get('data-direction', 'vertical')
+        # layout_type: 0=VERTICAL, 1=HORIZONTAL
+        node["layout_type"] = 1 if direction == 'horizontal' else 0
+        node["layout_reverse"] = attrs.get('data-reverse', 'false').lower() == 'true'
+        node["skip_invisible"] = True
+        node["block_scrolling"] = False
+        node["bounce_enabled"] = attrs.get('data-bounce', 'false').lower() == 'true'
+        # margin: child node spacing (single int, not tuple)
+        node["margin"] = int(attrs.get('data-gap-y', '0'))
+        node["size_change_according_children"] = False
+        node["comp_type"] = "ScrollView"
+
+        # Background
+        bg_image = attrs.get('data-bg-image', '')
+        if bg_image:
+            node["bg_image"] = int(bg_image)
+        node["bg_color"] = {"__tuple__": True, "items": [255, 255, 255, 255]}
+
+        # ScrollView children are the actual list items (added as children).
+        # If data-prefab is set, children will be added via Lua at runtime.
+        prefab_name = attrs.get('data-prefab', '')
+        if prefab_name:
+            node["_prefab_name"] = prefab_name  # temp, used by skill workflow
+            node["children"] = []
+            node["_skip_children"] = True
 
     def _parse_alignment(self, align_str):
         """
@@ -850,6 +1024,11 @@ class Y3UIHTMLParser(HTMLParser):
           Pass 1 — collect old→new uid mapping for every node in the subtree.
           Pass 2 — for every node, scan all string fields whose value matches a
                    known old uid and replace with the corresponding new uid.
+          Pass 3 — (safety net) for any remaining uid-reference fields that still
+                   contain a stale/orphaned uid (not in uid_map), try to resolve by
+                   matching the field *name* to a descendant node's *name* and use
+                   that node's new uid.  This handles cases where the template JSON's
+                   reference uids were out of sync with its own child uids.
         """
         uid_map = {}  # old_uid -> new_uid
 
@@ -878,6 +1057,48 @@ class Y3UIHTMLParser(HTMLParser):
                 _patch_refs(child)
 
         _patch_refs(node)
+
+        # ── Pass 3: name-based fallback for orphaned uid references ─────────
+        # Build a name→uid index of all descendants (first match wins)
+        _UUID_RE = re.compile(
+            r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
+            re.IGNORECASE
+        )
+        name_uid_map = {}  # child_name -> new_uid
+
+        def _index_names(n):
+            n_name = n.get('name', '')
+            n_uid = n.get('uid', '')
+            if n_name and n_uid and n_name not in name_uid_map:
+                name_uid_map[n_name] = n_uid
+            for child in n.get('children', []):
+                _index_names(child)
+
+        _index_names(node)
+
+        # Collect all new uids as a set for quick "already valid" check
+        new_uid_set = set(uid_map.values())
+        new_uid_set.add(node.get('uid', ''))
+
+        def _patch_by_name(n):
+            for key, val in list(n.items()):
+                if key in ('uid', 'name', 'children'):
+                    continue
+                if not isinstance(val, str):
+                    continue
+                # Skip values that are already valid new uids
+                if val in new_uid_set:
+                    continue
+                # Check if the value looks like a UUID (stale/orphaned reference)
+                if not _UUID_RE.match(val):
+                    continue
+                # Try to resolve by matching field name to a descendant node name
+                if key in name_uid_map:
+                    n[key] = name_uid_map[key]
+            for child in n.get('children', []):
+                _patch_by_name(child)
+
+        _patch_by_name(node)
 
 
 # =============================================================================
@@ -1478,12 +1699,14 @@ def convert(html_path, output_path, panel_name="NewPanel", zorder=300):
     # NOTE: must run BEFORE stripping _is_template markers, so template nodes are skipped correctly
     auto_inject_layout_bg(children)
 
-    # Clean up _is_template markers (kept through overlap resolver, remove before output)
-    def _strip_template_markers(nodes):
+    # Clean up _is_template markers and other temp fields before output
+    def _strip_temp_fields(nodes):
         for n in nodes:
             n.pop('_is_template', None)
-            _strip_template_markers(n.get('children', []))
-    _strip_template_markers(children)
+            n.pop('_skip_children', None)
+            n.pop('_prefab_name', None)
+            _strip_temp_fields(n.get('children', []))
+    _strip_temp_fields(children)
 
     panel = build_panel_json(children, panel_name, zorder)
 
@@ -1512,6 +1735,106 @@ def convert(html_path, output_path, panel_name="NewPanel", zorder=300):
     _verify_structure(parser.html_nodes, json_nodes, panel_name)
 
 
+def convert_prefab(html_path, output_path, prefab_name="NewPrefab"):
+    """Convert an HTML file to Y3 UI prefab JSON."""
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html_content = f.read()
+
+    parser = Y3UIHTMLParser()
+    parser.feed(html_content)
+
+    children = parser.root_children
+    if not children:
+        print("[ERROR] No root nodes found in prefab HTML")
+        sys.exit(1)
+
+    # Take the first root node as the prefab data
+    root_node = children[0]
+
+    # Use root node's own size as design resolution for prefab
+    size = root_node.get('size', [100, 100])
+    if isinstance(size, dict):
+        size = size.get('items', [100, 100])
+    prefab_w, prefab_h = float(size[0]), float(size[1])
+
+    # Post-process with prefab dimensions (not 1920x1080)
+    post_process_tree([root_node], prefab_w, prefab_h)
+
+    # Auto-inject background images for layout children inside prefab
+    auto_inject_layout_bg([root_node])
+
+    # Strip template markers
+    def _strip_template_markers(nodes):
+        for n in nodes:
+            n.pop('_is_template', None)
+            _strip_template_markers(n.get('children', []))
+    _strip_template_markers([root_node])
+
+    # Inject prefab_sub_key: root=null, children=uuid4
+    def _inject_prefab_sub_keys(node, is_root=True):
+        node['prefab_sub_key'] = None if is_root else str(uuid.uuid4())
+        # Remove uid for prefab nodes (prefab format uses prefab_sub_key instead)
+        node.pop('uid', None)
+        # Add comp_type based on type
+        comp_type_map = {1: "Button", 3: "TextLabel", 4: "Image", 7: "Layout", 25: "GridView", 10: "ScrollView"}
+        node_type = node.get('type', 7)
+        if 'comp_type' not in node:
+            node['comp_type'] = comp_type_map.get(node_type, "Layout")
+        # Add standard prefab fields if missing
+        node.setdefault('can_drag', False)
+        node.setdefault('hover_child', "")
+        node.setdefault('swallow_touches', False)
+        node.setdefault('rotation', 0)
+        node.setdefault('scale', {"__tuple__": True, "items": [1, 1]})
+        node.setdefault('scene_ui_name', None)
+        node.setdefault('opacity', 1.0)
+        # Convert size to tuple format
+        s = node.get('size', [100, 100])
+        if isinstance(s, list):
+            node['size'] = {"__tuple__": True, "items": [float(s[0]), float(s[1])]}
+        # Convert anchor to tuple format if not already
+        if 'anchor' not in node:
+            node['anchor'] = {"__tuple__": True, "items": [0.5, 0.5]}
+        # Strip temp fields
+        node.pop('_skip_children', None)
+        node.pop('_prefab_name', None)
+        node.pop('_html_x', None)
+        node.pop('_html_y', None)
+        node.pop('_zindex', None)
+        node.pop('_is_transparent_btn', None)
+        for child in node.get('children', []):
+            _inject_prefab_sub_keys(child, is_root=False)
+
+    _inject_prefab_sub_keys(root_node)
+
+    # Build prefab JSON
+    prefab_key = str(uuid.uuid4())
+    prefab_json = {
+        "data": root_node,
+        "key": prefab_key,
+        "name": prefab_name,
+    }
+
+    # Ensure output directory exists
+    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(prefab_json, f, indent=4, ensure_ascii=False)
+
+    print(f"[OK] Generated prefab: {output_path}")
+    print(f"     Name: {prefab_name}, Key: {prefab_key}")
+    print(f"     Root size: {prefab_w}x{prefab_h}")
+
+    # Count nodes
+    total = 0
+    stack = [root_node]
+    while stack:
+        n = stack.pop()
+        total += 1
+        stack.extend(n.get('children', []))
+    print(f"     Total nodes: {total}")
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='Convert HTML to Y3 UI JSON')
@@ -1519,9 +1842,14 @@ def main():
     parser.add_argument('output', help='Output JSON file path')
     parser.add_argument('--panel-name', default='NewPanel', help='Panel name (default: NewPanel)')
     parser.add_argument('--zorder', type=int, default=300, help='Z-order (default: 300)')
+    parser.add_argument('--prefab', action='store_true', help='Output as prefab JSON instead of panel JSON')
+    parser.add_argument('--prefab-name', default='NewPrefab', help='Prefab name (default: NewPrefab)')
     args = parser.parse_args()
 
-    convert(args.input, args.output, args.panel_name, args.zorder)
+    if args.prefab:
+        convert_prefab(args.input, args.output, args.prefab_name)
+    else:
+        convert(args.input, args.output, args.panel_name, args.zorder)
 
 
 if __name__ == '__main__':

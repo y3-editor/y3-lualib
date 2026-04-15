@@ -45,7 +45,7 @@ description: |
 
 此环节负责：
 - 理解用户的 UI 需求描述
-- 生成 HTML 布局预览（可选）
+- 生成 HTML布局预览 （不可跳过）
 - 转换为 Y3 UI JSON 文件
 
 详细指南见 `y3-ui-generator/SKILL.md`
@@ -65,7 +65,7 @@ description: |
 ### 执行命令
 
 ```bash
-python ".codemaker/skills/y3-ui-pipeline/gen_ui_tree.py" "e:\ai_dev\y3_ai\agentmap"
+python ".codemaker/skills/y3-ui-pipeline/gen_ui_tree.py" "."
 ```
 
 ### 输出位置
@@ -166,9 +166,10 @@ ui_tree/                  # 生成的节点树
 | 技能 | 用途 |
 |------|------|
 | `y3-ui-generator` | 生成 UI JSON（本流程环节 1） |
-| `y3-ui-official` | 编写 UI Lua 代码（事件绑定、显示隐藏等） |
-| `y3-lua-pipeline` | 编写非 UI 游戏逻辑代码 |
+| `y3-lua-pipeline` | 编写所有 Lua 代码（包括 UI 交互代码和游戏逻辑） |
+
+> 💡 **注意**：原 `y3-ui-official` 已整合到 `y3-lua-pipeline` 中，UI Lua 代码请直接使用 `y3-lua-pipeline`。
 
 ---
 
-*最后更新: 2026-04-03*
+*最后更新: 2026-04-10*

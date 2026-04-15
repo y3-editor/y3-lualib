@@ -10,7 +10,7 @@
   py -3 analyze_custom_resources.py [项目路径]
   
   例如：
-    py -3 analyze_custom_resources.py E:\master
+    py -3 analyze_custom_resources.py .
     py -3 analyze_custom_resources.py    # 使用默认路径
 """
 import re

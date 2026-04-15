@@ -44,48 +44,7 @@ updated: 2026-03-16
 
 ### 第二步：读取并修改 JSON
 
-### 第三步：编辑器下载资源
-
-**当修改涉及资源 ID 的字段时，需要通过 MCP 工具下载资源到编辑器。**
-
-#### 触发下载的字段
-
-| 资源类型 | 物编类型 | 字段路径 | MCP 工具 |
-|----------|----------|----------|----------|
-| **模型** | 单位 | `model` | `download_editor_model_resource` |
-| **模型** | 物品 | `model` | `download_editor_model_resource` |
-| **模型** | 魔法效果 | `model` | `download_editor_model_resource` |
-| **模型** | 魔法效果 | `attach_model_list[*].model` | `download_editor_model_resource` |
-| **模型** | 投射物 | `effect_foes[5]['model']` | `download_editor_model_resource` |
-| **特效** | 投射物 | `effect_foes[0]` | `download_editor_effect_resource` |
-| **特效** | 魔法效果 | `get_effect_list[*][0]` | `download_editor_effect_resource` |
-| **特效** | 魔法效果 | `lose_effect_list[*][0]` | `download_editor_effect_resource` |
-| **图标** | 单位 | `icon` | `download_editor_icon_resource` |
-| **图标** | 技能 | `ability_icon` | `download_editor_icon_resource` |
-| **图标** | 物品 | `icon` | `download_editor_icon_resource` |
-| **图标** | 魔法效果 | `modifier_icon` | `download_editor_icon_resource` |
-| **图标** | 投射物 | `icon` | `download_editor_icon_resource` |
-
-#### 下载规则
-
-1. **仅在字段值被修改时触发**：如果字段值未变化，无需下载
-2. **资源 ID 为 `0` 时跳过**：`0` 表示无资源，无需下载
-3. **批量修改时合并下载**：相同类型的资源 ID 合并到一个列表
-
-#### 示例
-
-修改单位模型和头像：
-```
-修改字段:
-- model: 211030 → 211128 (变更)
-- icon: 906907 → 133748 (变更)
-
-MCP 调用:
-1. download_editor_model_resource(editor_model_id_list=[211128])
-2. download_editor_icon_resource(editor_icon_id_list=[133748])
-```
-
-### 第四步：热更并保存
+### 第三步：热更并保存
 
 **⚠️ 重要：必须先热更再保存，否则新修改的内容会丢失！**
 

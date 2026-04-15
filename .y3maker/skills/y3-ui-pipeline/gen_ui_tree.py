@@ -294,12 +294,12 @@ def create_batch_script(script_dir: Path):
     batch_content = """@echo off
 REM Y3 UI Tree 生成脚本
 REM 使用方式: gen_ui_tree.bat <map_root_path>
-REM 示例: gen_ui_tree.bat e:\\projects\\y3_map\\master
+REM 示例: gen_ui_tree.bat .
 
 if "%1"=="" (
     echo 错误: 请提供地图根目录路径
     echo 用法: gen_ui_tree.bat <map_root_path>
-    echo 示例: gen_ui_tree.bat e:\\projects\\y3_map\\master
+    echo 示例: gen_ui_tree.bat .
     pause
     exit /b 1
 )
@@ -338,7 +338,7 @@ def main():
     """主函数"""
     if len(sys.argv) < 2:
         print("用法: python gen_ui_tree.py <map_root_path>")
-        print("示例: python gen_ui_tree.py e:\\projects\\y3_map\\master")
+        print("示例: python gen_ui_tree.py .")
         sys.exit(1)
     
     map_root = sys.argv[1]

@@ -45,12 +45,16 @@ local fireball = unit:find_ability('普通', 134217859)
 ### 获取单位所有技能
 
 ```lua
--- type: 技能类型（'隐藏'、'普通'、'命令'、'英雄'）
-local abilities = unit:get_abilities_by_type('普通')
+-- type: 必须使用 y3.const.AbilityType 整数，不能传字符串！
+local abilities = unit:get_abilities_by_type(y3.const.AbilityType['普通'])
 for _, ability in pairs(abilities) do
     -- 处理技能
 end
 ```
+
+> ⚠️ **注意**：`get_abilities_by_type` 底层直接传给 C++，不会自动将字符串转为整数。
+> 必须用 `y3.const.AbilityType['普通']` / `y3.const.AbilityType['英雄']` 等传入。
+> （对比：`add_ability`/`find_ability`/`remove_ability_by_key` 内部有字符串→整数兼容转换，可以传字符串）
 
 ---
 
@@ -186,12 +190,11 @@ end)
 
 ```lua
 -- 方式1：通过类型和技能位移除
--- type: 技能类型（'隐藏'、'普通'、'命令'、'英雄'）
--- slot: 技能位索引
-unit:remove_ability(type, slot)
+-- ⚠️ remove_ability 底层无字符串转换，必须用 y3.const.AbilityType！
+unit:remove_ability(y3.const.AbilityType['普通'], slot)
 
 -- 示例：移除第一个普通技能槽位的技能
-unit:remove_ability('普通', 0)
+unit:remove_ability(y3.const.AbilityType['普通'], 0)
 
 -- 方式2：通过类型和物编ID移除（可移除所有同ID技能）
 unit:remove_ability_by_key(type, ability_key)

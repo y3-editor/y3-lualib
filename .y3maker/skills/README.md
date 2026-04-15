@@ -1,4 +1,4 @@
-# Y3 Skills 索引
+﻿# Y3 Skills 索引
 
 > AI 技能路由入口。按需加载 `SKILL.md`，避免 token 浪费。
 
@@ -19,9 +19,9 @@
 | "做一个XX游戏" / "开发流程" | **y3-game-spec** | 规划文档 | → y3-obj-gen, y3-ui-pipeline, y3-lua-pipeline | - |
 | "生成单位/物品/技能/Buff/投射物" | **y3-obj-gen** (v5.2) | JSON | - | `editor_table/` |
 | "修改物编属性/技能属性/Buff属性" | **y3-obj-edit** | JSON | - | `editor_table/` |
-| "做个UI/面板/界面/HUD/血条/技能栏" | **y3-ui-pipeline** ⭐ | JSON + Lua | → y3-ui-generator, y3-ui-official | - |
+| "做个UI/面板/界面/HUD/血条/技能栏" | **y3-ui-pipeline** ⭐ | JSON + Lua | → y3-ui-generator, y3-lua-pipeline | - |
 | "写Lua逻辑代码" | **y3-lua-pipeline** | Lua | - | `script/` |
-| "自动化测试/自动点击/UI自动化" | **desktop-automation** 🖱️ | 坐标+操作 | MCP y3editor + desktop-automation | Editor MCP 获取控件坐标 |
+| "自动化测试/自动点击/UI自动化" | **y3-auto-test** 🖱️ | 坐标+操作 | MCP y3editor + desktop-automation | Editor MCP 获取控件坐标 |
 
 > ⭐ **UI 统一入口**：所有 UI 相关需求都走 `y3-ui-pipeline`，内部自动路由。
 
@@ -29,7 +29,7 @@
 
 ```bash
 # UI HTML → Y3 JSON
-cd .codemaker/skills/y3-ui-generator/pipeline
+cd .codemaker/skills/y3-ui-generator/scripts
 py -3 html_to_y3_ui.py <input.html> <output.json>
 
 # 提取 UI 树（减少 token）
@@ -51,7 +51,7 @@ py -3 gen_ui_tree.py <workspace_path>
   ├─ 修改物编属性 → y3-obj-edit
   ├─ UI/界面/面板 → y3-ui-pipeline（内部再路由）
   ├─ Lua逻辑代码 → y3-lua-pipeline
-  └─ 自动化测试/点击 → desktop-automation
+  └─ 自动化测试/点击 → y3-auto-test
 ```
 
 ## �️ 技能依赖关系图
@@ -71,7 +71,7 @@ py -3 gen_ui_tree.py <workspace_path>
                     ┌────────────┼────────────┐
                     ▼            ▼            │
             ┌──────────────┐ ┌──────────────┐ │
-            │y3-ui-generator│ │y3-ui-official│ │
+            │y3-ui-generator│ │y3-lua-pipeline│ │
             │ (生成 JSON)   │ │ (Lua API)    │ │
             └──────────────┘ └──────────────┘ │
                                               │
@@ -81,7 +81,7 @@ py -3 gen_ui_tree.py <workspace_path>
          └──────────┘
 
          ┌──────────────────┐    ┌────────────┐
-         │desktop-automation│    │y3-env-setup│
+         │ y3-auto-test  │    │y3-env-setup│
          │ (桌面自动化)      │    │ (环境配置) │ ← 一次性
          └──────────────────┘    └────────────┘
 ```
@@ -95,10 +95,10 @@ py -3 gen_ui_tree.py <workspace_path>
 ├── y3-obj-edit/            ← 物编修改
 ├── y3-ui-pipeline/         ← UI 开发入口
 ├── y3-ui-generator/        ← UI JSON 生成（HTML → Y3 JSON）
-├── y3-ui-official/         ← UI Lua API
+├── y3-lua-pipeline/         ← UI Lua API
 ├── y3-lua-pipeline/        ← 非 UI Lua 代码
 ├── y3-env-setup/           ← 环境配置（一次性）
-└── desktop-automation/     ← 桌面自动化测试
+└── y3-auto-test/           ← 自动化测试（桌面自动化+测试规则）
 
 .codemaker/tools/           ← 辅助工具
 ├── screenshot_with_cursor.py  ← 截图并标记鼠标位置
@@ -134,7 +134,7 @@ py -3 gen_ui_tree.py <workspace_path>
 | **18** | **BuffList** | **Buff列表（官方）** |
 | **20** | **EquipSlot** | **物品槽（官方）** |
 
-> 完整类型列表见 `knowledge/05-UI字段规范.md`
+> 完整类型列表见 `knowledge/UI系统/01-字段规范.md`
 
 ### 玩家编号
 
@@ -161,9 +161,9 @@ y3.const.KeyboardKey['1']
 
 | 文档 | 说明 |
 |------|------|
-| `knowledge/05-UI字段规范.md` | **完整** UI 字段定义（type 0-74、pos_data、致命规则） |
-| `knowledge/08-官方UI组件.md` | **完整** 官方组件用法（SkillBtn/BuffList/EquipSlot） |
-| `knowledge/05a-UI属性绑定.md` | UI 数据绑定 |
+| `knowledge/UI系统/01-字段规范.md` | **完整** UI 字段定义（type 0-74、pos_data、致命规则） |
+| `knowledge/UI系统/03-官方组件.md` | **完整** 官方组件用法（SkillBtn/BuffList/EquipSlot） |
+| `knowledge/UI系统/02-属性绑定.md` | UI 数据绑定 |
 
 ### 技能速查（Skills）
 
@@ -171,7 +171,7 @@ y3.const.KeyboardKey['1']
 |------|------|
 | `skills/y3-ui-generator/references/` | UI JSON 生成参考 |
 | `skills/y3-lua-pipeline/references/*.md` | Lua API 参考（player/unit/ability 等） |
-| `skills/desktop-automation/SKILL.md` | 桌面自动化流程（Editor MCP + 点击脚本） |
+| `skills/y3-auto-test/SKILL.md` | 自动化测试流程（Editor MCP + 点击脚本 + 测试规则） |
 
 ### 其他
 
@@ -191,3 +191,4 @@ y3.const.KeyboardKey['1']
 ---
 
 *最后更新: 2026-04-03*
+

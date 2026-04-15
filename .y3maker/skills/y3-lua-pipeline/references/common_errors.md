@@ -20,7 +20,7 @@
 ### UI JSON 格式错误
 | 错误做法 | 后果 | 正确做法 |
 |----------|------|----------|
-| 手动编写 UI JSON | `KeyError: 0` | 使用 `y3-ui-json-generator` 技能 |
+| 手动编写 UI JSON | `KeyError: 0` | 使用 `y3-ui-generator` 技能 |
 | alignment 用非法值 | 编辑器崩溃 | 水平: 1/2/4，垂直: 0/8/16 |
 
 ### UI JSON 输出路径错误 🚨

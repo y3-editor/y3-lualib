@@ -15,6 +15,14 @@
       "timeout": 60,
       "autoApprove": true,
       "disabled": false
+    },
+    "y3runtime": {
+      "type": "streamableHttp",
+      "url": "http://127.0.0.1:8767/mcp",
+      "headers": {},
+      "timeout": 60,
+      "autoApprove": true,
+      "disabled": false
     }
   }
 }

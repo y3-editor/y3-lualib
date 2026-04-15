@@ -196,8 +196,8 @@ echo y3-lualib: OK >> .codemaker\env_setup_done
 ╔══════════════════════════════════════════════════════════════╗
 ║                   Y3 环境配置完成报告                         ║
 ╠══════════════════════════════════════════════════════════════╣
-║ ✅ Python:     3.12.x    路径: C:\Python312\python.exe       ║
-║ ✅ Git:        2.44.x    路径: C:\Program Files\Git\bin      ║
+║ ✅ Python:     3.12.x    路径: <Python安装路径>              ║
+║ ✅ Git:        2.44.x    路径: <Git安装路径>                 ║
 ║ ✅ y3-lualib:  已配置    路径: maps/EntryMap/script/y3       ║
 ║    └─ 初始化脚本: ✅ 已执行                                   ║
 ║    └─ VSCode 插件: sumneko.y3-helper                         ║

@@ -16,6 +16,9 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 | `api-safety.mdc` | API 安全规则、常见 API 错误 |
 | `mcp-rules.mdc` | MCP 调用规则、热更保存流程 |
 | `ui-rules.mdc` | UI 开发规则、坐标系、官方组件 |
+| `auto-test.mdc` | 自动化测试**执行纪律**（仅测试时激活，Gate 准入已迁至 y3-game-spec） |
+| `doc-consistency.mdc` | **文档一致性规则**：策划案↔执行案↔测试案↔测试报告 四者追溯链校验 |
+| `spec-config.json` | **流程文档配置**：自定义文档路径、文件命名、HTML 报告设置（位于 `.codemaker/`） |
 
 ## 🚀 首次会话环境检查
 
@@ -33,24 +36,36 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 
 ## 🎯 技能路由
 
-| 用户需求 | 技能 |
-|----------|------|
-| 做一个游戏 | `y3-game-spec` |
-| 生成物编 | `y3-obj-gen` |
-| 修改物编 | `y3-obj-edit` |
-| UI/界面 | `y3-ui-pipeline` ⭐ |
-| Lua 代码 | `y3-lua-pipeline` |
-| 自动化测试 | `desktop-automation` |
+| 用户需求 | 技能 | 说明 |
+|----------|------|------|
+| 做一个游戏 | `y3-game-spec` ⭐ | **全流程编排器**：策划案 → 执行案 → 测试案 → 迭代 |
+| 生成物编 | `y3-obj-gen` | 由 y3-game-spec Phase 1 路由 |
+| 修改物编 | `y3-obj-edit` | 修改已有物编属性 |
+| UI/界面 | `y3-ui-pipeline` | 由 y3-game-spec Phase 2 路由 |
+| Lua 代码 | `y3-lua-pipeline` | 由 y3-game-spec Phase 3/4 路由 |
+| 自动化测试 | `y3-auto-test` + 📜 `auto-test.mdc` | 由 y3-game-spec 阶段 3 路由 |
+| 代码审查/Lua检查 | `y3-lua-review` |
 
-> ⭐ 所有 UI 需求走 `y3-ui-pipeline`，内部自动路由到子技能。
-> ⭐ 所有 Lua 需求走 `y3-lua-pipeline`，内部自动路由到子技能。
+> ⭐ `y3-game-spec` 是全流程编排器，管理策划→制作→测试的完整闭环。
+> 单独的子技能可直接调用（如用户只说"写个Lua"），但完整游戏开发必须走 `y3-game-spec`。
+> 所有 UI 需求走 `y3-ui-pipeline`（生成 UI JSON + 节点树）。
+> 所有 Lua 代码（游戏逻辑 + UI 交互）走 `y3-lua-pipeline`。
+
+## 🔒 Lua 开发强制规则
+
+**所有 Lua 代码（游戏逻辑 + UI 交互）必须通过 `y3-lua-pipeline` 编写。**
+
+1. 禁止绕过 `y3-lua-pipeline`，禁止使用已废弃的 `y3-ui-official`
+2. y3 层 API 和事件的使用，必须严格参照 `y3-lua-pipeline/SKILL.md` 及其 `references/`
+3. 未在参考文档中声明的 API 视为非法，禁止使用（y3 源码验证除外，需标注来源）
+4. Skill 内置的强制门禁和交付报告，是 Lua 任务的执行标准，不可跳过
 
 ## 🔍 开发前检查（强制）
 
 | 任务类型 | 必须先阅读 |
 |---------|-----------|
 | Lua 代码 | `lua-issues/` + `references/` |
-| UI 开发 | `knowledge/08-官方UI组件.md` |
+| UI 开发 | `knowledge/UI系统/03-官方组件.md` |
 | 物编操作 | 物编知识 + 模板文件 |
 
 ## ⚠️ 核心禁令
@@ -63,7 +78,9 @@ Y3 游戏编辑器地图工程，使用 **y3-lualib** 框架。
 | 手写技能栏/Buff/物品栏 | 使用官方组件 type:17/18/20 |
 | UI 坐标用左上角思维 | **Y3 原点在左下角** |
 | 物编/UI 生成后直接保存 | **必须先热更再保存** |
-| 有现成脚本还手写 | 先查 pipeline/ 目录 |
+| 测试清理时未经确认就删文件 | **必须先过 Gate 3 与用户确认清理范围** |
+| 有现成脚本还手写 | 先查 `skills/*/scripts/` 目录 |
+| M×N 格子/列表需求用手动 layout | **必须识别为 GridView/ScrollView，并向用户确认实现方式** |
 
 > 详细禁令说明见 `api-safety.mdc`、`ui-rules.mdc`、`mcp-rules.mdc`
 
@@ -98,14 +115,25 @@ y3.const.KeyboardKey['1']
 
 ## 🖱️ 桌面自动化
 
+**⭐ 首选：y3runtime 直接事件触发（2026-04-13 新增）**
+
 ```
-1. 获取控件坐标 → y3editor MCP
-2. 移动鼠标 → bot_move_mouse（支持负坐标）
-3. 点击 → PowerShell 管理员脚本
+1. 获取控件树 → y3-helper.get_ui_canvas（可选，已知路径时跳过）
+2. 触发点击 → y3runtime.trigger_ui_touch_event_by_path（需游戏运行）
 ```
 
-> 详细流程见 `desktop-automation/SKILL.md`
+**备用：MCP 工具链（已验证 2026-04-08）**
+
+```
+1. 获取控件树 → y3-helper.get_ui_canvas
+2. 获取控件坐标 → y3-helper.get_ui_center_in_windows（需游戏运行）
+3. 执行点击 → desktop-automation.bot_click（无需管理员权限）
+```
+
+**方案选择**：UI 控件点击用 y3runtime（1 步），非 UI 场景（世界坐标点击、键盘、拖拽）用 desktop-automation
+
+> 详细流程见 `skills/y3-auto-test/SKILL.md`
 
 ---
 
-*最后更新: 2026-04-03*
+*最后更新: 2026-04-10*
