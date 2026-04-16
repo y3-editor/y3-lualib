@@ -201,7 +201,8 @@ local NO_ARG = { '<NO_ARG>' }
 ---@param args? any[]
 ---@return PYEventRef
 function M.ref_args(name, args)
-    local refs = M.ref_map[name][args and args[1] or NO_ARG]
+    local key = args and args[1] or NO_ARG
+    local refs = M.ref_map[name][key]
 
     -- 按照第一个参数进行分组
 
@@ -227,13 +228,17 @@ end
 ---@param args? any[]
 ---@return PYEventRef
 function M.unref_args(name, args)
-    local refs = M.ref_map[name][args and args[1] or NO_ARG]
+    local key = args and args[1] or NO_ARG
+    local refs = M.ref_map[name][key]
 
     for i, ref in ipairs(refs) do
         if args_eq(ref.args, args) then
             ref.count = ref.count - 1
             if ref.count == 0 then
                 table.remove(refs, i)
+                if #refs == 0 then
+                    M.ref_map[name][key] = nil
+                end
             end
             return ref
         end
