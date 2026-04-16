@@ -331,7 +331,7 @@ end
 ---@param tbl? table
 ---@return T | fun(...):T
 function M.new(name, tbl)
-    local class = M._classes[name]
+    local class = M._classes[name] or name
     if not class then
         local aliasCreator = M._alias[name]
         if aliasCreator then
