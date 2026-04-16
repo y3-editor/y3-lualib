@@ -11,7 +11,6 @@ local M = Class 'Reload'
 ---@type table<string, boolean>
 M.includedNameMap = {}
 
----@private
 ---@type string[]
 M.includedNames = {}
 
@@ -116,6 +115,8 @@ function M:fire()
     end
     log.info('=========== reload finish ===========')
     M._reloading = false
+
+    return needReload
 end
 
 ---@private
@@ -196,10 +197,11 @@ end
 
 -- 进行重载
 ---@param optional? Reload.Optional
+---@return string[] # 被重载的模块列表
 function M.reload(optional)
     optional = optional or M.defaultReloadOptional
     local reload = New 'Reload' (optional)
-    reload:fire()
+    return reload:fire()
 end
 
 ---是否正在重载
