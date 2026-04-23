@@ -311,7 +311,7 @@ function M:bindPress(control, callback)
     if not control then return end
 
     ---@diagnostic disable-next-line: param-type-mismatch
-    local trigger = control:add_event("左键-按下", function(trg, data)
+    local trigger = control:add_fast_event("左键-按下", function(trg, data)
         if callback then
             callback()
         end
@@ -329,7 +329,7 @@ function M:bindRelease(control, callback)
     if not control then return end
 
     ---@diagnostic disable-next-line: param-type-mismatch
-    local trigger = control:add_event("左键-抬起", function(trg, data)
+    local trigger = control:add_fast_event("左键-抬起", function(trg, data)
         if callback then
             callback()
         end
