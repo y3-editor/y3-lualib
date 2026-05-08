@@ -292,8 +292,7 @@ function M:bindClick(control, callback)
         return
     end
 
-    ---@diagnostic disable-next-line: param-type-mismatch
-    local trigger = control:add_event("左键-点击", function(trg, data)
+    local trigger = control:add_fast_event("左键-点击", function(trg, data)
         if callback then
             callback()
         end
