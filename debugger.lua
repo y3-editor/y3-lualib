@@ -31,7 +31,11 @@ local function getDebuggerPort()
         local id = GameAPI.get_client_role():get_role_id_num()
         return 12399 - id
     else
-        return 12399
+        if arg['env'] == "server" then
+            return 12499
+        else
+            return 12399
+        end
     end
 end
 
