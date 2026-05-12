@@ -1386,7 +1386,7 @@ function M:get_attr_bonus_ratio(attr_name)
 end
 
 ---获取属性（默认为实际属性）
----@param attr_name y3.Const.UnitAttr
+---@param attr_name y3.Const.UnitAttr | string
 ---@param attr_type? '实际' | '额外' | y3.Const.UnitAttrType
 ---@return number
 function M:get_attr(attr_name, attr_type)
