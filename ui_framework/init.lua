@@ -20,7 +20,7 @@
 ----------------------------
 -- 加载 UI 框架类定义
 ----------------------------
-include 'y3.ui_framework.base.init'
+include 'y3.ui_framework.base'
 include 'y3.ui_framework.UIManager'
 
 ----------------------------

@@ -31,7 +31,9 @@ Type    = y3.class.type
 Alias   = y3.class.alias
 IsInstanceOf = y3.class.isInstanceOf
 
-require 'y3.util.log'
+if not GameAPI.api_is_client or GameAPI.api_is_client() then
+    require 'y3.util.log'
+end
 y3.reload  = require 'y3.tools.reload'
 y3.sandbox = require 'y3.tools.sandbox'
 y3.hash    = require 'y3.tools.SDBMHash'
@@ -131,7 +133,7 @@ y3.develop.console = include 'y3.develop.console'
 y3.develop.helper  = require 'y3.develop.helper'
 
 -- UI 框架
-include 'y3.ui_framework.init'
+include 'y3.ui_framework'
 
 --对await进行一些配置
 y3.await.setErrorHandler(log.error)
