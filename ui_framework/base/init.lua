@@ -8,10 +8,10 @@
     4. BaseTips   → 提示基类（特殊显隐逻辑）
 ]]
 
-include 'y3.ui_framework.base.EventBus'
-include 'y3.ui_framework.base.BasePanel'
-include 'y3.ui_framework.base.BaseView'
-include 'y3.ui_framework.base.BaseTips'
+require 'y3.ui_framework.base.EventBus'
+require 'y3.ui_framework.base.BasePanel'
+require 'y3.ui_framework.base.BaseView'
+require 'y3.ui_framework.base.BaseTips'
 
 -- 加载常量定义
-include 'y3.ui_framework.UIConst'
+require 'y3.ui_framework.UIConst'

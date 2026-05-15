@@ -20,8 +20,8 @@
 ----------------------------
 -- 加载 UI 框架类定义
 ----------------------------
-include 'y3.ui_framework.base'
-include 'y3.ui_framework.UIManager'
+require 'y3.ui_framework.base'
+require 'y3.ui_framework.UIManager'
 
 ----------------------------
 -- 初始化共享状态

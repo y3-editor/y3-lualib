@@ -134,7 +134,7 @@ y3.develop.console = include 'y3.develop.console'
 y3.develop.helper  = require 'y3.develop.helper'
 
 -- UI 框架
-include 'y3.ui_framework'
+require 'y3.ui_framework'
 
 --对await进行一些配置
 y3.await.setErrorHandler(log.error)
