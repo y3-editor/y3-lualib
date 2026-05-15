@@ -85,11 +85,8 @@ y3.py_converter.register_type_alias('py.Role', 'Player')
 y3.py_converter.register_py_to_lua('py.RoleID', M.get_by_id)
 
 ---@param py_player py.Role
----@return Player|nil
+---@return Player
 function M.get_by_handle(py_player)
-    if py_player == nil then
-        return nil
-    end
     if type(py_player) ~= 'userdata' then
         error('参数类型错误:' .. tostring(py_player))
     end
