@@ -81,15 +81,15 @@ else
 end
 
 -- json.encode --
-local statusVisited
-local statusBuilder
+local statusVisited = {}
+local statusBuilder = {}
+local statusBLen = 0
 
 local encode_map = {}
 
 local encode_escape_map = {
     ["\""] = "\\\"",
     ["\\"] = "\\\\",
-    ["/"]  = "\\/",
     ["\b"] = "\\b",
     ["\f"] = "\\f",
     ["\n"] = "\\n",
@@ -103,6 +103,9 @@ for k, v in next, encode_escape_map do
     decode_escape_map[v] = k
     decode_escape_set[string_byte(v, 2)] = true
 end
+-- 保持 decode 对 "\/" 的兼容
+decode_escape_map["\\/"] = "/"
+decode_escape_set[string_byte("/", 1)] = true
 
 for i = 0, 31 do
     local c = string_char(i)
@@ -113,7 +116,8 @@ end
 
 local function encode(v)
     local res = encode_map[type(v)](v)
-    statusBuilder[#statusBuilder+1] = res
+    statusBLen = statusBLen + 1
+    statusBuilder[statusBLen] = res
 end
 
 encode_map["nil"] = function ()
@@ -125,8 +129,10 @@ local function encode_string(v)
 end
 
 function encode_map.string(v)
-    statusBuilder[#statusBuilder+1] = '"'
-    statusBuilder[#statusBuilder+1] = encode_string(v)
+    statusBLen = statusBLen + 1
+    statusBuilder[statusBLen] = '"'
+    statusBLen = statusBLen + 1
+    statusBuilder[statusBLen] = encode_string(v)
     return '"'
 end
 
@@ -178,71 +184,70 @@ function encode_map.table(t)
     statusVisited[t] = true
     if type(first_val) == "string" then
         local keys = {}
+        local nkeys = 0
         for k in next, t do
             if type(k) ~= "string" then
                 error("invalid table: mixed or invalid key types: "..tostring(k))
             end
-            keys[#keys+1] = k
+            nkeys = nkeys + 1
+            keys[nkeys] = k
         end
         table_sort(keys)
         do
             local k = keys[1]
-            statusBuilder[#statusBuilder+1] = '{"'
-            statusBuilder[#statusBuilder+1] = encode_string(k)
-            statusBuilder[#statusBuilder+1] = '":'
+            statusBLen = statusBLen + 1
+            statusBuilder[statusBLen] = '{"'
+            statusBLen = statusBLen + 1
+            statusBuilder[statusBLen] = encode_string(k)
+            statusBLen = statusBLen + 1
+            statusBuilder[statusBLen] = '":'
             encode(t[k])
         end
-        for i = 2, #keys do
+        for i = 2, nkeys do
             local k = keys[i]
-            statusBuilder[#statusBuilder+1] = ',"'
-            statusBuilder[#statusBuilder+1] = encode_string(k)
-            statusBuilder[#statusBuilder+1] = '":'
+            statusBLen = statusBLen + 1
+            statusBuilder[statusBLen] = ',"'
+            statusBLen = statusBLen + 1
+            statusBuilder[statusBLen] = encode_string(k)
+            statusBLen = statusBLen + 1
+            statusBuilder[statusBLen] = '":'
             encode(t[k])
         end
         statusVisited[t] = nil
         return "}"
-    elseif json.supportSparseArray then
+    else
         local max = 0
-        for k in next, t do
-            if math_type(k) ~= "integer" or k <= 0 then
-                error("invalid table: mixed or invalid key types: "..tostring(k))
+        if json.supportSparseArray then
+            for k in next, t do
+                if math_type(k) ~= "integer" or k <= 0 then
+                    error("invalid table: mixed or invalid key types: "..tostring(k))
+                end
+                if max < k then
+                    max = k
+                end
             end
-            if max < k then
-                max = k
+        else
+            local count = 0
+            for k in next, t do
+                if math_type(k) ~= "integer" or k <= 0 then
+                    error("invalid table: mixed or invalid key types: "..tostring(k))
+                end
+                count = count + 1
+                if max < k then
+                    max = k
+                end
+            end
+            if count ~= max then
+                error("invalid table: sparse array is not supported")
             end
         end
-        statusBuilder[#statusBuilder+1] = "["
+        statusBLen = statusBLen + 1
+        statusBuilder[statusBLen] = "["
         encode(t[1])
         for i = 2, max do
-            statusBuilder[#statusBuilder+1] = ","
+            statusBLen = statusBLen + 1
+            statusBuilder[statusBLen] = ","
             encode(t[i])
-        end
-        statusVisited[t] = nil
-        return "]"
-    else
-        if t[1] == nil then
-            error("invalid table: sparse array is not supported")
-        end
-        ---@diagnostic disable-next-line: undefined-global
-        if jit and t[0] ~= nil then
-            -- 0 is the first index in luajit
-            error("invalid table: mixed or invalid key types: "..0)
-        end
-        statusBuilder[#statusBuilder+1] = "["
-        encode(t[1])
-        local count = 2
-        while t[count] ~= nil do
-            statusBuilder[#statusBuilder+1] = ","
-            encode(t[count])
-            count = count + 1
-        end
-        if next(t, count - 1) ~= nil then
-            local k = next(t, count - 1)
-            if type(k) == "number" then
-                error("invalid table: sparse array is not supported")
-            else
-                error("invalid table: mixed or invalid key types: "..tostring(k))
-            end
         end
         statusVisited[t] = nil
         return "]"
@@ -261,10 +266,12 @@ encode_map["userdata"] = encode_unexpected
 encode_map["thread"] = encode_unexpected
 
 function json.encode(v)
-    statusVisited = {}
-    statusBuilder = {}
+    for k in next, statusVisited do
+        statusVisited[k] = nil
+    end
+    statusBLen = 0
     encode(v)
-    return table_concat(statusBuilder)
+    return table_concat(statusBuilder, "", 1, statusBLen)
 end
 
 json._encode_map = encode_map
@@ -304,10 +311,20 @@ local function get_word()
 end
 
 local function next_byte()
-    local pos = string_find(statusBuf, "[^ \t\r\n]", statusPos)
-    if pos then
-        statusPos = pos
-        return string_byte(statusBuf, pos)
+    local buf = statusBuf
+    local pos = statusPos
+    local len = #buf
+    while pos <= len do
+        local b = string_byte(buf, pos)
+        if b ~= 32 --[[ ' ' ]]
+            and b ~= 9 --[[ '\t' ]]
+            and b ~= 13 --[[ '\r' ]]
+            and b ~= 10 --[[ '\n' ]]
+        then
+            statusPos = pos
+            return b
+        end
+        pos = pos + 1
     end
     return -1
 end
