@@ -352,7 +352,7 @@ function M.new(name, tbl)
             tbl = tablecreate(0, 2)
         end
     end
-    tbl.__class__ = name
+    tbl.__class__ = class.__name
 
     local instance = setmetatable(tbl, class)
 
