@@ -53,8 +53,25 @@ end
 function M.createGamePause()
     return y3.develop.helper.createTreeNode('暂停', {
         icon = 'debug-pause',
+        description = '多人模式下会异步',
         onClick = function (node)
-            y3.sync.send('$game_pause', not M.gamePaused)
+            M.gamePaused = not M.gamePaused
+            if M.gamePaused then
+                print('暂停了游戏')
+                y3.game.enable_soft_pause()
+            else
+                print('继续了游戏')
+                y3.game.resume_soft_pause()
+            end
+            if M.gamePauseButton then
+                if M.gamePaused then
+                    M.gamePauseButton.name = '继续'
+                    M.gamePauseButton.icon = 'debug-start'
+                else
+                    M.gamePauseButton.name = '暂停'
+                    M.gamePauseButton.icon = 'debug-pause'
+                end
+            end
         end,
     })
 end
@@ -110,26 +127,6 @@ y3.sync.onSync('$game_speed_apply', function (apply, source)
         M.gameSpeedButton.check = apply
     end
     updateGameSpeed(source)
-end)
-
-y3.sync.onSync('$game_pause', function (pause, source)
-    M.gamePaused = pause
-    if pause then
-        print(string.format('%s 暂停了游戏', source))
-        y3.game.enable_soft_pause()
-    else
-        print(string.format('%s 继续了游戏', source))
-        y3.game.resume_soft_pause()
-    end
-    if M.gamePauseButton then
-        if pause then
-            M.gamePauseButton.name = '继续'
-            M.gamePauseButton.icon = 'debug-start'
-        else
-            M.gamePauseButton.name = '暂停'
-            M.gamePauseButton.icon = 'debug-pause'
-        end
-    end
 end)
 
 ---@return Develop.Helper.TreeNode
