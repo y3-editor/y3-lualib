@@ -88,7 +88,8 @@ y3.py_converter.register_py_to_lua('py.ItemID', M.get_by_id)
 ---是否存在
 ---@return boolean is_exist 是否存在
 function M:is_exist()
-    return  GameAPI.item_is_exist(self.handle)
+    -- return GameAPI.item_is_exist(self.handle)
+    return not self:is_destroyed()
 end
 
 -- 获取唯一ID
