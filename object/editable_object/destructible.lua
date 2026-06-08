@@ -79,7 +79,7 @@ y3.py_converter.register_py_to_lua('py.DestructibleID', M.get_by_id)
 ---是否存在
 ---@return boolean is_exist 是否存在
 function M:is_exist()
-    return  GameAPI.destructible_is_exist(self.handle)
+    return IsValid(self) and GameAPI.destructible_is_exist(self.handle)
 end
 
 -- 获取唯一ID

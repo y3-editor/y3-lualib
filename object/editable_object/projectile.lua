@@ -86,7 +86,7 @@ end
 ---是否存在
 ---@return boolean is_exist 是否存在
 function M:is_exist()
-    return  GameAPI.projectile_is_exist(self.handle)
+    return IsValid(self) and GameAPI.projectile_is_exist(self.handle)
 end
 
 -- 获取唯一ID
