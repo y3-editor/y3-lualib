@@ -583,17 +583,17 @@ function Config:extends(extendsName, init)
     end
 
     -- 检查是否需要显性初始化
-    if not init then
-        if not extends.__init then
-            return
-        end
-        local classParams = class.__init and debug.getinfo(class.__init, 'u').nparams or 1
-        local extendsParams = debug.getinfo(extends.__init, 'u').nparams
-        if extendsParams <= classParams then
-            return
-        end
-        M._errorHandler(('must call super for extends "%s"'):format(extendsName))
-    end
+    -- if not init then
+    --     if not extends.__init then
+    --         return
+    --     end
+    --     local classParams = class.__init and debug.getinfo(class.__init, 'u').nparams or 1
+    --     local extendsParams = debug.getinfo(extends.__init, 'u').nparams
+    --     if extendsParams <= classParams then
+    --         return
+    --     end
+    --     M._errorHandler(('must call super for extends "%s"'):format(extendsName))
+    -- end
 end
 
 local isInstanceMap = setmetatable({}, { __index = function (isInstanceMap, myName)
