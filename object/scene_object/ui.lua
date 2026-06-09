@@ -17,9 +17,6 @@ function M:__init(player, handle)
 end
 
 function M:__del()
-    if self:is_removed() then
-        return
-    end
     local parent_ui = self:get_parent()
     if parent_ui ~= nil then
         parent_ui:remove_get_child_cache(self.name)
