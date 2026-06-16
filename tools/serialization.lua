@@ -8,10 +8,9 @@ local stringSub    = string.sub
 local tableConcat  = table.concat
 local tableSort    = table.sort
 
----@class Serialization
-local M = {}
-
-local Number  = 'N'
+local Number  = 'N' -- 本地编码的数字
+local Double  = 'D' -- 双精度浮点数
+local NumZero = 'o'
 local UInt8   = 'I'
 local UInt16  = 'J'
 local UInt24  = 'O'
@@ -77,10 +76,13 @@ local function peekTable(t)
         keys[#keys+1] = k
         local tp = type(k)
         if tp == 'number' then
-            if  maxInteger
-            and k > maxInteger
-            and mathType(k) == 'integer' then
-                maxInteger = k --[[@as integer]]
+            if mathType(k) == 'integer' and k > 0 then
+                if maxInteger and k > maxInteger then
+                    maxInteger = k --[[@as integer]]
+                end
+            else
+                -- 负整数 / 0 / 浮点 key 不能进入数组形态
+                maxInteger = nil
             end
         elseif tp == 'string' then
             maxInteger = nil
@@ -101,26 +103,75 @@ local encodeMethods;encodeMethods = {
         if mathType(value) == 'integer' then
             if value >= 0 then
                 if value < 10 then
-                    buf[#buf+1] = tostring(value)
-                    return
+                    if value == 0 then
+                        buf[#buf+1] = I0
+                        return
+                    end
+                    if value < 5 then
+                        if value < 3 then
+                            if value == 1 then
+                                buf[#buf+1] = I1
+                                return
+                            end
+                            if value == 2 then
+                                buf[#buf+1] = I2
+                                return
+                            end
+                        else
+                            if value == 3 then
+                                buf[#buf+1] = I3
+                                return
+                            end
+                            if value == 4 then
+                                buf[#buf+1] = I4
+                                return
+                            end
+                        end
+                    elseif value < 8 then
+                        if value == 5 then
+                            buf[#buf+1] = I5
+                            return
+                        end
+                        if value == 6 then
+                            buf[#buf+1] = I6
+                            return
+                        end
+                        if value == 7 then
+                            buf[#buf+1] = I7
+                            return
+                        end
+                    else
+                        if value == 8 then
+                            buf[#buf+1] = I8
+                            return
+                        end
+                        if value == 9 then
+                            buf[#buf+1] = I9
+                            return
+                        end
+                    end
                 end
                 if value < (1 << 8) then
-                    buf[#buf+1] = UInt8 .. stringPack('I1', value)
+                    buf[#buf+1] = UInt8 .. stringPack('<I1', value)
                     return
                 elseif value < (1 << 16) then
-                    buf[#buf+1] = UInt16 .. stringPack('I2', value)
+                    buf[#buf+1] = UInt16 .. stringPack('<I2', value)
                     return
                 elseif value < (1 << 24) then
-                    buf[#buf+1] = UInt24 .. stringPack('I3', value)
+                    buf[#buf+1] = UInt24 .. stringPack('<I3', value)
                     return
                 elseif value < (1 << 32) then
-                    buf[#buf+1] = UInt32 .. stringPack('I4', value)
+                    buf[#buf+1] = UInt32 .. stringPack('<I4', value)
                     return
                 end
             end
-            buf[#buf+1] = Int64 .. stringPack('j', value)
+            buf[#buf+1] = Int64 .. stringPack('<i8', value)
         else
-            buf[#buf+1] = Number .. stringPack('n', value)
+            if value == 0.0 then
+                buf[#buf+1] = NumZero
+                return
+            end
+            buf[#buf+1] = Double .. stringPack('<d', value)
         end
     end,
     ['string'] = function (value, buf, ex)
@@ -138,11 +189,11 @@ local encodeMethods;encodeMethods = {
         elseif len == 2 then
             buf[#buf+1] = Char2 .. value
         elseif len < (1 << 8) then
-            buf[#buf+1] = Str8 .. stringPack('s1', value)
+            buf[#buf+1] = Str8 .. stringPack('<s1', value)
         elseif len < (1 << 16) then
-            buf[#buf+1] = Str16 .. stringPack('s2', value)
+            buf[#buf+1] = Str16 .. stringPack('<s2', value)
         elseif len < (1 << 32) then
-            buf[#buf+1] = Str32 .. stringPack('s4', value)
+            buf[#buf+1] = Str32 .. stringPack('<s4', value)
         else
             error('不支持这么长的字符串！')
         end
@@ -247,8 +298,12 @@ local encodeMethods;encodeMethods = {
                     encode(v, buf, ex)
                 else
                     -- 混合表部分
-                    encode(k, buf, ex)
-                    encode(v, buf, ex)
+                    if ex.ignoreUnknownType and not encodeMethods[type(k)] then
+                        -- key 类型不支持，整对跳过，避免解码端 value[nil] 报错
+                    else
+                        encode(k, buf, ex)
+                        encode(v, buf, ex)
+                    end
                 end
             end
 
@@ -259,63 +314,59 @@ local encodeMethods;encodeMethods = {
 
 function encode(value, buf, ex, disableHook)
     local tp = type(value)
-    encodeMethods[tp](value, buf, ex, disableHook)
-end
-
--- 将一个Lua值序列化为二进制数据。请勿做为长期存储方案，因为二进制数据可能会因为版本更新而不兼容。
----@param data Serialization.SupportTypes | nil
----@param hook? fun(value: table): Serialization.SupportTypes | nil, string?
----@param ignoreUnknownType? boolean
----@return string
-function M.encode(data, hook, ignoreUnknownType)
-    if data == nil then
-        return ''
+    local f = encodeMethods[tp]
+    if f then
+        f(value, buf, ex, disableHook)
+        return
     end
-    local buf = {}
-
-    encode(data, buf, {
-        refid = 0,
-        refMap = {},
-        simpleMap = {},
-        hook = hook,
-        ignoreUnknownType = ignoreUnknownType,
-    })
-
-    return tableConcat(buf)
+    if ex.ignoreUnknownType then
+        -- 写入 Nil 占位，避免破坏外层结构（数组长度、哈希 k/v 配对等）
+        buf[#buf+1] = Nil
+        return
+    end
+    error('不支持的类型：' .. tp)
 end
 
 local decode
 
 local decodeMethods;decodeMethods = {
     [Number] = function (ex)
-        local value, newIndex = stringUnpack('n', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<n', ex.str, ex.index)
+        ex.index = newIndex
+        return value
+    end,
+    [Double] = function (ex)
+        local value, newIndex = stringUnpack('<d', ex.str, ex.index)
         ex.index = newIndex
         return value
     end,
     [UInt8] = function (ex)
-        local value, newIndex = stringUnpack('I1', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<I1', ex.str, ex.index)
         ex.index = newIndex
         return value
     end,
     [UInt16] = function (ex)
-        local value, newIndex = stringUnpack('I2', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<I2', ex.str, ex.index)
         ex.index = newIndex
         return value
     end,
     [UInt24] = function (ex)
-        local value, newIndex = stringUnpack('I3', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<I3', ex.str, ex.index)
         ex.index = newIndex
         return value
     end,
     [UInt32] = function (ex)
-        local value, newIndex = stringUnpack('I4', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<I4', ex.str, ex.index)
         ex.index = newIndex
         return value
     end,
     [Int64] = function (ex)
-        local value, newIndex = stringUnpack('j', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<i8', ex.str, ex.index)
         ex.index = newIndex
         return value
+    end,
+    [NumZero] = function ()
+        return 0.0
     end,
     [I0] = function ()
         return 0
@@ -366,7 +417,7 @@ local decodeMethods;decodeMethods = {
         return value
     end,
     [Str8] = function (ex)
-        local value, newIndex = stringUnpack('s1', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<s1', ex.str, ex.index)
         ex.index = newIndex
         if #value > RefStrLen then
             ex.ref = ex.ref + 1
@@ -375,7 +426,7 @@ local decodeMethods;decodeMethods = {
         return value
     end,
     [Str16] = function (ex)
-        local value, newIndex = stringUnpack('s2', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<s2', ex.str, ex.index)
         ex.index = newIndex
         if #value > RefStrLen then
             ex.ref = ex.ref + 1
@@ -384,7 +435,7 @@ local decodeMethods;decodeMethods = {
         return value
     end,
     [Str32] = function (ex)
-        local value, newIndex = stringUnpack('s4', ex.str, ex.index)
+        local value, newIndex = stringUnpack('<s4', ex.str, ex.index)
         ex.index = newIndex
         if #value > RefStrLen then
             ex.ref = ex.ref + 1
@@ -528,6 +579,9 @@ local decodeMethods;decodeMethods = {
         ---@cast value -?
         local tag = decode(ex)
         ---@cast tag string | false
+        if not ex.hook then
+            error('反序列化遇到自定义数据但未提供 hook，tag=' .. tostring(tag or nil))
+        end
         value = ex.hook(value, tag or nil)
         return value
     end,
@@ -539,6 +593,33 @@ function decode(ex)
     local tp = stringSub(ex.str, ex.index, ex.index)
     ex.index = ex.index + 1
     return decodeMethods[tp](ex)
+end
+
+---@class Serialization
+local M = {}
+
+M.version = '1.2.0'
+
+-- 将一个Lua值序列化为二进制数据。请勿做为长期存储方案，因为二进制数据可能会因为版本更新而不兼容。
+---@param data Serialization.SupportTypes | nil
+---@param hook? fun(value: table): Serialization.SupportTypes | nil, string?
+---@param ignoreUnknownType? boolean
+---@return string
+function M.encode(data, hook, ignoreUnknownType)
+    if data == nil then
+        return ''
+    end
+    local buf = {}
+
+    encode(data, buf, {
+        refid = 0,
+        refMap = {},
+        simpleMap = {},
+        hook = hook,
+        ignoreUnknownType = ignoreUnknownType,
+    })
+
+    return tableConcat(buf)
 end
 
 -- 反序列化二进制数据为Lua值
