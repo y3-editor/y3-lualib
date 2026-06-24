@@ -1,4 +1,4 @@
---玩家
+﻿--玩家
 ---@class Player
 ---@field handle py.Role
 ---@field id integer
@@ -885,12 +885,12 @@ function M:request_random_number(group_id, key, callback)
         xpcall(callback, log.error, result)
     end, {})
 end
-
----请求玩家的开放存档数据
+---请求玩家的开放存档数据（模块级函数，使用 . 调用）
+---@param aid string|integer # 目标玩家的平台AID
 ---@param callback fun(archive: any) # 执行完毕后的回调函数
-function M:request_open_archive(callback)
+function M.request_open_archive(aid, callback)
     ---@diagnostic disable-next-line: undefined-field
-    GameAPI.lua_request_role_open_archive(self.handle, function (context)
+    GameAPI.lua_request_role_open_archive(aid, function (context)
         xpcall(callback, log.error, context['__role_open_archive'])
     end, {})
 end
