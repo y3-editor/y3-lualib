@@ -45,7 +45,7 @@ local M = Class 'KV'
 
 ---@param value KV.SupportType
 ---@return any
----@return string
+---@return string?
 local function get_py_value_and_type(value)
     local tp = type(value)
     if tp == 'number' then
