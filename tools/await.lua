@@ -69,10 +69,11 @@ function API.yield(callback)
 end
 
 ---@param callback async fun()
+---@param ... any
 ---@return thread
-function API.call(callback)
+function API.call(callback, ...)
     local co = coroutine.create(callback)
-    presume(co)
+    presume(co, ...)
     return co
 end
 
