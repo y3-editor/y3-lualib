@@ -12,7 +12,7 @@ M.STATUS_EVENT_NAME = '大厅服务状态变化'
 M.STATUS_EVENT_PARAM_NAME = '事件数据'
 
 local function has_completion_event()
-    if y3.eca and y3.eca._call_impls and y3.eca._call_impls[M.EVENT_NAME] then
+    if y3.eca and y3.eca.has_custom_event and y3.eca.has_custom_event(M.EVENT_NAME) then
         return true
     end
     local names = y3.const and y3.const.CustomEventName
@@ -40,7 +40,7 @@ local function emit(payload)
 end
 
 local function has_status_event()
-    if y3.eca and y3.eca._call_impls and y3.eca._call_impls[M.STATUS_EVENT_NAME] then
+    if y3.eca and y3.eca.has_custom_event and y3.eca.has_custom_event(M.STATUS_EVENT_NAME) then
         return true
     end
     local names = y3.const and y3.const.CustomEventName

@@ -313,6 +313,7 @@ local function run_async(action, lock, starter, options)
 
     local request, code, reason = new_request(action, lock)
     if not request then
+        ---@cast code string
         return result.rejected(action, code, reason)
     end
 
@@ -424,6 +425,7 @@ end
 local function run_terminal_async(action, starter)
     local request, code, reason = new_terminal_request(action)
     if not request then
+        ---@cast code string
         return result.rejected(action, code, reason)
     end
     local ready_client = client_api.is_ready() and client_api.get() or nil

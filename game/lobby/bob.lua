@@ -32,12 +32,13 @@ local leave_reason = {
 ---@class LobbyBob: CustomEvent, GCHost
 ---@field chat_event? Trigger
 ---@field event_on fun(self: LobbyBob, event: '准备就绪', callback: fun(trg: Trigger)): Trigger
+---@field event_on fun(self: LobbyBob, event: '匹配服务不可用', callback: fun(trg: Trigger, reason: any)): Trigger
 ---@field event_on fun(self: LobbyBob, event: '在线状态变化', callback: fun(trg: Trigger, state: Bob.State)): Trigger
 ---@field event_on fun(self: LobbyBob, event: '匹配状态变化', callback: fun(trg: Trigger, state: boolean)): Trigger
 ---@field event_on fun(self: LobbyBob, event: '启动状态变化', callback: fun(trg: Trigger, state: boolean)): Trigger
 ---@field event_on fun(self: LobbyBob, event: '收到消息', callback: fun(trg: Trigger, data: LobbyBob.ChatInfo)): Trigger
 ---@field event_on fun(self: LobbyBob, event: '队伍变化', callback: fun(trg: Trigger, data: LobbyBob.TeamInfo)): Trigger
----@field event_on fun(self: LobbyBob, event: '加入队伍', callback: fun(trg: Trigger)): Trigger
+---@field event_on fun(self: LobbyBob, event: '加入队伍', callback: fun(trg: Trigger, data: LobbyBob.TeamInfo?)): Trigger
 ---@field event_on fun(self: LobbyBob, event: '离开队伍', callback: fun(trg: Trigger, reason: Bob.LeaveReason, last_team_info: LobbyBob.TeamInfo)): Trigger
 ---@field event_on fun(self: LobbyBob, event: '有人加入队伍', callback: fun(trg: Trigger, data: LobbyBob.PlayerInfo)): Trigger
 ---@field event_on fun(self: LobbyBob, event: '有人离开队伍', callback: fun(trg: Trigger, data: LobbyBob.PlayerInfo)): Trigger

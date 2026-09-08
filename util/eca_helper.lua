@@ -13,6 +13,13 @@ end
 ---@private
 M._call_impls = {}
 
+---检查是否已注册 ECA 自定义事件的调用实现。
+---@param name string
+---@return boolean
+function M.has_custom_event(name)
+    return not not M._call_impls[name]
+end
+
 M._resolves = {}
 
 ---调用ECA中定义的自定义事件

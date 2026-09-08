@@ -1,4 +1,4 @@
-﻿---@class message_handler
+﻿---@class LobbyMessageHandler
 local message_handler = Class("LobbyMessageHandler")
 
 local const = require "y3.game.lobby.network.protocol"
@@ -9,7 +9,7 @@ local fsm = require "y3.game.lobby.network.fsm"
 message_handler.coder = require "y3.game.lobby.network.coder"
 
 -- Constructor
----@class message_handler
+---@class LobbyMessageHandler
 ---@field ip string # ip address for the server
 ---@field port integer # port number for the server
 ---@field heartbeat_interval integer # heartbeat interval in seconds
@@ -317,7 +317,7 @@ local API = {}
 ---@param ip string
 ---@param port integer
 ---@param heartbeat_interval integer
----@return message_handler
+---@return LobbyMessageHandler
 function API.new(ip, port, heartbeat_interval)
     return New "LobbyMessageHandler" (ip, port, heartbeat_interval)
 end

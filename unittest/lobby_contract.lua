@@ -141,6 +141,10 @@ local frame_callbacks = {}
 local timeout_callbacks = {}
 local timeout_timers = {}
 local captured_logs = {}
+local eca_call_impls = {
+    ['大厅服务请求完成'] = function()
+    end,
+}
 local completion_payloads = {}
 local latest_client
 local next_client_options = {}
@@ -278,10 +282,9 @@ _G.y3 = {
         return '{' .. table.concat(parts, ',') .. '}'
     end,
     eca = {
-        _call_impls = {
-            ['大厅服务请求完成'] = function()
-            end,
-        },
+        has_custom_event = function(name)
+            return not not eca_call_impls[name]
+        end,
         def = function(name)
             eca_names[#eca_names + 1] = name
             local definition = {
@@ -306,7 +309,7 @@ _G.y3 = {
             return builder
         end,
         call = function(name)
-            local fn = y3.eca._call_impls[name]
+            local fn = eca_call_impls[name]
             if not fn then
                 error('missing event')
             end
@@ -413,6 +416,8 @@ local function get_endpoint_dungeon_info()
     return { env = endpoint_platform_env }
 end
 GameAPI.get_dungeon_info = get_endpoint_dungeon_info
+-- 精简测试桩只实现本场景使用的 Game 接口。
+---@diagnostic disable-next-line: missing-fields
 y3.game = {
     is_debug_mode = function(_ignore_config)
         return endpoint_debug_mode
@@ -598,9 +603,9 @@ for index, expected in ipairs(expected_eca) do
 end
 assert_equal(eca_definitions['大厅服务 - 同房分流'], nil, '旧同房分流 ECA 接口必须不存在')
 assert_equal(eca_definitions['大厅服务 - 跨房合流'], nil, '旧跨房合流 ECA 接口必须不存在')
-assert_equal(lobby.same_room_split, nil, '旧 same_room_split Lua 接口必须不存在')
-assert_equal(lobby.cross_room_merge, nil, '旧 cross_room_merge Lua 接口必须不存在')
-assert_equal(lobby.start_private_dungeon, nil, 'private_dungeon 必须是唯一的私人副本 Lua 入口')
+for _, function_name in ipairs({ 'same_room_split', 'cross_room_merge', 'start_private_dungeon' }) do
+    assert_equal(lobby[function_name], nil, '旧 ' .. function_name .. ' Lua 接口必须不存在')
+end
 assert_equal(lobby._get_player_version_for_test(), '2.0', '玩家协议版本')
 for _, function_name in ipairs({
     'on_event',
@@ -617,9 +622,13 @@ local before = lobby.get_state()
 assert_equal(before.result_data.status, 'idle', '初始化状态')
 assert_equal(factory_calls, 0, '初始化不创建客户端')
 
+-- 故意违反公开签名，验证缺失参数仍返回拒绝结果。
+---@diagnostic disable-next-line: missing-parameter
 local invalid_connect_missing = lobby.connect()
 assert_equal(invalid_connect_missing.accepted, false, 'connect 缺少玩法 ID 被拒绝')
 assert_equal(invalid_connect_missing.code, 'invalid_game_play_id', 'connect 缺少玩法 ID code')
+-- 故意传入字符串，验证运行时参数校验。
+---@diagnostic disable-next-line: param-type-mismatch
 local invalid_connect_string = lobby.connect(tostring(TEST_GAME_PLAY_ID))
 assert_equal(invalid_connect_string.accepted, false, 'connect 字符串玩法 ID 被拒绝')
 assert_equal(invalid_connect_string.code, 'invalid_game_play_id', 'connect 字符串玩法 ID code')
@@ -629,6 +638,8 @@ assert_equal(invalid_connect_zero.code, 'invalid_game_play_id', 'connect 非正�
 local invalid_connect_negative = lobby.connect(-1)
 assert_equal(invalid_connect_negative.accepted, false, 'connect 负数玩法 ID 被拒绝')
 assert_equal(invalid_connect_negative.code, 'invalid_game_play_id', 'connect 负数玩法 ID code')
+-- 故意传入小数，验证整数约束。
+---@diagnostic disable-next-line: param-type-mismatch
 local invalid_connect_fraction = lobby.connect(10190356.5)
 assert_equal(invalid_connect_fraction.accepted, false, 'connect 小数玩法 ID 被拒绝')
 assert_equal(invalid_connect_fraction.code, 'invalid_game_play_id', 'connect 小数玩法 ID code')
@@ -823,6 +834,8 @@ setmetatable(_G, global_metatable)
 rawset(_G, 'GameAPI', raw_game_api)
 client._reset_for_test()
 install_fake_factory()
+-- 故意使用不支持的 options 表，验证旧调用方式被拒绝。
+---@diagnostic disable-next-line: param-type-mismatch
 local table_options_connect = lobby.connect(TEST_GAME_PLAY_ID, { in_game = true })
 assert_equal(table_options_connect.accepted, false, 'connect 不公开 options table')
 assert_equal(table_options_connect.code, 'invalid_argument', 'connect options table code')
@@ -836,7 +849,7 @@ local eca_connect_invalid = bind['大厅服务 - 建立连接']()
 assert_equal(eca_connect_invalid.accepted, false, 'ECA connect 缺少玩法 ID 被拒绝')
 assert_equal(eca_connect_invalid.code, 'invalid_game_play_id', 'ECA connect 缺少玩法 ID code')
 
-y3.eca._call_impls['大厅服务请求完成'] = nil
+eca_call_impls['大厅服务请求完成'] = nil
 local not_connected_result = bind['大厅服务 - 发送世界聊天']('hello')
 assert_equal(not_connected_result.code, 'event_missing', 'ECA 事件缺失预检')
 
@@ -1324,6 +1337,8 @@ assert_equal(bob.game_play_id, tostring(TEST_GAME_PLAY_ID), 'LobbyBob 使用传�
 assert_equal(bob.game_play_id_num, TEST_GAME_PLAY_ID, 'LobbyBob 数字玩法 ID')
 bob._refreshing_player_info = true
 bob._refresh_player_info_callbacks = {}
+-- 白盒测试：验证内部刷新请求合并行为。
+---@diagnostic disable-next-line: invisible
 local merged_refresh = bob:refresh_player_info(function()
 end)
 assert_equal(merged_refresh, true, '已有玩家刷新请求时合并等待仍算受理')
@@ -1331,6 +1346,8 @@ assert_equal(#bob._refresh_player_info_callbacks, 1, '已有玩家刷新请求�
 bob._refreshing_player_info = false
 
 local propagated_player_error
+-- 白盒测试：清空内部缓存以覆盖远端错误透传路径。
+---@diagnostic disable-next-line: invisible
 bob.player_infos = {}
 bob.get_team_info = function(_, _, callback)
     callback(nil, 300123)
@@ -1372,6 +1389,8 @@ do
             first_frame_index = #frame_callbacks + 1,
         }
         local remote_callback
+        -- 精简测试桩只实现版本检查所需接口。
+        ---@diagnostic disable-next-line: missing-fields
         y3.game = {
             is_debug_mode = function(_ignore_config)
                 return false
@@ -1439,4 +1458,22 @@ assert_not_contains(log_output, 'bob-runtime-sign-secret', 'BOB 初始化日志�
 assert_not_contains(log_output, 'client-runtime-token-secret', '客户端日志不能包含原始 token')
 
 completion_listener.remove()
+do
+    ---@type ECAHelper
+    local eca_helper = dofile('util/eca_helper.lua')
+    local calls = 0
+    local event_name = 'lobby-contract-query'
+    assert_equal(eca_helper.has_custom_event(event_name), false, 'ECA query rejects unregistered events')
+    -- 模拟引擎注册事件，验证公开查询不会触发回调。
+    ---@diagnostic disable-next-line: invisible
+    eca_helper.register_custom_event_impl(event_name, function()
+        calls = calls + 1
+    end)
+    assert_equal(eca_helper.has_custom_event(event_name), true, 'ECA query finds registered events')
+    assert_equal(eca_helper.has_custom_event('missing-event'), false, 'ECA query checks the requested name')
+    assert_equal(calls, 0, 'ECA query does not invoke the event')
+    eca_helper.call(event_name)
+    assert_equal(calls, 1, 'ECA query preserves event invocation')
+end
+
 print('lobby_contract ok')
