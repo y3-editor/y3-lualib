@@ -199,11 +199,19 @@ end
 ---@param py_object any
 ---@return table
 function M.py_to_table(py_object)
-    if python_len(py_object) > 0 then
-        return M.tuple_to_table(py_object)
-    else
-        return M.dict_to_table(py_object)
+    if type(py_object) ~= 'userdata' then
+        return py_object
     end
+    -- 判容器类型不能只看 python_len：非空字典的长度同样大于 0，会被当成元组、用下标 0 取值 -> KeyError: 0。
+    -- 1) 桥包装过的列表/元组带 LuaList 元表；2) 原始 py 对象的列表索引 0 有值、字典索引 0 为 nil（两者都不抛异常）。
+    local mt = getmetatable(py_object)
+    if mt and mt.__name == 'LuaList' then
+        return M.tuple_to_table(py_object)
+    end
+    if python_len(py_object) > 0 and py_object[0] ~= nil then
+        return M.tuple_to_table(py_object)
+    end
+    return M.dict_to_table(py_object)
 end
 
 function M.table_to_py(t)
