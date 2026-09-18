@@ -300,6 +300,7 @@ function M.declare(name, super, superInit)
         end
 
         function class:__newindex(k, v)
+            config:init()
             local compress = config:getCompress()
             if next(class.__setter) or #compress > 0 then
                 if #compress > 0 then
