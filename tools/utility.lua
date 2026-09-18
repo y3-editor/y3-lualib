@@ -1037,14 +1037,20 @@ m.MODE_K  = { __mode = 'k' }
 m.MODE_V  = { __mode = 'v' }
 m.MODE_KV = { __mode = 'kv' }
 
+---@param t? table
+---@return table
 function m.weakTable(t)
     return setmetatable(t or {}, m.MODE_KV)
 end
 
+---@param t? table
+---@return table
 function m.weakKTable(t)
     return setmetatable(t or {}, m.MODE_K)
 end
 
+---@param t? table
+---@return table
 function m.weakVTable(t)
     return setmetatable(t or {}, m.MODE_V)
 end
@@ -1178,6 +1184,9 @@ local sbyteMap = {
 ---@param b string
 ---@return boolean
 function m.stringLess(a, b)
+    if a == b then
+        return false
+    end
     for i = 1, #a do
         if i > #b then
             return false
@@ -1191,6 +1200,52 @@ function m.stringLess(a, b)
         end
     end
     return true
+end
+
+---@param s1 string
+---@param s2 string
+---@param ignoreCase? boolean
+---@return boolean isMatch
+---@return integer matchScore
+function m.stringSimilar(s1, s2, ignoreCase)
+    if s1 == s2 then
+        return true, 0
+    end
+    if s1 == '' then
+        return true, 0
+    end
+    if #s1 > #s2 then
+        return false, 0
+    end
+
+    if ignoreCase then
+        s1 = s1:upper()
+        s2 = s2:upper()
+    end
+
+    local inputCodes = { stringByte(s1, 1, #s1) }
+    local otherCodes = { stringByte(s2, 1, #s2) }
+
+    local matchScore = 1
+    if inputCodes[1] ~= otherCodes[1] then
+        matchScore = 2
+    end
+
+    local inputBit = 0
+    for i = 1, #inputCodes do
+        inputBit = inputBit | (1 << (inputCodes[i] - 64))
+    end
+
+    local otherBit = 0
+    for i = 1, #otherCodes do
+        otherBit = otherBit | (1 << (otherCodes[i] - 64))
+    end
+
+    if inputBit == (inputBit & otherBit) then
+        return true, matchScore
+    end
+
+    return false, 0
 end
 
 ---@param v any
@@ -1562,6 +1617,18 @@ function m.methodCacher(f, aliveTime, getClock)
             cache[self].time = getClock() + aliveTime
         end
         return cache[self].result
+    end
+end
+
+---@param obj any
+---@param name string
+---@param value any
+function m.setMetaMethod(obj, name, value)
+    local mt = getmetatable(obj)
+    if mt then
+        mt[name] = value
+    else
+        setmetatable(obj, { [name] = value })
     end
 end
 
