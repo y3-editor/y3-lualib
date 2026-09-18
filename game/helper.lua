@@ -93,7 +93,7 @@ local function as_lua(v, recursive, mark)
             v = v:float()
         elseif name == 'xDouble' then
             v = v:float()
-        elseif name == 'POBJECT' then
+        elseif name == 'POBJECT' or name == 'LuaList' then
             local suc, res = pcall(M.py_to_table, v)
             if suc then
                 v = as_lua(res, recursive, mark)
