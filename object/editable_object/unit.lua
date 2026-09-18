@@ -2116,4 +2116,17 @@ function M:is_destroyed()
     return yes
 end
 
+---设置单位是否休眠
+---注意，单位必须死亡复活一次才能唤醒
+---@param is_sleeping boolean
+function M:set_sleeping(is_sleeping)
+    self.handle:api_set_is_sleeping(is_sleeping)
+end
+
+---获取单位是否休眠
+---@return boolean
+function M:is_sleeping()
+    return self.handle:api_get_is_sleeping() or false
+end
+
 return M

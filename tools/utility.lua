@@ -912,6 +912,11 @@ end
 
 function m.multiTable(max, default)
     local mts = {}
+    if default and type(default) ~= 'function' then
+        local value = default
+        default = function () return value end
+        ---@cast default function
+    end
     for i = 1, max - 1 do
         if i < max - 1 then
             mts[i] = { __index = function (t, k)
@@ -1274,6 +1279,8 @@ function m.enableFormatString()
                 local inside = key:sub(2, -2)
                 if inside:find('{', 1, true) then
                     return '{' .. inside % args .. '}'
+                else
+                    return
                 end
             end
             if fmt then
