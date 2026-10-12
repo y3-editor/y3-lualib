@@ -1502,6 +1502,97 @@ function GameAPI.get_object_multilingual_key(data_key, entity_id, name_or_desc) 
 function GameAPI.set_common_atk_quick_cast(role, is_on) end
 
 --向云脚本发送一条自定义消息
----@param ename string # 事件名
----@param data table # 消息内容
-function GameAPI.send_mlscript_msg(ename, data) end
+---@param event_name string # 云脚本事件名
+---@param evalue_tab py.Table # 云脚本事件数据
+function GameAPI.send_mlscript_msg(event_name, evalue_tab) end
+
+--开关自动垃圾回收。默认Lua层会定期进行步进垃圾回收，可能会导致偶尔掉帧卡顿。此开关可以将自动垃圾回收关闭，从而避免卡顿，但同时需要作者自行在合适的时机调用清理垃圾，否则会导致内存无限制上涨
+---@param enable boolean # 是否开启
+function GameAPI.api_switch_auto_collect_garbage(enable) end
+
+--设置合并受击缓存开关。开启时允许伤害缓存合并结算，关闭时所有伤害直接立即结算。默认开启。
+---@param enable boolean # 是否开启
+function GameAPI.api_set_merge_hit_enabled(enable) end
+
+--获取合并受击缓存开关状态
+---@return boolean # 是否开启
+function GameAPI.api_get_merge_hit_enabled() end
+
+--设置UI模型控件光照强度
+---@param player py.Role # 玩家
+---@param comp_name string # UI控件
+---@param intensity number # 强度
+function GameAPI.set_ui_model_sun_intensity(player, comp_name, intensity) end
+
+--获取ui控件中心点的屏幕坐标
+---@param comp_path string # 控件路径
+function GameAPI.get_ui_center_by_path(comp_path) end
+
+--触发ui控件的点击事件
+---@param comp_path string # 控件路径
+---@param touch integer # 左键/右键
+function GameAPI.trigger_ui_touch_event_by_path(comp_path, touch) end
+
+--上报玩家属性数据
+---@param role py.Role # 玩家
+---@param commit_key string # 指令key
+---@param prop_key string # 属性key
+---@param prop_value string # 属性值
+---@param prop_name string # 属性名
+---@param sort integer # 排序
+function GameAPI.app_commit_prop(role, commit_key, prop_key, prop_value, prop_name, sort) end
+
+--上报对话框
+---@param role py.Role # 玩家
+---@param commit_key string # 指令key
+---@param menu_key string # 菜单key
+---@param menu_name string # 菜单名
+---@param sort integer # 排序
+function GameAPI.app_commit_menu(role, commit_key, menu_key, menu_name, sort) end
+
+--上报玩家背包数据
+---@param role py.Role # 玩家
+---@param commit_key string # 指令key
+---@param item_key string # 物品key
+---@param page integer # 背包页
+---@param item_count string # 物品数
+---@param item_name string # 物品名
+---@param sort integer # 排序
+function GameAPI.app_commit_item(role, commit_key, item_key, page, item_count, item_name, sort) end
+
+--上报当前地图模式
+---@param commit_key string # 指令key
+---@param mode_key string # 地图模式id
+---@param mode_name string # 模式名
+function GameAPI.app_commit_mode_id(commit_key, mode_key, mode_name) end
+
+--上报玩家掉落
+---@param role py.Role # 玩家
+---@param commit_key string # 指令key
+---@param item_key string # 物品key
+---@param item_count string # 物品数
+---@param item_name string # 物品名
+---@param sort integer # 排序
+function GameAPI.app_commit_item_gain(role, commit_key, item_key, item_count, item_name, sort) end
+
+--自定义字典日志上传
+---@param d py.Dict # 自定义字典
+function GameAPI.report_custom_info(d) end
+
+--上传自定义日志
+---@param f1 py.Fixed # 浮点数1
+---@param f2 py.Fixed # 浮点数2
+---@param f3 py.Fixed # 浮点数3
+---@param f4 py.Fixed # 浮点数4
+---@param f5 py.Fixed # 浮点数5
+---@param f6 py.Fixed # 浮点数6
+---@param f7 py.Fixed # 浮点数7
+---@param f8 py.Fixed # 浮点数8
+---@param f9 py.Fixed # 浮点数9
+---@param f10 py.Fixed # 浮点数10
+---@param s1 string # 字符串1
+---@param s2 string # 字符串2
+---@param s3 string # 字符串3
+---@param s4 string # 字符串4
+---@param s5 string # 字符串5
+function GameAPI.api_upload_custom_info(f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, s1, s2, s3, s4, s5) end

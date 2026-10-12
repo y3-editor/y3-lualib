@@ -1698,3 +1698,37 @@ function Unit:api_set_repair_target_unit(repair_target) end
 --单位 - 设置维修技能
 ---@param ability py.Ability # 维修技能
 function Unit:api_set_repair_ability(ability) end
+
+--获取单位属性实例级上限
+---@param key string # 属性名
+function Unit:api_get_attr_maximun(key) end
+
+--获取单位属性实例级下限
+---@param key string # 属性名
+function Unit:api_get_attr_minimun(key) end
+
+--设置单位属性实例级上限
+---@param key string # 属性名
+---@param max_value py.Fixed # 上限值
+function Unit:api_set_attr_maximun(key, max_value) end
+
+--设置单位属性实例级下限
+---@param key string # 属性名
+---@param min_value py.Fixed # 下限值
+function Unit:api_set_attr_minimun(key, min_value) end
+
+--清除单位属性实例级上限覆盖
+---@param key string # 属性名
+function Unit:api_clear_attr_maximun_override(key) end
+
+--清除单位属性实例级下限覆盖
+---@param key string # 属性名
+function Unit:api_clear_attr_minimun_override(key) end
+
+--设置阻挡后无动作等待帧数
+---@param block_holding_frame integer # 无动作等待帧数
+function Unit:set_block_holding_frame(block_holding_frame) end
+
+--设置阻挡后尝试移动帧数上限
+---@param max_frozen_frame integer # 尝试移动帧数上限
+function Unit:set_rebuild_path_frame(max_frozen_frame) end

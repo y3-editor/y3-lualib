@@ -1156,7 +1156,8 @@ function GameAPI.get_archive_rank_player_archive_value(archive_key, num) end
 function GameAPI.api_change_logic_fps(fps) end
 
 --开启软暂停
-function GameAPI.api_soft_pause_game() end
+---@param enable_unit_command? boolean # 单位是否在暂停期间响应命令
+function GameAPI.api_soft_pause_game(enable_unit_command) end
 
 --关闭软暂停
 function GameAPI.api_soft_resume_game() end

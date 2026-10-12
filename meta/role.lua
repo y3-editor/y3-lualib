@@ -590,3 +590,23 @@ function Role:request_join_public_dungeon(level_id, game_mode) end
 --获取玩家武将信息
 ---@return py.Table? # 玩家武将信息
 function Role:get_role_general_depot() end
+
+--玩家是否拥有plus会员
+---@return boolean? # 是否拥有会员
+function Role:api_is_plus_vip() end
+
+--玩家是否在游戏大厅置顶当前地图
+---@return boolean? # 是否置顶当前地图
+function Role:api_is_pinned_current_map() end
+
+--获取玩家累计助力值
+---@return integer? # 累计助力值
+function Role:api_get_role_bounty_value() end
+
+--获取玩家在助力榜中的排名
+---@return integer? # 助力榜排名
+function Role:api_get_role_bounty_rank() end
+
+--获取玩家地图会员等级
+---@return integer? # 地图会员等级
+function Role:api_get_role_vip_level() end

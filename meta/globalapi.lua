@@ -1097,3 +1097,8 @@ function GlobalAPI.api_timestamp_to_week(v) end
 ---@param mode integer # 取整方式
 ---@return integer # 取整之后的值
 function GlobalAPI.floor_or_ceil(v, mode) end
+
+--玩家是否使用app登录游戏
+---@param role py.Role # 玩家
+---@return boolean # 是否使用app登录游戏
+function GlobalAPI.api_is_app_login(role) end
