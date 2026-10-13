@@ -450,7 +450,6 @@ M.config["游戏-http返回"] = {
 ---@field broadcast_lua_msg_id string # 消息id
 ---@field broadcast_lua_msg_content string # 消息内容
 ---@field player Player # 玩家
----@field trigger_by_local boolean # 因为消息大小超限本地触发
 ---@alias EventParam.游戏-接收广播信息 EventParam.ET_BROADCAST_LUA_MSG
 --广播自定义Lua消息
 M.config["游戏-接收广播信息"] = {
@@ -483,14 +482,6 @@ M.config["游戏-接收广播信息"] = {
             lua_type = "Player",
             desc = "玩家ID",
             lua_desc = "玩家",
-        },
-        [4] = {
-            name = "__trigger_by_local",
-            type = "boolean",
-            lua_name = "trigger_by_local",
-            lua_type = "boolean",
-            desc = "因为消息大小超限本地触发",
-            lua_desc = "因为消息大小超限本地触发",
         },
     },
 }
@@ -2539,6 +2530,8 @@ M.config["单位-受到伤害后"] = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE_BEFORE_APPLY
+---@field source_unit Unit # 治疗来源单位
+---@field target_unit Unit # 被治疗的单位
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 ---@field heal_instance HealInstance # 治疗实例
@@ -2554,6 +2547,22 @@ M.config["单位-受到治疗前"] = {
     },
     event_params = {
         [1] = {
+            name = "__source_unit",
+            type = "py.Unit",
+            lua_name = "source_unit",
+            lua_type = "Unit",
+            desc = "治疗来源单位",
+            lua_desc = "治疗来源单位",
+        },
+        [2] = {
+            name = "__target_unit",
+            type = "py.Unit",
+            lua_name = "target_unit",
+            lua_type = "Unit",
+            desc = "被治疗的单位",
+            lua_desc = "被治疗的单位",
+        },
+        [3] = {
             name = "__cured_value",
             type = "py.Fixed",
             lua_name = "cured_value",
@@ -2561,7 +2570,7 @@ M.config["单位-受到治疗前"] = {
             desc = "受到的治疗值",
             lua_desc = "受到的治疗值",
         },
-        [2] = {
+        [4] = {
             name = "__ability",
             type = "py.Ability",
             lua_name = "ability",
@@ -2569,7 +2578,7 @@ M.config["单位-受到治疗前"] = {
             desc = "当前治疗所属技能",
             lua_desc = "当前治疗所属技能",
         },
-        [3] = {
+        [5] = {
             name = nil,
             type = nil,
             lua_name = "heal_instance",
@@ -2584,6 +2593,8 @@ M.config["单位-受到治疗前"] = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE_FINISH
+---@field source_unit Unit # 治疗来源单位
+---@field target_unit Unit # 被治疗的单位
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 ---@alias EventParam.单位-受到治疗后 EventParam.ET_UNIT_GET_CURE_FINISH
@@ -2597,6 +2608,22 @@ M.config["单位-受到治疗后"] = {
     },
     event_params = {
         [1] = {
+            name = "__source_unit",
+            type = "py.Unit",
+            lua_name = "source_unit",
+            lua_type = "Unit",
+            desc = "治疗来源单位",
+            lua_desc = "治疗来源单位",
+        },
+        [2] = {
+            name = "__target_unit",
+            type = "py.Unit",
+            lua_name = "target_unit",
+            lua_type = "Unit",
+            desc = "被治疗的单位",
+            lua_desc = "被治疗的单位",
+        },
+        [3] = {
             name = "__cured_value",
             type = "py.Fixed",
             lua_name = "cured_value",
@@ -2604,7 +2631,7 @@ M.config["单位-受到治疗后"] = {
             desc = "受到的治疗值",
             lua_desc = "受到的治疗值",
         },
-        [2] = {
+        [4] = {
             name = "__ability",
             type = "py.Ability",
             lua_name = "ability",
@@ -2616,6 +2643,8 @@ M.config["单位-受到治疗后"] = {
 }
 
 ---@class EventParam.ET_UNIT_GET_CURE
+---@field source_unit Unit # 治疗来源单位
+---@field target_unit Unit # 被治疗的单位
 ---@field cured_value number # 受到的治疗值
 ---@field ability Ability # 当前治疗所属技能
 ---@field heal_instance HealInstance # 治疗实例
@@ -2631,6 +2660,22 @@ M.config["单位-受到治疗时"] = {
     },
     event_params = {
         [1] = {
+            name = "__source_unit",
+            type = "py.Unit",
+            lua_name = "source_unit",
+            lua_type = "Unit",
+            desc = "治疗来源单位",
+            lua_desc = "治疗来源单位",
+        },
+        [2] = {
+            name = "__target_unit",
+            type = "py.Unit",
+            lua_name = "target_unit",
+            lua_type = "Unit",
+            desc = "被治疗的单位",
+            lua_desc = "被治疗的单位",
+        },
+        [3] = {
             name = "__cured_value",
             type = "py.Fixed",
             lua_name = "cured_value",
@@ -2638,7 +2683,7 @@ M.config["单位-受到治疗时"] = {
             desc = "受到的治疗值",
             lua_desc = "受到的治疗值",
         },
-        [2] = {
+        [4] = {
             name = "__ability",
             type = "py.Ability",
             lua_name = "ability",
@@ -2646,7 +2691,7 @@ M.config["单位-受到治疗时"] = {
             desc = "当前治疗所属技能",
             lua_desc = "当前治疗所属技能",
         },
-        [3] = {
+        [5] = {
             name = nil,
             type = nil,
             lua_name = "heal_instance",
@@ -3176,14 +3221,15 @@ M.config["未知-ET_UNIT_CREATE_SLAVE"] = {
     },
 }
 
----@class EventParam.ET_UNIT_TRY_PICK_ITEM
+---@class EventParam.ET_UNIT_TRY_PICK_ITEM_NEW
 ---@field unit Unit # 单位
 ---@field equip_slot_type py.SlotType # 背包类型
----@alias EventParam.单位-即将拾取物品 EventParam.ET_UNIT_TRY_PICK_ITEM
+---@field item Item # 目标物品
+---@alias EventParam.单位-即将拾取物品 EventParam.ET_UNIT_TRY_PICK_ITEM_NEW
 --单位即将拾取物品
 M.config["单位-即将拾取物品"] = {
     desc = "",
-    key = "ET_UNIT_TRY_PICK_ITEM",
+    key = "ET_UNIT_TRY_PICK_ITEM_NEW",
     name = "单位-即将拾取物品",
     object = "Unit",
     params = {
@@ -3205,6 +3251,28 @@ M.config["单位-即将拾取物品"] = {
             desc = "背包类型",
             lua_desc = "背包类型",
         },
+        [3] = {
+            name = "__item_id",
+            type = "py.ItemID",
+            lua_name = "item",
+            lua_type = "Item",
+            desc = "目标物品ID",
+            lua_desc = "目标物品",
+        },
+    },
+}
+
+---@class EventParam.ET_UNIT_LOAD_DEFAULT_AI
+---@alias EventParam.单位-切换默认行为 EventParam.ET_UNIT_LOAD_DEFAULT_AI
+--单位切换默认行为
+M.config["单位-切换默认行为"] = {
+    desc = "",
+    key = "ET_UNIT_LOAD_DEFAULT_AI",
+    name = "单位-切换默认行为",
+    object = "Unit",
+    params = {
+    },
+    event_params = {
     },
 }
 
@@ -3318,6 +3386,7 @@ M.config["本地-骨骼碰撞"] = {
     },
 }
 
+---@class EventParam.ET_DETECT_BONE_COLLISON
 ---@alias EventParam.物理-骨骼碰撞 EventParam.ET_DETECT_BONE_COLLISON
 --检测倒碰撞骨骼发生碰撞
 M.config["物理-骨骼碰撞"] = {
@@ -4998,13 +5067,20 @@ M.config["施法-打断出手"] = {
 ---@field ability Ability # 技能对象
 ---@field unit Unit # 技能Owner
 ---@field ability_target_unit Unit # 技能目标单位
----@alias EventParam.未知-ET_ABILITY_BS_INTERRUPT EventParam.ET_ABILITY_BS_INTERRUPT
+---@alias EventParam.施法-打断完成 EventParam.ET_ABILITY_BS_INTERRUPT
 --技能后摇阶段被打断
-M.config["未知-ET_ABILITY_BS_INTERRUPT"] = {
+M.config["施法-打断完成"] = {
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
     _deprecated = true,
     desc = "ET_ABILITY_BS_INTERRUPT",
     key = "ET_ABILITY_BS_INTERRUPT",
-    name = "未知-ET_ABILITY_BS_INTERRUPT",
+    object = "Ability",
+    name = "施法-打断完成",
     params = {
     },
     event_params = {
@@ -5311,6 +5387,40 @@ M.config["技能-冷却结束"] = {
             lua_type = "Unit",
             desc = "技能Owner",
             lua_desc = "技能Owner",
+        },
+    },
+}
+
+---@class EventParam.ET_ABILITY_SEND_CUE_EVENT
+---@field ability Ability # 技能对象
+---@alias EventParam.技能-自定义动画轴 EventParam.ET_ABILITY_SEND_CUE_EVENT
+--技能发送自定义CUE事件
+M.config["技能-自定义动画轴"] = {
+    desc = "",
+    extraObjs = {
+        [1] = {
+            getter = function (self) return self:get_owner() end,
+            luaType = "Unit",
+        },
+    },
+    key = "ET_ABILITY_SEND_CUE_EVENT",
+    name = "技能-自定义动画轴",
+    object = "Ability",
+    params = {
+        [1] = {
+            desc = "CUE事件名",
+            name = "string",
+            type = "string",
+        },
+    },
+    event_params = {
+        [1] = {
+            name = "__ability",
+            type = "py.Ability",
+            lua_name = "ability",
+            lua_type = "Ability",
+            desc = "技能对象",
+            lua_desc = "技能对象",
         },
     },
 }
@@ -6164,6 +6274,48 @@ M.config["界面-消息"] = {
                 local undumped = y3.dump.decode(bin)
                 return undumped
             end,
+        },
+    },
+}
+
+---@class EventParam.ET_ON_CLICK_MINI_MAP_PANEL
+---@field player Player # 玩家
+---@field mini_map_touched_world_pos Point # 点击对应的世界坐标
+---@alias EventParam.玩家-点击小地图 EventParam.ET_ON_CLICK_MINI_MAP_PANEL
+--玩家点击小地图事件
+M.config["玩家-点击小地图"] = {
+    desc = "点击小地图时触发",
+    from_global = true,
+    key = "ET_ON_CLICK_MINI_MAP_PANEL",
+    name = "玩家-点击小地图",
+    object = "Player",
+    params = {
+        [1] = {
+            call = false,
+            desc = "按下的键",
+            name = "key",
+            resolve = function (key)
+                return y3.const.ClickMiniMapKey[key] or key
+            end,
+            type = "y3.Const.ClickMiniMapKey|integer",
+        },
+    },
+    event_params = {
+        [1] = {
+            name = "__role_id",
+            type = "py.RoleID",
+            lua_name = "player",
+            lua_type = "Player",
+            desc = "玩家ID",
+            lua_desc = "玩家",
+        },
+        [2] = {
+            name = "__mini_map_touched_world_pos",
+            type = "py.Point",
+            lua_name = "mini_map_touched_world_pos",
+            lua_type = "Point",
+            desc = "点击对应的世界坐标",
+            lua_desc = "点击对应的世界坐标",
         },
     },
 }
@@ -10033,6 +10185,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: self, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: self, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
 ---@field event fun(self: self, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
+---@field event fun(self: self, event: "单位-切换默认行为", callback: fun(trg: Trigger, data: EventParam.单位-切换默认行为)): Trigger
 ---@field event fun(self: self, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: self, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: self, event: "本地-骨骼碰撞", callback: fun(trg: Trigger, data: EventParam.本地-骨骼碰撞)): Trigger
@@ -10068,6 +10221,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: self, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: self, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: self, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: self, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: self, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: self, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: self, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -10075,6 +10229,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: self, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: self, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: self, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: self, event: "技能-自定义动画轴", string: string, callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: self, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
 ---@field event fun(self: self, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
 ---@field event fun(self: self, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
@@ -10094,6 +10249,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: self, event: "投射物-创建", callback: fun(trg: Trigger, data: EventParam.投射物-创建)): Trigger
 ---@field event fun(self: self, event: "投射物-死亡", callback: fun(trg: Trigger, data: EventParam.投射物-死亡)): Trigger
 ---@field event fun(self: self, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: self, event: "玩家-点击小地图", key: y3.Const.ClickMiniMapKey|integer, callback: fun(trg: Trigger, data: EventParam.玩家-点击小地图)): Trigger
 ---@field event fun(self: self, event: "界面-滑动条变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
 ---@field event fun(self: self, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
 ---@field event fun(self: self, event: "界面-装备拖拽", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-装备拖拽)): Trigger
@@ -10197,6 +10353,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: Ability, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: Ability, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: Ability, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: Ability, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: Ability, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: Ability, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: Ability, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -10204,6 +10361,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: Ability, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: Ability, event: "技能-自定义动画轴", string: string, callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: Ability, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
@@ -10262,6 +10420,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: Player, event: "选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "本地-选中-可破坏物", callback: fun(trg: Trigger, data: EventParam.本地-选中-可破坏物)): Trigger
 ---@field event fun(self: Player, event: "界面-消息", event_name: string, callback: fun(trg: Trigger, data: EventParam.界面-消息)): Trigger
+---@field event fun(self: Player, event: "玩家-点击小地图", key: y3.Const.ClickMiniMapKey|integer, callback: fun(trg: Trigger, data: EventParam.玩家-点击小地图)): Trigger
 ---@field event fun(self: Player, event: "界面-滑动条变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-滑动条变化)): Trigger
 ---@field event fun(self: Player, event: "界面-聊天框可见性变化", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-聊天框可见性变化)): Trigger
 ---@field event fun(self: Player, event: "界面-装备拖拽", ui: UI, callback: fun(trg: Trigger, data: EventParam.界面-装备拖拽)): Trigger
@@ -10356,6 +10515,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
 ---@field event fun(self: Unit, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
+---@field event fun(self: Unit, event: "单位-切换默认行为", callback: fun(trg: Trigger, data: EventParam.单位-切换默认行为)): Trigger
 ---@field event fun(self: Unit, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: Unit, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
@@ -10382,6 +10542,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: Unit, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: Unit, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: Unit, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: Unit, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: Unit, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: Unit, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: Unit, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -10389,6 +10550,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: Unit, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: Unit, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: Unit, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: Unit, event: "技能-自定义动画轴", string: string, callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: Unit, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
 ---@field event fun(self: Unit, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
 ---@field event fun(self: Unit, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
@@ -10422,6 +10584,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: EditorObject.Ability, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: EditorObject.Ability, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -10429,6 +10592,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: EditorObject.Ability, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: EditorObject.Ability, event: "技能-自定义动画轴", callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-打开指示器", callback: fun(trg: Trigger, data: EventParam.技能-打开指示器)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-建造技能释放前", callback: fun(trg: Trigger, data: EventParam.技能-建造技能释放前)): Trigger
 ---@field event fun(self: EditorObject.Ability, event: "技能-关闭指示器", callback: fun(trg: Trigger, data: EventParam.技能-关闭指示器)): Trigger
@@ -10482,6 +10646,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: EditorObject.Unit, event: "单位-移除", callback: fun(trg: Trigger, data: EventParam.单位-移除)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-移除后", callback: fun(trg: Trigger, data: EventParam.单位-移除后)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-传送结束", callback: fun(trg: Trigger, data: EventParam.单位-传送结束)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "单位-属性变化", callback: fun(trg: Trigger, data: EventParam.单位-属性变化)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-即将死亡", callback: fun(trg: Trigger, data: EventParam.单位-即将死亡)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-死亡", callback: fun(trg: Trigger, data: EventParam.单位-死亡)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-受到伤害前", callback: fun(trg: Trigger, data: EventParam.单位-受到伤害前)): Trigger
@@ -10502,6 +10667,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: EditorObject.Unit, event: "单位-进入战斗", callback: fun(trg: Trigger, data: EventParam.单位-进入战斗)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-脱离战斗", callback: fun(trg: Trigger, data: EventParam.单位-脱离战斗)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-即将拾取物品", callback: fun(trg: Trigger, data: EventParam.单位-即将拾取物品)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "单位-切换默认行为", callback: fun(trg: Trigger, data: EventParam.单位-切换默认行为)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-即将索敌", callback: fun(trg: Trigger, data: EventParam.单位-即将索敌)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-发现目标", callback: fun(trg: Trigger, data: EventParam.单位-发现目标)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "单位-购买物品", callback: fun(trg: Trigger, data: EventParam.单位-购买物品)): Trigger
@@ -10528,6 +10694,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: EditorObject.Unit, event: "施法-打断开始", callback: fun(trg: Trigger, data: EventParam.施法-打断开始)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "施法-打断引导", callback: fun(trg: Trigger, data: EventParam.施法-打断引导)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "施法-打断出手", callback: fun(trg: Trigger, data: EventParam.施法-打断出手)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "施法-打断完成", callback: fun(trg: Trigger, data: EventParam.施法-打断完成)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "施法-停止", callback: fun(trg: Trigger, data: EventParam.施法-停止)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-获得", callback: fun(trg: Trigger, data: EventParam.技能-获得)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-失去", callback: fun(trg: Trigger, data: EventParam.技能-失去)): Trigger
@@ -10535,6 +10702,7 @@ M.config["玩家-收到云脚本消息"] = {
 ---@field event fun(self: EditorObject.Unit, event: "技能-禁用", callback: fun(trg: Trigger, data: EventParam.技能-禁用)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-启用", callback: fun(trg: Trigger, data: EventParam.技能-启用)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "技能-冷却结束", callback: fun(trg: Trigger, data: EventParam.技能-冷却结束)): Trigger
+---@field event fun(self: EditorObject.Unit, event: "技能-自定义动画轴", callback: fun(trg: Trigger, data: EventParam.技能-自定义动画轴)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "效果-获得", callback: fun(trg: Trigger, data: EventParam.效果-获得)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "效果-失去", callback: fun(trg: Trigger, data: EventParam.效果-失去)): Trigger
 ---@field event fun(self: EditorObject.Unit, event: "效果-心跳", callback: fun(trg: Trigger, data: EventParam.效果-心跳)): Trigger
