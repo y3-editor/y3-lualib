@@ -90,6 +90,7 @@ function GC:zip()
                 break
             end
             objects[index] = objects[#objects]
+            objects[#objects] = nil
         else
             index = index + 1
         end
