@@ -203,6 +203,7 @@ local function resolveBroadCast(id, content, player)
     end
     local suc, value = pcall(y3.dump.decode, content)
     if not suc then
+        log.warn('同步数据解码失败：', id, value)
         return
     end
     y3.await.call(function ()

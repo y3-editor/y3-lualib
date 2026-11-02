@@ -19,6 +19,9 @@ end
 ---@private
 function M.decodeHook(value, tag)
     local class = y3.class.get(tag)
+    if not class then
+        error('反序列化的类不存在：' .. tostring(tag))
+    end
     if class.__decode then
         return class:__decode(value) or y3.class.new(tag, value)
     else
