@@ -146,7 +146,7 @@ M.register_py_to_lua('table', function (py_table)
                 return M.py_to_lua(v.__name, v)
             end
             if tp == 'table' then
-                return y3.proxy.new(v, config)
+                return y3.proxy.newChild(self, key, v)
             end
             return v
         end

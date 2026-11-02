@@ -83,12 +83,12 @@ metatable = {
             value = raw[key]
         end
 
-        if config.cache then
-            rawset(self, key, value)
-        end
-
         if recursive then
             value = getRecusiveProxy(self, key, value, config, custom, recursive)
+        end
+
+        if config.cache then
+            rawset(self, key, value)
         end
 
         return value
@@ -141,6 +141,17 @@ function M.new(obj, config, custom)
     rawMap[proxy] = obj
 
     return proxy
+end
+
+---创建共享父代理递归状态的子代理
+---@generic T
+---@param parent table
+---@param key any
+---@param value T
+---@return T
+function M.newChild(parent, key, value)
+    local recursive = assert(rawget(parent, RECUSIVE), '父代理必须启用递归代理')
+    return getRecusiveProxy(parent, key, value, rawget(parent, CONFIG), rawget(parent, CUSTOM), recursive)
 end
 
 ---@param proxyObj table
