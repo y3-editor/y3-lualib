@@ -202,13 +202,13 @@ function M:set_image_url(url, aid)
         aid = (url:match('.+/(.+)$') or ''):gsub('%.[^%.]+$', '') or ''
     end
     y3.game.download_platform_icon(url, aid, function (real_path)
-        if version ~= self._image_version then
+        if self:is_removed() or version ~= self._image_version then
             return
         end
         -- 必须要延迟一小会儿，否则同时设置多张
         -- 图片时会出现几张图片设置失败的情况
         y3.ltimer.wait(0.1, function ()
-            if version ~= self._image_version then
+            if self:is_removed() or version ~= self._image_version then
                 return
             end
             self:set_image(real_path)
