@@ -62,7 +62,7 @@ end
 
 local function startWorker(dispose)
     ---@async
-    return y3.await.call(function ()
+    local function run()
         local limit = M.speedLimit
         local idleCount = 0
 
@@ -126,6 +126,12 @@ local function startWorker(dispose)
             end
             ::continue::
         end
+    end
+
+    ---@async
+    return y3.await.call(function ()
+        y3.await.sleep(0)
+        xpcall(run, log.error)
         dispose()
     end)
 end
