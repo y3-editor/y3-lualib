@@ -207,10 +207,15 @@ function m.equal(valueA, valueB)
             return false
         end
         if tp1 == 'table' then
-            if hasChecked[a] then
+            local checked = hasChecked[a]
+            if checked and checked[b] then
                 return true
             end
-            hasChecked[a] = true
+            if not checked then
+                checked = {}
+                hasChecked[a] = checked
+            end
+            checked[b] = true
             local mark = {}
             for k, v in pairs(a) do
                 mark[k] = true
