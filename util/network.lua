@@ -250,8 +250,9 @@ function M:data_reader(callback)
                 --一定是收到数据后才被唤醒的，因此不用再判断缓存了
             end
             read_once = true
+            local data = buffer
             buffer = ''
-            return buffer
+            return data
         end
         if what == 'l'
         or what == 'L' then
