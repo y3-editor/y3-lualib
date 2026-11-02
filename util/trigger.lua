@@ -109,9 +109,9 @@ end
 
 -- 检查事件的参数与触发器的参数是否匹配，
 -- 允许事件的参数数量多余触发器的参数数量。
----@param fire_args any[]?
----@param fire_mode 'custom' | 'array' | 'none'
----@param fire_target any
+---@param fire_args any
+---@param fire_mode? 'custom' | 'array' | 'none'
+---@param fire_target? any
 ---@return boolean
 function M:is_match_args(fire_args, fire_mode, fire_target)
     local event_args   = self._event_args
@@ -128,6 +128,10 @@ function M:is_match_args(fire_args, fire_mode, fire_target)
 
     if fire_target ~= event_target then
         return false
+    end
+
+    if fire_mode ~= 'array' then
+        return true
     end
 
     -- 最后在假定是数组进行判断

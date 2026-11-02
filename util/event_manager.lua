@@ -51,7 +51,7 @@ function M:recover_disable_once()
 end
 
 ---@param event_name Event.Name
----@param event_args? any[]
+---@param event_args any
 ---@return boolean
 function M:has_event(event_name, event_args)
     local event = self.event_map[event_name]
@@ -138,7 +138,7 @@ function M:raw_notify(event_name, event_args, ...)
 end
 
 ---@param event_name Event.Name
----@param event_args any[]?
+---@param event_args any
 ---@param ... any
 function M:notify(event_name, event_args, ...)
     local event = self.event_map[event_name]

@@ -1,5 +1,52 @@
 require 'y3.unittest.eventhead'
 
+do
+    ---@type any[]
+    local filters = { 0, 1, true, false, '过滤参数', New 'UnitTest.EventObject' () }
+    for _, filter in ipairs(filters) do
+        local o = New 'UnitTest.EventObject' ()
+        local count = 0
+        local normalCount = 0
+
+        local trigger = o:event_on('过滤测试', filter, function (_, value)
+            assert(value == '回调参数')
+            count = count + 1
+            o:event_notify('普通测试')
+            return false, '返回参数', nil, 4
+        end)
+        o:event_on('普通测试', function ()
+            normalCount = normalCount + 1
+        end)
+
+        local manager = o:get_custom_event_manager()
+        assert(manager)
+        assert(trigger:is_match_args(filter))
+        assert(not trigger:is_match_args(-1))
+        assert(manager:has_event('过滤测试', filter))
+        assert(not manager:has_event('过滤测试', -1))
+
+        manager:notify('过滤测试', -1, '回调参数')
+        assert(count == 0)
+        manager:notify('过滤测试', filter, '回调参数')
+        assert(count == 1)
+        assert(normalCount == 1)
+        assert(not manager:is_firing())
+        o:event_notify('普通测试')
+        assert(normalCount == 2)
+
+        local a, b, c, d = manager:dispatch('过滤测试', filter, '回调参数')
+        assert(a == false)
+        assert(b == '返回参数')
+        assert(c == nil)
+        assert(d == 4)
+        assert(count == 2)
+        assert(normalCount == 3)
+        assert(not manager:is_firing())
+        o:event_notify('普通测试')
+        assert(normalCount == 4)
+    end
+end
+
 do --基本功能
     local o = New 'UnitTest.EventObject' ()
 
