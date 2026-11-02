@@ -148,7 +148,8 @@ end
 ---@return boolean
 function M:replace(old, new)
     if not self:isValidNode(old)
-    or not self:isValidNode(new) then
+    or not self:isValidNode(new)
+    or self:has(new) then
         return false
     end
     local left = self._left[old]
