@@ -384,8 +384,8 @@ function M:refreshAll()
         for _, info in ipairs(infos) do
             local ui = self._childs[info.name]
             if ui then
-                if not mark[ui] then
-                    mark[ui] = true
+                if not mark[info] then
+                    mark[info] = true
                     xpcall(info.on_refresh, log.error, ui, local_player, self)
                 end
             else
