@@ -308,12 +308,12 @@ function M.load_table_with_cover_disable(player, slot)
             end
             value = y3.helper.as_lua(value)
             local vtype = type(value)
+            if path and #path >= 3 then
+                error('存档表最多只支持3层嵌套')
+            end
             if vtype == 'table' then
                 if next(value) ~= nil then
                     error('禁止覆盖模式下非空表不能作为存档的值')
-                end
-                if path and #path >= 3 then
-                    error('存档表最多只支持3层嵌套')
                 end
                 if y3.proxy.raw(value) then
                     value = y3.proxy.raw(value)
