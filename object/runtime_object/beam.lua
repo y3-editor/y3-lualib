@@ -171,4 +171,13 @@ function M:set(data)
     end
 end
 
+---设置缩放
+---@param x number X轴缩放
+---@param y number Y轴缩放
+---@param z number Z轴缩放
+---@param duration? number 过渡时间
+function M:set_scale(x, y, z, duration)
+    GameAPI.set_link_sfx_scale(self.handle, x, y, z, duration)
+end
+
 return M
