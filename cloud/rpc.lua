@@ -1,17 +1,16 @@
+﻿-- 请求 / 应答 / 通知：y3.cloud.rpc
 -- 报文（d = base64(y3.seri)）：
 --   请求 { i: integer, m: string, d: string? }
 --   应答 { i: integer, d: string?, e: string? }
 --   通知 { m: string, d: string? }
 
----@class Cloud
+---@class CloudRpc
 local M = {
     EVENT = '$Y3Cloud',
     timeout = 5,
 }
 
 local seq = 0
-
----@alias PlayerRef integer|{ get_id: fun(self: any): integer }
 
 ---@type table<integer, { callback: fun(suc: boolean, data: any, err: string?)?, timer: LocalTimer? }>
 local pending = {}
@@ -30,14 +29,14 @@ end
 
 ---@param data any
 ---@return string?
-local function encode_data(data)
+local function pack(data)
     if data == nil then
         return nil
     end
 
     local ok, text = pcall(y3.seri.encode, data)
     if not ok then
-        log.warn('y3.cloud: encode failed, ' .. tostring(text))
+        log.warn('y3.cloud.rpc: encode failed, ' .. tostring(text))
         return nil
     end
 
@@ -46,20 +45,20 @@ end
 
 ---@param raw any
 ---@return any
-local function decode_data(raw)
+local function unpack_data(raw)
     if type(raw) ~= 'string' then
         return raw
     end
 
     local text = y3.base64.decode(raw)
     if text == nil then
-        log.warn('y3.cloud: base64 decode failed')
+        log.warn('y3.cloud.rpc: base64 decode failed')
         return nil
     end
 
     local ok, value = pcall(y3.seri.decode, text)
     if not ok then
-        log.warn('y3.cloud: decode failed, ' .. tostring(value))
+        log.warn('y3.cloud.rpc: decode failed, ' .. tostring(value))
         return nil
     end
     return value
@@ -69,7 +68,7 @@ end
 ---@return boolean
 local function send(payload)
     if payload.d ~= nil then
-        payload.d = encode_data(payload.d)
+        payload.d = pack(payload.d)
         if payload.d == nil then
             return false
         end
@@ -77,7 +76,7 @@ local function send(payload)
 
     local ok, err = pcall(y3.game.send_mlscript_msg, M.EVENT, payload)
     if not ok then
-        log.warn('y3.cloud: send failed, method=' .. tostring(payload.m) .. ', ' .. tostring(err))
+        log.warn('y3.cloud.rpc: send failed, method=' .. tostring(payload.m) .. ', ' .. tostring(err))
         return false
     end
     return true
@@ -108,13 +107,13 @@ end
 local function dispatch(method, data, player)
     local handler = handlers[method]
     if not handler then
-        log.warn('y3.cloud: no handler, method=' .. tostring(method))
+        log.warn('y3.cloud.rpc: no handler, method=' .. tostring(method))
         return nil, 'no_handler'
     end
 
     local ok, result, err = pcall(handler, data, player)
     if not ok then
-        log.warn('y3.cloud: handler error, method=' .. tostring(method) .. ', ' .. tostring(result))
+        log.warn('y3.cloud.rpc: handler error, method=' .. tostring(method) .. ', ' .. tostring(result))
         return nil, tostring(result)
     end
     return result, err
@@ -133,13 +132,14 @@ local function on_message(_, data)
 
     local id = payload.i
     local method = payload.m
+    local body = unpack_data(payload.d)
     if id ~= nil and method ~= nil then        -- 请求
-        local result, err = dispatch(method, decode_data(payload.d), data.player)
+        local result, err = dispatch(method, body, data.player)
         send { i = id, d = result, e = err }
     elseif id ~= nil then                      -- 应答
-        settle(id, payload.e, decode_data(payload.d))
+        settle(id, payload.e, body)
     elseif method ~= nil then                  -- 通知
-        dispatch(method, decode_data(payload.d), data.player)
+        dispatch(method, body, data.player)
     end
 end
 
@@ -153,8 +153,9 @@ y3.game:event('玩家-收到云脚本消息', on_message)
 function M.request(method, data, callback)
     local id = next_id()
 
-    pending[id] = { callback = callback }
-    pending[id].timer = y3.ltimer.wait(M.timeout, function ()
+    local entry = { callback = callback }
+    pending[id] = entry
+    entry.timer = y3.ltimer.wait(M.timeout, function ()
         settle(id, 'timeout')
     end)
 
@@ -191,7 +192,5 @@ function M.awaitRequest(method, data)
         M.request(method, data, resume)
     end)
 end
-
-y3.cloud = M
 
 return M

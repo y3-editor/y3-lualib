@@ -124,7 +124,7 @@ y3.aes          = require 'y3.util.aes'
 y3.local_ui     = require 'y3.util.local_ui'
 y3.fs           = require 'y3.util.fs'
 y3.rsa          = require 'y3.util.rsa'
-require 'y3.game.cloud'
+y3.cloud        = require 'y3.cloud.init'
 
 pcall(function ()
     require 'y3-helper.meta'
