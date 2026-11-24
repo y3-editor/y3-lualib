@@ -136,7 +136,7 @@ function M.createMemoryWatcher()
         return string.format('%.2f MB', mem / 1000)
     end
 
-    local node = y3.develop.helper.createTreeNode('内存占用', {
+    local node = y3.develop.helper.createTreeNode('内存', {
         icon = 'eye',
         description = getMemory(),
         tooltip = '只统计Lua的内存占用',
