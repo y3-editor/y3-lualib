@@ -297,9 +297,10 @@ M._inited = false
 --其他情况若有需求可以调用此函数连接。
 ---@param port? integer # 目标端口号，若不指定则使用《Y3开发助手》下发的随机端口
 ---@param force? boolean # 是否允许重复连接
----@return { network: Network, explorer: Develop.Helper.TreeView }?
+---@return { network: Network, explorer: Develop.Helper.TreeView, explorerCloud: Develop.Helper.TreeView }?
 function M.init(port, force)
     local explorer = require 'y3.develop.helper.explorer'
+    local explorerCloud = require 'y3.develop.helper.explorer-cloud'
     if M._inited and not force then
         return nil
     end
@@ -308,6 +309,7 @@ function M.init(port, force)
     if port then
         result.network = createClient(port)
         result.explorer = explorer.create()
+        result.explorerCloud = explorerCloud.create()
     else
         local suc, port = pcall(require, 'log.helper_port')
         if not suc or math.type(port) ~= 'integer' then
@@ -316,6 +318,7 @@ function M.init(port, force)
 
         result.network = createClient(port)
         result.explorer = explorer.create()
+        result.explorerCloud = explorerCloud.create()
     end
     return result
 end
