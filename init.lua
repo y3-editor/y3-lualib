@@ -125,6 +125,9 @@ y3.local_ui     = require 'y3.util.local_ui'
 y3.fs           = require 'y3.util.fs'
 y3.rsa          = require 'y3.util.rsa'
 
+y3.util.enableCloseFunction()
+y3.util.enableFormatString()
+
 require 'y3.cloud'
 
 pcall(function ()

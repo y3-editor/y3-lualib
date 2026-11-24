@@ -76,6 +76,10 @@ function M.input(input)
     end
 
     if input:sub(1, 1) == '~' then
+        if not y3.cloud.ready then
+            print_to_console('云脚本未就绪')
+            return
+        end
         local code = input:sub(2)
         y3.cloud.run(code, function (suc, result, err)
             M.show_result(suc, suc and result or err)
