@@ -1,8 +1,5 @@
 -- 请求 / 应答 / 通知：y3.cloud.rpc
--- 报文（d = base64(y3.seri)）：
---   请求 { i: integer, m: string, d: string? }
---   应答 { i: integer, d: string?, e: string? }
---   通知 { m: string, d: string? }
+-- 报文 = base64(y3.seri)；上行直接发字符串，下行发 JSON 字符串字面量
 
 ---@class Cloud.Rpc
 local M = {
@@ -36,61 +33,33 @@ local function next_id()
     return seq
 end
 
----@param data any
+---@param payload table
 ---@return string?
-local function pack(data)
-    if data == nil then
-        return nil
-    end
-
-    local ok, text = pcall(y3.seri.encode, data)
+local function pack_payload(payload)
+    local ok, text = pcall(y3.seri.encode, payload)
     if not ok then
         log.warn('y3.cloud.rpc: encode failed, ' .. tostring(text))
         return nil
     end
-
     return y3.base64.encode(text)
-end
-
----@param raw any
----@return any
-local function unpack_data(raw)
-    if type(raw) ~= 'string' then
-        return raw
-    end
-
-    local text = y3.base64.decode(raw)
-    if text == nil then
-        log.warn('y3.cloud.rpc: base64 decode failed')
-        return nil
-    end
-
-    local ok, value = pcall(y3.seri.decode, text)
-    if not ok then
-        log.warn('y3.cloud.rpc: decode failed, ' .. tostring(value))
-        return nil
-    end
-    return value
 end
 
 ---@param payload table
 ---@return boolean ok
 ---@return string? err
 local function send(payload)
-    if payload.d ~= nil then
-        payload.d = pack(payload.d)
-        if payload.d == nil then
-            return false, 'encode_failed'
-        end
+    local text = pack_payload(payload)
+    if text == nil then
+        return false, 'encode_failed'
     end
-
-    local size = #(payload.d or '') + #(payload.m or '') + #(payload.e or '')
-    if size > MAX_MESSAGE_BYTES then
-        log.warn('y3.cloud.rpc: payload too large, method=' .. tostring(payload.m) .. ', bytes=' .. size)
+    if #text > MAX_MESSAGE_BYTES then
+        log.warn('y3.cloud.rpc: payload too large, method=' .. tostring(payload.m) .. ', bytes=' .. #text)
         return false, 'too_large'
     end
 
-    local ok, err = pcall(y3.game.send_mlscript_msg, EVENT, payload)
+    -- 直接发字符串即可，引擎会 json.encode 一次，云端拿到的是带引号的版本，由云端脱引号
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local ok, err = pcall(y3.game.send_mlscript_msg, EVENT, text)
     if not ok then
         log.warn('y3.cloud.rpc: send failed, method=' .. tostring(payload.m) .. ', ' .. tostring(err))
         return false, 'send_failed'
@@ -135,24 +104,46 @@ local function dispatch(method, data, player)
     return result, err
 end
 
+---@param raw any 平台事件数据，JSON 字符串字面量会被解成去掉引号的字符串
+---@return table?
+local function unpack_payload(raw)
+    if type(raw) ~= 'string' then
+        log.warn('y3.cloud.rpc: invalid payload type, ' .. type(raw))
+        return nil
+    end
+
+    local text = y3.base64.decode(raw)
+    if text == nil then
+        log.warn('y3.cloud.rpc: base64 decode failed')
+        return nil
+    end
+
+    local ok, payload = pcall(y3.seri.decode, text)
+    if not ok or type(payload) ~= 'table' then
+        log.warn('y3.cloud.rpc: invalid message')
+        return nil
+    end
+    return payload
+end
+
 ---@param data EventParam.玩家-收到云脚本消息
 local function on_message(_, data)
     if data.mlscript_event_name ~= EVENT then
         return
     end
 
-    local payload = data.mlscript_event_data
+    local payload = unpack_payload(data.mlscript_event_data)
     if payload == nil then
         return
     end
 
     local id = payload.i
     local method = payload.m
-    local body = unpack_data(payload.d)
+    local body = payload.d
     if id ~= nil and method ~= nil then        -- 请求
         local result, err = dispatch(method, body, data.player)
-        local ok, send_err = send { i = id, d = result, e = err }
-        if not ok and send_err == 'too_large' then
+        local ok2, send_err = send { i = id, d = result, e = err }
+        if not ok2 and send_err == 'too_large' then
             send { i = id, e = 'payload_too_large' }
         end
     elseif id ~= nil then                      -- 应答
