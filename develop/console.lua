@@ -16,9 +16,10 @@ function M.getHelpInfo()
         end
     end
     info[#info+1] = ''
-    info[#info+1] = '可以直接输入代码运行，以 `!` 开头的代码会在同步后运行：'
+    info[#info+1] = '可以直接输入代码运行，以 `!` 开头的代码会在同步后运行，以 `~` 开头的代码会在云脚本运行：'
     info[#info+1] = '  1 + 2 --> 当前控制台打印3'
     info[#info+1] = '  !y3.player(1):get_name() --> 多开测试时所有控制台都会打印玩家1的名字'
+    info[#info+1] = '  ~1 + 2 --> 在云脚本执行，当前控制台打印3'
     info[#info+1] = ''
     info[#info+1] = '输入 `?` 查看此帮助'
 
@@ -71,6 +72,14 @@ function M.input(input)
     if input:sub(1, 1) == '!' then
         local code = input:sub(2)
         y3.develop.code.sync_run(code, nil, '$console')
+        return
+    end
+
+    if input:sub(1, 1) == '~' then
+        local code = input:sub(2)
+        y3.cloud.run(code, function (suc, result, err)
+            M.show_result(suc, suc and result or err)
+        end)
         return
     end
 

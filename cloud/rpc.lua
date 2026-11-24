@@ -1,4 +1,4 @@
-﻿-- 请求 / 应答 / 通知：y3.cloud.rpc
+-- 请求 / 应答 / 通知：y3.cloud.rpc
 -- 报文（d = base64(y3.seri)）：
 --   请求 { i: integer, m: string, d: string? }
 --   应答 { i: integer, d: string?, e: string? }
@@ -6,9 +6,10 @@
 
 ---@class Cloud.Rpc
 local M = {
-    EVENT = '$Y3Cloud',
     timeout = 5,
 }
+
+local EVENT = '$Y3Cloud'
 
 local seq = 0
 
@@ -74,7 +75,7 @@ local function send(payload)
         end
     end
 
-    local ok, err = pcall(y3.game.send_mlscript_msg, M.EVENT, payload)
+    local ok, err = pcall(y3.game.send_mlscript_msg, EVENT, payload)
     if not ok then
         log.warn('y3.cloud.rpc: send failed, method=' .. tostring(payload.m) .. ', ' .. tostring(err))
         return false
@@ -121,7 +122,7 @@ end
 
 ---@param data EventParam.玩家-收到云脚本消息
 local function on_message(_, data)
-    if data.mlscript_event_name ~= M.EVENT then
+    if data.mlscript_event_name ~= EVENT then
         return
     end
 
@@ -193,4 +194,4 @@ function M.awaitRequest(method, data)
     end)
 end
 
-return M
+y3.cloud.rpc = M

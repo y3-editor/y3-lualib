@@ -12,4 +12,4 @@ function M.run(code, callback)
     return y3.cloud.rpc.request('Develop.Eval', { code = code }, callback)
 end
 
-return M
+y3.cloud.run = M.run
