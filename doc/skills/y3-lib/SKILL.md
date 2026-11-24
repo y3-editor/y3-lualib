@@ -78,7 +78,7 @@ end
 | 常量 / 数学 / 配置 | `y3.const`、`y3.math`、`y3.config`、`y3.kv` |
 | 存档 | `y3.save_data`（引擎槽位存档，同步上下文调用） |
 | UI | `y3.ui`（场景 UI）、`y3.local_ui`（本地 UI）、`share.uiMgr` / `y3.ui_manager`（UI 框架） |
-| 云脚本 | `y3.cloud.rpc`（请求/应答/通知）、`y3.cloud.run`（云端执行 Lua）、`y3.cloud.ready/version`、`y3.cloud.attribute`（玩家属性缓存） |
+| 云脚本 | `y3.cloud.rpc`（请求/应答/通知）、`y3.cloud.run`（云端执行 Lua）、`y3.cloud.ready/version`、`y3.cloud.player`（玩家属性写 Y3）、`y3.cloud.unit`（云端单位表现） |
 | 调试 | `y3.develop.console`（控制台）、`y3.develop.command`（`.命令`） |
 
 ## 5. 对象模型
