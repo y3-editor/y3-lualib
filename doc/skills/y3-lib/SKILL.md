@@ -24,7 +24,7 @@ description: >
 | `object/` | 对象实现：`editable_object/`（物编模板：unit / ability / buff / item / projectile / destructible / technology）、`runtime_object/`（运行时实例）、`scene_object/`（场景对象：area / camera / point / road / ui / scene_ui / shape / light） |
 | `ui_framework/` | UI 框架：`UIManager`、`BasePanel` / `BaseView` / `BaseTips`、`EventBus`、`share`、`api` |
 | `develop/` | 调试：`console`、`command`、`code`、`attr`、`arg`、`watcher`、`helper/` |
-| `cloud/` | 与云脚本通讯：`rpc`、`handshake`、`develop`（`y3.cloud.*`） |
+| `cloud/` | 与云脚本通讯：`rpc`、`handshake`、`develop`、`attribute`（`y3.cloud.*`） |
 | `meta/` | 引擎 API / 事件 / 枚举的类型声明，**查接口以这里为准** |
 | `doc/` | `API/*.md` 接口文档、`Lua虚拟机.md`、`skills/` |
 
@@ -78,7 +78,7 @@ end
 | 常量 / 数学 / 配置 | `y3.const`、`y3.math`、`y3.config`、`y3.kv` |
 | 存档 | `y3.save_data`（引擎槽位存档，同步上下文调用） |
 | UI | `y3.ui`（场景 UI）、`y3.local_ui`（本地 UI）、`share.uiMgr` / `y3.ui_manager`（UI 框架） |
-| 云脚本 | `y3.cloud.rpc`（请求/应答/通知）、`y3.cloud.run`（云端执行 Lua）、`y3.cloud.ready/version` |
+| 云脚本 | `y3.cloud.rpc`（请求/应答/通知）、`y3.cloud.run`（云端执行 Lua）、`y3.cloud.ready/version`、`y3.cloud.attribute`（玩家属性缓存） |
 | 调试 | `y3.develop.console`（控制台）、`y3.develop.command`（`.命令`） |
 
 ## 5. 对象模型
