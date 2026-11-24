@@ -1,5 +1,4 @@
 local type         = type
-local error        = error
 local tostring     = tostring
 local mathType     = math.type
 local stringPack   = string.pack
@@ -10,6 +9,7 @@ local tableSort    = table.sort
 
 local Number  = 'N' -- 本地编码的数字
 local Double  = 'D' -- 双精度浮点数
+local Float32 = 'f' -- 单精度浮点数（仅当可无损往返时使用）
 local NumZero = 'o'
 local UInt8   = 'I'
 local UInt16  = 'J'
@@ -169,6 +169,12 @@ local encodeMethods;encodeMethods = {
         else
             if value == 0.0 then
                 buf[#buf+1] = NumZero
+                return
+            end
+            -- 双精度里绝大多数数值本就来自单精度（引擎侧 float），能无损往返时省 4 字节
+            local packed = stringPack('<f', value)
+            if stringUnpack('<f', packed) == value then
+                buf[#buf+1] = Float32 .. packed
                 return
             end
             buf[#buf+1] = Double .. stringPack('<d', value)
@@ -337,6 +343,11 @@ local decodeMethods;decodeMethods = {
     end,
     [Double] = function (ex)
         local value, newIndex = stringUnpack('<d', ex.str, ex.index)
+        ex.index = newIndex
+        return value
+    end,
+    [Float32] = function (ex)
+        local value, newIndex = stringUnpack('<f', ex.str, ex.index)
         ex.index = newIndex
         return value
     end,
@@ -598,7 +609,7 @@ end
 ---@class Serialization
 local M = {}
 
-M.version = '1.2.0'
+M.version = '1.3.0'
 
 -- 将一个Lua值序列化为二进制数据。请勿做为长期存储方案，因为二进制数据可能会因为版本更新而不兼容。
 ---@param data Serialization.SupportTypes | nil
