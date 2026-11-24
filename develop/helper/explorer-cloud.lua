@@ -30,6 +30,17 @@ local function createNodes()
         description = '等待握手',
     })
 
+    local posNode = y3.develop.helper.createTreeNode('显示单位位置', {
+        tooltip = '绘制云端单位的位置与朝向，200 ms 刷新',
+        check = false,
+        onCheck = function ()
+            y3.cloud.unit.set_pos_debug(true)
+        end,
+        onUnCheck = function ()
+            y3.cloud.unit.set_pos_debug(false)
+        end,
+    })
+
     local function update()
         y3.cloud.rpc.request('Develop.Stats', nil, function (suc, data, err)
             if not suc then
@@ -67,7 +78,7 @@ local function createNodes()
         tooltip = '云脚本状态（每秒刷新）',
         childsGetter = function ()
             if y3.cloud.ready then
-                return { timeNode, memNode }
+                return { timeNode, memNode, posNode }
             end
             return { waitingNode }
         end,
