@@ -11,6 +11,14 @@ local M = {
 
 local EVENT = '$Y3Cloud'
 
+-- 官方限制：事件名最长 32 字节，单条消息最长 10240 字节
+local MAX_EVENT_BYTES = 32
+local MAX_MESSAGE_BYTES = 10240
+
+if #EVENT > MAX_EVENT_BYTES then
+    log.warn('y3.cloud.rpc: event name too long, bytes=' .. #EVENT)
+end
+
 local seq = 0
 
 ---@type table<integer, { callback: fun(suc: boolean, data: any, err: string?)?, timer: LocalTimer? }>
@@ -66,19 +74,26 @@ local function unpack_data(raw)
 end
 
 ---@param payload table
----@return boolean
+---@return boolean ok
+---@return string? err
 local function send(payload)
     if payload.d ~= nil then
         payload.d = pack(payload.d)
         if payload.d == nil then
-            return false
+            return false, 'encode_failed'
         end
+    end
+
+    local size = #(payload.d or '') + #(payload.m or '') + #(payload.e or '')
+    if size > MAX_MESSAGE_BYTES then
+        log.warn('y3.cloud.rpc: payload too large, method=' .. tostring(payload.m) .. ', bytes=' .. size)
+        return false, 'too_large'
     end
 
     local ok, err = pcall(y3.game.send_mlscript_msg, EVENT, payload)
     if not ok then
         log.warn('y3.cloud.rpc: send failed, method=' .. tostring(payload.m) .. ', ' .. tostring(err))
-        return false
+        return false, 'send_failed'
     end
     return true
 end
@@ -136,7 +151,10 @@ local function on_message(_, data)
     local body = unpack_data(payload.d)
     if id ~= nil and method ~= nil then        -- 请求
         local result, err = dispatch(method, body, data.player)
-        send { i = id, d = result, e = err }
+        local ok, send_err = send { i = id, d = result, e = err }
+        if not ok and send_err == 'too_large' then
+            send { i = id, e = 'payload_too_large' }
+        end
     elseif id ~= nil then                      -- 应答
         settle(id, payload.e, body)
     elseif method ~= nil then                  -- 通知
@@ -160,8 +178,9 @@ function M.request(method, data, callback)
         settle(id, 'timeout')
     end)
 
-    if not send { i = id, m = method, d = data } then
-        settle(id, 'send_failed')
+    local ok, send_err = send { i = id, m = method, d = data }
+    if not ok then
+        settle(id, send_err or 'send_failed')
     end
     return id
 end
