@@ -4,7 +4,7 @@
 --   应答 { i: integer, d: string?, e: string? }
 --   通知 { m: string, d: string? }
 
----@class CloudRpc
+---@class Cloud.Rpc
 local M = {
     EVENT = '$Y3Cloud',
     timeout = 5,
