@@ -9,3 +9,10 @@ require 'y3.cloud.develop'
 require 'y3.cloud.handshake'
 require 'y3.cloud.player'
 require 'y3.cloud.unit'
+
+-- 客户端重开（.rr / 重载游戏）后云端不会再推 Ready，这里主动握手让状态与拉取自愈
+y3.game:event('游戏-初始化', function ()
+    if not y3.cloud.ready then
+        y3.cloud.request()
+    end
+end)
