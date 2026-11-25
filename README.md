@@ -24,12 +24,6 @@
 
 请注意：gitee仅仅提供代码镜像，不支持issue。如果想提交issue，请自行搜索其他github镜像网站。
 
-# 文档
-
-* [API 文档](./doc/API.md)
-* [Lua 开发参考文档](./doc/guide/README.md)（核心系统、UI、物编运行时、API 规范与常见踩坑，同步自 `y3-maker-config`）
-* [Y3 Lua 虚拟机差异说明](./doc/Lua虚拟机.md)
-
 # 演示图
 
 从演示图开始学习Lua!
