@@ -1,4 +1,5 @@
 ---@meta
+---@diagnostic disable: missing-global-doc
 --- [版本外放门禁说明]
 --- v1.1.0 新增接口（MsBase64Encode/Decode、MlLuaErrorCode 全局表、
 --- 17 个平台玩家信息查询 MsGetPlayer* 接口）预计于 2026.11.18 后正式外放。
