@@ -138,10 +138,10 @@ local function on_sync(data)
     apply_command(data.command)
 end
 
-y3.cloud.rpc.register('Unit.Sync', on_sync)
+y3.cloud.rpc.register('$Unit.Sync', on_sync)
 
 local function pull()
-    y3.cloud.rpc.request('Unit.GetAll', nil, function (suc, data, err)
+    y3.cloud.rpc.request('$Unit.GetAll', nil, function (suc, data, err)
         if not suc then
             log.warn('y3.cloud.unit: request failed, ' .. tostring(err))
             return
@@ -177,7 +177,7 @@ local function report(kind, list)
         return
     end
     report_seq = report_seq + 1
-    y3.cloud.rpc.notify('Unit.Pos.Report', {
+    y3.cloud.rpc.notify('$Unit.Pos.Report', {
         seq = report_seq,
         [kind] = list,
     })
@@ -333,7 +333,7 @@ local function on_pos_debug(data)
     redraw_debug()
 end
 
-y3.cloud.rpc.register('Unit.Pos.Debug', on_pos_debug)
+y3.cloud.rpc.register('$Unit.Pos.Debug', on_pos_debug)
 
 ---开关"显示服务器单位位置"：打开后云端定期广播带朝向的位置，客户端绘制圆柱 + 朝向线
 ---@param enable boolean
@@ -347,7 +347,7 @@ function M.set_pos_debug(enable)
         debug_units = {}
         debug_shapes = {}
     end
-    y3.cloud.rpc.notify('Unit.DebugPos', { enable = enable })
+    y3.cloud.rpc.notify('$Unit.DebugPos', { enable = enable })
 end
 
 y3.cloud.unit = M

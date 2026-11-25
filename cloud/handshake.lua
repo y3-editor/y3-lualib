@@ -28,7 +28,7 @@ local function apply(data)
     end
 end
 
-y3.cloud.rpc.register('Y3Cloud.Ready', apply)
+y3.cloud.rpc.register('$Y3Cloud.Ready', apply)
 
 ---登记握手完成回调；已握手时立即调用
 ---@param callback fun(handshake: Cloud)
@@ -44,7 +44,7 @@ end
 ---@param callback? fun(suc: boolean, data: any, err: string?)
 ---@return integer 请求 id
 function y3.cloud.request(callback)
-    return y3.cloud.rpc.request('Y3Cloud.Hello', nil, function (suc, data, err)
+    return y3.cloud.rpc.request('$Y3Cloud.Hello', nil, function (suc, data, err)
         if suc then
             apply(data)
         end

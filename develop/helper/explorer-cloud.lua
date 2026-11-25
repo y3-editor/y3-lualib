@@ -42,7 +42,7 @@ local function createNodes()
     })
 
     local function update()
-        y3.cloud.rpc.request('Develop.Stats', nil, function (suc, data, err)
+        y3.cloud.rpc.request('$Develop.Stats', nil, function (suc, data, err)
             if not suc then
                 timeNode.description = '-'
                 memNode.description = err

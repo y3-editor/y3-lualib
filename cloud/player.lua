@@ -38,10 +38,10 @@ local function on_sync(data)
     end
 end
 
-y3.cloud.rpc.register('Player.Sync', on_sync)
+y3.cloud.rpc.register('$Player.Sync', on_sync)
 
 local function pull()
-    y3.cloud.rpc.request('Player.GetAll', nil, function (suc, data, err)
+    y3.cloud.rpc.request('$Player.GetAll', nil, function (suc, data, err)
         if not suc then
             log.warn('y3.cloud.player: request failed, ' .. tostring(err))
             return

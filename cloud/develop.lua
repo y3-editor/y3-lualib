@@ -9,7 +9,7 @@ local M = {}
 ---@param callback? fun(suc: boolean, data: any, err: string?)
 ---@return integer 请求 id
 function M.run(code, callback)
-    return y3.cloud.rpc.request('Develop.Eval', { code = code }, callback)
+    return y3.cloud.rpc.request('$Develop.Eval', { code = code }, callback)
 end
 
 y3.cloud.run = M.run
