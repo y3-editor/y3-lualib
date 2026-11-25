@@ -26,7 +26,7 @@ description: >
 | `develop/` | 调试：`console`、`command`、`code`、`attr`、`arg`、`watcher`、`helper/` |
 | `cloud/` | 与云脚本通讯：`rpc`、`handshake`、`develop`、`attribute`（`y3.cloud.*`） |
 | `meta/` | 引擎 API / 事件 / 枚举的类型声明，**查接口以这里为准** |
-| `doc/` | `API/*.md` 接口文档、`guide/` 开发参考文档、`Lua虚拟机.md`、`skills/` |
+| `doc/` | `API/*.md` 接口文档、`Lua虚拟机.md`、`skills/` |
 
 判定规则：**依赖引擎接口放 `util/`，纯 Lua 放 `tools/`**。
 
@@ -131,6 +131,5 @@ share.event:emit('data_change', data)
 ## 10. 参考
 
 - 接口文档：`y3/doc/API/*.md`（按对象拆分），索引 `y3/doc/API.md`
-- 开发指南与踩坑速查：`y3/doc/guide/README.md`（核心系统 / UI / 物编运行时 / API 规范 / 错题集，自动同步自 `y3-maker-config`）
 - 虚拟机差异：`y3/doc/Lua虚拟机.md`、`y3/doc/skills/y3-lua-vm/SKILL.md`
 - 演示：`y3/演示/`（界面 / 防守图 / 练功房 / 合成 / 物编 / 热重载）
