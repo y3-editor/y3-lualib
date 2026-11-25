@@ -25,6 +25,12 @@ local function createNodes()
         description = '-',
     })
 
+    local tickNode = y3.develop.helper.createTreeNode('耗时', {
+        icon = 'pulse',
+        tooltip = '1秒平均 | 10秒最大',
+        description = '-',
+    })
+
     local waitingNode = y3.develop.helper.createTreeNode('无云脚本', {
         icon = 'circle-slash',
         description = '等待握手',
@@ -50,6 +56,7 @@ local function createNodes()
             end
             timeNode.description = formatTime(data.time or 0)
             memNode.description = string.format('%.2f MB', (data.mem_kb or 0) / 1024)
+            tickNode.description = string.format('%.2f ms | %.2f ms', data.tick_avg_1s or 0, data.tick_max_10s or 0)
         end)
     end
 
@@ -78,7 +85,7 @@ local function createNodes()
         tooltip = '云脚本状态（每秒刷新）',
         childsGetter = function ()
             if y3.cloud.ready then
-                return { timeNode, memNode, posNode }
+                return { timeNode, memNode, tickNode, posNode }
             end
             return { waitingNode }
         end,
