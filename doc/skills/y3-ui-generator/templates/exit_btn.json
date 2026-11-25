@@ -1,0 +1,103 @@
+{
+    "children": [
+        {
+            "adapter_option": [
+                true,
+                true,
+                true,
+                true,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "children": [],
+            "event_list": [
+                {
+                    "action_list": [
+                        {
+                            "anim_duration": 1.0,
+                            "anim_id": null,
+                            "anim_type": 0,
+                            "comp": "d77f59f5-4e46-406c-bcc4-e3ccbce64d6d",
+                            "ease_type": 0,
+                            "name": "BackToHall_1",
+                            "open_timeline": true,
+                            "type": 5
+                        }
+                    ],
+                    "enabled": true,
+                    "name": "button_1_0",
+                    "not_wait_network": false,
+                    "sound_id": null,
+                    "type": 28
+                }
+            ],
+            "name": "button_1",
+            "normal_font_color": {
+                "__tuple__": true,
+                "items": [
+                    0,
+                    0,
+                    0,
+                    255
+                ]
+            },
+            "normal_text": {
+                "__tuple__": true,
+                "items": [
+                    "\u9000\u51fa\u6e38\u620f",
+                    false
+                ]
+            },
+            "open_adapter": true,
+            "pos_data": {
+                "__tuple__": true,
+                "items": [
+                    50.0,
+                    29.6875,
+                    50.0,
+                    50.0,
+                    0,
+                    0
+                ]
+            },
+            "prefab_sub_key": null,
+            "scene_ui_name": null,
+            "size": {
+                "__tuple__": true,
+                "items": [
+                    100.0,
+                    59.375
+                ]
+            },
+            "type": 1,
+            "uid": "d77f59f5-4e46-406c-bcc4-e3ccbce64d6d"
+        }
+    ],
+    "event_list": [],
+    "name": "exit",
+    "open_adapter": true,
+    "pos_data": {
+        "__tuple__": true,
+        "items": [
+            50.0,
+            29.6875,
+            50.0,
+            50.0,
+            0,
+            0
+        ]
+    },
+    "prefab_sub_key": null,
+    "scene_ui_name": null,
+    "size": {
+        "__tuple__": true,
+        "items": [
+            100.0,
+            59.375
+        ]
+    },
+    "type": 7,
+    "uid": "fecb2e93-1494-4659-9ea6-8a0d0627e6bf"
+}

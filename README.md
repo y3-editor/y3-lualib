@@ -24,6 +24,14 @@
 
 请注意：gitee仅仅提供代码镜像，不支持issue。如果想提交issue，请自行搜索其他github镜像网站。
 
+# 文档与 AI Skills
+
+* 总导航与技能分工：[doc/AGENTS.md](./doc/AGENTS.md)
+* Lua API 文档：[doc/API.md](./doc/API.md)（分对象文档见 [doc/API/](./doc/API/)）
+* 虚拟机差异说明：[doc/Lua虚拟机.md](./doc/Lua虚拟机.md)
+* Y3 系统知识库与开发规则：[doc/knowledge/README.md](./doc/knowledge/README.md)、[doc/rules/](./doc/rules/)
+* AI 开发技能（`y3-lib`、`y3-lua-vm`、`y3-lua-pipeline`、`y3-cloud-script` 等）：[doc/skills/](./doc/skills/)
+
 # 演示图
 
 从演示图开始学习Lua!

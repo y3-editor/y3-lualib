@@ -1,0 +1,4 @@
+interface:
+  display_name: "Y3 Cloud Script"
+  short_description: "Y3 编辑器云脚本（cloud_script）通用开发与调试排错指南"
+  default_prompt: "使用 $y3-cloud-script 开发、迁移或排查 Y3 云脚本（cloud_script）与客户端双端通信逻辑。"

@@ -1,0 +1,131 @@
+# API 安全规则
+
+> 防止臆造 API、类型错误等常见问题
+
+## 🔑 API 白名单规则
+
+> 详见 `rules.mdc` → 「🔒 Lua 开发强制规则」第 3 条。
+>
+> **所有 y3 层 API 和事件的使用必须严格参照 `y3-lua-pipeline/SKILL.md` 及其 `references/`，未在参考文档中声明的 API 视为非法。** 通过 y3 源码验证的例外需标注来源。
+
+## 🔴 核心禁令
+
+| 禁止 | 正确做法 |
+|------|----------|
+| 臆造 API/JSON 字段 | 查阅 `y3/` 源码验证 |
+| 假设 API 存在 | 使用代码搜索工具或 `rg` 搜索确认 |
+| 复制其他引擎 API | 查阅 Y3 官方文档 |
+| **手动编辑/拼写 Y3 JSON 文件** | **见下方「Y3 JSON 强制规则」** |
+
+## 🔴 Y3 JSON 强制规则
+
+> **绝对禁止手写或编辑 Y3 工程下任何 JSON 文件**，包括但不限于：
+> - `editor_table/projectileall/*.json`（投射物物编）
+> - `editor_table/unitall/*.json`、`editor_table/abilityall/*.json` 等所有物编
+> - `maps/*/ui/*.json`（UI 节点）
+> - `maps/*/*.json`（工程配置）
+
+### 为什么禁止
+
+Y3 JSON 使用 **特殊的 tuple 嵌套格式**：
+
+```jsonc
+// ✅ 正确（编辑器生成）
+"effect_fly": [
+    102892,
+    {"__tuple__": true, "items": [0.0, 0.0, 0.0]},   // 向量必须包 __tuple__
+    ...
+]
+
+// ❌ 错误（手写常犯）
+"effect_fly": {
+    "__tuple__": true,                                // 外层不应该套 __tuple__
+    "items": [102892, [0.0, 0.0, 0.0], ...]          // 向量没包 __tuple__
+}
+```
+
+字段格式不对会让编辑器报 **"物编 xxx.json 错误"**，整个文件失效。
+
+### 正确做法（按优先级）
+
+| 操作类型 | 正确入口 |
+|---------|---------|
+| 物编（创建/修改字段值） | `y3-obj-edit` 脚本：`py -3 <agent>/skills/y3-obj-edit/scripts/y3_obj_edit.py ...` |
+| 物编（特效/模型挂接等复杂字段） | **打开 Y3 编辑器手动配置 → MCP `hotfix_object_editor` + `save_editor`** |
+| UI 节点 | `y3-ui-pipeline` |
+| 场景逻辑节点（点/路径/区域） | MCP `add_point` / `add_point_path` / `add_rect_area` / `add_circle_area` |
+| 装饰物 / 资源摆件 | MCP `entity_create_block` |
+
+### 例外（极少数场景）
+
+只有以下情况可以读取 JSON（**仍不可写**）：
+- 调试时确认编辑器实际生成了什么字段
+- 解析现有 JSON 提取参考值，但要写回时仍走脚本/MCP
+
+> **教训**：手写 `effect_fly` 字段嵌套层级搞反，导致整个 999001.json 报错，浪费一轮调试。
+
+## 📋 API 验证流程
+
+```
+编写 y3 API 调用前
+    │
+    ▼
+1. 使用代码搜索工具或 `rg` 搜索函数名
+    │
+    ├─ 找到 → 阅读参数和返回值定义
+    └─ 找不到 → 查阅 references/ 或询问用户
+    │
+    ▼
+确认 API 存在后才能写入代码
+```
+
+## ⚠️ 常见 API 错误
+
+### 玩家相关
+
+| ❌ 错误 | ✅ 正确 |
+|---------|---------|
+| `y3.player.with_all_players(fn)` | `y3.player_group.get_all_players():pick()` 然后 for |
+| `player:camera_follow_unit(unit)` | `y3.camera.set_camera_follow_unit(player, unit, 0, 0, 0)` |
+
+### 单位相关
+
+| ❌ 错误 | ✅ 正确 |
+|---------|---------|
+| `unit:is_dead()` | `not unit:is_alive()` |
+| `unit:attack(target)` | `unit:attack_target(target, 0)` |
+| `get_all_units()` 直接遍历 | `get_all_units():pick()` 后遍历 |
+
+### UI 相关
+
+| ❌ 错误 | ✅ 正确 |
+|---------|---------|
+| `progress:set_progress(value)` | `set_max_...` + `set_current_...` |
+| `hud:get_child("a/b/c")` | `y3.ui.get_ui(player, "hud.a.b.c")` |
+| `y3.ui.get_ui(player, 'uuid-xxxx')` 传节点 UID | `y3.ui.get_ui(player, 'layer名.节点名')` |
+| 在 `游戏-初始化` 同帧调用 `y3.ui.get_ui` | `y3.ltimer.wait_frame(1, fn)` 延迟 1 帧后调用 |
+| `prefab:get_child('bg')` (artifactPickCmp) | `prefab:get_child('root.bg')` — 带 root. 前缀 |
+| `y3.ui_prefab.create(player, uid, parent)` 传节点 UID 字符串 | 传 Prefab **名称**（如 `'artifactPickCmp'`），不传 UID |
+
+### 键盘事件相关
+
+| ❌ 错误 | ✅ 正确 |
+|---------|---------|
+| `y3.const.KeyboardKey['KEY_F']`（字母键） | `y3.const.KeyboardKey['F']`（单字母大写） |
+| `y3.const.KeyboardKey['1']`（数字键） | `y3.const.KeyboardKey['KEY_1']`（KEY_ 前缀） |
+| 在地图 `main.lua` 里设置 `y3.config.sync.key = true` | 在 `global_main.lua` 的 `游戏-初始化` 事件里设置 |
+
+#### KeyboardKey 常量速查
+
+| 键类型 | 格式 | 示例 |
+|--------|------|------|
+| 字母键 | 单字母大写 | `'A'` `'F'` `'Z'` `'R'` |
+| 数字键 | `KEY_` + 数字 | `'KEY_0'` ~ `'KEY_9'` |
+| 功能键 | `F` + 数字 | `'F1'` `'F2'` `'F9'` `'F12'` |
+| 特殊键 | 名字大写 | `'SPACE'` `'ENTER'` `'HOME'` `'ESC'` `'TAB'` |
+
+## 📚 参考资源
+
+- API 错题集：`../memory/lua-issues/api_issues.md`（如存在）
+- Lua 参考：`../skills/y3-lua-pipeline/references/`
+- Y3 源码：`maps/EntryMap/script/y3/` 或 `global_script/y3/`
