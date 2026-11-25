@@ -133,3 +133,6 @@ share.event:emit('data_change', data)
 - 接口文档：`y3/doc/API/*.md`（按对象拆分），索引 `y3/doc/API.md`
 - 虚拟机差异：`y3/doc/Lua虚拟机.md`、`y3/doc/skills/y3-lua-vm/SKILL.md`
 - 演示：`y3/演示/`（界面 / 防守图 / 练功房 / 合成 / 物编 / 热重载）
+- 文档与技能总入口：`y3/doc/AGENTS.md`（原生与同步资产边界、11 个技能分工导航）
+- 引擎系统知识库与规则：`y3/doc/knowledge/README.md`、`y3/doc/rules/`（`api-safety.mdc` / `ui-rules.mdc` 等）
+- 配合技能：`y3/doc/skills/y3-lua-pipeline/SKILL.md`（Lua 编写流程与对象 API 速查）、`y3/doc/skills/y3-lua-review/SKILL.md`（静态审查）、`y3/doc/skills/y3-cloud-script/SKILL.md`（服务端云脚本，与本技能 `y3.cloud` 客户端互补）

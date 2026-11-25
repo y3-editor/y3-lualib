@@ -1,0 +1,243 @@
+{
+    "_custom_": true, 
+    "_ref_": 134230961, 
+    "ability_break_cast_range": {
+        "__tuple__": true, 
+        "items": ["50"]
+    }, 
+    "ability_build_subtype": 1, 
+    "ability_bw_point": 0.5, 
+    "ability_cast_point": 0.2, 
+    "ability_cast_range": {
+        "__tuple__": true, 
+        "items": ["10.0"]
+    }, 
+    "ability_cast_type": 2, 
+    "ability_channel_time": 0.0, 
+    "ability_cost": {
+        "__tuple__": true, 
+        "items": ["5"]
+    }, 
+    "ability_damage": {
+        "__tuple__": true, 
+        "items": ["5"]
+    }, 
+    "ability_damage_range": {
+        "__tuple__": true, 
+        "items": ["0.0"]
+    }, 
+    "ability_hp_cost": {
+        "__tuple__": true, 
+        "items": ["0"]
+    }, 
+    "ability_icon": 100508, 
+    "ability_joystick_check_range": {
+        "__tuple__": true, 
+        "items": ["50"]
+    }, 
+    "ability_max_level": 1, 
+    "ability_max_stack_count": {
+        "__tuple__": true, 
+        "items": ["0"]
+    }, 
+    "ability_prepare_time": 0.0, 
+    "ability_stack_cd": {
+        "__tuple__": true, 
+        "items": ["0"]
+    }, 
+    "ability_stage_config": {
+        "__tuple__": true, 
+        "items": [1]
+    }, 
+    "ability_timeline_resource": {
+        "model_id": 0
+    }, 
+    "arrow_length": {
+        "__tuple__": true, 
+        "items": ["5.0"]
+    }, 
+    "arrow_width": {
+        "__tuple__": true, 
+        "items": ["2.0"]
+    }, 
+    "auto_pick": true, 
+    "bs_sfx_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "bs_sound_effect": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "build_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "build_rotate": 0, 
+    "building_attack_range_sfx": 101492, 
+    "bw_ignore_ability_command": false, 
+    "bw_ignore_move_command": false, 
+    "bw_move_interrupt": true, 
+    "camp_priority_enemy": 1, 
+    "camp_priority_friend": 1, 
+    "camp_priority_neutral": 1, 
+    "camp_priority_self": 1, 
+    "can_autocast_when_attack_target": false, 
+    "can_bs_interrupt": true, 
+    "can_cache": true, 
+    "can_cast_interrupt": false, 
+    "can_cast_when_hp_insufficient": false, 
+    "can_cost_hp": false, 
+    "can_interrupt_others": true, 
+    "can_prepare_interrupt": false, 
+    "can_ps_interrupt": true, 
+    "cast_ignore_ability_command": true, 
+    "cast_ignore_move_command": true, 
+    "cast_move_interrupt": false, 
+    "circle_radius": {
+        "__tuple__": true, 
+        "items": ["5.0"]
+    }, 
+    "cold_down_time": {
+        "__tuple__": true, 
+        "items": ["5"]
+    }, 
+    "collection_animation": "", 
+    "collection_animation_loop": true, 
+    "collection_continuously": true, 
+    "collection_destructible_tags": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "cost_hp_can_die": false, 
+    "csp_ignore_ability_command": false, 
+    "csp_ignore_move_command": false, 
+    "csp_move_interrupt": true, 
+    "cst_sfx_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "cst_sound_effect": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "customized_pointer_sfx": 100000, 
+    "description": 0, 
+    "enable_customized_pointer_sfx": false, 
+    "end_sfx_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "end_sound_effect": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "filter_condition_camp": 5, 
+    "filter_condition_move_channel_type": 99, 
+    "filter_condition_type": 7, 
+    "filter_item_tags": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "filter_unit_tags": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "forbid_unit_tags": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "hit_sfx_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "hit_sound_effect": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "influenced_by_cd_reduce": true, 
+    "influenced_by_move": true, 
+    "is_autocast": false, 
+    "is_charge_ability": false, 
+    "is_immediate": false, 
+    "is_meele": false, 
+    "key": 0, 
+    "kv": {}, 
+    "magicbook_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "name": 0, 
+    "need_turn_to_target": true, 
+    "pick_count": 1, 
+    "player_props_cost": {}, 
+    "pointer_can_block": 0, 
+    "pointer_channel": 0, 
+    "pointer_limitation": 1, 
+    "precondition_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "prepare_ignore_ability_command": true, 
+    "prepare_ignore_move_command": true, 
+    "prepare_move_interrupt": false, 
+    "ps_sfx_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "ps_sound_effect": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "release_immediately_out_of_range": false, 
+    "required_level": {
+        "formula": "", 
+        "required_levels": {
+            "__tuple__": true, 
+            "items": [1, 2, 3, 4, 5]
+        }
+    }, 
+    "sector_angle": {
+        "__tuple__": true, 
+        "items": ["0"]
+    }, 
+    "sector_radian": 2, 
+    "sector_radius": {
+        "__tuple__": true, 
+        "items": ["10.0"]
+    }, 
+    "show_building_attack_range": false, 
+    "sight_type": 4, 
+    "sound_event_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "sp_count_down": false, 
+    "sp_sfx_list": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "sp_sound_effect": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "suffix": "", 
+    "tags": {
+        "__tuple__": true, 
+        "items": []
+    }, 
+    "target_arrow_length": 0, 
+    "target_arrow_width": 0, 
+    "target_attribute": 0, 
+    "target_circle_radius": 0, 
+    "target_sector_angle": 0, 
+    "target_sector_radius": 0, 
+    "transition_duration": 0, 
+    "transition_start_time": 0, 
+    "type_priority_building": 1, 
+    "type_priority_creature": 1, 
+    "type_priority_destructible": 1, 
+    "type_priority_hero": 1, 
+    "type_priority_item": 1, 
+    "uid": "0"
+}

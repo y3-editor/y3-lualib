@@ -1,0 +1,174 @@
+# MCP 调用规则
+
+> Y3 Editor MCP 和 Y3 Helper MCP 的安全调用规范
+
+## 🔴 熔断规则（最高优先级）
+
+| 规则 | 说明 |
+|------|------|
+| **超时不重试** | MCP 调用超时后**绝不重试**，立即熔断 |
+| **失败不循环** | 连续失败 2 次后停止，立即熔断 |
+| **熔断 = 终止测试** | 熔断触发后**直接结束当前测试流程**，立即生成测试报告（TestReport.md），不再执行后续用例 |
+
+> ⚠️ MCP 熔断意味着基础工具链不可用（如无法获取坐标、无法点击、无法执行 Lua），继续测试毫无意义。因此熔断后必须立即终止并生成报告，报告中将已执行用例标注结果，未执行用例统一标记为 🚫 BLOCKED（MCP 熔断）。
+
+## 📋 热更+保存流程（必须遵守）
+
+```
+1. 热更（让编辑器读取新的 JSON）
+   └─ y3editor.hotfix_ui_editor 或 hotfix_object_editor
+
+2. 等待 3 秒（让编辑器完成内存同步）
+
+3. 保存（让编辑器将内存数据写入 GMP）
+   └─ y3editor.save_editor
+```
+
+### ❌ 错误做法（会导致内容丢失！）
+
+```
+# 错误：只保存不热更
+y3editor.save_editor  ← 直接保存，物编/UI 内容会丢失！
+
+# 错误：热更后立即保存
+y3editor.hotfix_ui_editor
+y3editor.save_editor  ← 没有等待，可能数据不完整！
+```
+
+## 📥 import_eca（触发器导入）串行与保存时序（强制）
+
+> 以下三条都与 `save_editor` 的「以编辑器内存为准写回」有关。
+
+### 三条硬规则
+
+| 规则 | 现象（踩过的坑） | 正确做法 |
+|------|----------------|---------|
+| **批量新增：先全部 import，再统一保存** | 中途保存时，**磁盘上存在但没 import 过**的触发器文件会被删除，`index.txt` 条目被清掉（`save_editor` 以编辑器内存为准裁剪） | ①先 `save_editor` 落盘编辑器当前修改 → ②生成全部文件 → ③逐个 `import_eca` → ④等 3 秒 → `save_editor` |
+| **保存后等 1~3 秒再 import** | `import_eca` 返回的不是 JSON（`payload=None`）、触发器没进编辑器，随后被裁剪 | 保存与导入之间留一拍；**必须校验 `success=true`**，否则显式报错（`verify_trigger.import_trigger()` 已内置） |
+| **删除触发器要连编辑器内存一起清** | 只删磁盘文件 + index，编辑器下次保存会把它**原样恢复**（俗称“复活”） | `edit_trigger.py --delete` 之后补 `restart_editor(save_before_restart=false)` |
+
+### 一键闭环（推荐，省掉手工时序）
+
+```bash
+py -3 <agent>/skills/eca-json-builder/verify_trigger.py "触发器名"
+py -3 <agent>/skills/eca-json-builder/verify_trigger.py --all
+```
+
+### 后果与恢复（`restart_editor(save_before_restart=false)` 之后）
+
+`save_before_restart=false` 会把编辑器地图会话搞脏，之后用 y3helper 启动游戏会**卡在 loading、客户端连接超时**；
+必须再补一次默认的 `restart_editor(save_before_restart=true)` 恢复会话。
+
+## 📥 import_ui 串行约束（强制）
+
+> ⚠️ **`import_ui` 调用必须严格串行，且每次必须用户手动确认导入完成后才能进行后续操作！**
+
+### 错误做法（必导致编辑器崩溃 / MCP 超时）
+
+```
+# ❌ 错误1：连续两次 import_ui
+y3editor.import_ui(upui_path="A.upui")
+y3editor.import_ui(upui_path="B.upui")   ← 第一个还在异步导入，第二个触发时编辑器 IndexError 崩溃
+
+# ❌ 错误2：不等用户确认就继续后续操作
+y3editor.import_ui(upui_path="A.upui")
+y3editor.save_editor                    ← 异步导入未完成，编辑器状态不一致
+y3editor.quick_restart                  ← MCP 调用超时（Request timed out）
+
+# ❌ 错误3：用 Sleep 替代用户确认
+y3editor.import_ui(upui_path="A.upui")
+Start-Sleep 5                           ← 5 秒不一定够，且无法感知导入失败
+y3editor.save_editor                    ← 仍可能踩到未就绪状态
+```
+
+### 错误现象
+
+编辑器抛 Python 异常：
+```
+File ".../ui_scene_tree_view.py", in _on_switch_panel_item
+ > 315: Globals.ui_edit_controller.switch_comp(layer.child_list[0].uid)
+IndexError: list index out of range
+```
+
+或后续 MCP 调用超时（`Request timed out`），因编辑器仍处于异步导入协程中。
+
+根因：`import_ui` 是异步协程（coroutine），底层 `async_import` 还未完成 `update_view` 时第二次调用或紧随的同步操作会触碰未就绪状态。
+
+### ✅ 正确流程（强制 — 必须等用户手动确认）
+
+```
+1. y3editor.import_ui(upui_path="A.upui")
+   ↓
+2. ⛔ 暂停所有 MCP 调用，使用 ask_user_question 询问：
+   "已请求导入 A.upui，请在 Y3 编辑器中确认导入完成后回复"
+   options:
+     - "已完成，继续"
+     - "导入失败 / 编辑器报错"
+   ↓
+3. 等待用户明确回复
+   ├─ 已完成 → 进入步骤 4
+   └─ 失败   → 中止本流程，输出错误并请求用户处理
+   ↓
+4. y3editor.save_editor（确认编辑器已落盘）
+   ↓
+5. 若需导入下一个 .upui，回到步骤 1
+```
+
+### 错误的"等待"做法对比
+
+| ❌ 做法 | ✅ 正确做法 |
+|--------|-----------|
+| `Sleep N 秒` 后继续 | `ask_user_question` 等用户回复 |
+| 立即调 `save_editor` / `quick_restart` | 等用户确认编辑器视图已刷新完成 |
+| 一次响应连发两次 `import_ui` | 一次响应只发一次 `import_ui`，结束 turn 让用户确认 |
+| AI 自己判断"应该好了"然后继续 | 强制询问，用户是唯一仲裁者 |
+
+> 同样适用于 `import_object_editor`：每次导入后必须用户手动确认，再做后续。
+> 同样适用于任何"开启异步任务后立即同步操作"的 MCP 调用模式。
+
+## 🛠️ Y3 Editor MCP 工具
+
+| 工具 | 功能 | 注意事项 |
+|------|------|----------|
+| `hotfix_ui_editor` | 热更 UI | 修改 UI JSON 后调用 |
+| `hotfix_object_editor` | 热更物编 | 修改物编 JSON 后调用 |
+| `save_editor` | 保存 | 热更后等待 3 秒再调用 |
+| `import_eca` | 导入触发器 JSON | **串行**导入；必须校验返回 `success=true`；批量时先全部导入再统一保存，保存后等 1~3 秒再导入下一个（详见 §import_eca 串行与保存时序） |
+| `import_ui` | 导入 .upui | **必须用户手动确认完成后才能继续，详见 §import_ui 串行约束** |
+| `import_object_editor` | 导入物编 | 同上，需用户确认 |
+| `get_editor_log` | 获取编辑器日志 | 调试用 |
+| `download_editor_*_resource` | 下载资源 | 模型/特效/图标/声音，批量 ID 列表 |
+| `import_editor_icon` | 导入本地图片为图标 | 支持 png/jpg/tga/bmp/dds/webp |
+| `import_editor_fbx_model` | 导入 FBX 模型 | 绝对路径；建议传 `resource_map_json` 绑定贴图/动画/材质球 |
+| `import_mdx` | 导入 MDX 模型 | 需提供 war3_path |
+| `get_official_editor_*` | 查询官方资源 | 按 ID 查模型/特效/图标/声音详情；**声音额外返回 `时长`（毫秒）** |
+| `get_official_resource_associate_match` | 素材联想 | 按 ID + 类型查配套资源（声音条目同样带 `时长`） |
+| `get_model_animations` | 查模型动作列表与时长 | `model_id`（必填）+ `remove_after`（可选）：返回动作名 → 时长（毫秒）。⚠️ 动作信息不在模型表里，工具会把模型加载进资产预览控件再读引擎实例（**约 0.6~1s/次，无批量接口**），模型资源需已下载（商店模型先用 `download_editor_model_resource`），静态模型返回空表。`ok:false` = 加载失败（超时/控件未切到目标模型，看 `errors`），**不会返回别的模型的动作**；模型 id 不存在会兜底成空模型（`ok:true` + `count:0`），用前核对 id |
+| `get_model_import_materials` | 查询内置材质球 | 无参；返回 FBX 导入可选材质球清单，配合 resource_map_json 的 `material` 字段使用 |
+
+## 🎮 运行态 UI 工具前置条件（y3-helper）
+
+> 详细规则见 `auto-test.mdc`「游戏启动与运行态就绪检查（Gate 0）」章节。
+
+**简要说明**：运行态 UI 工具（`get_ui_center_by_path` / `trigger_ui_touch_event_by_path`）已内置于常驻的 `y3-helper` MCP（`http://127.0.0.1:8766/mcp`），启动或重启游戏后**无需刷新 MCP 连接**，只需确认游戏已运行且客户端已连接（`get_game_status` 返回 `running`）。
+
+## 🖱️ UI 控件交互
+
+### y3-helper 直接事件触发
+
+```
+1. get_ui_canvas(可选)                           → 确认控件路径
+2. trigger_ui_touch_event_by_path(ui_path, touch) → 直接触发点击事件
+```
+
+| 工具 | 服务 | 功能 |
+|------|------|------|
+| `get_ui_canvas` | y3-helper | 获取 UI 控件树结构 |
+| `trigger_ui_touch_event_by_path` | y3-helper | **直接触发 UI 控件点击事件**（⚠️ 需游戏运行；多开支持 `clientSlot`/`roleId` 选窗） |
+| `get_ui_center_by_path` | y3-helper | 获取 UI 控件中心点屏幕坐标（⚠️ 需游戏运行；多开支持 `clientSlot`/`roleId` 选窗） |
+
+> **优势**：无需获取屏幕坐标，不受窗口位置/缩放/遮挡影响，1 步完成 UI 点击。
+
+## 📁 参考
+
+- Y3 Auto Test 技能：`../skills/y3-auto-test/SKILL.md`
