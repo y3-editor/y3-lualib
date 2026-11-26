@@ -178,6 +178,9 @@ M.register('CT', {
 M.register('RR', {
     desc = '重启游戏',
     onCommand = function ()
+        if y3.cloud.ready then
+            y3.cloud.reset()
+        end
         y3.sync.send('$restart')
     end
 })

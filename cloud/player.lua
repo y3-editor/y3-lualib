@@ -54,7 +54,7 @@ y3.cloud.on_ready(pull)
 
 ---设置属性钩子；返回 true 表示已由钩子处理，该属性不再写入 Y3
 ---@param callback fun(player: Player, name: string, value: number): boolean?
-function M.set_player_hook(callback)
+function M.set_attr_hook(callback)
     hook = callback
 end
 

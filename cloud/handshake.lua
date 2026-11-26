@@ -21,14 +21,12 @@ local function apply(data)
     y3.cloud.version = data.version
     y3.cloud.debug = data.debug
 
+    -- 每次握手都跑一遍（重开 / 云端重置后要重新拉全量）
     local list = callbacks
-    callbacks = {}
     for i = 1, #list do
         pcall(list[i], y3.cloud)
     end
 end
-
-y3.cloud.rpc.register('$Y3Cloud.Ready', apply)
 
 ---登记握手完成回调；已握手时立即调用
 ---@param callback fun(handshake: Cloud)
@@ -40,16 +38,28 @@ function y3.cloud.on_ready(callback)
     callbacks[#callbacks + 1] = callback
 end
 
----主动握手
+---主动握手；超时或云端未就绪时按 retry 次数重试
 ---@param callback? fun(suc: boolean, data: any, err: string?)
+---@param retry? integer 重试次数，缺省 2
 ---@return integer 请求 id
-function y3.cloud.request(callback)
+function y3.cloud.request(callback, retry)
+    local left = retry == nil and 2 or retry
+
     return y3.cloud.rpc.request('$Y3Cloud.Hello', nil, function (suc, data, err)
         if suc then
             apply(data)
+        elseif (err == 'timeout' or err == 'not_ready') and left > 0 then
+            y3.cloud.request(callback, left - 1)
+            return
         end
         if callback then
             callback(suc, data, err)
         end
     end)
+end
+
+---通知云端重置会话（调试用），之后需要重新握手
+function y3.cloud.reset()
+    y3.cloud.ready = false
+    y3.cloud.rpc.notify('$Y3Cloud.Reset')
 end

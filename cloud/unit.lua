@@ -254,7 +254,7 @@ end)
 
 ---设置属性钩子；返回 true 表示已由钩子处理，该属性不再写入 Y3
 ---@param callback fun(unit: Unit, name: string, value: number): boolean?
-function M.set_unit_hook(callback)
+function M.set_attr_hook(callback)
     hook = callback
 end
 
