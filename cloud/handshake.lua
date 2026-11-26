@@ -63,3 +63,10 @@ function y3.cloud.reset()
     y3.cloud.ready = false
     y3.cloud.rpc.notify('$Y3Cloud.Reset')
 end
+
+---通知云端热重载业务代码（调试用），随后重新握手并重新拉全量
+function y3.cloud.reload()
+    y3.cloud.ready = false
+    y3.cloud.rpc.notify('$Y3Cloud.Reload')
+    y3.cloud.request()
+end

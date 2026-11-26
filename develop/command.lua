@@ -101,6 +101,9 @@ M.register('RD', {
     priority = 100,
     desc = '重载所有使用 `include` 加载的脚本文件，并清理他们的全局计时器和触发器。',
     onCommand = function ()
+        if y3.cloud.ready then
+            y3.cloud.reload()
+        end
         y3.reload.reload()
     end,
 })
